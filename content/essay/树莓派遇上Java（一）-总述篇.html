@@ -20,7 +20,7 @@
 					<a id="logo-container" href="http://apqx.me" class="brand-logo">APQX</a>
 					<ul id="nav-mobile" class="side-nav">
 						<li><a class="waves-effect waves-red" href="../../content/essay/index.html">随笔</a></li>
-						<li><a class="waves-effect waves-red" href="../../content/share/index.html">分享</a></li>
+						<li><a class="waves-effect waves-red" href="../../content/share/index.html">转载</a></li>
                         <li><a class="waves-effect waves-red modal-trigger" href="#about_me">关于我</a></li>
 					</ul>
 					<a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
@@ -29,14 +29,14 @@
 		</div>
 <!--------------------------------------------------------------------------->
         <div class="parallax-container">
-            <div class="parallax"><img src=./assets/RaspberryPiRobot1.jpg></div>
+            <div class="parallax"><img src=./assets/RaspberryPiRobot0.jpg></div>
         </div>
 <!-------------------------------------------------------------------------->
         <div class="row section">
             <div class="col s2 hide-on-med-and-down">                
                     <div class="collection hoverable z-depth-1">
                     <a href="../../content/essay/index.html" class="waves-effect waves-red collection-item active">随笔</a>
-                    <a href="../../content/share/index.html" class="waves-effect waves-red collection-item">分享</a>
+                    <a href="../../content/share/index.html" class="waves-effect waves-red collection-item">转载</a>
                     <a href="#about_me" class="waves-effect waves-red collection-item modal-trigger">关于我</a>
                     </div>
             </div>
@@ -51,7 +51,7 @@
                 <div class="modal-content">
                     <center><img height="100px" width="100dx" class="circle responsive-img" src="../../assets/me.jpg"/></center>
                     <center><h4>APQX</h4></center>
-                    <p class="flow-text">我是一个软件开发的初学者，目前正在学习Android开发技术，任重而道远，我也十分乐意分享自己在学习过程中的收获和经验。</p>
+                    <p class="flow-text center-align">野生散养攻城狮，沉醉于Android开发技术，任重而道远，我也十分乐意分享自己在学习过程中的收获和经验。</p>
                     <div class="collection">
                             <a href="https://github.com/apqx" target="_blank" class="collection-item">GitHub</a>
                             <a href="https://www.facebook.com/me.apqx" target="_blank" class="collection-item">Facebook</a>
@@ -65,20 +65,20 @@
                 <p class="center">2016年9月11日</p>
                 <p class="flow-text">我是一个喜欢玩的人，尤其对遥控玩具情有独钟，童年时为了看看它们的工作原理不知有多少玩具被我大卸八块，当然除了发现几块电路板和电池、马达外一无所获，而且它们在做工和功能上都有着这样或那样的缺陷，我确实很想拥有一款可以完全自定义的大玩具。三个月前，我拿到了自己的第一个树莓派，这是一种为方便学生计算机教育而设计的卡片式电脑，机身集成了网线、USB、HDMI、AV等接口和MicroSD卡插槽，可以运行Linux和Windowns10 IoT操作系统，配有的23个GPIO针脚则为控制其他设备提供了无限的可能性。我拿到的是RaspberryPi 3B，板载蓝牙和无线网卡，淘宝200元左右。</p>
                 <center><img class="materialboxed responsive-img" src="./assets/RaspberryPi.jpg"></center>
-                <p class="flow-text">拿到树莓派后，首先安装操作系统，由于我学过一点Linux，所以选择了树莓派官方的Raspbian，安装过程极其简单，只需要按照说明把系统文件拷录到一张MicroSD卡上，再将卡插入树莓派即可启动了。由于我身边没有显示器，只能通过SSH远程连接树莓派进行操作，也可以使用VNC-Viewer这种远程桌面软件使用图像化界面，具体细节我将在随后的文章中详细说明。</p>
-                <p class="flow-text">在安装了一些必要软件后，即可开始为树莓派编程了，树莓派支持很多语言，最受欢迎的应该是Python，但是对我来说，Java才是最合适的（实际上我只学过Java和C）。Raspbian集成了JDK，对GPIO的操作则借助于<a href="http://pi4j.com/" target="_blank">pi4j</a>项目，pi4j对底层接口进行了封装，旨在为开发者提供友好的面向对象的API，让开发者将更多精力放在自己的业务逻辑上。对Java来说，最为人称道的莫过于其跨平台性，所谓“一次编译，到处运行”，所以使用Java操作树莓派最好的方法是在PC上使用Intellij IDEA或Eclipse这种成熟IDE编程并生成Jar包，再把Jar包传输到树莓派上执行。</p>
+                <p class="flow-text">拿到树莓派后，首先安装操作系统，我学过一点Linux，所以选择了树莓派官方的Raspbian，安装过程极其简单，只需要按照说明把系统文件拷录到一张MicroSD卡上，再将卡插入树莓派即可启动了。由于我身边没有显示器，只能通过SSH远程连接树莓派进行操作，也可以使用VNC-Viewer这种远程桌面软件使用图像化界面，具体细节我将在随后的文章中详细说明。</p>
+                <p class="flow-text">在安装了一些必要软件后，即可开始为树莓派编程了，树莓派支持很多语言，最受欢迎的应该是Python，但是对我来说，Java才是最合适的（实际上我只学过Java和C）。Raspbian集成了JDK，对GPIO的操作则借助于<a href="http://pi4j.com/" target="_blank">pi4j</a>项目，pi4j对底层接口进行了封装，旨在为开发者提供友好的面向对象的API，让开发者将更多精力放在自己的业务逻辑上。Java一直宣称它具有良好的跨平台性，所谓“一次编译，到处运行”，所以使用Java操作树莓派在不使用串口的情况下最好的方法是在PC上使用Intellij IDEA或Eclipse这种成熟IDE编程并生成Jar包，再把Jar包传输到树莓派上执行。</p>
                 <p class="flow-text">借助GPIO接口，树莓派可以控制很多设备，诸如各种传感器、马达、舵机、Led灯、显示屏等，近年来虽然有很多类似树莓派的廉价设备出现，但是树莓派的核心优势在于开源社区的力量，无数开发者在为树莓派贡献代码，各种框架、套件层出不穷，更有大量的扩展版可用，其可玩性和易用性是其他设备不可比肩的。可以将树梅派作为一个简易服务器，再之上搭建网站，应付常规的访问是没有问题的。有的动手能力强的开发者利用3D打印技术为其制造合适外壳，配上合适的显示器和模拟软件，做成复古的任天堂游戏机，十分有意思。甚至有的玩家将数个树莓派相连组成一个廉价而高效的超级计算机，当然大部分普通玩家常利用树莓派控制物联网设备，制作各种轮式或仿形机器人，用自己的双手打造自己想要的设备，其中的乐趣自然无穷。</p>
-                <p class="flow-text">我利用树莓派制作了一个履带式机器人，配有机械手和摄像头，还有一些传感器和摄像头云台没来得及安装，机器人和Android控制程序初期效果如下:</p>
+                <p class="flow-text">我利用树莓派制作了一个履带式机器人，配有机械手和摄像头，还有一些传感器没来得及安装，机器人和Android控制程序初期效果如下:</p>
                 <div class="row">
-                    <div class="col s12 m9">
+                    <div class="col s12 m8">
                         <center><img class="materialboxed responsive-img" src="./assets/RaspberryPiRobot1.jpg"></center>
                     </div>
-                    <div class="col s12 m3">
+                    <div class="col s12 m4">
                         <center><img class="materialboxed responsive-img" src="./assets/Android.png"></center>
                     </div>
                 </div>
             
-                <p class="flow-text">用到的各种配件淘宝上都能买到，需要自己接线并安排各组件的安装位置，手动编写Linux端和Android端的控制程序，手机和树莓派的连接方式为树莓派生成一个WIFI热点，手机连接该热点，并连接Linux端的控制程序，然后即可传输数据。</p>
+                <p class="flow-text">用到的各种配件淘宝上都能买到，需要自己接线并安排各组件的安装位置，手动编写Linux端和Android端的控制程序，手机和树莓派的连接方式为树莓派生成一个WIFI热点，手机连接该热点，并连接Linux端的控制程序，然后即可传输数据。在连接方面有一个小问题，那就是Java的Socket连接如果中间意外断开了，则服务端和客户端是不会收到任何通知的，我们一般在控制软件上有一个View用来表示连接状态，用来实时显示连接是否正常，这可以通过不断发送心跳包来实现，三次握手，在指定的时间内收不到心跳包即判断连接已经断开。</p>
                 <p class="flow-text">我在为树莓派编写程序的时候遇到了很多小问题，但都被一一解决，不得不说，发现问题、解决问题的过程才是软件开发过程中最大的乐趣，有时候实现一种功能有多种不同的方案，这时就要比较取舍，选择最高效简洁的方案来解决实际的问题。在随后的文章中，我将详细说明制作这一履带式机器人的过程，分享我的收获，希望对别人的开发过程提供帮助。</p>
 <!---------------------------------------------content------------------------------------------------------------------->
             </div>
@@ -94,7 +94,7 @@
                 <div class="row">
                     <div class="col l6 s12">
                         <h5 class="white-text">关于本站</h5>
-                        <p class="grey-text text-lighten-4">这是我的个人网站，我会在这里记录我成长的点滴，也会经常在这里分享各种实用的技巧。</p>
+                        <p class="grey-text text-lighten-4">这是我的个人网站，我会在这里记录自己成长的点滴，也会经常在这里分享各种实用的技巧。</p>
                     </div>
                     <div class="col l3 s12">
                     <h5 class="white-text">联系我</h5>

@@ -20,7 +20,7 @@
 					<a id="logo-container" href="http://apqx.me" class="brand-logo">APQX</a>
 					<ul id="nav-mobile" class="side-nav">
 						<li><a class="waves-effect waves-red" href="../../content/essay/index.html">随笔</a></li>
-						<li><a class="waves-effect waves-red" href="../../content/share/index.html">分享</a></li>
+						<li><a class="waves-effect waves-red" href="../../content/share/index.html">转载</a></li>
                         <li><a class="waves-effect waves-red modal-trigger" href="#about_me">关于我</a></li>
 					</ul>
 					<a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
@@ -36,7 +36,7 @@
             <div class="col s2 hide-on-med-and-down">                
                     <div class="collection hoverable z-depth-1">
                     <a href="../../content/essay/index.html" class="waves-effect waves-red collection-item active">随笔</a>
-                    <a href="../../content/share/index.html" class="waves-effect waves-red collection-item">分享</a>
+                    <a href="../../content/share/index.html" class="waves-effect waves-red collection-item">转载</a>
                     <a href="#about_me" class="waves-effect waves-red collection-item modal-trigger">关于我</a>
                     </div>
             </div>
@@ -51,7 +51,7 @@
                 <div class="modal-content">
                     <center><img height="100px" width="100dx" class="circle responsive-img" src="../../assets/me.jpg"/></center>
                     <center><h4>APQX</h4></center>
-                    <p class="flow-text">我是一个软件开发的初学者，目前正在学习Android开发技术，任重而道远，我也十分乐意分享自己在学习过程中的收获和经验。</p>
+                    <p class="flow-text center-align">野生散养攻城狮，沉醉于Android开发技术，任重而道远，我也十分乐意分享自己在学习过程中的收获和经验。</p>
                     <div class="collection">
                             <a href="https://github.com/apqx" target="_blank" class="collection-item">GitHub</a>
                             <a href="https://www.facebook.com/me.apqx" target="_blank" class="collection-item">Facebook</a>
@@ -93,7 +93,8 @@ http://树莓派IP:8080/?action=snapshot
 http://树莓派IP:8080/?action=stream
 //动态图像
 http://树莓派IP:8080/javascript_simple.html</code></pre>
-                <p class="flow-text">以上就是树莓派摄像头的基本操作方法，那么当摄像头正在工作的情况下如何远程关掉摄像头呢？比如正在传输视频，现在需要调用摄像头拍照，那么必须先使摄像头停止工作才能调用它做另外的事，这里可以远程命令Linux杀掉开启摄像头的进程，分为两步<br/>获取进程名</p>
+                <p class="flow-text">以上就是树莓派摄像头的基本操作方法，对于Android控制端，一般通过WebView来接受图像，我们可以监听WebView的触控事件，当手指在WebView上滑动的时候，控制摄像头云台转动让摄像头根据手指的滑动来拍摄指定角度的画面，是一个不错的体验。</p>
+                <p class="flow-text">那么当摄像头正在工作的情况下如何远程关掉摄像头呢？比如正在传输视频，现在需要调用摄像头拍照，那么必须先使摄像头停止工作才能调用它做另外的事，这里可以远程命令Linux杀掉开启摄像头的进程。一般通过进程名来杀掉进程，因为进程名不会像PID那样变化，分为两步：<br/>获取进程名</p>
                 <pre><code>ps -eo pid,comm,cmd</code></pre>
                 <p class="flow-text">杀掉指定的进程</p>
                 <pre><code>killall 进程名</code></pre>
@@ -114,7 +115,7 @@ http://树莓派IP:8080/javascript_simple.html</code></pre>
                 <div class="row">
                     <div class="col l6 s12">
                         <h5 class="white-text">关于本站</h5>
-                        <p class="grey-text text-lighten-4">这是我的个人网站，我会在这里记录我成长的点滴，也会经常在这里分享各种实用的技巧。</p>
+                        <p class="grey-text text-lighten-4">这是我的个人网站，我会在这里记录自己成长的点滴，也会经常在这里分享各种实用的技巧。</p>
                     </div>
                     <div class="col l3 s12">
                     <h5 class="white-text">联系我</h5>
