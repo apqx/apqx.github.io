@@ -107,7 +107,7 @@
                 <li>TextView中显示链接和图片</li>
                 <p class="flow-text">在此之前我一直不知道TextView中还可以嵌入链接和图片，还一直好奇表情图是怎么显示在微博里的，其实就是将普通的String转换为SpannableString，并在指定的位置显示指定的格式，比如格式为ClickableSpan即链接，ImageSpan即图片，也可以为这些链接或图片定义点击事件。使用时一般配合正则表达式，正确地替换字符串中的指定字符。</p>
                 <li>后台服务定时轮询</li>
-                <p class="flow-text">我在是否加入后台服务方面犹豫了很久，我觉得对很多人来说，他们只是在空闲的时候刷刷微博，看看别人都说了些什么，应该不会喜欢微博主动在通知栏弹出消息，但考虑到功能的完整性，我还是实现了后台推送，用户可以在设置里选择是否开启。实现的原理也不复杂，在Service中的onStartCommand()方法中定义一个AlarmManager定时服务，让它每隔一段时间发送一条广播。定义一个BroadcastReceiver接收这条广播并启动Service，此时Service的onStartCommand()方法会被执行，在这里开启子线程执行网络查询任务，有新的微博的话就弹出Notifaction，完成任务后即关闭服务等待下一次唤醒，用户点击Notification就会调转到微博页面。</p>
+                <p class="flow-text">我在是否加入后台服务方面犹豫了很久，我觉得对很多人来说，他们只是在空闲的时候刷刷微博，看看别人都说了些什么，应该不会喜欢微博主动在通知栏弹出消息，但考虑到功能的完整性，我还是实现了后台推送，用户可以在设置里选择是否开启。实现的原理也不复杂，在Service中的onStartCommand()方法中定义一个AlarmManager定时服务，让它每隔一段时间发送一条广播。定义一个BroadcastReceiver接收这条广播并启动Service，此时Service的onStartCommand()方法会被执行，在这里开启子线程执行网络查询任务，有新的微博的话就弹出Notifaction，完成任务后即关闭服务等待下一次唤醒，用户点击Notification就会跳转到微博页面。</p>
                 <li>主题切换</li>
                 <p class="flow-text">Android官方给出的切换主题的方案是通过setTheme()方法，它可以加载本地已经定义好的Style作为整个Activity的Theme，View的属性随着主题的切换而不同。只是，View的属性值必须已经在Theme中进行了定义，且setTheme()方法必须在Activity加载View之前调用，一般在setContentView()之前。这种方式需要Activity重新创建才能应用新的主题，在大部分情况下，效果是很好的。</p>
                 <li>适配不同的屏幕尺寸</li>
