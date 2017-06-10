@@ -1,147 +1,161 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>树莓派遇上Java（二）-准备篇</title>
-        <!--Import Google Icon Font-->
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-        <!--Import materialize.css-->
-        <link type="text/css" rel="stylesheet" href="../../css/materialize.css"  media="screen,projection"/>
-        
-        <!--Let browser know website is optimized for mobile-->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <meta charset="utf-8"/>
-		<meta name="theme-color" content="#ee6e73"/>
-		<link rel="shortcut icon" href="../../favicon.ico"/>
-    </head>
-    <body class="gray">
-        <div class="navbar-fixed">
-			<nav class="navbar-fixed light-red lighten-1" role="navigation">
-				<div class="nav-wrapper container">
-					<a id="logo-container" href="http://apqx.me" class="brand-logo">APQX</a>
-					<ul id="nav-mobile" class="side-nav">
-						<li><a class="waves-effect waves-red" href="../../content/essay/index.html">随笔</a></li>
-						<li><a class="waves-effect waves-red" href="../../content/share/index.html">转载</a></li>
-                        <li><a class="waves-effect waves-red modal-trigger" href="#about_me">关于我</a></li>
-					</ul>
-					<a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-				</div>
-			</nav>
-		</div>
-<!--------------------------------------------------------------------------->
-        <div class="parallax-container">
-            <div class="parallax"><img src=./assets/Screen.png></div>
-        </div>
-<!-------------------------------------------------------------------------->
-        <div class="row section">
-            <div class="col s2 hide-on-med-and-down">                
-                    <div class="collection hoverable z-depth-1">
-                    <a href="../../content/essay/index.html" class="waves-effect waves-red collection-item active">随笔</a>
-                    <a href="../../content/share/index.html" class="waves-effect waves-red collection-item">转载</a>
-                    <a href="#about_me" class="waves-effect waves-red collection-item modal-trigger">关于我</a>
-                    </div>
-            </div>
-            <div class="col l2 hide-on-med-and-down"><pre></pre></div>
-            <div class="col s12 m12 l6">
-            <div class="card-panel hoverable">
-            <div class="container">
-                
+<head>
+    <title>树莓派遇上Java（二）-准备篇</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="../../css/materialize.css" media="screen,projection" />
 
-            <!-- Modal Structure -->
-            <div id="about_me" class="modal">
-                <div class="modal-content">
-                    <center><img height="100px" width="100dx" class="circle responsive-img" src="../../assets/me.jpg"/></center>
-                    <center><h4>APQX</h4></center>
-                    <p class="flow-text center-align">野生散养攻城狮，沉醉于Android开发技术，任重而道远，我也十分乐意分享自己在学习过程中的收获和经验。</p>
-                    <div class="collection">
-                            <a href="https://github.com/apqx" target="_blank" class="collection-item">GitHub</a>
-                            <a href="https://www.facebook.com/me.apqx" target="_blank" class="collection-item">Facebook</a>
-                            <a href="mailto:changgongapq@gmail.com" class="collection-item">changgongapq@outlook.com</a>
-                        </div>
-                </div>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta name="theme-color" content="#ee6e73" />
+    <link rel="shortcut icon" href="../../favicon.ico" />
+</head>
+<body class="gray">
+    <div class="navbar-fixed">
+        <nav class="navbar-fixed light-red lighten-1" role="navigation">
+            <div class="nav-wrapper container">
+                <a id="logo-container" href="http://apqx.me" class="brand-logo">APQX</a>
+                <ul id="nav-mobile" class="side-nav">
+                    <li><a class="waves-effect waves-red" href="../../content/essay/index.html">随笔</a></li>
+                    <li><a class="waves-effect waves-red" href="../../content/share/index.html">转载</a></li>
+                    <li><a class="waves-effect waves-red modal-trigger" href="#about_me">关于我</a></li>
+                </ul>
+                <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
             </div>
-        
-<!---------------------------------------------content------------------------------------------------------------------->
-                <h4 align="center">树莓派遇上Java（二）-准备篇</h4>
-                <p class="center flow-text">APQX</p>
-                <p class="center">2016年9月11日</p>
-                <h5>一，安装系统</h5>
-                <p class="flow-text">树莓派支持很多系统，这里以Raspbian为例，介绍其安装过程。首先，应准备一张至少8G的MicroSD卡作为系统盘，到树莓派官网下载Raspbian<br/><a href="https://www.raspberrypi.org/downloads/raspbian/" target="_blank">https://www.raspberrypi.org/downloads/raspbian/</a><br/>参照官方安装指导<br/><a href="https://www.raspberrypi.org/documentation/installation/installing-images/README.md" target="_blank">https://www.raspberrypi.org/documentation/installation/installing-images/README.md</a><br/>安装过程即使用<a href="https://sourceforge.net/projects/win32diskimager/" target="_blank">Win32DiskImager</a>将下载好的Raspbian镜像文件写入SD卡，再将SD卡插入树莓派，通电即可开机。</p>
-                <h5>二，系统设置及安装软件</h5>
-                <p class="flow-text">由于我身边没有可用的显示器，所以我全程都是使用SSH来连接树莓派。从路由器上接出一根网线连接树莓派的以太网口，会通过DHCP自动为树莓派分配IP地址，登陆路由器即可获得树莓派的IP，如果在有些情况下无法登陆路由器的话，还可以使用<a href="http://www.advanced-ip-scanner.com/cn/" target="_blank">Advanced IP Scanner</a>来扫描局域网内的所有设备，也可以得到树莓派的IP。</p>
-                <p class="flow-text">获得树莓派IP后可使用<a href="http://www.netsarang.com/products/xsh_overview.html" target="_blank">Xshell</a>建立SSH连接，也可以使用<a href="https://filezilla-project.org/" target="_blank">FileZilla</a>传输文件，树莓派默认的连接账号是：</p>
-                <pre><code>Username：pi
+        </nav>
+    </div>
+    <!--------------------------------------------------------------------------->
+    <div class="parallax-container">
+        <div class="parallax"><img src=./assets/Screen.png></div>
+    </div>
+    <!-------------------------------------------------------------------------->
+    <div class="row section">
+        <div class="col l2 hide-on-med-and-down">
+            <div class="collection hoverable z-depth-1">
+                <a href="../../content/essay/index.html" class="waves-effect waves-red collection-item active">随笔</a>
+                <a href="../../content/share/index.html" class="waves-effect waves-red collection-item">转载</a>
+                <a href="#about_me" class="waves-effect waves-red collection-item modal-trigger">关于我</a>
+            </div>
+        </div>
+        <div class="col l2 hide-on-med-and-down">
+            <pre></pre>
+        </div>
+        <div class="col s12 m12 l6">
+            <div class="card-panel hoverable">
+                <div class="container">
+                    <!-- Modal Structure -->
+                    <div id="about_me" class="modal">
+                        <div class="modal-content">
+                            <center><img height="100px" width="100dx" class="circle responsive-img" src="../../assets/me.jpg" /></center>
+                            <center>
+                                <h4>APQX</h4>
+                            </center>
+                            <p class="flow-text center-align">野生散养攻城狮，沉醉于Android开发技术，任重而道远，我也十分乐意分享自己在学习过程中的收获和经验。</p>
+                            <div class="collection">
+                                <a href="https://github.com/apqx" target="_blank" class="collection-item">GitHub</a>
+                                <a href="https://www.facebook.com/me.apqx" target="_blank" class="collection-item">Facebook</a>
+                                <a href="mailto:changgongapq@gmail.com" class="collection-item">changgongapq@outlook.com</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!---------------------------------------------content------------------------------------------------------------------->
+                    <h4 align="center">树莓派遇上Java（二）-准备篇</h4>
+                    <p class="center flow-text">APQX</p>
+                    <p class="center">2016年9月11日</p>
+                    <h5>一，安装系统</h5>
+                    <p class="flow-text">树莓派支持很多系统，这里以Raspbian为例，介绍其安装过程。首先，应准备一张至少8G的MicroSD卡作为系统盘，到树莓派官网下载Raspbian<br/><a href="https://www.raspberrypi.org/downloads/raspbian/"
+                            target="_blank">https://www.raspberrypi.org/downloads/raspbian/</a><br/>参照官方安装指导<br/><a href="https://www.raspberrypi.org/documentation/installation/installing-images/README.md"
+                            target="_blank">https://www.raspberrypi.org/documentation/installation/installing-images/README.md</a><br/>安装过程即使用
+                        <a
+                            href="https://sourceforge.net/projects/win32diskimager/" target="_blank">Win32DiskImager</a>将下载好的Raspbian镜像文件写入SD卡，再将SD卡插入树莓派，通电即可开机。</p>
+                    <h5>二，系统设置及安装软件</h5>
+                    <p class="flow-text">由于我身边没有可用的显示器，所以我全程都是使用SSH来连接树莓派。从路由器上接出一根网线连接树莓派的以太网口，会通过DHCP自动为树莓派分配IP地址，登陆路由器即可获得树莓派的IP，如果在有些情况下无法登陆路由器的话，还可以使用
+                        <a
+                            href="http://www.advanced-ip-scanner.com/cn/" target="_blank">Advanced IP Scanner</a>来扫描局域网内的所有设备，也可以得到树莓派的IP。</p>
+                    <p class="flow-text">获得树莓派IP后可使用<a href="http://www.netsarang.com/products/xsh_overview.html" target="_blank">Xshell</a>建立SSH连接，也可以使用
+                        <a
+                            href="https://filezilla-project.org/" target="_blank">FileZilla</a>传输文件，树莓派默认的连接账号是：</p>
+                    <pre><code>Username：pi
 Password：raspberry</code></pre>
-                <p class="flow-text">接下来设置超级用户密码</p>
-                <pre><code>sudo passwd root</code></pre>
-                <p class="flow-text">在root用户下进入高级设置，扩展存储卡空间</p>
-                <pre><code>sudo raspi-config</code></pre>
-                <p class="flow-text">安装tightvncserver远程桌面服务</p>
-                <pre><code>sudo apt-get install tightvncserver</code></pre>
-                <p class="flow-text">设置密码</p>
-                <pre><code>vnapasswd</code></pre>
-                <p class="flow-text">启用远程桌面服务</p>
-                <pre><code>vncserver :1 -geometry 800x600</code></pre>
-                <p class="flow-text">PC端登陆</p>
-                <pre><code>VncServer:Your IP:1
+                    <p class="flow-text">接下来设置超级用户密码</p>
+                    <pre><code>sudo passwd root</code></pre>
+                    <p class="flow-text">在root用户下进入高级设置，扩展存储卡空间</p>
+                    <pre><code>sudo raspi-config</code></pre>
+                    <p class="flow-text">安装tightvncserver远程桌面服务</p>
+                    <pre><code>sudo apt-get install tightvncserver</code></pre>
+                    <p class="flow-text">设置密码</p>
+                    <pre><code>vnapasswd</code></pre>
+                    <p class="flow-text">启用远程桌面服务，这样就可以在Windows或其它平台通过VNC Viewer来操作树莓派</p>
+                    <pre><code>vncserver :1 -geometry 800x600</code></pre>
+                    <p class="flow-text">PC端通过VNC Viewer登陆</p>
+                    <pre><code>VncServer:Your IP:1
 Password:Your Password</code></pre>
-                <p class="flow-text">安装文泉驿的开源中文字体</p>
-                <pre><code>sudo apt-get install ttf-wqy-zenhei</code></pre>
-                <p class="flow-text">让树莓派建立WIFI热点，使连接不再依赖路由器，参考以下文章<br/><a href="http://blog.csdn.net/xukai871105/article/details/42497097" target="_blank">http://blog.csdn.net/xukai871105/article/details/42497097</a><br/><a href="http://elinux.org/RPI-Wireless-Hotspot" target="_blank">http://elinux.org/RPI-Wireless-Hotspot</a></p>
-                <h5>三，安装wiringPi和pi4j</h5>
-                <p class="flow-text">由于pi4j API是基于wiringPi库的，所以要先安装wiringPi。<br/>下载wiringPi<br/><a href="https://git.drogon.net/?p=wiringPi;a=summary" target="_blank">https://git.drogon.net/?p=wiringPi;a=summary</a><br/>安装wiringPi</p>
-                <pre><code>//文件名可能有所不同
+                    <p class="flow-text">安装文泉驿的开源中文字体</p>
+                    <pre><code>sudo apt-get install ttf-wqy-zenhei</code></pre>
+                    <p class="flow-text">让树莓派建立WIFI热点，使连接不再依赖路由器，参考以下文章<br/><a href="http://blog.csdn.net/xukai871105/article/details/42497097"
+                            target="_blank">http://blog.csdn.net/xukai871105/article/details/42497097</a><br/><a href="http://elinux.org/RPI-Wireless-Hotspot"
+                            target="_blank">http://elinux.org/RPI-Wireless-Hotspot</a></p>
+                    <h5>三，安装wiringPi和pi4j</h5>
+                    <p class="flow-text">如果要使用Java操作GPIO的话，需要安装pi4j，由于pi4j API是基于wiringPi库的，所以要先安装wiringPi。<br/>下载wiringPi<br/><a href="https://git.drogon.net/?p=wiringPi;a=summary"
+                            target="_blank">https://git.drogon.net/?p=wiringPi;a=summary</a><br/>安装wiringPi</p>
+                    <pre><code>//文件名可能有所不同
 tar xfz wiringPi-98bcb20.tar.gz 
 cd wiringPi-98bcb20
 ./build</code></pre>
-                <p class="flow-text">验证wiringPi是否安装成功</p>
-                <pre><code>gpio -v</code></pre>
-                <p class="flow-text">下载pi4j<br/><a href="http://pi4j.com/download.html" target="_blank">http://pi4j.com/download.html</a><br/>安装pi4j</p>
-                <pre><code>//文件名可能有所不同
+                    <p class="flow-text">验证wiringPi是否安装成功</p>
+                    <pre><code>gpio -v</code></pre>
+                    <p class="flow-text">下载pi4j<br/><a href="http://pi4j.com/download.html" target="_blank">http://pi4j.com/download.html</a><br/>安装pi4j</p>
+                    <pre><code>//文件名可能有所不同
 sudo dpkg -i pi4j-1.1.deb</code></pre>
-                <h5>四，使用pi4j</h5>
-                <p class="flow-text">编译</p>
-                <pre><code>pi4j -c Demo.java</code></pre>
-                <p class="flow-text">运行</p>
-                <pre><code>pi4j Demo</code></pre>
-                <p class="flow-text">运行jar包</p>
-                <pre><code>pi4j -jar Demo.jar</code></pre>
-<!---------------------------------------------content------------------------------------------------------------------->
-            </div>
-            </div>
+                    <h5>四，使用pi4j</h5>
+                    <p class="flow-text">编译</p>
+                    <pre><code>pi4j -c Demo.java</code></pre>
+                    <p class="flow-text">运行</p>
+                    <pre><code>pi4j Demo</code></pre>
+                    <p class="flow-text">运行jar包</p>
+                    <pre><code>pi4j -jar Demo.jar</code></pre>
+                    <!---------------------------------------------content------------------------------------------------------------------->
+                </div>
             </div>
         </div>
-<!----------------------------------------------foot--------------------------------------------------------------------->
-         <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-            <a class="btn-floating btn-large waves-effect waves-light green" href="#"><i class="material-icons">publish</i></a>
-        </div>
-        <footer class="page-footer ">
-            <div class="container">
-                <div class="row">
-                    <div class="col l6 s12">
-                        <h5 class="white-text">关于本站</h5>
-                        <p class="grey-text text-lighten-4">这是我的个人网站，我会在这里记录自己成长的点滴，也会经常在这里分享各种实用的技巧。</p>
-                    </div>
-                    <div class="col l3 s12">
+    </div>
+    <!----------------------------------------------foot--------------------------------------------------------------------->
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+        <a class="btn-floating btn-large waves-effect waves-light green" href="#"><i class="material-icons">publish</i></a>
+    </div>
+    <footer class="page-footer ">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">关于本站</h5>
+                    <p class="grey-text text-lighten-4">这是我的个人网站，我会在这里记录自己成长的点滴，也会经常在这里分享学习中的收获。</p>
+                </div>
+                <div class="col l3 s12">
                     <h5 class="white-text">联系我</h5>
-                     <ul>
-                         <li><a class="white-text" href="mailto:changgongapq@gmail.com">changgongapq@outlook.com</a></li>
+                    <ul>
+                        <li><a class="white-text" href="mailto:changgongapq@gmail.com">changgongapq@outlook.com</a></li>
                     </ul>
-                    </div>
                 </div>
             </div>
-            <div class="footer-copyright">
-                <div class="container">
-                    Based on <a class="orange-text text-lighten-3" href="http://materializecss.com" target="_blank">Materialize</a>
-                </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                Based on <a class="orange-text text-lighten-3" href="http://materializecss.com" target="_blank">Materialize</a>
             </div>
-        </footer>
-		<!--Import jQuery before materialize.js-->
-        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-        <script type="text/javascript" src="../../js/materialize.js"></script>
-        <script src="../../js/init.js"></script>
-        <!--Code highlight-->
-        <link rel="stylesheet" href="../../codeHighLight/styles/darcula.css">
-        <script src="../../codeHighLight/highlight.pack.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script>
-    </body>
+        </div>
+    </footer>
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="../../js/materialize.js"></script>
+    <script src="../../js/init.js"></script>
+    <!--Code highlight-->
+    <link rel="stylesheet" href="../../codeHighLight/styles/darcula.css">
+    <script src="../../codeHighLight/highlight.pack.js"></script>
+    <script>
+        hljs.initHighlightingOnLoad();
+    </script>
+</body>
 </html>
