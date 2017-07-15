@@ -79,16 +79,16 @@ Password：raspberry</code></pre>
                 <pre><code>sudo apt-get install tightvncserver</code></pre>
                 <p class="flow-text">设置密码</p>
                 <pre><code>vnapasswd</code></pre>
-                <p class="flow-text">启用远程桌面服务</p>
+                <p class="flow-text">启用远程桌面服务，这样就可以在Windows或其它平台通过VNC Viewer来操作树莓派</p>
                 <pre><code>vncserver :1 -geometry 800x600</code></pre>
-                <p class="flow-text">PC端登陆</p>
+                <p class="flow-text">PC端通过VNC Viewer登陆</p>
                 <pre><code>VncServer:Your IP:1
 Password:Your Password</code></pre>
                 <p class="flow-text">安装文泉驿的开源中文字体</p>
                 <pre><code>sudo apt-get install ttf-wqy-zenhei</code></pre>
                 <p class="flow-text">让树莓派建立WIFI热点，使连接不再依赖路由器，参考以下文章<br/><a href="http://blog.csdn.net/xukai871105/article/details/42497097" target="_blank">http://blog.csdn.net/xukai871105/article/details/42497097</a><br/><a href="http://elinux.org/RPI-Wireless-Hotspot" target="_blank">http://elinux.org/RPI-Wireless-Hotspot</a></p>
                 <h5>三，安装wiringPi和pi4j</h5>
-                <p class="flow-text">由于pi4j API是基于wiringPi库的，所以要先安装wiringPi。<br/>下载wiringPi<br/><a href="https://git.drogon.net/?p=wiringPi;a=summary" target="_blank">https://git.drogon.net/?p=wiringPi;a=summary</a><br/>安装wiringPi</p>
+                <p class="flow-text">如果要使用Java操作GPIO的话，需要安装pi4j，由于pi4j API是基于wiringPi库的，所以要先安装wiringPi。<br/>下载wiringPi<br/><a href="https://git.drogon.net/?p=wiringPi;a=summary" target="_blank">https://git.drogon.net/?p=wiringPi;a=summary</a><br/>安装wiringPi</p>
                 <pre><code>//文件名可能有所不同
 tar xfz wiringPi-98bcb20.tar.gz 
 cd wiringPi-98bcb20
