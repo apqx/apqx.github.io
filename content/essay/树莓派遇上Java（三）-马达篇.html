@@ -1,82 +1,86 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>树莓派遇上Java（三）-马达篇</title>
-        <!--Import Google Icon Font-->
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
-        <!--Import materialize.css-->
-        <link type="text/css" rel="stylesheet" href="../../css/materialize.css"  media="screen,projection"/>
-        
-        <!--Let browser know website is optimized for mobile-->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <meta charset="utf-8"/>
-		<meta name="theme-color" content="#ee6e73"/>
-		<link rel="shortcut icon" href="../../favicon.ico"/>
-    </head>
-    <body class="gray">
-        <div class="navbar-fixed">
-			<nav class="navbar-fixed light-red lighten-1" role="navigation">
-				<div class="nav-wrapper container">
-					<a id="logo-container" href="http://apqx.me" class="brand-logo">APQX</a>
-					<ul id="nav-mobile" class="side-nav">
-						<li><a class="waves-effect waves-red" href="../../content/essay/index.html">随笔</a></li>
-						<li><a class="waves-effect waves-red" href="../../content/share/index.html">转载</a></li>
-                        <li><a class="waves-effect waves-red modal-trigger" href="#about_me">关于我</a></li>
-					</ul>
-					<a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-				</div>
-			</nav>
-		</div>
-<!--------------------------------------------------------------------------->
-        <div class="parallax-container">
-            <div class="parallax"><img src=./assets/Screen.png></div>
-        </div>
-<!-------------------------------------------------------------------------->
-        <div class="row section">
-            <div class="col s2 hide-on-med-and-down">                
-                    <div class="collection hoverable z-depth-1">
-                    <a href="../../content/essay/index.html" class="waves-effect waves-red collection-item active">随笔</a>
-                    <a href="../../content/share/index.html" class="waves-effect waves-red collection-item">转载</a>
-                    <a href="#about_me" class="waves-effect waves-red collection-item modal-trigger">关于我</a>
-                    </div>
-            </div>
-            <div class="col l2 hide-on-med-and-down"><pre></pre></div>
-            <div class="col s12 m12 l6">
-            <div class="card-panel hoverable">
-            <div class="container">
-                
+<head>
+    <title>树莓派遇上Java（三）-马达篇</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="../../css/materialize.css" media="screen,projection" />
 
-            <!-- Modal Structure -->
-            <div id="about_me" class="modal">
-                <div class="modal-content">
-                    <center><img height="100px" width="100dx" class="circle responsive-img" src="../../assets/me.jpg"/></center>
-                    <center><h4>APQX</h4></center>
-                    <p class="flow-text center-align">野生散养攻城狮，沉醉于Android开发技术，任重而道远，我也十分乐意分享自己在学习过程中的收获和经验。</p>
-                    <div class="collection">
-                            <a href="https://github.com/apqx" target="_blank" class="collection-item">GitHub</a>
-                            <a href="https://www.facebook.com/me.apqx" target="_blank" class="collection-item">Facebook</a>
-                            <a href="mailto:changgongapq@gmail.com" class="collection-item">changgongapq@outlook.com</a>
-                        </div>
-                </div>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta name="theme-color" content="#ee6e73" />
+    <link rel="shortcut icon" href="../../favicon.ico" />
+</head>
+<body class="gray">
+    <div class="navbar-fixed">
+        <nav class="navbar-fixed light-red lighten-1" role="navigation">
+            <div class="nav-wrapper container">
+                <a id="logo-container" href="http://apqx.me" class="brand-logo">APQX</a>
+                <ul id="nav-mobile" class="side-nav">
+                    <li><a class="waves-effect waves-red" href="../../content/essay/index.html">随笔</a></li>
+                    <li><a class="waves-effect waves-red" href="../../content/share/index.html">转载</a></li>
+                    <li><a class="waves-effect waves-red modal-trigger" href="#about_me">关于我</a></li>
+                </ul>
+                <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
             </div>
-        
-<!---------------------------------------------content------------------------------------------------------------------->
-                <h4 align="center">树莓派遇上Java（三）-马达篇</h4>
-                <p class="center flow-text">APQX</p>
-                <p class="center">2016年9月12日</p>
-                <p class="flow-text">树莓派3B拥有40个针脚，其中8个Ground针脚、4个VDC电源针脚、23个GPIO针脚，每个GPIO针脚都可以输出基本的高、低电平信号，这样树莓派就可以通过这些GPIO针脚来控制继电器，实现相应的功能。对于驱动马达而言，我们需要一块L298N马达驱动板和两个独立电源，其中一个电源为马达供电，另一个为树莓派单独供电。关于供电问题，大致有三种方案：</p>
-                <h6>方案一：</h6>
-                <p class="flow-text">使用5V电源为树莓派供电，然后从树莓派的5V电源针脚上取电给L298N即马达供电，树莓派和L298N共地线。这种方法很不可取，因为马达在启动瞬间会因为低电阻和不做功产生一个大的电流，很可能会损坏树莓派。</p>
-                <h8>方案二：</h8>
-                <p class="flow-text">电源给L298N供电，然后从L298N的5V电压输出口取电接在树莓派5V电源针脚上，树莓派和L298N共地线。这种方法在简单情况下可以使用，但是当树莓派驱动的设备多了之后，很容易由于电压不稳而重启。我在为树莓派安装了摄像头后发现，只要马达转动，树莓派就会重启，后来用一个移动电源给树莓派单独供电才解决。</p>
-                <h8>方案三：</h8>
-                <p class="flow-text">使用独立电源分别为树莓派和L298N供电，这是最稳妥的方法，并且以后增加的舵机等设备可以直接从L298N的5V电压输出口接电，而不用担心影响到树莓派。</p>
-                <center><img class="materialboxed responsive-img" src="./assets/L298N.jpg"></center>
-                <p class="flow-text">在上面的L298N驱动板中，1、2和3、4分别接两个马达的正负极，它们是L298N的电流输出口。树莓派的任意4个GPIO针脚接在in1、in2、in3、in4上，可以通过改变4个针脚的高低电平来控制两侧马达的转向，我更建议实际写一个测试程序来看看不同的电平组合会导致马达的转向发生什么样的变化，这样可比枯燥的说明有意思多了。5、6是L298N的电源接入口，5接电源正极，6接电源负极（据说接反会直接烧掉哦），L298N内置了变压模块，当输入电压大于5V时，7可以作为正极稳定输出5V电压，和作为负极的6一起可以为其他设备供电。至于in1、in2、in3、in4两边用跳线帽连接的使能端，可以用它给电机调速，我没有用到，可以忽略。</p>
-                <p class="flow-text">在接线时要注意，L298N要与树莓派共地线，即6要与树莓派的某个Ground针脚相连，这样输出的电平信号才能构成一个回路，不然是不能控制的。</p>
-                <p class="flow-text">接线完成后可以写一个小程序测试马达转向与高低电平的组合，我推荐在PC上使用Intellj IDEA或Eclipse导入pi4j库并编写代码，然后复制到树莓派上编译运行，或者将生成的Jar包传到树莓派上直接运行。pi4j项目目录下有很多示例程序，基本涵盖了对GPIO的所有操作，详细的注解使我们很容易弄懂如何使用它，以下是pi4j官方关于控制GPIO电平的示例：<br/><a href="http://pi4j.com/example/control.html" target="_blank">http://pi4j.com/example/control.html</a></p>
-                <p class="flow-text">我在这里也提供一个简单的控制GPIO电平的示例</p>
-                <pre class="flow-text">
+        </nav>
+    </div>
+    <!--------------------------------------------------------------------------->
+    <div class="parallax-container">
+        <div class="parallax"><img src=./assets/Screen.png></div>
+    </div>
+    <!-------------------------------------------------------------------------->
+    <div class="row section">
+        <div class="col l2 hide-on-med-and-down">
+            <div class="collection hoverable z-depth-1">
+                <a href="../../content/essay/index.html" class="waves-effect waves-red collection-item active">随笔</a>
+                <a href="../../content/share/index.html" class="waves-effect waves-red collection-item">转载</a>
+                <a href="#about_me" class="waves-effect waves-red collection-item modal-trigger">关于我</a>
+            </div>
+        </div>
+        <div class="col l2 hide-on-med-and-down">
+            <pre></pre>
+        </div>
+        <div class="col s12 m12 l6">
+            <div class="card-panel hoverable">
+                <div class="container">
+                    <!-- Modal Structure -->
+                    <div id="about_me" class="modal">
+                        <div class="modal-content">
+                            <center><img height="100px" width="100dx" class="circle responsive-img" src="../../assets/me.jpg" /></center>
+                            <center>
+                                <h4>APQX</h4>
+                            </center>
+                            <p class="flow-text center-align">野生散养攻城狮，沉醉于Android开发技术，任重而道远，我也十分乐意分享自己在学习过程中的收获和经验。</p>
+                            <div class="collection">
+                                <a href="https://github.com/apqx" target="_blank" class="collection-item">GitHub</a>
+                                <a href="https://www.facebook.com/me.apqx" target="_blank" class="collection-item">Facebook</a>
+                                <a href="mailto:changgongapq@gmail.com" class="collection-item">changgongapq@outlook.com</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!---------------------------------------------content------------------------------------------------------------------->
+                    <h4 align="center">树莓派遇上Java（三）-马达篇</h4>
+                    <p class="center flow-text">APQX</p>
+                    <p class="center">2016年9月12日</p>
+                    <p class="flow-text">树莓派3B拥有40个针脚，其中8个Ground针脚、4个VDC电源针脚、23个GPIO针脚，每个GPIO针脚都可以输出基本的高、低电平信号，这样树莓派就可以通过这些GPIO针脚来控制继电器，实现相应的功能。对于驱动马达而言，我们需要一块L298N马达驱动板和两个独立电源，其中一个电源为马达供电，另一个为树莓派单独供电。关于供电问题，大致有三种方案：</p>
+                    <h6>方案一：</h6>
+                    <p class="flow-text">使用5V电源为树莓派供电，然后从树莓派的5V电源针脚上取电给L298N即马达供电，树莓派和L298N共地线。这种方法很不可取，因为马达在启动瞬间会因为低电阻和不做功产生一个大的电流，很可能会损坏树莓派。</p>
+                    <h8>方案二：</h8>
+                    <p class="flow-text">电源给L298N供电，然后从L298N的5V电压输出口取电接在树莓派5V电源针脚上，树莓派和L298N共地线。这种方法在简单情况下可以使用，但是当树莓派驱动的设备多了之后，很容易由于电压不稳而重启。我在为树莓派安装了摄像头后发现，只要马达转动，树莓派就会重启，后来用一个移动电源给树莓派单独供电才解决。</p>
+                    <h8>方案三：</h8>
+                    <p class="flow-text">使用独立电源分别为树莓派和L298N供电，这是最稳妥的方法，并且以后增加的舵机等设备可以直接从L298N的5V电压输出口接电，而不用担心影响到树莓派。</p>
+                    <center><img class="materialboxed responsive-img" src="./assets/L298N.jpg"></center>
+                    <p class="flow-text">在上面的L298N驱动板中，1、2和3、4分别接两个马达的正负极，它们是L298N的电流输出口。树莓派的任意4个GPIO针脚接在in1、in2、in3、in4上，可以通过改变4个针脚的高低电平来控制两侧马达的转向，我更建议实际写一个测试程序来看看不同的电平组合会导致马达的转向发生什么样的变化，这样可比枯燥的说明有意思多了。5、6是L298N的电源接入口，5接电源正极，6接电源负极（据说接反会直接烧掉哦），L298N内置了变压模块，当输入电压大于5V时，7可以作为正极稳定输出5V电压，和作为负极的6一起可以为其他设备供电。至于in1、in2、in3、in4两边用跳线帽连接的使能端，可以用它给电机调速，我没有用到，可以忽略。</p>
+                    <p class="flow-text">在接线时要注意，L298N要与树莓派共地线，即6要与树莓派的某个Ground针脚相连，这样输出的电平信号才能构成一个回路，不然是不能控制的。</p>
+                    <p class="flow-text">接线完成后可以写一个小程序测试马达转向与高低电平的组合，我推荐在PC上使用Intellj IDEA或Eclipse导入pi4j库并编写代码，然后复制到树莓派上编译运行，或者将生成的Jar包传到树莓派上直接运行。pi4j项目目录下有很多示例程序，基本涵盖了对GPIO的所有操作，详细的注解使我们很容易弄懂如何使用它，以下是pi4j官方关于控制GPIO电平的示例：<br/>
+                        <a
+                            href="http://pi4j.com/example/control.html" target="_blank">http://pi4j.com/example/control.html</a>
+                    </p>
+                    <p class="flow-text">我在这里也提供一个简单的控制GPIO电平的示例</p>
+                    <pre class="flow-text">
                     <code>
 import com.pi4j.io.gpio.*;
 
@@ -119,52 +123,54 @@ public class Demo {
 }
                     </code>
                 </pre>
-                <center><img class="materialboxed responsive-img" src="./assets/j8header-2b.png"></center>
-                <p class="flow-text">一定要注意的是，代码中的GPIO序号对应的是图中两侧的黑体数字，而不是中间的针脚号！</p>
-                <p class="flow-text">在树莓派上新建一个文件</p>
-                <pre><code>vim Demo.java</code></pre>
-                <p class="flow-text">并将以上代码复制到Demo.java文件中，编译</p>
-                <pre><code>pi4j -c Demo.java</code></pre>
-                <p class="flow-text">运行</p>
-                <pre><code>pi4j Demo</code></pre>
-                <p class="flow-text">这时应该可以看到两个马达依次转动。</p>
-<!---------------------------------------------content------------------------------------------------------------------->
-            </div>
-            </div>
+                    <center><img class="materialboxed responsive-img" src="./assets/j8header-2b.png"></center>
+                    <p class="flow-text">一定要注意的是，代码中的GPIO序号对应的是图中两侧的黑体数字，而不是中间的针脚号！</p>
+                    <p class="flow-text">在树莓派上新建一个文件</p>
+                    <pre><code>vim Demo.java</code></pre>
+                    <p class="flow-text">并将以上代码复制到Demo.java文件中，编译</p>
+                    <pre><code>pi4j -c Demo.java</code></pre>
+                    <p class="flow-text">运行</p>
+                    <pre><code>pi4j Demo</code></pre>
+                    <p class="flow-text">这时应该可以看到两个马达依次转动。</p>
+                    <!---------------------------------------------content------------------------------------------------------------------->
+                </div>
             </div>
         </div>
-<!----------------------------------------------foot--------------------------------------------------------------------->
-         <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-            <a class="btn-floating btn-large waves-effect waves-light green" href="#"><i class="material-icons">publish</i></a>
-        </div>
-        <footer class="page-footer ">
-            <div class="container">
-                <div class="row">
-                    <div class="col l6 s12">
-                        <h5 class="white-text">关于本站</h5>
-                        <p class="grey-text text-lighten-4">这是我的个人网站，我会在这里记录自己成长的点滴，也会经常在这里分享学习中的收获。</p>
-                    </div>
-                    <div class="col l3 s12">
+    </div>
+    <!----------------------------------------------foot--------------------------------------------------------------------->
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+        <a class="btn-floating btn-large waves-effect waves-light green" href="#"><i class="material-icons">publish</i></a>
+    </div>
+    <footer class="page-footer ">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">关于本站</h5>
+                    <p class="grey-text text-lighten-4">这是我的个人网站，我会在这里记录自己成长的点滴，也会经常在这里分享学习中的收获。</p>
+                </div>
+                <div class="col l3 s12">
                     <h5 class="white-text">联系我</h5>
-                     <ul>
-                         <li><a class="white-text" href="mailto:changgongapq@gmail.com">changgongapq@outlook.com</a></li>
+                    <ul>
+                        <li><a class="white-text" href="mailto:changgongapq@gmail.com">changgongapq@outlook.com</a></li>
                     </ul>
-                    </div>
                 </div>
             </div>
-            <div class="footer-copyright">
-                <div class="container">
-                    Based on <a class="orange-text text-lighten-3" href="http://materializecss.com" target="_blank">Materialize</a>
-                </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                Based on <a class="orange-text text-lighten-3" href="http://materializecss.com" target="_blank">Materialize</a>
             </div>
-        </footer>
-		<!--Import jQuery before materialize.js-->
-        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-        <script type="text/javascript" src="../../js/materialize.js"></script>
-        <script src="../../js/init.js"></script>
-        <!--Code highlight-->
-        <link rel="stylesheet" href="../../codeHighLight/styles/darcula.css">
-        <script src="../../codeHighLight/highlight.pack.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script>
-    </body>
+        </div>
+    </footer>
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="../../js/materialize.js"></script>
+    <script src="../../js/init.js"></script>
+    <!--Code highlight-->
+    <link rel="stylesheet" href="../../codeHighLight/styles/darcula.css">
+    <script src="../../codeHighLight/highlight.pack.js"></script>
+    <script>
+        hljs.initHighlightingOnLoad();
+    </script>
+</body>
 </html>
