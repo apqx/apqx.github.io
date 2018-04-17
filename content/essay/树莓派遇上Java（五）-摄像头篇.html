@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>树莓派遇上Java（五）-摄像头篇</title>
     <!--Import Google Icon Font-->
@@ -13,25 +14,36 @@
     <meta name="theme-color" content="#ee6e73" />
     <link rel="shortcut icon" href="../../favicon.ico" />
 </head>
+
 <body class="gray">
     <div class="navbar-fixed">
         <nav class="navbar-fixed light-red lighten-1" role="navigation">
             <div class="nav-wrapper container">
                 <a id="logo-container" href="http://apqx.me" class="brand-logo">APQX</a>
                 <ul id="nav-mobile" class="side-nav">
-                    <li><a class="waves-effect waves-red" href="../../content/essay/index.html">随笔</a></li>
-                    <li><a class="waves-effect waves-red" href="../../content/share/index.html">转载</a></li>
-                    <li><a class="waves-effect waves-red modal-trigger" href="#about_me">关于我</a></li>
+                    <li>
+                        <a class="waves-effect waves-red" href="../../content/essay/index.html">随笔</a>
+                    </li>
+                    <li>
+                        <a class="waves-effect waves-red" href="../../content/share/index.html">转载</a>
+                    </li>
+                    <li>
+                        <a class="waves-effect waves-red modal-trigger" href="#about_me">关于我</a>
+                    </li>
                 </ul>
-                <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+                <a href="#" data-activates="nav-mobile" class="button-collapse">
+                    <i class="material-icons">menu</i>
+                </a>
             </div>
         </nav>
     </div>
-    <!--------------------------------------------------------------------------->
+
     <div class="parallax-container">
-        <div class="parallax"><img src=./assets/Screen.png></div>
+        <div class="parallax">
+            <img src=./assets/Screen.png>
+        </div>
     </div>
-    <!-------------------------------------------------------------------------->
+
     <div class="row section">
         <div class="col l2 hide-on-med-and-down">
             <div class="collection hoverable z-depth-1">
@@ -49,25 +61,29 @@
                     <!-- Modal Structure -->
                     <div id="about_me" class="modal">
                         <div class="modal-content">
-                            <center><img height="100px" width="100dx" class="circle responsive-img" src="../../assets/me.jpg" /></center>
+                            <center>
+                                <img height="100px" width="100dx" class="circle responsive-img" src="../../assets/me.jpg" />
+                            </center>
                             <center>
                                 <h4>APQX</h4>
                             </center>
-                            <p class="flow-text center-align">野生散养攻城狮，沉醉于Android开发技术，任重而道远，我也十分乐意分享自己在学习过程中的收获和经验。</p>
+                            <p class="flow-text center-align">野生散养攻城狮，努力晋级中。</p>
                             <div class="collection">
                                 <a href="https://github.com/apqx" target="_blank" class="collection-item">GitHub</a>
                                 <a href="https://www.facebook.com/me.apqx" target="_blank" class="collection-item">Facebook</a>
-                                <a href="mailto:changgongapq@gmail.com" class="collection-item">changgongapq@outlook.com</a>
+                                <a href="mailto:changgongapq@gmail.com" class="collection-item">changgongapq@gmail.com</a>
                             </div>
                         </div>
                     </div>
-                    <!---------------------------------------------content------------------------------------------------------------------->
+                    <!-- content -->
                     <h4 align="center">树莓派遇上Java（五）-摄像头篇</h4>
                     <p class="center flow-text">APQX</p>
                     <p class="center">2016年9月15日</p>
                     <p class="flow-text">对于我来说，当然希望树莓派驱动的小车可以实时传输画面到控制器，这样才可以远程遥控嘛，一般将摄像头固定在一个两自由度云台上，使之可以自由旋转，拍摄各个方向的画面，具体的操作实现逻辑因人而异，但是基本的摄像头命令都是一样的。树莓派支持两种类型的摄像头，一种是普通USB摄像头（最好是免驱的），一种是树莓派专用的Pi
                         Cam，都可以在淘宝上买到，后者的某些型号还具有红外线夜视功能，价格当然也高一些。这里以树莓派专用的Pi Cam为例，介绍摄像头的基本使用方法。</p>
-                    <center><img class="materialboxed responsive-img" src="./assets/pi_cam.jpg"></center>
+                    <center>
+                        <img class="materialboxed responsive-img" src="./assets/pi_cam.jpg">
+                    </center>
                     <p class="flow-text">Pi Cam接在树莓派中部的CSI接口上，不需要额外供电，这里再次强烈建议为树莓派提供独立电源通过USB口供电而不要使用GPIO针脚供电，否则在摄像头开启的瞬间树莓派可能因为电压不稳而重启。</p>
                     <p class="flow-text">在我的项目中，摄像头通过网络传输视频的原理是，使用MJPG-Streamer调用摄像头拍摄画面并将画面发送到指定的端口上，在浏览器里通过IP地址访问该端口即可显示实时画面。</p>
                     <p class="flow-text">首先开启摄像头</p>
@@ -77,7 +93,10 @@
                     <p class="flow-text">安装依赖库</p>
                     <pre><code>sudo apt-get install libjpeg62-dev
 sudo apt-get install libjpeg8-dev</code></pre>
-                    <p class="flow-text">下载MJPG-Streamer<br/><a href="https://github.com/jacksonliam/mjpg-streamer" target="_blank">https://github.com/jacksonliam/mjpg-streamer</a><br/>下载zip安装包mjpg-streamer-master.zip并解压</p>
+                    <p class="flow-text">下载MJPG-Streamer
+                        <br/>
+                        <a href="https://github.com/jacksonliam/mjpg-streamer" target="_blank">https://github.com/jacksonliam/mjpg-streamer</a>
+                        <br/>下载zip安装包mjpg-streamer-master.zip并解压</p>
                     <pre><code>unzip mjpg-streamer-master.zip</code></pre>
                     <p class="flow-text">安装cmake</p>
                     <pre><code>sudo apt-get install cmake</code></pre>
@@ -97,38 +116,40 @@ http://树莓派IP:8080/?action=stream
 //动态图像
 http://树莓派IP:8080/javascript_simple.html</code></pre>
                     <p class="flow-text">以上就是树莓派摄像头的基本操作方法，对于Android控制端，一般通过WebView来接受图像，我们可以监听WebView的触控事件，当手指在WebView上滑动的时候，控制摄像头云台转动让摄像头根据手指的滑动来拍摄指定角度的画面，是一个不错的体验。</p>
-                    <p class="flow-text">那么当摄像头正在工作的情况下如何远程关掉摄像头呢？比如正在传输视频，现在需要调用摄像头拍照，那么必须先使摄像头停止工作才能调用它做另外的事，这里可以远程命令Linux杀掉开启摄像头的进程。一般通过进程名来杀掉进程，因为进程名不会像PID那样变化，分为两步：<br/>获取进程名</p>
+                    <p class="flow-text">那么当摄像头正在工作的情况下如何远程关掉摄像头呢？比如正在传输视频，现在需要调用摄像头拍照，那么必须先使摄像头停止工作才能调用它做另外的事，这里可以远程命令Linux杀掉开启摄像头的进程。一般通过进程名来杀掉进程，因为进程名不会像PID那样变化，分为两步：
+                        <br/>获取进程名</p>
                     <pre><code>ps -eo pid,comm,cmd</code></pre>
                     <p class="flow-text">杀掉指定的进程</p>
                     <pre><code>killall 进程名</code></pre>
                     <p class="flow-text">对于摄像头传输视频的质量，可以根据自己的网络状况自定义，配合相应的FPS，使画面流畅显示。有时会出现断流的情况，刷新浏览器即可。</p>
-                    <!---------------------------------------------content------------------------------------------------------------------->
+                    <!-- content -->
                 </div>
             </div>
         </div>
     </div>
-    <!----------------------------------------------foot--------------------------------------------------------------------->
+    <!-- foot -->
     <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-        <a class="btn-floating btn-large waves-effect waves-light green" href="#"><i class="material-icons">publish</i></a>
+        <a class="btn-floating btn-large waves-effect waves-light green" href="#">
+            <i class="material-icons">publish</i>
+        </a>
     </div>
     <footer class="page-footer ">
         <div class="container">
             <div class="row">
-                <div class="col l6 s12">
-                    <h5 class="white-text">关于本站</h5>
-                    <p class="grey-text text-lighten-4">这是我的个人网站，我会在这里记录自己成长的点滴，也会经常在这里分享学习中的收获。</p>
-                </div>
                 <div class="col l3 s12">
                     <h5 class="white-text">联系我</h5>
                     <ul>
-                        <li><a class="white-text" href="mailto:changgongapq@gmail.com">changgongapq@outlook.com</a></li>
+                        <li>
+                            <a class="white-text" href="mailto:changgongapq@gmail.com">changgongapq@gmail.com</a>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
         <div class="footer-copyright">
             <div class="container">
-                Based on <a class="orange-text text-lighten-3" href="http://materializecss.com" target="_blank">Materialize</a>
+                Based on
+                <a class="orange-text text-lighten-3" href="http://materializecss.com" target="_blank">Materialize</a>
             </div>
         </div>
     </footer>
@@ -143,4 +164,5 @@ http://树莓派IP:8080/javascript_simple.html</code></pre>
         hljs.initHighlightingOnLoad();
     </script>
 </body>
+
 </html>

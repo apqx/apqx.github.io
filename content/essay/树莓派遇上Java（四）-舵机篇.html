@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>树莓派遇上Java（四）-舵机篇</title>
     <!--Import Google Icon Font-->
@@ -13,25 +14,36 @@
     <meta name="theme-color" content="#ee6e73" />
     <link rel="shortcut icon" href="../../favicon.ico" />
 </head>
+
 <body class="gray">
     <div class="navbar-fixed">
         <nav class="navbar-fixed light-red lighten-1" role="navigation">
             <div class="nav-wrapper container">
                 <a id="logo-container" href="http://apqx.me" class="brand-logo">APQX</a>
                 <ul id="nav-mobile" class="side-nav">
-                    <li><a class="waves-effect waves-red" href="../../content/essay/index.html">随笔</a></li>
-                    <li><a class="waves-effect waves-red" href="../../content/share/index.html">转载</a></li>
-                    <li><a class="waves-effect waves-red modal-trigger" href="#about_me">关于我</a></li>
+                    <li>
+                        <a class="waves-effect waves-red" href="../../content/essay/index.html">随笔</a>
+                    </li>
+                    <li>
+                        <a class="waves-effect waves-red" href="../../content/share/index.html">转载</a>
+                    </li>
+                    <li>
+                        <a class="waves-effect waves-red modal-trigger" href="#about_me">关于我</a>
+                    </li>
                 </ul>
-                <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+                <a href="#" data-activates="nav-mobile" class="button-collapse">
+                    <i class="material-icons">menu</i>
+                </a>
             </div>
         </nav>
     </div>
-    <!--------------------------------------------------------------------------->
+
     <div class="parallax-container">
-        <div class="parallax"><img src=./assets/Screen.png></div>
+        <div class="parallax">
+            <img src=./assets/Screen.png>
+        </div>
     </div>
-    <!-------------------------------------------------------------------------->
+
     <div class="row section">
         <div class="col l2 hide-on-med-and-down">
             <div class="collection hoverable z-depth-1">
@@ -49,30 +61,44 @@
                     <!-- Modal Structure -->
                     <div id="about_me" class="modal">
                         <div class="modal-content">
-                            <center><img height="100px" width="100dx" class="circle responsive-img" src="../../assets/me.jpg" /></center>
+                            <center>
+                                <img height="100px" width="100dx" class="circle responsive-img" src="../../assets/me.jpg" />
+                            </center>
                             <center>
                                 <h4>APQX</h4>
                             </center>
-                            <p class="flow-text center-align">野生散养攻城狮，沉醉于Android开发技术，任重而道远，我也十分乐意分享自己在学习过程中的收获和经验。</p>
+                            <p class="flow-text center-align">野生散养攻城狮，努力晋级中。</p>
                             <div class="collection">
                                 <a href="https://github.com/apqx" target="_blank" class="collection-item">GitHub</a>
                                 <a href="https://www.facebook.com/me.apqx" target="_blank" class="collection-item">Facebook</a>
-                                <a href="mailto:changgongapq@gmail.com" class="collection-item">changgongapq@outlook.com</a>
+                                <a href="mailto:changgongapq@gmail.com" class="collection-item">changgongapq@gmail.com</a>
                             </div>
                         </div>
                     </div>
-                    <!---------------------------------------------content------------------------------------------------------------------->
+                    <!-- content -->
                     <h4 align="center">树莓派遇上Java（四）-舵机篇</h4>
                     <p class="center flow-text">APQX</p>
                     <p class="center">2016年9月14日</p>
                     <p class="flow-text">在马达篇中，我们知道了如何用树莓派来控制马达转动，但是在有些情况下，我们不仅仅想让马达转动，还想要它转动到制定角度并固定在那个位置，这时就要用到伺服电机或舵机，他们本质上也是马达，但是通过内置的闭环系统和接收的特定信号可以实现旋转特定角度的功能。一般来说，舵机可以用来控制遥控车的前轮转向，机器人关节的活动，机械臂的运转这些对位置精确度要求较高的地方，它所需要的控制信号也不是简单的高低电平，而是PWM波。</p>
-                    <center><img class="materialboxed responsive-img" src="./assets/Servo.jpg"></center>
+                    <center>
+                        <img class="materialboxed responsive-img" src="./assets/Servo.jpg">
+                    </center>
                     <p class="flow-text">使用舵机需要三根线，黄色是信号线，红色是正极，褐色是负极，正负极可以直接接在L298N的5伏电压输出口和负极上，信号线则接在树莓派的PWM针脚上。</p>
-                    <p class="flow-text">舵机使用的PWM波是一种周期20毫秒（即50赫兹）由高低电平组成的控制信号，通过控制高电平所持续的时间就可以让舵机到达指定的角度。一般来说，对于180度舵机，高电平在信号周期内持续时间和舵机角度有一下关系：<br/>&nbsp&nbsp&nbsp&nbsp<code>0.5毫秒----------0度</code><br/>&nbsp&nbsp&nbsp&nbsp<code>1.0毫秒----------45度</code><br/>&nbsp&nbsp&nbsp&nbsp<code>1.5毫秒----------90度</code><br/>&nbsp&nbsp&nbsp&nbsp<code>2.0毫秒----------135度</code><br/>&nbsp&nbsp&nbsp&nbsp<code>2.5毫秒----------180度</code></p>
+                    <p class="flow-text">舵机使用的PWM波是一种周期20毫秒（即50赫兹）由高低电平组成的控制信号，通过控制高电平所持续的时间就可以让舵机到达指定的角度。一般来说，对于180度舵机，高电平在信号周期内持续时间和舵机角度有一下关系：
+                        <br/>&nbsp&nbsp&nbsp&nbsp
+                        <code>0.5毫秒----------0度</code>
+                        <br/>&nbsp&nbsp&nbsp&nbsp
+                        <code>1.0毫秒----------45度</code>
+                        <br/>&nbsp&nbsp&nbsp&nbsp
+                        <code>1.5毫秒----------90度</code>
+                        <br/>&nbsp&nbsp&nbsp&nbsp
+                        <code>2.0毫秒----------135度</code>
+                        <br/>&nbsp&nbsp&nbsp&nbsp
+                        <code>2.5毫秒----------180度</code>
+                    </p>
                     <p class="flow-text">即如果你想让舵机转到45度位置并保持该角度，那么需要向舵机输出一个周期是20毫秒的信号，并且信号的前1.0毫秒是高电平，后19.0毫秒是低电平，由于舵机的运动需要时间，所以这个信号要持续一段时间才能保证舵机移动到正确的位置，如果此时信号仍然在持续，那么舵机内部将产生一个力矩来阻止外力改变其角度，即固定在指定的角度。</p>
                     <p class="flow-text">树莓派上输出PWM波有两种方法，首先树莓派拥有23个可以输出高低电平信号的GPIO针脚，可以通过软件控制它们产生需要的波形，但是软件层面的操作毕竟无法做到精确，即使输出的波形成功让舵机转动也不可避免的会产生抖动，效果并不理想。实际上，树莓派配有4个PWM针脚可以精确地输出需要的波形，但是在软件层面如何设定参数以实现正确的波形输出很令人困惑，我在
-                        <a
-                            href="http://stackoverflow.com/questions/20081286/controlling-a-servo-with-raspberry-pi-using-the-hardware-pwm-with-wiringpi/27750179#27750179"
+                        <a href="http://stackoverflow.com/questions/20081286/controlling-a-servo-with-raspberry-pi-using-the-hardware-pwm-with-wiringpi/27750179#27750179"
                             target="_blank">StackOverFlow</a>上找到了下面一段话</p>
                     <blockquote>
                         <p class="flow-text">It says here that we're looking to create pulse of 1ms to 2ms in length, every 20ms or so. Assuming
@@ -189,33 +215,34 @@ public class Demo {
                 </pre>
                     <p class="flow-text">具体在项目中的使用逻辑肯定比这个复杂得多，需要考虑到各种情况，做出合理的判断以避免错误，但是如果只是让舵机动起来，就是以上这么简单。</p>
 
-                    <!---------------------------------------------content------------------------------------------------------------------->
+                    <!-- content -->
                 </div>
             </div>
         </div>
     </div>
-    <!----------------------------------------------foot--------------------------------------------------------------------->
+    <!-- foot -->
     <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-        <a class="btn-floating btn-large waves-effect waves-light green" href="#"><i class="material-icons">publish</i></a>
+        <a class="btn-floating btn-large waves-effect waves-light green" href="#">
+            <i class="material-icons">publish</i>
+        </a>
     </div>
     <footer class="page-footer ">
         <div class="container">
             <div class="row">
-                <div class="col l6 s12">
-                    <h5 class="white-text">关于本站</h5>
-                    <p class="grey-text text-lighten-4">这是我的个人网站，我会在这里记录自己成长的点滴，也会经常在这里分享学习中的收获。</p>
-                </div>
                 <div class="col l3 s12">
                     <h5 class="white-text">联系我</h5>
                     <ul>
-                        <li><a class="white-text" href="mailto:changgongapq@gmail.com">changgongapq@outlook.com</a></li>
+                        <li>
+                            <a class="white-text" href="mailto:changgongapq@gmail.com">changgongapq@gmail.com</a>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
         <div class="footer-copyright">
             <div class="container">
-                Based on <a class="orange-text text-lighten-3" href="http://materializecss.com" target="_blank">Materialize</a>
+                Based on
+                <a class="orange-text text-lighten-3" href="http://materializecss.com" target="_blank">Materialize</a>
             </div>
         </div>
     </footer>
@@ -230,4 +257,5 @@ public class Demo {
         hljs.initHighlightingOnLoad();
     </script>
 </body>
+
 </html>
