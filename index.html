@@ -1,203 +1,205 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>apqx.me</title>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="css/materialize.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="css/custom.css" media="screen,projection" />
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="utf-8" />
     <meta name="theme-color" content="#ee6e73" />
-    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="shortcut icon" href="apqx.ico" />
 </head>
+
 <body class="gray">
+
+    <!-- nav-bar -->
     <div class="navbar-fixed">
-        <nav class="navbar-fixed light-red lighten-1" role="navigation">
+        <nav class="light-red lighten-1">
+            <!-- nav-tag -->
             <div class="nav-wrapper container">
-                <a id="logo-container" href="http://apqx.me" class="brand-logo">APQX</a>
-                <ul id="nav-mobile" class="side-nav">
-                    <li><a class="waves-effect waves-red" href="./content/essay/index.html">随笔</a></li>
-                    <li><a class="waves-effect waves-red" href="./content/share/index.html">转载</a></li>
-                    <li><a class="waves-effect waves-red modal-trigger" href="#about_me">关于我</a></li>
+                <a href="http://apqx.me" class="brand-logo">APQX</a>
+                <a href="#" data-target="nav-mobile" class="sidenav-trigger">
+                    <i class="material-icons">menu</i>
+                </a>
+                <ul class="right hide-on-med-and-down clear">
+                    <li class="active">
+                        <a class="waves-effect waves-effect" href="./index.html">随笔</a>
+                    </li>
+                    <li>
+                        <a class="waves-effect waves-effect" href="./content/share/html/index.html">转载</a>
+                    </li>
+                    <li>
+                        <a class="waves-effect waves-effect modal-trigger" href="#about_me">关于我</a>
+                    </li>
                 </ul>
-                <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
             </div>
         </nav>
     </div>
-    <div class="row section">
-        <div class="col s2 hide-on-med-and-down">
-            <div class="collection hoverable z-depth-1">
-                <a href="./content/essay/index.html" class="waves-effect waves-red collection-item active">随笔</a>
-                <a href="./content/share/index.html" class="waves-effect waves-red collection-item">转载</a>
-                <a href="#about_me" class="waves-effect waves-red collection-item modal-trigger">关于我</a>
+     <!-- pop-up-about-me -->
+     <div id="about_me" class="modal container">
+        <div class="modal-content">
+            <center>
+                <img height="100px" width="100dx" class="circle responsive-img" src="./assets/me.jpg" />
+            </center>
+            <center>
+                <h4>APQX</h4>
+            </center>
+            <p class="flow-text center-align">野生散养攻城狮，努力晋级中。</p>
+            <div class="collection">
+                <a href="https://github.com/apqx" class="collection-item">GitHub</a>
+                <a href="https://www.facebook.com/apqx.me" class="collection-item">Facebook</a>
+                <a href="mailto:changgongapq@gmail.com" class="collection-item">changgongapq@gmail.com</a>
             </div>
-        </div>
-        <div class="col s12 m12 l10">
-            <div class="row">
-                <!-- Modal Structure -->
-                <div id="about_me" class="modal">
-                    <div class="modal-content">
-                        <center><img height="100px" width="100dx" class="circle responsive-img" src="./assets/me.jpg" /></center>
-                        <center>
-                            <h4>APQX</h4>
-                        </center>
-                        <p class="flow-text center-align">野生散养攻城狮，沉醉于Android开发技术，任重而道远，我也十分乐意分享自己在学习过程中的收获和经验。</p>
-                        <div class="collection">
-                            <a href="https://github.com/apqx" target="_blank" class="collection-item">GitHub</a>
-                            <a href="https://www.facebook.com/me.apqx" target="_blank" class="collection-item">Facebook</a>
-                            <a href="mailto:changgongapq@gmail.com" class="collection-item">changgongapq@outlook.com</a>
-                        </div>
-                    </div>
-                </div>
-                <!---------------------------------------------content------------------------------------------------------------------->
-                <div class="col s12">
-                    <div class="container">
-                        <div class="card-panel hoverable">
-                            <a class="black" href="./content/essay/%E5%86%99%E5%9C%A8%E6%B1%82%E8%81%8C%E5%89%8D%E5%A4%95.html">
-                                <h5 class="center-align">写在求职前夕</h5>
-                                <h6 class="right-align">APQX</h6>
-                                <h6 class="right-align">2017年6月5日</h6>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12">
-                    <div class="container">
-                        <div class="card-panel hoverable">
-                            <a class="black" href="./content/essay/%E5%8F%A3%E8%A2%8B%E5%BE%AE%E5%8D%9A.html">
-                                <h5 class="center-align">口袋微博</h5>
-                                <h6 class="right-align">APQX</h6>
-                                <h6 class="right-align">2017年6月1日</h6>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12">
-                    <div class="container">
-                        <div class="card-panel hoverable">
-                            <a class="black" href="./content/essay/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%81%87%E4%B8%8AJava%EF%BC%88%E5%85%AD%EF%BC%89-%E6%80%BB%E7%BB%93%E7%AF%87.html">
-                                <h5 class="center-align">树莓派遇上Java（六）-总结篇</h5>
-                                <h6 class="right-align">APQX</h6>
-                                <h6 class="right-align">2016年9月15日</h6>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12">
-                    <div class="container">
-                        <div class="card-panel hoverable">
-                            <a class="black" href="./content/essay/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%81%87%E4%B8%8AJava%EF%BC%88%E4%BA%94%EF%BC%89-%E6%91%84%E5%83%8F%E5%A4%B4%E7%AF%87.html">
-                                <h5 class="center-align">树莓派遇上Java（五）-摄像头篇</h5>
-                                <h6 class="right-align">APQX</h6>
-                                <h6 class="right-align">2016年9月15日</h6>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12">
-                    <div class="container">
-                        <div class="card-panel hoverable">
-                            <a class="black" href="./content/essay/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%81%87%E4%B8%8AJava%EF%BC%88%E5%9B%9B%EF%BC%89-%E8%88%B5%E6%9C%BA%E7%AF%87.html">
-                                <h5 class="center-align">树莓派遇上Java（四）-舵机篇</h5>
-                                <h6 class="right-align">APQX</h6>
-                                <h6 class="right-align">2016年9月14日</h6>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12">
-                    <div class="container">
-                        <div class="card-panel hoverable">
-                            <a class="black" href="./content/essay/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%81%87%E4%B8%8AJava%EF%BC%88%E4%B8%89%EF%BC%89-%E9%A9%AC%E8%BE%BE%E7%AF%87.html">
-                                <h5 class="center-align">树莓派遇上Java（三）-马达篇</h5>
-                                <h6 class="right-align">APQX</h6>
-                                <h6 class="right-align">2016年9月12日</h6>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12">
-                    <div class="container">
-                        <div class="card-panel hoverable">
-                            <a class="black" href="./content/essay/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%81%87%E4%B8%8AJava%EF%BC%88%E4%BA%8C%EF%BC%89-%E5%87%86%E5%A4%87%E7%AF%87.html">
-                                <h5 class="center-align">树莓派遇上Java（二）-准备篇</h5>
-                                <h6 class="right-align">APQX</h6>
-                                <h6 class="right-align">2016年9月11日</h6>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12">
-                    <div class="container">
-                        <div class="card-panel hoverable">
-                            <a class="black" href="./content/essay/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%81%87%E4%B8%8AJava%EF%BC%88%E4%B8%80%EF%BC%89-%E6%80%BB%E8%BF%B0%E7%AF%87.html">
-                                <h5 class="center-align">树莓派遇上Java（一）-总述篇</h5>
-                                <h6 class="right-align">APQX</h6>
-                                <h6 class="right-align">2016年9月11日</h6>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12">
-                    <div class="container">
-                        <div class="card-panel hoverable">
-                            <a class="black" href="./content/essay/Android%20API%E6%96%87%E6%A1%A3%E5%8A%A0%E8%BD%BD%E7%BC%93%E6%85%A2%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95.html">
-                                <h5 class="center-align">Android API文档加载缓慢的解决方法</h5>
-                                <h6 class="right-align">APQX</h6>
-                                <h6 class="right-align">2016年6月12日</h6>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12">
-                    <div class="container">
-                        <div class="card-panel hoverable">
-                            <a class="black" href="./content/essay/%E6%B5%85%E8%B0%88%E5%A4%A7%E5%AD%A6%E4%B8%8E%E6%88%90%E9%95%BF.html">
-                                <h5 class="center-align">浅谈大学与成长</h5>
-                                <h6 class="right-align">APQX</h6>
-                                <h6 class="right-align">2016年5月12日</h6>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <!----------------------------------------------foot--------------------------------------------------------------------->
-            </div>
-            <ul class="pagination center-align">
-                <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-                <li class="active"><a href="#!">1</a></li>
-                <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-            </ul>
         </div>
     </div>
+    <!-- slide-to-show-nav-tag -->
+    <ul id="nav-mobile" class="sidenav clear">
+        <li class="active">
+            <a class="waves-effect waves-red" href="./index.html">随笔</a>
+        </li>
+        <li>
+            <a class="waves-effect waves-red" href="./content/share/html/index.html">转载</a>
+        </li>
+        <li>
+            <a class="waves-effect waves-red modal-trigger" href="#about_me">关于我</a>
+        </li>
+    </ul>
+
+    <!-- content -->
+
+    <div class="container">
+        <a href="./content/essay/html/写在求职前夕.html">
+            <div class="card-panel hoverable black-text">
+                <h6 class="left-align">写在求职前夕</h6>
+                <h6 class="right-align">APQX</h6>
+                <h6 class="right-align">2017年6月5日</h6>
+            </div>
+        </a>
+    </div>
+
+    <div class="container">
+        <a href="./content/essay/html/一次独立APP的尝试.html">
+            <div class="card-panel hoverable black-text">
+                <h6 class="left-align">一次独立APP的尝试</h6>
+                <h6 class="right-align">APQX</h6>
+                <h6 class="right-align">2017年6月1日</h6>
+            </div>
+        </a>
+    </div>
+
+    <div class="container">
+        <a href="./content/essay/html/树莓派遇上Java_06-总结篇.html">
+            <div class="card-panel hoverable black-text">
+                <h6 class="left-align">树莓派遇上Java_06-总结篇</h6>
+                <h6 class="right-align">APQX</h6>
+                <h6 class="right-align">2016年9月15日</h6>
+            </div>
+        </a>
+    </div>
+
+    <div class="container">
+        <a href="./content/essay/html/树莓派遇上Java_05-摄像头篇.html">
+            <div class="card-panel hoverable black-text">
+                <h6 class="left-align">树莓派遇上Java_05-摄像头篇</h6>
+                <h6 class="right-align">APQX</h6>
+                <h6 class="right-align">2016年9月15日</h6>
+            </div>
+        </a>
+    </div>
+
+    <div class="container">
+        <a href="./content/essay/html/树莓派遇上Java_04-舵机篇.html">
+            <div class="card-panel hoverable black-text">
+                <h6 class="left-align">树莓派遇上Java_04-舵机篇</h6>
+                <h6 class="right-align">APQX</h6>
+                <h6 class="right-align">2016年9月14日</h6>
+            </div>
+        </a>
+    </div>
+
+    <div class="container">
+        <a href="./content/essay/html/树莓派遇上Java_03-马达篇.html">
+            <div class="card-panel hoverable black-text">
+                <h6 class="left-align">树莓派遇上Java_03-马达篇</h6>
+                <h6 class="right-align">APQX</h6>
+                <h6 class="right-align">2016年9月12日</h6>
+            </div>
+        </a>
+    </div>
+
+    <div class="container">
+        <a href="./content/essay/html/树莓派遇上Java_02-准备篇.html">
+            <div class="card-panel hoverable black-text">
+                <h6 class="left-align">树莓派遇上Java_02-准备篇</h6>
+                <h6 class="right-align">APQX</h6>
+                <h6 class="right-align">2016年9月11日</h6>
+            </div>
+        </a>
+    </div>
+
+    <div class="container">
+        <a href="./content/essay/html/树莓派遇上Java_01-总述篇.html">
+            <div class="card-panel hoverable black-text">
+                <h6 class="left-align">树莓派遇上Java_01-总述篇</h6>
+                <h6 class="right-align">APQX</h6>
+                <h6 class="right-align">2016年9月11日</h6>
+            </div>
+        </a>
+    </div>
+
+    <div class="container">
+        <a href="./content/essay/html/记一次无聊的Android_API文档替换.html">
+            <div class="card-panel hoverable black-text">
+                <h6 class="left-align">记一次无聊的Android_API文档替换</h6>
+                <h6 class="right-align">APQX</h6>
+                <h6 class="right-align">2016年6月12日</h6>
+            </div>
+        </a>
+    </div>
+
+    <div class="container">
+        <a href="./content/essay/html/我的大学.html">
+            <div class="card-panel hoverable black-text">
+                <h6 class="left-align">我的大学</h6>
+                <h6 class="right-align">APQX</h6>
+                <h6 class="right-align">2016年5月12日</h6>
+            </div>
+        </a>
+    </div>
+    <!-- float-btn -->
     <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-        <a class="btn-floating btn-large waves-effect waves-light green" href="#"><i class="material-icons">publish</i></a>
+        <a class="btn-floating btn-large waves-effect waves-light green" href="#">
+            <i class="material-icons">arrow_upward</i>
+        </a>
     </div>
+    <!-- foot -->
     <footer class="page-footer ">
         <div class="container">
-            <div class="row">
-                <div class="col l6 s12">
-                    <h5 class="white-text">关于本站</h5>
-                    <p class="grey-text text-lighten-4">这是我的个人网站，我会在这里记录自己成长的点滴，也会经常在这里分享学习中的收获。</p>
-                </div>
-                <div class="col l3 s12">
-                    <h5 class="white-text">联系我</h5>
-                    <ul>
-                        <li><a class="white-text" href="mailto:changgongapq@gmail.com">changgongapq@outlook.com</a></li>
-                    </ul>
-                </div>
-            </div>
+            <h5 class="white-text">联系我</h5>
+            <ul class="clear">
+                <li>
+                    <a class="white-text" href="mailto:changgongapq@gmail.com">changgongapq@gmail.com</a>
+                </li>
+            </ul>
         </div>
         <div class="footer-copyright">
             <div class="container">
-                Based on <a class="orange-text text-lighten-3" href="http://materializecss.com" target="_blank">Materialize</a>
+                Based on
+                <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
             </div>
         </div>
     </footer>
     <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/materialize.js"></script>
-    <script src="js/init.js"></script>
+    <script type="text/javascript" src="js/init.js"></script>
+    <script type="text/javascript" src="./codeHighLight/highlight.pack.js"></script>
+    <link rel="stylesheet" href="./codeHighLight/styles/darcula.css">
 </body>
+
 </html>

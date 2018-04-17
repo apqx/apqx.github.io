@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>apqx.me</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="../../../css/materialize.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="../../../css/custom.css" media="screen,projection" />
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta name="theme-color" content="#ee6e73" />
+    <link rel="shortcut icon" href="../../../apqx.ico" />
+</head>
+
+<body class="gray">
+
+    <!-- nav-bar -->
+    <div class="navbar-fixed">
+        <nav class="light-red lighten-1">
+            <!-- nav-tag -->
+            <div class="nav-wrapper container">
+                <a href="http://apqx.me" class="brand-logo">APQX</a>
+                <a href="#" data-target="nav-mobile" class="sidenav-trigger">
+                    <i class="material-icons">menu</i>
+                </a>
+                <ul class="right hide-on-med-and-down clear">
+                    <li class="active">
+                        <a class="waves-effect waves-effect" href="../../../index.html">随笔</a>
+                    </li>
+                    <li>
+                        <a class="waves-effect waves-effect" href="../../share/html/index.html">转载</a>
+                    </li>
+                    <li>
+                        <a class="waves-effect waves-effect modal-trigger" href="#about_me">关于我</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <!-- pop-up-about-me -->
+    <div id="about_me" class="modal container">
+        <div class="modal-content">
+            <center>
+                <img height="100px" width="100dx" class="circle responsive-img" src="../../../assets/me.jpg" />
+            </center>
+            <center>
+                <h4>APQX</h4>
+            </center>
+            <p class="flow-text center-align">野生散养攻城狮，努力晋级中。</p>
+            <div class="collection">
+                <a href="https://github.com/apqx" class="collection-item">GitHub</a>
+                <a href="https://www.facebook.com/apqx.me" class="collection-item">Facebook</a>
+                <a href="mailto:changgongapq@gmail.com" class="collection-item">changgongapq@gmail.com</a>
+            </div>
+        </div>
+    </div>
+    <!-- slide-to-show-nav-tag -->
+    <ul id="nav-mobile" class="sidenav clear">
+        <li class="active">
+            <a class="waves-effect waves-red" href="../../../index.html">随笔</a>
+        </li>
+        <li>
+            <a class="waves-effect waves-red" href="../../share/html/index.html">转载</a>
+        </li>
+        <li>
+            <a class="waves-effect waves-red modal-trigger" href="#about_me">关于我</a>
+        </li>
+    </ul>
+    <!-- parallax-slid-img -->
+    <div class="parallax-container hide-on-med-and-down">
+        <div class="parallax">
+            <img src="../assets/androidStudio.png">
+        </div>
+    </div>
+    <!-- content-card -->
+    <div class="container">
+        <div class="card-panel hoverable">
+            <!-- content -->
+            <h1>记一次无聊的Android API文档替换</h1>
+            <h2>APQX</h2>
+            <h2>2016年6月12日</h2>
+            <p>在学习Android的过程中，自然要使用Android系统提供的应用开发接口，即要参阅Android API文档来选择需要的功能接口以调用相应的功能。实际上在Android SDK的本地文件夹中就有一份HTML版本的API文档，可以使用浏览器离线查看，但是当我用浏览器打开这些文档的时候，却发现在联网状态下加载速度极慢，而当断开网络的时候加载速度就正常了。考虑到墙的存在，猜测应该是HTML文档中存在需要联网下载的StyleSheet或Javascript，而要连接的网站十有八九就是Google。</p>
+            <p>经排查，加载缓慢的元凶就是以下两段代码：</p>
+            <pre><code class="language-java">&lt;script src=&quot;http://www.google.com/jsapi&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+
+&lt;script&gt;
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-5831155-1', 'android.com');
+  ga('create', 'UA-49880327-2', 'android.com', {'name': 'universal'});  // New tracker);
+  ga('send', 'pageview');
+  ga('universal.send', 'pageview'); // Send page view for new tracker.
+&lt;/script&gt;
+</code></pre>
+            <p>这些代码在“正常”情况下自然无法访问，浏览器等待服务器响应直至超时，造成了加载缓慢的现象，所以，删除这部分代码即可使浏览器正常加载这些文件，而且不会对文档内容造成影响，只是缺少了某些交互效果，这些交互操作在大部分情况下并不重要，我们需要的是API内容。当然还有一种完美的解决方法，科学上网，但是，这种方法在某种程度上说并不方便。</p>
+            <p>我写了下面的一个小程序来处理这几千个HTML文件，即扫描所有文件，一旦发现含有以上代码即删除，然后重新输出回原文件。逐一读写数千个文档是一个相当费时的操作，索性我并不赶时间。</p>
+            <pre><code class="language-java">package apqx.me.util;
+
+import java.awt.*;
+import java.io.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * Created by apqx on 2016/6/11.
+ * 功能是删除Android API文档中需要链接Google的两段Javascript代码，以使阅读这些文档时更流畅，就像在断网情况下一样
+ */
+public class ChangeFile {
+    public static void main(String[] args){
+        ChangeFile changeFile=new ChangeFile();
+        //文档所在的文件夹
+        File file=new File(&quot;F:/docs&quot;);
+        changeFile.scanFile(file);
+        try {
+            Desktop.getDesktop().open(new File(file,&quot;index.html&quot;));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void scanFile(File file){
+        if (file.isDirectory()){
+            File[] list=file.listFiles(new FileFilter() {
+                @Override
+                public boolean accept(File pathname) {
+                    if (pathname.isDirectory()){
+                        return true;
+                    }else if (pathname.getName().contains(&quot;html&quot;)){
+                        return true;
+                    }else {
+                        return false;
+                    }
+                }
+            });
+            for (File f:list){
+                scanFile(f);
+            }
+        }else {
+            restoreFile(file);
+        }
+    }
+    
+    private void restoreFile(File file){
+        BufferedReader bufferedReader=null;
+        BufferedWriter bufferedWriter=null;
+        try {
+            bufferedReader=new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+            StringBuilder stringBuilder=new StringBuilder();
+            String string;
+            while ((string=bufferedReader.readLine())!=null){
+                stringBuilder.append(string+&quot;\n&quot;);
+            }
+            string=stringBuilder.toString();
+            Matcher matcher= Pattern.compile(&quot;(&lt;script .*http.*&gt;&lt;/script&gt;)|((?s)&lt;script&gt;\n.*tracker\\.\n&lt;/script&gt;)&quot;).matcher(string);
+            while (matcher.find()){
+                string=matcher.replaceAll(&quot;&quot;);
+            }
+            bufferedWriter=new BufferedWriter(new FileWriter(file));
+            bufferedWriter.write(string);
+            System.out.println(&quot;已处理\n&quot;+file.getAbsolutePath());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                bufferedReader.close();
+                bufferedWriter.close();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+}
+</code></pre>
+            <!-- content -->
+        </div>
+    </div>
+    <!-- float-btn -->
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+        <a class="btn-floating btn-large waves-effect waves-light green" href="#">
+            <i class="material-icons">arrow_upward</i>
+        </a>
+    </div>
+    <!-- foot -->
+    <footer class="page-footer ">
+        <div class="container">
+            <h5 class="white-text">联系我</h5>
+            <ul class="clear">
+                <li>
+                    <a class="white-text" href="mailto:changgongapq@gmail.com">changgongapq@gmail.com</a>
+                </li>
+            </ul>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                Based on
+                <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+            </div>
+        </div>
+    </footer>
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="../../../js/materialize.js"></script>
+    <script type="text/javascript" src="../../../js/init.js"></script>
+    <script type="text/javascript" src="../../../codeHighLight/highlight.pack.js"></script>
+    <link rel="stylesheet" href="../../../codeHighLight/styles/darcula.css">
+</body>
+
+</html>
