@@ -65,7 +65,7 @@
                 <p class="flow-text">我写了下面的一个小程序来处理这几千个HTML文件，即扫描所有文件，一旦发现含有以上代码即删除，然后重新输出回原文件。逐一读写数千个文档是一个相当费时的操作，至少需要15分钟才能完成所有操作。</p>
                 <pre class="flow-text">
                     <code>
-package me.apqx.util;
+package apqx.me.util;
 
 import java.awt.*;
 import java.io.*;

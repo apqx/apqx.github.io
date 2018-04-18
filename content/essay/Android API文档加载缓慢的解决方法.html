@@ -67,7 +67,7 @@
                             <p class="flow-text center-align">野生散养攻城狮，努力晋级中。</p>
                             <div class="collection">
                                 <a href="https://github.com/apqx" target="_blank" class="collection-item">GitHub</a>
-                                <a href="https://www.facebook.com/me.apqx" target="_blank" class="collection-item">Facebook</a>
+                                <a href="https://www.facebook.com/apqx.me" target="_blank" class="collection-item">Facebook</a>
                                 <a href="mailto:changgongapq@gmail.com" class="collection-item">changgongapq@gmail.com</a>
                             </div>
                         </div>
@@ -94,11 +94,11 @@
 &lt/script>
                     </code>
                 </pre>
-                    <p class="flow-text">可以看到，这些文档要使用的一些Javascript代码存放在Google的网站上，正常情况下自然无法访问，浏览器等待网站回应直至达到规定时间，自然就造成了加载缓慢的现象，经过检验，删除这部分代码即可使浏览器正常加载这些文件，而且不会对文档内容造成影响，只是缺少了某些交互效果，这些交互操作在大部分情况下并不重要，我们需要的是API内容。当然还有一种完美的解决方法，科学上网，但是,这种方法在某种程度上说并不方便。</p>
-                    <p class="flow-text">我写了下面的一个小程序来处理这几千个HTML文件，即扫描所有文件，一旦发现含有以上代码即删除，然后重新输出回原文件。逐一读写数千个文档是一个相当费时的操作，耐心等待吧。</p>
+                    <p class="flow-text">这些代码正常情况下自然无法访问，浏览器等待网站回应直至超时，自然造成了加载缓慢的现象，经过检验，删除这部分代码即可使浏览器正常加载这些文件，而且不会对文档内容造成影响，只是缺少了某些交互效果，这些交互操作在大部分情况下并不重要，我们需要的是API内容。当然还有一种完美的解决方法，科学上网，但是，这种方法在某种程度上说并不方便。</p>
+                    <p class="flow-text">我写了下面的一个小程序来处理这几千个HTML文件，即扫描所有文件，一旦发现含有以上代码即删除，然后重新输出回原文件。逐一读写数千个文档是一个相当费时的操作，喝杯咖啡如何？</p>
                     <pre>
                     <code>
-package me.apqx.util;
+package apqx.me.util;
 
 import java.awt.*;
 import java.io.*;
@@ -106,7 +106,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by chang on 2016/6/11.
+ * Created by apqx on 2016/6/11.
  * 功能是删除Android API文档中需要链接Google的两段Javascript代码，以使阅读这些文档时更流畅，就像在断网情况下一样
  */
 public class ChangeFile {
