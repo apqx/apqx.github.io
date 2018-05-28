@@ -70,7 +70,7 @@
         </li>
     </ul>
     <!-- parallax-slid-img -->
-    <div class="parallax-container">
+    <div class="parallax-container hide-on-med-and-down">
         <div class="parallax">
             <img src="../assets/raspberryBg.png">
         </div>
@@ -85,7 +85,7 @@
             <p>我是一个喜欢玩的人，尤其对遥控玩具情有独钟，小时候为了看看它们的工作原理，不知有多少玩具被我大卸八块，当然除了发现几块电路板、电池和马达外几乎一无所获，而且它们在做工和功能上都有着这样或那样的缺陷，我确实很想拥有一款可以完全自定义的大玩具。三个月前，我拿到了自己的第一个树莓派，这是一种为方便学生计算机教育而设计的卡片式电脑，机身集成了RJ45、USB、HDMI、AV等接口和MicroSD卡插槽，可以运行Linux和Windowns10
                 IoT操作系统，配有的23个GPIO针脚则为控制其他设备提供了无限的可能性。我拿到的是RaspberryPi 3B，板载蓝牙和无线网卡，淘宝200元左右。</p>
             <p>
-                <img src="../assets/RaspberryPi.jpg" alt="pic">
+                <img class="materialboxed responsive-img" src="../assets/RaspberryPi.jpg" alt="pic">
             </p>
             <p>对于操作系统，我接触过Linux，所以选择了树莓派官方的Raspbian，安装过程极其简单，只需要按照说明把系统文件拷录到一张MicroSD卡上，再将卡插入树莓派即可。由于我身边没有显示器，只能通过SSH远程连接树莓派进行操作，也可以使用VNC-Viewer这种远程桌面软件来使用图像化界面，具体细节我将在随后的文章中详细说明。</p>
             <p>在安装了一些必要软件后，即可开始为树莓派编程了，树莓派支持很多语言，最受欢迎的应该是Python，但是对我来说，Java才是最合适的（实际上我只学过Java和C++）。Raspbian集成了JDK，对GPIO的操作则借助于
