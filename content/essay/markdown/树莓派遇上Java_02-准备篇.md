@@ -18,7 +18,7 @@
 获得树莓派IP后可使用[Xshell](https://www.netsarang.com/products/xsh_overview.html)建立SSH连接，如果是Linux用户，直接执行`ssh ip@username`即可，可以使用[FileZilla](https://filezilla-project.org/)传输文件，树莓派默认的连接账号是：
 
 ```
-sername：pi
+username：pi
 password：raspberry
 ```
 
