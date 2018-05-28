@@ -1,0 +1,27 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Markdown essay",
+            "type": "shell",
+            "command": "markdown-it ./content/essay/markdown/树莓派遇上Java_02-准备篇.md -o ./content/essay/html/树莓派遇上Java_02-准备篇.html",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Markdown share",
+            "type": "shell",
+            "command": "markdown-it ./content/share/markdown/秋菊男的故事.md -o ./content/share/html/秋菊男的故事.html",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>apqx.me</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="../../../css/materialize.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="../../../css/custom.css" media="screen,projection" />
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta name="theme-color" content="#ee6e73" />
+    <link rel="shortcut icon" href="../../../apqx.ico" />
+</head>
+
+<body class="gray">
+
+    <!-- nav-bar -->
+    <div class="navbar-fixed">
+        <nav class="light-red lighten-1">
+            <!-- nav-tag -->
+            <div class="nav-wrapper container">
+                <a href="http://apqx.me" class="brand-logo">APQX</a>
+                <a href="#" data-target="nav-mobile" class="sidenav-trigger">
+                    <i class="material-icons">menu</i>
+                </a>
+                <ul class="right hide-on-med-and-down clear">
+                    <li class="active">
+                        <a class="waves-effect waves-effect" href="../../../index.html">随笔</a>
+                    </li>
+                    <li>
+                        <a class="waves-effect waves-effect" href="../../share/html/index.html">转载</a>
+                    </li>
+                    <li>
+                        <a class="waves-effect waves-effect modal-trigger" href="#about_me">关于我</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <!-- pop-up-about-me -->
+    <div id="about_me" class="modal container">
+        <div class="modal-content">
+            <center>
+                <img height="100px" width="100dx" class="circle responsive-img" src="../../../assets/me.jpg" />
+            </center>
+            <center>
+                <h4>APQX</h4>
+            </center>
+            <p class="flow-text center-align">野生散养攻城狮，努力晋级中。</p>
+            <div class="collection">
+                <a href="https://github.com/apqx" class="collection-item">GitHub</a>
+                <a href="https://www.facebook.com/apqx.me" class="collection-item">Facebook</a>
+                <a href="mailto:changgongapq@gmail.com" class="collection-item">changgongapq@gmail.com</a>
+            </div>
+        </div>
+    </div>
+    <!-- slide-to-show-nav-tag -->
+    <ul id="nav-mobile" class="sidenav clear">
+        <li class="active">
+            <a class="waves-effect waves-red" href="../../../index.html">随笔</a>
+        </li>
+        <li>
+            <a class="waves-effect waves-red" href="../../share/html/index.html">转载</a>
+        </li>
+        <li>
+            <a class="waves-effect waves-red modal-trigger" href="#about_me">关于我</a>
+        </li>
+    </ul>
+    <!-- parallax-slid-img -->
+    <div class="parallax-container">
+        <div class="parallax">
+            <img src="../assets/raspberryBg.png">
+        </div>
+    </div>
+    <!-- content-card -->
+    <div class="container">
+        <div class="card-panel hoverable">
+            <!-- content -->
+            <h1>树莓派遇上Java_02-准备篇</h1>
+            <h2>APQX</h2>
+            <h2>2016年9月11日</h2>
+            <h3>安装系统</h3>
+            <p>树莓派支持很多系统，这里以Raspbian为例，介绍其安装过程。首先，应准备一张至少8G的MicroSD卡作为系统盘，到树莓派官网下载
+                <a href="https://www.raspberrypi.org/downloads/raspbian/">Raspbian</a>。</p>
+            <p>参照
+                <a href="https://www.raspberrypi.org/documentation/installation/installing-images/README.md">官方安装指导</a>， 安装过程即使用
+                <a href="https://etcher.io/">Etcher</a>将下载好的Raspbian镜像文件写入SD卡，再将SD卡插入树莓派，通电即可开机。</p>
+            <h3>系统设置及安装软件</h3>
+            <p>由于我身边没有可用的显示器，所以我全程都是使用SSH来连接树莓派。从路由器上接出一根网线连接树莓派的以太网口，会通过DHCP自动为树莓派分配IP地址，登陆路由器即可获得树莓派的IP，如果在有些情况下无法登陆路由器的话，还可以使用
+                <a
+                    href="https://www.advanced-ip-scanner.com/">Advanced IP Scanner</a>来扫描局域网内的所有设备，也可以得到树莓派的IP。</p>
+            <p>获得树莓派IP后可使用
+                <a href="https://www.netsarang.com/products/xsh_overview.html">Xshell</a>建立SSH连接，如果是Linux用户，直接执行
+                <code>ssh ip@username</code>即可，可以使用
+                <a href="https://filezilla-project.org/">FileZilla</a>传输文件，树莓派默认的连接账号是：</p>
+            <pre><code>sername：pi
+password：raspberry
+</code></pre>
+            <p>接下来设置超级用户密码</p>
+            <pre><code>sudo passwd root
+</code></pre>
+            <p>在root用户下进入高级设置，扩展存储卡空间</p>
+            <pre><code>sudo raspi-config
+</code></pre>
+            <p>安装tightvncserve远程桌面服务，新版本的Raspbian已经集成了vnc远程桌面，这里也可以手动安装</p>
+            <pre><code>sudo apt-get install tightvncserver
+</code></pre>
+            <p>设置密码</p>
+            <pre><code>vnapasswd
+</code></pre>
+            <p>启用远程桌面服务，这样就可以在Windows或其它平台通过VNC Viewer来操作树莓派</p>
+            <pre><code>vncserver :1 -geometry 800x600
+</code></pre>
+            <p>PC端通过
+                <a href="https://www.realvnc.com/en/connect/download/viewer/">VNC Viewer</a>即可登录远程桌面。</p>
+            <pre><code>vncServer:Your IP:1
+password:Your Password
+</code></pre>
+            <p>安装文泉驿的开源中文字体</p>
+            <pre><code>sudo apt-get install ttf-wqy-zenhei
+</code></pre>
+            <p>让树莓派建立WIFI热点，使连接不再依赖路由器，参考以下文章</p>
+            <p>
+                <a href="http://blog.csdn.net/xukai871105/article/details/42497097">参考01</a>
+                <br>
+                <a href="http://elinux.org/RPI-Wireless-Hotspot">参考02</a>
+            </p>
+            <h3>安装wiringPi和pi4j</h3>
+            <p>如果要使用Java操作GPIO的话，需要安装
+                <a href="http://pi4j.com/">pi4j</a>，由于pi4j API是基于wiringPi库的，所以要先安装wiringPi。</p>
+            <p>下载
+                <a href="https://git.drogon.net/?p=wiringPi;a=summary">wiringPi</a>
+            </p>
+            <p>安装</p>
+            <pre><code>//文件名可能有所不同
+tar -xfz wiringPi-98bcb20.tar.gz 
+cd wiringPi-98bcb20
+./build
+</code></pre>
+            <p>验证wiringPi是否安装成功</p>
+            <pre><code>gpio -v
+</code></pre>
+            <p>下载
+                <a href="http://pi4j.com/download.html">pi4j</a>
+            </p>
+            <p>安装</p>
+            <pre><code>//文件名可能有所不同
+sudo dpkg -i pi4j-1.1.deb
+</code></pre>
+            <h3>使用pi4j</h3>
+            <p>编译</p>
+            <pre><code>pi4j -c Demo.java
+</code></pre>
+            <p>运行</p>
+            <pre><code>pi4j Demo
+</code></pre>
+            <p>运行jar包</p>
+            <pre><code>pi4j -jar Demo.jar
+</code></pre>
+            <!-- content -->
+        </div>
+    </div>
+    <!-- float-btn -->
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+        <a class="btn-floating btn-large waves-effect waves-light green" href="#">
+            <i class="material-icons">arrow_upward</i>
+        </a>
+    </div>
+    <!-- foot -->
+    <footer class="page-footer ">
+        <div class="container">
+            <h5 class="white-text">联系我</h5>
+            <ul class="clear">
+                <li>
+                    <a class="white-text" href="mailto:changgongapq@gmail.com">changgongapq@gmail.com</a>
+                </li>
+            </ul>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                Based on
+                <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+            </div>
+        </div>
+    </footer>
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="../../../js/materialize.js"></script>
+    <script type="text/javascript" src="../../../js/init.js"></script>
+    <script type="text/javascript" src="../../../codeHighLight/highlight.pack.js"></script>
+    <link rel="stylesheet" href="../../../codeHighLight/styles/darcula.css">
+</body>
+
+</html>
