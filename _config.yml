@@ -9,7 +9,7 @@
 title: apqx.me
 email: changgongapq@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
-  wubba lubba dub dub
+  wubba lubba dub dub!
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://apqx.me" # the base hostname & protocol for your site
 twitter_username: GuodongYuan
