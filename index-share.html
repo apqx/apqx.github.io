@@ -1,19 +1,18 @@
 --- 
 layout: post
-type: index
+type: index-share
 title: apqx.me
 ---
 
 <ul class="clear">
-  {% for post in site.posts %}
-  {% if post.type == "essy" %}
+  {% for post in site.posts %} 
+  {% if post.type == "share" %}
   <li>
     <div class="container">
       <a href="{{ post.url | prepend: site.baseurl }}">
         <div class="card-panel hoverable black-text">
           <h6 class="left-align">{{ post.title }}</h6>
           <h6 class="right-align">{{ post.author }}</h6>
-          <h6 class="right-align">{{ post.date | date: "%b %-d, %Y" }}</h6>
         </div>
       </a>
     </div>
@@ -21,3 +20,35 @@ title: apqx.me
   {% endif %}
   {% endfor %}
 </ul>
+<pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
