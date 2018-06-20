@@ -8,13 +8,13 @@ categories: essy
 headpic: /assets/androidStudio.png
 ---
 
-# 记一次无聊的Android API文档替换
+# 记一次无聊的Android_API文档替换
 
 ## APQX
 
 ## 2016年6月12日
 
-在学习Android的过程中，自然要使用Android系统提供的应用开发接口，即要参阅Android API文档来选择需要的功能接口以调用相应的功能。实际上在Android SDK的本地文件夹中就有一份HTML版本的API文档，可以使用浏览器离线查看，但是当我用浏览器打开这些文档的时候，却发现在联网状态下加载速度极慢，而当断开网络的时候加载速度就正常了。考虑到墙的存在，猜测应该是HTML文档中存在需要联网下载的StyleSheet或Javascript，而要连接的网站十有八九就是Google。
+在学习Android的过程中，自然要使用Android系统提供的应用开发接口，即要参阅Android API文档来选择需要的接口以调用相应的功能。实际上在Android SDK的本地文件夹中就有一份HTML版本的API文档，可以使用浏览器离线查看，但是当我用浏览器打开这些文档的时候，却发现在联网状态下加载速度极慢，而当断开网络的时候加载速度就正常了。考虑到墙的存在，猜测应该是HTML文档中存在需要联网下载的StyleSheet或Javascript，而要连接的网站十有八九就是Google。
 
 经排查，加载缓慢的元凶就是以下两段代码：
 
