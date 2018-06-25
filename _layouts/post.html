@@ -1,26 +1,27 @@
 <!DOCTYPE html>
 <html>
 
-{% include head.html %}
+{% include head.html %} 
+
+{% include header.html %}
 
 <body class="gray">
-
-  {% include header.html %}
 
   {% if page.type != "index" and page.type != "index-share" %}
   <!-- content-card -->
   <div class="container">
     <div class="card-panel hoverable">
       <!-- content -->
-  {% endif %}
+  {% endif %} 
 
-      {{ content }}
-
+      {{ content }} 
+      
   {% if page.type != "index" and page.type != "index-share" %}
       <!-- content -->
     </div>
   </div>
-   {% endif %}
+  {% endif %}
+  
   <!-- float-btn -->
   <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
     <a class="btn-floating btn-large waves-effect waves-light green" href="#">
@@ -31,10 +32,10 @@
   {% include footer.html %}
   <!--Import jQuery before materialize.js-->
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script type="text/javascript" src="{{ "/js/materialize.js" }}"></script>
-  <script type="text/javascript" src="{{ "/js/init.js" }}"></script>
-  <script type="text/javascript" src="{{ "/codeHighLight/highlight.pack.js" }}"></script>
-  <link rel="stylesheet" href="{{ " /codeHighLight/styles/darcula.css" }}">
+  <script type="text/javascript" src="{{ " /js/materialize.js " }}"></script>
+  <script type="text/javascript" src="{{ " /js/init.js " }}"></script>
+  <script type="text/javascript" src="{{ " /codeHighLight/highlight.pack.js " }}"></script>
+  <link rel="stylesheet" href="{{ " /codeHighLight/styles/darcula.css " }}">
 </body>
 
 </html>
