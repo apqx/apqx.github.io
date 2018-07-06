@@ -1,8 +1,18 @@
-# 在VPS上搭建Shadowsocks服务
+---
+layout: post
+type: essy
+title:  "在Ubuntu 18.04 上搭建Shadowsocks服务端"
+author: APQX
+date:   2018-05-28 18:41:38 +0800
+categories: essy
+headpic: /assets/ubuntu.jpg
+---
+
+# 在Ubuntu 18.04 上搭建Shadowsocks服务端
 
 ## APQX
 
-## 2018年4月21日
+## 2018年5月28日
 
 ### Shadowsocks是什么
 
@@ -33,18 +43,12 @@
 
 * 安装Shadowsocks
 
-  对于Ubuntu16.4以上版本
+  对于Ubuntu 18.04 及以上版本
 
   ```
   sudo apt install shadowsocks
   ```
 
-  对于其他Linux发行版
-
-  ```
-  sudo apt-get install python-pip python-setuptools m2crpto
-  sudo pip install shadowsocks
-  ```
   验证是否安装成功
 
   ```
@@ -53,7 +57,7 @@
 
 * 配置参数
 
-  在任意路经下创建配置文件，json格式
+  在任意路经下创建json格式的配置文件
 
   ```
   vim /home/username/ss.json
@@ -98,7 +102,7 @@
 
   BBR算法已经在Linux内核4.9及以上版本中包括，但并没有默认开启。
 
-  对于Ubuntu16.4及以上版本，内核已在4.9之上，可以直接开启此功能。
+  对于 Ubuntu 18.04 及以上版本，内核已在4.9之上，可以直接开启此功能。
 
   ```
   modprobe tcp_bbr
@@ -107,6 +111,7 @@
   echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
   sysctl -p
   ```
+  
 * 重启以验证是否正确配置
 
   ```
