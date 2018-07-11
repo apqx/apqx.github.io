@@ -94,23 +94,23 @@ ul.clear > li {
 @media only screen and (min-width: 480px) {
   p, li, .flow-text {
    font-size: 1.0rem;
-}
-/* 当宽度大于480px时 */
-.card-panel {
-   -webkit-transition: -webkit-box-shadow .25s;
-   transition: -webkit-box-shadow .25s;
-   transition: box-shadow .25s;
-   transition: box-shadow .25s, -webkit-box-shadow .25s;
-   padding: 20px 40px 20px 40px;
-   margin: 0.5rem 0 1rem 0;
-   border-radius: 2px;
-   background-color:#fff;
-}
+  }
+  /* 当宽度大于480px时 */
+  .card-panel {
+    -webkit-transition: -webkit-box-shadow .25s;
+    transition: -webkit-box-shadow .25s;
+    transition: box-shadow .25s;
+    transition: box-shadow .25s, -webkit-box-shadow .25s;
+    padding: 20px 40px 20px 40px;
+    margin: 0.5rem 0 1rem 0;
+    border-radius: 2px;
+    background-color:#fff;
+  }
 
-.container {
-   margin: 0 auto;
-   max-width: 1080px;
-   width: 90%;
+  .container {
+    margin: 0 auto;
+    max-width: 1080px;
+    width: 90%;
   }
 }
  

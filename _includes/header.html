@@ -1,7 +1,7 @@
 <header>
   <!-- nav-bar -->
   <div class="navbar-fixed">
-    <nav class="light-red lighten-1">
+    <nav>
       <!-- nav-tag -->
       <div class="nav-wrapper container">
         <a href="https://apqx.me" class="brand-logo">APQX</a>
@@ -9,11 +9,11 @@
           <i class="material-icons">menu</i>
         </a>
         <ul class="right hide-on-med-and-down clear">
-          <li {% if page.type == "essy" or page.type == "index" %} class="active" {% endif %}>
-            <a class="waves-effect waves-effect" href="{{ "/index.html" }}">随笔</a>
+          <li {% if page.type=="essy" or page.type=="index" %} class="active" {% endif %}>
+            <a class="waves-effect waves-effect" href="{{ " /index.html " }}">随笔</a>
           </li>
-          <li {% if page.type == "share" or page.type == "index-share" %} class="active" {% endif %}>
-            <a class="waves-effect waves-effect" href="{{ "/index-share.html" }}">转载</a>
+          <li {% if page.type=="share" or page.type=="index-share" %} class="active" {% endif %}>
+            <a class="waves-effect waves-effect" href="{{ " /index-share.html " }}">转载</a>
           </li>
           <li>
             <a class="waves-effect waves-effect modal-trigger" href="#about_me">关于我</a>
@@ -26,7 +26,7 @@
   <div id="about_me" class="modal container">
     <div class="modal-content">
       <center>
-        <img height="100px" width="100dx" class="circle responsive-img" src="{{ "/assets/me.jpg" }}" />
+        <img height="100px" width="100dx" class="circle responsive-img" src="{{ " /assets/me.jpg " }}" />
       </center>
       <center>
         <h4>APQX</h4>
@@ -42,16 +42,17 @@
   </div>
   <!-- slide-to-show-nav-tag -->
   <ul id="nav-mobile" class="sidenav clear">
-    <li {% if page.type == "essy" or page.type == "index" %} class="active" {% endif %}>
-      <a class="waves-effect waves-red" href="{{ "/index.html" }}">随笔</a>
+    <li {% if page.type=="essy" or page.type=="index" %} class="active" {% endif %}>
+      <a class="waves-effect waves-red" href="{{ " /index.html " }}">随笔</a>
     </li>
-    <li {% if page.type == "share" or page.type == "index-share" %} class="active" {% endif %}>
-      <a class="waves-effect waves-red" href="{{ "/index-share.html" }}">转载</a>
+    <li {% if page.type=="share" or page.type=="index-share" %} class="active" {% endif %}>
+      <a class="waves-effect waves-red" href="{{ " /index-share.html " }}">转载</a>
     </li>
     <li>
       <a class="waves-effect waves-red modal-trigger" href="#about_me">关于我</a>
     </li>
   </ul>
+
   <!-- parallax-slid-img -->
   <!-- 索引页面不显示 -->
   {% if page.type != "index" and page.type != "index-share" %}
@@ -61,4 +62,5 @@
     </div>
   </div>
   {% endif %}
+
 </header>

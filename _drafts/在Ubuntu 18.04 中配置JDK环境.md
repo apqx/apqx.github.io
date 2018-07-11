@@ -1,14 +1,14 @@
 ---
 layout: post
 type: essy
-title:  "Ubuntu笔记_01-进入Linux世界"
+title:  "在Ubuntu 18.04 中配置JDK环境"
 author: APQX
 date:   2018-06-20 18:41:38 +0800
 categories: essy
 headpic: /assets/ubuntu.jpg
 ---
 
-# Ubuntu笔记_01-新世界
+# 在Ubuntu 18.04 中配置JDK环境
 
 ## APQX
 
