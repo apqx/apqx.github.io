@@ -1,7 +1,7 @@
 ---
 layout: post
 type: essy
-title:  "记一次无聊的Android_API文档替换"
+title:  "记一次无聊的Android API文档替换"
 author: APQX
 date:   2016-06-12 +0800
 categories: essy

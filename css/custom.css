@@ -1,5 +1,5 @@
 .gray {
-  background-color:#ecf0f1;
+  background-color:#f7f7f7;
 }
 
 .card-panel {
@@ -17,6 +17,14 @@
   margin: 0 auto;
   max-width: 1080px;
   width: 98%;
+}
+
+/* 段落中单词高亮 */
+.highlighter-rouge {
+  color:#535c68;
+  background-color: #ecf0f1;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 
 /* 文章标题 */
@@ -51,7 +59,7 @@ h1 {
 /* 我的二级标题 */
 h2 {
   font-size: 1.4rem;
-  color: #4caf50
+  color: #ff7979
 }
 
 /* 正常显示列表 */
