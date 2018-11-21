@@ -5,7 +5,6 @@ title:  "Android中的Thread和Handler"
 author: APQX
 date:   2018-11-20 +0800
 categories: essy
-headpic: /assets/androidStudio.png
 ---
 
 # 前言
@@ -234,6 +233,10 @@ Thread{
 // 在必要时及时退出Looper.loop()引起的线程阻塞，结束该执行线程
 handler.looper.quite()
 ```
+
+# 总结
+
+Handler机制简单的说，是这样：Handler创建时需要一个Looper，可以是指定的Looper或默认使用当前线程的Looper，Handler获取此Looper的MessageQueue，当Handler.post(Runnable)执行时，Handler把此Runnable封装成Message并携带该Handler实例，发送到从Looper那里拿到的MessageQueue中，Looper在其创建线程中不断检查MessageQueue是否有新的Message，有的话就取出，调用附带的Handler实例方法去处理，因为Handler发送事件的线程和Looper执行事件的线程一般都不一致，这样就实现了`切换线程`。
 
 # Main Thread的特殊性
 

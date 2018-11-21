@@ -1,6 +1,7 @@
 <header>
   <!-- nav-bar -->
-  <div class="navbar-fixed">
+  <!-- <div class="navbar-fixed"> -->
+  <div class="navbar">
     <nav>
       <!-- nav-tag -->
       <div class="nav-wrapper container">
@@ -52,15 +53,9 @@
       <a class="waves-effect waves-red modal-trigger" href="#about_me">关于我</a>
     </li>
   </ul>
-
-  <!-- parallax-slid-img -->
   <!-- 索引页面不显示 -->
   {% if page.type != "index" and page.type != "index-share" %}
-  <div class="parallax-container hide-on-med-and-down">
-    <div class="parallax">
-      <img src="{{ page.headpic }}">
-    </div>
-  </div>
+  
   {% endif %}
 
 </header>
