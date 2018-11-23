@@ -1,5 +1,10 @@
 /* css的加载是继承-覆盖机制，先加载materiallize.css，然后加载custom.css覆盖部分属性 */
 
+html {
+  /* 定义字体 */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Microsoft YaHei, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
 /* 背景颜色 */
 .gray {
   background-color:#f7f7f7;
