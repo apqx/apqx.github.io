@@ -64,7 +64,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
             Toast.makeText(this, "Work done", Toast.LENGTH_SHORT).show()
         }
         // view的post的内部实现其实也是Handler
-        view.post{
+        view.post{
             Toast.makeText(this, "Post from view", Toast.LENGTH_SHORT).show()
         }
     }.start()
@@ -74,7 +74,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
 要理解`Handler`是如何将`Runnable`和`Message`发送到另一个线程中的，需要借助`Looper`、`MessageQueue`和`ThreadLocal`，我们从创建Handler的那一刻说起：
 
 ```
-// 创建Handler时，实际使用的构造器
+// 创建Handler时，实际使用的构造器
 public Handler(Callback callback, boolean async) {
     // 获取Looper
     mLooper = Looper.myLooper();
@@ -119,11 +119,11 @@ public boolean sendMessageAtTime(Message msg, long uptimeMillis) {
         Log.w("Looper", e.getMessage(), e);
         return false;
     }
-    // 将Runnable封装的Message，添加到一个Handler持有的MessageQueue中，即从Looper那里获取的Queue
+    // 将Runnable封装的Message，添加到一个Handler持有的MessageQueue中，即从Looper那里获取的Queue
     return enqueueMessage(queue, msg, uptimeMillis);
 }
 private boolean enqueueMessage(MessageQueue queue, Message msg, long uptimeMillis) {
-        // 将该Handler实例保存到Message中
+        // 将该Handler实例保存到Message中
         msg.target = this;
         if (mAsynchronous) {
             msg.setAsynchronous(true);
@@ -135,7 +135,7 @@ private boolean enqueueMessage(MessageQueue queue, Message msg, long uptimeMilli
 可以看到，我们切换线程使用的`Handler.post(Runnable)`实际上只是把`Runnable`封装成`Message`，并添加到一个该`Handler`从`Looper`那里获取的`MessageQueue`中了，那么是谁来从`Queue`中取出`Message`并处理呢？答案就是`Looper`，我们来看2个`Looper`的关键方法
 
 ```
-// Looper.prepare()
+// Looper.prepare()
 private static void prepare(boolean quitAllowed) {
     // 检查该线程是否已经创建过Looper，一个线程只允许创建一次Looper
     if (sThreadLocal.get() != null) {
@@ -155,7 +155,7 @@ private Looper(boolean quitAllowed) {
 `Looper.prepare()`会检查当前线程是否已经创建过`Looper`，没有的话就创建一个新的`Looper`并设置为该线程私有，留心的话，其实`Handler`构造是时从线程中获取的`Looper`就是在这里创建的，`Looper`创建时会同时在内部创建一个`MessageQueue`，也就是`Handler.post()`时用到的那个`Queue`。
 
 ```
-// Looper.loop()，这里只取关键逻辑，完整逻辑请看源码
+// Looper.loop()，这里只取关键逻辑，完整逻辑请看源码
 public static void loop() {
     // 确保已经执行过Looper.prepare()
     final Looper me = myLooper();
@@ -168,7 +168,7 @@ public static void loop() {
     for (;;) {
         Message msg = queue.next(); // might block
         try {
-            // 取出Message中保存的Handler实例，即发送该Message的Handler，调用它的相关方法去处理这个Message
+            // 取出Message中保存的Handler实例，即发送该Message的Handler，调用它的相关方法去处理这个Message
             msg.target.dispatchMessage(msg);
             dispatchEnd = needEndTime ? SystemClock.uptimeMillis() : 0;
         } finally {
@@ -180,7 +180,7 @@ public static void loop() {
 }
 ```
 
-`Looper.loop()`会进入一个无限的等待循环，不断检查`MessageQueue`中是否有新的`Message`，一旦获取到新的`Message`，就取出该`Message`在`post()`的时候保存的`Handler`实例，调用该`Handler`的方法来处理这个`Message`，这就是整个`Handler.post(Runnable)`的执行轨迹，那么最关键的线程切换是怎么完成的呢？需要注意`Looper.prepare()`执行时所在的线程，它就是`Runnable`事件被处理时所在的线程，这个和线程启用`Looper`时有关。
+`Looper.loop()`会进入一个无限的等待循环，不断检查`MessageQueue`中是否有新的`Message`，一旦获取到新的`Message`，就取出该`Message`在`post()`的时候保存的`Handler`实例，调用该`Handler`的方法来处理这个`Message`，这就是整个`Handler.post(Runnable)`的执行轨迹，那么最关键的线程切换是怎么完成的呢？需要注意`Looper.prepare()`执行时所在的线程，它就是`Runnable`事件被处理时所在的线程，这个和线程启用`Looper`时有关。
 
 前面提到，`Handler`创建时必须要求该线程有`Looper`，即执行过`Looper.prepare()`，一个典型的创建支持`Looper`的线程是这样的
 
@@ -204,7 +204,7 @@ class CusThread : Thread() {
 val thread = CusThread()
 thread.start()
 ...
-// 在其它线程中发送事件到CusThread线程中处理
+// 在其它线程中发送事件到CusThread线程中处理
 Thread{
     thread.handler.post{
         // 这里的代码就会在CusThread中执行了
@@ -221,10 +221,10 @@ thread.handler.looper.quite()
 ```
 val handlerThread = HandlerThread("")
 handlerThread.start()
-// 创建Handler时传入指定的Looper，这样它就不会去获取创建线程的Looper
+// 创建Handler时传入指定的Looper，这样它就不会去获取创建线程的Looper
 val handler = Handler(handlerThread.looper)
 ...
-// 在其它线程中发送事件到CusThread线程中处理
+// 在其它线程中发送事件到CusThread线程中处理
 Thread{
     handler.post{
         // 这里的代码就会在HandlerThread中执行了
@@ -240,4 +240,4 @@ Handler机制简单的说，是这样：Handler创建时需要一个Looper，可
 
 # Main Thread的特殊性
 
-可能已经注意到，既然创建`Handler`时要求该线程必须有`Looper`，否则直接抛出异常，那么Android的主线程为什么可以直接创建`Handler`，其实，可以创建就说明，这个主线程默认已经创建了`Looper`，联想一下，Android App实际上是由事件驱动的，主线程也可以说一直都在“阻塞”（即`Looper.loop()`），它在等待新的事件进行处理，所谓的“不能阻塞主线程”，实际指的是，不能阻塞主线程中的事件处理，体会一下区别，很有意思的。
+可能已经注意到，既然创建`Handler`时要求该线程必须有`Looper`，否则直接抛出异常，那么Android的主线程为什么可以直接创建`Handler`，其实，可以创建就说明，这个主线程默认已经创建了`Looper`，联想一下，Android App实际上是由事件驱动的，主线程也可以说一直都在“阻塞”（即`Looper.loop()`），它在等待新的事件进行处理，所谓的“不能阻塞主线程”，实际指的是，不能阻塞主线程中的事件处理，体会一下区别，很有意思的。
