@@ -11,14 +11,14 @@ html {
 }
 
 /* 当显示宽度小于500px时，手机小屏 */
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 550px) {
 
   p, li, .flow-text {
-    font-size: 1.0rem;
+    font-size: 1.2rem;
   }
   
   .card-panel {
-    padding: 24px;
+    padding: 20px;
     /* 关闭card的阴影 */
     -webkit-box-shadow: none !important;
     box-shadow: none !important;
@@ -46,7 +46,7 @@ html {
 }
 
 /* 当显示宽度大于500px时，非手机小屏 */
-@media only screen and (min-width: 500px) {
+@media only screen and (min-width: 550px) {
   p, li, .flow-text {
    font-size: 1.2rem;
   }
@@ -84,6 +84,8 @@ html {
   background-color: #ecf0f1;
   padding-left: 0.4rem;
   padding-right: 0.4rem;
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
   border-radius: 4px;
 }
 
