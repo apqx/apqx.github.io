@@ -14,7 +14,7 @@ html {
 @media only screen and (max-width: 500px) {
 
   p, li, .flow-text {
-    font-size: 1.0rem;
+    font-size: 1.2rem;
   }
   
   .card-panel {
