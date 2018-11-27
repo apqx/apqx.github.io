@@ -18,7 +18,7 @@ html {
   }
   
   .card-panel {
-    padding: 24px;
+    padding: 20px;
     /* 关闭card的阴影 */
     -webkit-box-shadow: none !important;
     box-shadow: none !important;
