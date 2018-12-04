@@ -152,7 +152,7 @@ private Looper(boolean quitAllowed) {
 }
 ```
 
-`Looper.prepare()`会检查当前线程是否已经创建过`Looper`，没有的话就创建一个新的`Looper`并设置为该线程私有，留心的话，其实`Handler`构造是时从线程中获取的`Looper`就是在这里创建的，`Looper`创建时会同时在内部创建一个`MessageQueue`，也就是`Handler.post()`时用到的那个`Queue`。
+`Looper.prepare()`会检查当前线程是否已经创建过`Looper`，没有的话就创建一个新的`Looper`并设置为该线程私有，留心的话，其实`Handler`构造时从线程中获取的`Looper`就是在这里创建的，`Looper`创建时会同时在内部创建一个`MessageQueue`，也就是`Handler.post()`时用到的那个`Queue`。
 
 ```
 // Looper.loop()，这里只取关键逻辑，完整逻辑请看源码
@@ -236,7 +236,7 @@ handler.looper.quite()
 
 # 总结
 
-Handler机制简单的说，是这样：Handler创建时需要一个Looper，可以是指定的Looper或默认使用当前线程的Looper，Handler获取此Looper的MessageQueue，当Handler.post(Runnable)执行时，Handler把此Runnable封装成Message并携带该Handler实例，发送到从Looper那里拿到的MessageQueue中，Looper在其创建线程中不断检查MessageQueue是否有新的Message，有的话就取出，调用附带的Handler实例方法去处理，因为Handler发送事件的线程和Looper执行事件的线程一般都不一致，这样就实现了`切换线程`。
+`Handler`机制简单的说，是这样：`Handler`创建时需要一个`Looper`，可以是指定的`Looper`或默认使用当前线程的`Looper`，`Handler`获取此`Looper`的`MessageQueue`，当`Handler.post(Runnable)`执行时，`Handler`把此`Runnable`封装成`Message`并携带该`Handler`实例，发送到从`Looper`那里拿到的`MessageQueue`中，`Looper`在其创建线程中不断检查`MessageQueue`是否有新的`Message`，有的话就取出，调用附带的`Handler`实例方法去处理，因为`Handler`发送事件的线程和`Looper`执行事件的线程一般都不一致，这样就实现了`切换线程`。
 
 # Main Thread的特殊性
 
