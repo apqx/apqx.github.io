@@ -45,7 +45,7 @@ import java.util.regex.Pattern;
 public class ChangeFile {
     public static void main(String[] args){
         ChangeFile changeFile=new ChangeFile();
-        //文档所在的文件夹
+        // 文档所在的文件夹
         File file=new File("F:/docs");
         changeFile.scanFile(file);
         try {
