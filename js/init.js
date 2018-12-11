@@ -6,6 +6,7 @@ $(document).ready(function () {
   $('.slider').slider();
   $('.scrollspy').scrollSpy();
   $('.carousel').carousel();
+  $('.tooltipped').tooltip();
   hljs.initHighlightingOnLoad();
 });
 
