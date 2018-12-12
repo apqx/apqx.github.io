@@ -80,7 +80,7 @@ html {
 }
 
 /* 段落中单词高亮 */
-.highlighter-rouge {
+code.highlighter-rouge {
   color:#535c68;
   background-color: #ecf0f1;
   padding-left: 0.4rem;
