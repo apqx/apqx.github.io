@@ -11,13 +11,13 @@
         </a>
         <ul class="right hide-on-med-and-down clear">
           <li {% if page.type=="essy" or page.type=="index" %} class="active" {% endif %}>
-            <a class="waves-effect waves-effect" href="{{ " /index.html " }}">随笔</a>
+            <a class="waves-effect waves-effect tooltipped" data-position="bottom" data-tooltip="我写的" href="{{ " /index.html " }}">随笔</a>
           </li>
           <li {% if page.type=="share" or page.type=="index-share" %} class="active" {% endif %}>
-            <a class="waves-effect waves-effect" href="{{ " /index-share.html " }}">转载</a>
+            <a class="waves-effect waves-effect tooltipped" data-position="bottom" data-tooltip="不是我写的" href="{{ " /index-share.html " }}">转载</a>
           </li>
           <li>
-            <a class="waves-effect waves-effect modal-trigger tooltipped" data-position="bottom" data-tooltip="🤠" href="#about_me">关于我</a>
+            <a class="waves-effect waves-effect modal-trigger tooltipped" data-position="bottom" data-tooltip="Hi🤠" href="#about_me">关于我</a>
           </li>
         </ul>
       </div>
