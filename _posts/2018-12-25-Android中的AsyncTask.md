@@ -31,7 +31,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
         // 执行第2个耗时操作
         result += doHardWork2()
         handler.post {
-            // 弹出窗口，第1个耗时操作完成
+            // 弹出窗口，第2个耗时操作完成
             showDialog("work2 done")
         }
         // 执行第3个耗时操作
@@ -96,14 +96,14 @@ public void onCreate(Bundle savedInstanceState) {
 val cusAsyncTask = object : AsyncTask<String, Int, String>() {
 
             /**
-             * 运行主线程，执行一些准备工作
+             * 运行在主线程中，执行一些准备工作
              */
             override fun onPreExecute() {
                 super.onPreExecute()
             }
 
             /**
-             * 运行主线程，接收工作线程传来的进度信息，用来更新UI
+             * 运行在主线程中，接收工作线程传来的进度信息，用来更新UI
              */
             override fun onProgressUpdate(vararg values: Int?) {
                 super.onProgressUpdate(*values)
@@ -112,7 +112,7 @@ val cusAsyncTask = object : AsyncTask<String, Int, String>() {
             }
 
             /**
-             * 运行主线程，当工作线程执行完成后，会把结果发送到这里，更新UI
+             * 运行在主线程中，当工作线程执行完成后，会把结果发送到这里，更新UI
              */
             override fun onPostExecute(result: String?) {
                 super.onPostExecute(result)
@@ -208,7 +208,7 @@ public final AsyncTask<Params, Progress, Result> executeOnExecutor(Executor exec
 }
 ```
 
-可以看到，同一个`AsyncTask`实例只能执行一次，且可以让任务在指定的线程池中执行，否则即运行在默认的线程池中，这个默认的`Executor`是这样的
+可以看到，同一个`AsyncTask`实例只能执行一次，且可以让任务在指定的`线程池`中执行，否则即运行在默认的`线程池`中，这个默认的`Executor`是这样的
 
 ```
 private static class SerialExecutor implements Executor {
@@ -318,7 +318,7 @@ private Result postResult(Result result) {
 }
 ```
 
-实际的Handler是这样的
+实际的`Handler`是这样的
 
 ```
 private static class InternalHandler extends Handler {
