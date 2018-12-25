@@ -9,15 +9,15 @@ categories: essy
 
 # Android中的线程
 
-编写高性能的Android程序必需遵守2个最基本的`线程`原则：
+编写高性能的`Android`程序必需遵守2个最基本的`线程`原则：
 
 * 在`工作线程`中执行耗时操作
 * 在`主线程`中操作UI
 
-要兼顾这两项，代码执行过程中`切换线程`就是一个频繁而必要的操作，在`Android`中，可以使用`Handler`来将`Message`和`Runnable`发送到指定的`线程`中执行
+要兼顾这两项，代码执行过程中`切换线程`就是一个频繁而必要的操作，在`Android`中，可以使用`Handler`来将`Message`和`Runnable`发送到指定的`线程`中执行
 
 ```
-override fun onCreate(savedInstanceState: Bundle?) {
+override fun onCreate(savedInstanceState: Bundle?) {
     val handler = Handler()
 
     Thread {
@@ -89,7 +89,7 @@ public void onCreate(Bundle savedInstanceState) {
 
 使用`Java 8`的`Lambda`表达式可能会好一些，但还是不够优雅。
 
-所以`Android`有了`AsyncTask`，一个对`Handler`进行多层封装，专门用来执行`短期耗时操作`并不断根据进度信息更新UI的工具。
+所以`Android`有了`AsyncTask`，一个对`Handler`进行多层封装，专门用来执行`短期耗时操作`并不断根据进度信息更新UI的工具。
 
 ```
 // 这里用对象表达式创建继承自AsyncTask的匿名类实例，定义一个AsyncTask任务
@@ -107,7 +107,7 @@ val cusAsyncTask = object : AsyncTask<String, Int, String>() {
              */
             override fun onProgressUpdate(vararg values: Int?) {
                 super.onProgressUpdate(*values)
-                // 根据进度信息，更新UI
+                // 根据进度信息，更新UI
                 showDialog("work${values[0]} done")
             }
 
@@ -160,7 +160,7 @@ val cusAsyncTask = object : AsyncTask<String, Int, String>() {
 cusAsyncTask.execute("will do")
 ```
 
-可以发现，无论是`耗时操作`还是`更新UI`，所有的逻辑都写在它应该在的指定函数中，通过函数调用来传递`进度信息`和`执行结果`，十分规整，但我今天想介绍的是`AsyncTask`是如何实现的，基于这种实现，它有什么特点和限制，这个才是最有意思的。
+可以发现，无论是`耗时操作`还是`更新UI`，所有的逻辑都写在它应该在的指定函数中，通过函数调用来传递`进度信息`和`执行结果`，十分规整，但我今天想介绍的是`AsyncTask`是如何实现的，基于这种实现，它有什么特点和限制，这个才是最有意思的。
 
 # 窥探源码
 
