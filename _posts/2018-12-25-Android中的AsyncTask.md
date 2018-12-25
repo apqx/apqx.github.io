@@ -305,6 +305,7 @@ private void postResultIfNotInvoked(Result result) {
 }
 
 private Result postResult(Result result) {
+    // 使用Handler机制将执行结果发送到主线程
     @SuppressWarnings("unchecked")
     Message message = getHandler().obtainMessage(MESSAGE_POST_RESULT,
             new AsyncTaskResult<Result>(this, result));
