@@ -69,7 +69,7 @@ public void onCreate(Bundle savedInstanceState) {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    // 弹出窗口，第1个耗时操作完成
+                    // 弹出窗口，第2个耗时操作完成
                     showDialog("work2 done");
                 }
             }) 
@@ -316,8 +316,11 @@ private Result postResult(Result result) {
     message.sendToTarget();
     return result;
 }
+```
 
-// 实际的Handler是这样的
+实际的Handler是这样的
+
+```
 private static class InternalHandler extends Handler {
     public InternalHandler(Looper looper) {
         super(looper);
@@ -329,11 +332,11 @@ private static class InternalHandler extends Handler {
         AsyncTaskResult<?> result = (AsyncTaskResult<?>) msg.obj;
         switch (msg.what) {
             case MESSAGE_POST_RESULT:
-                // 执行完成
+                // 执行完成，运行在主线程中
                 result.mTask.finish(result.mData[0]);
                 break;
             case MESSAGE_POST_PROGRESS:
-                // 发布进度
+                // 调用onProgressUpdate()发布进度，运行在主线程中
                 result.mTask.onProgressUpdate(result.mData);
                 break;
         }
