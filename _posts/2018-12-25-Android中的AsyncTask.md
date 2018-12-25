@@ -7,6 +7,8 @@ date:   2018-12-25 +0800
 categories: essy
 ---
 
+# Android中的线程
+
 编写高性能的Android程序必需遵守2个最基本的`线程`原则：
 
 * 在`工作线程`中执行耗时操作
@@ -42,7 +44,7 @@ categories: essy
 }
 ```
 
-虽然有很多嵌套，但看起来还不错，对么？但这是`Kotlin`，用`Java`写就是下面这个样子的
+虽然有很多层嵌套，但看起来似乎还不错，而这只是`Kotlin`，如果用`Java`，就是下面的这个样子
 
 ```
 @Override
@@ -160,6 +162,8 @@ cusAsyncTask.execute("will do")
 
 可以发现，无论是`耗时操作`还是`更新UI`，所有的逻辑都写在它应该在的指定函数中，通过函数调用来传递`进度信息`和`执行结果`，十分规整，但我今天想介绍的是`AsyncTask`是如何实现的，基于这种实现，它有什么特点和限制，这个才是最有意思的。
 
+# 窥探源码
+
 从启动任务开始
 
 ```
@@ -249,9 +253,9 @@ threadPoolExecutor.allowCoreThreadTimeOut(true);
 THREAD_POOL_EXECUTOR = threadPoolExecutor;
 ```
 
-因为默认的`Executor`是静态的，且它只会`串行`的执行任务，所以虽然同一个`AsyncTask`可以创建很多个实例，可以同时调用`execute()`开始任务，但它们在默认情况下使用的是同一个`Executor`，所以这些后台任务执行时是`串行`而不是`并行`。
+因为默认的`Executor`是`静态`的，且它只会`串行`的执行任务，所以虽然同一个`AsyncTask`可以创建很多个实例，可以同时调用`execute()`开始任务，但它们在默认情况下使用的是同一个`Executor`，所以这些后台任务执行时是`串行`而不是`并行`。
 
-`mFuture`应该就是实际执行的后台任务，它是在构造器中定义的
+`mFuture`应该就是实际执行的后台任务，它是在`构造器`中定义的
 
 ```
 public AsyncTask(@Nullable Looper callbackLooper) {
@@ -359,3 +363,7 @@ private void finish(Result result) {
 * 一个`AsyncTask`实例只能执行一次
 * 同一个`AsyncTask`的不同实例默认是串行执行的，但可以传入自己的`Executor`来改变其行为，比如变为并行
 * `AsyncTask`是可以被中断的，中断后将调用`onCanceled()`返回结果而不是`onPostExecute()`
+
+# 结语
+
+最近越来越喜欢通过阅读源码来分析某些组件的行为特点，之前只知道要使用`AsyncTask`必须这样做，看了源码才知道为什么要这样做。
