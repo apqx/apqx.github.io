@@ -14,7 +14,7 @@ categories: essy
 * 在`工作线程`中执行耗时操作
 * 在`主线程`中操作UI
 
-要兼顾这两项，代码执行过程中`切换线程`就是一个频繁而必要的操作，在`Android`中，可以使用`Handler`来将`Message`和`Runnable`发送到指定的`线程`中执行
+要兼顾这两项，代码执行过程中`切换线程`就是一个频繁而必要的操作，在`Android`中，可以使用`Handler`来将`Message`和`Runnable`发送到指定的`线程`中执行
 
 ```
 override fun onCreate(savedInstanceState: Bundle?) {
