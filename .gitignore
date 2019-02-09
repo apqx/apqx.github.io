@@ -1,3 +1,4 @@
 # ignore generated site
 _site/
 raft/
+.DS_Store
