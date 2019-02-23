@@ -29,7 +29,7 @@ override onCreate(savedInstanceState: Bundle?) {
     // 主线程中操作UI
     tvShow.text = "UI Thread"
     // 当View Tree完成后执行
-    tvShow.post{
+    tvShow.post {
         Thread{
             // 其它线程中操作UI，抛出CalledFromWrongThreadException
             tvShow.text = "Other Thread"
@@ -60,11 +60,11 @@ override fun onCreate(savedInstanceState: Bundle?) {
         // 在工作线程中执行耗时操作
         doSth()
         // 切换到主线程中刷新UI
-        handler.post{
+        handler.post {
             Toast.makeText(this, "Work done", Toast.LENGTH_SHORT).show()
         }
         // view的post的内部实现其实也是Handler
-        view.post{
+        view.post {
             Toast.makeText(this, "Post from view", Toast.LENGTH_SHORT).show()
         }
     }.start()
@@ -206,7 +206,7 @@ thread.start()
 ...
 // 在其它线程中发送事件到CusThread线程中处理
 Thread{
-    thread.handler.post{
+    thread.handler.post {
         // 这里的代码就会在CusThread中执行了
     }
 }.start()
@@ -226,7 +226,7 @@ val handler = Handler(handlerThread.looper)
 ...
 // 在其它线程中发送事件到CusThread线程中处理
 Thread{
-    handler.post{
+    handler.post {
         // 这里的代码就会在HandlerThread中执行了
     }
 }.start()

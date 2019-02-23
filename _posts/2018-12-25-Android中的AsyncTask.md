@@ -89,7 +89,7 @@ public void onCreate(Bundle savedInstanceState) {
 
 使用`Java 8`的`Lambda`表达式可能会好一些，但还是不够优雅。
 
-所以`Android`有了`AsyncTask`，一个对`Handler`进行多层封装，专门用来执行`短期耗时操作`并不断根据进度信息更新UI的工具。
+所以`Android`有了`AsyncTask`，一个对`Handler`进行多层封装，专门用来执行`短期耗时操作`并不断根据进度信息更新UI的工具。
 
 ```
 // 这里用对象表达式创建继承自AsyncTask的匿名类实例，定义一个AsyncTask任务
