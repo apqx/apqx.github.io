@@ -174,6 +174,7 @@ class WeatherActivity : Activity(), IWeatherActivity {
         setContentView(R.layout.activity_weather)
         // 创建Presenter
         iWeatherPresenter = WeatherPresenter(this)
+        // Kotlin可以直接用id访问View实例
         btn.setOnClickListener {
             // 点击事件发生时，调用Presenter执行操作
             iWeatherPresenter.queryWeather()
@@ -267,13 +268,15 @@ class WeatherModel() {
     </data>
     <!--正常的View布局-->
     <LinearLayout
-        android:orientation="vertical" android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
         <TextView
             android:id="@+id/tv"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            <!--把内容设置为DataBinding的weather变量，这样点击按钮时，当数据发生变化，这里会直接随之变化-->
+            <!--把内容设置为DataBinding的weather变量，
+            这样点击按钮时，当数据发生变化，这里会直接随之变化-->
             android:text="@{weather}"/>
         <Button
             android:id="@+id/btn"
@@ -344,4 +347,4 @@ class WeatherViewModel : ViewModel() {
 
 # 结语
 
-我在工作和学习中大量使用过`MVP`，对`MVC`和`MVVM`只是有所耳闻，接触了`Kotlin`和`Jetpack`后，开始尝试在自己的练习中使用这些新的东西，而对于`“一直在计划中”👽`的`树莓派`机器人`重构`，这些都是基础，毕竟，2年多的时间，我的变编程思维和代码风格已经发生了巨大的变化，也让我觉得，这个小小的电路板，充满了无限的可能性，如果我不偷懒的话。。。
+我在工作和学习中大量使用过`MVP`，对`MVC`和`MVVM`只是有所耳闻，接触了`Kotlin`和`Jetpack`后，开始尝试在自己的练习中使用这些新的东西，而对于`“一直在计划中”👽`的`树莓派`机器人`重构`，这些都是基础，毕竟，2年多的时间，我的编程思维和代码风格已经发生了巨大的变化，也让我觉得，这个小小的电路板，充满了无限的可能性，如果我不偷懒的话。。。
