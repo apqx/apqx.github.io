@@ -27,7 +27,7 @@ categories: essy
 
 ## Model
 
-```
+```kotlin
 /**
  * 执行数据查询并报告结果
  */
@@ -51,7 +51,7 @@ interface Callback {
 
 ## View
 
-```
+```kotlin
 /**
  * 接收UI点击事件，并能控制UI
  */
@@ -95,7 +95,7 @@ interface OnBtnClickListener {
 
 通常是`Activity`
 
-```
+```kotlin
 /**
  * 接收UI事件，控制Model处理
  */
@@ -136,7 +136,7 @@ class WeatherActivity : Activity(), OnBtnClickListener{
 
 ## Model
 
-```
+```kotlin
 /**
  * 执行数据查询并返回结果
  */
@@ -155,7 +155,7 @@ class WeatherModel(private val callBack: Callback) {
 
 通常是`Activity`
 
-```
+```kotlin
 /**
  * 定义操作UI的接口
  */
@@ -195,7 +195,7 @@ class WeatherActivity : Activity(), IWeatherActivity {
 
 ## Presenter
 
-```
+```kotlin
 /**
  * 定义响应UI事件的接口
  */
@@ -237,7 +237,7 @@ class WeatherPresenter(private val iWeatherActivity: IWeatherActivity) : IWeathe
 
 ## Model
 
-```
+```kotlin
 /**
  * 执行数据查询并返回结果
  */
@@ -256,8 +256,7 @@ class WeatherModel() {
 
 首先在`Layout`资源文件中定义`DataBinding`
 
-```
-// 
+```html
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android">
     <!--定义DataBinding中要和View绑定的数据-->
@@ -290,7 +289,7 @@ class WeatherModel() {
 
 用`Activity`作为`View`
 
-```
+```kotlin
 // 注意是AppCompatActivity
 class WeatherActivity : AppCompatActivity() {
     private lateinit var dataBinding: ActivityWeatherBinding
@@ -320,7 +319,7 @@ class WeatherActivity : AppCompatActivity() {
 
 ## ViewModel
 
-```
+```kotlin
 /**
  * 执行数据查询并报告结果
  */

@@ -23,7 +23,7 @@ categories: essy
 
 Android的UI操作是线程不安全的，这意味着多线程操作UI时可能会出现状态不一致的情况，所以Android强制要求必须在主线程中操作UI，在其它任何线程中操作UI都会抛出`CalledFromWrongThreadException`。
 
-```
+```kotlin
 override onCreate(savedInstanceState: Bundle?) {
     ...
     // 主线程中操作UI
@@ -51,7 +51,7 @@ override onCreate(savedInstanceState: Bundle?) {
 
 已经知道，Android App需要在工作线程中执行耗时操作，然后切换到主线程刷新UI，这个切换线程的动作就可以使用`Handler`实现，实际上，`Handler`可以实现将任意线程中的`Message`、`Runnable`发送到指定的线程中处理。
 
-```
+```kotlin
 // 创建处理Runnable的Handler
 val handler = Handler()
 override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,7 +73,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
 
 要理解`Handler`是如何将`Runnable`和`Message`发送到另一个线程中的，需要借助`Looper`、`MessageQueue`和`ThreadLocal`，我们从创建Handler的那一刻说起：
 
-```
+```java
 // 创建Handler时，实际使用的构造器
 public Handler(Callback callback, boolean async) {
     // 获取Looper
@@ -92,7 +92,7 @@ public Handler(Callback callback, boolean async) {
 
 在创建`Handler`时，它会去获取一个`Looper`，并且获取这个`Looper`的`MessageQueue`，如果获取不到，就会直接抛出异常，那么它要获取的是什么Looper呢，继续看
 
-```
+```java
 // Looper.myLooper()方法实现
 public static @Nullable Looper myLooper() {
         return sThreadLocal.get();
@@ -101,7 +101,7 @@ public static @Nullable Looper myLooper() {
 
 了解`ThreadLocal`就知道，它获取的是此线程私有的`Looper`，即这个`Looper`是和此线程绑定的，那么这个`Looper`有什么作用呢？看一下`Handler.post(Runnable)`的实现
 
-```
+```java
 public final boolean post(Runnable r) {
     // 将Runnable封装成Message，继续传递
    return  sendMessageDelayed(getPostMessage(r), 0);
@@ -110,7 +110,7 @@ public final boolean post(Runnable r) {
 
 最终调用的是这个
 
-```
+```java
 public boolean sendMessageAtTime(Message msg, long uptimeMillis) {
     MessageQueue queue = mQueue;
     if (queue == null) {
@@ -134,7 +134,7 @@ private boolean enqueueMessage(MessageQueue queue, Message msg, long uptimeMilli
 
 可以看到，我们切换线程使用的`Handler.post(Runnable)`实际上只是把`Runnable`封装成`Message`，并添加到一个该`Handler`从`Looper`那里获取的`MessageQueue`中了，那么是谁来从`Queue`中取出`Message`并处理呢？答案就是`Looper`，我们来看2个`Looper`的关键方法
 
-```
+```java
 // Looper.prepare()
 private static void prepare(boolean quitAllowed) {
     // 检查该线程是否已经创建过Looper，一个线程只允许创建一次Looper
@@ -154,7 +154,7 @@ private Looper(boolean quitAllowed) {
 
 `Looper.prepare()`会检查当前线程是否已经创建过`Looper`，没有的话就创建一个新的`Looper`并设置为该线程私有，留心的话，其实`Handler`构造时从线程中获取的`Looper`就是在这里创建的，`Looper`创建时会同时在内部创建一个`MessageQueue`，也就是`Handler.post()`时用到的那个`Queue`。
 
-```
+```java
 // Looper.loop()，这里只取关键逻辑，完整逻辑请看源码
 public static void loop() {
     // 确保已经执行过Looper.prepare()
@@ -184,7 +184,7 @@ public static void loop() {
 
 前面提到，`Handler`创建时必须要求该线程有`Looper`，即执行过`Looper.prepare()`，一个典型的创建支持`Looper`的线程是这样的
 
-```
+```kotlin
 class CusThread : Thread() {
     lateinit var handler: Handler
     override fun run() {
@@ -200,7 +200,7 @@ class CusThread : Thread() {
 
 可以这样使用上面的CusThread
 
-```
+```kotlin
 val thread = CusThread()
 thread.start()
 ...
@@ -218,7 +218,7 @@ thread.handler.looper.quite()
 
 普通的线程必须手动创建`Looper`才可以使用`Handler`，Android提供了一个默认创建好`Looper`的线程实现`HandlerThread`，原理和上面的`CusThread`大同小异，只是多了一些细节控制，可以这样使用它
 
-```
+```kotlin
 val handlerThread = HandlerThread("")
 handlerThread.start()
 // 创建Handler时传入指定的Looper，这样它就不会去获取创建线程的Looper

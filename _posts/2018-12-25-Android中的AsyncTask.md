@@ -16,7 +16,7 @@ categories: essy
 
 要兼顾这两项，代码执行过程中`切换线程`就是一个频繁而必要的操作，在`Android`中，可以使用`Handler`来将`Message`和`Runnable`发送到指定的`线程`中执行
 
-```
+```kotlin
 override fun onCreate(savedInstanceState: Bundle?) {
     val handler = Handler()
 
@@ -46,7 +46,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
 
 虽然有很多层嵌套，但看起来似乎还不错，而这只是`Kotlin`，如果用`Java`，就是下面的这个样子
 
-```
+```java
 @Override
 public void onCreate(Bundle savedInstanceState) {
     Handler handler = new Handler();
@@ -91,7 +91,7 @@ public void onCreate(Bundle savedInstanceState) {
 
 所以`Android`有了`AsyncTask`，一个对`Handler`进行多层封装，专门用来执行`短期耗时操作`并不断根据进度信息更新UI的工具。
 
-```
+```kotlin
 // 这里用对象表达式创建继承自AsyncTask的匿名类实例，定义一个AsyncTask任务
 val cusAsyncTask = object : AsyncTask<String, Int, String>() {
 
@@ -166,7 +166,7 @@ cusAsyncTask.execute("will do")
 
 从启动任务开始
 
-```
+```java
 // 默认的Executor是静态的
 private static volatile Executor sDefaultExecutor = SERIAL_EXECUTOR;
 
@@ -210,7 +210,7 @@ public final AsyncTask<Params, Progress, Result> executeOnExecutor(Executor exec
 
 可以看到，同一个`AsyncTask`实例只能执行一次，且可以让任务在指定的`线程池`中执行，否则即运行在默认的`线程池`中，这个默认的`Executor`是这样的
 
-```
+```java
 private static class SerialExecutor implements Executor {
     final ArrayDeque<Runnable> mTasks = new ArrayDeque<Runnable>();
     Runnable mActive;
@@ -257,7 +257,7 @@ THREAD_POOL_EXECUTOR = threadPoolExecutor;
 
 `mFuture`应该就是实际执行的后台任务，它是在`构造器`中定义的
 
-```
+```java
 public AsyncTask(@Nullable Looper callbackLooper) {
     // 创建Handler，使用主线程的MainLooper
     mHandler = callbackLooper == null || callbackLooper == Looper.getMainLooper()
@@ -320,7 +320,7 @@ private Result postResult(Result result) {
 
 实际的`Handler`是这样的
 
-```
+```java
 private static class InternalHandler extends Handler {
     public InternalHandler(Looper looper) {
         super(looper);
@@ -346,7 +346,7 @@ private static class InternalHandler extends Handler {
 
 执行完成时调用的`finish()`方法
 
-```
+```java
 private void finish(Result result) {
     if (isCancelled()) {
         // 任务已取消，调用onCancelled()
