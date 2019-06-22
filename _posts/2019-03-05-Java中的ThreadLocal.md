@@ -9,7 +9,7 @@ categories: essy
 
 在`Android`的消息机制中，创建`Handler`需要一个`Looper`，如果不在构造器中指定，一般是自动获取当前线程的`Looper`
 
-```
+```java
 // Handler的构造器，获取当前线程的Looper
 mLooper = Looper.myLooper();
 
@@ -20,7 +20,7 @@ public static @Nullable Looper myLooper() {
 
 可以看到这里用到了`ThreadLocal`来获取创建`Handler`时所在线程的`Looper`，再看一个例子
 
-```
+```kotlin
 fun main(args: Array<String>) {
     val threadLocal = ThreadLocal<Int>()
     Thread {
@@ -46,7 +46,7 @@ fun main(args: Array<String>) {
 
 那么它是如何做到的，看一下`ThreadLocal`存取数据的源码就知道了
 
-```
+```java
 // ThreadLocal用于存储数据的set()方法
 public void set(T value) {
     Thread t = Thread.currentThread();
@@ -77,7 +77,7 @@ public T get() {
 
 可以看到，数据实际上是被保存在`Thread`内部持有的一个`ThreadLocalMap`实例对象中的
 
-```
+```java
 // Thread中的ThreadLocalMap
 class Thread {
     ...
