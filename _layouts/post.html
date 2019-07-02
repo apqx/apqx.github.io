@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
 
-{% include head.html %} 
+<head>
+  {% include head-common.html %} 
+</head>
 
 {% include header.html %}
 
 <body class="gray">
 
-  {% if page.type != "index" and page.type != "index-share" %}
+  <!-- {% if page.type != "index" and page.type != "index-share" %} -->
   <!-- content-card -->
   <div class="container essy-card">
     <div class="card-panel hoverable">
@@ -15,15 +17,15 @@
       <p class="title">{{ page.title }}</p>
       <p class="author">{{ page.author }}</p>
       <p class="date">{{ page.date | date: "%Y年%m月%d日" }}</p>
-  {% endif %} 
+  <!-- {% endif %}  -->
 
     {{ content }} 
       
-  {% if page.type != "index" and page.type != "index-share" %}
+  <!-- {% if page.type != "index" and page.type != "index-share" %} -->
       <!-- content -->
     </div>
   </div>
-  {% endif %}
+  <!-- {% endif %} -->
   
   <!-- float-btn -->
   <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
