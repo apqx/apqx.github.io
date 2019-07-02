@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  {% include head-common.html %} 
+  {% include head-index.html %} 
+</head>
+
+{% include header.html %}
+
+<body class="gray">
+
+  {{ content }} 
+  
+  <!-- float-btn -->
+  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a class="btn-floating btn-large waves-effect waves-light green" href="#">
+      <i class="material-icons" onclick="M.toast({html: 'Take me higher🐸'})">arrow_upward</i>
+    </a>
+  </div>
+
+  {% include footer.html %}
+</body>
+
+</html>
