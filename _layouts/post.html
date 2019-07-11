@@ -9,23 +9,24 @@
 
 <body class="gray">
 
-  <!-- {% if page.type != "index" and page.type != "index-share" %} -->
   <!-- content-card -->
   <div class="container essy-card">
     <div class="card-panel hoverable">
       <!-- content -->
       <p class="title">{{ page.title }}</p>
       <p class="author">{{ page.author }}</p>
-      <p class="date">{{ page.date | date: "%Y年%m月%d日" }}</p>
-  <!-- {% endif %}  -->
+      <!-- 支持非标准日期 -->
+      {% if page.moredate != null %}
+        <p class="date">{{ page.moredate }}</p>
+      {% else %}
+        <p class="date">{{ page.date | date: "%Y年%m月%d日" }}</p>
+      {% endif %}
 
-    {{ content }} 
+      {{ content }} 
       
-  <!-- {% if page.type != "index" and page.type != "index-share" %} -->
       <!-- content -->
     </div>
   </div>
-  <!-- {% endif %} -->
   
   <!-- float-btn -->
   <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
