@@ -13,7 +13,11 @@ title: 野生散养攻城狮
         <div class="card-panel hoverable black-text">
           <h6 class="left-align">{{ post.title }}</h6>
           <h6 class="right-align">{{ post.author }}</h6>
+          {% if post.moredate != null %}
+          <h6 class="right-align">{{ post.moredate }}</h6>
+          {% else %}
           <h6 class="right-align">{{ post.date | date: "%Y年%m月%d日" }}</h6>
+          {% endif %}
         </div>
       </a>
     </div>
