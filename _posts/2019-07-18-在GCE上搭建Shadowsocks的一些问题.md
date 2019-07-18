@@ -83,7 +83,7 @@ vim /etc/shadowsocks/config.json
 /etc/init.d/shadowsocks start
 ```
 
-在客户端配置好服务器信息，即可连接到这台`Shadowsocks`服务器。但是，如果上面的配置信息里的`server`填的是`VPS公网IP`，会发现，客户端无法连接，查询日志会发现以下错误
+在客户端配置好服务器信息，即可连接到这台`Shadowsocks`服务器。但是，如果上面的配置信息里的`server`填的是`VPS公网IP`，会出现，客户端无法连接。
 
 查看日志文件
 
@@ -91,7 +91,7 @@ vim /etc/shadowsocks/config.json
 vim /var/log/shadowsocks
 ```
 
-日志文本
+发现以下错误
 
 ```
 INFO: loading config from /etc/shadowsocks/config.json
