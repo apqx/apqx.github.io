@@ -7,7 +7,7 @@ date:   2019-07-18 +0800
 categories: essy
 ---
 
-`GCE`(Google Compute Engine)即谷歌计算引擎，是`Google Cloud`的一部分，其实就是云端服务器，最低VPS套餐每月5美元，除了北美地区的一些机房流量免费外，其它地区的流量是单独计费的，尤其是流向中国大陆的流量，价格几乎翻倍了。但是，亚洲台湾机房的速度非常快，延迟在`60ms`左右，相比大部分`VPS`供应商动辄`200ms`的延迟，优势非常大，且`Google Cloud`可以免费试用一年，薅了一年羊毛之后，是否继续使用，就要看各自的需求了。
+`GCE`(Google Compute Engine)即谷歌计算引擎，是`Google Cloud`的一部分，其实就是云端服务器，最低`VPS`套餐每月5美元，除了北美地区的一些机房流量免费外，其它地区的流量是单独计费的，尤其是流向中国大陆的流量，价格几乎翻倍了。但是，亚洲台湾机房的速度非常快，延迟在`60ms`左右，相比大部分`VPS`供应商动辄`200ms`的延迟，优势非常大，且`Google Cloud`可以免费试用一年，薅了一年羊毛之后，是否继续使用，就要看各自的需求了。
 
 <img class="materialboxed responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/gcPrice.png" alt="pic">
 
@@ -113,7 +113,7 @@ socket.error: [Errno 99] Cannot assign requested address
 
 # 静态IP
 
-GCE给VPS默认分配的是动态IP，即IP地址可能会变化，我们当然希望它是不变的，因此需要在`VPC network`->`External IP addresses`里找到该VPS的IP，把它的`Type`改为`Static`。
+`GCE`给`VPS`默认分配的是动态`IP`，即`IP`地址可能会变化，我们当然希望它是不变的，因此需要在`VPC network`->`External IP addresses`里找到该`VPS`的`IP`，把它的`Type`改为`Static`。
 
 <img class="materialboxed responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/gcIp.png" alt="pic">
 
