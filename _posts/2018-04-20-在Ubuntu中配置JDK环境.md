@@ -1,7 +1,7 @@
 ---
 layout: post
 type: essy
-title:  "在Ubuntu 18.04 中配置JDK环境"
+title:  "在Ubuntu中配置JDK环境"
 author: APQX
 date:   2018-04-20 +0800
 categories: essy
