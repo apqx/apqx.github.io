@@ -62,11 +62,16 @@ p, li, .flow-text {
 /* 当显示宽度小于550px时，手机小屏 */
 @media only screen and (max-width: 550px) {
   
+  p, li, .flow-text {
+    font-size: 1.1rem;
+  }
+
   .card-panel {
     padding: 20px;
+    border-radius: 2px;
     /* 关闭card的阴影 */
-    /* -webkit-box-shadow: none !important;
-    box-shadow: none !important; */
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
   }
 
   /* 文章上边框 */
@@ -76,7 +81,7 @@ p, li, .flow-text {
 
   .container {
     max-width: 1080px;
-    width: 99%;
+    width: 100%;
   }
 
   .foot-detail {
