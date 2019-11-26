@@ -1,6 +1,7 @@
 # ignore generated site
 _site/
 raft/
+.jekyll-cache
 
 # Mac file
 *.DS_Store
