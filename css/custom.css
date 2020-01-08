@@ -146,15 +146,14 @@ p, li, .flow-text {
 code.highlighter-rouge {
   /* 灰色 */
   color:#535c68;
-  background-color: #ecf0f1;
-  /* 粉红色 */
-  /* color:#c4264f; */
-  /* background-color: #f9f2f4; */
   padding-left: 0.4rem;
   padding-right: 0.4rem;
   padding-top: 0.1rem;
   padding-bottom: 0.1rem;
   border-radius: 4px;
+
+  background:#fafafa;
+  border:1px solid lightgray;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Microsoft YaHei, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
