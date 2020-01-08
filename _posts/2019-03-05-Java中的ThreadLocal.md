@@ -2,7 +2,7 @@
 layout: post
 type: essy
 title:  "Java中的ThreadLocal"
-author: APQX
+author: 立泉
 date:   2019-03-05 +0800
 categories: essy
 ---

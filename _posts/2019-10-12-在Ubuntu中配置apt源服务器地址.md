@@ -2,7 +2,7 @@
 layout: post
 type: essy
 title:  "在Ubuntu中配置apt源服务器地址"
-author: APQX
+author: 立泉
 date:   2019-10-12 +0800
 categories: essy
 ---
@@ -114,7 +114,7 @@ deb-src http://cn.archive.ubuntu.com/ubuntu/ bionic-backports main restricted un
 
 可以看到`main/`, `universe/`, `multiverse/`, `retricted/`都是具体的目录，这样看来，就可以理解`/etc/apt/sources.list`每一行的含义了。
 
-根据[官网](https://opsx.alibaba.com/guide?lang=zh-CN&document=69a2341e-801e-11e8-8b5a-00163e04cdbb)，阿里云对应`Ubuntu 18.04`的镜像源地址如下
+根据[官网](https://developer.aliyun.com/mirror/)，阿里云对应`Ubuntu 18.04`的镜像源地址如下
 
 ```
 deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse

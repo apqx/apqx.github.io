@@ -2,7 +2,7 @@
 layout: post
 type: essy
 title:  "在GCE上搭建Shadowsocks的一些问题"
-author: APQX
+author: 立泉
 date:   2019-07-18 +0800
 categories: essy
 ---

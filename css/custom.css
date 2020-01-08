@@ -54,6 +54,10 @@ p, li, .flow-text {
   font-size: 1.2rem;
 }
 
+p, li:not(.none), .flow-text {
+  line-height: 2.0rem;
+}
+
 /* 定义在默认尺寸下，card的属性 */
 .card-panel {
   border-radius: 5px;
@@ -146,15 +150,14 @@ p, li, .flow-text {
 code.highlighter-rouge {
   /* 灰色 */
   color:#535c68;
-  background-color: #ecf0f1;
-  /* 粉红色 */
-  /* color:#c4264f; */
-  /* background-color: #f9f2f4; */
   padding-left: 0.4rem;
   padding-right: 0.4rem;
   padding-top: 0.1rem;
   padding-bottom: 0.1rem;
   border-radius: 4px;
+
+  background:#fafafa;
+  border:1px solid lightgray;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Microsoft YaHei, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
@@ -193,32 +196,16 @@ h2 {
   color: #ff7979
 }
 
-/* 正常显示无序列表 */
-ul:not(.browser-default) {
-  padding-left: 18pt;
-}
-
-ul:not(.browser-default) > li {
+/* 无序列表 */
+ul:not(.browser-default) > li:not(.none)  {
+  margin-left: 18pt;
   /* 实心圆 */
   list-style-type: disc;
 }
 
-/* 正常显示有序列表 */
-ol:not(.browser-default) {
+/* 有序列表 */
+ol:not(.browser-default) > li:not(.none)  {
   padding-left: 18pt;
-}
-
-ol:not(.browser-default) > li {
   /* 数字 */
   list-style-type: decimal;
-}
-
-/* 不显示列表前面的点，用于Nav上的标签，适用于大屏和小屏 */
-ul.clear {
-  padding-left: 0;
-}
-
-ul.clear > li {
-  /* 不显示 */
-  list-style-type: none;
 }

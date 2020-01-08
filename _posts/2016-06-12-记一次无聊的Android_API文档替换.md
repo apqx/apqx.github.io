@@ -2,7 +2,7 @@
 layout: post
 type: essy
 title:  "记一次无聊的Android API文档替换"
-author: APQX
+author: 立泉
 date:   2016-06-12 +0800
 categories: essy
 ---
@@ -26,7 +26,7 @@ categories: essy
 </script>
 ```
 
-这些代码在“正常”情况下自然无法访问，浏览器等待服务器响应直至超时，造成了加载缓慢的现象，所以，删除这部分代码即可使浏览器正常加载这些文件，而且不会对文档内容造成影响，只是缺少了某些交互效果，这些交互操作在大部分情况下并不重要，我们需要的是API内容。当然还有一种完美的解决方法，科学上网，但是，这种方法在某种程度上说并不方便。
+“正常”情况下无法访问的远程资源，浏览器等待服务器响应直至超时，造成了加载缓慢的现象，所以，删除这部分代码即可使浏览器正常加载这些文件，而且不会对文档内容造成影响，只是缺少了某些交互效果，它们在大部分情况下并不重要，我们需要的是API内容。当然还有一种完美的解决方法，科学上网，但是，这种方法在某种程度上说并不方便。
 
 我写了下面的一个小程序来处理这几千个HTML文件，即扫描所有文件，一旦发现含有以上代码即删除，然后重新输出回原文件。逐一读写数千个文档是一个相当费时的操作，所幸我并不赶时间。
 
@@ -40,31 +40,31 @@ import java.util.regex.Pattern;
 
 /**
  * Created by apqx on 2016/6/11.
- * 功能是删除Android API文档中需要链接Google的两段Javascript代码，以使阅读这些文档时更流畅，就像在断网情况下一样
+ * 删除Android API文档中需要链接Google的两段Javascript代码
  */
 public class ChangeFile {
-    public static void main(String[] args){
-        ChangeFile changeFile=new ChangeFile();
+    public static void main(String[] args) {
+        ChangeFile changeFile = new ChangeFile();
         // 文档所在的文件夹
-        File file=new File("F:/docs");
+        File file = new File("F:/docs");
         changeFile.scanFile(file);
         try {
-            Desktop.getDesktop().open(new File(file,"index.html"));
+            Desktop.getDesktop().open(new File(file, "index.html"));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void scanFile(File file){
+    private void scanFile(File file) {
         if (file.isDirectory()){
-            File[] list=file.listFiles(new FileFilter() {
+            File[] list = file.listFiles(new FileFilter() {
                 @Override
-                public boolean accept(File pathname) {
-                    if (pathname.isDirectory()){
+                public boolean accept(File file) {
+                    if (file.isDirectory()){
                         return true;
-                    }else if (pathname.getName().contains("html")){
+                    } else if (file.getName().contains("html")){
                         return true;
-                    }else {
+                    } else {
                         return false;
                     }
                 }
@@ -72,36 +72,36 @@ public class ChangeFile {
             for (File f:list){
                 scanFile(f);
             }
-        }else {
-            restoreFile(file);
+        } else {
+            changeContent(file);
         }
     }
     
-    private void restoreFile(File file){
-        BufferedReader bufferedReader=null;
-        BufferedWriter bufferedWriter=null;
+    private void changeContent(File file){
+        BufferedReader bufferedReader = null;
+        BufferedWriter bufferedWriter = null;
         try {
-            bufferedReader=new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-            StringBuilder stringBuilder=new StringBuilder();
+            bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+            StringBuilder stringBuilder = new StringBuilder();
             String string;
-            while ((string=bufferedReader.readLine())!=null){
-                stringBuilder.append(string+"\n");
+            while ((string = bufferedReader.readLine()) != null){
+                stringBuilder.append(string + "\n");
             }
-            string=stringBuilder.toString();
-            Matcher matcher= Pattern.compile("(<script .*http.*></script>)|((?s)<script>\n.*tracker\\.\n</script>)").matcher(string);
-            while (matcher.find()){
-                string=matcher.replaceAll("");
+            string = stringBuilder.toString();
+            Matcher matcher = Pattern.compile("(<script .*http.*></script>)|((?s)<script>\n.*tracker\\.\n</script>)").matcher(string);
+            while (matcher.find()) {
+                string = matcher.replaceAll("");
             }
-            bufferedWriter=new BufferedWriter(new FileWriter(file));
+            bufferedWriter = new BufferedWriter(new FileWriter(file));
             bufferedWriter.write(string);
             System.out.println("已处理\n"+file.getAbsolutePath());
         } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
                 bufferedReader.close();
                 bufferedWriter.close();
-            }catch (Exception e){
+            } catch (Exception e){
                 e.printStackTrace();
             }
         }

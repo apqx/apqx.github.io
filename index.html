@@ -1,13 +1,13 @@
 --- 
 layout: index
 type: index
-title: 野生散养攻城狮
+title: 立泉の写字板
 ---
 
-<ul class="clear">
+<ul>
   {% for post in site.posts %}
   {% if post.type == "essy" %}
-  <li>
+  <li class="none">
     <div class="container">
       <a href="{{ post.url | prepend: site.baseurl }}">
         <div class="card-panel hoverable black-text">
