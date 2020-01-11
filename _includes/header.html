@@ -5,17 +5,19 @@
     <nav>
       <!-- nav-tag -->
       <div class="nav-wrapper container">
-        <a href="https://apqx.me" class="brand-logo">APQX</a>
+        <a href="https://apqx.me" class="brand-logo"></a>
         <a href="#" data-target="nav-mobile" class="sidenav-trigger">
           <i class="material-icons">menu</i>
         </a>
-        <ul class="right hide-on-med-and-down clear">
+        <ul class="left hide-on-med-and-down clear">
           <li {% if page.type=="essy" or page.type=="index" %} class="active" {% endif %}>
             <a class="waves-effect waves-effect tooltipped" data-position="bottom" data-tooltip="我写的" href="{{ " /index.html " }}">随笔</a>
           </li>
           <li {% if page.type=="share" or page.type=="index-share" %} class="active" {% endif %}>
             <a class="waves-effect waves-effect tooltipped" data-position="bottom" data-tooltip="不是我写的" href="{{ " /index-share.html " }}">转载</a>
           </li>
+        </ul>
+        <ul class="right hide-on-med-and-down clear">
           <li>
             <a class="waves-effect waves-effect modal-trigger tooltipped" data-position="bottom" data-tooltip="Hi🤠" href="#about_me">关于我</a>
           </li>
@@ -30,9 +32,9 @@
         <img height="100px" width="100dx" class="circle responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/me.jpg" />
       </center>
       <center>
-        <h4>APQX</h4>
+        <h4>立泉</h4>
       </center>
-      <p class="flow-text center-align">野生散养攻城狮，十分“业余”摄影爱好者</p>
+      <p class="flow-text center-align">旅居杭州，野生散养攻城狮，十分“业余”摄影爱好者</p>
       <div class="collection">
         <a href="https://github.com/apqx" class="collection-item" target="_blank">GitHub</a>
         <!-- <a href="https://weibo.com/apqxme" class="collection-item" target="_blank">Weibo</a> -->

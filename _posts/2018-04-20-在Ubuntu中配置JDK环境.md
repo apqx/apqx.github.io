@@ -2,7 +2,7 @@
 layout: post
 type: essy
 title:  "在Ubuntu中配置JDK环境"
-author: APQX
+author: 立泉
 date:   2018-04-20 +0800
 categories: essy
 ---

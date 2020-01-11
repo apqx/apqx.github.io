@@ -2,7 +2,7 @@
 layout: post
 type: essy
 title:  "Android中的Thread和Handler"
-author: APQX
+author: 立泉
 date:   2018-11-20 +0800
 categories: essy
 ---

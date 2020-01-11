@@ -2,7 +2,7 @@
 layout: post
 type: essy
 title:  "在Ubuntu中配置apt源服务器地址"
-author: APQX
+author: 立泉
 date:   2019-10-12 +0800
 categories: essy
 ---

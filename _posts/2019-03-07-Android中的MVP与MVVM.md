@@ -2,7 +2,7 @@
 layout: post
 type: essy
 title:  "Android中的MVP与MVVM"
-author: APQX
+author: 立泉
 date:   2019-03-07 +0800
 categories: essy
 ---

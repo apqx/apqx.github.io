@@ -2,7 +2,7 @@
 layout: post
 type: essy
 title:  "Android中的AsyncTask"
-author: APQX
+author: 立泉
 date:   2018-12-25 +0800
 categories: essy
 ---

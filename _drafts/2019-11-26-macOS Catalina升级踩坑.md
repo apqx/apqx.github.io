@@ -2,7 +2,7 @@
 layout: post
 type: essy
 title:  "macOS Catalina升级踩坑"
-author: APQX
+author: 立泉
 date:   2019-11-26 +0800
 categories: essy
 ---

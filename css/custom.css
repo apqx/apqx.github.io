@@ -54,6 +54,10 @@ p, li, .flow-text {
   font-size: 1.2rem;
 }
 
+p, .flow-text {
+  line-height: 2.0rem;
+}
+
 /* 定义在默认尺寸下，card的属性 */
 .card-panel {
   border-radius: 5px;
