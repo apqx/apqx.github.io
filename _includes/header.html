@@ -9,16 +9,16 @@
         <a href="#" data-target="nav-mobile" class="sidenav-trigger">
           <i class="material-icons">menu</i>
         </a>
-        <ul class="left hide-on-med-and-down clear">
-          <li {% if page.type=="essy" or page.type=="index" %} class="active" {% endif %}>
+        <ul class="left hide-on-med-and-down none">
+          <li {% if page.type=="essy" or page.type=="index" %} class="active none" {% else %} class="none" {% endif %}>
             <a class="waves-effect waves-effect tooltipped" data-position="bottom" data-tooltip="我写的" href="{{ " /index.html " }}">随笔</a>
           </li>
-          <li {% if page.type=="share" or page.type=="index-share" %} class="active" {% endif %}>
+          <li {% if page.type=="share" or page.type=="index-share" %} class="active none" {% else %} class="none" {% endif %}>
             <a class="waves-effect waves-effect tooltipped" data-position="bottom" data-tooltip="不是我写的" href="{{ " /index-share.html " }}">转载</a>
           </li>
         </ul>
-        <ul class="right hide-on-med-and-down clear">
-          <li>
+        <ul class="right hide-on-med-and-down none">
+          <li class="none">
             <a class="waves-effect waves-effect modal-trigger tooltipped" data-position="bottom" data-tooltip="Hi🤠" href="#about_me">关于我</a>
           </li>
         </ul>
@@ -34,26 +34,31 @@
       <center>
         <h4>立泉</h4>
       </center>
-      <p class="flow-text center-align">旅居杭州，野生散养攻城狮，十分“业余”摄影爱好者</p>
+      <center>
+        <span class="chip">Java</span>
+        <span class="chip">Kotlin</span>
+        <span class="chip">Android</span>
+        <span class="chip">Git</span>
+      </center>
+      <p class="flow-text center-align">九五后，旅居杭州，野生散养攻城狮，十分“业余”摄影Fans</p>
       <div class="collection">
         <a href="https://github.com/apqx" class="collection-item" target="_blank">GitHub</a>
         <!-- <a href="https://weibo.com/apqxme" class="collection-item" target="_blank">Weibo</a> -->
         <a href="https://www.facebook.com/apqx.me" class="collection-item" target="_blank">Facebook</a>
         <a href="https://www.instagram.com/apqx_me/" class="collection-item" target="_blank">Instagram</a>
         <a href="mailto:changgongapq@gmail.com" class="collection-item">changgongapq@gmail.com</a>
-        <a onclick="M.toast({html: 'Surprise😎'})" data-position="bottom" data-tooltip="Try click👅" class="tooltipped collection-item">Yeap, I'm just a simple android developer, for now👽</a>
       </div>
     </div>
   </div>
   <!-- slide-to-show-nav-tag -->
-  <ul id="nav-mobile" class="sidenav clear">
-    <li {% if page.type=="essy" or page.type=="index" %} class="active" {% endif %}>
+  <ul id="nav-mobile" class="sidenav">
+    <li {% if page.type=="essy" or page.type=="index" %} class="active none" {% else %} class="none" {% endif %}>
       <a class="waves-effect waves-red" href="{{ " /index.html " }}">随笔</a>
     </li>
-    <li {% if page.type=="share" or page.type=="index-share" %} class="active" {% endif %}>
+    <li {% if page.type=="share" or page.type=="index-share" %} class="active none" {% else %} class="none" {% endif %}>
       <a class="waves-effect waves-red" href="{{ " /index-share.html " }}">转载</a>
     </li>
-    <li>
+    <li class="none">
       <a class="waves-effect waves-red modal-trigger" href="#about_me">关于我</a>
     </li>
   </ul>

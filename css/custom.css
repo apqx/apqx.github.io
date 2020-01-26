@@ -54,7 +54,7 @@ p, li, .flow-text {
   font-size: 1.2rem;
 }
 
-p, .flow-text {
+p, li:not(.none), .flow-text {
   line-height: 2.0rem;
 }
 
@@ -196,32 +196,16 @@ h2 {
   color: #ff7979
 }
 
-/* 正常显示无序列表 */
-ul:not(.browser-default) {
-  padding-left: 18pt;
-}
-
-ul:not(.browser-default) > li {
+/* 无序列表 */
+ul:not(.browser-default) > li:not(.none)  {
+  margin-left: 18pt;
   /* 实心圆 */
   list-style-type: disc;
 }
 
-/* 正常显示有序列表 */
-ol:not(.browser-default) {
+/* 有序列表 */
+ol:not(.browser-default) > li:not(.none)  {
   padding-left: 18pt;
-}
-
-ol:not(.browser-default) > li {
   /* 数字 */
   list-style-type: decimal;
-}
-
-/* 不显示列表前面的点，用于Nav上的标签，适用于大屏和小屏 */
-ul.clear {
-  padding-left: 0;
-}
-
-ul.clear > li {
-  /* 不显示 */
-  list-style-type: none;
 }
