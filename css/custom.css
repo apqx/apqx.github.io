@@ -205,7 +205,7 @@ ul:not(.browser-default) > li:not(.none)  {
 
 /* 有序列表 */
 ol:not(.browser-default) > li:not(.none)  {
-  padding-left: 18pt;
+  padding-left: 5pt;
   /* 数字 */
   list-style-type: decimal;
 }
