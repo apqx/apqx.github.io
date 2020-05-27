@@ -7,6 +7,7 @@ $(document).ready(function () {
   $('.scrollspy').scrollSpy();
   $('.carousel').carousel();
   $('.tooltipped').tooltip();
+  $('.collapsible').collapsible();
   // highlight.js
   hljs.initHighlightingOnLoad();
 });
