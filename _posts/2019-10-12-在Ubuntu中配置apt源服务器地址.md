@@ -9,8 +9,8 @@ categories: essy
 
 在基于`Debian`的`Linux`发行版中，可以使用`apt(Advanced Packaging Tool)`高级包管理器来直接安装软件。
 
-```
-// 比如安装jekyll，这是一个基于Markdown的静态网站生成工具
+```sh
+# 比如安装jekyll，这是一个基于Markdown的静态网站生成工具
 sudo apt install jekyll
 ```
 
@@ -18,7 +18,7 @@ sudo apt install jekyll
 
 <img class="materialboxed responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/note/pic/ubuntu_settings_apt.png" alt="pic">
 
-这个`Main server`在中国大陆的访问速度是非常慢的，所以必须修改为最近的`源镜像服务器`，我使用的是`Ubuntu 18.04.3 LTS`，点击`Download from`下拉列表，会发现系统已经提供了很多大陆的源服务器镜像，我选择的是`阿里云`。
+这个`Main server`在中国大陆的访问速度是非常慢的，所以必须修改为最近的`源镜像服务器`，我使用的是`Ubuntu 18.04.3 LTS`，点击`Download from`下拉列表，会发现系统已经提供了很多大陆的源服务器镜像，可以选择`阿里云`的镜像。
 
 <img class="materialboxed responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/note/pic/ubuntu_settings_apt_source.png" alt="pic">
 
@@ -32,7 +32,7 @@ sudo apt install jekyll
 
 默认的`/etc/apt/sources.list`文件内容是类似于如下格式的，可能服务器地址有些不同，和安装`Ubuntu`时选择的国家和地区有关。
 
-```
+```sh
 main multiverse #Added by software-properties
 
 ## N.B. software from this repository is ENTIRELY UNSUPPORTED by the Ubuntu
@@ -78,7 +78,7 @@ deb http://security.ubuntu.com/ubuntu bionic-security multiverse
 
 把注释去掉，调整一下格式，可以看得更清楚一点
 
-```
+```sh
 deb http://cn.archive.ubuntu.com/ubuntu/ bionic universe multiverse
 deb-src http://cn.archive.ubuntu.com/ubuntu/ bionic universe multiverse
 
@@ -116,7 +116,7 @@ deb-src http://cn.archive.ubuntu.com/ubuntu/ bionic-backports main restricted un
 
 根据[官网](https://developer.aliyun.com/mirror/)，阿里云对应`Ubuntu 18.04`的镜像源地址如下
 
-```
+```sh
 deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
 deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
 
@@ -135,19 +135,19 @@ deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted unive
 
 如果要自定义`apt源`，可以直接修改`/etc/apt/sources.list`文件，用以上内容替换掉原内容即可。
 
-```
-// 修改系统文件前备份是个好习惯
+```sh
+# 修改系统文件前备份是个好习惯
 sudo cp /etc/apt/sources.list /etc/apt/sources.list.back
 sudo vim /etc/apt/sources.list
-// 修改完成后，更新包索引
+# 修改完成后，更新包索引
 sudo apt update
 ```
 
 其实`Ubuntu`也提供了一个`/etc/apt/sources.list.d/`目录来存放用户自定义的源地址，所以，可以不修改`/etc/apt/sources.list`，而是在`/etc/apt/sources.list.d/`目录下新建一个`aliyun.list`文件，把阿里云的镜像地址复制进去即可。
 
-```
-// 创建aliyun.list文件，并把阿里云的镜像地址复制进去
+```sh
+# 创建aliyun.list文件，并把阿里云的镜像地址复制进去
 sudo vim /etc/apt/sources.list.d/aliyun.list
-// 修改完成后，更新包索引
+# 修改完成后，更新包索引
 sudo apt update
 ```

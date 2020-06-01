@@ -11,7 +11,7 @@ categories: essy
 
 排查了一会，加载缓慢的元凶就是下面这两段代码：
 
-```java
+```xml
 <script src="http://www.google.com/jsapi" type="text/javascript"></script>
 
 <script>

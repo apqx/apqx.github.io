@@ -9,19 +9,19 @@ categories: essy
 
 # 前言
 
-其实，在很长的一段时间里，我并不了解`Handler`究竟是如何工作的，接触`RxJava`之前，需要切换线程时，我只是简单的`post(Runnable)`，但随着所做项目代码的不断迭代优化，我必须要弄清楚自己用到的每一个组件的执行原理，不然便无法为大项目的代码质量负责。之前在学习和工作中，我都会将笔记和心得写在`OneNote`上，这些纯文本记录容量目前已经达到了57M，我知道，是时候停下来，好好将它们分类整理，用它们来填充我的技术栈，这篇文章只是一个开始，如果我能把一个东西写清楚，可以说，我才真正理解了它。
+其实，在很长的一段时间里，我并不了解`Handler`究竟是如何工作的，接触`RxJava`之前，需要切换线程时，我只是简单的`post(Runnable)`，但随着所做项目代码的不断迭代优化，我必须要弄清楚自己用到的每一个组件的执行原理，不然便无法为大项目的代码质量负责。之前在学习和工作中，我都会将笔记和心得写在`OneNote`上，这些文本记录容量目前已经达到了57M，我知道，是时候停下来，好好将它们分类整理，用它们来填充我的技术栈，这篇文章只是一个开始，如果我能把一个东西写清楚，可以说，我才真正理解了它。
 
 # Android中的Thread
 
 ## Main Thread
 
-对Android来说，`Thread`即Java线程，当一个App的组件启动时，Android系统会为它创建一个`Linux Process`和一个`Execution Thread`，默认情况下，此App的所有组件都会运行在这个进程的单一执行线程中，包括UI上产生的各种触控交互事件的分发，所以此线程又被称为`UI Thread`和`Main Thread`。
+对`Android`来说，`Thread`即`Java`线程，当一个App的组件启动时，`Android`系统会为它创建一个`Linux Process`和一个`Execution Thread`，默认情况下，此App的所有组件都会运行在这个进程的单一执行线程中，包括UI上产生的各种触控交互事件的分发，所以此线程又被称为`UI Thread`和`Main Thread`。
 
 ## CalledFromWrongThreadException
 
 > Only the original thread that created a view hierarchy can touch its views
 
-Android的UI操作是线程不安全的，这意味着多线程操作UI时可能会出现状态不一致的情况，所以Android强制要求必须在主线程中操作UI，在其它任何线程中操作UI都会抛出`CalledFromWrongThreadException`。
+`Android`的UI操作是线程不安全的，这意味着多线程操作UI时可能会出现状态不一致的情况，所以`Android`强制要求必须在主线程中操作UI，在其它任何线程中操作UI都会抛出`CalledFromWrongThreadException`。
 
 ```kotlin
 override onCreate(savedInstanceState: Bundle?) {
@@ -40,16 +40,16 @@ override onCreate(savedInstanceState: Bundle?) {
 
 ## ANR
 
-即`Application Not Responding`，应用程序无响应，Android作为手持设备，是通过展示UI的触摸与用户交互的，这些触控事件一旦产生，都会在主线程中进行由`Activity`到`View`的层层分发，交给对应的处理代码，并在处理完成后，及时刷新UI，这样用户才会感到操作流畅、不卡顿。如果负责分发事件的主线程被阻塞（通常是在主线程中执行耗时操作），则用户点击屏幕后，这些触控事件迟迟不能向下传递，事件处理者就无法获取事件并给出反馈，用户看到的就是，点击了屏幕，无任何反应，App就像卡住了一样，通常，如果阻塞时间大于5秒，Android系统就会弹出`ANR`，提醒用户强制关闭程序。
+即`Application Not Responding`，应用程序无响应，`Android`作为手持设备，是通过展示UI的触摸与用户交互的，这些触控事件一旦产生，都会在主线程中进行由`Activity`到`View`的层层分发，交给对应的处理代码，并在处理完成后，及时刷新UI，这样用户才会感到操作流畅、不卡顿。如果负责分发事件的主线程被阻塞（通常是在主线程中执行耗时操作），则用户点击屏幕后，这些触控事件迟迟不能向下传递，事件处理者就无法获取事件并给出反馈，用户看到的就是，点击了屏幕，无任何反应，App就像卡住了一样，通常，如果阻塞时间大于5秒，`Android`系统就会弹出`ANR`，提醒用户强制关闭程序。
 
-总的来说，在Android中使用线程，必须遵循以下2条规则：
+总的来说，在`Android`中使用线程，必须遵循以下2条规则：
 
 * 必须在主线程中操作UI
 * 不能阻塞主线程
 
 # 什么是Handler
 
-已经知道，Android App需要在工作线程中执行耗时操作，然后切换到主线程刷新UI，这个切换线程的动作就可以使用`Handler`实现，实际上，`Handler`可以实现将任意线程中的`Message`、`Runnable`发送到指定的线程中处理。
+已经知道，`Android`需要在工作线程中执行耗时操作，然后切换到主线程刷新UI，这个切换线程的动作就可以使用`Handler`实现，实际上，`Handler`可以实现将任意线程中的`Message`、`Runnable`发送到指定的线程中处理。
 
 ```kotlin
 // 创建处理Runnable的Handler
@@ -71,7 +71,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
 }
 ```
 
-要理解`Handler`是如何将`Runnable`和`Message`发送到另一个线程中的，需要借助`Looper`、`MessageQueue`和`ThreadLocal`，我们从创建Handler的那一刻说起：
+要理解`Handler`是如何将`Runnable`和`Message`发送到另一个线程中的，需要借助`Looper`、`MessageQueue`和`ThreadLocal`，我们从创建`Handler`的那一刻说起：
 
 ```java
 // 创建Handler时，实际使用的构造器
@@ -90,7 +90,7 @@ public Handler(Callback callback, boolean async) {
 }
 ```
 
-在创建`Handler`时，它会去获取一个`Looper`，并且获取这个`Looper`的`MessageQueue`，如果获取不到，就会直接抛出异常，那么它要获取的是什么Looper呢，继续看
+在创建`Handler`时，它会去获取一个`Looper`，并且获取这个`Looper`的`MessageQueue`，如果获取不到，就会直接抛出异常，那么它要获取的是什么`Looper`呢，继续看
 
 ```java
 // Looper.myLooper()方法实现
@@ -198,7 +198,7 @@ class CusThread : Thread() {
 
 实际上，这个线程在创建了`Handler`之后，就因为执行`Looper.loop()`而阻塞，等待执行`Handler`分发的事件，注意到，`Looper.loop()`是在该线程中执行的，结合之前的源码分析，通过`Handler`发送的`Runnable`都会在这个线程中执行，而`Handler.post(Runnable)`这个行为可以在其它任意线程中进行，这就实现了，在其它线程中发送事件到指定的线程中处理，即广义上的切换线程。
 
-可以这样使用上面的CusThread
+可以这样使用上面的`CusThread`
 
 ```kotlin
 val thread = CusThread()

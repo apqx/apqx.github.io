@@ -7,6 +7,8 @@ date:   2019-07-18 +0800
 categories: essy
 ---
 
+> 更新：有证据表明GFW已经可以精准识别Shadowsocks的流量特征，本文内容已不可靠。
+
 `GCE`(Google Compute Engine)即谷歌计算引擎，是`Google Cloud`的一部分，其实就是云端服务器，最低`VPS`套餐每月5美元，除了北美地区的一些机房流量免费外，其它地区的流量是单独计费的，尤其是流向中国大陆的流量，价格几乎翻倍了。但是，亚洲台湾机房的速度非常快，延迟在`60ms`左右，相比大部分`VPS`供应商动辄`200ms`的延迟，优势非常大，且`Google Cloud`可以免费试用一年，薅了一年羊毛之后，是否继续使用，就要看各自的需求了。
 
 <img class="materialboxed responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/gcPrice.png" alt="pic">
@@ -37,22 +39,22 @@ categories: essy
 
 切换到`root`用户
 
-```
+```sh
 sudo su
 ```
 
 安装`Shadowsocks`
 
-```
-// 更新apt索引
+```sh
+# 更新apt索引
 apt update
-// 安装
+# 安装
 apt install shadowsocks
 ```
 
 配置`Shadowsocks`的默认配置文件
 
-```
+```sh
 vim /etc/shadowsocks/config.json
 ```
 
@@ -79,21 +81,21 @@ vim /etc/shadowsocks/config.json
 
 启动`Shadowsocks`
 
-```
+```sh
 /etc/init.d/shadowsocks start
 ```
 
 在客户端配置好服务器信息，即可连接到这台`Shadowsocks`服务器。但是，如果上面的配置信息里的`server`填的是`VPS公网IP`，会出现，客户端无法连接。
 
 查看日志文件
-
+sh
 ```
 vim /var/log/shadowsocks
 ```
 
 发现以下错误
 
-```
+```sh
 INFO: loading config from /etc/shadowsocks/config.json
 Traceback (most recent call last):
   File "/usr/bin/ssserver", line 11, in <module>

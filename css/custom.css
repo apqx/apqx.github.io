@@ -51,7 +51,7 @@ html {
 
 /* 定义在默认尺寸下，字体的大小 */
 p, li, .flow-text {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 p, li:not(.none), .flow-text {

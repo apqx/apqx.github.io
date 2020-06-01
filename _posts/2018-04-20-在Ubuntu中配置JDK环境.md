@@ -7,7 +7,7 @@ date:   2018-04-20 +0800
 categories: essy
 ---
 
-我经常会产生一些有意思的想法，对很多事情感到好奇，习惯了图形化交互高度成熟的`Windows 10`，突发奇想的要尝试一下传说中“纯手工”操作的`Linux`，正好手里刚组了人生的第一个台式机，`Ubuntu`自然就成了首选操作系统。
+我经常会产生一些有意思的想法，对很多事情感到好奇，习惯了图形化交互高度成熟的`Windows 10`，有点想要尝试一下传说中“纯手工”操作的`Linux`，正好手里刚组了人生的第一个台式机，`Ubuntu`自然就成了首选操作系统。
 
 作为一个10年的`Windows`用户，翻遍了`Ubuntu`的`Settings`，也没有发现和`Environment Variables`相关的东西，设置界面相比于`Windows`的控制面板，只能用“简陋”来形容，更不要说文件管理器了。在这一刻，我也突然明白了，为什么`Windows`能占领民用桌面操作系统，果然又是“同行的衬托”，相比`Linux`的高冷，`Windows`对几乎所有的操作都提供了图形化接口，动动鼠标就能完成的事，对于普通人，谁会想再去面对那个“恐怖”的`Terminal`呢。
 
@@ -15,34 +15,34 @@ categories: essy
 
 # 安装JDK
 
-在Oracle网站下载[JDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk10-downloads-4416644.html)文件
+在`Oracle`网站下载[JDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk10-downloads-4416644.html)文件
 
 解压JDK到`/usr/lib`中
 
-```
-// 实际目录和文件名可能不同
+```sh
+# 实际目录和文件名可能不同
 sudo tar -xf /home/apqx/Downloads/jdk-10.0.1_linux-x64_bin.tar.gz /usr/lib
 ```
 
 # 配置环境变量：直接修改environment文件
 
-`Ubuntu`的`环境变量`配置文件是`/etc/environment`，可以直接将JDK目录写到这个文件中，对所有用户生效
+`Ubuntu`的`环境变量`配置文件是`/etc/environment`，可以直接将`JDK`目录写到这个文件中，对所有用户生效
 
 打开文件
 
-```
+```sh
 sudo vim /etc/environment
 ```
 
 里面的内容应该是类似这样的
 
-```
+```sh
 PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 ```
 
-将JDK目录添加到`PATH`中
+将`JDK`目录添加到`PATH`中
 
-```
+```sh
 JAVA_HOME="/usr/lib/jdk-10.0.1/"
 PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/jdk-10.0.1/bin"
 ```
@@ -51,13 +51,13 @@ PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/u
 
 加载修改后的文件，使在当前`Terminal`立即生效，全局生效则需要重新登陆
 
-```
+```sh
 source /etc/environment
 ```
 
 检查是否配置成功
 
-```
+```sh
 echo $JAVA_HOME
 echo $PATH
 ```
@@ -66,30 +66,30 @@ echo $PATH
 
 在`Terminal`中输入
 
-```
+```sh
 export JAVA_HOME=/usr/lib/jdk-10.0.1
 export PATH=$PATH:$JAVA_HOME/bin
 ```
 
 即定义了一个`JAVA_HOME`环境变量，并将其路径添加到了系统环境变量`PATH`的后面，此时执行
 
-```
+```sh
 echo $PATH
 ```
 
 就可以看到，已经添加成功了。但是这种方式设置的`环境变量`只对当前`Terminal`及其衍生`Terminal`有效，解决方法就是在用户登陆时自动在根`Terminal`中执行`export`命令，这样在用户登陆后，就是全局生效的。
 
-在Linux中有一个特殊的目录`/etc/profile.d/`，此目录下的脚本文件都会在`用户登录`时自动被执行，当然Linux的`开机`并不等于`用户登陆`，所以这种方式和`开机自启`还是有一些区别的，单对于设置环境变量来说足够了。
+在`Linux`中有一个特殊的目录`/etc/profile.d/`，此目录下的脚本文件都会在`用户登录`时自动被执行，当然`Linux`的`开机`并不等于`用户登陆`，所以这种方式和`开机自启`还是有一些区别的，单对于设置环境变量来说足够了。
 
 在`/etc/profile.d`目录下创建用于设置`环境变量`的脚本文件`environment.sh`
 
-```
+```sh
 sudo vim /etc/profile.d/environment.sh
 ```
 
-在创建的脚本文件中设置Java`环境变量`
+在创建的脚本文件中设置`JDK`的`环境变量`
 
-```
+```sh
 #!/bin/sh
 export JAVA_HOME=/usr/lib/jdk-10.0.1
 export PATH=$PATH:$JAVA_HOME/bin
@@ -97,13 +97,13 @@ export PATH=$PATH:$JAVA_HOME/bin
 
 执行脚本
 
-```
+```sh
 sh /etc/profile.d/environment.sh
 ```
 
 检查环境变量是否设置成功
 
-```
+```sh
 java --version
 ```
 
@@ -113,8 +113,8 @@ java --version
 
 上面的方式是手动下载`Oracle JDK`，手动安装，然后手动配置环境变量，步骤清晰，但还是有一点麻烦，如果是使用`Open JDK`的话，只需要一条指令，下载、安装、环境变量的配置便会自动完成。
 
-```
-// 安装Java 8版本的OpenJDK
+```sh
+# 安装Java 8版本的OpenJDK
 sudo apt install openjdk-8-jdk
 ```
 
