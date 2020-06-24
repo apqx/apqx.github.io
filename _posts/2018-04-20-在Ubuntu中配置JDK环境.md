@@ -19,8 +19,8 @@ categories: essy
 
 解压JDK到`/usr/lib`中
 
-```
-// 实际目录和文件名可能不同
+```sh
+# 实际目录和文件名可能不同
 sudo tar -xf /home/apqx/Downloads/jdk-10.0.1_linux-x64_bin.tar.gz /usr/lib
 ```
 
@@ -30,19 +30,19 @@ sudo tar -xf /home/apqx/Downloads/jdk-10.0.1_linux-x64_bin.tar.gz /usr/lib
 
 打开文件
 
-```
+```sh
 sudo vim /etc/environment
 ```
 
 里面的内容应该是类似这样的
 
-```
+```sh
 PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 ```
 
 将JDK目录添加到`PATH`中
 
-```
+```sh
 JAVA_HOME="/usr/lib/jdk-10.0.1/"
 PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/jdk-10.0.1/bin"
 ```
@@ -51,13 +51,13 @@ PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/u
 
 加载修改后的文件，使在当前`Terminal`立即生效，全局生效则需要重新登陆
 
-```
+```sh
 source /etc/environment
 ```
 
 检查是否配置成功
 
-```
+```sh
 echo $JAVA_HOME
 echo $PATH
 ```
@@ -66,14 +66,14 @@ echo $PATH
 
 在`Terminal`中输入
 
-```
+```sh
 export JAVA_HOME=/usr/lib/jdk-10.0.1
 export PATH=$PATH:$JAVA_HOME/bin
 ```
 
 即定义了一个`JAVA_HOME`环境变量，并将其路径添加到了系统环境变量`PATH`的后面，此时执行
 
-```
+```sh
 echo $PATH
 ```
 
@@ -83,13 +83,13 @@ echo $PATH
 
 在`/etc/profile.d`目录下创建用于设置`环境变量`的脚本文件`environment.sh`
 
-```
+```sh
 sudo vim /etc/profile.d/environment.sh
 ```
 
 在创建的脚本文件中设置Java`环境变量`
 
-```
+```sh
 #!/bin/sh
 export JAVA_HOME=/usr/lib/jdk-10.0.1
 export PATH=$PATH:$JAVA_HOME/bin
@@ -97,13 +97,13 @@ export PATH=$PATH:$JAVA_HOME/bin
 
 执行脚本
 
-```
+```sh
 sh /etc/profile.d/environment.sh
 ```
 
 检查环境变量是否设置成功
 
-```
+```sh
 java --version
 ```
 
@@ -113,8 +113,8 @@ java --version
 
 上面的方式是手动下载`Oracle JDK`，手动安装，然后手动配置环境变量，步骤清晰，但还是有一点麻烦，如果是使用`Open JDK`的话，只需要一条指令，下载、安装、环境变量的配置便会自动完成。
 
-```
-// 安装Java 8版本的OpenJDK
+```sh
+# 安装Java 8版本的OpenJDK
 sudo apt install openjdk-8-jdk
 ```
 
