@@ -18,7 +18,7 @@ sudo apt install jekyll
 
 <img class="materialboxed responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/note/pic/ubuntu_settings_apt.png" alt="pic">
 
-这个`Main server`在中国大陆的访问速度是非常慢的，所以必须修改为最近的`源镜像服务器`，我使用的是`Ubuntu 18.04.3 LTS`，点击`Download from`下拉列表，会发现系统已经提供了很多大陆的源服务器镜像，我选择的是`阿里云`。
+这个`Main server`在中国大陆的访问速度是非常慢的，所以必须修改为最近的`源镜像服务器`，我使用的是`Ubuntu 18.04.3 LTS`，点击`Download from`下拉列表，会发现系统已经提供了很多大陆的源服务器镜像，可以选择`阿里云`的镜像。
 
 <img class="materialboxed responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/note/pic/ubuntu_settings_apt_source.png" alt="pic">
 
