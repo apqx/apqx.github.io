@@ -280,7 +280,7 @@ ol:not(.browser-default) > li:not(.none)  {
     }
 
     /* 关于我的背景 */
-    .modal-content {
+    .modal, .modal-content {
       background-color:#2c3037;
     }
 
