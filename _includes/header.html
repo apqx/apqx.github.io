@@ -32,7 +32,7 @@
         <img height="100px" width="100dx" class="circle responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/me.jpg" />
       </center>
       <center>
-        <h4>立泉</h4>
+        <h4 class="index-title">立泉</h4>
       </center>
       <center>
         <span class="chip">Java</span>
@@ -53,13 +53,13 @@
   <!-- slide-to-show-nav-tag -->
   <ul id="nav-mobile" class="sidenav">
     <li {% if page.type=="essy" or page.type=="index" %} class="active none" {% else %} class="none" {% endif %}>
-      <a class="waves-effect waves-red" href="{{ " /index.html " }}">随笔</a>
+      <a class="waves-effect waves-red nav-item" href="{{ " /index.html " }}">随笔</a>
     </li>
     <li {% if page.type=="share" or page.type=="index-share" %} class="active none" {% else %} class="none" {% endif %}>
-      <a class="waves-effect waves-red" href="{{ " /index-share.html " }}">转载</a>
+      <a class="waves-effect waves-red nav-item" href="{{ " /index-share.html " }}">转载</a>
     </li>
     <li class="none">
-      <a class="waves-effect waves-red modal-trigger" href="#about_me">关于我</a>
+      <a class="waves-effect waves-red modal-trigger nav-item" href="#about_me">关于我</a>
     </li>
   </ul>
   <!-- 索引页面不显示 -->
