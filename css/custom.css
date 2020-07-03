@@ -220,11 +220,11 @@ ol:not(.browser-default) > li:not(.none)  {
 @media only screen and (prefers-color-scheme: dark) {
     /* 背景颜色 */
     .base-body {
-      background-color:#3d3d3d;
+      background-color:#252730;
     }
     /* 用于承载索引和文章的卡片颜色 */
     .card-panel {
-      background-color:#4b4b4b;
+      background-color:#2c3037;
     }
     
     /* 侧滑栏 */
@@ -253,7 +253,7 @@ ol:not(.browser-default) > li:not(.none)  {
 
      /* 正文 */
     p, li, .flow-text{
-      color: #f1f2f6;
+      color: #bec0c2;
     }
 
     /* 索引标题颜色 */
@@ -265,33 +265,32 @@ ol:not(.browser-default) > li:not(.none)  {
     code.highlighter-rouge {
       color:#bec0c2;
     
-      background:#4b4b4b;
+      background:#2c3037;
       border:1px solid lightgray;
     }
 
     /* 表格头 */
     thead {
-      color: white;
+      color: #e1e2e6;
     }
 
     /* 表格item */
     tbody {
-      color: #e1e2e6;
+      color: #bec0c2;
     }
 
     /* 关于我的背景 */
     .modal-content {
-      background-color:#3d3d3d;
+      background-color:#2c3037;
     }
 
     /* 关于我联系方式Container */
     .collection {
-      background-color:#4b4b4b;
       border: 1px solid #3d3d3d;
     }
     /* 关于我的联系方式Item */
     .collection .collection-item {
-      background-color:#4b4b4b;
+      background-color:#252730;
       border-bottom: 1px solid #3d3d3d
     }
 
