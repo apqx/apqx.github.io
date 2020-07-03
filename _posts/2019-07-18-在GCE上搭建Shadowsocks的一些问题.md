@@ -13,7 +13,7 @@ categories: essy
 
 <img class="materialboxed responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/gcPrice.png" alt="pic">
 
-和`Vultr`的[配置方式](https://apqx.me/essy/2018/12/09/%E5%80%9A%E6%99%B4%E5%A4%A9-%E7%BA%A2%E6%9D%8F%E7%AA%A5%E5%A2%99.html)不同，在`GCE`上搭建`Shadowsocks`有一些细节问题需要注意。
+和`Vultr`的{% for post in site.posts %}{% if post.title contains "倚晴天，红杏窥墙" %}[配置方式]({{ post.url | prepend: site.baseurl }}){% endif %}{% endfor %}不同，在`GCE`上搭建`Shadowsocks`有一些细节问题需要注意。
 
 # 防火墙
 
