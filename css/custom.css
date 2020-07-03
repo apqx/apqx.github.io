@@ -226,20 +226,29 @@ ol:not(.browser-default) > li:not(.none)  {
     .card-panel {
       background-color:#4b4b4b;
     }
+    
+    /* 侧滑栏 */
+    .sidenav {
+      background-color:#3d3d3d;
+    }
+
+    li a.nav-item {
+      color: white;
+    }
 
     /* 文章标题 */
     .title {
-      color: #f1f2f6;
+      color: white;
     }
 
     /* 文章署名和日期 */
     .author {
-      color: #f1f2f6;
+      color: white;
     }
 
     /* 文章日期 */
     .date {
-      color: #f1f2f6;
+      color: white;
     }
 
      /* 正文 */
@@ -254,7 +263,7 @@ ol:not(.browser-default) > li:not(.none)  {
 
     /* 段落中单词高亮 */
     code.highlighter-rouge {
-      color:#ced6e0;
+      color:#bec0c2;
     
       background:#4b4b4b;
       border:1px solid lightgray;
