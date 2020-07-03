@@ -269,6 +269,16 @@ ol:not(.browser-default) > li:not(.none)  {
       border:1px solid lightgray;
     }
 
+    /* 表格头 */
+    thead {
+      color: white;
+    }
+
+    /* 表格item */
+    tbody {
+      color: #e1e2e6;
+    }
+
     /* 关于我的背景 */
     .modal-content {
       background-color:#3d3d3d;
