@@ -266,7 +266,7 @@ ol:not(.browser-default) > li:not(.none)  {
       color:#bec0c2;
     
       background:#2c3037;
-      border:1px solid lightgray;
+      border:1px solid #576574;
     }
 
     /* 表格头 */
