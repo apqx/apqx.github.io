@@ -109,7 +109,7 @@ server {
 
 访问网站，即可看到已经启用了`HTTPS`，证书由`Let’s Encrypt`签发，有效期90天。
 
-<img class="materialboxed responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/letsEncrypt.png" alt="pic">
+<img class="materialboxed responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/letsEncrypt.jpg" alt="pic">
 
 我使用的是`谷歌云`在台湾数据中心的服务器，延迟在60ms左右，比`GitHub Pages`的平均300ms好多了，但当然比不上离我最近的阿里云杭州数据中心的10ms，不过，对于静态网站来说，已经很好了。
 
