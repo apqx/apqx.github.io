@@ -111,4 +111,6 @@ server {
 
 <img class="materialboxed responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/letsEncrypt.png" alt="pic">
 
+我使用的是`谷歌云`在台湾数据中心的服务器，延迟在60ms左右，比`GitHub Pages`的平均300ms好多了，但当然比不上离我最近的阿里云杭州数据中心的10ms，不过，对于静态网站来说，已经很好了。
+
 所谓镜像，理想的情况是，在本地执行了`push`之后，`GitHub`自动通知`VPS`博客内容已经发生了更改，执行`pull`拉取源文件，转换为`HTML`后，博客自动更新。emmm，看起来也不复杂，可能之后会做吧，我更新博客的频率并不高，手动执行还可以增加对`Linux`的熟悉度，，自动化的动力毕竟不足，哈哈。
