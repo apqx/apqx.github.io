@@ -293,6 +293,11 @@ ol:not(.browser-default) > li:not(.none)  {
       background-color:#252730;
       border-bottom: 1px solid #3d3d3d
     }
+    
+    /* 关于我的联系方式Item hover颜色*/
+    .collection a.collection-item:not(.active):hover {
+      background-color: #2c3037;
+    }
 
     /* 关于我的Tag列表*/
     .chip {
