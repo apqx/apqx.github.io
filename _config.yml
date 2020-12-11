@@ -15,8 +15,8 @@ url: "https://apqx.me" # the base hostname & protocol for your site
 twitter_username: GuodongYuan
 github_username:  apqx
 
-# 允许内网设备通过ip访问
-host: 0.0.0.0
-
 # Build settings
 markdown: kramdown
+
+# 允许内网设备通过ip访问
+host: 0.0.0.0
