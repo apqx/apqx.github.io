@@ -13,11 +13,12 @@ title: 立泉の写字板
         <div class="card-panel hoverable index-title">
           <h6 class="left-align">{{ post.title }}</h6>
           <h6 class="right-align">{{ post.author }}</h6>
-          {% if post.moredate != null %}
+          <!-- {% if post.moredate != null %}
           <h6 class="right-align">{{ post.moredate }}</h6>
           {% else %}
           <h6 class="right-align">{{ post.date | date: "%Y年%m月%d日" }}</h6>
-          {% endif %}
+          {% endif %} -->
+          <h6 class="right-align">{{ post.date | date: "%Y年%m月%d日" }}</h6>
         </div>
       </a>
     </div>
