@@ -15,6 +15,12 @@ url: "https://apqx.me" # the base hostname & protocol for your site
 twitter_username: GuodongYuan
 github_username:  apqx
 
+# Url output
+permalink: /:categories/:year/:month/:day/:title:output_ext
+
+# Code highlight，work with theme，mayby later
+# highlighter: rouge
+
 # Build settings
 markdown: kramdown
 
