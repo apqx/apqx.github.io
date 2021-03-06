@@ -24,5 +24,9 @@ permalink: /:categories/:year/:month/:day/:title:output_ext
 # Build settings
 markdown: kramdown
 
+plugins:
+  - jekyll-sitemap
+  - jekyll-feed
+
 # 允许内网设备通过ip访问
 host: 0.0.0.0
