@@ -37,7 +37,7 @@
             <div class="collection">
               {% for post in tagInSite[1] %}
               {% if page.type contains post.type %}
-                  <a href="{{ post.url }}" class="collection-item flow-text">{{ post.date | date: "%Y%m%d" }}_{{ post.title }}</a>
+                  <a href="{{ post.url }}" class="collection-item flow-text modal-close">{{ post.date | date: "%Y%m%d" }}_{{ post.title }}</a>
               {% endif %}
               {% endfor %}
             </div>
