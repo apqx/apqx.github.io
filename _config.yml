@@ -27,6 +27,18 @@ markdown: kramdown
 plugins:
   - jekyll-sitemap
   - jekyll-feed
+  - jekyll-archives
+
+jekyll-archives:
+  enabled:
+  - tags
+  layout: archive
+  permalinks:
+    year: '/:year/'
+    month: '/:year/:month/'
+    day: '/:year/:month/:day/'
+    tag: '/tag/:name/'
+    category: '/category/:name/'
 
 # 允许内网设备通过ip访问
 host: 0.0.0.0
