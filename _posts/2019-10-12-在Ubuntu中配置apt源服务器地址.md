@@ -5,6 +5,7 @@ title:  "在Ubuntu中配置apt源服务器地址"
 author: 立泉
 date:   2019-10-12 +0800
 categories: essy
+tags: CS Ubuntu
 ---
 
 在基于`Debian`的`Linux`发行版中，可以使用`apt(Advanced Packaging Tool)`高级包管理器来直接安装软件。

@@ -9,5 +9,5 @@ group :jekyll_plugins do
   gem "webrick"
   gem "jekyll-feed"
   gem "jekyll-sitemap"
-  gem 'jekyll-archives'
+  # gem 'jekyll-archives'
 end
