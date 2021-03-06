@@ -5,6 +5,7 @@ title:  "A new approach to China: an update"
 author: Google
 date:   2010-03-22 +0800
 categories: essy
+tags: 思维
 ---
 
 > 原文[在此](https://googleblog.blogspot.com/2010/03/new-approach-to-china-update.html)，那一年，我15岁，第一次离开县城，去市里的高中读书。

@@ -8,6 +8,7 @@ $(document).ready(function () {
   $('.carousel').carousel();
   $('.tooltipped').tooltip();
   $('.collapsible').collapsible();
+  $(".dropdown-trigger").dropdown();
   // highlight.js
   hljs.initHighlightingOnLoad();
 });

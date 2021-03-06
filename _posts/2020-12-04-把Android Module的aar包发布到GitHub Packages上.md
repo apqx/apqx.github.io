@@ -5,6 +5,7 @@ title:  "把Android Module的aar包发布到GitHub Packages"
 author: 立泉
 date:   2020-12-04 +0800
 categories: essy
+tags: CS Android Gradle GitHub
 ---
 
 成为一个全职`Android`开发工程师已有三年，经手的项目很多，也积累了一些自己常用的代码工具，我把它们封装在一个`Android Library`中，在我的各个业余项目中使用。但是每次都在工程中为它单独创建一个`Module`显然太过麻烦，直接打包为`aar`又会出现一些依赖问题，因为`gradle`并不会把`Module`的外部依赖直接写进`aar`里，这意味着必须在使用该`aar`的`Module`中手动引入这些依赖，否则会因为依赖缺失而无法通过编译。
@@ -75,11 +76,8 @@ buildscript {
 
 关于使用`build variant`创建不同类型包的相关问题，通常用于打出同一个版本的不同渠道包，可以查看我的另一篇文章：
 
-{% for post in site.posts %}
-{% if post.title contains "使用Gradle创建不同的打包类型" %}
-[{{ post.title }}]({{ post.url | prepend: site.baseurl }})
-{% endif %}
-{% endfor %}
+
+[使用Gradle创建不同的打包类型]({% post_url 2020-06-12-使用Gradle创建不同的打包类型 %})
 
 比如在该`Module`的`build.gradle`中定义了`mi`和`play`2个`flavor`，用于配置发布到小米商店和`Google Play`商店的渠道包，它们与`release`和`debug`2个`build type`组合就可以有4个`build variant`
 

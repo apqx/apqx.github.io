@@ -5,6 +5,7 @@ title:  "在GCE上搭建Shadowsocks的一些问题"
 author: 立泉
 date:   2019-07-18 +0800
 categories: essy
+tags: CS Google_Cloud VPS Shadowsocks
 ---
 
 > 更新：有证据表明GFW已经可以精准识别Shadowsocks的流量特征，仅使用其作为工具可能导致服务器端口/IP被GFW封禁，本文内容仅供参考。
@@ -13,7 +14,7 @@ categories: essy
 
 <img class="materialboxed responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/gcPrice.jpg" alt="pic">
 
-和`Vultr`的{% for post in site.posts %}{% if post.title contains "倚晴天，红杏窥墙" %}[配置方式]({{ post.url | prepend: site.baseurl }}){% endif %}{% endfor %}不同，在`GCE`上搭建`Shadowsocks`有一些细节问题需要注意。
+和`Vultr`的[配置方式]({% post_url 2018-12-09-倚晴天，红杏窥墙 %})不同，在`GCE`上搭建`Shadowsocks`有一些细节问题需要注意。
 
 # 防火墙
 

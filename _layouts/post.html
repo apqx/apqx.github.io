@@ -23,6 +23,31 @@
         <p class="date">{{ page.date | date: "%Y年%m月%d日" }}</p>
       {% endif %}
 
+      <!-- tags -->
+      {% for tagInPage in page.tags %}
+      <a class="chip modal-trigger" href="#tag-{{ tagInPage }}">#{{ tagInPage }}</a>
+      <!-- 每一个tag对应一个弹出的窗口，包含该tag的所有文章 -->
+      <!-- pop-up-tag -->
+      <div id="tag-{{ tagInPage }}" class="modal bottom-sheet">
+        <div class="modal-content">
+          <div class="container">
+            {% for tagInSite in site.tags %}
+            {% if tagInSite[0] contains tagInPage%}
+            <p class="flow-text">标记TAG <code class="language-plaintext highlighter-rouge">#{{ tagInPage }}</code> 的{% if page.type contains "share" %}转载{% else %}{% endif %}博文</p>
+            <div class="collection">
+              {% for post in tagInSite[1] %}
+              {% if page.type contains post.type %}
+                  <a href="{{ post.url }}" class="collection-item flow-text modal-close">{{ post.date | date: "%Y%m%d" }}_{{ post.title }}</a>
+              {% endif %}
+              {% endfor %}
+            </div>
+            {% endif %}
+            {% endfor %}  
+
+          </div>
+        </div>
+      </div>
+      {% endfor %}
       {{ content }} 
       
       <!-- content -->
