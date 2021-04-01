@@ -9,5 +9,6 @@ group :jekyll_plugins do
   gem "webrick"
   gem "jekyll-feed"
   gem "jekyll-sitemap"
+  gem "kramdown", ">= 2.3.1"
   # gem 'jekyll-archives'
 end
