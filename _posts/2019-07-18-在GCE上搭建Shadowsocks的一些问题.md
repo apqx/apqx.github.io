@@ -12,7 +12,7 @@ tags: CS Google_Cloud VPS Shadowsocks
 
 `GCE`(Google Compute Engine)即谷歌计算引擎，是`Google Cloud`的一部分，其实就是云端服务器，最低`VPS`套餐每月5美元，除了北美地区的一些机房流量免费外，其它地区的流量是单独计费的，尤其是流向中国大陆的流量，价格几乎翻倍了。但是，亚洲台湾机房的速度非常快，延迟在`60ms`左右，相比大部分`VPS`供应商动辄`200ms`的延迟，优势非常大，且`Google Cloud`可以免费试用一年，薅了一年羊毛之后，是否继续使用，就要看各自的需求了。
 
-<img class="materialboxed responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/gcPrice.jpg" alt="pic">
+<img class="responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/gcPrice.jpg" alt="pic">
 
 和`Vultr`的[配置方式]({% post_url 2018-12-09-倚晴天，红杏窥墙 %})不同，在`GCE`上搭建`Shadowsocks`有一些细节问题需要注意。
 
@@ -20,23 +20,23 @@ tags: CS Google_Cloud VPS Shadowsocks
 
 `Google`可能会限制一些端口的流量入站行为，影响`Shadowsocks`的运行，所以首先要配置一个允许所有入站端口的防火墙规则，在`VPC network`->`Firewall rules`中，点击`CREATE FIREWALL RULE`，创建一个名为`allow-all-in`的规则。
 
-<img class="materialboxed responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/gcFirewall.jpg" alt="pic">
+<img class="responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/gcFirewall.jpg" alt="pic">
 
 # 创建实例
 
 在`Compute Engine`->`VM instances`中，点击`CREATE INSTANCE`，地区、套餐和操作系统按需求选择，在`Network`->`Network tags`里填写上文创建的`allow-all-in`规则，其余项默认即可，点击`Create`。
 
-<img class="materialboxed responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/gcInstance.jpg" alt="pic">
+<img class="responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/gcInstance.jpg" alt="pic">
 
 # 安装&配置
 
 在`VM instance`里找到上文创建的实例，点击`Connect`里的`SSH`
 
-<img class="materialboxed responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/gcConnect.jpg" alt="pic">
+<img class="responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/gcConnect.jpg" alt="pic">
 
 会在新的浏览器窗口里建立和服务器的`SSH`连接
 
-<img class="materialboxed responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/gcSSH.jpg" alt="pic">
+<img class="responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/gcSSH.jpg" alt="pic">
 
 切换到`root`用户
 
@@ -118,6 +118,6 @@ socket.error: [Errno 99] Cannot assign requested address
 
 `GCE`给`VPS`默认分配的是动态`IP`，即`IP`地址可能会变化，我们当然希望它是不变的，因此需要在`VPC network`->`External IP addresses`里找到该`VPS`的`IP`，把它的`Type`改为`Static`。
 
-<img class="materialboxed responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/gcIp.jpg" alt="pic">
+<img class="responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/gcIp.jpg" alt="pic">
 
 注意看上面有一个`RESERVE STATIC ADDRESS`选项，它可以申请一个新的`静态IP`，然后把它绑定到任意的`实例`上，这意味着，对`科学上网`而言，经常面临的`IP`被封问题，可以通过更换`VPS`的`IP`来解决，这也是`Google Cloud`相对其它供应商的又一个大的优势。

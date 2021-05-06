@@ -10,7 +10,7 @@ tags: 思维
 
 > 原文[在此](https://googleblog.blogspot.com/2010/03/new-approach-to-china-update.html)，那一年，我15岁，第一次离开县城，去市里的高中读书。
 
-<img class="materialboxed responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/google_quite_china.jpg" alt="pic">
+<img class="responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/google_quite_china.jpg" alt="pic">
 
 On January 12, we [announced on this blog](http://googleblog.blogspot.com/2010/01/new-approach-to-china.html) that Google and more than twenty other U.S. companies had been the victims of a sophisticated cyber attack originating from China, and that during our investigation into these attacks we had uncovered evidence to suggest that the Gmail accounts of dozens of human rights activists connected with China were being routinely accessed by third parties, most likely via phishing scams or malware placed on their computers. We also made clear that these attacks and the surveillance they uncovered—combined with attempts over the last year to further limit free speech on the web in China including the persistent blocking of websites such as Facebook, Twitter, YouTube, Google Docs and Blogger—had led us to conclude that we could no longer continue censoring our results on Google.cn.
 

@@ -18,7 +18,7 @@ tags: CS Android
 
 > Model View Controller
 
-<img class="materialboxed responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/mvc.png" alt="pic">
+<img class="responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/mvc.png" alt="pic">
 
 * `View`即视图，用于接收UI事件，控制UI状态。
 * `Model`即数据模型，用于处理数据，比如从数据库和网络中读写操作。
@@ -127,7 +127,7 @@ class WeatherActivity : Activity(), OnBtnClickListener{
 
 > Model View Presenter
 
-<img class="materialboxed responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/mvp.png" alt="pic">
+<img class="responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/mvp.png" alt="pic">
 
 * `View`即视图，用于接收UI事件，控制UI状态，一般为`Activity`和`Fragment`。
 * `Model`即数据模型，用于处理数据，比如从数据库和网络中读写操作。
@@ -226,7 +226,7 @@ class WeatherPresenter(private val iWeatherActivity: IWeatherActivity) : IWeathe
 
 > Model View ViewModel
 
-<img class="materialboxed responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/mvvm.png" alt="pic">
+<img class="responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/mvvm.png" alt="pic">
 
 * `View`即视图，用于接收UI事件，控制UI状态，一般为`Activity`和`Fragment`。
 * `Model`即数据模型，用于处理数据，比如从数据库和网络中读写操作。
