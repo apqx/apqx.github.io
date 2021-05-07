@@ -22,7 +22,7 @@ tags: CS GitHub Jekyll VPS
 
 `GitHub Pages`的博客方案其实很简单，整个博客本身是一个`GitHub`仓库，按`Jekyll`工程的目录格式配置文件。
 
-<img class="responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/jekyllProject.png" alt="pic">
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/jekyllProject.png)
 
 其中，`_drafts`和`_posts`分别存放用`MarkDown`格式写的草稿和博文，`assets`存放一些媒体资源文件，我已经把它们迁到了阿里云的`OSS`上，所以这里是空的。而`_includs`, `_layouts`, `css`, `font`, `js`则是和网站的主题、布局、模版相关的东西，毕竟`Jekyll`需要使用这些配置才能将`MarkDown`转换为静态`HTML`网页。
 
@@ -110,10 +110,10 @@ server {
 
 访问网站，即可看到已经启用了`HTTPS`，证书由`Let’s Encrypt`签发，有效期90天。
 
-<img class="responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/letsEncrypt.jpg" alt="pic">
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/letsEncrypt.jpg)
 
 我使用的是`谷歌云`在台湾数据中心的服务器，延迟在60ms左右，比`GitHub Pages`的平均300ms好多了，但当然比不上离我最近的阿里云杭州数据中心的10ms，不过，对于静态网站来说，已经很好了。
 
-<img class="responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/pingApqxMe.jpg" alt="pic">
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/pingApqxMe.jpg)
 
 所谓镜像，理想的情况是，在本地执行了`push`之后，`GitHub`自动通知`VPS`博客内容已经发生了更改，执行`pull`拉取源文件，转换为`HTML`后，博客自动更新。emmm，看起来也不复杂，可能之后会做吧，我更新博客的频率并不高，手动执行还可以增加对`Linux`的熟悉度，，自动化的动力毕竟不足，哈哈。

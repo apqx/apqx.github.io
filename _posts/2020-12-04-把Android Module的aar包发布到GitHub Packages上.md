@@ -34,7 +34,7 @@ allprojects {
 
 简单的说，`GitHub Packages`就是`GitHub`托管的`Maven`仓库，它允许把软件二进制包发布到指定的私有或公开的`GitHub Repository`中，所以相比其它的`Maven`仓库，`GitHub Packages`的优势在于它把源码和编译后的包放到了同一个位置。
 
-<img class="responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/github_packages_jettools.jpg" alt="pic">
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/github_packages_jettools.jpg)
 
 左边是源码，右边就是发布的包，一目了然，这也是我更喜欢使用它的原因。
 
@@ -42,11 +42,11 @@ allprojects {
 
 `GitHub Packages`只允许获得授权的用户把包发布到指定的`Repository`中，也只有获得授权的用户才可以用`gradle`配置该`Repository`的包作为项目的远程依赖，即发包和使用包都需要授权。这里的授权，指的是一个用户自己配置了指定权限的`access token`，在`Settings` -> `Developer settings`的`Personal access tokens`里可以创建或删除`token`。
 
-<img class="responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/github_packages_token.jpg" alt="pic">
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/github_packages_token.jpg)
 
 创建`token`时，如果想向一个`Repository`中发布包，需要`write:packages`权限，如果只是读取包，只需要`read:packages`，要注意的是，必须按提示在`token`创建完成后把它记录下来，一旦离开这个页面，就再也看不到它了。
 
-<img class="responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/github_packages_token_create.jpg" alt="pic">
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/github_packages_token_create.jpg)
 
 # gradle发布包
 
@@ -202,7 +202,7 @@ project.afterEvaluate {
 * publishMyPlayReleasePublicationToGitHubPackagesRepository
 * publishMyPlayReleasePublicationToMavenLocal
 
-<img class="responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/gradle_task_maven.jpg" alt="pic">
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/gradle_task_maven.jpg)
 
 执行对应的`task`即可把指定的包发布到指定的`Maven`仓库，这里的`MavenLocal`是本地仓库，位置在`$USER_HOME/.m2/repository`目录下，`aar`包中同样不包含依赖，同样也会生成包含依赖列表的`.pom`文件。
 

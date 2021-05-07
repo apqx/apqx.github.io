@@ -2,66 +2,97 @@
 <html>
 
 <head>
-  {% include head-common.html %} 
+  {% include head-common.html %}
 </head>
 
-{% include header.html %}
 
-<body class="base-body">
+<body class="mdc-typography">
+  {% include header.html %}
 
-  <!-- content-card -->
-  <div class="container essy-card">
-    <div class="card-panel">
-      <!-- content -->
-      <!-- <p class="title" onclick="copyUrl()">{{ page.title }}</p> -->
-      <p class="title">{{ page.title }}</p>
-      <p class="author">{{ page.author }}</p>
+  <main class="mdc-top-app-bar--fixed-adjust main-container">
+
+    <div class="mdc-card essy-card">
+      <p class="essy-title">{{ page.title }}</p>
+      <p class="essy-author">{{ page.author }}</p>
       <!-- 支持非标准日期 -->
       {% if page.moredate != null %}
-        <p class="date">{{ page.moredate }}</p>
+      <p class="essy-date">{{ page.moredate }}</p>
       {% else %}
-        <p class="date">{{ page.date | date: "%Y年%m月%d日" }}</p>
+      <p class="essy-date">{{ page.date | date: "%Y年%m月%d日" }}</p>
       {% endif %}
 
       <!-- tags -->
-      {% for tagInPage in page.tags %}
-      <a class="chip modal-trigger" href="#tag-{{ tagInPage }}">#{{ tagInPage }}</a>
-      <!-- 每一个tag对应一个弹出的窗口，包含该tag的所有文章 -->
-      <!-- pop-up-tag -->
-      <div id="tag-{{ tagInPage }}" class="modal bottom-sheet">
-        <div class="modal-content">
-          <div class="container">
-            {% for tagInSite in site.tags %}
-            {% if tagInSite[0] contains tagInPage%}
-            <p class="flow-text">标记TAG <code class="language-plaintext highlighter-rouge">#{{ tagInPage }}</code> 的{% if page.type contains "share" %}转载{% else %}{% endif %}博文</p>
-            <div class="collection">
-              {% for post in tagInSite[1] %}
-              {% if page.type contains post.type %}
-                  <a href="{{ post.url }}" class="collection-item flow-text modal-close">{{ post.date | date: "%Y%m%d" }}_{{ post.title }}</a>
-              {% endif %}
-              {% endfor %}
-            </div>
-            {% endif %}
-            {% endfor %}  
+      <span class="mdc-evolution-chip-set tags" role="grid">
+        <span class="mdc-evolution-chip-set__chips" role="presentation">
+          {% for tagInPage in page.tags %}
+          <span class="mdc-evolution-chip" role="row" id="chip">
+            <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
+              <button class="mdc-evolution-chip__action mdc-evolution-chip__action--primary dialog-trigger"
+                type="button" id="chip_tag_{{ tagInPage }}">
+                <span class="mdc-evolution-chip__ripple mdc-evolution-chip__ripple--primary"></span>
+                <span class="mdc-evolution-chip__text-label">#{{ tagInPage }}</span>
+              </button>
+            </span>
+          </span>
+          <!-- tag对应的dialog -->
+          <div class="mdc-dialog" id="dialog_{{ tagInPage }}">
+            <div class="mdc-dialog__container">
+              <!-- 加上width500px后满足要求 -->
+              <div class="mdc-dialog__surface common-dialog-container" role="alertdialog" aria-modal="true" aria-labelledby="my-dialog-title"
+                aria-describedby="my-dialog-content">
+                <div class="mdc-dialog__content" id="my-dialog-content">
+                  {% for tagInSite in site.tags %}
+                  {% if tagInSite[0] contains tagInPage%}
+                  <p>标记TAG <code class="language-plaintext highlighter-rouge">#{{ tagInPage }}</code> 的{% if page.type
+                    contains "share" %}转载{% else %}{% endif %}博文</p>
 
+                  <ul class="mdc-deprecated-list mdc-deprecated-list--two-line dialog-link-list">
+                    {% for post in tagInSite[1] %}
+                    {% if page.type contains post.type %}
+                    <a class="mdc-deprecated-list-item" href="{{ post.url }}">
+                      <span class="mdc-deprecated-list-item__ripple"></span>
+                      <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">{{ post.title }}</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">{{ post.date | date: "%Y.%m.%d" }}</span>
+                      </span>
+                  </a>
+                    <hr class="mdc-deprecated-list-divider">
+                    {% endif %}
+                    {% endfor %}
+                  </ul>
+                  {% endif %}
+                  {% endfor %}
+                  <div class="mdc-dialog__actions" style="padding: 0;">
+                    <button type="button" class="mdc-button mdc-button--outlined center-horizontal" style="width: 100%;"
+                      data-mdc-dialog-action="cancel">
+                      <div class="mdc-button__ripple"></div>
+                      <span class="mdc-button__label">CLOSE</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mdc-dialog__scrim"></div>
           </div>
-        </div>
-      </div>
-      {% endfor %}
-      {{ content }} 
-      
-      <!-- content -->
+
+          {% endfor %}
+        </span>
+      </span>
+
+
+
+
+
+
+      <!-- essy content -->
+      {{ content }}
     </div>
-  </div>
-  
-  <!-- float-btn -->
-  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-    <a class="btn-floating btn-large waves-effect waves-light green">
-      <i class="material-icons" onclick="scrollToTop()">arrow_upward</i>
-    </a>
-  </div>
+
+  </main>
+
 
   {% include footer.html %}
+
 </body>
 
 </html>
