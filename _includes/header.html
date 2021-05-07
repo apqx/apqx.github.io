@@ -1,70 +1,13 @@
-<header>
-  <!-- nav-bar -->
-  <!-- <div class="navbar-fixed"> -->
-  <div class="navbar">
-    <nav>
-      <!-- nav-tag -->
-      <div class="nav-wrapper container">
-        <a href="https://apqx.me" class="brand-logo"></a>
-        <a href="#" data-target="nav-mobile" class="sidenav-trigger">
-          <i class="material-icons">menu</i>
-        </a>
-        <ul class="left hide-on-med-and-down none">
-          <li {% if page.type=="essy" or page.type=="index" %} class="active none" {% else %} class="none" {% endif %}>
-            <a class="waves-effect tooltipped" data-position="bottom" data-tooltip="我写的" href="{{ " /index.html " }}">随笔</a>
-          </li>
-          <li {% if page.type=="share" or page.type=="index-share" %} class="active none" {% else %} class="none" {% endif %}>
-            <a class="waves-effect tooltipped" data-position="bottom" data-tooltip="不是我写的" href="{{ " /index-share.html " }}">转载</a>
-          </li>
-        </ul>
-        <ul class="right hide-on-med-and-down none">
-          <li class="none">
-            <a class="waves-effect modal-trigger tooltipped" data-position="bottom" data-tooltip="Hi🤠" href="#about_me">关于我</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </div>
-  <!-- pop-up-about-me -->
-  <div id="about_me" class="modal container foot-detail">
-    <div class="modal-content">
-      <center>
-        <img height="100px" width="100dx" class="circle responsive-img" src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/me.jpg" />
-      </center>
-      <center>
-        <h4 class="index-title">立泉</h4>
-      </center>
-      <center>
-        <span class="chip">Java</span>
-        <span class="chip">Kotlin</span>
-        <span class="chip">Android</span>
-        <span class="chip">Git</span>
-      </center>
-      <p class="flow-text center-align">九五后，旅居杭州，昆虫，野生散养攻城狮，“十分”“业余”摄影Fans</p>
-      <div class="collection">
-        <a href="https://github.com/apqx" class="collection-item" target="_blank">GitHub</a>
-        <a href="https://www.facebook.com/apqx.me" class="collection-item" target="_blank">Facebook</a>
-        <a href="https://www.instagram.com/apqx_me/" class="collection-item" target="_blank">Instagram</a>
-        <a href="https://space.bilibili.com/11037907" class="collection-item" target="_blank">Bilibili</a>
-        <a href="mailto:changgongapq@gmail.com" class="collection-item">changgongapq@gmail.com</a>
-      </div>
-    </div>
-  </div>
-  <!-- slide-to-show-nav-tag -->
-  <ul id="nav-mobile" class="sidenav">
-    <li {% if page.type=="essy" or page.type=="index" %} class="active none" {% else %} class="none" {% endif %}>
-      <a class="waves-effect waves-red nav-item" href="{{ " /index.html " }}">随笔</a>
-    </li>
-    <li {% if page.type=="share" or page.type=="index-share" %} class="active none" {% else %} class="none" {% endif %}>
-      <a class="waves-effect waves-red nav-item" href="{{ " /index-share.html " }}">转载</a>
-    </li>
-    <li class="none">
-      <a class="waves-effect waves-red modal-trigger nav-item" href="#about_me">关于我</a>
-    </li>
-  </ul>
-  <!-- 索引页面不显示 -->
-  {% if page.type != "index" and page.type != "index-share" %}
-  
-  {% endif %}
+<header class="mdc-top-app-bar mdc-top-app-bar--short">
+  <div class="mdc-top-app-bar__row">
+      <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+          <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">menu</button>
+          <!-- <span class="mdc-top-app-bar__title">在历史的“风陵渡”口</span> -->
+      </section>
 
+      <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+          <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button"
+              aria-label="Bookmark this page">person_pin</button>
+      </section>
+  </div>
 </header>

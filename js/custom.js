@@ -1,3 +1,11 @@
+$(document).ready(function () {
+    // highlight.js
+    hljs.initHighlightingOnLoad();
+});
+
+console.log("Hello");
+
+
 // When the user clicks on the button, scroll to the top of the document
 const scrollToTop = () => {
     const c = document.documentElement.scrollTop || document.body.scrollTop;

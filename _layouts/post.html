@@ -2,66 +2,54 @@
 <html>
 
 <head>
-  {% include head-common.html %} 
+  {% include head-common.html %}
 </head>
 
-{% include header.html %}
 
-<body class="base-body">
+<body>
+  {% include header.html %}
 
-  <!-- content-card -->
-  <div class="container essy-card">
-    <div class="card-panel">
-      <!-- content -->
-      <!-- <p class="title" onclick="copyUrl()">{{ page.title }}</p> -->
-      <p class="title">{{ page.title }}</p>
-      <p class="author">{{ page.author }}</p>
+  <main class="mdc-top-app-bar--fixed-adjust main-container">
+
+    <div class="mdc-card essy-card mdc-elevation--z1">
+      <p class="essy-title">{{ page.title }}</p>
+      <p class="essy-author">{{ page.author }}</p>
       <!-- 支持非标准日期 -->
       {% if page.moredate != null %}
-        <p class="date">{{ page.moredate }}</p>
+      <p class="essy-date">{{ page.moredate }}</p>
       {% else %}
-        <p class="date">{{ page.date | date: "%Y年%m月%d日" }}</p>
+      <p class="essy-date">{{ page.date | date: "%Y年%m月%d日" }}</p>
       {% endif %}
 
       <!-- tags -->
-      {% for tagInPage in page.tags %}
-      <a class="chip modal-trigger" href="#tag-{{ tagInPage }}">#{{ tagInPage }}</a>
-      <!-- 每一个tag对应一个弹出的窗口，包含该tag的所有文章 -->
-      <!-- pop-up-tag -->
-      <div id="tag-{{ tagInPage }}" class="modal bottom-sheet">
-        <div class="modal-content">
-          <div class="container">
-            {% for tagInSite in site.tags %}
-            {% if tagInSite[0] contains tagInPage%}
-            <p class="flow-text">标记TAG <code class="language-plaintext highlighter-rouge">#{{ tagInPage }}</code> 的{% if page.type contains "share" %}转载{% else %}{% endif %}博文</p>
-            <div class="collection">
-              {% for post in tagInSite[1] %}
-              {% if page.type contains post.type %}
-                  <a href="{{ post.url }}" class="collection-item flow-text modal-close">{{ post.date | date: "%Y%m%d" }}_{{ post.title }}</a>
-              {% endif %}
-              {% endfor %}
-            </div>
-            {% endif %}
-            {% endfor %}  
-
-          </div>
+      <div class="mdc-chip-set" role="grid">
+        {% for tagInPage in page.tags %}
+        <div class="mdc-chip" role="row">
+          <div class="mdc-chip__ripple"></div>
+          <span role="gridcell">
+            <span role="button" class="mdc-chip__primary-action">
+              <span class="mdc-chip__text">#{{ tagInPage }}</span>
+            </span>
+          </span>
         </div>
+        {% endfor %}
       </div>
-      {% endfor %}
-      {{ content }} 
-      
-      <!-- content -->
+      {{ content }}
     </div>
-  </div>
-  
-  <!-- float-btn -->
-  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-    <a class="btn-floating btn-large waves-effect waves-light green">
-      <i class="material-icons" onclick="scrollToTop()">arrow_upward</i>
-    </a>
-  </div>
+
+  </main>
+
 
   {% include footer.html %}
+
+  <!-- Floating Action Button -->
+  <div class="mdc-touch-target-wrapper">
+    <button class="mdc-fab app-fab--absolute" aria-label="Favorite" onclick="scrollToTop()">
+      <div class="mdc-fab__ripple"></div>
+      <span class="mdc-fab__icon material-icons">arrow_upward</span>
+    </button>
+  </div>
+
 </body>
 
 </html>

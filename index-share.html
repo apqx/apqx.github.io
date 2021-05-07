@@ -4,24 +4,17 @@ type: index-share
 title: 立泉の写字板
 ---
 
-<ul>
-  {% for post in site.posts %} 
+<ul class="index-ul">
+  {% for post in site.posts %}
   {% if post.type == "share" %}
-  <li class="none">
-    <div class="container">
-      <a href="{{ post.url | prepend: site.baseurl }}">
-        <div class="card-panel hoverable index-title">
-          <h6 class="left-align">{{ post.title }}</h6>
-          <h6 class="right-align">{{ post.author }}</h6>
-          <!-- {% if post.moredate != null %}
-          <h6 class="right-align">{{ post.moredate }}</h6>
-          {% else %}
-          <h6 class="right-align">{{ post.date | date: "%Y年%m月%d日" }}</h6>
-          {% endif %} -->
-          <h6 class="right-align">{{ post.date | date: "%Y年%m月%d日" }}</h6>
-        </div>
+  <li class="index-li">
+      <a class="index-a" href="{{ post.url | prepend: site.baseurl }}">
+          <div class="mdc-card index-card mdc-elevation--z1">
+              <p class="index-title">{{ post.title }}</p>
+              <p class="index-author">{{ post.author }}</p>
+              <p class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</p>
+          </div>
       </a>
-    </div>
   </li>
   {% endif %}
   {% endfor %}
