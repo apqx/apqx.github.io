@@ -6,7 +6,7 @@
 </head>
 
 
-<body>
+<body class="mdc-typography">
   {% include header.html %}
 
   <main class="mdc-top-app-bar--fixed-adjust main-container">
@@ -22,7 +22,7 @@
       {% endif %}
 
       <!-- tags -->
-      <span class="mdc-evolution-chip-set" role="grid">
+      <span class="mdc-evolution-chip-set tags" role="grid">
         <span class="mdc-evolution-chip-set__chips" role="presentation">
           {% for tagInPage in page.tags %}
           <span class="mdc-evolution-chip" role="row" id="chip">
@@ -38,7 +38,7 @@
           <div class="mdc-dialog" id="dialog_{{ tagInPage }}">
             <div class="mdc-dialog__container">
               <!-- 加上width500px后满足要求 -->
-              <div class="mdc-dialog__surface" role="alertdialog" aria-modal="true" aria-labelledby="my-dialog-title"
+              <div class="mdc-dialog__surface common-dialog-container" role="alertdialog" aria-modal="true" aria-labelledby="my-dialog-title"
                 aria-describedby="my-dialog-content">
                 <div class="mdc-dialog__content" id="my-dialog-content">
                   {% for tagInSite in site.tags %}
@@ -62,13 +62,13 @@
                   </ul>
                   {% endif %}
                   {% endfor %}
-                </div>
-                <div class="mdc-dialog__actions">
-                  <button type="button" class="mdc-button mdc-button--outlined center-horizontal"
-                    data-mdc-dialog-action="cancel">
-                    <div class="mdc-button__ripple"></div>
-                    <span class="mdc-button__label">CLOSE</span>
-                  </button>
+                  <div class="mdc-dialog__actions" style="padding: 0;">
+                    <button type="button" class="mdc-button mdc-button--outlined center-horizontal" style="width: 100%;"
+                      data-mdc-dialog-action="cancel">
+                      <div class="mdc-button__ripple"></div>
+                      <span class="mdc-button__label">CLOSE</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
