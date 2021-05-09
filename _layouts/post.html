@@ -11,7 +11,7 @@
 
   <main class="mdc-top-app-bar--fixed-adjust main-container">
 
-    <div class="mdc-card essy-card mdc-elevation--z1">
+    <div class="mdc-card essy-card">
       <p class="essy-title">{{ page.title }}</p>
       <p class="essy-author">{{ page.author }}</p>
       <!-- 支持非标准日期 -->
@@ -22,18 +22,69 @@
       {% endif %}
 
       <!-- tags -->
-      <div class="mdc-chip-set" role="grid">
-        {% for tagInPage in page.tags %}
-        <div class="mdc-chip" role="row">
-          <div class="mdc-chip__ripple"></div>
-          <span role="gridcell">
-            <span role="button" class="mdc-chip__primary-action">
-              <span class="mdc-chip__text">#{{ tagInPage }}</span>
+      <span class="mdc-evolution-chip-set" role="grid">
+        <span class="mdc-evolution-chip-set__chips" role="presentation">
+          {% for tagInPage in page.tags %}
+          <span class="mdc-evolution-chip" role="row" id="chip">
+            <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
+              <button class="mdc-evolution-chip__action mdc-evolution-chip__action--primary dialog-trigger"
+                type="button" id="chip_tag_{{ tagInPage }}">
+                <span class="mdc-evolution-chip__ripple mdc-evolution-chip__ripple--primary"></span>
+                <span class="mdc-evolution-chip__text-label">#{{ tagInPage }}</span>
+              </button>
             </span>
           </span>
-        </div>
-        {% endfor %}
-      </div>
+          <!-- tag对应的dialog -->
+          <div class="mdc-dialog" id="dialog_{{ tagInPage }}">
+            <div class="mdc-dialog__container">
+              <!-- 加上width500px后满足要求 -->
+              <div class="mdc-dialog__surface" role="alertdialog" aria-modal="true" aria-labelledby="my-dialog-title"
+                aria-describedby="my-dialog-content">
+                <div class="mdc-dialog__content" id="my-dialog-content">
+                  {% for tagInSite in site.tags %}
+                  {% if tagInSite[0] contains tagInPage%}
+                  <p>标记TAG <code class="language-plaintext highlighter-rouge">#{{ tagInPage }}</code> 的{% if page.type
+                    contains "share" %}转载{% else %}{% endif %}博文</p>
+
+                  <ul class="mdc-deprecated-list mdc-deprecated-list--two-line dialog-link-list">
+                    {% for post in tagInSite[1] %}
+                    {% if page.type contains post.type %}
+                    <a class="mdc-deprecated-list-item" href="{{ post.url }}">
+                      <span class="mdc-deprecated-list-item__ripple"></span>
+                      <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">{{ post.title }}</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">{{ post.date | date: "%Y.%m.%d" }}</span>
+                      </span>
+                  </a>
+                    <hr class="mdc-deprecated-list-divider">
+                    {% endif %}
+                    {% endfor %}
+                  </ul>
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                <div class="mdc-dialog__actions">
+                  <button type="button" class="mdc-button mdc-button--outlined center-horizontal"
+                    data-mdc-dialog-action="cancel">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">CLOSE</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="mdc-dialog__scrim"></div>
+          </div>
+
+          {% endfor %}
+        </span>
+      </span>
+
+
+
+
+
+
+      <!-- essy content -->
       {{ content }}
     </div>
 

@@ -3,7 +3,6 @@ $(document).ready(function () {
     hljs.initHighlightingOnLoad();
 });
 
-console.log("Hello");
 
 
 // When the user clicks on the button, scroll to the top of the document
