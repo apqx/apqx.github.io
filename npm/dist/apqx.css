@@ -8438,10 +8438,25 @@ tbody tr {
   border-top: 1px solid rgba(128, 128, 128, 0.336);
 }
 
-img, video, iframe {
+img, video {
   max-width: 100%;
-  max-height: 100%;
+  height: auto;
   margin-top: 10px;
+}
+
+.video-container {
+  position: relative;
+  padding-bottom: 65%;
+  height: 0;
+  overflow: hidden;
+}
+
+.video-container iframe, .video-container object, .video-container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .essy-card {
