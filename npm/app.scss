@@ -101,6 +101,14 @@ body {
     color: black;
 }
 
+h1 {
+    @include typography.typography(headline4);
+}
+
+h2 {
+    @include typography.typography(headline5);
+}
+
 p, li, a {
     // 使用mdc的字体样式
     @include typography.typography(body1);

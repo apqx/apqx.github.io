@@ -16,7 +16,7 @@ try {
     // 部分页面没有chipset，捕捉异常
     const chipset = new MDCChipSet(document.querySelector('.mdc-evolution-chip-set'));
 } catch (e) {
-    console.error(e.message);
+    console.log("catch e = " + e.message);
 }
 // 为chip添加ripple动画
 const chips = document.querySelectorAll('.mdc-evolution-chip__action');

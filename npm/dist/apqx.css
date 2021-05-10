@@ -8119,6 +8119,60 @@ body {
   color: black;
 }
 
+h1 {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-family: Roboto, sans-serif;
+  /* @alternate */
+  font-family: var(--mdc-typography-headline4-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));
+  font-size: 2.125rem;
+  /* @alternate */
+  font-size: var(--mdc-typography-headline4-font-size, 2.125rem);
+  line-height: 2.5rem;
+  /* @alternate */
+  line-height: var(--mdc-typography-headline4-line-height, 2.5rem);
+  font-weight: 400;
+  /* @alternate */
+  font-weight: var(--mdc-typography-headline4-font-weight, 400);
+  letter-spacing: 0.0073529412em;
+  /* @alternate */
+  letter-spacing: var(--mdc-typography-headline4-letter-spacing, 0.0073529412em);
+  text-decoration: inherit;
+  /* @alternate */
+  -webkit-text-decoration: var(--mdc-typography-headline4-text-decoration, inherit);
+          text-decoration: var(--mdc-typography-headline4-text-decoration, inherit);
+  text-transform: inherit;
+  /* @alternate */
+  text-transform: var(--mdc-typography-headline4-text-transform, inherit);
+}
+
+h2 {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-family: Roboto, sans-serif;
+  /* @alternate */
+  font-family: var(--mdc-typography-headline5-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));
+  font-size: 1.5rem;
+  /* @alternate */
+  font-size: var(--mdc-typography-headline5-font-size, 1.5rem);
+  line-height: 2rem;
+  /* @alternate */
+  line-height: var(--mdc-typography-headline5-line-height, 2rem);
+  font-weight: 400;
+  /* @alternate */
+  font-weight: var(--mdc-typography-headline5-font-weight, 400);
+  letter-spacing: normal;
+  /* @alternate */
+  letter-spacing: var(--mdc-typography-headline5-letter-spacing, normal);
+  text-decoration: inherit;
+  /* @alternate */
+  -webkit-text-decoration: var(--mdc-typography-headline5-text-decoration, inherit);
+          text-decoration: var(--mdc-typography-headline5-text-decoration, inherit);
+  text-transform: inherit;
+  /* @alternate */
+  text-transform: var(--mdc-typography-headline5-text-transform, inherit);
+}
+
 p, li, a {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;

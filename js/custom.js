@@ -26,5 +26,5 @@ const copyUrl = () => {
 console.log("screen width: " + $(window).width() );
 
 if($(window).width() >= 880) {
-    document.getElementById("top_app_bar").classList.add("mdc-top-app-bar--short");
+    // document.getElementById("top_app_bar").classList.add("mdc-top-app-bar--short");
 }

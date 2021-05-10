@@ -17,7 +17,8 @@
     "@material/top-app-bar": "^11.0.0",
     "@material/typography": "^11.0.0",
     "highlight.js": "^10.7.2",
-    "jquery": "^3.6.0"
+    "jquery": "^3.6.0",
+    "qrcode": "^1.4.4"
   },
   "devDependencies": {
     "@babel/core": "^7.14.0",

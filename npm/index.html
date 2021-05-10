@@ -2,14 +2,167 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="apqx.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <script src="apqx.js" async></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="apqx.css">
+  <script src="apqx.js" async></script>
 </head>
 
 <body>
-    
-    
+
+  <header class="mdc-top-app-bar" id="top_app_bar">
+    <div class="mdc-top-app-bar__row">
+      <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+        <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">menu</button>
+        <!-- <span class="mdc-top-app-bar__title">标题</span> -->
+      </section>
+
+      <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+        <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="About me"
+          id="btn_about_me">account_circle</button>
+      </section>
+    </div>
+  </header>
+  <aside class="mdc-drawer mdc-drawer--modal">
+    <div class="mdc-drawer__header">
+      <h3 class="mdc-drawer__title"></h3>
+      <h6 class="mdc-drawer__subtitle"></h6>
+    </div>
+    <div class="mdc-drawer__header">
+      <h3 class="mdc-drawer__title">立泉の写字板</h3>
+      <h6 class="mdc-drawer__subtitle">https://apqx.me</h6>
+    </div>
+    <div class="mdc-drawer__content">
+      <nav class="mdc-deprecated-list">
+        <a class="mdc-deprecated-list-item
+          mdc-deprecated-list-item--activated" href="{{ " /index.html " }}"
+          aria-selected="true" tabindex="0">
+  
+          <span class="mdc-deprecated-list-item__ripple"></span>
+          <i class="material-icons mdc-deprecated-list-item__graphic" aria-hidden="true">lightbulb</i>
+          <span class="mdc-deprecated-list-item__text">随笔</span>
+        </a>
+        <a class="mdc-deprecated-list-item" href="{{ "
+          /index-share.html " }}">
+          <span class="mdc-deprecated-list-item__ripple"></span>
+          <i class="material-icons mdc-deprecated-list-item__graphic" aria-hidden="true">share</i>
+          <span class="mdc-deprecated-list-item__text">转载</span>
+        </a>
+        <a class="mdc-deprecated-list-item" id="drawer-a-about-me">
+          <span class="mdc-deprecated-list-item__ripple"></span>
+          <i class="material-icons mdc-deprecated-list-item__graphic" aria-hidden="true">face</i>
+          <span class="mdc-deprecated-list-item__text">关于我</span>
+        </a>
+  
+        <hr class="mdc-deprecated-list-divider">
+        <h6 class="mdc-deprecated-list-group__subheader">工具</h6>
+        <a class="mdc-deprecated-list-item" href="#">
+          <span class="mdc-deprecated-list-item__ripple"></span>
+          <i class="material-icons mdc-deprecated-list-item__graphic" aria-hidden="true">rss_feed</i>
+          <span class="mdc-deprecated-list-item__text">RSS订阅</span>
+        </a>
+        <a class="mdc-deprecated-list-item" href="#">
+          <span class="mdc-deprecated-list-item__ripple"></span>
+          <i class="material-icons mdc-deprecated-list-item__graphic" aria-hidden="true">qr_code_2</i>
+          <span class="mdc-deprecated-list-item__text">本页二维码</span>
+        </a>
+        <a class="mdc-deprecated-list-item" href="#">
+          <span class="mdc-deprecated-list-item__ripple"></span>
+          <i class="material-icons mdc-deprecated-list-item__graphic" aria-hidden="true">insert_link</i>
+          <span class="mdc-deprecated-list-item__text">本页链接</span>
+        </a>
+      </nav>
+    </div>
+  </aside>
+
+  <div class="mdc-drawer-scrim"></div>
+  <main class="mdc-top-app-bar--fixed-adjust main-container">
+
+    <div class="mdc-card essy-card">
+      <p class="essy-title">{{ page.title }}</p>
+      <p class="essy-author">{{ page.author }}</p>
+      <!-- 支持非标准日期 -->
+      
+      <p class="essy-date">{{ page.moredate }}</p>
+
+      <!-- tags -->
+      <span class="mdc-evolution-chip-set tags" role="grid">
+        <span class="mdc-evolution-chip-set__chips" role="presentation">
+          {% for tagInPage in page.tags %}
+          <span class="mdc-evolution-chip" role="row" id="chip">
+            <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
+              <button class="mdc-evolution-chip__action mdc-evolution-chip__action--primary dialog-trigger"
+                type="button" id="chip_tag_{{ tagInPage }}">
+                <span class="mdc-evolution-chip__ripple mdc-evolution-chip__ripple--primary"></span>
+                <span class="mdc-evolution-chip__text-label">#{{ tagInPage }}</span>
+              </button>
+            </span>
+          </span>
+          <!-- tag对应的dialog -->
+          <div class="mdc-dialog" id="dialog_{{ tagInPage }}">
+            <div class="mdc-dialog__container">
+              <!-- 加上width500px后满足要求 -->
+              <div class="mdc-dialog__surface common-dialog-container" role="alertdialog" aria-modal="true"
+                aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content">
+                <div class="mdc-dialog__content" id="my-dialog-content">
+                  {% for tagInSite in site.tags %}
+                  {% if tagInSite[0] contains tagInPage%}
+                  <p>标记TAG <code class="language-plaintext highlighter-rouge">#{{ tagInPage }}</code> 的{% if page.type
+                    contains "share" %}转载{% else %}{% endif %}博文</p>
+
+                  <ul class="mdc-deprecated-list mdc-deprecated-list--two-line dialog-link-list">
+                    {% for post in tagInSite[1] %}
+                    {% if page.type contains post.type %}
+                    <a class="mdc-deprecated-list-item" href="{{ post.url }}">
+                      <span class="mdc-deprecated-list-item__ripple"></span>
+                      <span class="mdc-deprecated-list-item__text">
+                        <span class="mdc-deprecated-list-item__primary-text">{{ post.title }}</span>
+                        <span class="mdc-deprecated-list-item__secondary-text">{{ post.date | date: "%Y.%m.%d" }}</span>
+                      </span>
+                    </a>
+                    <hr class="mdc-deprecated-list-divider">
+                    {% endif %}
+                    {% endfor %}
+                  </ul>
+                  {% endif %}
+                  {% endfor %}
+
+
+                </div>
+                <div class="mdc-dialog__actions">
+                  <button type="button" class="mdc-button mdc-button--outlined center-horizontal"
+                    style="width: 94%; margin-bottom: 1rem;" data-mdc-dialog-action="cancel">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">CLOSE</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="mdc-dialog__scrim"></div>
+          </div>
+
+          {% endfor %}
+        </span>
+      </span>
+
+
+
+
+
+
+      <!-- essy content -->
+      {{ content }}
+    </div>
+
+  </main>
+
+  <!-- Floating Action Button -->
+  <div class="mdc-touch-target-wrapper">
+    <button class="mdc-fab app-fab--absolute" aria-label="Up" onclick="scrollToTop()" id="fabUp">
+      <div class="mdc-fab__ripple"></div>
+      <span class="mdc-fab__icon material-icons">arrow_upward</span>
+    </button>
+  </div>
 </body>
 
 </html>

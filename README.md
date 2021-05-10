@@ -1,1 +1,2 @@
-[wubba lubba dub dub!](https://apqx.me)
+立泉の写字板  
+[https://apqx.me](https://apqx.me)

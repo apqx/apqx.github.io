@@ -35,7 +35,7 @@
             </span>
           </span>
           <!-- tag对应的dialog -->
-          <div class="mdc-dialog" id="dialog_{{ tagInPage }}">
+          <div class="mdc-dialog" id="dialog_tag_{{ tagInPage }}">
             <div class="mdc-dialog__container">
               <!-- 加上width500px后满足要求 -->
               <div class="mdc-dialog__surface common-dialog-container" role="alertdialog" aria-modal="true"
@@ -46,7 +46,7 @@
                   <p>标记TAG <code class="language-plaintext highlighter-rouge">#{{ tagInPage }}</code> 的{% if page.type
                     contains "share" %}转载{% else %}{% endif %}博文</p>
 
-                  <ul class="mdc-deprecated-list mdc-deprecated-list--two-line dialog-link-list">
+                  <ul class="mdc-deprecated-list mdc-deprecated-list--two-line dialog-link-list" id="dialog_tag_list_{{ tagInPage }}">
                     {% for post in tagInSite[1] %}
                     {% if page.type contains post.type %}
                     <a class="mdc-deprecated-list-item" href="{{ post.url }}">
@@ -66,8 +66,8 @@
 
                 </div>
                 <div class="mdc-dialog__actions">
-                  <button type="button" class="mdc-button mdc-button--outlined center-horizontal"
-                    style="width: 94%; margin-bottom: 1rem;" data-mdc-dialog-action="cancel">
+                  <button type="button" class="mdc-button mdc-button--unelevated center-horizontal"
+                    style="width: 94%; margin-bottom: 1rem;" data-mdc-dialog-action="cancel" id="btn_tag_dialog_close_{{ tagInPage }}">
                     <div class="mdc-button__ripple"></div>
                     <span class="mdc-button__label">CLOSE</span>
                   </button>

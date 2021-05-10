@@ -1,0 +1,42 @@
+@use "@material/drawer";
+@use "@material/list";
+@use "@material/list/mdc-list";
+@use "@material/icon-button";
+@use "@material/top-app-bar";
+@use "@material/top-app-bar/mdc-top-app-bar";
+
+@use "@material/fab";
+@use "@material/fab/mdc-fab";
+
+@include drawer.core-styles;
+@include drawer.dismissible-core-styles;
+@include drawer.modal-core-styles;
+@include icon-button.core-styles;
+@include fab.core-styles;
+
+body {
+    // 消除top app bar左侧的margin
+    margin: 0;
+    background-color:#f7f7f7;
+}
+
+// fab
+.mdc-fab {
+    @include fab.accessible(#43A047)
+}
+
+.app-fab--absolute {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+}
+
+// top-app-bar
+.mdc-top-app-bar {
+    // 使top bar的层级高于drawer
+    z-index: 7;
+    // 颜色
+    @include top-app-bar.fill-color(#ee6e73);
+    // 阴影
+    // @include elevation.elevation(10, #ee6e73, 0);
+}
