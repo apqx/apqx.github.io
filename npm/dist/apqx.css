@@ -8499,6 +8499,11 @@ img, video {
     /* @alternate */
     box-shadow: 0px 0px 0px 0px rgba(185, 125, 127, 0.2), 0px 0px 0px 0px rgba(185, 125, 127, 0.14), 0px 0px 0px 0px rgba(185, 125, 127, 0.12);
   }
+
+  .mdc-top-app-bar {
+    /* @alternate */
+    box-shadow: 0px 3px 5px -1px rgba(238, 110, 115, 0.2), 0px 5px 8px 0px rgba(238, 110, 115, 0.14), 0px 1px 14px 0px rgba(238, 110, 115, 0.12);
+  }
 }
 @media (min-width: 880px) {
   .main-container {

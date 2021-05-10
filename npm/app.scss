@@ -397,6 +397,10 @@ img, video {
         // 小屏下取消文章卡片阴影
         @include elevation.elevation(0, #b97d7f17, 0)
     }
+    .mdc-top-app-bar {
+        // 小屏下取消top bar阴影
+        @include elevation.elevation(5, #ee6e73, 0);
+    }
 
 }
 
