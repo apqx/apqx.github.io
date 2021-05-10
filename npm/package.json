@@ -1,0 +1,38 @@
+{
+  "scripts": {
+    "build": "webpack",
+    "start": "webpack serve"
+  },
+  "dependencies": {
+    "@material/button": "^11.0.0",
+    "@material/card": "^11.0.0",
+    "@material/chips": "^11.0.0",
+    "@material/data-table": "^11.0.0",
+    "@material/dialog": "^11.0.0",
+    "@material/drawer": "^11.0.0",
+    "@material/elevation": "^11.0.0",
+    "@material/fab": "^11.0.0",
+    "@material/icon-button": "^11.0.0",
+    "@material/list": "^11.0.0",
+    "@material/top-app-bar": "^11.0.0",
+    "@material/typography": "^11.0.0",
+    "highlight.js": "^10.7.2",
+    "jquery": "^3.6.0",
+    "qrcode": "^1.4.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.0",
+    "@babel/preset-env": "^7.14.1",
+    "autoprefixer": "^10.2.5",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^5.2.4",
+    "extract-loader": "^5.1.0",
+    "file-loader": "^6.2.0",
+    "postcss-loader": "^5.2.0",
+    "sass": "^1.32.12",
+    "sass-loader": "^11.0.1",
+    "webpack": "^5.36.2",
+    "webpack-cli": "^4.7.0",
+    "webpack-dev-server": "^3.11.2"
+  }
+}

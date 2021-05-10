@@ -8119,6 +8119,60 @@ body {
   color: black;
 }
 
+h1 {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-family: Roboto, sans-serif;
+  /* @alternate */
+  font-family: var(--mdc-typography-headline4-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));
+  font-size: 2.125rem;
+  /* @alternate */
+  font-size: var(--mdc-typography-headline4-font-size, 2.125rem);
+  line-height: 2.5rem;
+  /* @alternate */
+  line-height: var(--mdc-typography-headline4-line-height, 2.5rem);
+  font-weight: 400;
+  /* @alternate */
+  font-weight: var(--mdc-typography-headline4-font-weight, 400);
+  letter-spacing: 0.0073529412em;
+  /* @alternate */
+  letter-spacing: var(--mdc-typography-headline4-letter-spacing, 0.0073529412em);
+  text-decoration: inherit;
+  /* @alternate */
+  -webkit-text-decoration: var(--mdc-typography-headline4-text-decoration, inherit);
+          text-decoration: var(--mdc-typography-headline4-text-decoration, inherit);
+  text-transform: inherit;
+  /* @alternate */
+  text-transform: var(--mdc-typography-headline4-text-transform, inherit);
+}
+
+h2 {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-family: Roboto, sans-serif;
+  /* @alternate */
+  font-family: var(--mdc-typography-headline5-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));
+  font-size: 1.5rem;
+  /* @alternate */
+  font-size: var(--mdc-typography-headline5-font-size, 1.5rem);
+  line-height: 2rem;
+  /* @alternate */
+  line-height: var(--mdc-typography-headline5-line-height, 2rem);
+  font-weight: 400;
+  /* @alternate */
+  font-weight: var(--mdc-typography-headline5-font-weight, 400);
+  letter-spacing: normal;
+  /* @alternate */
+  letter-spacing: var(--mdc-typography-headline5-letter-spacing, normal);
+  text-decoration: inherit;
+  /* @alternate */
+  -webkit-text-decoration: var(--mdc-typography-headline5-text-decoration, inherit);
+          text-decoration: var(--mdc-typography-headline5-text-decoration, inherit);
+  text-transform: inherit;
+  /* @alternate */
+  text-transform: var(--mdc-typography-headline5-text-transform, inherit);
+}
+
 p, li, a {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -8232,7 +8286,7 @@ footer a {
 }
 
 .copyright {
-  padding: 10px 15px;
+  padding: 15px 15px;
 }
 
 .tags {
@@ -8296,11 +8350,13 @@ footer a {
 
 .mdc-drawer {
   /* @alternate */
-  box-shadow: 0px 6px 6px -3px rgba(238, 110, 115, 0.2), 0px 10px 14px 1px rgba(238, 110, 115, 0.14), 0px 4px 18px 3px rgba(238, 110, 115, 0.12);
+  box-shadow: 0px 3px 5px -1px rgba(255, 255, 255, 0.2), 0px 5px 8px 0px rgba(255, 255, 255, 0.14), 0px 1px 14px 0px rgba(255, 255, 255, 0.12);
 }
 
 .mdc-fab {
   background-color: #43A047;
+  /* @alternate */
+  box-shadow: 0px 3px 5px -1px rgba(67, 160, 71, 0.2), 0px 5px 8px 0px rgba(67, 160, 71, 0.14), 0px 1px 14px 0px rgba(67, 160, 71, 0.12);
 }
 .mdc-fab, .mdc-fab:not(:disabled) .mdc-fab__icon, .mdc-fab:not(:disabled) .mdc-fab__label, .mdc-fab:disabled .mdc-fab__icon, .mdc-fab:disabled .mdc-fab__label {
   color: white;
@@ -8384,24 +8440,39 @@ tbody tr {
   border-top: 1px solid rgba(128, 128, 128, 0.336);
 }
 
-img, video, iframe {
+img, video {
   max-width: 100%;
-  max-height: 100%;
+  height: auto;
   margin-top: 10px;
+}
+
+.video-container {
+  position: relative;
+  padding-bottom: 65%;
+  height: 0;
+  overflow: hidden;
+}
+
+.video-container iframe, .video-container object, .video-container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .essy-card {
   padding: 20px;
   margin: 24px 16px;
   /* @alternate */
-  box-shadow: 0px 3px 5px -1px rgba(185, 125, 127, 0.2), 0px 5px 8px 0px rgba(185, 125, 127, 0.14), 0px 1px 14px 0px rgba(185, 125, 127, 0.12);
+  box-shadow: 0px 3px 5px -1px rgba(255, 255, 255, 0.2), 0px 5px 8px 0px rgba(255, 255, 255, 0.14), 0px 1px 14px 0px rgba(255, 255, 255, 0.12);
 }
 
 .index-card {
   padding: 20px;
   margin: 12px 16px;
   /* @alternate */
-  box-shadow: 0px 3px 5px -1px rgba(185, 125, 127, 0.2), 0px 5px 8px 0px rgba(185, 125, 127, 0.14), 0px 1px 14px 0px rgba(185, 125, 127, 0.12);
+  box-shadow: 0px 3px 5px -1px rgba(255, 255, 255, 0.2), 0px 5px 8px 0px rgba(255, 255, 255, 0.14), 0px 1px 14px 0px rgba(255, 255, 255, 0.12);
 }
 
 .circle-avatar {
@@ -8422,13 +8493,11 @@ img, video, iframe {
   .index-card {
     padding: 20px;
     margin: 12px 0;
-    /* @alternate */
-    box-shadow: 0px 0px 0px 0px rgba(238, 110, 115, 0.2), 0px 0px 0px 0px rgba(238, 110, 115, 0.14), 0px 0px 0px 0px rgba(238, 110, 115, 0.12);
   }
 
-  .essy-card {
+  .mdc-top-app-bar {
     /* @alternate */
-    box-shadow: 0px 0px 0px 0px rgba(185, 125, 127, 0.2), 0px 0px 0px 0px rgba(185, 125, 127, 0.14), 0px 0px 0px 0px rgba(185, 125, 127, 0.12);
+    box-shadow: 0px 3px 5px -1px rgba(238, 110, 115, 0.2), 0px 5px 8px 0px rgba(238, 110, 115, 0.14), 0px 1px 14px 0px rgba(238, 110, 115, 0.12);
   }
 }
 @media (min-width: 880px) {

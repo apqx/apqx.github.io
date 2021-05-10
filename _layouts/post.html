@@ -35,40 +35,42 @@
             </span>
           </span>
           <!-- tag对应的dialog -->
-          <div class="mdc-dialog" id="dialog_{{ tagInPage }}">
+          <div class="mdc-dialog" id="dialog_tag_{{ tagInPage }}">
             <div class="mdc-dialog__container">
               <!-- 加上width500px后满足要求 -->
-              <div class="mdc-dialog__surface common-dialog-container" role="alertdialog" aria-modal="true" aria-labelledby="my-dialog-title"
-                aria-describedby="my-dialog-content">
+              <div class="mdc-dialog__surface common-dialog-container" role="alertdialog" aria-modal="true"
+                aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content">
                 <div class="mdc-dialog__content" id="my-dialog-content">
                   {% for tagInSite in site.tags %}
                   {% if tagInSite[0] contains tagInPage%}
                   <p>标记TAG <code class="language-plaintext highlighter-rouge">#{{ tagInPage }}</code> 的{% if page.type
                     contains "share" %}转载{% else %}{% endif %}博文</p>
 
-                  <ul class="mdc-deprecated-list mdc-deprecated-list--two-line dialog-link-list">
+                  <ul class="mdc-deprecated-list mdc-deprecated-list--two-line dialog-link-list" id="dialog_tag_list_{{ tagInPage }}">
                     {% for post in tagInSite[1] %}
                     {% if page.type contains post.type %}
                     <a class="mdc-deprecated-list-item" href="{{ post.url }}">
                       <span class="mdc-deprecated-list-item__ripple"></span>
                       <span class="mdc-deprecated-list-item__text">
-                          <span class="mdc-deprecated-list-item__primary-text">{{ post.title }}</span>
-                          <span class="mdc-deprecated-list-item__secondary-text">{{ post.date | date: "%Y.%m.%d" }}</span>
+                        <span class="mdc-deprecated-list-item__primary-text">{{ post.title }}</span>
+                        <span class="mdc-deprecated-list-item__secondary-text">{{ post.date | date: "%Y.%m.%d" }}</span>
                       </span>
-                  </a>
+                    </a>
                     <hr class="mdc-deprecated-list-divider">
                     {% endif %}
                     {% endfor %}
                   </ul>
                   {% endif %}
                   {% endfor %}
-                  <div class="mdc-dialog__actions" style="padding: 0;">
-                    <button type="button" class="mdc-button mdc-button--outlined center-horizontal" style="width: 100%;"
-                      data-mdc-dialog-action="cancel">
-                      <div class="mdc-button__ripple"></div>
-                      <span class="mdc-button__label">CLOSE</span>
-                    </button>
-                  </div>
+
+
+                </div>
+                <div class="mdc-dialog__actions">
+                  <button type="button" class="mdc-button mdc-button--unelevated center-horizontal"
+                    style="width: 94%; margin-bottom: 1rem;" data-mdc-dialog-action="cancel" id="btn_tag_dialog_close_{{ tagInPage }}">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">CLOSE</span>
+                  </button>
                 </div>
               </div>
             </div>
