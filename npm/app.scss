@@ -1,0 +1,397 @@
+@use "@material/button";
+@use '@material/button/mdc-button';
+@use "@material/icon-button";
+
+@use "@material/top-app-bar";
+@use "@material/top-app-bar/mdc-top-app-bar";
+
+@use "@material/fab";
+@use "@material/fab/mdc-fab";
+
+@use "@material/card";
+// 组件层级，似乎可以动态
+@use "@material/elevation";
+@use "@material/elevation/mdc-elevation";
+@use '@material/chips/styles';
+// @use '@material/chips';
+// @use "@material/chips/deprecated/mdc-chips";
+
+@use "@material/data-table/data-table";
+
+
+@use "@material/drawer";
+// list更新到v11之后，用新的实现替换了旧版本，但是README尚未更新，原版本class都被加上了deprecated标记
+// 使用它就可以正常加载样式了
+@use "@material/list";
+@use "@material/list/mdc-list";
+
+@use "@material/dialog";
+
+@use "@material/typography";
+@use "@material/typography/mdc-typography";
+
+// 似乎后期所有的core-styles写法都会被取消，取而代之的是@use "@material/button" 这种直接引入所有属性
+@include icon-button.core-styles;
+@include fab.core-styles;
+@include card.core-styles;
+@include elevation.core-styles;
+@include data-table.core-styles;
+@include data-table.theme-baseline;
+@include drawer.core-styles;
+@include drawer.modal-core-styles;
+@include dialog.core-styles;
+
+
+// 对html标签添加样式时，注意使用:not()避开mdc的class，避免可能造成的干扰
+// 在桌面端使用自动向左缩小的top app bar，手机端使用常规top app bar
+
+// html {
+    /* 字体 */
+    // font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Microsoft YaHei, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+// }
+
+body {
+    // 消除top app bar左侧的margin
+    margin: 0;
+    background-color:#f7f7f7;
+}
+
+/* 文章题目 */
+.essy-title {
+    @include typography.typography(headline4);
+    font-size: 1.8rem;
+    margin-top: 2.0rem;
+    text-align: center;
+}
+
+/* 文章署名 */
+.essy-author {
+    @include typography.typography(subtitle1);
+    text-align: center;
+    margin-top: 1.0rem;
+}
+
+/* 文章日期 */
+.essy-date {
+    @include typography.typography(subtitle1);
+    text-align: center;
+    margin-top: 0;
+}
+
+/* 索引题目 */
+.index-title {
+    @include typography.typography(subtitle1);
+    margin: 0;
+    color: black;
+}
+
+/* 索引署名 */
+.index-author {
+    @include typography.typography(subtitle1);
+    text-align: right;
+    margin: 0;
+    color: black;
+}
+
+/* 索引日期 */
+.index-date {
+    @include typography.typography(subtitle1);
+    text-align: right;
+    margin: 0;
+    color: black;
+}
+
+p, li, a {
+    // 使用mdc的字体样式
+    @include typography.typography(body1);
+    // 段落间距
+    margin: 0.5rem 0;
+    // 行间距
+    line-height: 1.8rem;
+}
+
+a {
+    // 去除链接下划线
+    text-decoration: none;
+}
+
+/* 无序列表 */
+ul {
+  padding-left: 18pt;
+  padding-right: 0;
+  /* 实心圆 */
+  list-style-type: disc;
+}
+  
+/* 有序列表 */
+ol {
+  padding-left: 18pt;
+  padding-right: 0;
+  /* 数字 */
+  list-style-type: decimal;
+}
+
+// 引用段落
+blockquote {
+    @include typography.typography(body1);
+    line-height: 1.8rem;
+    margin: 10px 0;
+    padding: 0 0 0 1.5rem;
+    border-left: 5px solid #ee6e73;
+}
+
+// 引用段落中的<p>
+blockquote p {
+    margin: 0;
+}
+
+pre code {
+    font-size: 1.0rem;
+    line-height: 1.2rem;
+}
+
+/* 段落中单词高亮 */
+code.highlighter-rouge {
+  /* 灰色 */
+  color:#535c68;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
+  border-radius: 4px;
+
+  background:#fafafa;
+  border:1px solid lightgray;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Microsoft YaHei, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+footer {
+    // position: absolute;
+    // bottom: 0;
+    // width: 100%;
+    background-color: #ee6e73;
+    color: aliceblue;
+}
+
+footer a {
+    color: #ffcc80;
+}
+
+.copyright {
+    padding: 10px 15px;
+}
+
+.tags {
+    margin-top: 2rem;
+}
+
+.about-me-name {
+    font-size: 1.8rem;
+    color: black;
+    text-align: center;
+    margin-top: 1.0rem;
+    margin-bottom: 1.0rem;
+}
+
+.common-dialog-container {
+    width: 880px;
+}
+
+.about-me-description {
+    font-size: 1.0rem;
+    color: black;
+}
+
+.dialog-link-list {
+    // 底部边框由Divider填充
+    border-top: 1px solid rgba(128, 128, 128, 0.336);
+    border-left: 1px solid rgba(128, 128, 128, 0.336);
+    border-right: 1px solid rgba(128, 128, 128, 0.336);
+    border-radius: 3px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+// 使用此class的标签，可以通过id chip_tag_随笔 弹出对应 dialog_随笔 的dialog
+.dialog-trigger {}
+
+// 内容最外层的主容器
+.main-container {
+    // 横向居中
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    height: 100%;
+}
+
+// 索引列表
+.index-ul {
+    // 注意列表第一个卡片到top bar的距离要和正文卡片与之的距离一致
+    padding: 12px 0;
+    margin: 0;
+}
+
+.index-li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+// 索引链接
+.index-a {
+    // 去除下划线
+    text-decoration: none;
+}
+
+// top-app-bar
+.mdc-top-app-bar {
+    // 使top bar的层级高于drawer
+    z-index: 7;
+    // 颜色
+    @include top-app-bar.fill-color(#ee6e73);
+    // 阴影
+    @include elevation.elevation(10, #ee6e73, 0);
+}
+
+.mdc-drawer {
+    // 使drawer的阴影和内容卡片一致，更协调
+    @include elevation.elevation(10, #ee6e73, 0);
+
+}
+
+
+
+// fab
+.mdc-fab {
+    @include fab.accessible(#43A047)
+}
+
+.app-fab--absolute {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+}
+    
+@media(min-width: 1024px) {
+    .app-fab--absolute {
+        bottom: 1.5rem;
+        right: 1.55rem;
+    }
+}
+
+// card
+.media-container {
+    max-width: 100%;
+    // height: fit-content;
+    max-height: 100%;
+}
+
+// chips
+// 解决Safari的Ripple动画无圆角
+.mdc-evolution-chip, .mdc-evolution-chip__ripple {
+    border-radius: 20px !important;
+    -webkit-mask-image: radial-gradient(white, black);
+}
+
+// 解决Safari的fab Ripple动画无圆角
+.mdc-fab__ripple {
+    border-radius: 50% !important;
+    -webkit-mask-image: radial-gradient(white, black);
+}
+
+// table 
+// todo:应加上hovor动画
+table:not(mdc-data-table__table) {
+    // 边框线
+    border: 1px solid rgba(128, 128, 128, 0.336);
+    border-radius: 3px;
+    border-collapse: collapse;
+}
+
+th:not(mdc-data-table__header-cell) {
+    padding-top: 13px;
+    padding-bottom: 13px;
+    font-style: normal;
+}
+
+td:not(mdc-data-table__cell) {
+    padding-top: 13px;
+    padding-bottom: 13px;
+}
+
+tbody tr {
+    // 行分割线
+    border-top: 1px solid rgba(128, 128, 128, 0.336);
+}
+
+img, video, iframe {
+    max-width: 100%;
+    max-height: 100%;
+    margin-top: 10px;
+}
+
+.essy-card {
+    padding: 20px;
+    margin: 24px 16px;
+    // 文章卡片的阴影，z高度，阴影颜色，扩散度
+    @include elevation.elevation(5, #b97d7f17, 0)
+}
+
+
+
+.index-card {
+    padding: 20px;
+    margin: 12px 16px;
+    @include elevation.elevation(5, #b97d7f17, 0)
+}
+
+.circle-avatar {
+    border-radius: 50%;
+}
+
+.center-horizontal {
+    margin: auto;
+    text-align: center;
+}
+
+// 手机小屏
+@media(max-width: 600px) {
+    .essy-card {
+        padding: 20px;
+        margin: 24px 0;
+    }
+
+    .index-card {
+        padding: 20px;
+        margin: 12px 0;
+        // 小屏下取消索引卡片阴影
+        // 这种写法是index-card继承了elevation的这个属性
+        @include elevation.elevation(0, #ee6e73, 0)
+    }
+
+    .essy-card {
+        // 小屏下取消文章卡片阴影
+        @include elevation.elevation(0, #b97d7f17, 0)
+    }
+
+}
+
+// 平板中屏
+@media only screen and (min-width: 601px) and (max-width: 879) {
+    // 默认参数
+}
+
+
+// 电脑大屏
+@media(min-width: 880px) {
+    .main-container {
+        width: 880px;
+    }
+    .essy-card {
+        padding: 24px 40px;
+    }
+
+    .index-card {
+        padding: 20px 40px;
+    }
+}
