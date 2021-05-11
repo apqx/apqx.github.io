@@ -1,5 +1,22 @@
+@use "./scss/color";
+
+
+@use "@material/theme" with (
+    // nav，button，drawer的主色
+    $primary: black,
+    // fab颜色
+    $secondary: green,
+    $background: red,
+);
+
+
+
+
+@use "@material/theme/mdc-theme";
+
 @use "@material/drawer";
 @use "@material/list";
+
 @use "@material/list/mdc-list";
 @use "@material/icon-button";
 @use "@material/top-app-bar";
@@ -8,21 +25,53 @@
 @use "@material/fab";
 @use "@material/fab/mdc-fab";
 
+@use "@material/card";
+
+@use "@material/typography";
+@use "@material/typography/mdc-typography";
+
 @include drawer.core-styles;
 @include drawer.dismissible-core-styles;
 @include drawer.modal-core-styles;
 @include icon-button.core-styles;
 @include fab.core-styles;
+@include card.core-styles;
+
+
 
 body {
     // 消除top app bar左侧的margin
     margin: 0;
-    background-color:#f7f7f7;
+    // background-color: background;
+}
+
+// 内容最外层的主容器
+.main-container {
+    // 横向居中
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    height: 100%;
+}
+
+.essy-card-light {
+    padding: 20px;
+    margin: 24px 16px;
+    // 文章卡片的阴影，z高度，阴影颜色，扩散度
+    // @include elevation.elevation(5, white, 0);
+}
+
+.essy-card-dark {
+    padding: 20px;
+    margin: 24px 16px;
+    // 文章卡片的阴影，z高度，阴影颜色，扩散度
+    // @include elevation.elevation(5, white, 0);
+    @include theme.property(black, primary)
 }
 
 // fab
 .mdc-fab {
-    @include fab.accessible(#43A047)
+    @include fab.accessible(theme.$primary)
 }
 
 .app-fab--absolute {
@@ -31,12 +80,19 @@ body {
     right: 1rem;
 }
 
+// 电脑大屏
+@media(min-width: 880px) {
+    .main-container {
+        width: 880px;
+    }
+}
+
 // top-app-bar
 .mdc-top-app-bar {
     // 使top bar的层级高于drawer
     z-index: 7;
     // 颜色
-    @include top-app-bar.fill-color(#ee6e73);
+    // @include top-app-bar.fill-color(#ee6e73);
     // 阴影
     // @include elevation.elevation(10, #ee6e73, 0);
 }
