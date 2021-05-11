@@ -1,3 +1,45 @@
+@use "./scss/color.scss";
+
+$nav-color:#ee6e73;
+
+
+$code-highlight-bg:#fafafa;
+$code-highlight-border:lightgray;
+$code-highlight-text:#535c68;
+$link-color:#9c27b0;
+$simple-wb-color:black;
+@use "@material/theme" with (
+        // nav，button，drawer的主色
+        $primary: #9c27b0,
+        // fab
+        $secondary: #43A047,
+        $background: #f7f7f7,
+        $surface: white,
+    );
+
+// $code-highlight-bg:#2c3037;
+// $code-highlight-border:#576574;
+// $code-highlight-text:#bec0c2;
+// $link-color:#d05ce3;
+// $simple-wb-color:white;
+// @use "@material/theme" with (
+//     // nav，button，drawer的主色
+//     $primary: #ab47bc,
+//     // fab
+//     $secondary: #43A047,
+    
+//     $background: #252730,
+//     $surface: #2c3037,
+
+//     // $background: #181c21,
+//     // $surface: #1d2128,
+
+//     // $background: #0d0e12,
+//     // $surface: #12151a,
+// );
+
+@use "@material/theme/mdc-theme";
+
 @use "@material/button";
 @use '@material/button/mdc-button';
 @use "@material/icon-button";
@@ -13,8 +55,6 @@
 @use "@material/elevation";
 @use "@material/elevation/mdc-elevation";
 @use '@material/chips/styles';
-// @use '@material/chips';
-// @use "@material/chips/deprecated/mdc-chips";
 
 @use "@material/data-table/data-table";
 
@@ -30,6 +70,9 @@
 @use "@material/typography";
 @use "@material/typography/mdc-typography";
 
+
+
+
 // 似乎后期所有的core-styles写法都会被取消，取而代之的是@use "@material/button" 这种直接引入所有属性
 @include icon-button.core-styles;
 @include fab.core-styles;
@@ -42,18 +85,11 @@
 @include dialog.core-styles;
 
 
-// 对html标签添加样式时，注意使用:not()避开mdc的class，避免可能造成的干扰
-// 在桌面端使用自动向左缩小的top app bar，手机端使用常规top app bar
-
-// html {
-    /* 字体 */
-    // font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Microsoft YaHei, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-// }
 
 body {
     // 消除top app bar左侧的margin
     margin: 0;
-    background-color:#f7f7f7;
+    // background-color:#f7f7f7;
 }
 
 /* 文章题目 */
@@ -82,7 +118,7 @@ body {
 .index-title {
     @include typography.typography(subtitle1);
     margin: 0;
-    color: black;
+    color: $simple-wb-color;
 }
 
 /* 索引署名 */
@@ -90,7 +126,7 @@ body {
     @include typography.typography(subtitle1);
     text-align: right;
     margin: 0;
-    color: black;
+    color: $simple-wb-color;
 }
 
 /* 索引日期 */
@@ -98,7 +134,7 @@ body {
     @include typography.typography(subtitle1);
     text-align: right;
     margin: 0;
-    color: black;
+    color: $simple-wb-color;
 }
 
 h1 {
@@ -121,6 +157,7 @@ p, li, a {
 a {
     // 去除链接下划线
     text-decoration: none;
+    color: $link-color;
 }
 
 /* 无序列表 */
@@ -160,17 +197,17 @@ pre code {
 
 /* 段落中单词高亮 */
 code.highlighter-rouge {
+    @include typography.typography(body1);
   /* 灰色 */
-  color:#535c68;
-  padding-left: 0.4rem;
-  padding-right: 0.4rem;
+  color:$code-highlight-text;
+  padding-left: 0.3rem;
+  padding-right: 0.3rem;
   padding-top: 0.1rem;
   padding-bottom: 0.1rem;
   border-radius: 4px;
 
-  background:#fafafa;
-  border:1px solid lightgray;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Microsoft YaHei, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  background: $code-highlight-bg;
+  border:1px solid $code-highlight-border;
 }
 
 footer {
@@ -194,11 +231,12 @@ footer a {
 }
 
 .about-me-name {
+    @include typography.typography(headline4);
     font-size: 1.8rem;
-    color: black;
     text-align: center;
     margin-top: 1.0rem;
     margin-bottom: 1.0rem;
+    color: $simple-wb-color;
 }
 
 .common-dialog-container {
@@ -206,8 +244,7 @@ footer a {
 }
 
 .about-me-description {
-    font-size: 1.0rem;
-    color: black;
+    @include typography.typography(body1);
 }
 
 .dialog-link-list {
@@ -256,14 +293,15 @@ footer a {
     // 使top bar的层级高于drawer
     z-index: 7;
     // 颜色
-    @include top-app-bar.fill-color(#ee6e73);
+    @include top-app-bar.fill-color($nav-color);
     // 阴影
-    @include elevation.elevation(10, #ee6e73, 0);
+    @include elevation.elevation(10, $nav-color, 0);
 }
 
 .mdc-drawer {
     // 使drawer的阴影和内容卡片一致，更协调
-    @include elevation.elevation(5, white, 0);
+    @include elevation.elevation(5,theme.$background, 0);
+    // @include drawer.surface-fill-color()
 
 }
 
@@ -271,8 +309,7 @@ footer a {
 
 // fab
 .mdc-fab {
-    @include fab.accessible(#43A047);
-    @include elevation.elevation(5,#43A047, 0);
+    @include elevation.elevation(5, theme.$secondary, 0);
 }
 
 .app-fab--absolute {
@@ -359,7 +396,7 @@ img, video {
     padding: 20px;
     margin: 24px 16px;
     // 文章卡片的阴影，z高度，阴影颜色，扩散度
-    @include elevation.elevation(5, white, 0);
+    @include elevation.elevation(5, theme.$surface, 0);
 }
 
 
@@ -367,7 +404,7 @@ img, video {
 .index-card {
     padding: 20px;
     margin: 12px 16px;
-    @include elevation.elevation(5, white, 0);
+    @include elevation.elevation(5, theme.$surface, 0);
 }
 
 .circle-avatar {
@@ -397,7 +434,7 @@ img, video {
     }
     .mdc-top-app-bar {
         // 小屏下减少top bar阴影面积
-        @include elevation.elevation(5, #ee6e73, 0);
+        @include elevation.elevation(5, $nav-color, 0);
     }
 
 }

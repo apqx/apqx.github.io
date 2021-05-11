@@ -197,10 +197,12 @@ project.afterEvaluate {
 
 执行`sync`之后，`gradle`会根据配置的发包信息自动生成对应的发包`task`
 
-* publishMyMiReleasePublicationToGitHubPackagesRepository
-* publishMyMiReleasePublicationToMavenLocal
-* publishMyPlayReleasePublicationToGitHubPackagesRepository
-* publishMyPlayReleasePublicationToMavenLocal
+```sh
+publishMyMiReleasePublicationToGitHubPackagesRepository
+publishMyMiReleasePublicationToMavenLocal
+publishMyPlayReleasePublicationToGitHubPackagesRepository
+publishMyPlayReleasePublicationToMavenLocal
+```
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/gradle_task_maven.jpg)
 
