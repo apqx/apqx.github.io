@@ -186,7 +186,7 @@ footer a {
 }
 
 .copyright {
-    padding: 10px 15px;
+    padding: 15px 15px;
 }
 
 .tags {
@@ -263,7 +263,7 @@ footer a {
 
 .mdc-drawer {
     // 使drawer的阴影和内容卡片一致，更协调
-    @include elevation.elevation(10, #ee6e73, 0);
+    @include elevation.elevation(5, white, 0);
 
 }
 
@@ -271,7 +271,8 @@ footer a {
 
 // fab
 .mdc-fab {
-    @include fab.accessible(#43A047)
+    @include fab.accessible(#43A047);
+    @include elevation.elevation(5,#43A047, 0);
 }
 
 .app-fab--absolute {
@@ -358,7 +359,7 @@ img, video {
     padding: 20px;
     margin: 24px 16px;
     // 文章卡片的阴影，z高度，阴影颜色，扩散度
-    @include elevation.elevation(5, #b97d7f17, 0)
+    @include elevation.elevation(5, white, 0);
 }
 
 
@@ -366,7 +367,7 @@ img, video {
 .index-card {
     padding: 20px;
     margin: 12px 16px;
-    @include elevation.elevation(5, #b97d7f17, 0)
+    @include elevation.elevation(5, white, 0);
 }
 
 .circle-avatar {
@@ -389,16 +390,13 @@ img, video {
         padding: 20px;
         margin: 12px 0;
         // 小屏下取消索引卡片阴影
-        // 这种写法是index-card继承了elevation的这个属性
-        @include elevation.elevation(0, #ee6e73, 0)
     }
 
     .essy-card {
         // 小屏下取消文章卡片阴影
-        @include elevation.elevation(0, #b97d7f17, 0)
     }
     .mdc-top-app-bar {
-        // 小屏下取消top bar阴影
+        // 小屏下减少top bar阴影面积
         @include elevation.elevation(5, #ee6e73, 0);
     }
 

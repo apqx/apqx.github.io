@@ -8286,7 +8286,7 @@ footer a {
 }
 
 .copyright {
-  padding: 10px 15px;
+  padding: 15px 15px;
 }
 
 .tags {
@@ -8350,11 +8350,13 @@ footer a {
 
 .mdc-drawer {
   /* @alternate */
-  box-shadow: 0px 6px 6px -3px rgba(238, 110, 115, 0.2), 0px 10px 14px 1px rgba(238, 110, 115, 0.14), 0px 4px 18px 3px rgba(238, 110, 115, 0.12);
+  box-shadow: 0px 3px 5px -1px rgba(255, 255, 255, 0.2), 0px 5px 8px 0px rgba(255, 255, 255, 0.14), 0px 1px 14px 0px rgba(255, 255, 255, 0.12);
 }
 
 .mdc-fab {
   background-color: #43A047;
+  /* @alternate */
+  box-shadow: 0px 3px 5px -1px rgba(67, 160, 71, 0.2), 0px 5px 8px 0px rgba(67, 160, 71, 0.14), 0px 1px 14px 0px rgba(67, 160, 71, 0.12);
 }
 .mdc-fab, .mdc-fab:not(:disabled) .mdc-fab__icon, .mdc-fab:not(:disabled) .mdc-fab__label, .mdc-fab:disabled .mdc-fab__icon, .mdc-fab:disabled .mdc-fab__label {
   color: white;
@@ -8463,14 +8465,14 @@ img, video {
   padding: 20px;
   margin: 24px 16px;
   /* @alternate */
-  box-shadow: 0px 3px 5px -1px rgba(185, 125, 127, 0.2), 0px 5px 8px 0px rgba(185, 125, 127, 0.14), 0px 1px 14px 0px rgba(185, 125, 127, 0.12);
+  box-shadow: 0px 3px 5px -1px rgba(255, 255, 255, 0.2), 0px 5px 8px 0px rgba(255, 255, 255, 0.14), 0px 1px 14px 0px rgba(255, 255, 255, 0.12);
 }
 
 .index-card {
   padding: 20px;
   margin: 12px 16px;
   /* @alternate */
-  box-shadow: 0px 3px 5px -1px rgba(185, 125, 127, 0.2), 0px 5px 8px 0px rgba(185, 125, 127, 0.14), 0px 1px 14px 0px rgba(185, 125, 127, 0.12);
+  box-shadow: 0px 3px 5px -1px rgba(255, 255, 255, 0.2), 0px 5px 8px 0px rgba(255, 255, 255, 0.14), 0px 1px 14px 0px rgba(255, 255, 255, 0.12);
 }
 
 .circle-avatar {
@@ -8491,13 +8493,6 @@ img, video {
   .index-card {
     padding: 20px;
     margin: 12px 0;
-    /* @alternate */
-    box-shadow: 0px 0px 0px 0px rgba(238, 110, 115, 0.2), 0px 0px 0px 0px rgba(238, 110, 115, 0.14), 0px 0px 0px 0px rgba(238, 110, 115, 0.12);
-  }
-
-  .essy-card {
-    /* @alternate */
-    box-shadow: 0px 0px 0px 0px rgba(185, 125, 127, 0.2), 0px 0px 0px 0px rgba(185, 125, 127, 0.14), 0px 0px 0px 0px rgba(185, 125, 127, 0.12);
   }
 
   .mdc-top-app-bar {
