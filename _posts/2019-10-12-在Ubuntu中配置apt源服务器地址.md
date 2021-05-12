@@ -1,9 +1,11 @@
 ---
 layout: post
 type: essy
-title:  "在Ubuntu中配置apt源服务器地址"
+title:  在Ubuntu中配置apt源服务器地址
 author: 立泉
 date:   2019-10-12 +0800
+description: 阿里云的源速度飞快。
+cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/note/pic/ubuntu_settings_apt.png
 categories: essy
 tags: CS Ubuntu
 ---
