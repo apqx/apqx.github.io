@@ -18,7 +18,7 @@ type: tag-index
     {% for post in page.posts %}
     <li class="none">
       <div class="container">
-        <a href="{{ post.url | prepend: site.baseurl }}">
+        <a href="{{ post.url | prepend: site.url }}">
           <div class="card-panel hoverable index-title">
             <h6 class="left-align">{{ post.title }}</h6>
             <h6 class="right-align">{{ post.author }}</h6>
