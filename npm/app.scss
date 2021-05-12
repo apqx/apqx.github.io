@@ -211,19 +211,18 @@ code.highlighter-rouge {
 }
 
 footer {
-    // position: absolute;
-    // bottom: 0;
-    // width: 100%;
     background-color: #ee6e73;
-    color: aliceblue;
+    color: white;
 }
 
 footer a {
-    color: #ffcc80;
+    color: #ffe0b2;
+    text-decoration: none;
 }
 
 .copyright {
     padding: 15px 15px;
+    @include typography.typography(body1);
 }
 
 .tags {

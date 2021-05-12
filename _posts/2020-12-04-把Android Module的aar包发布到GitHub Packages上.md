@@ -1,9 +1,11 @@
 ---
 layout: post
 type: essy
-title:  "把Android Module的aar包发布到GitHub Packages"
+title:  把Android Module的aar包发布到GitHub Packages
 author: 立泉
 date:   2020-12-04 +0800
+description: 只是为了更好的管理自用的工具包。
+cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/github_packages_jettools.jpg
 categories: essy
 tags: CS Android Gradle GitHub
 ---

@@ -1,9 +1,11 @@
 ---
 layout: post
 type: essy
-title:  "Java中的ThreadLocal"
+title:  Java中的ThreadLocal
 author: 立泉
 date:   2019-03-05 +0800
+description: 
+cover: 
 categories: essy
 tags: CS Java
 ---

@@ -1,9 +1,11 @@
 ---
 layout: post
 type: essy
-title:  "在GCE上搭建Shadowsocks的一些问题"
+title:  在GCE上搭建Shadowsocks的一些问题
 author: 立泉
 date:   2019-07-18 +0800
+description: 谷歌云很好，但也很贵。
+cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/gcPrice.jpg
 categories: essy
 tags: CS Google_Cloud VPS Shadowsocks
 ---
