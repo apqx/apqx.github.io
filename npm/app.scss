@@ -155,8 +155,8 @@ p, li, a {
 }
 
 a {
-    // 去除链接下划线
-    text-decoration: none;
+    // 链接加下划线，可能受mdc class的影响，有些地方下划线被取消了
+    text-decoration: underline;
     color: $link-color;
 }
 

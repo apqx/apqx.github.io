@@ -8384,7 +8384,7 @@ p, li, a {
 }
 
 a {
-  text-decoration: none;
+  text-decoration: underline;
   color: #9c27b0;
 }
 
