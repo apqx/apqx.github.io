@@ -19,15 +19,15 @@ sudo apt install jekyll
 
 `apt`会自动从配置好的源服务器上查找`jekyll`软件包，下载并安装，在`Software & Update`中，可以看到系统当前使用的源是`Main server`。
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/note/pic/ubuntu_settings_apt.png)
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/note/pic/ubuntu_settings_apt.png){: loading="lazy" }
 
 这个`Main server`在中国大陆的访问速度是非常慢的，所以必须修改为最近的`源镜像服务器`，我使用的是`Ubuntu 18.04.3 LTS`，点击`Download from`下拉列表，会发现系统已经提供了很多大陆的源服务器镜像，可以选择`阿里云`的镜像。
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/note/pic/ubuntu_settings_apt_source.png)
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/note/pic/ubuntu_settings_apt_source.png){: loading="lazy" }
 
 选择好后，在`Terminal`里更新一下包索引，可以看到，`apt源`已经变成阿里云的镜像地址了。
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/note/pic/ubuntu_terminal_apt_update.png)
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/note/pic/ubuntu_terminal_apt_update.png){: loading="lazy" }
 
 # 手动配置
 
@@ -105,15 +105,15 @@ deb-src http://cn.archive.ubuntu.com/ubuntu/ bionic-backports main restricted un
 
 浏览器访问`http://cn.archive.ubuntu.com/ubuntu/`
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/note/pic/ubuntu_apt_cnserver_root.png)
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/note/pic/ubuntu_apt_cnserver_root.png){: loading="lazy" }
 
 进入`dists/`目录
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/note/pic/ubuntu_apt_cnserver_dists.png)
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/note/pic/ubuntu_apt_cnserver_dists.png){: loading="lazy" }
 
 可以看到，对每一个`Ubuntu`系统代号，都有5个目录，比如`18.04`代号是`bionic`，就对应`bionic/`, `bionic-backports/`, `bionic-proposed/`, `bionic-sercurity/`, `bionic-updates/`，随便进入一个目录，`/bionic/`
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/note/pic/ubuntu_apt_cnserver_bionic.png)
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/note/pic/ubuntu_apt_cnserver_bionic.png){: loading="lazy" }
 
 可以看到`main/`, `universe/`, `multiverse/`, `retricted/`都是具体的目录，这样看来，就可以理解`/etc/apt/sources.list`每一行的含义了。
 
