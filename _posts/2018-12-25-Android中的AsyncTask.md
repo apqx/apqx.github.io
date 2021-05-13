@@ -10,8 +10,6 @@ categories: essy
 tags: CS Android
 ---
 
-# Android中的线程
-
 编写高性能的`Android`程序必需遵守2个最基本的`线程`原则：
 
 * 在`工作线程`中执行耗时操作

@@ -34,7 +34,7 @@ tags: CS Android Java
 我写了下面的一个小程序来处理这几千个HTML文件，即扫描所有文件，一旦发现含有以上代码即删除，然后重新输出回原文件。逐一读写数千个文档是一个相当费时的操作，所幸我并不赶时间。
 
 ```java
-package apqx.me.util;
+package me.apqx.util;
 
 import java.awt.*;
 import java.io.*;

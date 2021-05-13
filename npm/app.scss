@@ -1,4 +1,5 @@
 @use "./scss/color.scss";
+@use "./scss/darktheme.css";
 
 $nav-color:#ee6e73;
 
@@ -7,7 +8,6 @@ $code-highlight-bg:#fafafa;
 $code-highlight-border:lightgray;
 $code-highlight-text:#535c68;
 $link-color:#9c27b0;
-$simple-wb-color:black;
 @use "@material/theme" with (
         // nav，button，drawer的主色
         $primary: #9c27b0,
@@ -17,11 +17,10 @@ $simple-wb-color:black;
         $surface: white,
     );
 
-// $code-highlight-bg:#2c3037;
+// $code-highlight-bg:#2c3037 !default;
 // $code-highlight-border:#576574;
 // $code-highlight-text:#bec0c2;
 // $link-color:#d05ce3;
-// $simple-wb-color:white;
 // @use "@material/theme" with (
 //     // nav，button，drawer的主色
 //     $primary: #ab47bc,
@@ -89,8 +88,20 @@ $simple-wb-color:black;
 body {
     // 消除top app bar左侧的margin
     margin: 0;
-    // background-color:#f7f7f7;
 }
+
+// 通过js给body添加dark class，可以实现对mac-theme的参数更改
+// 大部分组件都会正确相应颜色变化，但是list和chip却无效
+// 且theme.$property引用的值也没有动态变化
+body.dark {
+    --mdc-theme-primary: #ab47bc;
+    --mdc-theme-secondary: #43A047;
+    --mdc-theme-background: #252730;
+    --mdc-theme-surface: #2c3037;
+    --mdc-theme-on-surface: white;
+    --mdc-theme-on-primary: white;
+
+} 
 
 /* 文章题目 */
 .essy-title {
@@ -118,7 +129,6 @@ body {
 .index-title {
     @include typography.typography(subtitle1);
     margin: 0;
-    color: $simple-wb-color;
 }
 
 /* 索引署名 */
@@ -126,7 +136,6 @@ body {
     @include typography.typography(subtitle1);
     text-align: right;
     margin: 0;
-    color: $simple-wb-color;
 }
 
 /* 索引日期 */
@@ -134,7 +143,6 @@ body {
     @include typography.typography(subtitle1);
     text-align: right;
     margin: 0;
-    color: $simple-wb-color;
 }
 
 h1 {
@@ -235,7 +243,6 @@ footer a {
     text-align: center;
     margin-top: 1.0rem;
     margin-bottom: 1.0rem;
-    color: $simple-wb-color;
 }
 
 .common-dialog-container {
@@ -456,4 +463,5 @@ img, video {
     .index-card {
         padding: 20px 40px;
     }
+
 }

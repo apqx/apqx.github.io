@@ -16,7 +16,12 @@ topAppBar.listen('MDCTopAppBar:nav', () => {
 });
 
 // 为fab添加ripple动画
-const fabRipple = new MDCRipple(document.querySelector('.mdc-fab'));
+try {
+    const fabRipple = new MDCRipple(document.querySelector('.mdc-fab'));
+} catch (e) {
+    console.log("catch e = " + e.message);
+}
+
 const fabUp = document.getElementById('fabUp');
 fabUp.addEventListener('click', () => {
     console.log("click fab");
@@ -52,6 +57,8 @@ aboutMeDialog.listen('MDCDialog:opened', () => {
 document.getElementById('btn_about_me').addEventListener('click', () => {
     console.log("click about me");
     aboutMeDialog.open();
+    // TODO: 在这里切换黑白主题
+    // document.body.classList.toggle('dark');
 });
 
 // 生成二维码

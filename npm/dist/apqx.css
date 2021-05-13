@@ -1,4 +1,10 @@
 @charset "UTF-8";
+/* body.dark {
+    --mdc-theme-primary: #ab47bc;
+    --mdc-theme-secondary: #43A047;
+    --mdc-theme-background: #252730;
+    --mdc-theme-surface: #2c3037;
+} */
 :root {
   --mdc-theme-primary: #9c27b0;
   --mdc-theme-secondary: #43A047;
@@ -8117,6 +8123,15 @@ body {
   margin: 0;
 }
 
+body.dark {
+  --mdc-theme-primary: #ab47bc;
+  --mdc-theme-secondary: #43A047;
+  --mdc-theme-background: #252730;
+  --mdc-theme-surface: #2c3037;
+  --mdc-theme-on-surface: white;
+  --mdc-theme-on-primary: white;
+}
+
 /* 文章题目 */
 .essy-title {
   -moz-osx-font-smoothing: grayscale;
@@ -8235,7 +8250,6 @@ body {
   /* @alternate */
   text-transform: var(--mdc-typography-subtitle1-text-transform, inherit);
   margin: 0;
-  color: black;
 }
 
 /* 索引署名 */
@@ -8266,7 +8280,6 @@ body {
   text-transform: var(--mdc-typography-subtitle1-text-transform, inherit);
   text-align: right;
   margin: 0;
-  color: black;
 }
 
 /* 索引日期 */
@@ -8297,7 +8310,6 @@ body {
   text-transform: var(--mdc-typography-subtitle1-text-transform, inherit);
   text-align: right;
   margin: 0;
-  color: black;
 }
 
 h1 {
@@ -8552,7 +8564,6 @@ footer a {
   text-align: center;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  color: black;
 }
 
 .common-dialog-container {

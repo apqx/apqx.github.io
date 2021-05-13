@@ -10,8 +10,6 @@ categories: essy
 tags: CS Android
 ---
 
-# 前言
-
 当我刚开始学习`Android`的时候，并不懂`设计模式`，只晓得`Activity`可以控制UI，也不知道那些操作数据的逻辑代码应该如何命名，便索性将所有代码堆砌在`Activity`和`Fragment`里，但随着我练习的逻辑越来越复杂，`Activity`的代码结构开始变得混乱起来，越来越臃肿，几乎无法维护，那种在一个`class文件`里的各种方法间到处跳来跳去的感觉，岂止是酸爽。后来，我看到了`MVP`，顿时豁然开朗，原来还可以这样，它把`View`和`Model`彻底分离，用`Presenter`来承上启下，让代码里的每一个UI驱动的逻辑都变得十分清晰。
 
 我确实很喜欢`MVP`，也把它大量用在了我的工作中，然后，我开始接触`Android Jetpack`，里面的`DataBinding`、`LiveData`和`ViewModel`都在向我预示着一个新的设计模式：`MVVM`。它的`View`和`Model`概念与`MVP`中一致，不同的是`ViewModel`，其核心思想是视图和数据进行双向绑定，当数据发生变化时，视图自动更新，而视图上的变化也会直接作用到数据上，我有点兴趣，做了些练习，想要了解它，然后尝试使用它。
@@ -20,7 +18,7 @@ tags: CS Android
 
 > Model View Controller
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/mvc.png)
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/mvc.png){: loading="lazy" }
 
 * `View`即视图，用于接收UI事件，控制UI状态。
 * `Model`即数据模型，用于处理数据，比如从数据库和网络中读写操作。
@@ -129,7 +127,7 @@ class WeatherActivity : Activity(), OnBtnClickListener{
 
 > Model View Presenter
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/mvp.png)
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/mvp.png){: loading="lazy" }
 
 * `View`即视图，用于接收UI事件，控制UI状态，一般为`Activity`和`Fragment`。
 * `Model`即数据模型，用于处理数据，比如从数据库和网络中读写操作。
@@ -228,7 +226,7 @@ class WeatherPresenter(private val iWeatherActivity: IWeatherActivity) : IWeathe
 
 > Model View ViewModel
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/mvvm.png)
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/mvvm.png){: loading="lazy" }
 
 * `View`即视图，用于接收UI事件，控制UI状态，一般为`Activity`和`Fragment`。
 * `Model`即数据模型，用于处理数据，比如从数据库和网络中读写操作。
