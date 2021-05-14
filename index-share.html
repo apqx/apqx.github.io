@@ -10,7 +10,7 @@ cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/me.jpg
   {% for post in site.posts %}
   {% if post.type == "share" %}
   <li class="index-li">
-      <a class="index-a" href="{{ post.url | prepend: site.baseurl }}">
+      <a class="index-a mdc-theme--on-surface" href="{{ post.url | prepend: site.baseurl }}">
           <div class="mdc-card index-card mdc-theme--surface">
               <p class="index-title">{{ post.title }}</p>
               <p class="index-author">{{ post.author }}</p>

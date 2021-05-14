@@ -52,6 +52,8 @@ aboutMeDialog.listen('MDCDialog:opened', () => {
 document.getElementById('btn_about_me').addEventListener('click', () => {
     console.log("click about me");
     aboutMeDialog.open();
+    // TODO: 在这里切换黑白主题
+    // document.body.classList.toggle('dark');
 });
 
 // 生成二维码
