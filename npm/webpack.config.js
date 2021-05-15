@@ -5,9 +5,9 @@ module.exports = {
     mode: 'development',
     // 把app.scss转换为bundle.css
     // 给apqx.me使用的scss和js定义
-    entry: ['./app.scss', './app.js', './js/tag.js', './js/nav.js'],
+    entry: ['./scss/app.scss', './js/app.js', './js/tag.js', './js/nav.js'],
     // 给测试使用的scss和js定义
-    // entry: ['./demo.scss', './demo.js'],
+    // entry: ['./scss/demo.scss', './js/demo.js'],
     output: {
         // 指定要生存的js文件名
         filename: 'apqx.js',
