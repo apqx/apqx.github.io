@@ -16,7 +16,12 @@ topAppBar.listen('MDCTopAppBar:nav', () => {
 });
 
 // 为fab添加ripple动画
-const fabRipple = new MDCRipple(document.querySelector('.mdc-fab'));
+try {
+    const fabRipple = new MDCRipple(document.querySelector('.mdc-fab'));
+} catch (e) {
+    console.log("catch e = " + e.message);
+}
+
 const fabUp = document.getElementById('fabUp');
 fabUp.addEventListener('click', () => {
     console.log("click fab");
