@@ -1,6 +1,6 @@
 $(document).ready(function () {
     // highlight.js
-    hljs.highlightAll();
+    // hljs.highlightAll();
 });
 
 console.log("Hello");
