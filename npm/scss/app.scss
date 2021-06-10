@@ -197,13 +197,14 @@ blockquote p {
     margin: 0;
 }
 
+// 代码块
 pre code {
     font-size: 1.0rem;
     line-height: 1.2rem;
 }
 
 /* 段落中单词高亮 */
-code.highlighter-rouge {
+p code, li code {
     @include typography.typography(body1);
   /* 灰色 */
   color:$code-highlight-text;
@@ -216,6 +217,8 @@ code.highlighter-rouge {
   background: $code-highlight-bg;
   border:1px solid $code-highlight-border;
 }
+
+
 
 footer {
     background-color: #ee6e73;
@@ -348,31 +351,6 @@ footer a {
 .mdc-fab__ripple {
     border-radius: 50% !important;
     -webkit-mask-image: radial-gradient(white, black);
-}
-
-// table 
-// todo:应加上hovor动画
-table:not(mdc-data-table__table) {
-    // 边框线
-    border: 1px solid rgba(128, 128, 128, 0.336);
-    border-radius: 3px;
-    border-collapse: collapse;
-}
-
-th:not(mdc-data-table__header-cell) {
-    padding-top: 13px;
-    padding-bottom: 13px;
-    font-style: normal;
-}
-
-td:not(mdc-data-table__cell) {
-    padding-top: 13px;
-    padding-bottom: 13px;
-}
-
-tbody tr {
-    // 行分割线
-    border-top: 1px solid rgba(128, 128, 128, 0.336);
 }
 
 img, video {

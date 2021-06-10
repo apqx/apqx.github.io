@@ -83,10 +83,12 @@ buildscript {
 
 比如在该`Module`的`build.gradle`中定义了`mi`和`play`2个`flavor`，用于配置发布到小米商店和`Google Play`商店的渠道包，它们与`release`和`debug`2个`build type`组合就可以有4个`build variant`
 
-* miRelease
-* miDebug
-* playRelease
-* playDebug
+```sh
+miRelease
+miDebug
+playRelease
+playDebug
+```
 
 ```groovy
 // Module的build.gradle

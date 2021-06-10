@@ -21,8 +21,8 @@ npm/package-lock.json, npm/package.json, npm/README.md, npm/webpack.config.js]
 # Url output
 permalink: /:categories/:year/:month/:day/:title:output_ext
 
-# Code highlight，work with theme，mayby later
-# highlighter: rouge
+# 如此设置才会从```中生成标准的代码高亮html，能被highlight.js解析
+highlighter: none
 
 # Build settings
 markdown: kramdown
