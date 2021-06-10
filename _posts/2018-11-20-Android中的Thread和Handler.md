@@ -1,9 +1,9 @@
 ---
 layout: post
 type: essy
-title:  "Android中的Thread和Handler"
+title: "Android中的Thread和Handler"
 author: 立泉
-date:   2018-11-20 +0800
+date: 2018-11-20 +0800
 description: 
 cover: 
 categories: essy

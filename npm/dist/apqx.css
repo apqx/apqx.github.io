@@ -8395,6 +8395,10 @@ p, li, a {
   line-height: 1.8rem;
 }
 
+em {
+  color: #535c68;
+}
+
 a {
   text-decoration: underline;
   color: #9c27b0;
