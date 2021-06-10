@@ -21,8 +21,9 @@ npm/package-lock.json, npm/package.json, npm/README.md, npm/webpack.config.js]
 # Url output
 permalink: /:categories/:year/:month/:day/:title:output_ext
 
-# 如此设置才会从```中生成标准的代码高亮html，能被highlight.js解析
-highlighter: none
+# 设置highlighter为none才会从```中生成标准的代码高亮html，能被highlight.js解析
+# 但是GitHub Pages只支持Rouge或Pygments的高亮格式，所以不能设置为none，默认是Rouge
+# highlighter: none
 
 # Build settings
 markdown: kramdown
