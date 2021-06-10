@@ -65,7 +65,7 @@ module.exports = {
             // 支持读取css
             {
                 test: /\.css$/i,
-                use: ["css-loader"],
+                use: ["style-loader", "css-loader"],
             },
         ]
     },
