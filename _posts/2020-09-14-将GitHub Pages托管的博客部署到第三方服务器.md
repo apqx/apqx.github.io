@@ -1,9 +1,9 @@
 ---
 layout: post
 type: essy
-title:  将GitHub Pages托管的博客部署到第三方服务器
+title: "将GitHub Pages托管的博客部署到第三方服务器"
 author: 立泉
-date:   2020-09-14 +0800
+date: 2020-09-14 +0800
 description: 是我的错觉吗？在大陆访问GitHub Pages正变得越来越慢。
 cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/jekyllProject.png
 categories: essy

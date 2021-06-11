@@ -1,16 +1,16 @@
 ---
 layout: post
 type: share
-title:  "A new approach to China: an update"
+title: "A new approach to China: an update"
 author: Google
-date:   2010-03-22 +0800
+date: 2010-03-22 +0800
 description: 
 cover: 
 categories: essy
 tags: 思维
 ---
 
-> 原文[在此](https://googleblog.blogspot.com/2010/03/new-approach-to-china-update.html)，那一年，我15岁，第一次离开县城，去市里的高中读书。
+> 原文[在此](https://googleblog.blogspot.com/2010/03/new-approach-to-china-update.html)，那一年，我15岁，第一次离开县城，去市里的高中读书，却对这件事，一无所知。
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/google_quite_china.jpg){: loading="lazy" }
 

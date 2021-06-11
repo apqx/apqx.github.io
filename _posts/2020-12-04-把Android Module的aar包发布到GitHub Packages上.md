@@ -1,9 +1,9 @@
 ---
 layout: post
 type: essy
-title:  把Android Module的aar包发布到GitHub Packages
+title: "把Android Module的aar包发布到GitHub Packages"
 author: 立泉
-date:   2020-12-04 +0800
+date: 2020-12-04 +0800
 description: 只是为了更好的管理自用的工具包。
 cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/github_packages_jettools.jpg
 categories: essy
@@ -130,7 +130,7 @@ android {
 
 用于发包的`token`属于私密信息，如果这个工程是公开上传到`GitHub`上的，当然不希望`token`也被公开，可以在工程根目录下创建一个`github.properties`文件，存放用户名和`token`，但不要`push`到`GitHub`上。
 
-```
+```sh
 gpr.usr=apqx
 gpr.key=your_token
 ```

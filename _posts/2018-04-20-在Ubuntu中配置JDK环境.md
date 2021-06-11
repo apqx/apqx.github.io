@@ -1,9 +1,9 @@
 ---
 layout: post
 type: essy
-title:  "在Ubuntu中配置JDK环境"
+title: "在Ubuntu中配置JDK环境"
 author: 立泉
-date:   2018-04-20 +0800
+date: 2018-04-20 +0800
 description: 
 cover: 
 categories: essy

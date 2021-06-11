@@ -1,10 +1,10 @@
 ---
 layout: post
 type: essy
-title:  "Android中的AsyncTask"
+title: "Android中的AsyncTask"
 author: 立泉
-date:   2018-12-25 +0800
-description: 
+date: 2018-12-25 +0800
+description: 异步流RxJava越来越流行，可能Android原生提供的AsyncTask也很少有人用了。
 cover: 
 categories: essy
 tags: CS Android
