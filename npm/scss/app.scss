@@ -161,6 +161,11 @@ p, li, a {
     line-height: 1.8rem;
 }
 
+// 斜体，一般用于图片说明
+em {
+    color:$code-highlight-text;
+}
+
 a {
     // 链接加下划线，可能受mdc class的影响，有些地方下划线被取消了
     text-decoration: underline;
