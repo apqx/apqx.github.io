@@ -16,7 +16,7 @@ tags: CS Google_Cloud VPS Shadowsocks
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/gcPrice.jpg){: loading="lazy" }
 
-和`Vultr`的[配置方式]({% post_url 2018-12-09-倚晴天，红杏窥墙 %})不同，在`GCE`上搭建`Shadowsocks`有一些细节问题需要注意。
+和`Vultr`的[配置方式]({% post_url 2018-12-09-倚晴天，红杏窥墙 %}){: target="_blank" }不同，在`GCE`上搭建`Shadowsocks`有一些细节问题需要注意。
 
 # 防火墙
 
@@ -112,7 +112,7 @@ Traceback (most recent call last):
 socket.error: [Errno 99] Cannot assign requested address
 ```
 
-[搜索一番](https://www.chenweikang.top/?p=679)，原因应该是`GCE`的`VPS`自己默认做了`内网映射`，所以只需把`server`改成`内网IP`即可。
+[搜索一番](https://www.chenweikang.top/?p=679){: target="_blank" }，原因应该是`GCE`的`VPS`自己默认做了`内网映射`，所以只需把`server`改成`内网IP`即可。
 
 优化网络方面，启用`BBR`算法的方式，和其它`VPS`一样。
 

@@ -79,7 +79,7 @@ buildscript {
 关于使用`build variant`创建不同类型包的相关问题，通常用于打出同一个版本的不同渠道包，可以查看我的另一篇文章：
 
 
-[使用Gradle创建不同的打包类型]({% post_url 2020-06-12-使用Gradle创建不同的打包类型 %})
+[使用Gradle创建不同的打包类型]({% post_url 2020-06-12-使用Gradle创建不同的打包类型 %}){: target="_blank" }
 
 比如在该`Module`的`build.gradle`中定义了`mi`和`play`2个`flavor`，用于配置发布到小米商店和`Google Play`商店的渠道包，它们与`release`和`debug`2个`build type`组合就可以有4个`build variant`
 
@@ -296,4 +296,4 @@ dependencies {
 
 还有一点是关于删除已发布的包，`GitHub`允许删除私有仓库的包，但不允许删除公共仓库的包，因为可能已经有其它项目正在使用，如果某个版本存在问题，正确的解决方法不是删除该包，而是发布一个修复了问题的新版本的包。
 
-更多信息可以查看`Android Developers`对[Maven Publish Gradle plugin](https://developer.android.com/studio/build/maven-publish-plugin)的描述。
+更多信息可以查看`Android Developers`对[Maven Publish Gradle plugin](https://developer.android.com/studio/build/maven-publish-plugin){: target="_blank" }的描述。
