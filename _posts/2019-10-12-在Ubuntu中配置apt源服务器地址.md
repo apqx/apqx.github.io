@@ -117,7 +117,7 @@ deb-src http://cn.archive.ubuntu.com/ubuntu/ bionic-backports main restricted un
 
 可以看到`main/`, `universe/`, `multiverse/`, `retricted/`都是具体的目录，这样看来，就可以理解`/etc/apt/sources.list`每一行的含义了。
 
-根据[官网](https://developer.aliyun.com/mirror/)，阿里云对应`Ubuntu 18.04`的镜像源地址如下
+根据[官网](https://developer.aliyun.com/mirror/){: target="_blank" }，阿里云对应`Ubuntu 18.04`的镜像源地址如下
 
 ```sh
 deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
