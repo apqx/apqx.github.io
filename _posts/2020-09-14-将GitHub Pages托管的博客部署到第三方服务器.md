@@ -5,7 +5,7 @@ title: "将GitHub Pages托管的博客部署到第三方服务器"
 author: 立泉
 date: 2020-09-14 +0800
 description: 是我的错觉吗？在大陆访问GitHub Pages正变得越来越慢。
-cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/jekyllProject.png
+cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20200914/jekyll_project.png
 categories: essy
 tags: CS GitHub Jekyll VPS
 ---
@@ -14,7 +14,7 @@ tags: CS GitHub Jekyll VPS
 
 # 镜像
 
-前几年，`GitHub Pages`并不是这个样子，至少当时我很满意才会把博客托管到这里，可是渐渐的，发生了一些变化，我也开始做一些尝试，尽可能提高一个`非备案域名`在大陆的访问速度。不错，一个普普通通的博客，我不想备案，虽然微不足道，但或许这也是我个人面对`过度内容审查`最后的倔强了。不备案，也就意味着无法使用大陆的`CDN`和`VPS`，而这两项恰恰是网站加速的最优途径，所以，我觉得成年人的标志之一便是，根据自己的好恶，作出选择，并坦然面对相应的后果。
+前几年，`GitHub Pages`并不是这个样子，至少当时我很满意才会把博客托管到这里，可是渐渐的，发生了一些变化，我也开始做一些尝试，尽可能提高一个`非备案域名`在大陆的访问速度。不错，一个普普通通的博客，我不想备案，虽然微不足道，但或许这也是我个人面对**过度内容审查**最后的倔强了。不备案，也就意味着无法使用大陆的`CDN`和`VPS`，而这两项恰恰是网站加速的最优途径，所以，我觉得成年人的标志之一便是，根据自己的好恶，作出选择，并坦然面对相应的后果。
 
 为了减少`GitHub`的仓库容量，毕竟速度那么慢，我把博客里的图片、视频资源都放在了阿里云的`对象存储OSS`上，这个只需要实名，不用备案。关于费用，我看到很多人会选择一些小服务商的`OSS`，只是因为它们提供了一定的免费额度，实际上，虽然阿里云的报价表看起来很贵的样子，但对于我这样的个人博客，本来访问量就少，流量并不会太大，所以大可不必担心费用问题。看了下账单，每个月2毛钱左右，充个5元，可以用上好几年吧。
 
@@ -24,7 +24,7 @@ tags: CS GitHub Jekyll VPS
 
 `GitHub Pages`的博客方案其实很简单，整个博客本身是一个`GitHub`仓库，按`Jekyll`工程的目录格式配置文件。
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/jekyllProject.png){: loading="lazy" }
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20200914/jekyll_project.png){: loading="lazy" class="clickable" onclick="clickShowOriginalImg(event)" alt="pic"}
 
 其中，`_drafts`和`_posts`分别存放用`MarkDown`格式写的草稿和博文，`assets`存放一些媒体资源文件，我已经把它们迁到了阿里云的`OSS`上，所以这里是空的。而`_includs`, `_layouts`, `css`, `font`, `js`则是和网站的主题、布局、模版相关的东西，毕竟`Jekyll`需要使用这些配置才能将`MarkDown`转换为静态`HTML`网页。
 
@@ -112,10 +112,10 @@ server {
 
 访问网站，即可看到已经启用了`HTTPS`，证书由`Let’s Encrypt`签发，有效期90天。
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/letsEncrypt.jpg){: loading="lazy" }
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20200914/lets_encrypt.jpg){: loading="lazy" class="clickable" onclick="clickShowOriginalImg(event)" alt="pic"}
 
 我使用的是`谷歌云`在台湾数据中心的服务器，延迟在60ms左右，比`GitHub Pages`的平均300ms好多了，但当然比不上离我最近的阿里云杭州数据中心的10ms，不过，对于静态网站来说，已经很好了。
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/pingApqxMe.jpg){: loading="lazy" }
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20200914/ping_apqxme.jpg){: loading="lazy" class="clickable" onclick="clickShowOriginalImg(event)" alt="pic"}
 
 所谓镜像，理想的情况是，在本地执行了`push`之后，`GitHub`自动通知`VPS`博客内容已经发生了更改，执行`pull`拉取源文件，转换为`HTML`后，博客自动更新。emmm，看起来也不复杂，可能之后会做吧，我更新博客的频率并不高，手动执行还可以增加对`Linux`的熟悉度，自动化的动力毕竟不足，哈哈。

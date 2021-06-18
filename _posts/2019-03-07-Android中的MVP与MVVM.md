@@ -5,7 +5,7 @@ title: "Android中的MVP与MVVM"
 author: 立泉
 date: 2019-03-07 +0800
 description: 从MVC到MVVM，设计模式的进化正让Android开发变得越来越简洁高效。
-cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/mvvm.png
+cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20190307/mvvm.png
 categories: essy
 tags: CS Android
 ---
@@ -18,7 +18,7 @@ tags: CS Android
 
 > Model View Controller
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/mvc.png){: loading="lazy" }
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20190307/mvc.png){: loading="lazy" class="clickable" onclick="clickShowOriginalImg(event)" alt="pic"}
 
 * `View`即视图，用于接收UI事件，控制UI状态。
 * `Model`即数据模型，用于处理数据，比如从数据库和网络中读写操作。
@@ -127,7 +127,7 @@ class WeatherActivity : Activity(), OnBtnClickListener{
 
 > Model View Presenter
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/mvp.png){: loading="lazy" }
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20190307/mvp.png){: loading="lazy" class="clickable" onclick="clickShowOriginalImg(event)" alt="pic"}
 
 * `View`即视图，用于接收UI事件，控制UI状态，一般为`Activity`和`Fragment`。
 * `Model`即数据模型，用于处理数据，比如从数据库和网络中读写操作。
@@ -226,7 +226,7 @@ class WeatherPresenter(private val iWeatherActivity: IWeatherActivity) : IWeathe
 
 > Model View ViewModel
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/pic/mvvm.png){: loading="lazy" }
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20190307/mvvm.png){: loading="lazy" class="clickable" onclick="clickShowOriginalImg(event)" alt="pic"}
 
 * `View`即视图，用于接收UI事件，控制UI状态，一般为`Activity`和`Fragment`。
 * `Model`即数据模型，用于处理数据，比如从数据库和网络中读写操作。
@@ -347,4 +347,4 @@ class WeatherViewModel : ViewModel() {
 
 # 结语
 
-我在工作和学习中大量使用过`MVP`，对`MVC`和`MVVM`只是有所耳闻，接触了`Kotlin`和`Jetpack`后，开始尝试在自己的练习中使用这些新的东西，而对于`“一直在计划中”👽`的`树莓派`机器人`重构`，这些都是基础，毕竟，2年多的时间，我的编程思维和代码风格已经发生了巨大的变化，也让我觉得，这个小小的电路板，充满了无限的可能性，如果我不偷懒的话。。。
+我在工作和学习中大量使用过`MVP`，对`MVC`和`MVVM`只是有所耳闻，接触了`Kotlin`和`Jetpack`后，开始尝试在自己的练习中使用这些新的东西，而对于“一直在计划中”的`树莓派`机器人`重构`，这些都是基础，毕竟，2年多的时间，我的编程思维和代码风格已经发生了巨大的变化，也让我觉得，这个小小的电路板，充满了无限的可能性，如果我不偷懒的话。

@@ -1,25 +1,23 @@
-$(document).ready(function () {
-    // highlight.js
-    // hljs.highlightAll();
-});
-
-console.log("Hello");
-
-
-// When the user clicks on the button, scroll to the top of the document
-const scrollToTop = () => {
+/**
+ * 回到顶部
+ */
+function scrollToTop() {
     const c = document.documentElement.scrollTop || document.body.scrollTop;
     if (c > 0) {
         window.requestAnimationFrame(scrollToTop);
         window.scrollTo(0, c - c / 8);
-    } else {
-        // M.toast({html: '🐸'})
-    }
+    } 
 };
 
-const copyUrl = () => {
-    // 截取、处理当前URL中的中文，encode后复制到剪切板
-    // M.toast({html: '🐸'})
+/**
+ * 点击图片，跳转到原图
+ */
+ function clickShowOriginalImg(event) {
+    var url = event.target.src;
+    // 所有的图片，缩略图都加了_thumb后缀，删除后即为原图
+    url = url.replace("_thumb", "")
+    console.log("click show original img => " + url);
+    window.open(url, "_blank");
 };
 
 // 根据屏幕宽度确定大屏、小屏，大屏使用可收缩的top app bar

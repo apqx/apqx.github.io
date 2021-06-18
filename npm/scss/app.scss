@@ -6,6 +6,7 @@ $nav-color:#ee6e73;
 $code-highlight-bg:#fafafa;
 $code-highlight-border:lightgray;
 $code-highlight-text:#535c68;
+$em-color:#535c68;
 $link-color:#9c27b0;
 @use "@material/theme" with (
         // nav，button，drawer的主色
@@ -19,6 +20,7 @@ $link-color:#9c27b0;
 // $code-highlight-bg:#2c3037 !default;
 // $code-highlight-border:#576574;
 // $code-highlight-text:#bec0c2;
+// $em-color:#535c68;
 // $link-color:#d05ce3;
 // @use "@material/theme" with (
 //     // nav，button，drawer的主色
@@ -114,7 +116,7 @@ body.dark {
 .essy-author {
     @include typography.typography(subtitle1);
     text-align: center;
-    margin-top: 1.0rem;
+    margin-top: 0.8rem;
 }
 
 /* 文章日期 */
@@ -163,7 +165,12 @@ p, li, a {
 
 // 斜体，一般用于图片说明
 em {
-    color:$code-highlight-text;
+    color:$em-color;
+}
+
+// 加粗强调，一般用于句子
+strong {
+    // color:$link-color;
 }
 
 a {
@@ -172,10 +179,16 @@ a {
     color: $link-color;
 }
 
+a:hover {
+    text-decoration: none;
+}
+
 /* 无序列表 */
 ul {
   padding-left: 18pt;
   padding-right: 0;
+  margin-top: 0;
+  margin-bottom: 0;
   /* 实心圆 */
   list-style-type: disc;
 }
@@ -184,6 +197,8 @@ ul {
 ol {
   padding-left: 18pt;
   padding-right: 0;
+  margin-top: 0;
+  margin-bottom: 0;
   /* 数字 */
   list-style-type: decimal;
 }
@@ -208,6 +223,10 @@ pre code {
     line-height: 1.2rem;
 }
 
+div.hljs {
+    // border-radius: 5px;
+}
+
 /* 段落中单词高亮 */
 p code, li code {
     @include typography.typography(body1);
@@ -222,8 +241,6 @@ p code, li code {
   background: $code-highlight-bg;
   border:1px solid $code-highlight-border;
 }
-
-
 
 footer {
     background-color: #ee6e73;
@@ -358,10 +375,14 @@ footer a {
     -webkit-mask-image: radial-gradient(white, black);
 }
 
+img.clickable:hover {
+    cursor: pointer;
+}
+
 img, video {
     max-width: 100%;
     height: auto;
-    margin-top: 10px;
+    // border-radius: 5px;
 }
 
 .video-container {
