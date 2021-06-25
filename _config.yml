@@ -36,7 +36,9 @@ plugins:
 jekyll-archives:
   enabled:
   # 原创和转载的tag分离
-  # 原创文章tag：碎碎念（戏剧，旅行，摄影），CS（Android，Gradle，Java，Jvm，Flutter，Git，GitHub，Jekyll，Google_Cloud，VPS，ShadowSocks，HTTPS，RaspberryPi，Ubuntu，抓包，下载）
+  # 原创文章tag，两大类：
+  # 碎碎念（戏剧，省昆，浙昆，苏昆，旅行，摄影）
+  # CS（Android，Gradle，Java，Jvm，Flutter，Git，GitHub，Jekyll，Google_Cloud，VPS，ShadowSocks，HTTPS，RaspberryPi，Ubuntu，抓包，下载）
   # 转载文章tag：戏剧，昆曲，京剧，历史，[作者]，[人物]，思维，看客（贬义），诗文，曲艺
   - tags
   layout: archive

@@ -172,6 +172,10 @@ a {
     color: $link-color;
 }
 
+a:hover {
+    text-decoration: none;
+}
+
 /* 无序列表 */
 ul {
   padding-left: 18pt;
