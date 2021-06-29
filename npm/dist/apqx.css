@@ -8190,7 +8190,7 @@ body.dark {
   /* @alternate */
   text-transform: var(--mdc-typography-subtitle1-text-transform, inherit);
   text-align: center;
-  margin-top: 1rem;
+  margin-top: 0.8rem;
 }
 
 /* 文章日期 */
