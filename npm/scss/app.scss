@@ -212,6 +212,10 @@ pre code {
     line-height: 1.2rem;
 }
 
+div.hljs {
+    // border-radius: 5px;
+}
+
 /* 段落中单词高亮 */
 p code, li code {
     @include typography.typography(body1);
@@ -226,8 +230,6 @@ p code, li code {
   background: $code-highlight-bg;
   border:1px solid $code-highlight-border;
 }
-
-
 
 footer {
     background-color: #ee6e73;
@@ -362,10 +364,14 @@ footer a {
     -webkit-mask-image: radial-gradient(white, black);
 }
 
+img.clickable:hover {
+    cursor: pointer;
+}
+
 img, video {
     max-width: 100%;
     height: auto;
-    margin-top: 10px;
+    // border-radius: 5px;
 }
 
 .video-container {

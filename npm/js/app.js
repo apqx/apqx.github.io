@@ -67,4 +67,3 @@ for (const list of lists) {
     // 为每个item添加ripple动画
     item.listElements.map((listItemEl) => new MDCRipple(listItemEl));
 }
-

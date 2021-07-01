@@ -8680,10 +8680,13 @@ footer a {
   -webkit-mask-image: radial-gradient(white, black);
 }
 
+img.clickable:hover {
+  cursor: pointer;
+}
+
 img, video {
   max-width: 100%;
   height: auto;
-  margin-top: 10px;
 }
 
 .video-container {
