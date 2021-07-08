@@ -6,6 +6,7 @@ $nav-color:#ee6e73;
 $code-highlight-bg:#fafafa;
 $code-highlight-border:lightgray;
 $code-highlight-text:#535c68;
+$em-color:#535c68;
 $link-color:#9c27b0;
 @use "@material/theme" with (
         // nav，button，drawer的主色
@@ -19,6 +20,7 @@ $link-color:#9c27b0;
 // $code-highlight-bg:#2c3037 !default;
 // $code-highlight-border:#576574;
 // $code-highlight-text:#bec0c2;
+// $em-color:#535c68;
 // $link-color:#d05ce3;
 // @use "@material/theme" with (
 //     // nav，button，drawer的主色
@@ -163,7 +165,12 @@ p, li, a {
 
 // 斜体，一般用于图片说明
 em {
-    color:$code-highlight-text;
+    color:$em-color;
+}
+
+// 加粗强调，一般用于句子
+strong {
+    // color:$link-color;
 }
 
 a {
