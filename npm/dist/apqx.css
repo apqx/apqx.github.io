@@ -8412,6 +8412,8 @@ a:hover {
 ul {
   padding-left: 18pt;
   padding-right: 0;
+  margin-top: 0;
+  margin-bottom: 0;
   /* 实心圆 */
   list-style-type: disc;
 }
@@ -8420,6 +8422,8 @@ ul {
 ol {
   padding-left: 18pt;
   padding-right: 0;
+  margin-top: 0;
+  margin-bottom: 0;
   /* 数字 */
   list-style-type: decimal;
 }
