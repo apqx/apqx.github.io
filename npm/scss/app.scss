@@ -3,11 +3,12 @@
 
 $nav-color:#ee6e73;
 
-$code-highlight-bg:#fafafa;
+$code-highlight-bg:#f5f4f9;
 $code-highlight-border:lightgray;
-$code-highlight-text:#535c68;
-$em-color:#535c68;
-$link-color:#9c27b0;
+$code-highlight-text:#424242;
+$text-em-color:#535c68;
+$text-link-color:#9c27b0;
+$text-body-color:#424242;
 @use "@material/theme" with (
         // nav，button，drawer的主色
         $primary: #9c27b0,
@@ -20,8 +21,9 @@ $link-color:#9c27b0;
 // $code-highlight-bg:#2c3037 !default;
 // $code-highlight-border:#576574;
 // $code-highlight-text:#bec0c2;
-// $em-color:#535c68;
-// $link-color:#d05ce3;
+// $text-em-color:#535c68;
+// $text-link-color:#d05ce3;
+// $text-body-color:#000000;
 // @use "@material/theme" with (
 //     // nav，button，drawer的主色
 //     $primary: #ab47bc,
@@ -54,6 +56,7 @@ $link-color:#9c27b0;
 // 组件层级，似乎可以动态
 @use "@material/elevation";
 @use "@material/elevation/mdc-elevation";
+@use '@material/chips';
 @use '@material/chips/styles';
 
 @use "@material/data-table/data-table";
@@ -123,7 +126,7 @@ body.dark {
 .essy-date {
     @include typography.typography(subtitle1);
     text-align: center;
-    margin-top: 0;
+    margin-top: 0.5rem;
 }
 
 /* 索引题目 */
@@ -157,15 +160,20 @@ h2 {
 p, li, a {
     // 使用mdc的字体样式
     @include typography.typography(body1);
+    color: $text-body-color;
     // 段落间距
     margin: 0.5rem 0;
     // 行间距
     line-height: 1.8rem;
 }
 
+p {
+    text-align: justify;
+}
+
 // 斜体，一般用于图片说明
 em {
-    color:$em-color;
+    color:$text-em-color;
 }
 
 // 加粗强调，一般用于句子
@@ -176,7 +184,7 @@ strong {
 a {
     // 链接加下划线，可能受mdc class的影响，有些地方下划线被取消了
     text-decoration: underline;
-    color: $link-color;
+    color: $text-link-color;
 }
 
 a:hover {
@@ -239,7 +247,7 @@ p code, li code {
   border-radius: 4px;
 
   background: $code-highlight-bg;
-  border:1px solid $code-highlight-border;
+//   border:1px solid $code-highlight-border;
 }
 
 footer {
@@ -367,6 +375,10 @@ footer a {
 .mdc-evolution-chip, .mdc-evolution-chip__ripple {
     border-radius: 20px !important;
     -webkit-mask-image: radial-gradient(white, black);
+}
+
+.mdc-evolution-chip {
+    @include chips.text-label-color($text-body-color);
 }
 
 // 解决Safari的fab Ripple动画无圆角

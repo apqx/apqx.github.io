@@ -8220,7 +8220,7 @@ body.dark {
   /* @alternate */
   text-transform: var(--mdc-typography-subtitle1-text-transform, inherit);
   text-align: center;
-  margin-top: 0;
+  margin-top: 0.5rem;
 }
 
 /* 索引题目 */
@@ -8391,8 +8391,13 @@ p, li, a {
   text-transform: inherit;
   /* @alternate */
   text-transform: var(--mdc-typography-body1-text-transform, inherit);
+  color: #424242;
   margin: 0.5rem 0;
   line-height: 1.8rem;
+}
+
+p {
+  text-align: justify;
 }
 
 em {
@@ -8495,14 +8500,13 @@ p code, li code {
   /* @alternate */
   text-transform: var(--mdc-typography-body1-text-transform, inherit);
   /* 灰色 */
-  color: #535c68;
+  color: #424242;
   padding-left: 0.3rem;
   padding-right: 0.3rem;
   padding-top: 0.1rem;
   padding-bottom: 0.1rem;
   border-radius: 4px;
-  background: #fafafa;
-  border: 1px solid lightgray;
+  background: #f5f4f9;
 }
 
 footer {
@@ -8679,6 +8683,9 @@ footer a {
   -webkit-mask-image: radial-gradient(white, black);
 }
 
+.mdc-evolution-chip .mdc-evolution-chip__text-label {
+  color: #424242;
+}
 .mdc-fab__ripple {
   border-radius: 50% !important;
   -webkit-mask-image: radial-gradient(white, black);
