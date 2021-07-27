@@ -14,12 +14,12 @@
 
     <div class="mdc-card essy-card">
       <h1 class="essy-title">{{ page.title }}</h1>
-      <p class="essy-author">{{ page.author }}</p>
+      <span class="essy-author">{{ page.author }}</span>
       <!-- 支持非标准日期 -->
       {% if page.moredate != null %}
-      <p class="essy-date">{{ page.moredate }}</p>
+      <span class="essy-date">{{ page.moredate }}</span>
       {% else %}
-      <p class="essy-date">{{ page.date | date: "%Y年%m月%d日" }}</p>
+      <span class="essy-date">{{ page.date | date: "%Y年%m月%d日" }}</span>
       {% endif %}
 
       <!-- tags -->

@@ -16,7 +16,7 @@ tags: CS Android
 
 ## Main Thread
 
-对`Android`来说，`Thread`即`Java`线程，当一个App的组件启动时，`Android`系统会为它创建一个`Linux Process`和一个`Execution Thread`，默认情况下，此App的所有组件都会运行在这个进程的单一执行线程中，包括UI上产生的各种触控交互事件的分发，所以此线程又被称为`UI Thread`和`Main Thread`。
+对`Android`来说，`Thread`即`Java`线程，当一个App的组件启动时，`Android`系统会为它创建一个`Linux Process`和一个`Execution Thread`，默认情况下，此APP的所有组件都会运行在这个进程的单一执行线程中，包括UI上产生的各种触控交互事件的分发，所以此线程又被称为`UI Thread`和`Main Thread`。
 
 ## CalledFromWrongThreadException
 
@@ -41,7 +41,7 @@ override onCreate(savedInstanceState: Bundle?) {
 
 ## ANR
 
-即`Application Not Responding`，应用程序无响应，`Android`作为手持设备，是通过展示UI的触摸与用户交互的，这些触控事件一旦产生，都会在主线程中进行由`Activity`到`View`的层层分发，交给对应的处理代码，并在处理完成后，及时刷新UI，这样用户才会感到操作流畅、不卡顿。如果负责分发事件的主线程被阻塞（通常是在主线程中执行耗时操作），则用户点击屏幕后，这些触控事件迟迟不能向下传递，事件处理者就无法获取事件并给出反馈，用户看到的就是，点击了屏幕，无任何反应，App就像卡住了一样，通常，如果阻塞时间大于5秒，`Android`系统就会弹出`ANR`，提醒用户强制关闭程序。
+即`Application Not Responding`，应用程序无响应，`Android`作为手持设备，是通过展示UI的触摸与用户交互的，这些触控事件一旦产生，都会在主线程中进行由`Activity`到`View`的层层分发，交给对应的处理代码，并在处理完成后，及时刷新UI，这样用户才会感到操作流畅、不卡顿。如果负责分发事件的主线程被阻塞（通常是在主线程中执行耗时操作），则用户点击屏幕后，这些触控事件迟迟不能向下传递，事件处理者就无法获取事件并给出反馈，用户看到的就是，点击了屏幕，无任何反应，APP就像卡住了一样，通常，如果阻塞时间大于5秒，`Android`系统就会弹出`ANR`，提醒用户强制关闭程序。
 
 总的来说，在`Android`中使用线程，必须遵循以下2条规则：
 
@@ -241,4 +241,4 @@ handler.looper.quite()
 
 # Main Thread的特殊性
 
-可能已经注意到，既然创建`Handler`时要求该线程必须有`Looper`，否则直接抛出异常，那么Android的主线程为什么可以直接创建`Handler`，其实，可以创建就说明，这个主线程默认已经创建了`Looper`，联想一下，Android App实际上是由事件驱动的，主线程也可以说一直都在“阻塞”（即`Looper.loop()`），它在等待新的事件进行处理，所谓的“不能阻塞主线程”，实际指的是，不能阻塞主线程中的事件处理，体会一下区别，很有意思的。
+可能已经注意到，既然创建`Handler`时要求该线程必须有`Looper`，否则直接抛出异常，那么Android的主线程为什么可以直接创建`Handler`，其实，可以创建就说明，这个主线程默认已经创建了`Looper`，联想一下，Android APP实际上是由事件驱动的，主线程也可以说一直都在“阻塞”（即`Looper.loop()`），它在等待新的事件进行处理，所谓的“不能阻塞主线程”，实际指的是，不能阻塞主线程中的事件处理，体会一下区别，很有意思的。

@@ -12,9 +12,9 @@ cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg
   <li class="index-li">
       <a class="index-a mdc-theme--on-surface" href="{{ post.url | prepend: site.baseurl }}">
           <div class="mdc-card index-card mdc-theme--surface">
-              <p class="index-title">{{ post.title }}</p>
-              <p class="index-author">{{ post.author }}</p>
-              <p class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</p>
+              <h1 class="index-title">{{ post.title }}</h1>
+              <span class="index-author">{{ post.author }}</span>
+              <span class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
           </div>
       </a>
   </li>
