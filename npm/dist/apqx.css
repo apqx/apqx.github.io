@@ -8396,6 +8396,10 @@ p, li, a {
   line-height: 1.8rem;
 }
 
+p {
+  text-align: justify;
+}
+
 em {
   color: #535c68;
 }

@@ -167,6 +167,10 @@ p, li, a {
     line-height: 1.8rem;
 }
 
+p {
+    text-align: justify;
+}
+
 // 斜体，一般用于图片说明
 em {
     color:$text-em-color;
