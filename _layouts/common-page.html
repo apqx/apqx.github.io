@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+  {% include head-post.html %}
   {% include head-common.html %}
-  {% include head-index.html %}
 </head>
 
-<body class="mdc-theme--background mdc-theme--on-surface">
+<body class="mdc-typography mdc-theme--background mdc-theme--on-surface">
   <div class="page-wrap">
     {% include header.html %}
     <main class="mdc-top-app-bar--fixed-adjust main-container">
-      {{ content }}
+        {{ content }}
     </main>
   </div>
   {% include footer.html %}
