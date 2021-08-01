@@ -40,6 +40,13 @@
         <i class="material-icons mdc-deprecated-list-item__graphic">auto_awesome</i>
         <span class="mdc-deprecated-list-item__text">转载</span>
       </a>
+      <a class={% if page.type=="poetry" or page.type=="index-poetry" %}"mdc-deprecated-list-item
+        mdc-deprecated-list-item--activated"{% else %}"mdc-deprecated-list-item"{% endif %} href="{{ "
+        /index-poetry.html " }}">
+        <span class="mdc-deprecated-list-item__ripple"></span>
+        <i class="material-icons mdc-deprecated-list-item__graphic">translate</i>
+        <span class="mdc-deprecated-list-item__text">诗文</span>
+      </a>
       <a class="mdc-deprecated-list-item" id="drawer-a-about-me">
         <span class="mdc-deprecated-list-item__ripple"></span>
         <i class="material-icons mdc-deprecated-list-item__graphic">face</i>
