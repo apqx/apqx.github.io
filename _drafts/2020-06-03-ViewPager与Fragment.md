@@ -1,6 +1,6 @@
 ---
 layout: post
-type: essy
+type: original
 title: "ViewPager与Fragment"
 author: 立泉
 date: 2020-06-03 +0800

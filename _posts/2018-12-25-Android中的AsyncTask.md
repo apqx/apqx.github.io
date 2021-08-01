@@ -1,6 +1,6 @@
 ---
 layout: post
-type: essy
+type: original
 title: "Android中的AsyncTask"
 author: 立泉
 date: 2018-12-25 +0800
