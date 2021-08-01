@@ -8123,6 +8123,69 @@ body {
   margin: 0;
 }
 
+html, body {
+  height: 100%;
+}
+
+.page-wrap {
+  min-height: 100%;
+  /* equal to footer height */
+  margin-bottom: -80px;
+}
+
+.page-wrap:after {
+  content: "";
+  display: block;
+}
+
+.site-footer, .page-wrap:after {
+  height: 80px;
+}
+
+.foot-header {
+  height: 22px;
+  background-color: rgba(51, 51, 51, 0.08);
+}
+
+footer {
+  background-color: #ee6e73;
+  color: white;
+}
+
+footer a {
+  color: #ffe0b2;
+  text-decoration: none;
+}
+
+.copyright {
+  padding: 15px 15px;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-family: Roboto, sans-serif;
+  /* @alternate */
+  font-family: var(--mdc-typography-body1-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));
+  font-size: 1rem;
+  /* @alternate */
+  font-size: var(--mdc-typography-body1-font-size, 1rem);
+  line-height: 1.5rem;
+  /* @alternate */
+  line-height: var(--mdc-typography-body1-line-height, 1.5rem);
+  font-weight: 400;
+  /* @alternate */
+  font-weight: var(--mdc-typography-body1-font-weight, 400);
+  letter-spacing: 0.03125em;
+  /* @alternate */
+  letter-spacing: var(--mdc-typography-body1-letter-spacing, 0.03125em);
+  text-decoration: inherit;
+  /* @alternate */
+  -webkit-text-decoration: var(--mdc-typography-body1-text-decoration, inherit);
+          text-decoration: var(--mdc-typography-body1-text-decoration, inherit);
+  text-transform: inherit;
+  /* @alternate */
+  text-transform: var(--mdc-typography-body1-text-transform, inherit);
+  height: 30px;
+}
+
 body.dark {
   --mdc-theme-primary: #ab47bc;
   --mdc-theme-secondary: #43A047;
@@ -8507,44 +8570,6 @@ p code, li code {
   padding-bottom: 0.1rem;
   border-radius: 4px;
   background: #f5f4f9;
-}
-
-footer {
-  background-color: #ee6e73;
-  color: white;
-}
-
-footer a {
-  color: #ffe0b2;
-  text-decoration: none;
-}
-
-.copyright {
-  padding: 15px 15px;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  font-family: Roboto, sans-serif;
-  /* @alternate */
-  font-family: var(--mdc-typography-body1-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));
-  font-size: 1rem;
-  /* @alternate */
-  font-size: var(--mdc-typography-body1-font-size, 1rem);
-  line-height: 1.5rem;
-  /* @alternate */
-  line-height: var(--mdc-typography-body1-line-height, 1.5rem);
-  font-weight: 400;
-  /* @alternate */
-  font-weight: var(--mdc-typography-body1-font-weight, 400);
-  letter-spacing: 0.03125em;
-  /* @alternate */
-  letter-spacing: var(--mdc-typography-body1-letter-spacing, 0.03125em);
-  text-decoration: inherit;
-  /* @alternate */
-  -webkit-text-decoration: var(--mdc-typography-body1-text-decoration, inherit);
-          text-decoration: var(--mdc-typography-body1-text-decoration, inherit);
-  text-transform: inherit;
-  /* @alternate */
-  text-transform: var(--mdc-typography-body1-text-transform, inherit);
 }
 
 .tags {

@@ -94,6 +94,51 @@ body {
     margin: 0;
 }
 
+html, body {
+  height: 100%;
+}
+
+.page-wrap {
+  min-height: 100%;
+  /* equal to footer height */
+  margin-bottom: -80px; 
+}
+
+.page-wrap:after {
+  content: "";
+  display: block;
+}
+
+.site-footer, .page-wrap:after {
+  height: 80px; 
+}
+
+.foot-header {
+    // 这里应该是20px，指定为22px可以把copyright向下多挤2px，使其紧贴底部，不留白
+    height: 22px; 
+    background-color: rgba(51, 51, 51, 0.08);
+}
+
+footer {
+    background-color: #ee6e73;
+    color: white;
+}
+
+footer a {
+    color: #ffe0b2;
+    text-decoration: none;
+}
+
+.copyright {
+    padding: 15px 15px;
+    @include typography.typography(body1);
+    // footer总高度100px，指定整个copyright高度60px
+    height: 30px;
+}
+
+
+
+
 // 通过js给body添加dark class，可以实现对mac-theme的参数更改
 // 大部分组件都会正确相应颜色变化，但是list和chip却无效
 // 且theme.$property引用的值也没有动态变化
@@ -250,20 +295,7 @@ p code, li code {
 //   border:1px solid $code-highlight-border;
 }
 
-footer {
-    background-color: #ee6e73;
-    color: white;
-}
 
-footer a {
-    color: #ffe0b2;
-    text-decoration: none;
-}
-
-.copyright {
-    padding: 15px 15px;
-    @include typography.typography(body1);
-}
 
 .tags {
     margin-top: 2rem;

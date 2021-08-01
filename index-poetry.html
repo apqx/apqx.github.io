@@ -1,6 +1,6 @@
 --- 
 layout: index
-type: index-share
+type: index-poetry
 title: 立泉の写字板
 description: 昆虫，野生散养攻城狮，“十分”“业余”摄影FANS
 cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg
@@ -8,14 +8,19 @@ cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg
 
 <ul class="index-ul">
   {% for post in site.posts %}
-  {% if post.type == "share" and post.show != false %}
+  {% if post.type == "poetry" and post.show != false %}
   <li class="index-li">
       <a class="index-a mdc-theme--on-surface" href="{{ post.url | prepend: site.baseurl }}">
           <div class="mdc-card index-card mdc-theme--surface">
               <h1 class="index-title">{{ post.title }}</h1>
               <span class="index-author">{{ post.author }}</span>
+              <!-- 支持非标准日期 -->
+              {% if post.moredate != null %}
+              <span class="index-date">{{ post.moredate }}</span>
+              {% else %}
               <span class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
-          </div>
+              {% endif %}
+            </div>
       </a>
   </li>
   {% endif %}
