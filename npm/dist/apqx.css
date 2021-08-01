@@ -8341,6 +8341,7 @@ body.dark {
   text-transform: inherit;
   /* @alternate */
   text-transform: var(--mdc-typography-subtitle1-text-transform, inherit);
+  color: #424242;
   text-align: right;
   margin: 0;
 }
@@ -8371,6 +8372,7 @@ body.dark {
   text-transform: inherit;
   /* @alternate */
   text-transform: var(--mdc-typography-subtitle1-text-transform, inherit);
+  color: #424242;
   text-align: right;
   margin: 0;
 }
@@ -8574,6 +8576,41 @@ p code, li code {
 
 .tags {
   margin-top: 2rem;
+}
+
+.itemTagListType {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-family: Roboto, sans-serif;
+  /* @alternate */
+  font-family: var(--mdc-typography-body1-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));
+  font-size: 1rem;
+  /* @alternate */
+  font-size: var(--mdc-typography-body1-font-size, 1rem);
+  line-height: 1.5rem;
+  /* @alternate */
+  line-height: var(--mdc-typography-body1-line-height, 1.5rem);
+  font-weight: 400;
+  /* @alternate */
+  font-weight: var(--mdc-typography-body1-font-weight, 400);
+  letter-spacing: 0.03125em;
+  /* @alternate */
+  letter-spacing: var(--mdc-typography-body1-letter-spacing, 0.03125em);
+  text-decoration: inherit;
+  /* @alternate */
+  -webkit-text-decoration: var(--mdc-typography-body1-text-decoration, inherit);
+          text-decoration: var(--mdc-typography-body1-text-decoration, inherit);
+  text-transform: inherit;
+  /* @alternate */
+  text-transform: var(--mdc-typography-body1-text-transform, inherit);
+  /* 灰色 */
+  color: #424242;
+  padding-left: 0.3rem;
+  padding-right: 0.3rem;
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
+  border-radius: 4px;
+  background: #f5f4f9;
 }
 
 .about-me-name {

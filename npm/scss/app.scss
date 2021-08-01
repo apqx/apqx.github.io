@@ -9,6 +9,7 @@ $code-highlight-text:#424242;
 $text-em-color:#535c68;
 $text-link-color:#9c27b0;
 $text-body-color:#424242;
+$item-tag-list-color:#9c27b0;
 @use "@material/theme" with (
         // nav，button，drawer的主色
         $primary: #9c27b0,
@@ -183,6 +184,7 @@ body.dark {
 /* 索引署名 */
 .index-author {
     @include typography.typography(subtitle1);
+    color: $text-body-color;
     text-align: right;
     margin: 0;
 }
@@ -190,6 +192,7 @@ body.dark {
 /* 索引日期 */
 .index-date {
     @include typography.typography(subtitle1);
+    color: $text-body-color;
     text-align: right;
     margin: 0;
 }
@@ -283,15 +286,15 @@ div.hljs {
 /* 段落中单词高亮 */
 p code, li code {
     @include typography.typography(body1);
-  /* 灰色 */
-  color:$code-highlight-text;
-  padding-left: 0.3rem;
-  padding-right: 0.3rem;
-  padding-top: 0.1rem;
-  padding-bottom: 0.1rem;
-  border-radius: 4px;
+    /* 灰色 */
+    color:$code-highlight-text;
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
+    border-radius: 4px;
 
-  background: $code-highlight-bg;
+    background: $code-highlight-bg;
 //   border:1px solid $code-highlight-border;
 }
 
@@ -299,6 +302,19 @@ p code, li code {
 
 .tags {
     margin-top: 2rem;
+}
+
+.itemTagListType {
+    @include typography.typography(body1);
+    /* 灰色 */
+    color:$code-highlight-text;
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
+    border-radius: 4px;
+
+    background: $code-highlight-bg;
 }
 
 .about-me-name {

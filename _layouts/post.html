@@ -11,7 +11,11 @@
     <main class="mdc-top-app-bar--fixed-adjust main-container">
       <div class="mdc-card essy-card">
         <h1 class="essy-title">{{ page.title }}</h1>
+        <!-- 观剧不显示作者/演员 -->
+        {% if page.type != "opera" %}
         <span class="essy-author">{{ page.author }}</span>
+        {% endif %}
+        
         <!-- 支持非标准日期 -->
         {% if page.moredate != null %}
         <span class="essy-date">{{ page.moredate }}</span>
@@ -22,6 +26,7 @@
         <!-- tags -->
         <span class="mdc-evolution-chip-set tags" role="grid">
           <span class="mdc-evolution-chip-set__chips" role="presentation">
+            <!-- 遍历本页的tag -->
             {% for tagInPage in page.tags %}
             <span class="mdc-evolution-chip" role="row" id="chip">
               <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
@@ -39,28 +44,46 @@
                 <div class="mdc-dialog__surface common-dialog-container" role="alertdialog" aria-modal="true"
                   aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content">
                   <div class="mdc-dialog__content" id="my-dialog-content">
+                    <!-- 遍历网站包含的所有tag -->
                     {% for tagInSite in site.tags %}
-                    {% if tagInSite[0] contains tagInPage%}
-                    <p>标记TAG <code class="language-plaintext highlighter-rouge">#{{ tagInPage }}</code> 的{% if page.type
-                      contains "share" %}转载{% else %}{% endif %}{% if page.type contains "poetry" %}诗文{% else %}博文{% endif %}</p>
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    {% if tagInSite[0] == tagInPage %}
+
+                    <p>标记TAG <code class="language-plaintext highlighter-rouge">#{{ tagInPage }}</code> 的
+                      {% case page.type %}
+                      {% when "essy" %}
+                      <span>博文</span>
+                      {% when "share" %}
+                      <span>转载博文</span>
+                      {% when "poetry" %}
+                      <span>诗文</span>
+                      {% when "opera" %}
+                      <span>观剧记录</span>
+                      {% else %}
+                      <span>博文</span>
+                      {% endcase %}
+                    </p>
 
                     <ul class="mdc-deprecated-list mdc-deprecated-list--two-line dialog-link-list"
                       id="dialog_tag_list_{{ tagInPage }}">
+                      <!-- 遍历该tag的所有文章 -->
                       {% for post in tagInSite[1] %}
-                      {% if page.type contains post.type %}
-                      <a class="mdc-deprecated-list-item" href="{{ post.url }}">
-                        <span class="mdc-deprecated-list-item__ripple"></span>
-                        <span class="mdc-deprecated-list-item__text">
-                          <span class="mdc-deprecated-list-item__primary-text">{{ post.title }}</span>
-                          <span class="mdc-deprecated-list-item__secondary-text">{{ post.date | date: "%Y.%m.%d"
-                            }}</span>
-                        </span>
-                      </a>
-                      <hr class="mdc-deprecated-list-divider">
-                      {% endif %}
+                        <!-- 只显示该同type的文章 -->
+                        {% if post.type == page.type %}
+                        <a class="mdc-deprecated-list-item" href="{{ post.url }}">
+                          <span class="mdc-deprecated-list-item__ripple"></span>
+                          <span class="mdc-deprecated-list-item__text">
+                            <span class="mdc-deprecated-list-item__primary-text">{{ post.title }}</span>
+                            <span class="mdc-deprecated-list-item__secondary-text">{{ post.date | date: "%Y.%m.%d" }} </span>
+                          </span>
+                        </a>
+                        <hr class="mdc-deprecated-list-divider">
+                        {% endif %}
+                      <!-- 结束遍历该tag的所有文章 -->
                       {% endfor %}
                     </ul>
                     {% endif %}
+                    <!-- 结束遍历网站包含的所有tag -->
                     {% endfor %}
                   </div>
                   <div class="mdc-dialog__actions">
@@ -75,10 +98,16 @@
               </div>
               <div class="mdc-dialog__scrim"></div>
             </div>
+            <!-- 结束遍历本页的tag -->
             {% endfor %}
           </span>
         </span>
-        <!-- essy content -->
+        {% if page.type == "opera" %}
+        <blockquote><p>为节省流量费用，这里显示的图片均为缩略图，点击即可跳转到原始尺寸的高清大图。我自己不喜欢水印，所以猜测大概别人也不喜欢水印，因此更愿意分享纯净的剧照。只是唯一注意，图片版权归属作者及原剧团演员所有，未经允许，不可用于商业用途。</p></blockquote>
+        <blockquote><p>分享图片时若能标明出处：<code>@立泉（https://apqx.me）</code>，则感激不尽矣。</p></blockquote>
+        {% endif %}
+
+        <!-- md content -->
         {{ content }}
       </div>
     </main>

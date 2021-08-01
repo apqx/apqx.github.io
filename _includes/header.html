@@ -47,6 +47,13 @@
         <i class="material-icons mdc-deprecated-list-item__graphic">translate</i>
         <span class="mdc-deprecated-list-item__text">诗文</span>
       </a>
+      <a class={% if page.type=="opera" or page.type=="index-opera" %}"mdc-deprecated-list-item
+        mdc-deprecated-list-item--activated"{% else %}"mdc-deprecated-list-item"{% endif %} href="{{ "
+        /index-opera.html " }}">
+        <span class="mdc-deprecated-list-item__ripple"></span>
+        <i class="material-icons mdc-deprecated-list-item__graphic">camera_enhance</i>
+        <span class="mdc-deprecated-list-item__text">观剧</span>
+      </a>
       <a class="mdc-deprecated-list-item" id="drawer-a-about-me">
         <span class="mdc-deprecated-list-item__ripple"></span>
         <i class="material-icons mdc-deprecated-list-item__graphic">face</i>
