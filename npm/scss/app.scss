@@ -189,6 +189,14 @@ body.dark {
     margin: 0;
 }
 
+/* 索引地点（观剧使用） */
+.index-location {
+    @include typography.typography(subtitle1);
+    color: $text-body-color;
+    text-align: left;
+    margin: 0;
+}
+
 /* 索引日期 */
 .index-date {
     @include typography.typography(subtitle1);

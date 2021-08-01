@@ -1,6 +1,6 @@
 ---
 layout: post
-type: essy
+type: original
 title: "记一次突发奇想的Android API文档替换"
 author: 立泉
 date: 2016-06-12 +0800

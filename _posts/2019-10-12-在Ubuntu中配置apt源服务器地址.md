@@ -1,6 +1,6 @@
 ---
 layout: post
-type: essy
+type: original
 title: "在Ubuntu中配置apt源服务器地址"
 author: 立泉
 date: 2019-10-12 +0800

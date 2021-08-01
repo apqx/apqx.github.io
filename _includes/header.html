@@ -7,8 +7,8 @@
     </section>
 
     <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
-      <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="About me"
-        id="btn_about_me">account_circle</button>
+      <!-- <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Search" id="btn_search">search</button> -->
+      <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="About me" id="btn_about_me">account_circle</button>
     </section>
   </div>
 </header>
@@ -25,7 +25,7 @@
   </div>
   <div class="mdc-drawer__content">
     <nav class="mdc-deprecated-list">
-      <a class={% if page.type=="essy" or page.type=="index" or page.type=="common-page" %}"mdc-deprecated-list-item
+      <a class={% if page.type=="original" or page.type=="index" or page.type=="common-page" %}"mdc-deprecated-list-item
         mdc-deprecated-list-item--activated"{% else %}"mdc-deprecated-list-item"{% endif %} href="{{ "
         /index.html " }}">
 

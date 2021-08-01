@@ -1,6 +1,6 @@
 ---
 layout: post
-type: essy
+type: original
 title: "把Android Module的aar包发布到GitHub Packages"
 author: 立泉
 date: 2020-12-04 +0800

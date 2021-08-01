@@ -1,6 +1,6 @@
 ---
 layout: post
-type: essy
+type: original
 title: "Android中的Scroller"
 author: 立泉
 date: 2019-04-01 +0800

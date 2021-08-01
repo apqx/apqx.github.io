@@ -1,6 +1,6 @@
 ---
 layout: post
-type: essy
+type: original
 title: "在GCE上搭建Shadowsocks的一些问题"
 author: 立泉
 date: 2019-07-18 +0800

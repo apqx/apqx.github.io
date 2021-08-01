@@ -1,6 +1,6 @@
 ---
 layout: post
-type: essy
+type: original
 title: "Java中的ThreadLocal"
 author: 立泉
 date: 2019-03-05 +0800

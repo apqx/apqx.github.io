@@ -1,6 +1,6 @@
 ---
 layout: post
-type: essy
+type: original
 title: "Android中的相对尺寸dp"
 author: 立泉
 date: 2019-03-25 +0800
