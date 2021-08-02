@@ -12,6 +12,10 @@ module.exports = {
         // 指定要生存的js文件名
         filename: 'apqx.js',
     },
+    // resolve: {
+    //     extensions: [".tsx", ".ts", ".js", ".json"],
+    //     fallback: { "https": false }
+    // },
     module: {
         rules: [
             // 将scss转换为css
@@ -67,6 +71,7 @@ module.exports = {
                 test: /\.css$/i,
                 use: ["style-loader", "css-loader"],
             },
-        ]
+        ],
+        
     },
 };

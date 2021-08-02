@@ -1,12 +1,12 @@
 ---
 layout: post
 type: original
+categories: original
 title: "Android中的MVP与MVVM"
 author: 立泉
 date: 2019-03-07 +0800
 description: 从MVC到MVVM，设计模式的进化正让Android开发变得越来越简洁高效。
 cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20190307/mvvm.png
-categories: essy
 tags: CS Android
 ---
 

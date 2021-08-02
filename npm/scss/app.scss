@@ -4,15 +4,16 @@
 $nav-color:#ee6e73;
 
 $code-highlight-bg:#f5f4f9;
-$code-highlight-border:lightgray;
-$code-highlight-text:#424242;
+$code-highlight-border:#FEDBD0;
+$code-highlight-text:#84565E;
 $text-em-color:#535c68;
-$text-link-color:#9c27b0;
+$text-link-color:#6200ee;
 $text-body-color:#424242;
-$item-tag-list-color:#9c27b0;
+$chip-fill-color:#FEDBD0;
+$chip-text-color:#84565E;
 @use "@material/theme" with (
         // nav，button，drawer的主色
-        $primary: #9c27b0,
+        $primary: #9b27b0,
         // fab
         $secondary: #43A047,
         $background: #f7f7f7,
@@ -74,6 +75,13 @@ $item-tag-list-color:#9c27b0;
 @use "@material/typography";
 @use "@material/typography/mdc-typography";
 
+@use "@material/floating-label/mdc-floating-label";
+@use "@material/line-ripple/mdc-line-ripple";
+@use "@material/notched-outline/mdc-notched-outline";
+@use "@material/textfield";
+
+@use "@material/linear-progress";
+
 
 
 
@@ -87,13 +95,16 @@ $item-tag-list-color:#9c27b0;
 @include drawer.core-styles;
 @include drawer.modal-core-styles;
 @include dialog.core-styles;
-
+@include textfield.core-styles;
+@include linear-progress.core-styles;
 
 
 body {
     // 消除top app bar左侧的margin
     margin: 0;
 }
+
+// footer吸附在页面底部
 
 html, body {
   height: 100%;
@@ -137,9 +148,6 @@ footer a {
     height: 30px;
 }
 
-
-
-
 // 通过js给body添加dark class，可以实现对mac-theme的参数更改
 // 大部分组件都会正确相应颜色变化，但是list和chip却无效
 // 且theme.$property引用的值也没有动态变化
@@ -178,6 +186,7 @@ body.dark {
 /* 索引题目 */
 .index-title {
     @include typography.typography(subtitle1);
+    color: $text-body-color;
     margin: 0;
 }
 
@@ -234,7 +243,7 @@ em {
 
 // 加粗强调，一般用于句子
 strong {
-    // color:$link-color;
+    // color:$text-link-color;
 }
 
 a {
@@ -294,35 +303,71 @@ div.hljs {
 /* 段落中单词高亮 */
 p code, li code {
     @include typography.typography(body1);
-    /* 灰色 */
-    color:$code-highlight-text;
-    padding-left: 0.3rem;
-    padding-right: 0.3rem;
+    padding-left: 0.2rem;
+    padding-right: 0.2rem;
     padding-top: 0.1rem;
     padding-bottom: 0.1rem;
+    margin-left: 0.2rem;
+    margin-right: 0.2rem;
     border-radius: 4px;
-
+    
+    color:$code-highlight-text;
     background: $code-highlight-bg;
-//   border:1px solid $code-highlight-border;
+    // border:1px solid $code-highlight-border;
+}
+
+// 解决Safari的Ripple动画无圆角
+.mdc-button, .mdc-button__ripple {
+    border-radius: 20px !important;
+    -webkit-mask-image: radial-gradient(white, black);
+}
+
+.btn-search {
+    @include button.ink-color($chip-text-color);
+    @include button.container-fill-color($chip-fill-color);
+}
+
+.search-result-nav-wraper {
+    margin-top: 10px;
+}
+
+.btn-search-result-nav {
+    @include button.ink-color($chip-text-color);
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.search-result-index {
+    color: $chip-text-color;
+}
+
+.search-result-item {
+    height: max-content;
+}
+
+.search-result-item-title {
+    @include typography.typography(subtitle1);
+    color: $text-link-color;
+    margin: 0;
+    text-align: left;
+}
+
+.search-result-item-snippet {
+    @include typography.typography(body1);
+    color: $text-body-color;
+    margin: 0;
+    text-align: justify;
+    height: max-content;
+}
+
+p.search-result-item-snippet b {
+    color: $chip-text-color;
 }
 
 
 
 .tags {
     margin-top: 2rem;
-}
-
-.itemTagListType {
-    @include typography.typography(body1);
-    /* 灰色 */
-    color:$code-highlight-text;
-    padding-left: 0.3rem;
-    padding-right: 0.3rem;
-    padding-top: 0.1rem;
-    padding-bottom: 0.1rem;
-    border-radius: 4px;
-
-    background: $code-highlight-bg;
 }
 
 .about-me-name {
@@ -343,9 +388,10 @@ p code, li code {
 
 .dialog-link-list {
     // 底部边框由Divider填充
-    border-top: 1px solid rgba(128, 128, 128, 0.336);
-    border-left: 1px solid rgba(128, 128, 128, 0.336);
-    border-right: 1px solid rgba(128, 128, 128, 0.336);
+    // border-top: 1px solid rgba(128, 128, 128, 0.336);
+    // border-left: 1px solid rgba(128, 128, 128, 0.336);
+    // border-right: 1px solid rgba(128, 128, 128, 0.336);
+    border: 1px solid rgba(128, 128, 128, 0.336);
     border-radius: 3px;
     padding-top: 0;
     padding-bottom: 0;
@@ -434,7 +480,8 @@ p code, li code {
 }
 
 .mdc-evolution-chip {
-    @include chips.text-label-color($text-body-color);
+    @include chips.text-label-color($chip-text-color);
+    @include chips.container-color($chip-fill-color);
 }
 
 // 解决Safari的fab Ripple动画无圆角
@@ -492,6 +539,8 @@ img, video {
     margin: auto;
     text-align: center;
 }
+
+
 
 // 手机小屏
 @media(max-width: 600px) {
