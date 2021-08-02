@@ -80,6 +80,7 @@ try {
         console.log("click nav about me");
         aboutMeDialog.open();
     });
+    
 } catch (e) {
     console.log("catch e = " + e.message);
 }
@@ -101,8 +102,13 @@ try {
         removeSearchResult();
         searchTextField.value = "";
     });
-    document.getElementById('topbar_btn_search').addEventListener('click', () => {
-        console.log("click topbar search");
+    // document.getElementById('topbar_btn_search').addEventListener('click', () => {
+    //     console.log("click topbar search");
+    //     searchDialog.open();
+    // });
+    // 侧边导航的搜索
+    document.getElementById('drawer-a-search').addEventListener('click', () => {
+        console.log("click nav search");
         searchDialog.open();
     });
 

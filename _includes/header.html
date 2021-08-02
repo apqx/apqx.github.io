@@ -7,8 +7,6 @@
     </section>
 
     <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
-      <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Search"
-        id="topbar_btn_search">search</button>
       <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="About me"
         id="topbar_btn_about_me">account_circle</button>
     </section>
@@ -55,6 +53,11 @@
         <span class="mdc-deprecated-list-item__ripple"></span>
         <i class="material-icons-outlined mdc-deprecated-list-item__graphic">photo_camera</i>
         <span class="mdc-deprecated-list-item__text">观剧</span>
+      </a>
+      <a class="mdc-deprecated-list-item" id="drawer-a-search">
+        <span class="mdc-deprecated-list-item__ripple"></span>
+        <i class="material-icons-outlined mdc-deprecated-list-item__graphic">search</i>
+        <span class="mdc-deprecated-list-item__text">搜索</span>
       </a>
       <a class="mdc-deprecated-list-item" id="drawer-a-about-me">
         <span class="mdc-deprecated-list-item__ripple"></span>
@@ -182,12 +185,6 @@
       aria-describedby="search-dialog-content">
       <div class="mdc-dialog__content center-horizontal mdc-theme--on-surface" id=" search-dialog-content">
 
-        <!-- <h1>站内搜索</h1> -->
-
-        <!-- <div style="margin: 1.6rem 1rem;">
-          <div class="gcse-searchbox-only"></div>
-        </div> -->
-
         <!-- API KEY: AIzaSyDYDqedqxaV6Qfv2i8OWpcS0phD-G2WDcg -->
         <!-- Search engine ID:  b74f06c1723da9656-->
 
@@ -211,9 +208,6 @@
 
         <p style="margin: 1.6rem 1rem;"><b>TIPS：</b>本搜索功能由<a href="https://cse.google.com/cse/all"
             target="_blank">Google站内搜索</a>提供，仅在能访问<a href="https://google.com" target="_blank">Google</a>的网络环境下可用。</p>
-        <!-- <div id="search-iframe-container">
-          <iframe height="0px%" width="100%" src="{{ " /search-iframe.html " }}" title="description" id="iframe-search-result" style="border: none;"></iframe>
-        </div> -->
 
         <!-- 进度条 -->
         <div role="progressbar" class="mdc-linear-progress" aria-label="Example Progress Bar" aria-valuemin="0"
