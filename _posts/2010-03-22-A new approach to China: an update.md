@@ -1,7 +1,7 @@
 ---
 layout: post
-type: share
-categories: share
+type: repost
+categories: repost
 title: "A new approach to China: an update"
 author: Google
 date: 2010-03-22 +0800
