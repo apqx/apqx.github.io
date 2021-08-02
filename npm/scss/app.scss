@@ -7,7 +7,7 @@ $code-highlight-bg:#f5f4f9;
 $code-highlight-border:lightgray;
 $code-highlight-text:#424242;
 $text-em-color:#535c68;
-$text-link-color:#9c27b0;
+$text-link-color:#304FFE;
 $text-body-color:#424242;
 $item-tag-list-color:#9c27b0;
 @use "@material/theme" with (
@@ -74,6 +74,13 @@ $item-tag-list-color:#9c27b0;
 @use "@material/typography";
 @use "@material/typography/mdc-typography";
 
+@use "@material/floating-label/mdc-floating-label";
+@use "@material/line-ripple/mdc-line-ripple";
+@use "@material/notched-outline/mdc-notched-outline";
+@use "@material/textfield";
+
+@use "@material/linear-progress";
+
 
 
 
@@ -87,13 +94,16 @@ $item-tag-list-color:#9c27b0;
 @include drawer.core-styles;
 @include drawer.modal-core-styles;
 @include dialog.core-styles;
-
+@include textfield.core-styles;
+@include linear-progress.core-styles;
 
 
 body {
     // 消除top app bar左侧的margin
     margin: 0;
 }
+
+// footer吸附在页面底部
 
 html, body {
   height: 100%;
@@ -136,9 +146,6 @@ footer a {
     // footer总高度100px，指定整个copyright高度60px
     height: 30px;
 }
-
-
-
 
 // 通过js给body添加dark class，可以实现对mac-theme的参数更改
 // 大部分组件都会正确相应颜色变化，但是list和chip却无效
@@ -234,7 +241,7 @@ em {
 
 // 加粗强调，一般用于句子
 strong {
-    // color:$link-color;
+    // color:$text-link-color;
 }
 
 a {
@@ -306,23 +313,46 @@ p code, li code {
 //   border:1px solid $code-highlight-border;
 }
 
+.btn-search {
+    @include button.ink-color(#84565E);
+    @include button.container-fill-color(#FEDBD0);
+}
+
+.search-result-nav-wraper {
+    margin-top: 10px;
+}
+
+.btn-search-result-nav {
+    @include button.ink-color($text-link-color);
+}
+
+.search-result-index {
+    color: $text-body-color;
+}
+
+.search-result-item {
+    height: max-content;
+}
+
+.search-result-item-title {
+    @include typography.typography(subtitle1);
+    color: $text-link-color;
+    margin: 0;
+    text-align: left;
+}
+
+.search-result-item-snippet {
+    @include typography.typography(body1);
+    color: $text-body-color;
+    margin: 0;
+    text-align: justify;
+    height: max-content;
+}
+
 
 
 .tags {
     margin-top: 2rem;
-}
-
-.itemTagListType {
-    @include typography.typography(body1);
-    /* 灰色 */
-    color:$code-highlight-text;
-    padding-left: 0.3rem;
-    padding-right: 0.3rem;
-    padding-top: 0.1rem;
-    padding-bottom: 0.1rem;
-    border-radius: 4px;
-
-    background: $code-highlight-bg;
 }
 
 .about-me-name {
@@ -343,9 +373,10 @@ p code, li code {
 
 .dialog-link-list {
     // 底部边框由Divider填充
-    border-top: 1px solid rgba(128, 128, 128, 0.336);
-    border-left: 1px solid rgba(128, 128, 128, 0.336);
-    border-right: 1px solid rgba(128, 128, 128, 0.336);
+    // border-top: 1px solid rgba(128, 128, 128, 0.336);
+    // border-left: 1px solid rgba(128, 128, 128, 0.336);
+    // border-right: 1px solid rgba(128, 128, 128, 0.336);
+    border: 1px solid rgba(128, 128, 128, 0.336);
     border-radius: 3px;
     padding-top: 0;
     padding-bottom: 0;
@@ -492,6 +523,8 @@ img, video {
     margin: auto;
     text-align: center;
 }
+
+
 
 // 手机小屏
 @media(max-width: 600px) {
