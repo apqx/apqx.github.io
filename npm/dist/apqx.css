@@ -10803,6 +10803,10 @@ p code, li code {
   height: max-content;
 }
 
+p.search-result-item-snippet b {
+  color: #84565E;
+}
+
 .tags {
   margin-top: 2rem;
 }

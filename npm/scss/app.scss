@@ -10,6 +10,8 @@ $text-em-color:#535c68;
 $text-link-color:#304FFE;
 $text-body-color:#424242;
 $item-tag-list-color:#9c27b0;
+$search-btn-fill-color:#FEDBD0;
+$search-btn-text-color:#84565E;
 @use "@material/theme" with (
         // nav，button，drawer的主色
         $primary: #9c27b0,
@@ -314,8 +316,8 @@ p code, li code {
 }
 
 .btn-search {
-    @include button.ink-color(#84565E);
-    @include button.container-fill-color(#FEDBD0);
+    @include button.ink-color($search-btn-text-color);
+    @include button.container-fill-color($search-btn-fill-color);
 }
 
 .search-result-nav-wraper {
@@ -347,6 +349,10 @@ p code, li code {
     margin: 0;
     text-align: justify;
     height: max-content;
+}
+
+p.search-result-item-snippet b {
+    color: $search-btn-text-color;
 }
 
 
