@@ -10424,6 +10424,7 @@ body.dark {
   text-transform: inherit;
   /* @alternate */
   text-transform: var(--mdc-typography-subtitle1-text-transform, inherit);
+  color: #424242;
   margin: 0;
 }
 

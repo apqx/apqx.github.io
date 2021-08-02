@@ -186,6 +186,7 @@ body.dark {
 /* 索引题目 */
 .index-title {
     @include typography.typography(subtitle1);
+    color: $text-body-color;
     margin: 0;
 }
 
