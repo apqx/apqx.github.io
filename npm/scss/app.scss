@@ -4,17 +4,16 @@
 $nav-color:#ee6e73;
 
 $code-highlight-bg:#f5f4f9;
-$code-highlight-border:lightgray;
-$code-highlight-text:#424242;
+$code-highlight-border:#FEDBD0;
+$code-highlight-text:#84565E;
 $text-em-color:#535c68;
-$text-link-color:#304FFE;
+$text-link-color:#6200ee;
 $text-body-color:#424242;
-$item-tag-list-color:#9c27b0;
-$search-btn-fill-color:#FEDBD0;
-$search-btn-text-color:#84565E;
+$chip-fill-color:#FEDBD0;
+$chip-text-color:#84565E;
 @use "@material/theme" with (
         // nav，button，drawer的主色
-        $primary: #9c27b0,
+        $primary: #9b27b0,
         // fab
         $secondary: #43A047,
         $background: #f7f7f7,
@@ -303,21 +302,28 @@ div.hljs {
 /* 段落中单词高亮 */
 p code, li code {
     @include typography.typography(body1);
-    /* 灰色 */
-    color:$code-highlight-text;
-    padding-left: 0.3rem;
-    padding-right: 0.3rem;
+    padding-left: 0.2rem;
+    padding-right: 0.2rem;
     padding-top: 0.1rem;
     padding-bottom: 0.1rem;
+    margin-left: 0.2rem;
+    margin-right: 0.2rem;
     border-radius: 4px;
-
+    
+    color:$code-highlight-text;
     background: $code-highlight-bg;
-//   border:1px solid $code-highlight-border;
+    // border:1px solid $code-highlight-border;
+}
+
+// 解决Safari的Ripple动画无圆角
+.mdc-button, .mdc-button__ripple {
+    border-radius: 20px !important;
+    -webkit-mask-image: radial-gradient(white, black);
 }
 
 .btn-search {
-    @include button.ink-color($search-btn-text-color);
-    @include button.container-fill-color($search-btn-fill-color);
+    @include button.ink-color($chip-text-color);
+    @include button.container-fill-color($chip-fill-color);
 }
 
 .search-result-nav-wraper {
@@ -325,11 +331,13 @@ p code, li code {
 }
 
 .btn-search-result-nav {
-    @include button.ink-color($text-link-color);
+    @include button.ink-color($chip-text-color);
+    margin-left: 1rem;
+    margin-right: 1rem;
 }
 
 .search-result-index {
-    color: $text-body-color;
+    color: $chip-text-color;
 }
 
 .search-result-item {
@@ -352,7 +360,7 @@ p code, li code {
 }
 
 p.search-result-item-snippet b {
-    color: $search-btn-text-color;
+    color: $chip-text-color;
 }
 
 
@@ -471,7 +479,8 @@ p.search-result-item-snippet b {
 }
 
 .mdc-evolution-chip {
-    @include chips.text-label-color($text-body-color);
+    @include chips.text-label-color($chip-text-color);
+    @include chips.container-color($chip-fill-color);
 }
 
 // 解决Safari的fab Ripple动画无圆角

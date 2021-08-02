@@ -10,7 +10,7 @@ import { MDCLinearProgress } from '@material/linear-progress';
 
 
 try {
-    
+
 } catch (e) {
     console.log("catch e = " + e.message);
 }
@@ -59,7 +59,6 @@ try {
     console.log("catch e = " + e.message);
 }
 
-
 // 关于我dialog
 try {
     const aboutMeDialog = new MDCDialog(document.getElementById('about_me_dialog'));
@@ -75,6 +74,11 @@ try {
         aboutMeDialog.open();
         // TODO: 在这里切换黑白主题
         // document.body.classList.toggle('dark');
+    });
+    // 侧边导航的关于我
+    document.getElementById('drawer-a-about-me').addEventListener('click', () => {
+        console.log("click nav about me");
+        aboutMeDialog.open();
     });
 } catch (e) {
     console.log("catch e = " + e.message);
@@ -202,7 +206,7 @@ function showSearchResult(response) {
     divResultNav.setAttribute(`class`, `search-result-nav-wraper`);
 
     var btnLeft = document.createElement(`button`);
-    btnLeft.setAttribute(`class`, `mdc-button btn-search-result-nav`);
+    btnLeft.setAttribute(`class`, `mdc-button btn-search-result-nav mdc-ripple-upgraded mdc-button--outlined mdc-button--unelevated`);
     var spanLeftRipple = document.createElement(`span`);
     spanLeftRipple.setAttribute(`class`, `mdc-button__ripple`);
     var iLeft = document.createElement(`i`);
@@ -226,7 +230,7 @@ function showSearchResult(response) {
 
 
     var btnRight = document.createElement(`button`);
-    btnRight.setAttribute(`class`, `mdc-button btn-search-result-nav`);
+    btnRight.setAttribute(`class`, `mdc-button btn-search-result-nav mdc-ripple-upgraded mdc-button--outlined mdc-button--unelevated`);
     var spanRightRipple = document.createElement(`span`);
     spanRightRipple.setAttribute(`class`, `mdc-button__ripple`);
     var iRight = document.createElement(`i`);
@@ -245,31 +249,22 @@ function showSearchResult(response) {
     searchResultWraper.appendChild(divResultNav);
 
     // 上一页监听器
-    if (response.queries.previousPage != null && response.queries.previousPage.length != 0) {
-        btnLeft.addEventListener('click', () => {
+    btnLeft.addEventListener('click', () => {
+        if (response.queries.previousPage != null && response.queries.previousPage.length != 0) {
             console.log("click search result left: " + response.queries.request[0].exactTerms + " " + response.queries.previousPage[0].startIndex);
             search(response.queries.request[0].exactTerms, response.queries.previousPage[0].startIndex);
-        });
-    }
+        }
+    });
 
     // 下一页监听器
-    if (response.queries.nextPage != null && response.queries.nextPage.length != 0) {
-        btnRight.addEventListener('click', () => {
+    btnRight.addEventListener('click', () => {
+        if (response.queries.nextPage != null && response.queries.nextPage.length != 0) {
             console.log("click search result right: " + response.queries.request[0].exactTerms + " " + response.queries.nextPage[0].startIndex);
             search(response.queries.request[0].exactTerms, response.queries.nextPage[0].startIndex);
-        });
-    }
+        }
+    });
 }
 
 
 // 生成二维码
 
-// 侧边导航的关于我
-try {
-    document.getElementById('drawer-a-about-me').addEventListener('click', () => {
-        console.log("click nav about me");
-        aboutMeDialog.open();
-    });
-} catch (e) {
-    console.log("catch e = " + e.message);
-}
