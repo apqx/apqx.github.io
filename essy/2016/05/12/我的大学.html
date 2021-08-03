@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  
+  <title>我的大学</title>
+<meta charset="UTF-8" />
+<!-- Open Graph protocol, define rich object for share, facebook read this to show a custon share link -->
+<meta property="og:url" content="http://0.0.0.0:4000/post/original/2016/05/12/%E6%88%91%E7%9A%84%E5%A4%A7%E5%AD%A6.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="我的大学" />
+<meta property="og:description" content="这更像是一篇写给自己的日记，当数年后回首，会作何感想，我所做的选择是否正确，也只有未来的我才会知道。" />
+
+<meta property="og:image" content="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg" />
+
+
+<!--Let browser know website is optimized for mobile-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="utf-8" />
+
+<!-- Chrome标题栏颜色 -->
+<!-- <meta name="theme-color" content="#ee6e73" /> -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<!-- oss托管字体和图标，提升访问速度，定期访问 https://fonts.googleapis.com/icon?family=Material+Icons 手动更新资源 -->
+<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" /> -->
+
+<!-- css和js文件由内部的npm工程输出 -->
+<!-- only for test -->
+<!-- <link rel="stylesheet" href=" /npm/dist/apqx.css" />
+<script type="text/javascript" src=" /js/custom.js " async></script> 
+<script type="text/javascript" src=" /npm/dist/apqx.js " async></script>
+<link rel="stylesheet" href=" /css/materialFontsIcons.css " /> -->
+
+
+<!-- for publish -->
+<link rel="stylesheet" href="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/apqx.css" />
+<script type="text/javascript" src="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/custom.js" async></script>
+<script type="text/javascript" src="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/apqx.js" async></script>
+<link rel="stylesheet" href="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/materialFontsIcons.css" />
+
+<link rel="shortcut icon" href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/snail.png" />
+<link rel="apple-touch-icon" href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/snail_white_bg.png" />
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<!-- close it when on test -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GDLCDFZXBF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'G-GDLCDFZXBF');
+</script>
+</head>
+
+<body class="mdc-typography mdc-theme--background mdc-theme--on-surface">
+  <div class="page-wrap">
+    <!-- top app bar -->
+<header class="mdc-top-app-bar" id="top_app_bar">
+  <div class="mdc-top-app-bar__row">
+    <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+      <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">menu</button>
+      <!-- <span class="mdc-top-app-bar__title">标题</span> -->
+    </section>
+
+    <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+      <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="About me"
+        id="topbar_btn_about_me">account_circle</button>
+    </section>
+  </div>
+</header>
+
+<!-- side drawer -->
+<aside class="mdc-drawer mdc-drawer--modal mdc-theme--on-surface">
+  <div class="mdc-drawer__header">
+    <h3 class="mdc-drawer__title"></h3>
+    <h6 class="mdc-drawer__subtitle"></h6>
+  </div>
+  <div class="mdc-drawer__header">
+    <h3 class="mdc-drawer__title">立泉の写字板</h3>
+    <h6 class="mdc-drawer__subtitle">https://apqx.me</h6>
+  </div>
+  <div class="mdc-drawer__content">
+    <nav class="mdc-deprecated-list">
+      <a class="mdc-deprecated-list-item
+        mdc-deprecated-list-item--activated" href="
+        /index.html ">
+
+        <span class="mdc-deprecated-list-item__ripple"></span>
+        <i class="material-icons-outlined mdc-deprecated-list-item__graphic">palette</i>
+        <span class="mdc-deprecated-list-item__text">随笔</span>
+      </a>
+      <a class="mdc-deprecated-list-item" href="
+        /index-repost.html ">
+        <span class="mdc-deprecated-list-item__ripple"></span>
+        <i class="material-icons-outlined mdc-deprecated-list-item__graphic">auto_awesome</i>
+        <span class="mdc-deprecated-list-item__text">转载</span>
+      </a>
+      <a class="mdc-deprecated-list-item" href="
+        /index-poetry.html ">
+        <span class="mdc-deprecated-list-item__ripple"></span>
+        <i class="material-icons-outlined mdc-deprecated-list-item__graphic">translate</i>
+        <span class="mdc-deprecated-list-item__text">诗文</span>
+      </a>
+      <a class="mdc-deprecated-list-item" href="
+        /index-opera.html ">
+        <span class="mdc-deprecated-list-item__ripple"></span>
+        <i class="material-icons-outlined mdc-deprecated-list-item__graphic">photo_camera</i>
+        <span class="mdc-deprecated-list-item__text">观剧</span>
+      </a>
+      <a class="mdc-deprecated-list-item" id="drawer-a-search">
+        <span class="mdc-deprecated-list-item__ripple"></span>
+        <i class="material-icons-outlined mdc-deprecated-list-item__graphic">search</i>
+        <span class="mdc-deprecated-list-item__text">搜索</span>
+      </a>
+      <a class="mdc-deprecated-list-item" id="drawer-a-about-me">
+        <span class="mdc-deprecated-list-item__ripple"></span>
+        <i class="material-icons-outlined mdc-deprecated-list-item__graphic">face</i>
+        <span class="mdc-deprecated-list-item__text">关于我</span>
+      </a>
+      <!-- <hr class="mdc-deprecated-list-divider"> -->
+      <!-- <h6 class="mdc-deprecated-list-group__subheader">工具</h6> -->
+      <!-- <a class="mdc-deprecated-list-item" href="/feed.xml" target="_blank">
+        <span class="mdc-deprecated-list-item__ripple"></span>
+        <i class="material-icons mdc-deprecated-list-item__graphic">rss_feed</i>
+        <span class="mdc-deprecated-list-item__text">RSS订阅</span>
+      </a>
+      <a class="mdc-deprecated-list-item" href="#">
+        <span class="mdc-deprecated-list-item__ripple"></span>
+        <i class="material-icons mdc-deprecated-list-item__graphic">qr_code_2</i>
+        <span class="mdc-deprecated-list-item__text">本页二维码</span>
+      </a>
+      <a class="mdc-deprecated-list-item" href="#">
+        <span class="mdc-deprecated-list-item__ripple"></span>
+        <i class="material-icons mdc-deprecated-list-item__graphic">insert_link</i>
+        <span class="mdc-deprecated-list-item__text">本页链接</span>
+      </a> -->
+    </nav>
+  </div>
+</aside>
+<div class="mdc-drawer-scrim"></div>
+
+<!-- about me dialog -->
+<div class="mdc-dialog" id="about_me_dialog">
+  <div class="mdc-dialog__container common-dialog-container">
+    <!-- 加上width500px后满足要求 -->
+    <div class="mdc-dialog__surface" role="alertdialog" aria-modal="true" aria-labelledby="about-me-dialog-title"
+      aria-describedby="about-me-dialog-content">
+      <div class="mdc-dialog__content center-horizontal mdc-theme--on-surface" id="about-me-dialog-content">
+
+        <img height="100px" width="100dx" class="circle-avatar"
+          src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg" />
+        <h1 class="about-me-name">立泉</h1>
+
+        <span>
+          <span class="mdc-evolution-chip" role="row" id="about_me_chips">
+            <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
+              <span class="mdc-evolution-chip__action mdc-evolution-chip__action--primary" type="button">
+                <span class="mdc-evolution-chip__ripple mdc-evolution-chip__ripple--primary"></span>
+                <span class="mdc-evolution-chip__text-label">Java</span>
+              </span>
+            </span>
+          </span>
+          <span class="mdc-evolution-chip" role="row">
+            <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
+              <span class="mdc-evolution-chip__action mdc-evolution-chip__action--primary" type="button">
+                <span class="mdc-evolution-chip__ripple mdc-evolution-chip__ripple--primary"></span>
+                <span class="mdc-evolution-chip__text-label">Kotlin</span>
+              </span>
+            </span>
+          </span>
+          <span class="mdc-evolution-chip" role="row">
+            <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
+              <span class="mdc-evolution-chip__action mdc-evolution-chip__action--primary" type="button">
+                <span class="mdc-evolution-chip__ripple mdc-evolution-chip__ripple--primary"></span>
+                <span class="mdc-evolution-chip__text-label">Android</span>
+              </span>
+            </span>
+          </span>
+          <span class="mdc-evolution-chip" role="row">
+            <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
+              <span class="mdc-evolution-chip__action mdc-evolution-chip__action--primary" type="button" tabindex="0">
+                <span class="mdc-evolution-chip__ripple mdc-evolution-chip__ripple--primary"></span>
+                <span class="mdc-evolution-chip__text-label">Git</span>
+              </span>
+            </span>
+          </span>
+
+        </span>
+
+        <p class="about-me-description" style="margin: 1.6rem 1rem;">九五后，旅居杭州，昆虫，野生散养攻城狮，“十分”“业余”摄影Fans</p>
+
+        <ul class="mdc-deprecated-list dialog-link-list">
+          <a class="mdc-deprecated-list-item" href="https://github.com/apqx" target="_blank">
+            <span class="mdc-deprecated-list-item__ripple"></span>
+            <span class="mdc-deprecated-list-item__text">GitHub</span>
+          </a>
+          <hr class="mdc-deprecated-list-divider">
+          <a class="mdc-deprecated-list-item" href="https://www.facebook.com/apqx.me" target="_blank">
+            <span class="mdc-deprecated-list-item__ripple"></span>
+            <span class="mdc-deprecated-list-item__text">Facebook</span>
+          </a>
+          <hr class="mdc-deprecated-list-divider">
+          <a class="mdc-deprecated-list-item" href="https://www.youtube.com/channel/UCF3Qv9tpULGL-CabxSEaCaQ"
+            target="_blank">
+            <span class="mdc-deprecated-list-item__ripple"></span>
+            <span class="mdc-deprecated-list-item__text">YouTube</span>
+          </a>
+          <hr class="mdc-deprecated-list-divider">
+          <a class="mdc-deprecated-list-item" href="https://space.bilibili.com/11037907" target="_blank">
+            <span class="mdc-deprecated-list-item__ripple"></span>
+            <span class="mdc-deprecated-list-item__text">Bilibili</span>
+          </a>
+          <hr class="mdc-deprecated-list-divider">
+          <a class="mdc-deprecated-list-item" href="mailto:changgongapq@gmail.com" target="_blank">
+            <span class="mdc-deprecated-list-item__ripple"></span>
+            <span class="mdc-deprecated-list-item__text">Email</span>
+          </a>
+        </ul>
+
+      </div>
+      <div class="mdc-dialog__actions">
+        <button type="button" class="mdc-button mdc-button--unelevated center-horizontal"
+          style="width: 94%; margin-bottom: 1rem;" data-mdc-dialog-action="cancel" id="about_me_dialog_btn_close">
+          <div class="mdc-button__ripple"></div>
+          <span class="mdc-button__label">CLOSE</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="mdc-dialog__scrim"></div>
+</div>
+
+<!-- Search Dialog -->
+<div class="mdc-dialog" id="search_dialog">
+  <div class="mdc-dialog__container common-dialog-container">
+    <!-- 加上width500px后满足要求 -->
+    <div class="mdc-dialog__surface" role="alertdialog" aria-modal="true" aria-labelledby="search-dialog-title"
+      aria-describedby="search-dialog-content">
+      <div class="mdc-dialog__content center-horizontal mdc-theme--on-surface" id=" search-dialog-content">
+
+        <!-- API KEY: AIzaSyDYDqedqxaV6Qfv2i8OWpcS0phD-G2WDcg -->
+        <!-- Search engine ID:  b74f06c1723da9656-->
+
+        <label class="mdc-text-field mdc-text-field--outlined" style="width: 94%; margin-top: 40px"
+          id="text-field-search">
+          <span class="mdc-notched-outline">
+            <span class="mdc-notched-outline__leading"></span>
+            <span class="mdc-notched-outline__notch">
+              <span class="mdc-floating-label" id="search-label">Google</span>
+            </span>
+            <span class="mdc-notched-outline__trailing"></span>
+          </span>
+          <input type="text" class="mdc-text-field__input" aria-labelledby="search-label">
+          <button type="button" class="mdc-button mdc-button--unelevated btn-search center-horizontal"
+            style="min-width: fit-content;" id="btn_search">
+            <div class="mdc-button__ripple"></div>
+            <i class="material-icons mdc-button__icon" aria-hidden="true">search</i>
+            <span class="mdc-button__label">SEARCH</span>
+          </button>
+        </label>
+
+        <p style="margin: 1.6rem 1rem;"><b>TIPS：</b>本<a href="https://cse.google.com/cse?cx=b74f06c1723da9656" target="_blank">搜索</a>功能由<a href="https://cse.google.com/cse/all"
+            target="_blank">Google站内搜索</a>提供，仅在能访问<a href="https://google.com" target="_blank">Google</a>的网络环境下可用。</p>
+
+        <!-- 进度条 -->
+        <div role="progressbar" class="mdc-linear-progress" aria-label="Example Progress Bar" aria-valuemin="0"
+          aria-valuemax="1" aria-valuenow="0" id="search-progress-bar">
+          <div class="mdc-linear-progress__buffer">
+            <div class="mdc-linear-progress__buffer-bar"></div>
+            <div class="mdc-linear-progress__buffer-dots"></div>
+          </div>
+          <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
+            <span class="mdc-linear-progress__bar-inner"></span>
+          </div>
+          <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
+            <span class="mdc-linear-progress__bar-inner"></span>
+          </div>
+        </div>
+        <div id="search-result-wraper">
+
+        </div>
+
+      </div>
+
+      <div class="mdc-dialog__actions">
+        <button type="button" class="mdc-button mdc-button--unelevated center-horizontal"
+          style="width: 94%; margin-bottom: 1rem; margin-top: 1rem;" data-mdc-dialog-action="cancel"
+          id="search_dialog_btn_close">
+          <div class="mdc-button__ripple"></div>
+          <span class="mdc-button__label">CLOSE</span>
+        </button>
+
+      </div>
+    </div>
+  </div>
+  <div class="mdc-dialog__scrim"></div>
+</div>
+    <main class="mdc-top-app-bar--fixed-adjust main-container">
+      <div class="mdc-card essy-card">
+        <h1 class="essy-title">我的大学</h1>
+        <!-- 观剧不显示作者/演员 -->
+        
+        <span class="essy-author">立泉</span>
+        
+
+        <!-- 支持非标准日期 -->
+        
+        <span class="essy-date">2016年05月12日</span>
+        
+
+        <!-- tags -->
+        <span class="mdc-evolution-chip-set tags" role="grid">
+          <span class="mdc-evolution-chip-set__chips" role="presentation">
+            <!-- 遍历本页的tag -->
+            
+            <span class="mdc-evolution-chip" role="row" id="chip">
+              <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
+                <button class="mdc-evolution-chip__action mdc-evolution-chip__action--primary dialog-trigger"
+                  type="button" id="chip_tag_碎碎念">
+                  <span class="mdc-evolution-chip__ripple mdc-evolution-chip__ripple--primary"></span>
+                  <span class="mdc-evolution-chip__text-label">#碎碎念</span>
+                </button>
+              </span>
+            </span>
+            <!-- tag对应的dialog -->
+            <div class="mdc-dialog" id="dialog_tag_碎碎念">
+              <div class="mdc-dialog__container">
+                <!-- 加上width500px后满足要求 -->
+                <div class="mdc-dialog__surface common-dialog-container" role="alertdialog" aria-modal="true"
+                  aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content">
+                  <div class="mdc-dialog__content" id="my-dialog-content">
+                    <!-- 遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+
+                    <p>标记TAG <code class="language-plaintext highlighter-rouge">#碎碎念</code> 的
+                      
+                      <span>博文</span>
+                      
+                    </p>
+
+                    <ul class="mdc-deprecated-list mdc-deprecated-list--two-line dialog-link-list"
+                      id="dialog_tag_list_碎碎念">
+                      <!-- 遍历该tag的所有文章 -->
+                      
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                      
+                        <!-- 是第一篇，前面不加分割线 -->
+                        
+                        
+                      <a class="mdc-deprecated-list-item" href="/post/original/2021/06/10/%E6%97%85%E8%A1%8C%E5%BF%9703-%E5%85%B0%E8%8B%91%E7%8B%AE%E5%90%BC.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">旅行志03：兰苑狮吼</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2021.06.10
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2021/04/28/%E7%9C%8B%E4%B8%80%E5%87%BA%E5%A5%BD%E5%89%A7-%E6%B5%99%E6%98%86-%E8%A5%BF%E5%9B%AD%E8%AE%B0.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">看一出好剧，浙昆《西园记》</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2021.04.28
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2021/02/25/%E5%A4%AE%E8%A7%86-%E6%88%8F%E5%89%A7-4K-HEVC-%E6%83%8A%E5%96%9C%E8%BF%9E%E8%BF%9E.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">央视、戏剧、4K、HEVC，惊喜连连</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2021.02.25
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2021/01/17/%E6%97%85%E8%A1%8C%E5%BF%9702-%E9%AD%94%E9%83%BD%E4%B8%8E%E6%B5%AE%E7%94%9F%E5%85%AD%E8%AE%B0.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">旅行志02：魔都与浮生六记</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2021.01.17
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2021/01/12/%E5%88%9D%E8%A7%81%E6%B5%99%E6%98%86-%E4%BB%A3-%E5%AD%97%E8%BE%88.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">初见浙昆「代」字辈</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2021.01.12
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2020/11/25/%E4%B8%BA%E8%BD%AF%E4%BB%B6%E4%BB%98%E8%B4%B9%E5%BE%88%E9%9A%BE%E5%90%97.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">为软件付费很难吗</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2020.11.25
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2020/07/10/%E8%B0%88%E8%B0%88%E7%AC%94%E8%AE%B0%E5%92%8C%E5%8D%9A%E5%AE%A2.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">谈谈笔记和博客</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2020.07.10
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2019/06/06/%E6%97%85%E8%A1%8C%E5%BF%9701-%E5%8E%BB%E5%8D%97%E4%BA%AC%E7%9C%8B%E6%98%86%E6%9B%B2.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">旅行志01：去南京看昆曲</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2019.06.06
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2019/05/18/%E6%A7%90%E5%AE%89%E5%9B%BD%E5%86%85%E6%98%A5%E7%94%9F%E9%85%92.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">槐安国内春生酒</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2019.05.18
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2019/02/13/%E5%8F%AA%E8%AF%86%E6%B7%B1%E9%97%BA%E7%BB%A3%E8%8A%B1%E9%B8%9F.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">只识深闺绣花鸟</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2019.02.13
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2019/01/30/%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BE%88%E5%B0%91%E8%B0%88%E4%B8%AA%E6%80%A7.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">为什么很少谈个性</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2019.01.30
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2018/11/27/%E4%B8%80%E5%B9%B4%E4%BA%86-%E6%88%91%E5%9C%A8%E6%83%B3%E4%BB%80%E4%B9%88.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">一年了，我在想什么</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2018.11.27
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2017/06/05/%E5%86%99%E5%9C%A8%E6%B1%82%E8%81%8C%E5%89%8D%E5%A4%95.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">写在求职前夕</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2017.06.05
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2016/05/12/%E6%88%91%E7%9A%84%E5%A4%A7%E5%AD%A6.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">我的大学</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2016.05.12
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                    </ul>
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                  </div>
+                  <div class="mdc-dialog__actions">
+                    <button type="button" class="mdc-button mdc-button--unelevated center-horizontal"
+                      style="width: 94%; margin-bottom: 1rem;" data-mdc-dialog-action="cancel"
+                      id="btn_tag_dialog_close_碎碎念">
+                      <div class="mdc-button__ripple"></div>
+                      <span class="mdc-button__label">CLOSE</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="mdc-dialog__scrim"></div>
+            </div>
+            <!-- 结束遍历本页的tag -->
+            
+          </span>
+        </span>
+        
+        <!-- md content -->
+        <p>很少能静下心来写篇文章，或是叫总结，关于我在大学三年的感触，性格变化的过程，对未来的规划，和当前的学习状态。这更像是一颗留给自己的时间胶囊，当数年后回首，会作何感想，我所做的选择是否正确，也只有未来的我才会知道。</p>
+
+<p>大学前，准确的说是大二之前，<strong>我一直是一个单纯的人，非常的单纯，有点像，我生活在自己的小世界里，即使周围的人都能看得出来，但是我自己却从来没有意识到过我真的只是生活在一个小世界里，不会去想外面的世界很大，没有这样尝试的动机，也一直没有这样做过。</strong>诚实、认真、胆小、内敛、固执，在我现在的视角下，那些年的自己，也就是这个样子，我还是想回忆起仍然残存在脑海中的关于小学、中学时期的记忆碎片，尝试描述一个不多见的“非主流”成长纪实。</p>
+
+<h1 id="小">小</h1>
+
+<p>我没有读过幼儿园，替代它的，是小学的学前班，在邻村的<code class="language-plaintext highlighter-rouge">老庄小学</code>，现在我知道了，那里叫<code class="language-plaintext highlighter-rouge">范老庄</code>，大部分为范姓。我出生在紧挨着它的<code class="language-plaintext highlighter-rouge">袁马庄</code>，大部分为袁姓，东边还有个<code class="language-plaintext highlighter-rouge">李庄</code>，大部分为李姓。再向东远一些，就是传说中的<code class="language-plaintext highlighter-rouge">一里九庄</code>和<code class="language-plaintext highlighter-rouge">八里堂</code>，在地图上看，好像离得很近，可我小时候真的没有去过那么远，印象中，只有在自己庄上，周围都是认识的人，才不会有那种很不舒服的陌生感。那个真的很小的小学，在我的记忆里，有一个小小的操场，一个生锈的篮球架，两排平房，五间教室，一间办公室，一个小卖部，一个手摇的铃铛，一个骑着自行车的大胡子校长，对了，还有三年级后要上早自习时，每个教室开着的2盏白织灯。</p>
+
+<p>那个时候单纯又胆小，并不是自卑，我成绩非常好，升初中第一名的那种，只是畏惧老师，畏惧校长，畏惧一切我不熟悉的大人，和他们交谈时会很紧张，所以很少和他们交谈。那时的我还喜欢和同龄人经常满庄乱跑，也经常去各家玩，庄上人很熟，至少比现在熟的多。生活很简单，上学、放学、找人玩或看电视，有一段时间，家里买了任天堂红白机的某不知名山寨品，我后来才知道它的方形外壳和X型上盖居然神似初代<code class="language-plaintext highlighter-rouge">Xbox</code>主机，给我的童年带来了很多欢乐，只是卡带太贵，便宜的也要5元，对当时的我也算天价了。</p>
+
+<p>我那时是没有零花钱的，甚至没有“零花钱”这个概念，现在想起来也会觉得很奇怪，小时候的自己似乎太单纯了，按时去学校，然后回家鼓捣自己的事，对外部世界一点也不关心，其实在家人的荫蔽下，也不需要去关心，小孩子，总是会认为父母是无所不能的。也有时，趁着家里大清扫加上把没用的东西倒给收废品的，能被妈妈主动给几元零花钱，或是在爸爸骑车送我去上学的时候，也会有一些“收入”。我现在倒认为，或许，小时候没有零花钱的根本原因是我没有主动去要，隐约记得那种感觉是，我不应该这样做，也从没有想过为什么不应该，只是一种大脑中存在的观念。所以我说自己小时候太单纯，<strong>不会去怀疑，只是一贯的遵守规则，不管接受到的规则是否正确。</strong>我记得很清楚，整个初中三年，我几乎没买过零食，橡皮也都是买最便宜的那种，第一次去的“夜市”，也仅仅是夜自习后在校门口买了一包炒花生（可能是，已经无法确定具体是什么了）。但另一方面，又对钢笔情有独钟，买了好几支几十块的“天价”钢笔，我不用对爸爸软磨硬泡，他是读过书的人，用知识改变了命运，有时间就会乐于带我去县城的新华书店，我只要说想要，便会买给我，我不觉得仅仅是“爱”自己的孩子，他应该看到了，我在做正确的事。那些年奇奇怪怪的心理，似乎也是在与我现在多变的性情相呼应。</p>
+
+<p>小学时只知道五年级要考中学，并不懂“初中”、“中心校”是什么东西，老老实实的被老师带着去不远处的<code class="language-plaintext highlighter-rouge">利民镇一中</code>考试（距离我家不到1公里）。<strong>依然记得那一天，我们成群结队，穿过麦田，我的大脑中还有很多类似这样的片段，隐隐约约，又很真切，难以释怀。</strong>三门课，考得不错，老师说可以跳过六年级，我不懂，就跳了，暑假贪玩想了各种理由不去补习班，现在想想，至少这件事做对了。</p>
+
+<h1 id="初">初</h1>
+
+<p>跳过六年级进入初中，心智没什么大的改变，依然敬畏老师，躲着走，认识了几个朋友，居然有一次因为某个朋友的转学而信誓旦旦的下决心不再笑，我至今仍记得是在一次体育课结束之后做出的这个决定，可现实是，我现在连他的名字都想不起来了。好像还有一次为了不被选中参加什么体操比赛而在体育课上故意不做操，结果被老师开玩笑地任命为领队，然后我就径直的离开了，只听到后面体育老师说了一句：“让他走吧，没看到都快哭了吗。”</p>
+
+<p>大概在这一时期，我开始把一些来源各异的金属零件组合成某种“机车”，若兴致到了，可以乐此不疲的连续几天都在屋里鼓捣这堆破铜烂铁，最初应该没想那么多，只是做一个能以爆竹作为发射药的“火炮”，经过三次大的形状变化，最终弄出了下面这个东西。无奈的是，当时没有相机能记录形态演化的过程，如果用文字描述，是这样：机器人形态 -&gt; 榴弹炮形态 -&gt; 火炮机车形态，其实第二个才是我最喜欢的，非常“蒸汽朋克”，但我真的连一张它的照片也没有，好可惜，做过那么多有趣的事，却无法用影像记录下来，留下的都是遗憾。</p>
+
+<p><img src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20160512/huopaojiche_thumb.jpg" alt="pic" loading="lazy" class="clickable" onclick="clickShowOriginalImg(event)" /></p>
+
+<p>底盘是用订书机做的，掰开后加上各处淘来轮子，后面是一个用弹簧作动力发射铆钉的武器，前面则是真正的“火炮”，用钢笔筒作炮管，火药作动力，可以发射钢珠，曾经一次测试打穿了2个玻璃瓶，有点吓到我了。不过炮管极易氧化生锈，“炸膛”这种事也不时发生，所以我的钢笔消耗速度异常的快，上次回家我最喜欢的一个炮管也炸了，今后应该很少会再动它。另外，不装钢珠，纯火药Fire打到手指上很疼，某次意外让我亲身体会了它的威力。</p>
+
+<p><img src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20160512/paoguan_thumb.jpg" alt="pic" loading="lazy" class="clickable" onclick="clickShowOriginalImg(event)" /></p>
+
+<p>大学开始使用三维建模，就自然而然的想到，我必须要为它做一份电子复刻，这段珍贵的记忆不能随着金属的腐朽而消失，而且我对它的改装还有很多奇思妙想，如果之后有合适的机会，借助3D打印，或许会有更多的可能性。</p>
+
+<p><img src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20160512/huopaojiche_solidworks.jpg" alt="pic" loading="lazy" class="clickable" onclick="clickShowOriginalImg(event)" /></p>
+
+<p>九年级的时候，家里买了第一台电脑，是联想“家悦”系列的台式机，可奇怪的是我现在无法在网络中找到和它硬件信息一致的型号，估计又是“乡镇魔改版”。而且这么多年了，我依然记得店家在推销时使用的“原装进口”和“国内组装”这两个词，坦率地说，面向对数码几乎一无所知的顾客，我并不觉得这是主观恶意的欺骗，只是的确，他们说了假话。后来，我心情忐忑地按照网上的方法把操作系统从<code class="language-plaintext highlighter-rouge">Windows XP</code>升级到了<code class="language-plaintext highlighter-rouge">Windows 7</code>，第一次装完驱动看到<code class="language-plaintext highlighter-rouge">Areo</code>动画真是激动的不行，这也是我第一次真正意义上的控制一台电子设备，很微妙的感觉。</p>
+
+<h1 id="高">高</h1>
+
+<p>中招考试，我的分数，作为我们镇上初中的最高分，其实仍然不足以进入<code class="language-plaintext highlighter-rouge">“市一高”</code>，但我真的进去了，没有支付高额的择校费，好像当时是有“推荐生”这种制度，所以，我第一次离开了那个小县城，到了<code class="language-plaintext highlighter-rouge">商丘市</code>。</p>
+
+<p>说起来，高中生活是异常单调的，每天起床、早读、早餐、上课、午餐、上课、晚餐、上课、睡觉。除了和周围的同学插科打诨，便很少能接触到外界信息，<strong>我真的很认真的在学习，但有点讽刺的是，并不知道学习是为了什么，高考？应该是吧，然后呢？我也不知道。</strong>仍然不喜欢和老师交流，所以自然而然的有了自己独立解决复杂问题的方法和能力，高中三年，这种能力一直在增长，即使在所谓的“0班”，我也没有依赖过任何人，上课听讲，下课做题+思考，都是我自己的事情。有时会从心里鄙视一些拿书上白纸黑字写得明明白白的问题去傻傻的问老师的人，我不觉得这样的问题他们会想不通，很多人只是不愿意自己去想，习惯等着老师一点点讲给他们听，这种表面上的“积极提问”给我的感觉更多是“自欺欺人”，我的大脑，不是装饰品。</p>
+
+<p>我还是有一些爱好的，历史和军事，除了最喜欢的历史课，我看到的第一本军事杂志（可能也是第一本课外杂志），是在初中的一个同学那里。我和她并不熟，但我记得很清楚，就是这张<code class="language-plaintext highlighter-rouge">X-32</code>和<code class="language-plaintext highlighter-rouge">X-35</code>的合影图，瞬间吸引到我，它们明明是固定翼，却可以做到科幻式的垂直起降，难以想像这种颠覆“常识”的硬核读物对一个信息贫乏而又充满好奇的乡镇少年而言，吸引力有多大。</p>
+
+<p><img src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20160512/x32_x35_thumb.jpg" alt="pic" loading="lazy" class="clickable" onclick="clickShowOriginalImg(event)" /></p>
+
+<p>市里的高中封闭管理，但有两个小书店，每周或每隔几周，我都会去买一本杂志，我现在作为“常识”的兵器信息也大部分都是那段时间积累下来的。哦，有时也会买环球时报，未经世事的我，嗯，单纯的我，那段时间还真的是满脑子“大国沙文”，迂腐至极。<strong>好像是在高二，我大概连续看了一个学期的新闻联播，只是因为自习时教室里电视开着，我无法静心写作业。</strong></p>
+
+<p>我高中有一台<code class="language-plaintext highlighter-rouge">步步高视频学习机H3</code>，实际上是我爸给我买的第三台以学习为名的手持数码设备，那个时候的2000块，应该是很多钱，但我说了想要，他就给我买了，他真的很信任我。这些电子词典也好，学习机也好，有点像，打开了我接触电子世界的大门，但仅仅是打开，因为没有人引导，我并没能迈进去。除了会用到的题库和一堆精华学校、黄冈中学的课堂录影，它最大的作用其实是一个多媒体播放器，记不清哪个学期了，我几乎每天晚上都会听几段郭德纲先生的相声，那个熟悉的声音真的缓解了我非常多的压力，作为一个内敛型的人，这是我为数不多的快乐源泉之一，所以我直到今天仍对他心存敬意。即使他近年来的风格与过去大不相同，即使他一次次被卷入舆论风波，但他独特嗓音演绎的民间曲调依然让我如痴如醉，风趣幽默的单口相声也让我在欢笑中提前体会人间百味和世事沧桑。我曾搜集过马三立、侯宝林、刘宝瑞等名家流传下来的录音，但这么多年来，我对舞台上郭先生的评价从未改变，即：在相声一脉，未必前无古人，但身处如此新旧交替的时代，后面却可能真的难有来者。我并不认为过誉，只是，我也在成长，思维方式也在完善，看到的事情越来越多，渐渐对舞台下的他产生了另一个不同的评价，这并不矛盾，舞台上是艺术，舞台下是人生，有时候确是泾渭分明的。</p>
+
+<h1 id="大">大</h1>
+
+<p>关于高考和志愿，我现在认为当时应该选择计算机或电子类专业而不是机械工程，那时家里虽然有了电脑但在学业的压力下很少接触外部信息，我不会知道真的还存在着一个无比精巧活跃的二进制世界。<strong>乡镇的孩子总是容易满足，很轻易就能触及视野的天花板</strong>，志愿填报也趋于保守，分数足够，明明有更好的选择，却因自身及家庭的目光短浅，让我来到一个错误的城市，一所错误的大学，学习一个错误的专业。</p>
+
+<p><img src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20160512/huawei_w1.jpg" alt="pic" loading="lazy" class="clickable" onclick="clickShowOriginalImg(event)" /></p>
+
+<p>高考结束，买了台搭载<code class="language-plaintext highlighter-rouge">Windows Phone</code>的<code class="language-plaintext highlighter-rouge">华为W1</code>，那时候我并没有接触过智能手机，但是隐隐约约知道这个崭新的移动操作系统非常特别，不同于安卓，我想试试。电脑是神舟的一款结合超级本和游戏本特点的小众型号<code class="language-plaintext highlighter-rouge">UN43D2</code>，很薄，64G固态硬盘+500G机械硬盘，<code class="language-plaintext highlighter-rouge">GT645M</code>独显，处理器<code class="language-plaintext highlighter-rouge">Core i3-3217U</code>，3500块，真的相当超值了。固态加持基本告别卡顿，独显甚至可以支撑起低画质下的<code class="language-plaintext highlighter-rouge">GTA5</code>这种大作，只是处理器性能不足导致无法顺畅的用建模工具构建稍复杂些的3D模型，开始学习<code class="language-plaintext highlighter-rouge">Android</code>编程后更感到编译速度十分缓慢，即使之后有了热编译，也显得力不从心。</p>
+
+<p>进入大学，因为高中一直在住校，并没有什么不适应，我依然不喜欢参加“无聊的”活动。大一进入机械学院的深蓝科技部，给我的印象并不好，总有人喜欢把“科创”挂在嘴边但实际并没有展现出相应的的能力，要去参加“大挑”、“小挑”，却连基本的三维软件都不会操作，倒是功利心十足，一会儿一个专利，一会儿一个论文，满纸荒唐言，除了保研加分，毫无价值，我不喜欢这种氛围。在那段时期还是像高中一样学习，不过没那么紧张了，只是仍然会对自己的未来感到迷茫。</p>
+
+<p>大一下学期，我拿到了第一部<code class="language-plaintext highlighter-rouge">Android</code>手机，<code class="language-plaintext highlighter-rouge">Google Nexus 5</code>，给我的感觉是终于拥有一台真正由科技巨头打造的设备了，对<code class="language-plaintext highlighter-rouge">Google</code>的好感度增加。也正是从那一段时间开始，校园网的<code class="language-plaintext highlighter-rouge">Google</code>服务开始陆续被<code class="language-plaintext highlighter-rouge">GFW</code>屏蔽，甚至<code class="language-plaintext highlighter-rouge">Gmail</code>都无法连接，我也开始寻找合适的<code class="language-plaintext highlighter-rouge">VPN</code>，自由的访问网络变得对我来说无比重要。</p>
+
+<p>进入大二，开始接触各种信息，真正的摆脱束缚，开眼看世界，对历史、文明、政治、战争有了自己的理解和判断，我的人生观和价值观也在那一时期形成，不再像以前那样自卑和拘束，不再畏惧老师，不再单纯的相信任何人，对别人的某些要求可以毫无顾忌地说“不”，我并不拖欠这个世界任何东西，也不比任何人卑劣。听周孝正先生说过，“人从生下来除了尊严就没有平等的地方”，我也有自己的尊严，有时候更是一种偏执，不屑于用考试作弊的手段获取所谓分数，不屑于为优先级去合谋实际连篇废话的专利，并非“天真幼稚”，只是不想让自己的人生充满谎言与欺骗。</p>
+
+<p>大二下学期开始学习<code class="language-plaintext highlighter-rouge">Java</code>，因为我想理解<code class="language-plaintext highlighter-rouge">Android</code>，学习过程总被机械工程繁多的课程安排干扰，断断续续，很难形成体系，所以直到大三才基本具备<code class="language-plaintext highlighter-rouge">Java</code>使用能力。期间陆续接触了数据库、数据结构、计算机网络这些相关的东西，有了自己的域名，也像模像样地搭起了自己的博客。大三下学期课程较少也简单，开始学习<code class="language-plaintext highlighter-rouge">Android</code>，并不吃力，只是每隔一段时间就会有一个疲劳期，什么事情都不想做，单单休息和放松。</p>
+
+<p>显而易见，我面临一个异常尴尬的问题，考研，保研（机械），还是自由，我的时间和精力都非常有限，经过三年的折腾，早已厌倦机械式的应对考试，尤其是“政治”这种东西。<strong>我决心追求我所期待的自由，也愿意付出代价</strong>，“非科班”的标签会伴随着我的一生，在我人生的前20年里，有意或无意，我放弃过太多的机会，不说从未后悔过，但内敛的性格造就了我对人生决策的果断与独立，在这些事情上，我倾向于一意孤行，或对，或错，那是我做的选择，我会承受后果。</p>
+
+<p>现实，令人感慨，三年前填报志愿的场景记忆犹新，就像昨天发生的一样，确实很难预料到会有如今的麻烦，江先生曾说：“人呐，就都不知道，自己不可以预料。”我也不会想到，2年的时间，让我产生了如此巨大的变化，不过话又说回来，真正认为自己数年前选对了专业的人，应该也不多吧。经过这么多年的大学扩招，大学生早已不是当年的天之骄子，计划经济时代的铁饭碗也随着改革开放而烟消云散，<strong>学会文武艺，货卖帝王家，才是这个时代最普遍的真理。</strong></p>
+
+      </div>
+    </main>
+  </div>
+  <footer site-footer>
+  <div class="foot-header"></div>
+  <div class="main-container">
+    <div class="copyright">
+      Based on
+      <a target="_blank" href="https://material.io/">Material Design</a>
+      and
+      <a target="_blank" href="https://jekyllrb.com/">Jekyll</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Floating Action Button -->
+<div class="mdc-touch-target-wrapper">
+  <button class="mdc-fab app-fab--absolute" aria-label="Up" onclick="scrollToTop()" id="fabUp">
+    <div class="mdc-fab__ripple"></div>
+    <span class="mdc-fab__icon material-icons">arrow_upward</span>
+  </button>
+</div>
+</body>
+
+</html>

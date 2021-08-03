@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  
+  <title>一封有趣的公开信</title>
+<meta charset="UTF-8" />
+<!-- Open Graph protocol, define rich object for share, facebook read this to show a custon share link -->
+<meta property="og:url" content="http://0.0.0.0:4000/post/repost/2017/05/02/%E4%B8%80%E5%B0%81%E6%9C%89%E8%B6%A3%E7%9A%84%E5%85%AC%E5%BC%80%E4%BF%A1.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="一封有趣的公开信" />
+<meta property="og:description" content="" />
+
+<meta property="og:image" content="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg" />
+
+
+<!--Let browser know website is optimized for mobile-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="utf-8" />
+
+<!-- Chrome标题栏颜色 -->
+<!-- <meta name="theme-color" content="#ee6e73" /> -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<!-- oss托管字体和图标，提升访问速度，定期访问 https://fonts.googleapis.com/icon?family=Material+Icons 手动更新资源 -->
+<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" /> -->
+
+<!-- css和js文件由内部的npm工程输出 -->
+<!-- only for test -->
+<!-- <link rel="stylesheet" href=" /npm/dist/apqx.css" />
+<script type="text/javascript" src=" /js/custom.js " async></script> 
+<script type="text/javascript" src=" /npm/dist/apqx.js " async></script>
+<link rel="stylesheet" href=" /css/materialFontsIcons.css " /> -->
+
+
+<!-- for publish -->
+<link rel="stylesheet" href="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/apqx.css" />
+<script type="text/javascript" src="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/custom.js" async></script>
+<script type="text/javascript" src="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/apqx.js" async></script>
+<link rel="stylesheet" href="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/materialFontsIcons.css" />
+
+<link rel="shortcut icon" href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/snail.png" />
+<link rel="apple-touch-icon" href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/snail_white_bg.png" />
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<!-- close it when on test -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GDLCDFZXBF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'G-GDLCDFZXBF');
+</script>
+</head>
+
+<body class="mdc-typography mdc-theme--background mdc-theme--on-surface">
+  <div class="page-wrap">
+    <!-- top app bar -->
+<header class="mdc-top-app-bar" id="top_app_bar">
+  <div class="mdc-top-app-bar__row">
+    <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+      <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">menu</button>
+      <!-- <span class="mdc-top-app-bar__title">标题</span> -->
+    </section>
+
+    <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+      <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="About me"
+        id="topbar_btn_about_me">account_circle</button>
+    </section>
+  </div>
+</header>
+
+<!-- side drawer -->
+<aside class="mdc-drawer mdc-drawer--modal mdc-theme--on-surface">
+  <div class="mdc-drawer__header">
+    <h3 class="mdc-drawer__title"></h3>
+    <h6 class="mdc-drawer__subtitle"></h6>
+  </div>
+  <div class="mdc-drawer__header">
+    <h3 class="mdc-drawer__title">立泉の写字板</h3>
+    <h6 class="mdc-drawer__subtitle">https://apqx.me</h6>
+  </div>
+  <div class="mdc-drawer__content">
+    <nav class="mdc-deprecated-list">
+      <a class="mdc-deprecated-list-item" href="
+        /index.html ">
+
+        <span class="mdc-deprecated-list-item__ripple"></span>
+        <i class="material-icons-outlined mdc-deprecated-list-item__graphic">palette</i>
+        <span class="mdc-deprecated-list-item__text">随笔</span>
+      </a>
+      <a class="mdc-deprecated-list-item
+        mdc-deprecated-list-item--activated" href="
+        /index-repost.html ">
+        <span class="mdc-deprecated-list-item__ripple"></span>
+        <i class="material-icons-outlined mdc-deprecated-list-item__graphic">auto_awesome</i>
+        <span class="mdc-deprecated-list-item__text">转载</span>
+      </a>
+      <a class="mdc-deprecated-list-item" href="
+        /index-poetry.html ">
+        <span class="mdc-deprecated-list-item__ripple"></span>
+        <i class="material-icons-outlined mdc-deprecated-list-item__graphic">translate</i>
+        <span class="mdc-deprecated-list-item__text">诗文</span>
+      </a>
+      <a class="mdc-deprecated-list-item" href="
+        /index-opera.html ">
+        <span class="mdc-deprecated-list-item__ripple"></span>
+        <i class="material-icons-outlined mdc-deprecated-list-item__graphic">photo_camera</i>
+        <span class="mdc-deprecated-list-item__text">观剧</span>
+      </a>
+      <a class="mdc-deprecated-list-item" id="drawer-a-search">
+        <span class="mdc-deprecated-list-item__ripple"></span>
+        <i class="material-icons-outlined mdc-deprecated-list-item__graphic">search</i>
+        <span class="mdc-deprecated-list-item__text">搜索</span>
+      </a>
+      <a class="mdc-deprecated-list-item" id="drawer-a-about-me">
+        <span class="mdc-deprecated-list-item__ripple"></span>
+        <i class="material-icons-outlined mdc-deprecated-list-item__graphic">face</i>
+        <span class="mdc-deprecated-list-item__text">关于我</span>
+      </a>
+      <!-- <hr class="mdc-deprecated-list-divider"> -->
+      <!-- <h6 class="mdc-deprecated-list-group__subheader">工具</h6> -->
+      <!-- <a class="mdc-deprecated-list-item" href="/feed.xml" target="_blank">
+        <span class="mdc-deprecated-list-item__ripple"></span>
+        <i class="material-icons mdc-deprecated-list-item__graphic">rss_feed</i>
+        <span class="mdc-deprecated-list-item__text">RSS订阅</span>
+      </a>
+      <a class="mdc-deprecated-list-item" href="#">
+        <span class="mdc-deprecated-list-item__ripple"></span>
+        <i class="material-icons mdc-deprecated-list-item__graphic">qr_code_2</i>
+        <span class="mdc-deprecated-list-item__text">本页二维码</span>
+      </a>
+      <a class="mdc-deprecated-list-item" href="#">
+        <span class="mdc-deprecated-list-item__ripple"></span>
+        <i class="material-icons mdc-deprecated-list-item__graphic">insert_link</i>
+        <span class="mdc-deprecated-list-item__text">本页链接</span>
+      </a> -->
+    </nav>
+  </div>
+</aside>
+<div class="mdc-drawer-scrim"></div>
+
+<!-- about me dialog -->
+<div class="mdc-dialog" id="about_me_dialog">
+  <div class="mdc-dialog__container common-dialog-container">
+    <!-- 加上width500px后满足要求 -->
+    <div class="mdc-dialog__surface" role="alertdialog" aria-modal="true" aria-labelledby="about-me-dialog-title"
+      aria-describedby="about-me-dialog-content">
+      <div class="mdc-dialog__content center-horizontal mdc-theme--on-surface" id="about-me-dialog-content">
+
+        <img height="100px" width="100dx" class="circle-avatar"
+          src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg" />
+        <h1 class="about-me-name">立泉</h1>
+
+        <span>
+          <span class="mdc-evolution-chip" role="row" id="about_me_chips">
+            <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
+              <span class="mdc-evolution-chip__action mdc-evolution-chip__action--primary" type="button">
+                <span class="mdc-evolution-chip__ripple mdc-evolution-chip__ripple--primary"></span>
+                <span class="mdc-evolution-chip__text-label">Java</span>
+              </span>
+            </span>
+          </span>
+          <span class="mdc-evolution-chip" role="row">
+            <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
+              <span class="mdc-evolution-chip__action mdc-evolution-chip__action--primary" type="button">
+                <span class="mdc-evolution-chip__ripple mdc-evolution-chip__ripple--primary"></span>
+                <span class="mdc-evolution-chip__text-label">Kotlin</span>
+              </span>
+            </span>
+          </span>
+          <span class="mdc-evolution-chip" role="row">
+            <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
+              <span class="mdc-evolution-chip__action mdc-evolution-chip__action--primary" type="button">
+                <span class="mdc-evolution-chip__ripple mdc-evolution-chip__ripple--primary"></span>
+                <span class="mdc-evolution-chip__text-label">Android</span>
+              </span>
+            </span>
+          </span>
+          <span class="mdc-evolution-chip" role="row">
+            <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
+              <span class="mdc-evolution-chip__action mdc-evolution-chip__action--primary" type="button" tabindex="0">
+                <span class="mdc-evolution-chip__ripple mdc-evolution-chip__ripple--primary"></span>
+                <span class="mdc-evolution-chip__text-label">Git</span>
+              </span>
+            </span>
+          </span>
+
+        </span>
+
+        <p class="about-me-description" style="margin: 1.6rem 1rem;">九五后，旅居杭州，昆虫，野生散养攻城狮，“十分”“业余”摄影Fans</p>
+
+        <ul class="mdc-deprecated-list dialog-link-list">
+          <a class="mdc-deprecated-list-item" href="https://github.com/apqx" target="_blank">
+            <span class="mdc-deprecated-list-item__ripple"></span>
+            <span class="mdc-deprecated-list-item__text">GitHub</span>
+          </a>
+          <hr class="mdc-deprecated-list-divider">
+          <a class="mdc-deprecated-list-item" href="https://www.facebook.com/apqx.me" target="_blank">
+            <span class="mdc-deprecated-list-item__ripple"></span>
+            <span class="mdc-deprecated-list-item__text">Facebook</span>
+          </a>
+          <hr class="mdc-deprecated-list-divider">
+          <a class="mdc-deprecated-list-item" href="https://www.youtube.com/channel/UCF3Qv9tpULGL-CabxSEaCaQ"
+            target="_blank">
+            <span class="mdc-deprecated-list-item__ripple"></span>
+            <span class="mdc-deprecated-list-item__text">YouTube</span>
+          </a>
+          <hr class="mdc-deprecated-list-divider">
+          <a class="mdc-deprecated-list-item" href="https://space.bilibili.com/11037907" target="_blank">
+            <span class="mdc-deprecated-list-item__ripple"></span>
+            <span class="mdc-deprecated-list-item__text">Bilibili</span>
+          </a>
+          <hr class="mdc-deprecated-list-divider">
+          <a class="mdc-deprecated-list-item" href="mailto:changgongapq@gmail.com" target="_blank">
+            <span class="mdc-deprecated-list-item__ripple"></span>
+            <span class="mdc-deprecated-list-item__text">Email</span>
+          </a>
+        </ul>
+
+      </div>
+      <div class="mdc-dialog__actions">
+        <button type="button" class="mdc-button mdc-button--unelevated center-horizontal"
+          style="width: 94%; margin-bottom: 1rem;" data-mdc-dialog-action="cancel" id="about_me_dialog_btn_close">
+          <div class="mdc-button__ripple"></div>
+          <span class="mdc-button__label">CLOSE</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="mdc-dialog__scrim"></div>
+</div>
+
+<!-- Search Dialog -->
+<div class="mdc-dialog" id="search_dialog">
+  <div class="mdc-dialog__container common-dialog-container">
+    <!-- 加上width500px后满足要求 -->
+    <div class="mdc-dialog__surface" role="alertdialog" aria-modal="true" aria-labelledby="search-dialog-title"
+      aria-describedby="search-dialog-content">
+      <div class="mdc-dialog__content center-horizontal mdc-theme--on-surface" id=" search-dialog-content">
+
+        <!-- API KEY: AIzaSyDYDqedqxaV6Qfv2i8OWpcS0phD-G2WDcg -->
+        <!-- Search engine ID:  b74f06c1723da9656-->
+
+        <label class="mdc-text-field mdc-text-field--outlined" style="width: 94%; margin-top: 40px"
+          id="text-field-search">
+          <span class="mdc-notched-outline">
+            <span class="mdc-notched-outline__leading"></span>
+            <span class="mdc-notched-outline__notch">
+              <span class="mdc-floating-label" id="search-label">Google</span>
+            </span>
+            <span class="mdc-notched-outline__trailing"></span>
+          </span>
+          <input type="text" class="mdc-text-field__input" aria-labelledby="search-label">
+          <button type="button" class="mdc-button mdc-button--unelevated btn-search center-horizontal"
+            style="min-width: fit-content;" id="btn_search">
+            <div class="mdc-button__ripple"></div>
+            <i class="material-icons mdc-button__icon" aria-hidden="true">search</i>
+            <span class="mdc-button__label">SEARCH</span>
+          </button>
+        </label>
+
+        <p style="margin: 1.6rem 1rem;"><b>TIPS：</b>本<a href="https://cse.google.com/cse?cx=b74f06c1723da9656" target="_blank">搜索</a>功能由<a href="https://cse.google.com/cse/all"
+            target="_blank">Google站内搜索</a>提供，仅在能访问<a href="https://google.com" target="_blank">Google</a>的网络环境下可用。</p>
+
+        <!-- 进度条 -->
+        <div role="progressbar" class="mdc-linear-progress" aria-label="Example Progress Bar" aria-valuemin="0"
+          aria-valuemax="1" aria-valuenow="0" id="search-progress-bar">
+          <div class="mdc-linear-progress__buffer">
+            <div class="mdc-linear-progress__buffer-bar"></div>
+            <div class="mdc-linear-progress__buffer-dots"></div>
+          </div>
+          <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
+            <span class="mdc-linear-progress__bar-inner"></span>
+          </div>
+          <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
+            <span class="mdc-linear-progress__bar-inner"></span>
+          </div>
+        </div>
+        <div id="search-result-wraper">
+
+        </div>
+
+      </div>
+
+      <div class="mdc-dialog__actions">
+        <button type="button" class="mdc-button mdc-button--unelevated center-horizontal"
+          style="width: 94%; margin-bottom: 1rem; margin-top: 1rem;" data-mdc-dialog-action="cancel"
+          id="search_dialog_btn_close">
+          <div class="mdc-button__ripple"></div>
+          <span class="mdc-button__label">CLOSE</span>
+        </button>
+
+      </div>
+    </div>
+  </div>
+  <div class="mdc-dialog__scrim"></div>
+</div>
+    <main class="mdc-top-app-bar--fixed-adjust main-container">
+      <div class="mdc-card essy-card">
+        <h1 class="essy-title">一封有趣的公开信</h1>
+        <!-- 观剧不显示作者/演员 -->
+        
+        <span class="essy-author">马保国</span>
+        
+
+        <!-- 支持非标准日期 -->
+        
+        <span class="essy-date">2017年05月02日</span>
+        
+
+        <!-- tags -->
+        <span class="mdc-evolution-chip-set tags" role="grid">
+          <span class="mdc-evolution-chip-set__chips" role="presentation">
+            <!-- 遍历本页的tag -->
+            
+            <span class="mdc-evolution-chip" role="row" id="chip">
+              <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
+                <button class="mdc-evolution-chip__action mdc-evolution-chip__action--primary dialog-trigger"
+                  type="button" id="chip_tag_看客">
+                  <span class="mdc-evolution-chip__ripple mdc-evolution-chip__ripple--primary"></span>
+                  <span class="mdc-evolution-chip__text-label">#看客</span>
+                </button>
+              </span>
+            </span>
+            <!-- tag对应的dialog -->
+            <div class="mdc-dialog" id="dialog_tag_看客">
+              <div class="mdc-dialog__container">
+                <!-- 加上width500px后满足要求 -->
+                <div class="mdc-dialog__surface common-dialog-container" role="alertdialog" aria-modal="true"
+                  aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content">
+                  <div class="mdc-dialog__content" id="my-dialog-content">
+                    <!-- 遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+
+                    <p>标记TAG <code class="language-plaintext highlighter-rouge">#看客</code> 的
+                      
+                      <span>转载博文</span>
+                      
+                    </p>
+
+                    <ul class="mdc-deprecated-list mdc-deprecated-list--two-line dialog-link-list"
+                      id="dialog_tag_list_看客">
+                      <!-- 遍历该tag的所有文章 -->
+                      
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                      
+                        <!-- 是第一篇，前面不加分割线 -->
+                        
+                        
+                      <a class="mdc-deprecated-list-item" href="/post/repost/2017/05/02/%E4%B8%80%E5%B0%81%E6%9C%89%E8%B6%A3%E7%9A%84%E5%85%AC%E5%BC%80%E4%BF%A1.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">一封有趣的公开信</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2017.05.02
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                    </ul>
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                  </div>
+                  <div class="mdc-dialog__actions">
+                    <button type="button" class="mdc-button mdc-button--unelevated center-horizontal"
+                      style="width: 94%; margin-bottom: 1rem;" data-mdc-dialog-action="cancel"
+                      id="btn_tag_dialog_close_看客">
+                      <div class="mdc-button__ripple"></div>
+                      <span class="mdc-button__label">CLOSE</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="mdc-dialog__scrim"></div>
+            </div>
+            <!-- 结束遍历本页的tag -->
+            
+          </span>
+        </span>
+        
+        <!-- md content -->
+        <blockquote>
+  <p>关于马保国，和这封公开信的起因，参见<a href="https://zh.wikipedia.org/zh-cn/马保国" target="_blank">维基百科</a>，我不作评论。从一个看客的视角，只是觉得有趣，我能想象得到，这可能代表了很多“老人”的思维方式。</p>
+</blockquote>
+
+<p>MMA狂人徐晓冬：</p>
+
+<p>你以打假为名，已吸引全国武林界人士，乃几乎至全国网络观众的眼球！常言道：“人怕出名猪怕壮！”其实，你并不知道这个理！你知道吗？国家那么多优秀散打运动员，奋斗多年，打洋人夺冠军，长中国人志气，为祖国争光！还不如你在国内打了一次小小的比赛，一下子就炒出了近乎“徐晓冬天下第一”的哼哼大名声！你的确很聪明！但我要说，你这不过是自欺欺人、掩耳盗铃、聪明一时的小聪明而已！</p>
+
+<p>你要知道，武林界自古以来，评价一位武者，首先是要看人品、武德，其次才是看武功、战绩。难道你没听说过，三国时期的武人吕布吗？吕布的功夫可是比武圣关云长高多了。可他被人们骂为“三姓家奴”。而关云长虽然打不过吕布，可他一身正气，效忠刘备，匡扶大义，被后人尊为武圣而顶礼膜拜！由此，国内外绝大部分武馆都知道供奉关云长的神像。我上海浑元国术馆当然也不例外！我馆进门大厅便是武圣神像，武圣神像前上方悬挂的横匾上，“德彰武显”四个金字闪闪发光;武圣左边的立柱上，挂着“修德修心纳千秋正气”的上联竖匾;武圣右边立柱上，挂着“健身防身融百家精华”的下联竖匾。千秋正气是中华民族英雄们的正气，更是我中华民族之魂！</p>
+
+<p>你有正气吗？我希望你有！我相信你本质是好的，最初“打假”的出发点也是好的。可目前这种好像是中国武林，又在打打杀杀争第一、争夺盟主的，好像电影里出现的乱哄哄局面，却是我、也是绝大多数武林朋友们所不愿意看到的！也许这消息一传万里，洋人马上会说：“看！中国人又在窝里斗了！哈哈！”当然美国人会更高兴，因为中国人大都在忙着看你徐晓冬表演炒作，把抵制韩货、韩剧，反对美国在韩国安装萨德反导系统，关乎我国家安危的大事快忘得干干净净了！</p>
+
+<p>但至今仍有人为你辩解，还表扬你呢！我想问一问你这些粉丝们，徐晓冬的粉丝们：你们知道不知道怎样全面综合评价一个武林门派？从你们抓住一点不及其余，抓住一个太极拳师一场比赛的输去强加为一个太极门派输的做法上看，你们压根就不懂辩证法，也根本不了解武林界全面评论一个门派的常识！</p>
+
+<p>我认为中国武林界全面评价一个门派的常识大体是：一、看该门派是否爱国利民;二、看该门派是否有系统的理论体系;三、看该门派的功法、拳法，是否能帮助人民群众修身养性，强身健体;四、看该门派的武功、技击水平是否有先进性和特色;五、看该门派是否为服务社会、为保家卫国做出过贡献。</p>
+
+<p>这五条里面，是有技击水平这一条，尤其是在冷兵器时代，这一条显得特别重要。但随着现代化科学及武器的发展，这一条正在逐渐淡化。而修身养性和健身却在不断地热化、民众化。这是很正常的，也是很合理的变化。由此，那些公园里练套路的大师们打不过有吃有喝、练散打的职业运动员，那也是很自然的事！但是，不少人没看清楚，更没认识到的是：我国仍然有一大批练真正中国传统功夫、很能打的大师队伍。他们在特种部队、武警部队的教练队伍里;他们在身怀绝技出国教功夫的真大师队伍中;他们在民间看破红尘、藏而不露的高人中;他们在国家各级散打教练队伍中。必须指出：这些散打教练的第一批，全部是来自民间！全部是传统功夫派的！至今散打的招法传统功夫中都有，而传统功夫中的高级招法，三、五年是练不出来的，甚至十年八年也练不出来！请问，天上什么时候会掉下散打教练？</p>
+
+<blockquote>
+  <p>此处是马保国英国教学掠影</p>
+</blockquote>
+
+<p>听说你徐晓冬的老师也练过传统功夫。那么，你身上实际也有得于你老师的传统功夫部分。你骂传统功夫不是也骂你老师吗？天下哪有学生骂老师的？哪有自己骂自己的？可你竟然做了这等傻事，看来你真是狂人不假！而且还有私心在作怪！准确地讲，是被一己之利给冲昏了头脑！</p>
+
+<p>我还要重点指出的是：西方武术界从来不认为你练的MMA厉害，他们反而认为中国正宗的传统功夫比他们的MMA厉害多了。因为，在近代，有世界级中国传统技击冠军李小龙。尽管只有你徐晓冬41度体温的人才敢连李小龙也骂。可讲实际的西方人却都十分崇拜李小龙！而现代，仍有很多中国传统功夫高手在西方教功夫。他们多次击败西方MMA高手的事迹广为人知。尽管好多不是在赛台上的比赛，而是私下的比武。但比武不受裁判的限制，更利于双方水平的发挥，更能说明问题。而且，比武中还能让中国真功夫大师们展现武德、点到为止、制人而不伤。这不仅让西方MMA高手们佩服我们的中国传统功夫，更能让他们体认我们珍爱生命、善心待人的中国高尚武德！</p>
+
+<p>我顺便吹一下，我最近写了本《尚济形意拳练法、打法实践》，委托北京科技出版社出版。如果你和你的弟子们能看懂这本书，那我佩服你！我敢说，你目前的水平还远远看不懂这本书中的核心理论！如果连你都看懂了，中国传统功夫就不会让西方MMA高手崇拜了！</p>
+
+<p>好！我就再说一点，你打魏雷有录像，并以此低水平的打法录像广做宣传。那么，请你看一下我打欧洲MMA冠军Peter Irving的录像！也许你说我没把人打倒，不如你;那么，你可以请你老师帮你的忙，让他看看这两个录像中，哪个里面有中国传统功夫的接、化、发和引、接、化、发的打法？有这两种打法才是中国传统功夫。只有用这种“我有人无”的高级打法，才能打败西方MMA高手！你是人家西方MMA的传教者和吹捧者，你是不可能打败你的洋老师的！也没听说你和洋人打过呀？再说，我和MMA欧洲自由搏击冠军打，还能做到点到为止，展示武德！你和你的哥们有这个胸怀和水平吗？</p>
+
+<blockquote>
+  <p>此处是徐晓冬VS魏雷比武视频</p>
+</blockquote>
+
+<blockquote>
+  <p>此处是马保国与MMA欧洲冠军Peter Irving比武视频（注：此视频明显只是宣传片，并非实战）</p>
+</blockquote>
+
+<p>现在追随你的小青年们都喜欢西方MMA搏击中刺激的场面！我也看过这样的比赛，我很反感！在我看来，两个运动员在绳圈子里朝死里互打，打得血溅好高。说穿了，不就是逗富人们和观众们高兴后给几个赏钱吗？可只有媒体和老板才是赚大钱的！这和西方的赛马、赛狗性质上是一样的，从根本上讲都是为了一个“钱”字！</p>
+
+<p>你还可以让你的学生帮你玩玩电脑，到西方视频世界中，去看看被我打败的MMA欧洲冠军Peter Irving的夺冠视频，他的水平可比你高多了！打得也比你还狠！无论你怎么按现在西方的练法练，你永远都是赶不上他的！因为最根本的原因，是你不懂中国传统功夫！虽然你也曾从你老师那学了点皮毛！可我是靠中国传统功夫的高级打法和我自己的近60年的功力，才优势获胜的;这既有秘籍也有汗水！学好中国传统功夫并不像许多人想得那样简单！</p>
+
+<p>但是，如果你迷途知返，回过头来好好练中国传统功夫，没准有一天，你也能去西方打败西方的MMA高手，而不是在国内拣个把“软柿子”捏一下！那时，人们才能真正尊重你，而不是像现在，你只是一个一时骗得人们的眼球的炒作者;而且，你好像现在自知理亏、已经心虚了，要不你怎么又会改口说，大成拳、詠春拳都是能打了呢？更进一步讲，这不等于说，你这个自称打假的，不过也是个自身不硬、没有金刚钻就想揽瓷器活的假打假英雄、假高手了吗？年轻后生：你是听了哪位假高参的点拨来揽这揽不了、也不该揽的瓷器活呀？你还嫩！你还不知道“物极必反！犯众怒者，天将不容”这个天理！</p>
+
+<p>中国国医(中医)、中国国术(中国传统功夫)、中国国学(几千年的中国传统文化)神圣而不可侵犯！博大精深而世界一流！独一无二而无可替代！它们是我中华五千年的伟大成就！国之神器，不容侵犯！犯者当诛！</p>
+
+<p>徐晓冬：你一个年轻后生才练武几年？又有多大本事？你为了一己之私名、私利，竟敢以打假为名，挑起武林事端，妄图否定我中国传统功夫，你太自不量力，太把自己捧上天了吧？要知道：跳得越高，摔得越狠！这就是历史的辩证法！</p>
+
+<p>对于维护中国传统功夫名誉一事，我已于4月29日12点54分，在上海电视台新闻节目、摇摇吧主持人电话采访我时宣布：准备派我的儿子(上海浑元国术馆马晓阳馆长)出山，用各种形式来证明：中国传统功夫是世界独一无二的！我没有正面回答主持人关于我是否应战、有几成胜算的问话。</p>
+
+<p>因为我心里很明白，向你应战或挑战，都正好中你下怀，同时也以我浑元形意太极门掌门人的特殊身份抬高了你。我还看不上你，连欧洲MMA冠军Peter Irving我都看不上，何况你一个名不见经传的小后生！更何况我一位入党42年，工作了43年的老同志，怎么可能上当受骗，帮你和你身后那批妄图搞乱武林正常秩序，从而献媚于美国佬的人们，去推波助澜呢？</p>
+
+<p>我宣布的是：准备派我儿子出山，用各种形式来证明：中国传统功夫是世界独一无二的！这个宣言不仅是向国内的宣言，而且是向全世界的宣言！</p>
+
+<p>你是市场化了的格斗狂人，而我是尚武兴国的传统功夫“狂人”！我们中国传统功夫掌门人的共同理念，就是要造福于社会;就是要为祖国争光！而决不会为了一己之私利，去争个人之高低等等！</p>
+
+<p>这个“用各种形式”的含义，具体讲：在国内，对国内不了解传统功夫或想共同研究修炼传统功夫而前来切磋的各方朋友、学员，我们会友谊切磋、点到为止;而对蓄意前来挑战、妄图否定传统功夫的别有用心之流，我门则坚决出手，并会像打欧洲MMA冠军那样，打出水平！但是，我门比武也是要按国家有关规定来进行的，决不允许任何人胡来！而且，我门按照武林的规矩和本门武德要求，不会首先向任何门派或个人发出挑战。</p>
+
+<p>对国外，对一切胆敢来向我传统功夫挑战并妄图否定我国术的外国人，我门均会与兄弟传统功夫门派协同应战，用真功夫说话，让他们知道中华民族的传统功夫无论从修身养性、从健身治病、还是从实战技击，它都是全世界独一无二的！</p>
+
+<p>徐晓冬！这就是我写给你这个不懂武林规矩且心术不正、违规挑事者的公开信！</p>
+
+<p>伟大领袖毛泽东主席说：“人间正道是沧桑！”自古以来搞歪门邪道的人，最终都是没有好下场，并会被人民所抛弃的！</p>
+
+<p>当然，希望我们之间，目前还属于人民内部矛盾。理不争不明嘛！我批评你，但不会“一棍子把人打死”。奉劝你修心改面，回到正道上来！你的合演者赵冀龙在关键时刻，不是已经反水背你而去，回到正义一方了吗？</p>
+
+<p>谨此！</p>
+
+<p>浑元形意太极门掌门：马保国</p>
+
+<p>注：4月29日，我在上海电视台电话采访我时，发表了“宣言”。5月1日，我儿子马晓阳写了以四字诗为体裁的“致徐晓冬的公开信”。我看了说，这不是对牛弹琴吗！他喜欢骂人，但以他那低俗骂人的水平，他能看懂这四字诗吗？还是让我来写个白话文吧！于是，当即就动笔写了此文草稿，次日复又修改，成此公开信。</p>
+
+<p>浑元形意太极门<br />
+欢迎社会各界朋友<br />
+前来试手、切磋<br />
+5月6日(周六)<br />
+下午15:00–17:00<br />
+5月7日(周日)<br />
+上午10:30–12:00<br />
+(限15人)<br />
+浑元国术馆-黄浦区江西中路457号3楼</p>
+
+      </div>
+    </main>
+  </div>
+  <footer site-footer>
+  <div class="foot-header"></div>
+  <div class="main-container">
+    <div class="copyright">
+      Based on
+      <a target="_blank" href="https://material.io/">Material Design</a>
+      and
+      <a target="_blank" href="https://jekyllrb.com/">Jekyll</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Floating Action Button -->
+<div class="mdc-touch-target-wrapper">
+  <button class="mdc-fab app-fab--absolute" aria-label="Up" onclick="scrollToTop()" id="fabUp">
+    <div class="mdc-fab__ripple"></div>
+    <span class="mdc-fab__icon material-icons">arrow_upward</span>
+  </button>
+</div>
+</body>
+
+</html>

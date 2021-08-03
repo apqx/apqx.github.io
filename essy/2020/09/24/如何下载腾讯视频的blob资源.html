@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  
+  <title>如何下载腾讯视频的blob资源</title>
+<meta charset="UTF-8" />
+<!-- Open Graph protocol, define rich object for share, facebook read this to show a custon share link -->
+<meta property="og:url" content="http://0.0.0.0:4000/post/original/2020/09/24/%E5%A6%82%E4%BD%95%E4%B8%8B%E8%BD%BD%E8%85%BE%E8%AE%AF%E8%A7%86%E9%A2%91%E7%9A%84blob%E8%B5%84%E6%BA%90.html" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="如何下载腾讯视频的blob资源" />
+<meta property="og:description" content="看到自己喜欢的内容，第一个念头便是：赶快下载下来！！" />
+
+<meta property="og:image" content="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20200924/js_get_m3u8_tengxun.jpg" />
+
+
+<!--Let browser know website is optimized for mobile-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="utf-8" />
+
+<!-- Chrome标题栏颜色 -->
+<!-- <meta name="theme-color" content="#ee6e73" /> -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<!-- oss托管字体和图标，提升访问速度，定期访问 https://fonts.googleapis.com/icon?family=Material+Icons 手动更新资源 -->
+<!-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" /> -->
+
+<!-- css和js文件由内部的npm工程输出 -->
+<!-- only for test -->
+<!-- <link rel="stylesheet" href=" /npm/dist/apqx.css" />
+<script type="text/javascript" src=" /js/custom.js " async></script> 
+<script type="text/javascript" src=" /npm/dist/apqx.js " async></script>
+<link rel="stylesheet" href=" /css/materialFontsIcons.css " /> -->
+
+
+<!-- for publish -->
+<link rel="stylesheet" href="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/apqx.css" />
+<script type="text/javascript" src="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/custom.js" async></script>
+<script type="text/javascript" src="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/apqx.js" async></script>
+<link rel="stylesheet" href="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/materialFontsIcons.css" />
+
+<link rel="shortcut icon" href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/snail.png" />
+<link rel="apple-touch-icon" href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/snail_white_bg.png" />
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<!-- close it when on test -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GDLCDFZXBF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'G-GDLCDFZXBF');
+</script>
+</head>
+
+<body class="mdc-typography mdc-theme--background mdc-theme--on-surface">
+  <div class="page-wrap">
+    <!-- top app bar -->
+<header class="mdc-top-app-bar" id="top_app_bar">
+  <div class="mdc-top-app-bar__row">
+    <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+      <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">menu</button>
+      <!-- <span class="mdc-top-app-bar__title">标题</span> -->
+    </section>
+
+    <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+      <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="About me"
+        id="topbar_btn_about_me">account_circle</button>
+    </section>
+  </div>
+</header>
+
+<!-- side drawer -->
+<aside class="mdc-drawer mdc-drawer--modal mdc-theme--on-surface">
+  <div class="mdc-drawer__header">
+    <h3 class="mdc-drawer__title"></h3>
+    <h6 class="mdc-drawer__subtitle"></h6>
+  </div>
+  <div class="mdc-drawer__header">
+    <h3 class="mdc-drawer__title">立泉の写字板</h3>
+    <h6 class="mdc-drawer__subtitle">https://apqx.me</h6>
+  </div>
+  <div class="mdc-drawer__content">
+    <nav class="mdc-deprecated-list">
+      <a class="mdc-deprecated-list-item
+        mdc-deprecated-list-item--activated" href="
+        /index.html ">
+
+        <span class="mdc-deprecated-list-item__ripple"></span>
+        <i class="material-icons-outlined mdc-deprecated-list-item__graphic">palette</i>
+        <span class="mdc-deprecated-list-item__text">随笔</span>
+      </a>
+      <a class="mdc-deprecated-list-item" href="
+        /index-repost.html ">
+        <span class="mdc-deprecated-list-item__ripple"></span>
+        <i class="material-icons-outlined mdc-deprecated-list-item__graphic">auto_awesome</i>
+        <span class="mdc-deprecated-list-item__text">转载</span>
+      </a>
+      <a class="mdc-deprecated-list-item" href="
+        /index-poetry.html ">
+        <span class="mdc-deprecated-list-item__ripple"></span>
+        <i class="material-icons-outlined mdc-deprecated-list-item__graphic">translate</i>
+        <span class="mdc-deprecated-list-item__text">诗文</span>
+      </a>
+      <a class="mdc-deprecated-list-item" href="
+        /index-opera.html ">
+        <span class="mdc-deprecated-list-item__ripple"></span>
+        <i class="material-icons-outlined mdc-deprecated-list-item__graphic">photo_camera</i>
+        <span class="mdc-deprecated-list-item__text">观剧</span>
+      </a>
+      <a class="mdc-deprecated-list-item" id="drawer-a-search">
+        <span class="mdc-deprecated-list-item__ripple"></span>
+        <i class="material-icons-outlined mdc-deprecated-list-item__graphic">search</i>
+        <span class="mdc-deprecated-list-item__text">搜索</span>
+      </a>
+      <a class="mdc-deprecated-list-item" id="drawer-a-about-me">
+        <span class="mdc-deprecated-list-item__ripple"></span>
+        <i class="material-icons-outlined mdc-deprecated-list-item__graphic">face</i>
+        <span class="mdc-deprecated-list-item__text">关于我</span>
+      </a>
+      <!-- <hr class="mdc-deprecated-list-divider"> -->
+      <!-- <h6 class="mdc-deprecated-list-group__subheader">工具</h6> -->
+      <!-- <a class="mdc-deprecated-list-item" href="/feed.xml" target="_blank">
+        <span class="mdc-deprecated-list-item__ripple"></span>
+        <i class="material-icons mdc-deprecated-list-item__graphic">rss_feed</i>
+        <span class="mdc-deprecated-list-item__text">RSS订阅</span>
+      </a>
+      <a class="mdc-deprecated-list-item" href="#">
+        <span class="mdc-deprecated-list-item__ripple"></span>
+        <i class="material-icons mdc-deprecated-list-item__graphic">qr_code_2</i>
+        <span class="mdc-deprecated-list-item__text">本页二维码</span>
+      </a>
+      <a class="mdc-deprecated-list-item" href="#">
+        <span class="mdc-deprecated-list-item__ripple"></span>
+        <i class="material-icons mdc-deprecated-list-item__graphic">insert_link</i>
+        <span class="mdc-deprecated-list-item__text">本页链接</span>
+      </a> -->
+    </nav>
+  </div>
+</aside>
+<div class="mdc-drawer-scrim"></div>
+
+<!-- about me dialog -->
+<div class="mdc-dialog" id="about_me_dialog">
+  <div class="mdc-dialog__container common-dialog-container">
+    <!-- 加上width500px后满足要求 -->
+    <div class="mdc-dialog__surface" role="alertdialog" aria-modal="true" aria-labelledby="about-me-dialog-title"
+      aria-describedby="about-me-dialog-content">
+      <div class="mdc-dialog__content center-horizontal mdc-theme--on-surface" id="about-me-dialog-content">
+
+        <img height="100px" width="100dx" class="circle-avatar"
+          src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg" />
+        <h1 class="about-me-name">立泉</h1>
+
+        <span>
+          <span class="mdc-evolution-chip" role="row" id="about_me_chips">
+            <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
+              <span class="mdc-evolution-chip__action mdc-evolution-chip__action--primary" type="button">
+                <span class="mdc-evolution-chip__ripple mdc-evolution-chip__ripple--primary"></span>
+                <span class="mdc-evolution-chip__text-label">Java</span>
+              </span>
+            </span>
+          </span>
+          <span class="mdc-evolution-chip" role="row">
+            <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
+              <span class="mdc-evolution-chip__action mdc-evolution-chip__action--primary" type="button">
+                <span class="mdc-evolution-chip__ripple mdc-evolution-chip__ripple--primary"></span>
+                <span class="mdc-evolution-chip__text-label">Kotlin</span>
+              </span>
+            </span>
+          </span>
+          <span class="mdc-evolution-chip" role="row">
+            <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
+              <span class="mdc-evolution-chip__action mdc-evolution-chip__action--primary" type="button">
+                <span class="mdc-evolution-chip__ripple mdc-evolution-chip__ripple--primary"></span>
+                <span class="mdc-evolution-chip__text-label">Android</span>
+              </span>
+            </span>
+          </span>
+          <span class="mdc-evolution-chip" role="row">
+            <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
+              <span class="mdc-evolution-chip__action mdc-evolution-chip__action--primary" type="button" tabindex="0">
+                <span class="mdc-evolution-chip__ripple mdc-evolution-chip__ripple--primary"></span>
+                <span class="mdc-evolution-chip__text-label">Git</span>
+              </span>
+            </span>
+          </span>
+
+        </span>
+
+        <p class="about-me-description" style="margin: 1.6rem 1rem;">九五后，旅居杭州，昆虫，野生散养攻城狮，“十分”“业余”摄影Fans</p>
+
+        <ul class="mdc-deprecated-list dialog-link-list">
+          <a class="mdc-deprecated-list-item" href="https://github.com/apqx" target="_blank">
+            <span class="mdc-deprecated-list-item__ripple"></span>
+            <span class="mdc-deprecated-list-item__text">GitHub</span>
+          </a>
+          <hr class="mdc-deprecated-list-divider">
+          <a class="mdc-deprecated-list-item" href="https://www.facebook.com/apqx.me" target="_blank">
+            <span class="mdc-deprecated-list-item__ripple"></span>
+            <span class="mdc-deprecated-list-item__text">Facebook</span>
+          </a>
+          <hr class="mdc-deprecated-list-divider">
+          <a class="mdc-deprecated-list-item" href="https://www.youtube.com/channel/UCF3Qv9tpULGL-CabxSEaCaQ"
+            target="_blank">
+            <span class="mdc-deprecated-list-item__ripple"></span>
+            <span class="mdc-deprecated-list-item__text">YouTube</span>
+          </a>
+          <hr class="mdc-deprecated-list-divider">
+          <a class="mdc-deprecated-list-item" href="https://space.bilibili.com/11037907" target="_blank">
+            <span class="mdc-deprecated-list-item__ripple"></span>
+            <span class="mdc-deprecated-list-item__text">Bilibili</span>
+          </a>
+          <hr class="mdc-deprecated-list-divider">
+          <a class="mdc-deprecated-list-item" href="mailto:changgongapq@gmail.com" target="_blank">
+            <span class="mdc-deprecated-list-item__ripple"></span>
+            <span class="mdc-deprecated-list-item__text">Email</span>
+          </a>
+        </ul>
+
+      </div>
+      <div class="mdc-dialog__actions">
+        <button type="button" class="mdc-button mdc-button--unelevated center-horizontal"
+          style="width: 94%; margin-bottom: 1rem;" data-mdc-dialog-action="cancel" id="about_me_dialog_btn_close">
+          <div class="mdc-button__ripple"></div>
+          <span class="mdc-button__label">CLOSE</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="mdc-dialog__scrim"></div>
+</div>
+
+<!-- Search Dialog -->
+<div class="mdc-dialog" id="search_dialog">
+  <div class="mdc-dialog__container common-dialog-container">
+    <!-- 加上width500px后满足要求 -->
+    <div class="mdc-dialog__surface" role="alertdialog" aria-modal="true" aria-labelledby="search-dialog-title"
+      aria-describedby="search-dialog-content">
+      <div class="mdc-dialog__content center-horizontal mdc-theme--on-surface" id=" search-dialog-content">
+
+        <!-- API KEY: AIzaSyDYDqedqxaV6Qfv2i8OWpcS0phD-G2WDcg -->
+        <!-- Search engine ID:  b74f06c1723da9656-->
+
+        <label class="mdc-text-field mdc-text-field--outlined" style="width: 94%; margin-top: 40px"
+          id="text-field-search">
+          <span class="mdc-notched-outline">
+            <span class="mdc-notched-outline__leading"></span>
+            <span class="mdc-notched-outline__notch">
+              <span class="mdc-floating-label" id="search-label">Google</span>
+            </span>
+            <span class="mdc-notched-outline__trailing"></span>
+          </span>
+          <input type="text" class="mdc-text-field__input" aria-labelledby="search-label">
+          <button type="button" class="mdc-button mdc-button--unelevated btn-search center-horizontal"
+            style="min-width: fit-content;" id="btn_search">
+            <div class="mdc-button__ripple"></div>
+            <i class="material-icons mdc-button__icon" aria-hidden="true">search</i>
+            <span class="mdc-button__label">SEARCH</span>
+          </button>
+        </label>
+
+        <p style="margin: 1.6rem 1rem;"><b>TIPS：</b>本<a href="https://cse.google.com/cse?cx=b74f06c1723da9656" target="_blank">搜索</a>功能由<a href="https://cse.google.com/cse/all"
+            target="_blank">Google站内搜索</a>提供，仅在能访问<a href="https://google.com" target="_blank">Google</a>的网络环境下可用。</p>
+
+        <!-- 进度条 -->
+        <div role="progressbar" class="mdc-linear-progress" aria-label="Example Progress Bar" aria-valuemin="0"
+          aria-valuemax="1" aria-valuenow="0" id="search-progress-bar">
+          <div class="mdc-linear-progress__buffer">
+            <div class="mdc-linear-progress__buffer-bar"></div>
+            <div class="mdc-linear-progress__buffer-dots"></div>
+          </div>
+          <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
+            <span class="mdc-linear-progress__bar-inner"></span>
+          </div>
+          <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
+            <span class="mdc-linear-progress__bar-inner"></span>
+          </div>
+        </div>
+        <div id="search-result-wraper">
+
+        </div>
+
+      </div>
+
+      <div class="mdc-dialog__actions">
+        <button type="button" class="mdc-button mdc-button--unelevated center-horizontal"
+          style="width: 94%; margin-bottom: 1rem; margin-top: 1rem;" data-mdc-dialog-action="cancel"
+          id="search_dialog_btn_close">
+          <div class="mdc-button__ripple"></div>
+          <span class="mdc-button__label">CLOSE</span>
+        </button>
+
+      </div>
+    </div>
+  </div>
+  <div class="mdc-dialog__scrim"></div>
+</div>
+    <main class="mdc-top-app-bar--fixed-adjust main-container">
+      <div class="mdc-card essy-card">
+        <h1 class="essy-title">如何下载腾讯视频的blob资源</h1>
+        <!-- 观剧不显示作者/演员 -->
+        
+        <span class="essy-author">立泉</span>
+        
+
+        <!-- 支持非标准日期 -->
+        
+        <span class="essy-date">2020年09月24日</span>
+        
+
+        <!-- tags -->
+        <span class="mdc-evolution-chip-set tags" role="grid">
+          <span class="mdc-evolution-chip-set__chips" role="presentation">
+            <!-- 遍历本页的tag -->
+            
+            <span class="mdc-evolution-chip" role="row" id="chip">
+              <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
+                <button class="mdc-evolution-chip__action mdc-evolution-chip__action--primary dialog-trigger"
+                  type="button" id="chip_tag_CS">
+                  <span class="mdc-evolution-chip__ripple mdc-evolution-chip__ripple--primary"></span>
+                  <span class="mdc-evolution-chip__text-label">#CS</span>
+                </button>
+              </span>
+            </span>
+            <!-- tag对应的dialog -->
+            <div class="mdc-dialog" id="dialog_tag_CS">
+              <div class="mdc-dialog__container">
+                <!-- 加上width500px后满足要求 -->
+                <div class="mdc-dialog__surface common-dialog-container" role="alertdialog" aria-modal="true"
+                  aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content">
+                  <div class="mdc-dialog__content" id="my-dialog-content">
+                    <!-- 遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+
+                    <p>标记TAG <code class="language-plaintext highlighter-rouge">#CS</code> 的
+                      
+                      <span>博文</span>
+                      
+                    </p>
+
+                    <ul class="mdc-deprecated-list mdc-deprecated-list--two-line dialog-link-list"
+                      id="dialog_tag_list_CS">
+                      <!-- 遍历该tag的所有文章 -->
+                      
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                      
+                        <!-- 是第一篇，前面不加分割线 -->
+                        
+                        
+                      <a class="mdc-deprecated-list-item" href="/post/original/2021/02/25/%E5%A4%AE%E8%A7%86-%E6%88%8F%E5%89%A7-4K-HEVC-%E6%83%8A%E5%96%9C%E8%BF%9E%E8%BF%9E.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">央视、戏剧、4K、HEVC，惊喜连连</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2021.02.25
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2021/02/16/%E9%80%9A%E8%BF%87%E6%8A%93%E5%8C%85%E4%B8%8B%E8%BD%BD%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%AD%E7%9A%84%E8%A7%86%E9%A2%91.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">通过抓包下载微信小程序中的视频</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2021.02.16
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2020/12/04/%E6%8A%8AAndroid-Module%E7%9A%84aar%E5%8C%85%E5%8F%91%E5%B8%83%E5%88%B0GitHub-Packages%E4%B8%8A.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">把Android Module的aar包发布到GitHub Packages</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2020.12.04
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2020/09/24/%E5%A6%82%E4%BD%95%E4%B8%8B%E8%BD%BD%E8%85%BE%E8%AE%AF%E8%A7%86%E9%A2%91%E7%9A%84blob%E8%B5%84%E6%BA%90.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">如何下载腾讯视频的blob资源</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2020.09.24
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2020/09/14/%E5%B0%86GitHub-Pages%E6%89%98%E7%AE%A1%E7%9A%84%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E5%88%B0%E7%AC%AC%E4%B8%89%E6%96%B9%E6%9C%8D%E5%8A%A1%E5%99%A8.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">将GitHub Pages托管的博客部署到第三方服务器</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2020.09.14
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2020/06/12/%E4%BD%BF%E7%94%A8Gradle%E5%88%9B%E5%BB%BA%E4%B8%8D%E5%90%8C%E7%9A%84%E6%89%93%E5%8C%85%E7%B1%BB%E5%9E%8B.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">使用Gradle创建不同的打包类型</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2020.06.12
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2020/06/01/%E9%80%82%E9%85%8DAndroid-Q%E7%9A%84%E6%9A%97%E9%BB%91%E6%A8%A1%E5%BC%8F.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">适配Android Q的暗黑模式</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2020.06.01
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2020/04/12/%E5%9C%A8Android%E6%8A%93%E5%8C%85%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98%E5%92%8C%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">在Android抓包时遇到的一些问题和网络安全配置</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2020.04.12
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2019/10/12/%E5%9C%A8Ubuntu%E4%B8%AD%E9%85%8D%E7%BD%AEapt%E6%BA%90%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%9C%B0%E5%9D%80.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">在Ubuntu中配置apt源服务器地址</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2019.10.12
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2019/07/18/%E5%9C%A8GCE%E4%B8%8A%E6%90%AD%E5%BB%BAShadowsocks%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">在GCE上搭建Shadowsocks的一些问题</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2019.07.18
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2019/07/02/%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84%E5%9B%9E%E8%BD%A6%E4%B8%8E%E6%8D%A2%E8%A1%8C.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">文件中的回车与换行</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2019.07.02
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2019/06/11/%E5%9F%BA%E4%BA%8E%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E7%9A%84HTTPS%E4%B8%8ESSH.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">基于非对称加密的HTTPS与SSH</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2019.06.11
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2019/04/22/%E6%96%B0%E9%9B%B6%E5%94%AE%E7%BB%88%E7%AB%AF%E7%9A%84%E4%B8%80%E4%BA%9B%E5%AE%9E%E7%8E%B0.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">新零售终端的一些实现</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2019.04.22
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2019/03/07/Android%E4%B8%AD%E7%9A%84MVP%E4%B8%8EMVVM.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">Android中的MVP与MVVM</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2019.03.07
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2019/03/05/Java%E4%B8%AD%E7%9A%84ThreadLocal.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">Java中的ThreadLocal</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2019.03.05
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2019/03/02/Android%E4%B8%AD%E5%85%B8%E5%9E%8B%E7%9A%84%E6%BB%91%E5%8A%A8%E5%86%B2%E7%AA%81.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">Android中典型的滑动冲突</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2019.03.02
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2019/03/01/Android%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91%E6%8B%A6%E6%88%AA%E6%9C%BA%E5%88%B6.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">Android中的事件分发拦截机制</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2019.03.01
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2019/02/09/%E4%BD%BF%E7%94%A8Outline.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">使用Outline</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2019.02.09
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2018/12/25/Android%E4%B8%AD%E7%9A%84AsyncTask.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">Android中的AsyncTask</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2018.12.25
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2018/12/09/%E5%80%9A%E6%99%B4%E5%A4%A9-%E7%BA%A2%E6%9D%8F%E7%AA%A5%E5%A2%99.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">倚晴天，红杏窥墙</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2018.12.09
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2018/11/20/Android%E4%B8%AD%E7%9A%84Thread%E5%92%8CHandler.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">Android中的Thread和Handler</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2018.11.20
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2018/08/27/%E5%AD%97%E8%8A%82%E7%9A%84%E5%8E%9F%E7%A0%81-%E8%A1%A5%E7%A0%81%E4%B8%8E%E5%8F%8D%E7%A0%81.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">字节的原码、补码与反码</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2018.08.27
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2018/04/20/%E5%9C%A8Ubuntu%E4%B8%AD%E9%85%8D%E7%BD%AEJDK%E7%8E%AF%E5%A2%83.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">在Ubuntu中配置JDK环境</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2018.04.20
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2017/06/01/%E4%B8%80%E6%AC%A1%E7%8B%AC%E7%AB%8BAPP%E7%9A%84%E5%B0%9D%E8%AF%95.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">一次独立APP的尝试</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2017.06.01
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2016/09/16/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%81%87%E4%B8%8AJava_06-%E6%80%BB%E7%BB%93%E7%AF%87.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">树莓派遇上Java_06-总结篇</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2016.09.16
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2016/09/15/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%81%87%E4%B8%8AJava_05-%E6%91%84%E5%83%8F%E5%A4%B4%E7%AF%87.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">树莓派遇上Java_05-摄像头篇</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2016.09.15
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2016/09/14/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%81%87%E4%B8%8AJava_04-%E8%88%B5%E6%9C%BA%E7%AF%87.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">树莓派遇上Java_04-舵机篇</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2016.09.14
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2016/09/12/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%81%87%E4%B8%8AJava_03-%E9%A9%AC%E8%BE%BE%E7%AF%87.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">树莓派遇上Java_03-马达篇</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2016.09.12
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2016/09/11/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%81%87%E4%B8%8AJava_02-%E5%87%86%E5%A4%87%E7%AF%87.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">树莓派遇上Java_02-准备篇</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2016.09.11
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2016/09/11/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%81%87%E4%B8%8AJava_01-%E6%80%BB%E8%BF%B0%E7%AF%87.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">树莓派遇上Java_01-总述篇</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2016.09.11
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2016/06/12/%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%AA%81%E5%8F%91%E5%A5%87%E6%83%B3%E7%9A%84Android_API%E6%96%87%E6%A1%A3%E6%9B%BF%E6%8D%A2.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">记一次突发奇想的Android API文档替换</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2016.06.12
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                    </ul>
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                  </div>
+                  <div class="mdc-dialog__actions">
+                    <button type="button" class="mdc-button mdc-button--unelevated center-horizontal"
+                      style="width: 94%; margin-bottom: 1rem;" data-mdc-dialog-action="cancel"
+                      id="btn_tag_dialog_close_CS">
+                      <div class="mdc-button__ripple"></div>
+                      <span class="mdc-button__label">CLOSE</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="mdc-dialog__scrim"></div>
+            </div>
+            <!-- 结束遍历本页的tag -->
+            
+            <span class="mdc-evolution-chip" role="row" id="chip">
+              <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
+                <button class="mdc-evolution-chip__action mdc-evolution-chip__action--primary dialog-trigger"
+                  type="button" id="chip_tag_下载">
+                  <span class="mdc-evolution-chip__ripple mdc-evolution-chip__ripple--primary"></span>
+                  <span class="mdc-evolution-chip__text-label">#下载</span>
+                </button>
+              </span>
+            </span>
+            <!-- tag对应的dialog -->
+            <div class="mdc-dialog" id="dialog_tag_下载">
+              <div class="mdc-dialog__container">
+                <!-- 加上width500px后满足要求 -->
+                <div class="mdc-dialog__surface common-dialog-container" role="alertdialog" aria-modal="true"
+                  aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content">
+                  <div class="mdc-dialog__content" id="my-dialog-content">
+                    <!-- 遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+
+                    <p>标记TAG <code class="language-plaintext highlighter-rouge">#下载</code> 的
+                      
+                      <span>博文</span>
+                      
+                    </p>
+
+                    <ul class="mdc-deprecated-list mdc-deprecated-list--two-line dialog-link-list"
+                      id="dialog_tag_list_下载">
+                      <!-- 遍历该tag的所有文章 -->
+                      
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                      
+                        <!-- 是第一篇，前面不加分割线 -->
+                        
+                        
+                      <a class="mdc-deprecated-list-item" href="/post/original/2021/02/25/%E5%A4%AE%E8%A7%86-%E6%88%8F%E5%89%A7-4K-HEVC-%E6%83%8A%E5%96%9C%E8%BF%9E%E8%BF%9E.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">央视、戏剧、4K、HEVC，惊喜连连</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2021.02.25
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2021/02/16/%E9%80%9A%E8%BF%87%E6%8A%93%E5%8C%85%E4%B8%8B%E8%BD%BD%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%AD%E7%9A%84%E8%A7%86%E9%A2%91.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">通过抓包下载微信小程序中的视频</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2021.02.16
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                      <!-- 只显示该同type的文章 -->
+                      
+                      <!-- 检查是否是该tag的第一篇文章 -->
+                       
+                        <!-- 不是第一篇，前面加分割线 -->
+                        <hr class="mdc-deprecated-list-divider">
+                      
+                      <a class="mdc-deprecated-list-item" href="/post/original/2020/09/24/%E5%A6%82%E4%BD%95%E4%B8%8B%E8%BD%BD%E8%85%BE%E8%AE%AF%E8%A7%86%E9%A2%91%E7%9A%84blob%E8%B5%84%E6%BA%90.html">
+                        <span class="mdc-deprecated-list-item__ripple"></span>
+                        <span class="mdc-deprecated-list-item__text">
+                          <span class="mdc-deprecated-list-item__primary-text">如何下载腾讯视频的blob资源</span>
+                          <span class="mdc-deprecated-list-item__secondary-text">2020.09.24
+                          </span>
+                        </span>
+                      </a>
+                      
+                      <!-- 结束遍历该tag的所有文章 -->
+                      
+                    </ul>
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
+                    
+                    <!-- 结束遍历网站包含的所有tag -->
+                    
+                  </div>
+                  <div class="mdc-dialog__actions">
+                    <button type="button" class="mdc-button mdc-button--unelevated center-horizontal"
+                      style="width: 94%; margin-bottom: 1rem;" data-mdc-dialog-action="cancel"
+                      id="btn_tag_dialog_close_下载">
+                      <div class="mdc-button__ripple"></div>
+                      <span class="mdc-button__label">CLOSE</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="mdc-dialog__scrim"></div>
+            </div>
+            <!-- 结束遍历本页的tag -->
+            
+          </span>
+        </span>
+        
+        <!-- md content -->
+        <p>不知从什么时候起，逐渐注意到，我在B站收藏夹里的很多视频都因各种各样的原因被下架了，我当然尊重版权，也认可由此下架的合理性，但我又确实喜欢这些资源。这样的下架行为让我对视频平台的可用性产生了不信任感，我不知道什么时候他们会以什么原因让一个我喜欢的东西消失得无影无踪，尤其当我爱上昆曲之后，会搜集很多别人分享的剧场演出影像，而这些分享并不是随处可见，一旦下架，就真的没了。所以<strong>我已经养成了一个习惯，看到自己喜欢的内容，第一个念头便是：赶快下载下来！！</strong></p>
+
+<p>应该说，我对视频平台的不信任感是和对硬盘可靠性的不信任感同时出现的，这也说明我正越来越意识到数据安全的重要性。几个月前，我开始对我所拥有的资源进行分类整理，大概有225GB，本地保存两份，<code class="language-plaintext highlighter-rouge">OneDrive</code>保存一份，并定期同步，我真的很害怕失去这些珍藏许久的视频、音频和文档，因为，有些我可以肯定，已经不可能在互联网上找到了。</p>
+
+<p>回到这个问题，起因是我曾经在腾讯视频下载过一场<a href="https://v.qq.com/x/page/z0562bgb9s4.html" target="_blank">昆曲演出录影</a>，最高画质<code class="language-plaintext highlighter-rouge">720P</code>，用<code class="language-plaintext highlighter-rouge">IDM</code>下载成功，内容很好，画质也不错，唯一的遗憾是右上角的那个“腾讯视频”水印。所以我一直都不喜欢国内的视频平台，如果是用户自己加的版权水印，合情合理，而一个视频平台把自己的水印强行加到用户的视频上，除了傲慢和愚蠢，我想不到别的词汇。</p>
+
+<p><img src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20200924/mudanting_with_logo.jpg" alt="pic" loading="lazy" class="clickable" onclick="clickShowOriginalImg(event)" /></p>
+
+<h1 id="失效">失效</h1>
+
+<p>我目前下载视频的方式有3种：</p>
+
+<ul>
+  <li><a href="https://you-get.org" target="_blank">You-Get</a></li>
+  <li><a href="https://software.charliemonroe.net/downie/" target="_blank">Downie</a></li>
+  <li><a href="https://www.internetdownloadmanager.com" target="_blank">IDM</a></li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">You-Get</code>是命令行工具，<code class="language-plaintext highlighter-rouge">IDM</code>是<code class="language-plaintext highlighter-rouge">Windows</code>独占，而我现在已经切换到<code class="language-plaintext highlighter-rouge">Mac</code>，所以最常用的是<code class="language-plaintext highlighter-rouge">Downie</code>，软件设计得很漂亮，粘贴<code class="language-plaintext highlighter-rouge">URL</code>就会自动解析并下载最高画质的资源，即使有时候不能自动识别，也可以在<code class="language-plaintext highlighter-rouge">User-Guided Extraction</code>模式下手动选择。可遗憾的是，这次它们三个都失效了，<code class="language-plaintext highlighter-rouge">You-Get</code>能识别<code class="language-plaintext highlighter-rouge">720P</code>资源，但下载下来的是有水印的15个分段；<code class="language-plaintext highlighter-rouge">Windows</code>虚拟机里的<code class="language-plaintext highlighter-rouge">IDM</code>确实识别到了<code class="language-plaintext highlighter-rouge">720P</code>无水印，但却是数百个<code class="language-plaintext highlighter-rouge">ts</code>分段，每个2M左右，基本不可用；<code class="language-plaintext highlighter-rouge">Downie</code>只能识别<code class="language-plaintext highlighter-rouge">480P</code>的版本，在<code class="language-plaintext highlighter-rouge">User-Guided Extraction</code>模式下则完全找不到资源，除了广告。。</p>
+
+<p><img src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20200924/downie_mudanting.jpg" alt="pic" loading="lazy" class="clickable" onclick="clickShowOriginalImg(event)" /></p>
+
+<p>明明几个月前我就是用<code class="language-plaintext highlighter-rouge">IDM</code>下载成功的，带着疑惑，便开始搜寻可能的解决方案。找了一圈，大概明白了，它们现在已经开始使用一种叫<code class="language-plaintext highlighter-rouge">blob</code>的加密播放机制，我并不是这方面的专家，但也知道，无论怎么加密，最终一定会有链接指向要播放的视频资源的真实地址。而对于<code class="language-plaintext highlighter-rouge">blob</code>，则是要找到隐藏的<code class="language-plaintext highlighter-rouge">m3u8</code>链接，可以把它理解为这个视频的分段资源列表，应该也就是<code class="language-plaintext highlighter-rouge">IDM</code>解析到的那些数百个2M左右的分段，有了<code class="language-plaintext highlighter-rouge">m3u8</code>链接，就可以下载这些分段资源，然后转码、合并。目前的情况是，已经有很多软件都支持直接下载<code class="language-plaintext highlighter-rouge">m3u8</code>资源，但那个至关重要的、代表了视频真实地址的<code class="language-plaintext highlighter-rouge">m3u8</code>链接，还是必须自己去从<code class="language-plaintext highlighter-rouge">blob</code>站点获取，并没有自动化的一键下载工具。</p>
+
+<p>一些博文提到要打开浏览器的<code class="language-plaintext highlighter-rouge">Developer Tools</code>，从数千个<code class="language-plaintext highlighter-rouge">URL</code>链接中筛选找到那个真实的<code class="language-plaintext highlighter-rouge">m3u8</code>链接，我尝试了一会，毕竟不是Web开发者，看得眼花缭乱，没找到。</p>
+
+<p>于是开始搜寻如何才能以最简单的方式获取<code class="language-plaintext highlighter-rouge">m3u8</code>链接，还真有，从<a href="https://www.jokerps.com/?p=4451" target="_blank">这篇文章</a>可以看到，目前已经有针对各个视频平台的<code class="language-plaintext highlighter-rouge">js</code>脚本。</p>
+
+<blockquote>
+  <p>腾讯视频</p>
+</blockquote>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">javascript</span><span class="p">:</span><span class="kd">var</span> <span class="nx">a</span><span class="o">=</span><span class="nx">prompt</span><span class="p">(</span><span class="nx">PLAYER</span><span class="p">.</span><span class="nx">_DownloadMonitor</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">title</span><span class="p">,</span><span class="nx">PLAYER</span><span class="p">.</span><span class="nx">_DownloadMonitor</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">ckc</span><span class="p">?</span><span class="nx">PLAYER</span><span class="p">.</span><span class="nx">_DownloadMonitor</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">currentVideoUrl</span><span class="p">:</span><span class="nx">PLAYER</span><span class="p">.</span><span class="nx">_DownloadMonitor</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">currentVideoUrl</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/:.*qq.com/g</span><span class="p">,</span><span class="dl">"</span><span class="s2">://defaultts.tc.qq.com/defaultts.tc.qq.com</span><span class="dl">"</span><span class="p">));</span>
+</code></pre></div></div>
+
+<p>以腾讯视频为例，在开始播放要下载的视频版本之后，在该页面上执行这个脚本，通常是创建一个<code class="language-plaintext highlighter-rouge">Bookmark</code>书签，把这段<code class="language-plaintext highlighter-rouge">js</code>作为<code class="language-plaintext highlighter-rouge">URL</code>填进去，这样在对应的页面上，只需要点击这个书签，就可以执行这段<code class="language-plaintext highlighter-rouge">js</code>脚本，获得对应的<code class="language-plaintext highlighter-rouge">m3u8</code>链接。</p>
+
+<p><img src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20200924/js_get_m3u8_tengxun.jpg" alt="pic" loading="lazy" class="clickable" onclick="clickShowOriginalImg(event)" /></p>
+
+<p>所以，对于这个视频，真实的<code class="language-plaintext highlighter-rouge">m3u8</code>链接为</p>
+
+<div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">https://defaultts.tc.qq.com/defaultts.tc.qq.com/A2vuJDIKrfbFxXWF-uFTN8txhLOQnlG_IZu1ZlGTq01o/uwMROfz2r5zAoaQXGdGnC2df64-iUwCiwZmikOBGnwTA3zLD/k6I0wycPsYglZ651b7GgNjdE-hvTEx51OFec5on36F-fjNMPxGKu_UamPARQW40SvWJQ7jbOkrRfj_XgvI27hBVr9g2IWpid2YUcBKUn9xlPmjEAOOhAO8RRj3awkJ4YzVYFWneDhRE0z-tGIxAI-Q0iBGSZ4LgIkHCukOGqF5U/z0562bgb9s4.321003.ts.m3u8\?ver\=4
+</span></code></pre></div></div>
+
+<h1 id="下载">下载</h1>
+
+<p>首先，那些<code class="language-plaintext highlighter-rouge">m3u8</code>下载器基本都是对<code class="language-plaintext highlighter-rouge">ffmpeg</code>的封装，从真实地址下载分段然后转码合并，执行<code class="language-plaintext highlighter-rouge">ffmpeg -i [url]</code>可以获取到这个视频的大致信息，也可以执行下面这段代码直接进行下载。</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ffmpeg <span class="nt">-i</span> <span class="o">[</span>url] <span class="nt">-c</span> copy <span class="nt">-bsf</span>:a aac_adtstoasc output.mp4
+</code></pre></div></div>
+
+<p>我并不是很熟悉<code class="language-plaintext highlighter-rouge">ffmpeg</code>的具体下载参数配置，这段代码也可能并不适合其它视频，而且下载完成后奇怪的发现，在手机播放器上会看到比较明显的分割拼接痕迹，在电脑上却是正常的，试着用<code class="language-plaintext highlighter-rouge">HandBrake</code>转了一下码，然后问题就解决了。</p>
+
+<p>其实每次遇到这样的事情都会觉得很有趣，在一个陌生的领域，执行一些陌生的操作，出现了一些莫名其妙的问题，但因为不熟悉这个领域，会一个个尝试各种可能的解决方式，运气好的话，很快解决，运气不好，就只能干着急，幻想着什么时候才能成为这个领域的专家，能够一眼看穿问题的原因和方案，从容不迫。</p>
+
+      </div>
+    </main>
+  </div>
+  <footer site-footer>
+  <div class="foot-header"></div>
+  <div class="main-container">
+    <div class="copyright">
+      Based on
+      <a target="_blank" href="https://material.io/">Material Design</a>
+      and
+      <a target="_blank" href="https://jekyllrb.com/">Jekyll</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Floating Action Button -->
+<div class="mdc-touch-target-wrapper">
+  <button class="mdc-fab app-fab--absolute" aria-label="Up" onclick="scrollToTop()" id="fabUp">
+    <div class="mdc-fab__ripple"></div>
+    <span class="mdc-fab__icon material-icons">arrow_upward</span>
+  </button>
+</div>
+</body>
+
+</html>
