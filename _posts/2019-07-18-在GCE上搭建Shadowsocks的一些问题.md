@@ -8,6 +8,8 @@ date: 2019-07-18 +0800
 description: 我一直觉得谷歌是一家很酷的公司，所以也很喜欢他们的产品，谷歌云也一样，只是价格么，相比别家，以个人使用的角度，的确算是偏贵的。
 cover: 
 tags: CS Google_Cloud VPS Shadowsocks
+redirect_from:
+    - /essy/2019/07/18/在GCE上搭建Shadowsocks的一些问题
 ---
 
 > 更新：有证据表明`GFW`已经可以精准识别`Shadowsocks`的流量特征，仅使用其作为工具可能导致服务器`端口/IP`被封禁，本文内容仅供参考。

@@ -8,6 +8,8 @@ date: 2019-03-07 +0800
 description: 从MVC到MVVM，设计模式的进化正让Android开发变得越来越简洁高效。
 cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20190307/mvvm.png
 tags: CS Android
+redirect_from:
+    - /essy/2019/03/07/Android中的MVP与MVVM
 ---
 
 当我刚开始学习`Android`的时候，并不懂`设计模式`，只晓得`Activity`可以控制UI，也不知道那些操作数据的逻辑代码应该如何命名，便索性将所有代码堆砌在`Activity`和`Fragment`里，但随着我练习的逻辑越来越复杂，`Activity`的代码结构开始变得混乱起来，越来越臃肿，几乎无法维护，那种在一个`class文件`里的各种方法间到处跳来跳去的感觉，岂止是酸爽。后来，我看到了`MVP`，顿时豁然开朗，原来还可以这样，它把`View`和`Model`彻底分离，用`Presenter`来承上启下，让代码里的每一个UI驱动的逻辑都变得十分清晰。
