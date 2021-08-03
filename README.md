@@ -2,6 +2,8 @@
 
 [https://apqx.me](https://apqx.me)
 
+基于`Jekyll`将`Markdown`格式文章转换为`HTML`网页。
+
 # Jekyll文件头
 
 ```markdown
@@ -15,6 +17,8 @@ date: 2019-05-18 +0800
 description: 从昆曲《南柯梦》的「入梦」一折看到的这句词，浮想联翩，意犹不尽。
 cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20190518/kunqv_nankemeng_diexi.jpg
 tags: 碎碎念 戏剧 省昆
+redirect_from:
+    - /essy/2019/05/18/槐安国内春生酒
 ---
 ```
 
@@ -31,11 +35,11 @@ tags: 碎碎念 戏剧 省昆
 
 ### oroginal
 
-随笔，即原创文章。
+随笔，原创文章。
 
 ### repost
 
-转载文章，尽可能著名出处、作者、时间。
+转载文章，尽可能注明出处、作者、时间。
 
 ### poetry
 
@@ -47,9 +51,9 @@ tags: 碎碎念 戏剧 省昆
 
 ## layout
 
-与`_layout`目录下的同名`html`文件对应，指定该`layout`，即当前`Markdown`文件就会使用此`layout`转换为`html`网页。
+与`_layout`目录下的同名`html`文件对应，指定该`layout`，即当前`Markdown`文件就会使用此`layout`转换为`HTML`网页。
 
-最主要的`layout`有2个
+关键的`layout`有2个
 
 | layout | _layout/   | 说明     |
 |--------|------------|--------|
@@ -58,7 +62,7 @@ tags: 碎碎念 戏剧 省昆
 
 ### _layout/post.html
 
-文章布局，即发布的文章页面。
+文章布局，发布的文章页面。
 
 ### _layout/index.html
 
@@ -94,4 +98,4 @@ tags: 碎碎念 戏剧 省昆
 
 ## tags
 
-文章标签。
+文章标签列表，此标签会显示在文章页面顶部，点击会列出包含该标签的所有文章。
