@@ -17,6 +17,7 @@ date: 2019-05-18 +0800
 description: 从昆曲《南柯梦》的「入梦」一折看到的这句词，浮想联翩，意犹不尽。
 cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20190518/kunqv_nankemeng_diexi.jpg
 tags: 碎碎念 戏剧 省昆
+show: false
 redirect_from:
     - /essy/2019/05/18/槐安国内春生酒
 ---
@@ -99,3 +100,28 @@ redirect_from:
 ## tags
 
 文章标签列表，此标签会显示在文章页面顶部，点击会列出包含该标签的所有文章。
+
+随笔、转载、诗文、观剧的tag分离。
+
+### 随笔文章tag
+
+两大类：
+
+* 碎碎念（戏剧，省昆，浙昆，苏昆，旅行，摄影）
+* CS（Android，Gradle，Java，Jvm，Flutter，Git，GitHub，Jekyll，JavaScript，Google_Search，Google_Cloud，VPS，ShadowSocks，HTTPS，RaspberryPi，Ubuntu，抓包，下载）
+
+### 转载文章tag
+
+戏剧，昆曲，京剧，历史，[作者]，[人物]，思维，看客（贬义）
+
+### 诗文文章tag
+
+[作者] [时代]
+
+### 观剧文章tag
+
+[剧种]，[剧名]，[折子（全场戏除外）]，[剧团]，[演员]，[剧院]
+
+## show
+
+部分文章可能不想显示在索引中，设置此字段为`false`。
