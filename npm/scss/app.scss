@@ -307,14 +307,21 @@ p code, li code {
     padding-right: 0.2rem;
     padding-top: 0.1rem;
     padding-bottom: 0.1rem;
-    margin-left: 0.2rem;
-    margin-right: 0.2rem;
+    margin-left: 0.05rem;
+    margin-right: 0.05rem;
     border-radius: 4px;
     
     color:$code-highlight-text;
     background: $code-highlight-bg;
     // border:1px solid $code-highlight-border;
 }
+
+p em code {
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+    margin-left: 0;
+    margin-right: 0;
+} 
 
 // 解决Safari的Ripple动画无圆角
 .mdc-button, .mdc-button__ripple {
@@ -561,6 +568,11 @@ img, video {
     .mdc-top-app-bar {
         // 小屏下减少top bar阴影面积
         @include elevation.elevation(5, $nav-color, 0);
+    }
+
+    // 小屏时纯英文段落不两边对齐，因为单词间隔可能很大
+    p.no-justify {
+        text-align: left;
     }
 
 }
