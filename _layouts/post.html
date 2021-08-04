@@ -12,10 +12,8 @@
     <main class="mdc-top-app-bar--fixed-adjust main-container">
       <div class="mdc-card essy-card">
         <h1 class="essy-title">{{ page.title }}</h1>
-        <!-- 观剧不显示作者/演员 -->
-        {% if page.type != "opera" %}
+        
         <span class="essy-author">{{ page.author }}</span>
-        {% endif %}
 
         <!-- 支持非标准日期 -->
         {% if page.moredate != null %}

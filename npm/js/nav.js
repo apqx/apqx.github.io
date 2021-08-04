@@ -62,8 +62,11 @@ try {
     aboutMeDialog.listen('MDCDialog:opened', () => {
         // Dialog弹出时应该让Button获取焦点，避免chip出现选中阴影
         // 但是Button获取焦点后颜色会变化，所以立即取消焦点
-        document.getElementById('about_me_dialog_btn_close').focus();
-        document.getElementById('about_me_dialog_btn_close').blur();
+        var btnCloseE = document.getElementById('about_me_dialog_btn_close');
+        if (btnCloseE != null) {
+            btnCloseE.focus();
+            btnCloseE.blur();
+        }
     });
 
     document.getElementById('topbar_btn_about_me').addEventListener('click', () => {
@@ -92,8 +95,11 @@ try {
     searchDialog.listen('MDCDialog:opened', () => {
         // Dialog弹出时应该让Button获取焦点，避免chip出现选中阴影
         // 但是Button获取焦点后颜色会变化，所以立即取消焦点
-        document.getElementById('search_dialog_btn_close').focus();
-        document.getElementById('search_dialog_btn_close').blur();
+        var btnCloseE = document.getElementById('search_dialog_btn_close');
+        if (btnCloseE != null) {
+            btnCloseE.focus();
+            btnCloseE.blur();
+        }
     });
     searchDialog.listen('MDCDialog:closing', () => {
         removeSearchResult();

@@ -281,8 +281,11 @@ blockquote {
     @include typography.typography(body1);
     line-height: 1.8rem;
     margin: 10px 0;
-    padding: 0 0 0 1.5rem;
+    padding: 0 0 0 1rem;
     border-left: 5px solid #ee6e73;
+    // border-right: 5px solid #ee6e73;
+    // background: $code-highlight-bg;
+    // border-radius: 0.2rem;
 }
 
 // 引用段落中的<p>
@@ -297,8 +300,8 @@ pre code {
 }
 
 code.hljs {
-    // border-radius: 0.5rem;
-    // padding: 1rem;
+    // border-radius: 0.3rem;
+    padding: 1rem;
 }
 
 /* 段落中单词高亮 */
@@ -310,9 +313,9 @@ p code, li code {
     padding-bottom: 0.1rem;
     margin-left: 0.05rem;
     margin-right: 0.05rem;
-    border-radius: 4px;
+    border-radius: 0.3rem;
     
-    color:$code-highlight-text;
+    // color:$code-highlight-text;
     background: $code-highlight-bg;
     // border:1px solid $code-highlight-border;
 }
@@ -505,7 +508,7 @@ img.clickable:hover {
 img, video {
     max-width: 100%;
     height: auto;
-    // border-radius: 5px;
+    // border-radius: 0.3rem;
 }
 
 .video-container {
