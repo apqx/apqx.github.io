@@ -81,7 +81,7 @@ buildscript {
 关于使用`build variant`创建不同类型包的相关问题，通常用于打出同一个版本的不同渠道包，可以查看我的另一篇文章：
 
 
-[使用Gradle创建不同的打包类型]({% post_url 2020-06-12-使用Gradle创建不同的打包类型 %}){: target="_blank" }
+[使用Gradle创建不同的打包类型]({% link _posts/original/2020-06-12-使用Gradle创建不同的打包类型.md %}){: target="_blank" }
 
 比如在该`Module`的`build.gradle`中定义了`mi`和`play`2个`flavor`，用于配置发布到小米商店和`Google Play`商店的渠道包，它们与`release`和`debug`2个`build type`组合就可以有4个`build variant`
 

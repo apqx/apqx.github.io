@@ -9,17 +9,14 @@ import { MDCTextField } from '@material/textfield';
 import { MDCLinearProgress } from '@material/linear-progress';
 
 
-try {
-
-} catch (e) {
-    console.log("catch e = " + e.message);
-}
-
 // 为fab添加ripple动画
 try {
-    const fabRipple = new MDCRipple(document.querySelector('.mdc-fab'));
+    var fabE = document.querySelector('.mdc-fab');
+    if (fabE != null) {
+        const fabRipple = new MDCRipple(fabE);
+    }
 } catch (e) {
-    console.log("catch e = " + e.message);
+    console.log("fab catch e = " + e.message);
 }
 
 try {
@@ -270,7 +267,4 @@ function showSearchResult(response) {
         }
     });
 }
-
-
-// 生成二维码
 

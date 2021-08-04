@@ -18,7 +18,7 @@ redirect_from:
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20190718/gc_price.jpg){: loading="lazy" class="clickable" onclick="clickShowOriginalImg(event)" alt="pic"}
 
-和`Vultr`的[配置方式]({% post_url 2018-12-09-倚晴天，红杏窥墙 %}){: target="_blank" }不同，在`GCE`上搭建`Shadowsocks`有一些细节问题需要注意。
+和`Vultr`的[配置方式]({% link _posts/original/2018-12-09-倚晴天，红杏窥墙.md %}){: target="_blank" }不同，在`GCE`上搭建`Shadowsocks`有一些细节问题需要注意。
 
 # 防火墙
 
