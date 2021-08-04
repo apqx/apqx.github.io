@@ -281,8 +281,11 @@ blockquote {
     @include typography.typography(body1);
     line-height: 1.8rem;
     margin: 10px 0;
-    padding: 0 0 0 1.5rem;
+    padding: 0 0 0 1rem;
     border-left: 5px solid #ee6e73;
+    // border-right: 5px solid #ee6e73;
+    // background: $code-highlight-bg;
+    // border-radius: 0.2rem;
 }
 
 // 引用段落中的<p>
@@ -297,8 +300,8 @@ pre code {
 }
 
 code.hljs {
-    // border-radius: 0.5rem;
-    // padding: 1rem;
+    border-radius: 0.5rem;
+    padding: 1rem;
 }
 
 /* 段落中单词高亮 */
