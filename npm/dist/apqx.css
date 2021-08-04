@@ -10683,7 +10683,6 @@ pre code {
 }
 
 code.hljs {
-  border-radius: 0.5rem;
   padding: 1rem;
 }
 
@@ -10719,8 +10718,7 @@ p code, li code {
   padding-bottom: 0.1rem;
   margin-left: 0.05rem;
   margin-right: 0.05rem;
-  border-radius: 4px;
-  color: #84565E;
+  border-radius: 0.3rem;
   background: #f5f4f9;
 }
 
