@@ -21,12 +21,17 @@ npm/package-lock.json, npm/package.json, npm/README.md, npm/webpack.config.js]
 # Url output
 permalink: /post/:categories/:year/:month/:day/:title:output_ext
 
-# 设置highlighter为none才会从```中生成标准的代码高亮html，能被highlight.js解析
-# 但是GitHub Pages只支持Rouge或Pygments的高亮格式，所以不能设置为none，默认是Rouge
-# highlighter: none
 
 # Build settings
 markdown: kramdown
+
+# 设置highlighter为none才会从```中生成标准的代码高亮html，能被highlight.js解析
+# 但是GitHub Pages只支持Rouge或Pygments的高亮格式，所以不能设置为none，默认是Rouge
+# highlighter: none
+kramdown: 
+  # 虽然不能设置 highlighter: none，但可以禁用rouge的输出功能，使kramdown输出标准的代码高粱html，方便highlight.js解析
+  syntax_highlighter_opts:
+    disable : true
 
 plugins:
   - jekyll-sitemap

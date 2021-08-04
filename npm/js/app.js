@@ -31,11 +31,11 @@ hljs.registerLanguage('gradle', require('highlight.js/lib/languages/gradle'));
 hljs.registerLanguage('http', require('highlight.js/lib/languages/http'));
 hljs.registerLanguage('dart', require('highlight.js/lib/languages/dart'));
 
-// hljs.highlightAll();
+hljs.highlightAll();
 
-document.querySelectorAll('div.highlighter-rouge').forEach(el => {
-    hljs.highlightElement(el);
-  });
+// document.querySelectorAll('div.highlighter-rouge').forEach(el => {
+//     hljs.highlightElement(el);
+//   });
 
 // 为所有的button添加ripple动画 TODO：似乎并没有生效，button的点击效果没有出现
 for (const btn of document.querySelectorAll('.mdc-button')) {
