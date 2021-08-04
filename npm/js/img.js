@@ -1,6 +1,7 @@
 import { MDCDialog } from '@material/dialog';
 
 const imgs = document.querySelectorAll('.clickShowOriginalImg');
+var btnCancelE = document.getElementById('img_tips_dialog_btn_close');
 var firstClick = true;
 var url = "";
 for (const img of imgs) {
@@ -17,8 +18,10 @@ for (const img of imgs) {
             imgTipsDialog.listen('MDCDialog:opened', () => {
                 // Dialog弹出时应该让Button获取焦点，避免chip出现选中阴影
                 // 但是Button获取焦点后颜色会变化，所以立即取消焦点
-                document.getElementById('img_tips_dialog_btn_close').focus();
-                document.getElementById('img_tips_dialog_btn_close').blur();
+                if (btnCancelE != null) {
+                    btnCancelE.focus();
+                    btnCancelE.blur();
+                }
             });
             imgTipsDialog.open();
         } else {
@@ -26,9 +29,11 @@ for (const img of imgs) {
         }
     });
 }
-document.getElementById('img_tips_dialog_btn_close').addEventListener('click', () => {
-    // 必须点击这个btn才允许跳转到大图
-    firstClick = false;
-    window.open(url, "_blank");
-});
+if (btnCancelE != null) {
+    btnCancelE.addEventListener('click', () => {
+        // 必须点击这个btn才允许跳转到大图
+        firstClick = false;
+        window.open(url, "_blank");
+    });
+}
 
