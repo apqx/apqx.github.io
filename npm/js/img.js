@@ -2,14 +2,14 @@ import { MDCDialog } from '@material/dialog';
 
 const imgs = document.querySelectorAll('.clickShowOriginalImg');
 var firstClick = true;
+var url = "";
 for (const img of imgs) {
-    // var hasCopyright = img..hasClass("copyright");
-    var hasCopyright = false;
     // 点击图片，跳转到原图
     img.addEventListener('click', () => {
-        var url = img.src;
+        var hasCopyright = img.classList.contains("operaCopyright");
+        // var hasCopyright = false;
         // 所有的图片，缩略图都加了_thumb后缀，删除后即为原图
-        url = url.replace("_thumb", "")
+        url = img.src.replace("_thumb", "")
         console.log("click show original img, copyright = " + hasCopyright + ", => " + url);
         if (hasCopyright && firstClick) {
             console.log("first click img, show tips dialog")
@@ -20,16 +20,15 @@ for (const img of imgs) {
                 document.getElementById('img_tips_dialog_btn_close').focus();
                 document.getElementById('img_tips_dialog_btn_close').blur();
             });
-            
             imgTipsDialog.open();
-            document.getElementById('img_tips_dialog_btn_close').addEventListener('click', () => {
-                // 必须点击这个btn才允许跳转到大图
-                firstClick = false;
-                window.open(url, "_blank");
-            });
         } else {
             window.open(url, "_blank");
         }
     });
 }
+document.getElementById('img_tips_dialog_btn_close').addEventListener('click', () => {
+    // 必须点击这个btn才允许跳转到大图
+    firstClick = false;
+    window.open(url, "_blank");
+});
 
