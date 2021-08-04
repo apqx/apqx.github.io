@@ -242,3 +242,29 @@
   </div>
   <div class="mdc-dialog__scrim"></div>
 </div>
+
+<!-- Image Tips Dialog -->
+<div class="mdc-dialog" id="img_tips_dialog">
+  <div class="mdc-dialog__container common-dialog-container">
+    <!-- 加上width500px后满足要求 -->
+    <div class="mdc-dialog__surface" role="alertdialog" aria-modal="true" aria-labelledby="img-tips-dialog-title"
+      aria-describedby="img-tips-dialog-content">
+      <div class="mdc-dialog__content center-horizontal mdc-theme--on-surface" id="img-tips-dialog-content">
+
+        <h1>版权提示</h1>
+
+        <p style="margin: 1.6rem 1rem;">即将跳转到原始尺寸的高清大图，只是唯一注意，<b>图片版权归属作者及原剧团演员所有</b>，未经允许，不可用于商业用途。</p>
+
+      </div>
+      <div class="mdc-dialog__actions">
+        <button type="button" class="mdc-button mdc-button--unelevated center-horizontal"
+          style="width: 94%; margin-bottom: 1rem; margin-top: 1rem;" data-mdc-dialog-action="cancel"
+          id="img_tips_dialog_btn_close">
+          <div class="mdc-button__ripple"></div>
+          <span class="mdc-button__label">OK</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="mdc-dialog__scrim"></div>
+</div>

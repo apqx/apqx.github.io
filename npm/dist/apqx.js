@@ -20,6 +20,17 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _mat
 
 /***/ }),
 
+/***/ "./js/img.js":
+/*!*******************!*\
+  !*** ./js/img.js ***!
+  \*******************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _material_dialog__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @material/dialog */ \"./node_modules/@material/dialog/component.js\");\nfunction _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== \"undefined\" && o[Symbol.iterator] || o[\"@@iterator\"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === \"number\") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError(\"Invalid attempt to iterate non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.\"); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it[\"return\"] != null) it[\"return\"](); } finally { if (didErr) throw err; } } }; }\n\nfunction _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === \"string\") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === \"Object\" && o.constructor) n = o.constructor.name; if (n === \"Map\" || n === \"Set\") return Array.from(o); if (n === \"Arguments\" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }\n\nfunction _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }\n\n\nvar imgs = document.querySelectorAll('.clickShowOriginalImg');\nvar firstClick = true;\n\nvar _iterator = _createForOfIteratorHelper(imgs),\n    _step;\n\ntry {\n  var _loop = function _loop() {\n    var img = _step.value;\n    // var hasCopyright = img..hasClass(\"copyright\");\n    hasCopyright = false; // 点击图片，跳转到原图\n\n    img.addEventListener('click', function () {\n      var url = img.src; // 所有的图片，缩略图都加了_thumb后缀，删除后即为原图\n\n      url = url.replace(\"_thumb\", \"\");\n      console.log(\"click show original img, copyright = \" + hasCopyright + \", => \" + url);\n\n      if (hasCopyright && firstClick) {\n        console.log(\"first click img, show tips dialog\");\n        var imgTipsDialog = new _material_dialog__WEBPACK_IMPORTED_MODULE_0__.MDCDialog(document.getElementById('img_tips_dialog'));\n        imgTipsDialog.listen('MDCDialog:opened', function () {\n          // Dialog弹出时应该让Button获取焦点，避免chip出现选中阴影\n          // 但是Button获取焦点后颜色会变化，所以立即取消焦点\n          document.getElementById('img_tips_dialog_btn_close').focus();\n          document.getElementById('img_tips_dialog_btn_close').blur();\n        });\n        imgTipsDialog.open();\n        document.getElementById('img_tips_dialog_btn_close').addEventListener('click', function () {\n          // 必须点击这个btn才允许跳转到大图\n          firstClick = false;\n          window.open(url, \"_blank\");\n        });\n      } else {\n        window.open(url, \"_blank\");\n      }\n    });\n  };\n\n  for (_iterator.s(); !(_step = _iterator.n()).done;) {\n    var hasCopyright;\n\n    _loop();\n  }\n} catch (err) {\n  _iterator.e(err);\n} finally {\n  _iterator.f();\n}\n\n//# sourceURL=webpack:///./js/img.js?");
+
+/***/ }),
+
 /***/ "./js/nav.js":
 /*!*******************!*\
   !*** ./js/nav.js ***!
@@ -1213,6 +1224,7 @@ eval("\n\nvar isOldIE = function isOldIE() {\n  var memo;\n  return function mem
 /******/ 	__webpack_require__("./scss/app.scss");
 /******/ 	__webpack_require__("./js/app.js");
 /******/ 	__webpack_require__("./js/tag.js");
+/******/ 	__webpack_require__("./js/img.js");
 /******/ 	var __webpack_exports__ = __webpack_require__("./js/nav.js");
 /******/ 	
 /******/ })()
