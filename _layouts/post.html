@@ -6,12 +6,12 @@
   {% include head-common.html %}
 </head>
 
-<body class="mdc-typography mdc-theme--background mdc-theme--on-surface">
+<body class="mdc-typography mdc-theme--background">
   <div class="page-wrap">
     {% include header.html %}
     <main class="mdc-top-app-bar--fixed-adjust main-container">
-      <div class="mdc-card essy-card">
-        <h1 class="essy-title">{{ page.title }}</h1>
+      <div class="mdc-card essy-card mdc-theme--surface mdc-theme--on-surface">
+        <h1 class="essy-title ">{{ page.title }}</h1>
         
         <span class="essy-author">{{ page.author }}</span>
 
@@ -48,7 +48,7 @@
                     <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
                     {% if tagInSite[0] == tagInPage %}
 
-                    <p>标记TAG <code class="language-plaintext highlighter-rouge">#{{ tagInPage }}</code> 的
+                    <p class="mdc-theme--on-surface">标记TAG <code class="language-plaintext highlighter-rouge">#{{ tagInPage }}</code> 的
                       {% case page.type %}
                       {% when "original" %}
                       <span>博文</span>

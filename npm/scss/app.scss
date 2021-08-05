@@ -12,13 +12,20 @@ $text-body-color:#424242;
 $chip-fill-color:#FEDBD0;
 $chip-text-color:#84565E;
 @use "@material/theme" with (
+        // 这里定义的属性都可以被tag或class引用，而又可以在不同的主题class中修改，以实现不同的主题
         // nav，button，drawer的主色
         $primary: #9b27b0,
+        $on-primary:white,
         // fab
         $secondary: #43A047,
+        $on-secondary: white,
+
         $background: #f7f7f7,
+
         $surface: white,
+        $on-surface:#424242,
     );
+    @use "@material/theme/custom-properties";
 
 // $code-highlight-bg:#2c3037 !default;
 // $code-highlight-border:#576574;
@@ -98,10 +105,42 @@ $chip-text-color:#84565E;
 @include textfield.core-styles;
 @include linear-progress.core-styles;
 
+// 通过js给body添加dark class，可以实现对mac-theme的参数更改
+// 大部分组件都会正确相应颜色变化，但是list和chip却无效
+// 且theme.$property引用的值也没有动态变化
+body.dark {
+    --mdc-theme-primary: #ab47bc;
+    --mdc-theme-on-primary: white;
+    --mdc-theme-secondary: #43A047;
+    --mdc-theme-background: #252730;
+    --mdc-theme-surface: #2c3037;
+    // 主题字体色，段落p
+    --mdc-theme-on-surface: #ddd;
+
+    // 标题字体色，h
+    --mdc-theme-text-primary-on-background:#ddd;
+    // 小标题字体色
+    --mdc-theme-text-secondary-on-background:#a0a0a0;
+
+    --link-color:#d05ce3;
+    --em-color:#a0a0a0;
+
+    --code-highlight-bg: rgba(240, 246, 252, 0.15);
+    
+} 
 
 body {
     // 消除top app bar左侧的margin
     margin: 0;
+    
+    // 不知为何，theme的这个属性不能在 @use "@material/theme" 中定义，放在这里作为默认light主题的配色
+    --mdc-theme-text-primary-on-background:rgba(0, 0, 0, 0.87);
+    --mdc-theme-text-secondary-on-background:rgba(0, 0, 0, 0.54);
+    
+    --link-color:#6200ee;
+    --em-color:#535c68;
+
+    --code-highlight-bg: rgba(27, 31, 35, 0.05);
 }
 
 // footer吸附在页面底部
@@ -148,18 +187,7 @@ footer a {
     height: 30px;
 }
 
-// 通过js给body添加dark class，可以实现对mac-theme的参数更改
-// 大部分组件都会正确相应颜色变化，但是list和chip却无效
-// 且theme.$property引用的值也没有动态变化
-body.dark {
-    --mdc-theme-primary: #ab47bc;
-    --mdc-theme-secondary: #43A047;
-    --mdc-theme-background: #252730;
-    --mdc-theme-surface: #2c3037;
-    --mdc-theme-on-surface: white;
-    --mdc-theme-on-primary: white;
 
-} 
 
 /* 文章题目 */
 .essy-title {
@@ -167,6 +195,8 @@ body.dark {
     font-size: 1.8rem;
     margin-top: 2.0rem;
     text-align: center;
+    // 引用 theme中定义的属性，这个属性可以被 修改，以实现不同的theme主题
+    @include theme.property(color, text-primary-on-background);
 }
 
 /* 文章署名 */
@@ -174,6 +204,7 @@ body.dark {
     @include typography.typography(subtitle1);
     text-align: center;
     margin-top: 0.8rem;
+    @include theme.property(color, text-primary-on-background);
 }
 
 /* 文章日期 */
@@ -181,19 +212,18 @@ body.dark {
     @include typography.typography(subtitle1);
     text-align: center;
     margin-top: 0.5rem;
+    @include theme.property(color, text-primary-on-background);
 }
 
 /* 索引题目 */
 .index-title {
     @include typography.typography(subtitle1);
-    color: $text-body-color;
     margin: 0;
 }
 
 /* 索引署名 */
 .index-author {
     @include typography.typography(subtitle1);
-    color: $text-body-color;
     text-align: right;
     margin: 0;
 }
@@ -201,7 +231,6 @@ body.dark {
 /* 索引地点（观剧使用） */
 .index-location {
     @include typography.typography(subtitle1);
-    color: $text-body-color;
     text-align: left;
     margin: 0;
 }
@@ -209,7 +238,6 @@ body.dark {
 /* 索引日期 */
 .index-date {
     @include typography.typography(subtitle1);
-    color: $text-body-color;
     text-align: right;
     margin: 0;
 }
@@ -222,10 +250,15 @@ h2 {
     @include typography.typography(headline5);
 }
 
+h1, h2, h3, h4, h5, h6 {
+    @include theme.property(color, text-primary-on-background);
+}
+
+
+
 p, li, a {
     // 使用mdc的字体样式
     @include typography.typography(body1);
-    color: $text-body-color;
     // 段落间距
     margin: 0.5rem 0;
     // 行间距
@@ -238,7 +271,7 @@ p {
 
 // 斜体，一般用于图片说明
 em {
-    color:$text-em-color;
+    @include theme.property(color, custom-properties.create(--em-color, #535c68));
 }
 
 // 加粗强调，一般用于句子
@@ -249,7 +282,7 @@ strong {
 a {
     // 链接加下划线，可能受mdc class的影响，有些地方下划线被取消了
     text-decoration: underline;
-    color: $text-link-color;
+    @include theme.property(color, custom-properties.create(--link-color, #6200ee));
 }
 
 a:hover {
@@ -316,7 +349,8 @@ p code, li code {
     border-radius: 0.3rem;
     
     // color:$code-highlight-text;
-    background: $code-highlight-bg;
+    // background: $code-highlight-bg;
+    @include theme.property(background, custom-properties.create(--code-highlight-bg, rgba(27, 31, 35, 0.05)));
     // border:1px solid $code-highlight-border;
 }
 
@@ -402,7 +436,7 @@ p.search-result-item-snippet b {
     // border-top: 1px solid rgba(128, 128, 128, 0.336);
     // border-left: 1px solid rgba(128, 128, 128, 0.336);
     // border-right: 1px solid rgba(128, 128, 128, 0.336);
-    border: 1px solid rgba(128, 128, 128, 0.336);
+    border: 1px solid rgba(0, 0, 0, 0.12);
     border-radius: 3px;
     padding-top: 0;
     padding-bottom: 0;
@@ -452,10 +486,12 @@ p.search-result-item-snippet b {
 .mdc-drawer {
     // 使drawer的阴影和内容卡片一致，更协调
     @include elevation.elevation(5,theme.$background, 0);
-    // @include drawer.surface-fill-color()
-
+    @include drawer.item-text-ink-color(text-primary-on-background);
+    @include drawer.item-icon-ink-color(text-primary-on-background);
+    @include drawer.item-activated-text-ink-color(primary);
+    @include drawer.item-activated-icon-ink-color(primary);
+    // @include theme.property(color, custom-properties.create(--link-color, #6200ee));
 }
-
 
 
 // fab
@@ -531,7 +567,7 @@ img, video {
     padding: 20px;
     margin: 24px 16px;
     // 文章卡片的阴影，z高度，阴影颜色，扩散度
-    @include elevation.elevation(5, theme.$surface, 0);
+    @include elevation.elevation(0, theme.$surface, 0);
 }
 
 
@@ -539,7 +575,7 @@ img, video {
 .index-card {
     padding: 20px;
     margin: 12px 16px;
-    @include elevation.elevation(5, theme.$surface, 0);
+    @include elevation.elevation(0, theme.$surface, 0);
 }
 
 .circle-avatar {
