@@ -1,46 +1,22 @@
-@use "./scss/color.scss";
-@use "./scss/darktheme.css";
+@use "sass:map";
+@use "./scss/colors.scss";
 
-$nav-color:#ee6e73;
 
-$code-highlight-bg:#f5f4f9;
-$code-highlight-border:#FEDBD0;
-$code-highlight-text:#84565E;
-$text-em-color:#535c68;
-$text-link-color:#6200ee;
-$text-body-color:#424242;
-$chip-fill-color:#FEDBD0;
-$chip-text-color:#84565E;
 @use "@material/theme" with (
+        // 这里定义的属性都可以被tag或class引用，而又可以在不同的主题class中修改，以实现不同的主题
         // nav，button，drawer的主色
-        $primary: #9b27b0,
+        $primary: map.get(colors.$theme-light, "primary"),
+        $on-primary: map.get(colors.$theme-light, "on-primary"),
         // fab
-        $secondary: #43A047,
-        $background: #f7f7f7,
-        $surface: white,
+        $secondary: map.get(colors.$theme-light, "secondary"),
+        $on-secondary: map.get(colors.$theme-light, "on-secondary"),
+
+        $background: map.get(colors.$theme-light, "background"),
+
+        $surface: map.get(colors.$theme-light, "surface"),
+        $on-surface: map.get(colors.$theme-light, "on-surface")
     );
-
-// $code-highlight-bg:#2c3037 !default;
-// $code-highlight-border:#576574;
-// $code-highlight-text:#bec0c2;
-// $text-em-color:#535c68;
-// $text-link-color:#d05ce3;
-// $text-body-color:#000000;
-// @use "@material/theme" with (
-//     // nav，button，drawer的主色
-//     $primary: #ab47bc,
-//     // fab
-//     $secondary: #43A047,
-    
-//     $background: #252730,
-//     $surface: #2c3037,
-
-//     // $background: #181c21,
-//     // $surface: #1d2128,
-
-//     // $background: #0d0e12,
-//     // $surface: #12151a,
-// );
+@use "@material/theme/custom-properties";
 
 @use "@material/theme/mdc-theme";
 
@@ -97,11 +73,80 @@ $chip-text-color:#84565E;
 @include dialog.core-styles;
 @include textfield.core-styles;
 @include linear-progress.core-styles;
+@include list.deprecated-core-styles;
 
-
+// 通过js给body添加dark class，可以实现对mac-theme的参数更改
+// 大部分组件都会正确相应颜色变化，但是list和chip却无效
+// 且theme.$property引用的值也没有动态变化
 body {
     // 消除top app bar左侧的margin
     margin: 0;
+    
+    // 不知为何，theme的这个属性不能在 @use "@material/theme" 中定义，放在这里作为默认light主题的配色
+    --mdc-theme-text-primary-on-background: rgba(0, 0, 0, 0.87);
+    --mdc-theme-text-secondary-on-background: rgba(0, 0, 0, 0.54);
+    
+    --link-color: #6200ee;
+    --em-color: #535c68;
+    --strong-color: rgba(0, 0, 0, 0.87);
+    --divider-color:rgba(0, 0, 0, 0.12);
+
+    --code-highlight-bg: rgba(27, 31, 35, 0.05);
+
+    --search-result-item-title: #6200ee;
+    --search-result-item-snippet: #424242;
+}
+
+body.dark {
+    --mdc-theme-primary: #9b27b0;
+    --mdc-theme-on-primary: rgba(255, 255, 255, 0.87);
+    --mdc-theme-secondary: #43A047;
+    --mdc-theme-on-secondary: rgba(255, 255, 255, 0.87);
+    --mdc-theme-background: #252730;
+    --mdc-theme-surface: #2c3037;
+
+    --mdc-theme-background: rgb(17,17,17);
+    --mdc-theme-surface: rgb(25,25,25);
+
+
+    // 主题字体色，段落p
+    --mdc-theme-on-surface: rgba(255, 255, 255, 0.85);
+
+    // 标题字体色，h
+    --mdc-theme-text-primary-on-background: rgba(255, 255, 255, 0.95);
+    // 小标题字体色
+    --mdc-theme-text-secondary-on-background: rgba(255, 255, 255, 0.60);
+
+    --link-color: #d05ce3;
+    --em-color: rgba(255, 255, 255, 0.60);
+    --strong-color: rgba(255, 255, 255, 0.95);
+    --divider-color:rgb(58, 66, 74);
+    
+    --code-highlight-bg: rgba(240, 246, 252, 0.15);
+
+    --search-result-item-title: #d05ce3;
+    --search-result-item-snippet: #ddd;
+} 
+
+.dark .mdc-drawer {
+    @include elevation.elevation(5, map.get(colors.$theme-dark, "background"), 0);
+    @include drawer.item-text-ink-color(map.get(colors.$theme-dark, "text-primary-on-background"));
+    @include drawer.item-icon-ink-color(map.get(colors.$theme-dark, "text-primary-on-background"));
+    @include drawer.item-activated-text-ink-color(map.get(colors.$theme-dark, "primary"));
+    @include drawer.item-activated-icon-ink-color(map.get(colors.$theme-dark, "primary"));
+}
+
+.dark .mdc-fab {
+    @include elevation.elevation(5, map.get(colors.$theme-dark, "background"), 0);
+}
+
+.dark .mdc-text-field {
+    @include textfield.ink-color(map.get(colors.$theme-dark, "text-secondary-on-background"));
+    @include textfield.placeholder-color(map.get(colors.$theme-dark, "text-secondary-on-background"));
+    @include textfield.label-color(map.get(colors.$theme-dark, "text-secondary-on-background"));
+    @include textfield.focused-outline-color(map.get(colors.$theme-dark, "primary"));
+    @include textfield.hover-outline-color(map.get(colors.$theme-dark, "text-secondary-on-background"));
+    @include textfield.outline-color(map.get(colors.$theme-dark, "divider"));
 }
 
 // footer吸附在页面底部
@@ -148,18 +193,7 @@ footer a {
     height: 30px;
 }
 
-// 通过js给body添加dark class，可以实现对mac-theme的参数更改
-// 大部分组件都会正确相应颜色变化，但是list和chip却无效
-// 且theme.$property引用的值也没有动态变化
-body.dark {
-    --mdc-theme-primary: #ab47bc;
-    --mdc-theme-secondary: #43A047;
-    --mdc-theme-background: #252730;
-    --mdc-theme-surface: #2c3037;
-    --mdc-theme-on-surface: white;
-    --mdc-theme-on-primary: white;
 
-} 
 
 /* 文章题目 */
 .essy-title {
@@ -167,6 +201,8 @@ body.dark {
     font-size: 1.8rem;
     margin-top: 2.0rem;
     text-align: center;
+    // 引用 theme中定义的属性，这个属性可以被 修改，以实现不同的theme主题
+    @include theme.property(color, text-primary-on-background);
 }
 
 /* 文章署名 */
@@ -174,6 +210,7 @@ body.dark {
     @include typography.typography(subtitle1);
     text-align: center;
     margin-top: 0.8rem;
+    @include theme.property(color, text-primary-on-background);
 }
 
 /* 文章日期 */
@@ -181,19 +218,18 @@ body.dark {
     @include typography.typography(subtitle1);
     text-align: center;
     margin-top: 0.5rem;
+    @include theme.property(color, text-primary-on-background);
 }
 
 /* 索引题目 */
 .index-title {
     @include typography.typography(subtitle1);
-    color: $text-body-color;
     margin: 0;
 }
 
 /* 索引署名 */
 .index-author {
     @include typography.typography(subtitle1);
-    color: $text-body-color;
     text-align: right;
     margin: 0;
 }
@@ -201,7 +237,6 @@ body.dark {
 /* 索引地点（观剧使用） */
 .index-location {
     @include typography.typography(subtitle1);
-    color: $text-body-color;
     text-align: left;
     margin: 0;
 }
@@ -209,7 +244,6 @@ body.dark {
 /* 索引日期 */
 .index-date {
     @include typography.typography(subtitle1);
-    color: $text-body-color;
     text-align: right;
     margin: 0;
 }
@@ -222,10 +256,15 @@ h2 {
     @include typography.typography(headline5);
 }
 
+h1, h2, h3, h4, h5, h6 {
+    @include theme.property(color, text-primary-on-background);
+}
+
+
+
 p, li, a {
     // 使用mdc的字体样式
     @include typography.typography(body1);
-    color: $text-body-color;
     // 段落间距
     margin: 0.5rem 0;
     // 行间距
@@ -238,18 +277,18 @@ p {
 
 // 斜体，一般用于图片说明
 em {
-    color:$text-em-color;
+    @include theme.property(color, custom-properties.create(--em-color, #535c68));
 }
 
 // 加粗强调，一般用于句子
 strong {
-    // color:$text-link-color;
+    @include theme.property(color, custom-properties.create(--strong-color, rgba(0, 0, 0, 0.95)));
 }
 
 a {
     // 链接加下划线，可能受mdc class的影响，有些地方下划线被取消了
     text-decoration: underline;
-    color: $text-link-color;
+    @include theme.property(color, custom-properties.create(--link-color, #6200ee));
 }
 
 a:hover {
@@ -316,7 +355,8 @@ p code, li code {
     border-radius: 0.3rem;
     
     // color:$code-highlight-text;
-    background: $code-highlight-bg;
+    // background: $code-highlight-bg;
+    @include theme.property(background, custom-properties.create(--code-highlight-bg, rgba(27, 31, 35, 0.05)));
     // border:1px solid $code-highlight-border;
 }
 
@@ -334,8 +374,8 @@ p em code {
 }
 
 .btn-search {
-    @include button.ink-color($chip-text-color);
-    @include button.container-fill-color($chip-fill-color);
+    @include button.ink-color(#a25462);
+    @include button.container-fill-color(map.get(colors.$theme-light, "chip-bg"));
 }
 
 .search-result-nav-wraper {
@@ -343,13 +383,13 @@ p em code {
 }
 
 .btn-search-result-nav {
-    @include button.ink-color($chip-text-color);
+    @include button.ink-color(#a25462);
     margin-left: 1rem;
     margin-right: 1rem;
 }
 
 .search-result-index {
-    color: $chip-text-color;
+    color: #a25462;
 }
 
 .search-result-item {
@@ -358,21 +398,21 @@ p em code {
 
 .search-result-item-title {
     @include typography.typography(subtitle1);
-    color: $text-link-color;
+    @include theme.property(color, custom-properties.create(--search-result-item-title, map.get(colors.$theme-light, "link")));
     margin: 0;
     text-align: left;
 }
 
 .search-result-item-snippet {
     @include typography.typography(body1);
-    color: $text-body-color;
+    @include theme.property(color, custom-properties.create(--search-result-item-snippet, map.get(colors.$theme-light, "on-surface")));
     margin: 0;
     text-align: justify;
     height: max-content;
 }
 
 p.search-result-item-snippet b {
-    color: $chip-text-color;
+    color: #a25462;
 }
 
 
@@ -397,12 +437,21 @@ p.search-result-item-snippet b {
     @include typography.typography(body1);
 }
 
+.mdc-dialog {
+    @include dialog.scroll-divider-color(map.get(colors.$theme-light, "divider"));
+}
+
+.dark .mdc-dialog {
+    @include dialog.scroll-divider-color(rgba(255, 255, 255, 0.87));
+}
+
 .dialog-link-list {
     // 底部边框由Divider填充
     // border-top: 1px solid rgba(128, 128, 128, 0.336);
     // border-left: 1px solid rgba(128, 128, 128, 0.336);
     // border-right: 1px solid rgba(128, 128, 128, 0.336);
-    border: 1px solid rgba(128, 128, 128, 0.336);
+    border: 1px solid;
+    @include theme.property(border-color, custom-properties.create(--divider-color, map.get(colors.$theme-light, "divider")));
     border-radius: 3px;
     padding-top: 0;
     padding-bottom: 0;
@@ -444,23 +493,41 @@ p.search-result-item-snippet b {
     // 使top bar的层级高于drawer
     z-index: 7;
     // 颜色
-    @include top-app-bar.fill-color($nav-color);
+    @include top-app-bar.fill-color(map.get(colors.$theme-light, "top-bar"));
     // 阴影
-    @include elevation.elevation(10, $nav-color, 0);
+    @include elevation.elevation(10, map.get(colors.$theme-light, "top-bar"), 0);
+}
+
+.dark .mdc-top-app-bar {
+    // 使top bar的层级高于drawer
+    z-index: 7;
+    // 颜色
+    @include top-app-bar.fill-color(map.get(colors.$theme-light, "top-bar"));
+    // 阴影
+    @include elevation.elevation(10, map.get(colors.$theme-dark, "background"), 0);
 }
 
 .mdc-drawer {
     // 使drawer的阴影和内容卡片一致，更协调
     @include elevation.elevation(5,theme.$background, 0);
-    // @include drawer.surface-fill-color()
-
+    @include drawer.item-text-ink-color(text-primary-on-background);
+    @include drawer.item-icon-ink-color(text-primary-on-background);
+    @include drawer.item-activated-text-ink-color(primary);
+    @include drawer.item-activated-icon-ink-color(primary);
+    // @include theme.property(color, custom-properties.create(--link-color, #6200ee));
 }
 
+.mdc-deprecated-list {
+    @include list.deprecated-divider-color(map.get(colors.$theme-light, "divider"));
+}
 
+.dark .mdc-deprecated-list {
+    @include list.deprecated-divider-color(map.get(colors.$theme-dark, "divider"));
+}
 
 // fab
 .mdc-fab {
-    @include elevation.elevation(5, theme.$secondary, 0);
+    @include elevation.elevation(5, map.get(colors.$theme-dark, "background"), 0);
 }
 
 .app-fab--absolute {
@@ -491,8 +558,13 @@ p.search-result-item-snippet b {
 }
 
 .mdc-evolution-chip {
-    @include chips.text-label-color($chip-text-color);
-    @include chips.container-color($chip-fill-color);
+    @include chips.text-label-color(map.get(colors.$theme-light, "chip-ink"));
+    @include chips.container-color(map.get(colors.$theme-light, "chip-bg"));
+}
+
+.dark .mdc-evolution-chip{
+    @include chips.text-label-color(map.get(colors.$theme-dark, "chip-ink"));
+    @include chips.container-color(map.get(colors.$theme-dark, "chip-bg"));
 }
 
 // 解决Safari的fab Ripple动画无圆角
@@ -531,7 +603,7 @@ img, video {
     padding: 20px;
     margin: 24px 16px;
     // 文章卡片的阴影，z高度，阴影颜色，扩散度
-    @include elevation.elevation(5, theme.$surface, 0);
+    @include elevation.elevation(0, theme.$surface, 0);
 }
 
 
@@ -539,7 +611,7 @@ img, video {
 .index-card {
     padding: 20px;
     margin: 12px 16px;
-    @include elevation.elevation(5, theme.$surface, 0);
+    @include elevation.elevation(0, theme.$surface, 0);
 }
 
 .circle-avatar {
@@ -571,7 +643,12 @@ img, video {
     }
     .mdc-top-app-bar {
         // 小屏下减少top bar阴影面积
-        @include elevation.elevation(5, $nav-color, 0);
+        @include elevation.elevation(5, map.get(colors.$theme-light, "top-bar"), 0);
+
+    }
+
+    .dark .mdc-top-app-bar {
+        @include elevation.elevation(5, map.get(colors.$theme-dark, "background"), 0);
     }
 
     // 小屏时纯英文段落不两边对齐，因为单词间隔可能很大

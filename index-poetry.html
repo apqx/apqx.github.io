@@ -12,7 +12,7 @@ cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg
   <li class="index-li">
       <a class="index-a mdc-theme--on-surface" href="{{ post.url | prepend: site.baseurl }}">
           <div class="mdc-card index-card mdc-theme--surface">
-              <h1 class="index-title">{{ post.title }}</h1>
+              <p class="index-title">{{ post.title }}</p>
               <span class="index-author">{{ post.author }}</span>
               <!-- 支持非标准日期 -->
               {% if post.moredate != null %}

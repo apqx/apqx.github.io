@@ -8,8 +8,6 @@ date: 2019-10-12 +0800
 description: 一直觉得大陆像是一个互联网孤岛，很多网络服务都要切换到本地平台，对Ubuntu的源服务器选择，显然离我最近的阿里云速度更快。
 cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20191012/ubuntu_settings_apt.png
 tags: CS Ubuntu
-redirect_from:
-    - /essy/2019/10/12/在Ubuntu中配置apt源服务器地址
 ---
 
 在基于`Debian`的`Linux`发行版中，可以使用`apt(Advanced Packaging Tool)`高级包管理器来直接安装软件。

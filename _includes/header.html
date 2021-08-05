@@ -3,10 +3,12 @@
   <div class="mdc-top-app-bar__row">
     <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
       <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">menu</button>
-      <!-- <span class="mdc-top-app-bar__title">标题</span> -->
+      <!-- <span class="mdc-top-app-bar__title">HI</span> -->
     </section>
 
     <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+      <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Theme"
+        id="topbar_btn_theme">dark_mode</button>
       <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="About me"
         id="topbar_btn_about_me">account_circle</button>
     </section>
@@ -14,14 +16,14 @@
 </header>
 
 <!-- side drawer -->
-<aside class="mdc-drawer mdc-drawer--modal mdc-theme--on-surface">
+<aside class="mdc-drawer mdc-drawer--modal">
   <div class="mdc-drawer__header">
     <h3 class="mdc-drawer__title"></h3>
     <h6 class="mdc-drawer__subtitle"></h6>
   </div>
   <div class="mdc-drawer__header">
-    <h3 class="mdc-drawer__title">立泉の写字板</h3>
-    <h6 class="mdc-drawer__subtitle">https://apqx.me</h6>
+    <h3 class="mdc-drawer__title mdc-theme--text-primary-on-background">立泉の写字板</h3>
+    <h6 class="mdc-drawer__subtitle mdc-theme--text-secondary-on-background">https://apqx.me</h6>
   </div>
   <div class="mdc-drawer__content">
     <nav class="mdc-deprecated-list">
@@ -31,38 +33,38 @@
 
         <span class="mdc-deprecated-list-item__ripple"></span>
         <i class="material-icons-outlined mdc-deprecated-list-item__graphic">palette</i>
-        <span class="mdc-deprecated-list-item__text">随笔</span>
+        <span class="mdc-deprecated-list-item__text mdc-typography--body2">随笔</span>
       </a>
       <a class={% if page.type=="repost" or page.type=="index-repost" %}"mdc-deprecated-list-item
         mdc-deprecated-list-item--activated"{% else %}"mdc-deprecated-list-item"{% endif %} href="{{ "
         /index-repost.html " }}">
         <span class="mdc-deprecated-list-item__ripple"></span>
         <i class="material-icons-outlined mdc-deprecated-list-item__graphic">auto_awesome</i>
-        <span class="mdc-deprecated-list-item__text">转载</span>
+        <span class="mdc-deprecated-list-item__text mdc-typography--body2">转载</span>
       </a>
       <a class={% if page.type=="poetry" or page.type=="index-poetry" %}"mdc-deprecated-list-item
         mdc-deprecated-list-item--activated"{% else %}"mdc-deprecated-list-item"{% endif %} href="{{ "
         /index-poetry.html " }}">
         <span class="mdc-deprecated-list-item__ripple"></span>
         <i class="material-icons-outlined mdc-deprecated-list-item__graphic">translate</i>
-        <span class="mdc-deprecated-list-item__text">诗文</span>
+        <span class="mdc-deprecated-list-item__text mdc-typography--body2">诗文</span>
       </a>
       <a class={% if page.type=="opera" or page.type=="index-opera" %}"mdc-deprecated-list-item
         mdc-deprecated-list-item--activated"{% else %}"mdc-deprecated-list-item"{% endif %} href="{{ "
         /index-opera.html " }}">
         <span class="mdc-deprecated-list-item__ripple"></span>
         <i class="material-icons-outlined mdc-deprecated-list-item__graphic">photo_camera</i>
-        <span class="mdc-deprecated-list-item__text">观剧</span>
+        <span class="mdc-deprecated-list-item__text mdc-typography--body2">观剧</span>
       </a>
       <a class="mdc-deprecated-list-item" id="drawer-a-search">
         <span class="mdc-deprecated-list-item__ripple"></span>
         <i class="material-icons-outlined mdc-deprecated-list-item__graphic">search</i>
-        <span class="mdc-deprecated-list-item__text">搜索</span>
+        <span class="mdc-deprecated-list-item__text mdc-typography--body2">搜索</span>
       </a>
       <a class="mdc-deprecated-list-item" id="drawer-a-about-me">
         <span class="mdc-deprecated-list-item__ripple"></span>
         <i class="material-icons-outlined mdc-deprecated-list-item__graphic">face</i>
-        <span class="mdc-deprecated-list-item__text">关于我</span>
+        <span class="mdc-deprecated-list-item__text mdc-typography--body2">关于我</span>
       </a>
       <!-- <hr class="mdc-deprecated-list-divider"> -->
       <!-- <h6 class="mdc-deprecated-list-group__subheader">工具</h6> -->
