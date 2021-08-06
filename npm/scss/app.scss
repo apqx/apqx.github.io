@@ -99,22 +99,27 @@ body {
 
 body.dark {
     --mdc-theme-primary: #9b27b0;
-    --mdc-theme-on-primary: white;
+    --mdc-theme-on-primary: rgba(255, 255, 255, 0.87);
     --mdc-theme-secondary: #43A047;
-    --mdc-theme-on-secondary: white;
+    --mdc-theme-on-secondary: rgba(255, 255, 255, 0.87);
     --mdc-theme-background: #252730;
     --mdc-theme-surface: #2c3037;
+
+    --mdc-theme-background: rgb(17,17,17);
+    --mdc-theme-surface: rgb(25,25,25);
+
+
     // 主题字体色，段落p
-    --mdc-theme-on-surface: #ddd;
+    --mdc-theme-on-surface: rgba(255, 255, 255, 0.85);
 
     // 标题字体色，h
-    --mdc-theme-text-primary-on-background: #ddd;
+    --mdc-theme-text-primary-on-background: rgba(255, 255, 255, 0.95);
     // 小标题字体色
-    --mdc-theme-text-secondary-on-background: #a0a0a0;
+    --mdc-theme-text-secondary-on-background: rgba(255, 255, 255, 0.60);
 
     --link-color: #d05ce3;
-    --em-color: #a0a0a0;
-    --strong-color: rgba(255, 255, 255, 0.87);
+    --em-color: rgba(255, 255, 255, 0.60);
+    --strong-color: rgba(255, 255, 255, 0.95);
     --divider-color:rgb(58, 66, 74);
     
     --code-highlight-bg: rgba(240, 246, 252, 0.15);
@@ -277,7 +282,7 @@ em {
 
 // 加粗强调，一般用于句子
 strong {
-    @include theme.property(color, custom-properties.create(--strong-color, rgba(0, 0, 0, 0.87)));
+    @include theme.property(color, custom-properties.create(--strong-color, rgba(0, 0, 0, 0.95)));
 }
 
 a {
@@ -643,7 +648,7 @@ img, video {
     }
 
     .dark .mdc-top-app-bar {
-        @include elevation.elevation(5, map.get(colors.$theme-dark, "top-bar"), 0);
+        @include elevation.elevation(5, map.get(colors.$theme-dark, "background"), 0);
     }
 
     // 小屏时纯英文段落不两边对齐，因为单词间隔可能很大
