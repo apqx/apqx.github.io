@@ -56,6 +56,71 @@ try {
     console.log("catch e = " + e.message);
 }
 
+try {
+    const THEME_DAY = "0";
+    const THEME_NIGHT = "1";
+    const KEY_THEME = "theme";
+    var savedTheme = getCookie(KEY_THEME);
+    console.log("cookie theme = " + savedTheme);
+    var bodyE = document.getElementsByTagName(`body`)[0];
+    if(savedTheme == THEME_NIGHT) {
+        bodyE.classList.add(`dark`);
+        showThemeDark(true);
+    } else {
+        showThemeDark(false);
+    }
+    const btnTheme = document.getElementById('topbar_btn_theme')
+    if (btnTheme != null) {
+        btnTheme.addEventListener('click', () => {
+            if (bodyE.classList.contains(`dark`)) {
+                bodyE.classList.remove(`dark`);
+                showThemeDark(false);
+                setCookie(KEY_THEME, THEME_DAY, 30);
+            } else {
+                bodyE.classList.add(`dark`);
+                showThemeDark(true);
+                setCookie(KEY_THEME, THEME_NIGHT, 30);
+            }
+        });
+    }
+
+} catch (e) {
+    console.log("catch e = " + e.message);
+}
+
+function showThemeDark(dark) {
+    const btnTheme = document.getElementById('topbar_btn_theme')
+    if(btnTheme == null) return;
+    if (dark) {
+        btnTheme.innerHTML = "light_mode";
+    } else {
+        btnTheme.innerHTML = "dark_mode";
+
+    }
+}
+
+function getCookie(cname) {
+    let name = cname + "=";
+    let ca = document.cookie.split(';');
+    for(let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
+  function setCookie(cname, cvalue, exdays) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    let expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
+
 // 关于我dialog
 try {
     const aboutMeDialog = new MDCDialog(document.getElementById('about_me_dialog'));
@@ -189,7 +254,7 @@ function showSearchResult(response) {
 
         var divItem = document.createElement(`div`);
         var spanTitle = document.createElement('h1');
-        spanTitle.setAttribute("class", `search-result-item-title`);
+        spanTitle.setAttribute("class", `search-result-item-title `);
         spanTitle.innerHTML = resItem.htmlTitle;
         var spanSnippet = document.createElement('p');
         spanSnippet.setAttribute("class", `search-result-item-snippet`);
