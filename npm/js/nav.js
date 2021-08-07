@@ -56,14 +56,18 @@ try {
     console.log("catch e = " + e.message);
 }
 
+// TODO: 在一个页面切换主题后，要通知其它页面响应
+
 try {
     const THEME_DAY = "0";
     const THEME_NIGHT = "1";
     const KEY_THEME = "theme";
-    var savedTheme = getCookie(KEY_THEME);
-    console.log("cookie theme = " + savedTheme);
+    
+    // var savedTheme = getCookie(KEY_THEME);
+    var savedTheme = localStorage.getItem(KEY_THEME);
+    console.log("saved theme = " + savedTheme);
     var bodyE = document.getElementsByTagName(`body`)[0];
-    if(savedTheme == THEME_NIGHT) {
+    if (savedTheme == THEME_NIGHT) {
         bodyE.classList.add(`dark`);
         showThemeDark(true);
     } else {
@@ -75,11 +79,13 @@ try {
             if (bodyE.classList.contains(`dark`)) {
                 bodyE.classList.remove(`dark`);
                 showThemeDark(false);
-                setCookie(KEY_THEME, THEME_DAY, 30);
+                // setCookie(KEY_THEME, THEME_DAY, 30);
+                localStorage.setItem(KEY_THEME, THEME_DAY);
             } else {
                 bodyE.classList.add(`dark`);
                 showThemeDark(true);
-                setCookie(KEY_THEME, THEME_NIGHT, 30);
+                // setCookie(KEY_THEME, THEME_NIGHT, 30);
+                localStorage.setItem(KEY_THEME, THEME_NIGHT);
             }
         });
     }
@@ -90,7 +96,7 @@ try {
 
 function showThemeDark(dark) {
     const btnTheme = document.getElementById('topbar_btn_theme')
-    if(btnTheme == null) return;
+    if (btnTheme == null) return;
     if (dark) {
         btnTheme.innerHTML = "light_mode";
     } else {
@@ -102,24 +108,24 @@ function showThemeDark(dark) {
 function getCookie(cname) {
     let name = cname + "=";
     let ca = document.cookie.split(';');
-    for(let i = 0; i < ca.length; i++) {
-      let c = ca[i];
-      while (c.charAt(0) == ' ') {
-        c = c.substring(1);
-      }
-      if (c.indexOf(name) == 0) {
-        return c.substring(name.length, c.length);
-      }
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
     }
     return "";
-  }
+}
 
-  function setCookie(cname, cvalue, exdays) {
+function setCookie(cname, cvalue, exdays) {
     const d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-    let expires = "expires="+d.toUTCString();
+    let expires = "expires=" + d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-  }
+}
 
 // 关于我dialog
 try {
@@ -145,7 +151,7 @@ try {
         console.log("click nav about me");
         aboutMeDialog.open();
     });
-    
+
 } catch (e) {
     console.log("catch e = " + e.message);
 }
