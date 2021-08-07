@@ -1,4 +1,4 @@
---- 
+---
 layout: index
 type: index-opera
 title: 立泉の写字板
@@ -6,18 +6,22 @@ description: 昆虫，野生散养攻城狮，“十分”“业余”摄影FANS
 cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg
 ---
 
+<div class="index-description">
+    <p>2021年08月08日，我在博客里开辟了这个分区，用于承载我曾经在剧场看过的剧，以<code>昆曲</code>为主，使用<a href="https://jekyllrb.com" target="_blank">Jekyll</a>的<code>TAG</code>标签按<code>剧种</code>、<code>剧团</code>、<code>剧目</code>、<code>演员</code>、<code>剧场</code>分门别类，包含了我在看剧时拍过的很多照片。所以这里的每一篇文章，既是记录，也是分享，至美的<code>昆曲</code>，按下快门时捕捉到的光影瞬间，那些躺在硬盘里的精美剧照，不应该只有我一个人看到😊。</p>
+    <P><em>只是精力所限，目前更新的剧目还不多，我会慢慢整理上传的。</em></P>
+</div>
 <ul class="index-ul">
-  {% for post in site.posts %}
-  {% if post.type == "opera" and post.show != false %}
-  <li class="index-li">
-      <a class="index-a mdc-theme--on-surface" href="{{ post.url | prepend: site.baseurl }}">
-          <div class="mdc-card index-card">
-              <p class="index-title">{{ post.title }}</p>
-              <span class="index-author">{{ post.actor }}</span>
-              <span class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
-          </div>
-      </a>
-  </li>
-  {% endif %}
-  {% endfor %}
+    {% for post in site.posts %}
+    {% if post.type == "opera" and post.show != false %}
+    <li class="index-li">
+        <a class="index-a mdc-theme--on-surface" href="{{ post.url | prepend: site.baseurl }}">
+            <div class="mdc-card index-card">
+                <p class="index-title">{{ post.title }}</p>
+                <span class="index-author">{{ post.actor }}</span>
+                <span class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
+            </div>
+        </a>
+    </li>
+    {% endif %}
+    {% endfor %}
 </ul>
