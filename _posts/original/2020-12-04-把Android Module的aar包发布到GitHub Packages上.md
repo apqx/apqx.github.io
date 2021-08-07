@@ -8,8 +8,6 @@ date: 2020-12-04 +0800
 description: 只是为了更好的管理自用的工具包。
 cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20201204/github_packages_jettools.jpg
 tags: CS Android Gradle GitHub
-redirect_from:
-    - /essy/2020/12/04/把Android-Module的aar包发布到GitHub-Packages上
 ---
 
 成为一个全职`Android`开发工程师已有三年，经手的项目很多，也积累了一些自己常用的代码工具，我把它们封装在一个`Android Library`中，在我的各个业余项目中使用。但是每次都在工程中为它单独创建一个`Module`显然太过麻烦，直接打包为`aar`又会出现一些依赖问题，因为`gradle`并不会把`Module`的外部依赖直接写进`aar`里，这意味着必须在使用该`aar`的`Module`中手动引入这些依赖，否则会因为依赖缺失而无法通过编译。
