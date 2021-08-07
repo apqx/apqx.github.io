@@ -83,8 +83,8 @@ body {
     margin: 0;
     
     // 不知为何，theme的这个属性不能在 @use "@material/theme" 中定义，放在这里作为默认light主题的配色
-    --mdc-theme-text-primary-on-background: rgba(0, 0, 0, 0.87);
-    --mdc-theme-text-secondary-on-background: rgba(0, 0, 0, 0.54);
+    --mdc-theme-text-primary-on-background: rgba(0, 0, 0, 0.95);
+    --mdc-theme-text-secondary-on-background: rgba(0, 0, 0, 0.60);
     
     --link-color: #6200ee;
     --em-color: #535c68;
@@ -94,7 +94,7 @@ body {
     --code-highlight-bg: rgba(27, 31, 35, 0.05);
 
     --search-result-item-title: #6200ee;
-    --search-result-item-snippet: #424242;
+    --search-result-item-snippet: rgba(0, 0, 0, 0.85);
 }
 
 body.dark {
@@ -125,20 +125,10 @@ body.dark {
     --code-highlight-bg: rgba(240, 246, 252, 0.15);
 
     --search-result-item-title: #d05ce3;
-    --search-result-item-snippet: #ddd;
+    --search-result-item-snippet: rgba(255, 255, 255, 0.85);
 } 
 
-.dark .mdc-drawer {
-    @include elevation.elevation(5, map.get(colors.$theme-dark, "background"), 0);
-    @include drawer.item-text-ink-color(map.get(colors.$theme-dark, "text-primary-on-background"));
-    @include drawer.item-icon-ink-color(map.get(colors.$theme-dark, "text-primary-on-background"));
-    @include drawer.item-activated-text-ink-color(map.get(colors.$theme-dark, "primary"));
-    @include drawer.item-activated-icon-ink-color(map.get(colors.$theme-dark, "primary"));
-}
 
-.dark .mdc-fab {
-    @include elevation.elevation(5, map.get(colors.$theme-dark, "background"), 0);
-}
 
 .dark .mdc-text-field {
     @include textfield.ink-color(map.get(colors.$theme-dark, "text-secondary-on-background"));
@@ -374,8 +364,13 @@ p em code {
 }
 
 .btn-search {
-    @include button.ink-color(#a25462);
+    @include button.ink-color(map.get(colors.$theme-light, "search_nav"));
     @include button.container-fill-color(map.get(colors.$theme-light, "chip-bg"));
+}
+
+.dark .btn-search {
+    @include button.ink-color(map.get(colors.$theme-dark, "search_nav"));
+    @include button.container-fill-color(map.get(colors.$theme-dark, "chip-bg"));
 }
 
 .search-result-nav-wraper {
@@ -383,13 +378,21 @@ p em code {
 }
 
 .btn-search-result-nav {
-    @include button.ink-color(#a25462);
+    @include button.ink-color(map.get(colors.$theme-light, "search_nav"));
     margin-left: 1rem;
     margin-right: 1rem;
 }
 
+.dark .btn-search-result-nav {
+    @include button.ink-color(map.get(colors.$theme-dark, "search_nav"));
+}
+
 .search-result-index {
-    color: #a25462;
+    color: map.get(colors.$theme-light, "search_nav");
+}
+
+.dark .search-result-index {
+    color: map.get(colors.$theme-dark, "search_nav");
 }
 
 .search-result-item {
@@ -502,19 +505,26 @@ p.search-result-item-snippet b {
     // 使top bar的层级高于drawer
     z-index: 7;
     // 颜色
-    @include top-app-bar.fill-color(map.get(colors.$theme-light, "top-bar"));
+    @include top-app-bar.fill-color(map.get(colors.$theme-dark, "top-bar"));
     // 阴影
     @include elevation.elevation(10, map.get(colors.$theme-dark, "background"), 0);
 }
 
 .mdc-drawer {
     // 使drawer的阴影和内容卡片一致，更协调
-    @include elevation.elevation(5,theme.$background, 0);
+    @include elevation.elevation(5,map.get(colors.$theme-light, "background"), 0);
     @include drawer.item-text-ink-color(text-primary-on-background);
     @include drawer.item-icon-ink-color(text-primary-on-background);
     @include drawer.item-activated-text-ink-color(primary);
     @include drawer.item-activated-icon-ink-color(primary);
-    // @include theme.property(color, custom-properties.create(--link-color, #6200ee));
+}
+
+.dark .mdc-drawer {
+    @include elevation.elevation(5, map.get(colors.$theme-dark, "background"), 0);
+    @include drawer.item-text-ink-color(map.get(colors.$theme-dark, "text-primary-on-background"));
+    @include drawer.item-icon-ink-color(map.get(colors.$theme-dark, "text-primary-on-background"));
+    @include drawer.item-activated-text-ink-color(map.get(colors.$theme-dark, "primary"));
+    @include drawer.item-activated-icon-ink-color(map.get(colors.$theme-dark, "primary"));
 }
 
 .mdc-deprecated-list {
@@ -527,6 +537,10 @@ p.search-result-item-snippet b {
 
 // fab
 .mdc-fab {
+    @include elevation.elevation(5, map.get(colors.$theme-light, "secondary"), 0);
+}
+
+.dark .mdc-fab {
     @include elevation.elevation(5, map.get(colors.$theme-dark, "background"), 0);
 }
 
@@ -606,7 +620,14 @@ img, video {
     @include elevation.elevation(0, theme.$surface, 0);
 }
 
-
+.index-description {
+    border: 1px solid rgba(63, 185, 80, 0.4);
+    border-radius: 4px;
+    background: rgba(46, 160, 67, 0.1);
+    padding: 1rem;
+    margin-top: 2rem;
+    margin: 1rem 16px 0 16px;
+}
 
 .index-card {
     padding: 20px;
@@ -622,8 +643,6 @@ img, video {
     margin: auto;
     text-align: center;
 }
-
-
 
 // 手机小屏
 @media(max-width: 600px) {
