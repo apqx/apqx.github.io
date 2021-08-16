@@ -13209,7 +13209,7 @@ body {
   --search-result-item-snippet: rgba(0, 0, 0, 0.85);
 }
 
-body.dark {
+.dark {
   --mdc-theme-primary: #9b27b0;
   --mdc-theme-on-primary: rgba(255, 255, 255, 0.87);
   --mdc-theme-secondary: #43A047;
