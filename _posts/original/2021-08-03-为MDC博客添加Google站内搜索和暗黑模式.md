@@ -1,0 +1,128 @@
+---
+layout: post
+type: original
+categories: original
+title: "为MDC博客添加Google站内搜索和暗黑模式"
+author: 立泉
+date: 2021-08-03 +0800
+description: 
+cover: 
+tags: CS GoogleSearch DarkMode
+---
+
+自2016年创建此博客以来，一直使用[Materialize](https://materializecss.com){: target="_blank" }作为网页框架，它实现了符合[Material Design](https://material.io/design){: target="_blank" }规范的几乎所有组件，毫无疑问这是一个很优秀的开源框架，但是因为一些原因，它在三年前发布`v1.0.0`正式版后就不再更新了，而且我也遇到过很多实际存在的细节问题。此外，`Material Design`的设计理念本身也在不断进化，从起始时过度强调阴影和层级渐渐变得趋向扁平，所以我觉得，是时候切换到一个更现代、更有活力的`MD`框架了，翻开新的一页。
+
+我并非`Web`开发者，对`HTML`、`CSS`、`JS`、`NPM`仅仅是浅尝可用，花了些时间，解决了些问题，终于基于`Google`的[Material Design Components](https://github.com/material-components/material-components-web){: target="_blank" }重构了这个[博客小站](https://github.com/apqx/apqx.github.io){: target="_blank" }。刻意继承之前的页面设计，削减阴影，增加色彩，简洁紧凑而不失淡雅，虽还未达到设想中的完美状态，但以我当前的审美来看，十分还是可以给八分的。
+
+# 站内搜索
+
+[Jekyll](https://jekyllrb.com){: target="_blank" }原生支持用`Tag`来分类管理文章，在布局文件中可以轻易的用[Liquid](https://jekyllrb.com/docs/posts/#tags){: target="_blank" }语法获取每一个`Tag`和标记了该`Tag`的文章列表，比如这篇就标记了`CS`、`GoogleSearch`和`DarkMode`3个`Tag`，点击文章顶部的`Chips`就可以看到所有相关联的文章。但是`Tag`毕竟有限，不可能把文章里的每个关键词都设置为`Tag`，所以站内搜索自然就是一个非常诱人的功能点，随着写过的东西越来越多，我有时候也很想知道自己在多少文章中提到过某些内容。
+
+搜索无非2种方案，使用搜索引擎提供的站内搜索服务，或完全自己实现搜索。后者更加灵活且不依赖搜索引擎缓慢的索引更新，优势很大但暂时不适合我，需等待以后时机成熟。所以最终选定`Google`的站内搜索，一来是因为我的博客早就加入到了`Google`的索引中，可以直接使用，二来也是一个接触当前“最好搜索引擎”所提供的开发者服务的一个机会。
+
+了解过`Google`搜索`Tips`的应该都知道，是可以在搜索时直接指定要搜索的特定网站的。
+
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20210803/google_site.webp){: loading="lazy" class="clickable clickShowOriginalImg" alt="google site" }
+
+`Google`也提供面向站内搜索的[Programmable Search](https://cse.google.com/cse/all){: target="_blank" }服务，它实际上是允许用户创建一个自定义搜索范围的`Google`搜索，甚至可以自定义搜索显示的UI界面，也支持把`Google`的搜索框和搜索结果嵌入到用户自己的网页中。我试着嵌入，但发现UI风格和我的博客完全不搭，而且还存在一些搜索结果不定引起的元素尺寸变化问题，所以我虽然不擅长`Web`编程，最终还是决定手动调用`Google`的搜索`API`而不是使用现成的UI组件。
+
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20210803/google_programmable_search.webp){: loading="lazy" class="clickable clickShowOriginalImg" alt="google programmable search" }
+
+做出来的UI还是很不错的，完美搭配`Material Design`风格。
+
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20210803/google_apqx.webp){: loading="lazy" class="clickable clickShowOriginalImg" alt="google apqx" }
+
+实现的过程也无非是用`JS`把`HTTP`请求到的数据填充到页面上显示出来而已，唯一要注意的是请求搜索的参数中有一个用作身份验证的`API KEY`，它来自于`Google Cloud Platform`的某个指定`Project`，默认情况下这个`KEY`的权限是不被限制的，用它就可以控制整个`Project`，所以非常危险。实际上，当我把这个`KEY`写入到`JS`文件并`PUSH`到`GitHub Pages`上时，就立刻收到了`Google`发来的安全警告邮件。
+
+> We have detected a publicly accessible Google API key associated with the following Google Cloud Platform project: Project JetSnail (id: jetsnail-\*\*\*\*) with API key \*\*\*\*
+
+> We believe that you or your organization may have inadvertently published the affected API key in public sources or on public websites (for example, credentials mistakenly uploaded to a service such as GitHub.)
+
+至于解决方法也很简单，按照提示在`Google Cloud Platform`上限定这个`KEY`只能用于搜索就可以了。
+
+# 暗黑模式
+
+作为`Android`开发者，我可以很轻松的实现`Android`软件的暗黑模式，但到了不怎么熟悉的`Web`平台，还是花了不少时间才理清楚。
+
+最简单直观的方法是使用`prefers-color-scheme: dark`，当用户启用暗黑模式的时候，浏览器就会加载这个代码块里定义的黑色主题样式，覆盖原有属性，但这种方式只能响应系统或浏览器级别的全局主题切换，不能实现仅针对当前网页的暗黑模式，显然是不够灵活的。
+
+```css
+.title {
+    color: black;
+}
+
+@media (prefers-color-scheme: dark) {
+    .title {
+        color: white;
+    }
+}
+```
+
+另一种方法就是定义一个表示暗黑主题的`.dark`类，然后为需要的`class`和`element`定义在叠加了`.dark`类之后对应主题的样式，这样在要切换暗黑模式时，只需要`JS`监听切换按键，给`body`添加上`dark`类即可，同时这种方式也适用于切换多种不同配色的主题，如`dark`，`red`，`blue`之类。
+
+```css
+.title {
+    color: black;
+}
+
+.dark {
+    /* 当给body加上dark类，则body中所有支持color的element都会加载这里定义的属性 */
+    color: white;
+}
+
+/* 如果有某些类不想使用全局的dark类中的属性，可以单独定义 */
+.dark .other-title {
+    color: gray;
+}
+```
+
+```js
+const THEME_DAY = "0";
+const THEME_NIGHT = "1";
+const KEY_THEME = "theme";
+
+// 读取保存的用户主题设置
+var savedTheme = localStorage.getItem(KEY_THEME);
+console.log("saved theme = " + savedTheme);
+var bodyE = document.getElementsByTagName(`body`)[0];
+if (savedTheme == THEME_NIGHT) {
+    bodyE.classList.add(`dark`);
+    showThemeDarkIcon(true);
+} else {
+    showThemeDarkIcon(false);
+}
+const btnTheme = document.getElementById('topbar_btn_theme')
+if (btnTheme != null) {
+    // 监听主题切换按钮点击事件，决定是否给body添加或删除dark类
+    btnTheme.addEventListener('click', () => {
+        if (bodyE.classList.contains(`dark`)) {
+            bodyE.classList.remove(`dark`);
+            showThemeDarkIcon(false);
+            localStorage.setItem(KEY_THEME, THEME_DAY);
+        } else {
+            bodyE.classList.add(`dark`);
+            showThemeDarkIcon(true);
+            localStorage.setItem(KEY_THEME, THEME_NIGHT);
+        }
+    });
+}
+
+// 根据当前主题配色显示主题按钮的图标
+function showThemeDarkIcon(dark) {
+    const btnTheme = document.getElementById('topbar_btn_theme')
+    if (btnTheme == null) return;
+    if (dark) {
+        btnTheme.innerHTML = "light_mode";
+    } else {
+        btnTheme.innerHTML = "dark_mode";
+
+    }
+}
+```
+
+是的，基本实现就是这么简单，只是要与`SCSS`和`Material Design Components`组合，我的确遇到了相当多的问题，有的甚至困扰了几天都百思不解，过程很曲折，但好在最终都被一一解决，所以看到最终的成品，我也是十分欣慰了。
+
+<video playsinline controls muted loop preload="none" poster="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20210803/theme_change_h264_thumb.jpg">
+    <!-- chrome不支持h265 -->
+    <source src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20210803/theme_change_h264.mp4" type="video/mp4">
+</video>
