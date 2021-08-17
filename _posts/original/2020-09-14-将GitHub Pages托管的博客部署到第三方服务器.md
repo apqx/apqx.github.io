@@ -56,7 +56,7 @@ server {
 }
 ```
 
-然后重启`nginx`
+然后重启`nginx`：
 
 ```sh
 sudo systemctl restart nginx

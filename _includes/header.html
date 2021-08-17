@@ -49,13 +49,13 @@
         <i class="material-icons-outlined mdc-deprecated-list-item__graphic">translate</i>
         <span class="mdc-deprecated-list-item__text mdc-typography--body2">诗文</span>
       </a>
-      <a class={% if page.type=="opera" or page.type=="index-opera" %}"mdc-deprecated-list-item
+      <!-- <a class={% if page.type=="opera" or page.type=="index-opera" %}"mdc-deprecated-list-item
         mdc-deprecated-list-item--activated"{% else %}"mdc-deprecated-list-item"{% endif %} href="{{ "
         /index-opera.html " }}">
         <span class="mdc-deprecated-list-item__ripple"></span>
         <i class="material-icons-outlined mdc-deprecated-list-item__graphic">photo_camera</i>
         <span class="mdc-deprecated-list-item__text mdc-typography--body2">观剧</span>
-      </a>
+      </a> -->
       <a class="mdc-deprecated-list-item" id="drawer-a-search">
         <span class="mdc-deprecated-list-item__ripple"></span>
         <i class="material-icons-outlined mdc-deprecated-list-item__graphic">search</i>
@@ -136,7 +136,7 @@
 
         </span>
 
-        <p class="about-me-description" style="margin: 1.6rem 1rem;">九五后，旅居杭州，<a href="{% link _posts/original/2019-05-18-槐安国内春生酒.md %}" target="_blank">昆虫</a>，野生散养攻城狮，“十分”“业余”摄影Fans</p>
+        <p class="about-me-description">九五后，旅居杭州，<a href="{% link _posts/original/2019-05-18-槐安国内春生酒.md %}" target="_blank">昆虫</a>，野生散养攻城狮，“十分”“业余”摄影Fans</p>
 
         <ul class="mdc-deprecated-list dialog-link-list">
           <a class="mdc-deprecated-list-item" href="https://github.com/apqx" target="_blank">
@@ -168,7 +168,7 @@
 
       </div>
       <div class="mdc-dialog__actions">
-        <button type="button" class="mdc-button mdc-button--unelevated center-horizontal"
+        <button type="button" class="mdc-button btn-common mdc-button--unelevated center-horizontal"
           style="width: 94%; margin-bottom: 1rem;" data-mdc-dialog-action="cancel" id="about_me_dialog_btn_close">
           <div class="mdc-button__ripple"></div>
           <span class="mdc-button__label">CLOSE</span>
@@ -232,7 +232,7 @@
       </div>
 
       <div class="mdc-dialog__actions">
-        <button type="button" class="mdc-button mdc-button--unelevated center-horizontal"
+        <button type="button" class="mdc-button btn-common mdc-button--unelevated center-horizontal"
           style="width: 94%; margin-bottom: 1rem; margin-top: 1rem;" data-mdc-dialog-action="cancel"
           id="search_dialog_btn_close">
           <div class="mdc-button__ripple"></div>

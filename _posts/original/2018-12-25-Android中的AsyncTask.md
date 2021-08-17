@@ -15,7 +15,7 @@ tags: CS Android
 * 在`工作线程`中执行耗时操作
 * 在`主线程`中操作UI
 
-要兼顾这两项，代码执行过程中`切换线程`就是一个频繁而必要的操作，在`Android`中，可以使用`Handler`来将`Message`和`Runnable`发送到指定的`线程`中执行
+要兼顾这两项，代码执行过程中`切换线程`就是一个频繁而必要的操作，在`Android`中，可以使用`Handler`来将`Message`和`Runnable`发送到指定的`线程`中执行：
 
 ```kotlin
 override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,7 +45,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
 }
 ```
 
-虽然有很多层嵌套，但看起来似乎还不错，而这只是`Kotlin`，如果用`Java`，就是下面的这个样子
+虽然有很多层嵌套，但看起来似乎还不错，而这只是`Kotlin`，如果用`Java`，就是下面的这个样子：
 
 ```java
 @Override
@@ -165,7 +165,7 @@ cusAsyncTask.execute("will do")
 
 # 窥探源码
 
-从启动任务开始
+从启动任务开始：
 
 ```java
 // 默认的Executor是静态的
@@ -209,7 +209,7 @@ public final AsyncTask<Params, Progress, Result> executeOnExecutor(Executor exec
 }
 ```
 
-可以看到，同一个`AsyncTask`实例只能执行一次，且可以让任务在指定的`线程池`中执行，否则即运行在默认的`线程池`中，这个默认的`Executor`是这样的
+可以看到，同一个`AsyncTask`实例只能执行一次，且可以让任务在指定的`线程池`中执行，否则即运行在默认的`线程池`中，这个默认的`Executor`是这样的：
 
 ```java
 private static class SerialExecutor implements Executor {
@@ -256,7 +256,7 @@ THREAD_POOL_EXECUTOR = threadPoolExecutor;
 
 因为默认的`Executor`是`静态`的，且它只会`串行`的执行任务，所以虽然同一个`AsyncTask`可以创建很多个实例，可以同时调用`execute()`开始任务，但它们在默认情况下使用的是同一个`Executor`，所以这些后台任务执行时是`串行`而不是`并行`。
 
-`mFuture`应该就是实际执行的后台任务，它是在`构造器`中定义的
+`mFuture`应该就是实际执行的后台任务，它是在`构造器`中定义的：
 
 ```java
 public AsyncTask(@Nullable Looper callbackLooper) {
@@ -319,7 +319,7 @@ private Result postResult(Result result) {
 }
 ```
 
-实际的`Handler`是这样的
+实际的`Handler`是这样的：
 
 ```java
 private static class InternalHandler extends Handler {
@@ -345,7 +345,7 @@ private static class InternalHandler extends Handler {
 }
 ```
 
-执行完成时调用的`finish()`方法
+执行完成时调用的`finish()`方法：
 
 ```java
 private void finish(Result result) {
@@ -362,7 +362,7 @@ private void finish(Result result) {
 
 可以看到，如果`AsyncTask`任务被取消，则会调用`onCanceled()`而不是`onPostExecute()`来传递结果。
 
-基于上面的源码分析，可以看出`AsyncTask`的几个鲜明的特点
+基于上面的源码分析，可以看出`AsyncTask`的几个鲜明的特点：
 
 * 一个`AsyncTask`实例只能执行一次
 * 同一个`AsyncTask`的不同实例默认是串行执行的，但可以传入自己的`Executor`来改变其行为，比如变为并行

@@ -18,9 +18,7 @@ tags: CS Java Ubuntu
 
 # 安装JDK
 
-在`Oracle`网站下载[JDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk10-downloads-4416644.html)文件
-
-解压JDK到`/usr/lib`中
+在`Oracle`网站下载[JDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk10-downloads-4416644.html)文件，解压到`/usr/lib`中：
 
 ```sh
 # 实际目录和文件名可能不同
@@ -29,36 +27,36 @@ sudo tar -xf /home/apqx/Downloads/jdk-10.0.1_linux-x64_bin.tar.gz /usr/lib
 
 # 配置环境变量：直接修改environment文件
 
-`Ubuntu`的`环境变量`配置文件是`/etc/environment`，可以直接将`JDK`目录写到这个文件中，对所有用户生效
+`Ubuntu`的`环境变量`配置文件是`/etc/environment`，可以直接将`JDK`目录写到这个文件中，对所有用户生效。
 
-打开文件
+打开文件：
 
 ```sh
 sudo vim /etc/environment
 ```
 
-里面的内容应该是类似这样的
+里面的内容应该是类似这样的：
 
 ```sh
 PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 ```
 
-将`JDK`目录添加到`PATH`中
+将`JDK`目录添加到`PATH`中：
 
 ```sh
 JAVA_HOME="/usr/lib/jdk-10.0.1/"
 PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/jdk-10.0.1/bin"
 ```
 
-要注意的是，`/etc/environment`中不能使用`$`来引用已有环境变量，也不能使用`export`命令，即必须填写绝对路径，就像上面那样
+要注意的是，`/etc/environment`中不能使用`$`来引用已有环境变量，也不能使用`export`命令，即必须填写绝对路径，就像上面那样。
 
-加载修改后的文件，使在当前`Terminal`立即生效，全局生效则需要重新登陆
+加载修改后的文件，使在当前`Terminal`立即生效，全局生效则需要重新登陆：
 
 ```sh
 source /etc/environment
 ```
 
-检查是否配置成功
+检查是否配置成功：
 
 ```sh
 echo $JAVA_HOME
@@ -67,14 +65,14 @@ echo $PATH
 
 # 配置环境变量：使用export命令
 
-在`Terminal`中输入
+在`Terminal`中输入：
 
 ```sh
 export JAVA_HOME=/usr/lib/jdk-10.0.1
 export PATH=$PATH:$JAVA_HOME/bin
 ```
 
-即定义了一个`JAVA_HOME`环境变量，并将其路径添加到了系统环境变量`PATH`的后面，此时执行
+即定义了一个`JAVA_HOME`环境变量，并将其路径添加到了系统环境变量`PATH`的后面，此时执行：
 
 ```sh
 echo $PATH
@@ -84,13 +82,13 @@ echo $PATH
 
 在`Linux`中有一个特殊的目录`/etc/profile.d/`，此目录下的脚本文件都会在`用户登录`时自动被执行，当然`Linux`的`开机`并不等于`用户登陆`，所以这种方式和`开机自启`还是有一些区别的，单对于设置环境变量来说足够了。
 
-在`/etc/profile.d`目录下创建用于设置`环境变量`的脚本文件`environment.sh`
+在`/etc/profile.d`目录下创建用于设置`环境变量`的脚本文件`environment.sh`：
 
 ```sh
 sudo vim /etc/profile.d/environment.sh
 ```
 
-在创建的脚本文件中设置`JDK`的`环境变量`
+在创建的脚本文件中设置`JDK`的`环境变量`：
 
 ```sh
 #!/bin/sh
@@ -98,13 +96,13 @@ export JAVA_HOME=/usr/lib/jdk-10.0.1
 export PATH=$PATH:$JAVA_HOME/bin
 ```
 
-执行脚本
+执行脚本：
 
 ```sh
 sh /etc/profile.d/environment.sh
 ```
 
-检查环境变量是否设置成功
+检查环境变量是否设置成功：
 
 ```sh
 java --version

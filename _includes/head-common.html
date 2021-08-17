@@ -1,10 +1,15 @@
 <title>{{ page.title }}</title>
+
+
 <meta charset="UTF-8" />
 <!-- Open Graph protocol, define rich object for share, facebook read this to show a custon share link -->
 <meta property="og:url" content="{{ page.url | prepend: site.url }}" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="{{ page.title }}" />
+{% if page.description != null %}
 <meta property="og:description" content="{{ page.description }}" />
+{% endif %}
+
 {% if page.cover != null %}
 <meta property="og:image" content="{{ page.cover }}" />
 {% else %}

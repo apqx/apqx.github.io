@@ -1,6 +1,23 @@
 @use "sass:map";
 @use "./scss/colors.scss";
 
+/*
+引用一个组件，比如mdc-button，首先要引用button这个module
+@use "@material/button" 
+
+然后引用mdc-button的style定义
+@include button.core-styles
+
+但是，在@material/button/mdc-button.scss文件中已经定义了对module内core-styles的引用
+所以直接引用mdc-button.scss就可以导入mdc-button的style了
+@use "@material/button/mdc-button" 
+
+所以最终的引入写法是
+@use "@material/button" 
+@use "@material/button/mdc-button" 
+
+似乎后期所有的core-styles写法都会被取消，取而代之的是这种直接引入所有属性
+*/
 
 @use "@material/theme" with (
         // 这里定义的属性都可以被tag或class引用，而又可以在不同的主题class中修改，以实现不同的主题
@@ -23,6 +40,7 @@
 @use "@material/button";
 @use '@material/button/mdc-button';
 @use "@material/icon-button";
+@use "@material/icon-button/mdc-icon-button";
 
 @use "@material/top-app-bar";
 @use "@material/top-app-bar/mdc-top-app-bar";
@@ -31,22 +49,29 @@
 @use "@material/fab/mdc-fab";
 
 @use "@material/card";
+@use "@material/card/mdc-card";
 // 组件层级，似乎可以动态
 @use "@material/elevation";
 @use "@material/elevation/mdc-elevation";
 @use '@material/chips';
-@use '@material/chips/styles';
+@use '@material/chips/chip';
+@use '@material/chips/chip-set';
 
 @use "@material/data-table/data-table";
+@use "@material/data-table/data-table-theme";
+@use "@material/data-table/mdc-data-table";
 
 
 @use "@material/drawer";
+@use "@material/drawer/mdc-drawer";
+@use "@material/drawer/modal/mdc-drawer-modal";
+@use "@material/drawer/dismissible/mdc-drawer-dismissible";
 // list更新到v11之后，用新的实现替换了旧版本，但是README尚未更新，原版本class都被加上了deprecated标记
-// 使用它就可以正常加载样式了
 @use "@material/list";
 @use "@material/list/mdc-list";
 
 @use "@material/dialog";
+@use "@material/dialog/mdc-dialog";
 
 @use "@material/typography";
 @use "@material/typography/mdc-typography";
@@ -55,25 +80,16 @@
 @use "@material/line-ripple/mdc-line-ripple";
 @use "@material/notched-outline/mdc-notched-outline";
 @use "@material/textfield";
+@use "@material/textfield/mdc-text-field";
 
 @use "@material/linear-progress";
+@use "@material/linear-progress/mdc-linear-progress";
 
 
+// chip和list类似，处于版本迭代过程，有deprecated标记，暂时只能这样引入
+@include chip.core-styles;
+@include chip-set.core-styles;
 
-
-// 似乎后期所有的core-styles写法都会被取消，取而代之的是@use "@material/button" 这种直接引入所有属性
-@include icon-button.core-styles;
-@include fab.core-styles;
-@include card.core-styles;
-@include elevation.core-styles;
-@include data-table.core-styles;
-@include data-table.theme-baseline;
-@include drawer.core-styles;
-@include drawer.modal-core-styles;
-@include dialog.core-styles;
-@include textfield.core-styles;
-@include linear-progress.core-styles;
-@include list.deprecated-core-styles;
 
 // 通过js给body添加dark class，可以实现对mac-theme的参数更改
 // 大部分组件都会正确相应颜色变化，但是list和chip却无效
@@ -98,10 +114,10 @@ body {
 }
 
 .dark {
-    --mdc-theme-primary: #9b27b0;
-    --mdc-theme-on-primary: rgba(255, 255, 255, 0.87);
+    --mdc-theme-primary: #ff9ff3;
+    --mdc-theme-on-primary: rgba(255, 255, 255, 0.85);
     --mdc-theme-secondary: #43A047;
-    --mdc-theme-on-secondary: rgba(255, 255, 255, 0.87);
+    --mdc-theme-on-secondary: rgba(255, 255, 255, 0.85);
     --mdc-theme-background: #252730;
     --mdc-theme-surface: #2c3037;
 
@@ -110,21 +126,21 @@ body {
 
 
     // 主题字体色，段落p
-    --mdc-theme-on-surface: rgba(255, 255, 255, 0.85);
+    --mdc-theme-on-surface: rgba(255, 255, 255, 0.80);
 
     // 标题字体色，h
-    --mdc-theme-text-primary-on-background: rgba(255, 255, 255, 0.95);
+    --mdc-theme-text-primary-on-background: rgba(255, 255, 255, 0.90);
     // 小标题字体色
     --mdc-theme-text-secondary-on-background: rgba(255, 255, 255, 0.60);
 
-    --link-color: #d05ce3;
+    --link-color: #54a0ff;
     --em-color: rgba(255, 255, 255, 0.60);
     --strong-color: rgba(255, 255, 255, 0.95);
     --divider-color:rgb(58, 66, 74);
     
     --code-highlight-bg: rgba(240, 246, 252, 0.15);
 
-    --search-result-item-title: #d05ce3;
+    --search-result-item-title: #54a0ff;
     --search-result-item-snippet: rgba(255, 255, 255, 0.85);
 } 
 
@@ -134,7 +150,7 @@ body {
     @include textfield.ink-color(map.get(colors.$theme-dark, "text-secondary-on-background"));
     @include textfield.placeholder-color(map.get(colors.$theme-dark, "text-secondary-on-background"));
     @include textfield.label-color(map.get(colors.$theme-dark, "text-secondary-on-background"));
-    @include textfield.focused-outline-color(map.get(colors.$theme-dark, "primary"));
+    @include textfield.focused-outline-color(map.get(colors.$theme-dark, "button-bg"));
     @include textfield.hover-outline-color(map.get(colors.$theme-dark, "text-secondary-on-background"));
     @include textfield.outline-color(map.get(colors.$theme-dark, "divider"));
 }
@@ -215,6 +231,7 @@ footer a {
 .index-title {
     @include typography.typography(subtitle1);
     margin: 0;
+    text-align: left;
 }
 
 /* 索引署名 */
@@ -261,6 +278,11 @@ p, li, a {
     line-height: 1.8rem;
 }
 
+li {
+    // item间距
+    margin: 0.1rem 0;
+}
+
 p {
     text-align: justify;
 }
@@ -289,8 +311,8 @@ a:hover {
 ul {
   padding-left: 18pt;
   padding-right: 0;
-  margin-top: 0;
-  margin-bottom: 0;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
   /* 实心圆 */
   list-style-type: disc;
 }
@@ -299,8 +321,8 @@ ul {
 ol {
   padding-left: 18pt;
   padding-right: 0;
-  margin-top: 0;
-  margin-bottom: 0;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
   /* 数字 */
   list-style-type: decimal;
 }
@@ -329,7 +351,7 @@ pre code {
 }
 
 code.hljs {
-    // border-radius: 0.3rem;
+    border-radius: 0.3rem;
     padding: 1rem;
 }
 
@@ -350,6 +372,10 @@ p code, li code {
     // border:1px solid $code-highlight-border;
 }
 
+strong code {
+    font-weight: bold;
+}
+
 p em code {
     padding-left: 0.3rem;
     padding-right: 0.3rem;
@@ -357,10 +383,33 @@ p em code {
     margin-right: 0;
 } 
 
+.mdc-data-table {
+    @include data-table-theme.shape-radius(0.3rem);
+    // 设置标题背景为透明色，防止横向滚动时遮挡边框角
+    @include data-table-theme.header-row-fill-color(#00000000);
+    margin-top: 0.8rem;
+    margin-bottom: 0.8rem;
+}
+
+.dark .mdc-data-table {
+    @include data-table-theme.header-row-text-color(map.get(colors.$theme-dark, "text-primary-on-background"));
+    @include data-table-theme.row-text-color(map.get(colors.$theme-dark, "on-surface"));
+    @include data-table-theme.divider-color(map.get(colors.$theme-dark, "divider"));
+    @include data-table-theme.stroke-color(map.get(colors.$theme-dark, "divider"));
+}
+
 // 解决Safari的Ripple动画无圆角
 .mdc-button, .mdc-button__ripple {
     border-radius: 20px !important;
     -webkit-mask-image: radial-gradient(white, black);
+}
+
+.btn-common {
+    @include button.container-fill-color(map.get(colors.$theme-light, "button-bg"));
+}
+
+.dark .btn-common {
+    @include button.container-fill-color(map.get(colors.$theme-dark, "button-bg"));
 }
 
 .btn-search {
@@ -437,7 +486,8 @@ p.search-result-item-snippet b {
 }
 
 .about-me-description {
-    @include typography.typography(body1);
+    // @include typography.typography(body1);
+    margin: 1.6rem 1rem;
 }
 
 .mdc-dialog {

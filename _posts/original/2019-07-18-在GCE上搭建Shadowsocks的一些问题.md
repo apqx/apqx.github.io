@@ -32,21 +32,21 @@ tags: CS GoogleCloud VPS Shadowsocks
 
 # 安装&配置
 
-在`VM instance`里找到上文创建的实例，点击`Connect`里的`SSH`
+在`VM instance`里找到上文创建的实例，点击`Connect`里的`SSH`。
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20190718/gc_connect.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="pic" }
 
-会在新的浏览器窗口里建立和服务器的`SSH`连接
+会在新的浏览器窗口里建立和服务器的`SSH`连接：
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20190718/gc_ssh.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="pic" }
 
-切换到`root`用户
+切换到`root`用户：
 
 ```sh
 sudo su
 ```
 
-安装`Shadowsocks`
+安装`Shadowsocks`：
 
 ```sh
 # 更新apt索引
@@ -55,13 +55,13 @@ apt update
 apt install shadowsocks
 ```
 
-配置`Shadowsocks`的默认配置文件
+配置`Shadowsocks`的默认配置文件：
 
 ```sh
 vim /etc/shadowsocks/config.json
 ```
 
-注意这里的`server`填的不是`VPS`的`公网IP`，而是`VPS`在`GCE`中的`内网IP`，这个和其它`VPS`提供商的配置都不同
+注意这里的`server`填的不是`VPS`的`公网IP`，而是`VPS`在`GCE`中的`内网IP`，这个和其它`VPS`提供商的配置都不同：
 
 ```json
 { 
@@ -82,7 +82,7 @@ vim /etc/shadowsocks/config.json
 } 
 ```
 
-启动`Shadowsocks`
+启动`Shadowsocks`：
 
 ```sh
 /etc/init.d/shadowsocks start
@@ -90,13 +90,13 @@ vim /etc/shadowsocks/config.json
 
 在客户端配置好服务器信息，即可连接到这台`Shadowsocks`服务器。但是，如果上面的配置信息里的`server`填的是`VPS公网IP`，会出现，客户端无法连接。
 
-查看日志文件
+查看日志文件：
 
 ```sh
 vim /var/log/shadowsocks
 ```
 
-发现以下错误
+发现以下错误：
 
 ```sh
 INFO: loading config from /etc/shadowsocks/config.json

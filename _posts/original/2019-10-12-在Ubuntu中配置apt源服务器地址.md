@@ -79,7 +79,7 @@ deb http://security.ubuntu.com/ubuntu bionic-security multiverse
 # deb-src http://security.ubuntu.com/ubuntu bionic-security multiverse
 ```
 
-把注释去掉，调整一下格式，可以看得更清楚一点
+把注释去掉，调整一下格式，可以看得更清楚一点：
 
 ```sh
 deb http://cn.archive.ubuntu.com/ubuntu/ bionic universe multiverse
@@ -103,21 +103,21 @@ deb-src http://cn.archive.ubuntu.com/ubuntu/ bionic-backports main restricted un
 
 实际每一行，都定义了一个镜像服务器的一个或多个目录地址。
 
-浏览器访问`http://cn.archive.ubuntu.com/ubuntu/`
+浏览器访问`http://cn.archive.ubuntu.com/ubuntu/`：
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20191012/ubuntu_apt_cnserver_root.png){: loading="lazy" class="clickable clickShowOriginalImg" alt="pic" }
 
-进入`dists/`目录
+进入`dists/`目录：
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20191012/ubuntu_apt_cnserver_dists.png){: loading="lazy" class="clickable clickShowOriginalImg" alt="pic" }
 
-可以看到，对每一个`Ubuntu`系统代号，都有5个目录，比如`18.04`代号是`bionic`，就对应`bionic/`, `bionic-backports/`, `bionic-proposed/`, `bionic-sercurity/`, `bionic-updates/`，随便进入一个目录，`/bionic/`
+可以看到，对每一个`Ubuntu`系统代号，都有5个目录，比如`18.04`代号是`bionic`，就对应`bionic/`, `bionic-backports/`, `bionic-proposed/`, `bionic-sercurity/`, `bionic-updates/`，随便进入一个目录，`/bionic/`：
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20191012/ubuntu_apt_cnserver_bionic.png){: loading="lazy" class="clickable clickShowOriginalImg" alt="pic" }
 
 可以看到`main/`, `universe/`, `multiverse/`, `retricted/`都是具体的目录，这样看来，就可以理解`/etc/apt/sources.list`每一行的含义了。
 
-根据[官网](https://developer.aliyun.com/mirror/){: target="_blank" }，阿里云对应`Ubuntu 18.04`的镜像源地址如下
+根据[官网](https://developer.aliyun.com/mirror/){: target="_blank" }，阿里云对应`Ubuntu 18.04`的镜像源地址如下：
 
 ```sh
 deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
