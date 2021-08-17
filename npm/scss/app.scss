@@ -98,7 +98,7 @@ body {
 }
 
 .dark {
-    --mdc-theme-primary: #9b27b0;
+    --mdc-theme-primary: #ff9ff3;
     --mdc-theme-on-primary: rgba(255, 255, 255, 0.87);
     --mdc-theme-secondary: #43A047;
     --mdc-theme-on-secondary: rgba(255, 255, 255, 0.87);
@@ -117,14 +117,14 @@ body {
     // 小标题字体色
     --mdc-theme-text-secondary-on-background: rgba(255, 255, 255, 0.60);
 
-    --link-color: #d05ce3;
+    --link-color: #54a0ff;
     --em-color: rgba(255, 255, 255, 0.60);
     --strong-color: rgba(255, 255, 255, 0.95);
     --divider-color:rgb(58, 66, 74);
     
     --code-highlight-bg: rgba(240, 246, 252, 0.15);
 
-    --search-result-item-title: #d05ce3;
+    --search-result-item-title: #54a0ff;
     --search-result-item-snippet: rgba(255, 255, 255, 0.85);
 } 
 
@@ -134,7 +134,7 @@ body {
     @include textfield.ink-color(map.get(colors.$theme-dark, "text-secondary-on-background"));
     @include textfield.placeholder-color(map.get(colors.$theme-dark, "text-secondary-on-background"));
     @include textfield.label-color(map.get(colors.$theme-dark, "text-secondary-on-background"));
-    @include textfield.focused-outline-color(map.get(colors.$theme-dark, "primary"));
+    @include textfield.focused-outline-color(map.get(colors.$theme-dark, "link"));
     @include textfield.hover-outline-color(map.get(colors.$theme-dark, "text-secondary-on-background"));
     @include textfield.outline-color(map.get(colors.$theme-dark, "divider"));
 }
@@ -329,7 +329,7 @@ pre code {
 }
 
 code.hljs {
-    // border-radius: 0.3rem;
+    border-radius: 0.3rem;
     padding: 1rem;
 }
 
@@ -361,6 +361,14 @@ p em code {
 .mdc-button, .mdc-button__ripple {
     border-radius: 20px !important;
     -webkit-mask-image: radial-gradient(white, black);
+}
+
+.btn-common {
+    @include button.container-fill-color(map.get(colors.$theme-light, "button-bg"));
+}
+
+.dark .btn-common {
+    @include button.container-fill-color(map.get(colors.$theme-dark, "button-bg"));
 }
 
 .btn-search {

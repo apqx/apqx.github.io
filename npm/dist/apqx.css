@@ -13210,7 +13210,7 @@ body {
 }
 
 .dark {
-  --mdc-theme-primary: #9b27b0;
+  --mdc-theme-primary: #ff9ff3;
   --mdc-theme-on-primary: rgba(255, 255, 255, 0.87);
   --mdc-theme-secondary: #43A047;
   --mdc-theme-on-secondary: rgba(255, 255, 255, 0.87);
@@ -13221,12 +13221,12 @@ body {
   --mdc-theme-on-surface: rgba(255, 255, 255, 0.85);
   --mdc-theme-text-primary-on-background: rgba(255, 255, 255, 0.95);
   --mdc-theme-text-secondary-on-background: rgba(255, 255, 255, 0.60);
-  --link-color: #d05ce3;
+  --link-color: #54a0ff;
   --em-color: rgba(255, 255, 255, 0.60);
   --strong-color: rgba(255, 255, 255, 0.95);
   --divider-color:rgb(58, 66, 74);
   --code-highlight-bg: rgba(240, 246, 252, 0.15);
-  --search-result-item-title: #d05ce3;
+  --search-result-item-title: #54a0ff;
   --search-result-item-snippet: rgba(255, 255, 255, 0.85);
 }
 
@@ -13255,7 +13255,7 @@ body {
 .dark .mdc-text-field:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__leading,
 .dark .mdc-text-field:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__notch,
 .dark .mdc-text-field:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__trailing {
-  border-color: #9b27b0;
+  border-color: #54a0ff;
 }
 .dark .mdc-text-field:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__leading,
 .dark .mdc-text-field:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__notch,
@@ -13727,6 +13727,7 @@ pre code {
 }
 
 code.hljs {
+  border-radius: 0.3rem;
   padding: 1rem;
 }
 
@@ -13780,6 +13781,12 @@ p em code {
   -webkit-mask-image: radial-gradient(white, black);
 }
 
+.btn-common:not(:disabled) {
+  background-color: #9b27b0;
+}
+.dark .btn-common:not(:disabled) {
+  background-color: #9b27b0;
+}
 .btn-search:not(:disabled) {
   color: #a25462;
 }
@@ -14055,10 +14062,10 @@ p.search-result-item-snippet b {
   color: rgba(255, 255, 255, 0.6);
 }
 .dark .mdc-drawer .mdc-deprecated-list-item--activated {
-  color: rgba(155, 39, 176, 0.87);
+  color: rgba(255, 159, 243, 0.87);
 }
 .dark .mdc-drawer .mdc-deprecated-list-item--activated .mdc-deprecated-list-item__graphic {
-  color: #9b27b0;
+  color: #ff9ff3;
 }
 
 .mdc-deprecated-list .mdc-deprecated-list-divider {

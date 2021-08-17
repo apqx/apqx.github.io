@@ -26,12 +26,13 @@ $theme-light: (
     "chip-ink" : #84565E,
 
     "search_nav" : #a25462,
+    "button-bg" : #9b27b0,
 );
 
 // dark
 $theme-dark: (
     "top-bar" : #ee6e73,
-    "primary" : #9b27b0,
+    "primary" : #ff9ff3,
     "on-primary" : rgba(255, 255, 255, 0.87),
     "secondary" : #43A047,
     "on-secondary" : rgba(255, 255, 255, 0.87),
@@ -44,7 +45,7 @@ $theme-dark: (
     // 小标题字体色
     "text-secondary-on-background" : rgba(255, 255, 255, 0.60),
     
-    "link" : #d05ce3,
+    "link" : #54a0ff,
     "em" : rgba(255, 255, 255, 0.60),
     "code-highlight-bg" : rgba(240, 246, 252, 0.15),
 
@@ -54,4 +55,5 @@ $theme-dark: (
     "chip-ink" : #7e3440,
 
     "search_nav" : #a25462,
+    "button-bg" : #9b27b0,
 );
