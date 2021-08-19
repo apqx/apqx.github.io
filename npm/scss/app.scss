@@ -99,9 +99,9 @@ body {
 
 .dark {
     --mdc-theme-primary: #ff9ff3;
-    --mdc-theme-on-primary: rgba(255, 255, 255, 0.87);
+    --mdc-theme-on-primary: rgba(255, 255, 255, 0.85);
     --mdc-theme-secondary: #43A047;
-    --mdc-theme-on-secondary: rgba(255, 255, 255, 0.87);
+    --mdc-theme-on-secondary: rgba(255, 255, 255, 0.85);
     --mdc-theme-background: #252730;
     --mdc-theme-surface: #2c3037;
 
@@ -110,10 +110,10 @@ body {
 
 
     // 主题字体色，段落p
-    --mdc-theme-on-surface: rgba(255, 255, 255, 0.85);
+    --mdc-theme-on-surface: rgba(255, 255, 255, 0.80);
 
     // 标题字体色，h
-    --mdc-theme-text-primary-on-background: rgba(255, 255, 255, 0.95);
+    --mdc-theme-text-primary-on-background: rgba(255, 255, 255, 0.90);
     // 小标题字体色
     --mdc-theme-text-secondary-on-background: rgba(255, 255, 255, 0.60);
 
@@ -134,7 +134,7 @@ body {
     @include textfield.ink-color(map.get(colors.$theme-dark, "text-secondary-on-background"));
     @include textfield.placeholder-color(map.get(colors.$theme-dark, "text-secondary-on-background"));
     @include textfield.label-color(map.get(colors.$theme-dark, "text-secondary-on-background"));
-    @include textfield.focused-outline-color(map.get(colors.$theme-dark, "link"));
+    @include textfield.focused-outline-color(map.get(colors.$theme-dark, "button-bg"));
     @include textfield.hover-outline-color(map.get(colors.$theme-dark, "text-secondary-on-background"));
     @include textfield.outline-color(map.get(colors.$theme-dark, "divider"));
 }
@@ -215,6 +215,7 @@ footer a {
 .index-title {
     @include typography.typography(subtitle1);
     margin: 0;
+    text-align: left;
 }
 
 /* 索引署名 */
@@ -445,7 +446,8 @@ p.search-result-item-snippet b {
 }
 
 .about-me-description {
-    @include typography.typography(body1);
+    // @include typography.typography(body1);
+    margin: 1.6rem 1rem;
 }
 
 .mdc-dialog {
