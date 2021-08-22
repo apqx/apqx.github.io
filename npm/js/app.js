@@ -1,6 +1,7 @@
 import { MDCRipple } from '@material/ripple';
 import { MDCChipSet } from '@material/chips/chip-set';
 import { MDCList } from '@material/list';
+import { MDCDataTable } from '@material/data-table';
 import hljs from 'highlight.js/lib/core';
 // import hljs from 'highlight.js';
 import 'highlight.js/styles/androidstudio.css';
@@ -47,18 +48,13 @@ for (const btn of document.querySelectorAll('.mdc-button')) {
 
 
 // 初始化chipSet
-try {
-    var chipsetE = document.querySelector('.mdc-evolution-chip-set');
-    if (chipsetE != null) {
-        // 部分页面没有chipset，捕捉异常
-        const chipset = new MDCChipSet(chipsetE);
-    }
-} catch (e) {
-    console.log("chipset catch e = " + e.message);
+var chipsetEs = document.querySelectorAll('.mdc-evolution-chip-set');
+for (let chipSetE of chipsetEs) {
+    new MDCChipSet(chipSetE);
 }
 // 为chip添加ripple动画
-const chips = document.querySelectorAll('.mdc-evolution-chip__action');
-for (let chip of chips) {
+const chipActions = document.querySelectorAll('.mdc-evolution-chip__action');
+for (let chip of chipActions) {
     new MDCRipple(chip);
 }
 
@@ -69,4 +65,10 @@ for (const list of lists) {
     const item = new MDCList(list);
     // 为每个item添加ripple动画
     item.listElements.map((listItemEl) => new MDCRipple(listItemEl));
+}
+
+// 数据表
+const dataTables = document.querySelectorAll('.mdc-data-table');
+for (const dataTableE of dataTables) {
+    const item = new MDCDataTable(dataTableE);
 }
