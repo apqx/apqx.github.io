@@ -81,7 +81,7 @@ buildscript {
 
 [使用Gradle创建不同的打包类型]({% link _posts/original/2020-06-12-使用Gradle创建不同的打包类型.md %}){: target="_blank" }
 
-比如在该`Module`的`build.gradle`中定义了`mi`和`play`2个`flavor`，用于配置发布到小米商店和`Google Play`商店的渠道包，它们与`release`和`debug`2个`build type`组合就可以有4个`build variant`
+比如在该`Module`的`build.gradle`中定义了`mi`和`play`2个`flavor`，用于配置发布到小米商店和`Google Play`商店的渠道包，它们与`release`和`debug`2个`build type`组合就可以有4个`build variant`：
 
 ```sh
 miRelease
@@ -135,7 +135,7 @@ gpr.usr=apqx
 gpr.key=your_token
 ```
 
-配置要发包的`Module`的`build.gradle`文件
+配置要发包的`Module`的`build.gradle`文件：
 
 ```groovy
 // 要发包的Module的build.gradle
@@ -199,7 +199,7 @@ project.afterEvaluate {
 }
 ```
 
-执行`sync`之后，`gradle`会根据配置的发包信息自动生成对应的发包`task`
+执行`sync`之后，`gradle`会根据配置的发包信息自动生成对应的发包`task`：
 
 ```sh
 publishMyMiReleasePublicationToGitHubPackagesRepository
@@ -269,7 +269,7 @@ task clean(type: Delete) {
 }
 ```
 
-在要使用该包的`Module`中
+在要使用该包的`Module`中：
 
 ```groovy
 // Module的build.gradle

@@ -94,7 +94,7 @@ interface OnBtnClickListener {
 
 ## Controller
 
-通常是`Activity`
+通常是`Activity`：
 
 ```kotlin
 /**
@@ -154,7 +154,7 @@ class WeatherModel(private val callBack: Callback) {
 
 ## View
 
-通常是`Activity`
+通常是`Activity`：
 
 ```kotlin
 /**
@@ -288,7 +288,7 @@ class WeatherModel() {
 
 ```
 
-用`Activity`作为`View`
+用`Activity`作为`View`：
 
 ```kotlin
 // 注意是AppCompatActivity

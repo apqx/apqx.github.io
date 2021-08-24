@@ -91,7 +91,7 @@ public Handler(Callback callback, boolean async) {
 }
 ```
 
-在创建`Handler`时，它会去获取一个`Looper`，并且获取这个`Looper`的`MessageQueue`，如果获取不到，就会直接抛出异常，那么它要获取的是什么`Looper`呢，继续看
+在创建`Handler`时，它会去获取一个`Looper`，并且获取这个`Looper`的`MessageQueue`，如果获取不到，就会直接抛出异常，那么它要获取的是什么`Looper`呢，继续看：
 
 ```java
 // Looper.myLooper()方法实现
@@ -100,7 +100,7 @@ public static @Nullable Looper myLooper() {
     }
 ```
 
-了解`ThreadLocal`就知道，它获取的是此线程私有的`Looper`，即这个`Looper`是和此线程绑定的，那么这个`Looper`有什么作用呢？看一下`Handler.post(Runnable)`的实现
+了解`ThreadLocal`就知道，它获取的是此线程私有的`Looper`，即这个`Looper`是和此线程绑定的，那么这个`Looper`有什么作用呢？看一下`Handler.post(Runnable)`的实现：
 
 ```java
 public final boolean post(Runnable r) {
@@ -109,7 +109,7 @@ public final boolean post(Runnable r) {
 }
 ```
 
-最终调用的是这个
+最终调用的是这个：
 
 ```java
 public boolean sendMessageAtTime(Message msg, long uptimeMillis) {
@@ -133,7 +133,7 @@ private boolean enqueueMessage(MessageQueue queue, Message msg, long uptimeMilli
     }
 ```
 
-可以看到，我们切换线程使用的`Handler.post(Runnable)`实际上只是把`Runnable`封装成`Message`，并添加到一个该`Handler`从`Looper`那里获取的`MessageQueue`中了，那么是谁来从`Queue`中取出`Message`并处理呢？答案就是`Looper`，我们来看2个`Looper`的关键方法
+可以看到，我们切换线程使用的`Handler.post(Runnable)`实际上只是把`Runnable`封装成`Message`，并添加到一个该`Handler`从`Looper`那里获取的`MessageQueue`中了，那么是谁来从`Queue`中取出`Message`并处理呢？答案就是`Looper`，我们来看2个`Looper`的关键方法：
 
 ```java
 // Looper.prepare()
@@ -183,7 +183,7 @@ public static void loop() {
 
 `Looper.loop()`会进入一个无限的等待循环，不断检查`MessageQueue`中是否有新的`Message`，一旦获取到新的`Message`，就取出该`Message`在`post()`的时候保存的`Handler`实例，调用该`Handler`的方法来处理这个`Message`，这就是整个`Handler.post(Runnable)`的执行轨迹，那么最关键的线程切换是怎么完成的呢？需要注意`Looper.prepare()`执行时所在的线程，它就是`Runnable`事件被处理时所在的线程，这个和线程启用`Looper`时有关。
 
-前面提到，`Handler`创建时必须要求该线程有`Looper`，即执行过`Looper.prepare()`，一个典型的创建支持`Looper`的线程是这样的
+前面提到，`Handler`创建时必须要求该线程有`Looper`，即执行过`Looper.prepare()`，一个典型的创建支持`Looper`的线程是这样的：
 
 ```kotlin
 class CusThread : Thread() {
@@ -199,7 +199,7 @@ class CusThread : Thread() {
 
 实际上，这个线程在创建了`Handler`之后，就因为执行`Looper.loop()`而阻塞，等待执行`Handler`分发的事件，注意到，`Looper.loop()`是在该线程中执行的，结合之前的源码分析，通过`Handler`发送的`Runnable`都会在这个线程中执行，而`Handler.post(Runnable)`这个行为可以在其它任意线程中进行，这就实现了，在其它线程中发送事件到指定的线程中处理，即广义上的切换线程。
 
-可以这样使用上面的`CusThread`
+可以这样使用上面的`CusThread`：
 
 ```kotlin
 val thread = CusThread()
@@ -217,7 +217,7 @@ thread.handler.looper.quite()
 
 # 使用HandlerThread
 
-普通的线程必须手动创建`Looper`才可以使用`Handler`，Android提供了一个默认创建好`Looper`的线程实现`HandlerThread`，原理和上面的`CusThread`大同小异，只是多了一些细节控制，可以这样使用它
+普通的线程必须手动创建`Looper`才可以使用`Handler`，Android提供了一个默认创建好`Looper`的线程实现`HandlerThread`，原理和上面的`CusThread`大同小异，只是多了一些细节控制，可以这样使用它：
 
 ```kotlin
 val handlerThread = HandlerThread("")

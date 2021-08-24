@@ -10,7 +10,7 @@ cover:
 tags: CS Java
 ---
 
-在`Android`的消息机制中，创建`Handler`需要一个`Looper`，如果不在构造器中指定，一般是自动获取当前线程的`Looper`
+在`Android`的消息机制中，创建`Handler`需要一个`Looper`，如果不在构造器中指定，一般是自动获取当前线程的`Looper`：
 
 ```java
 // Handler的构造器，获取当前线程的Looper
@@ -21,7 +21,7 @@ public static @Nullable Looper myLooper() {
 }
 ```
 
-可以看到这里用到了`ThreadLocal`来获取创建`Handler`时所在线程的`Looper`，再看一个例子
+可以看到这里用到了`ThreadLocal`来获取创建`Handler`时所在线程的`Looper`，再看一个例子：
 
 ```kotlin
 fun main(args: Array<String>) {
@@ -47,7 +47,7 @@ fun main(args: Array<String>) {
 
 启动了2个线程，`Thread-1`和`Thread-2`使用同一个`ThreadLocal`对象来分别在各自的线程里读写数据，实际打印日志可以发现，即使`Thread-1`一直在向`ThreadLocal`中写数据，`Thread-2`读到的永远都是`null`，而`Thread-1`却可以正常的读出数据，也就是说，一个线程只能通过`TheadLocal`读取到该线程存储的数据，这就是`ThreadLocal`的功能。
 
-那么它是如何做到的，看一下`ThreadLocal`存取数据的源码就知道了
+那么它是如何做到的，看一下`ThreadLocal`存取数据的源码就知道了：
 
 ```java
 // ThreadLocal用于存储数据的set()方法
@@ -78,7 +78,7 @@ public T get() {
 }
 ```
 
-可以看到，数据实际上是被保存在`Thread`内部持有的一个`ThreadLocalMap`实例对象中的
+可以看到，数据实际上是被保存在`Thread`内部持有的一个`ThreadLocalMap`实例对象中的：
 
 ```java
 // Thread中的ThreadLocalMap
