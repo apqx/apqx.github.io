@@ -372,6 +372,10 @@ p code, li code {
     // border:1px solid $code-highlight-border;
 }
 
+strong code {
+    font-weight: bold;
+}
+
 p em code {
     padding-left: 0.3rem;
     padding-right: 0.3rem;

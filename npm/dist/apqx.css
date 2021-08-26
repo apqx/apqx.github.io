@@ -10426,6 +10426,10 @@ p code, li code {
   background: var(--code-highlight-bg, rgba(27, 31, 35, 0.05));
 }
 
+strong code {
+  font-weight: bold;
+}
+
 p em code {
   padding-left: 0.3rem;
   padding-right: 0.3rem;
