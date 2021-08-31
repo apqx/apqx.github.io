@@ -25,7 +25,10 @@
         <!-- tags -->
         <span class="mdc-evolution-chip-set tags" role="grid">
           <span class="mdc-evolution-chip-set__chips" role="presentation">
+            <div id="tag_dialog_container"></div>
+            {% comment %}
             <!-- 遍历本页的tag -->
+            {% endcomment %}
             {% for tagInPage in page.tags %}
             <span class="mdc-evolution-chip" role="row" id="chip">
               <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
@@ -36,77 +39,9 @@
                 </button>
               </span>
             </span>
-            <!-- tag对应的dialog -->
-            <div class="mdc-dialog" id="dialog_tag_{{ tagInPage }}">
-              <div class="mdc-dialog__container">
-                <!-- 加上width500px后满足要求 -->
-                <div class="mdc-dialog__surface common-dialog-container" role="alertdialog" aria-modal="true"
-                  aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content">
-                  <div class="mdc-dialog__content" id="my-dialog-content">
-                    <!-- 遍历网站包含的所有tag -->
-                    {% for tagInSite in site.tags %}
-                    <!-- tagInSite[0]为该tag名，tagInSite[1]为该tag的所有post数组 -->
-                    {% if tagInSite[0] == tagInPage %}
-
-                    <p class="mdc-theme--on-surface">标记TAG <code class="language-plaintext highlighter-rouge">#{{ tagInPage }}</code> 的
-                      {% case page.type %}
-                      {% when "original" %}
-                      <span>博文</span>
-                      {% when "repost" %}
-                      <span>转载博文</span>
-                      {% when "poetry" %}
-                      <span>诗文</span>
-                      {% when "opera" %}
-                      <span>观剧记录</span>
-                      {% else %}
-                      <span>博文</span>
-                      {% endcase %}
-                    </p>
-
-                    <ul class="mdc-deprecated-list mdc-deprecated-list--two-line dialog-link-list"
-                      id="dialog_tag_list_{{ tagInPage }}">
-                      <!-- 遍历该tag的所有文章 -->
-                      {% assign firstPage = true %}
-                      {% for post in tagInSite[1] %}
-                      <!-- 只显示该同type的文章 -->
-                      {% if post.type == page.type %}
-                      <!-- 检查是否是该tag的第一篇文章 -->
-                      {% if firstPage == true %}
-                      <!-- 是第一篇，前面不加分割线 -->
-                      {% assign firstPage = false %}
-                      {% else %}
-                      <!-- 不是第一篇，前面加分割线 -->
-                      <hr class="mdc-deprecated-list-divider">
-                      {% endif %}
-                      <a class="mdc-deprecated-list-item" href="{{ post.url }}">
-                        <span class="mdc-deprecated-list-item__ripple"></span>
-                        <span class="mdc-deprecated-list-item__text">
-                          <span class="mdc-deprecated-list-item__primary-text">{{ post.title }}</span>
-                          <span class="mdc-deprecated-list-item__secondary-text">{{ post.date | date: "%Y.%m.%d" }}
-                          </span>
-                        </span>
-                      </a>
-                      {% endif %}
-                      <!-- 结束遍历该tag的所有文章 -->
-                      {% endfor %}
-                    </ul>
-                    {% endif %}
-                    <!-- 结束遍历网站包含的所有tag -->
-                    {% endfor %}
-                  </div>
-                  <div class="mdc-dialog__actions">
-                    <button type="button" class="mdc-button btn-common mdc-button--unelevated center-horizontal"
-                      style="width: 94%; margin-bottom: 1rem;" data-mdc-dialog-action="cancel"
-                      id="btn_tag_dialog_close_{{ tagInPage }}">
-                      <div class="mdc-button__ripple"></div>
-                      <span class="mdc-button__label">CLOSE</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div class="mdc-dialog__scrim"></div>
-            </div>
+            {% comment %}
             <!-- 结束遍历本页的tag -->
+            {% endcomment %}
             {% endfor %}
           </span>
         </span>
