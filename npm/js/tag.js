@@ -2,6 +2,7 @@
 
 import { MDCList } from '@material/list';
 import { MDCDialog } from '@material/dialog';
+import { MDCLinearProgress } from '@material/linear-progress';
 
 const POST_TYPE_ORIGINAL = ["original", "随笔"];
 const POST_TYPE_REPOST = ["repost", "转载"];
@@ -69,12 +70,15 @@ for (const triger of dialogsTriggers) {
         }
         // 请求该tag对应的文章列表
         var dialog = new MDCDialog(dialogE);
+        var progressbar = new MDCLinearProgress(document.getElementById(progressId));
+        progressbar.determinate = false;
+        progressbar.close();
         dialog.open();
         var listEl = document.getElementById(listId);
         var list = new MDCList(listEl);
         if (listEl.childElementCount == 0) {
             // 只在无数据时请求
-            queryTagItemList(tag, listId, progressId, btnId, postType);
+            queryTagItemList(tag, listId, progressId, btnId, postType, progressbar);
         }
         // var observer = new WebKitMutationObserver(function(mutations) {
         //     console.log("add node")
@@ -188,37 +192,8 @@ function generateTagDialog(tag, dialogId, listId, btnId, progressId, postType) {
     pTitle.innerHTML = "标记TAG <code class=\"language-plaintext highlighter-rouge\">#" + tag + "</code>的<span>" + postType[1] +"</span>"
     divDialogContent.appendChild(pTitle);
 
-    var divProgressbar = document.createElement("div");
-    divProgressbar.setAttribute("role", "progressbar");
-    divProgressbar.setAttribute("class", "mdc-linear-progress");
-    divProgressbar.setAttribute("aria-label", "Example Progress Bar");
-    divProgressbar.setAttribute("aria-valuemin", "0");
-    divProgressbar.setAttribute("aria-valuemax", "1");
-    divProgressbar.setAttribute("aria-valuenow", "0");
-    divProgressbar.setAttribute("id", progressId);
-    var divProgressbarBuffer = document.createElement("div");
-    divProgressbarBuffer.setAttribute("class", "mdc-linear-progress__buffer");
-    var divProgressbarBufferBar = document.createElement("div");
-    divProgressbarBufferBar.setAttribute("class", "mdc-linear-progress__buffer-bar");
-    divProgressbarBuffer.appendChild(divProgressbarBufferBar);
-    var divProgressbarBufferDots = document.createElement("div");
-    divProgressbarBufferDots.setAttribute("class", "mdc-linear-progress__buffer-dots");
-    divProgressbarBuffer.appendChild(divProgressbarBufferDots);
-    divProgressbar.appendChild(divProgressbarBuffer);
-
-    var divProgressbarPrimary = document.createElement("div");
-    divProgressbarPrimary.setAttribute("class", "mdc-linear-progress__bar mdc-linear-progress__primary-bar");
-    var spanProgressbarPrimary = document.createElement("span");
-    spanProgressbarPrimary.setAttribute("class", "mdc-linear-progress__bar-inner");
-    divProgressbarPrimary.appendChild(spanProgressbarPrimary);
-    divProgressbar.appendChild(divProgressbarPrimary);
-
-    var divProgressbarSecondary = document.createElement("div");
-    divProgressbarSecondary.setAttribute("class", "mdc-linear-progress__bar mdc-linear-progress__secondary-bar");
-    var spanProgressbarSecondary = document.createElement("span");
-    spanProgressbarSecondary.setAttribute("class", "mdc-linear-progress__bar-inner");
-    divProgressbarSecondary.appendChild(spanProgressbarSecondary);
-    divProgressbar.appendChild(divProgressbarSecondary);
+    var divProgressbar = generateProgressbar(progressId);
+    divDialogContent.appendChild(divProgressbar);
 
     var ulList = document.createElement("ul");
     ulList.setAttribute("class", "mdc-deprecated-list mdc-deprecated-list--two-line dialog-link-list");
@@ -252,6 +227,41 @@ function generateTagDialog(tag, dialogId, listId, btnId, progressId, postType) {
     return divDialog;
 }
 
+function generateProgressbar(progressId) {
+    var divProgressbar = document.createElement("div");
+    divProgressbar.setAttribute("role", "progressbar");
+    divProgressbar.setAttribute("class", "mdc-linear-progress");
+    divProgressbar.setAttribute("aria-label", "Example Progress Bar");
+    divProgressbar.setAttribute("aria-valuemin", "0");
+    divProgressbar.setAttribute("aria-valuemax", "1");
+    divProgressbar.setAttribute("aria-valuenow", "0");
+    divProgressbar.setAttribute("id", progressId);
+    var divProgressbarBuffer = document.createElement("div");
+    divProgressbarBuffer.setAttribute("class", "mdc-linear-progress__buffer");
+    var divProgressbarBufferBar = document.createElement("div");
+    divProgressbarBufferBar.setAttribute("class", "mdc-linear-progress__buffer-bar");
+    divProgressbarBuffer.appendChild(divProgressbarBufferBar);
+    var divProgressbarBufferDots = document.createElement("div");
+    divProgressbarBufferDots.setAttribute("class", "mdc-linear-progress__buffer-dots");
+    divProgressbarBuffer.appendChild(divProgressbarBufferDots);
+    divProgressbar.appendChild(divProgressbarBuffer);
+
+    var divProgressbarPrimary = document.createElement("div");
+    divProgressbarPrimary.setAttribute("class", "mdc-linear-progress__bar mdc-linear-progress__primary-bar");
+    var spanProgressbarPrimary = document.createElement("span");
+    spanProgressbarPrimary.setAttribute("class", "mdc-linear-progress__bar-inner");
+    divProgressbarPrimary.appendChild(spanProgressbarPrimary);
+    divProgressbar.appendChild(divProgressbarPrimary);
+
+    var divProgressbarSecondary = document.createElement("div");
+    divProgressbarSecondary.setAttribute("class", "mdc-linear-progress__bar mdc-linear-progress__secondary-bar");
+    var spanProgressbarSecondary = document.createElement("span");
+    spanProgressbarSecondary.setAttribute("class", "mdc-linear-progress__bar-inner");
+    divProgressbarSecondary.appendChild(spanProgressbarSecondary);
+    divProgressbar.appendChild(divProgressbarSecondary);
+    return divProgressbar;
+}
+
 /**
  * 
  * @param {*} tag 未处理的标签，url种的tag需要进行一些处理：小写，部分字符用 - 代替
@@ -259,7 +269,7 @@ function generateTagDialog(tag, dialogId, listId, btnId, progressId, postType) {
  * @param {*} progressId 要控制的进度条Id
  * @param {*} postType 文章类型：original, repost, poetry, opera
  */
-function queryTagItemList(tag, listId, progressId, btnId, postType) {
+function queryTagItemList(tag, listId, progressId, btnId, postType, progressbar) {
     var host = window.location.host;
     if (host.includes("localhost")) {
         host = "http://" + host;
@@ -269,7 +279,7 @@ function queryTagItemList(tag, listId, progressId, btnId, postType) {
     const request = new Request(host + "/archive/tag/" + tag.replace("·", "-") + "/index.html", {
         method: 'GET'
     });
-    // searchLinearProgress.open();
+    progressbar.open();
     fetch(request)
         .then(response => {
             if (response.status === 200) {
@@ -279,12 +289,12 @@ function queryTagItemList(tag, listId, progressId, btnId, postType) {
             }
         })
         .then(response => {
+            progressbar.close();
             console.debug(response);
-            queryTagListDone(progressId);
             showTagItemList(JSON.parse(response), listId, btnId, postType);
         }).catch(error => {
             console.error(error);
-            queryTagListDone(progressId);
+            progressbar.close();
         });
 }
 
@@ -309,10 +319,6 @@ function showTagItemList(response, listId, btnId, postType) {
     // 填充后，似乎是list获得了焦点，应该取消
     // document.getElementById(listId).blur();
     
-}
-
-function queryTagListDone(progressId) {
-
 }
 
 function generateDivider() {
