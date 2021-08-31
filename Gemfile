@@ -11,5 +11,5 @@ group :jekyll_plugins do
   gem "jekyll-sitemap"
   gem "kramdown", ">= 2.3.1"
   gem 'jekyll-redirect-from'
-  # gem 'jekyll-archives'
+  gem 'jekyll-archives'
 end

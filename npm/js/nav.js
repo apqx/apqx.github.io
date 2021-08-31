@@ -188,7 +188,6 @@ try {
 
     document.getElementById('btn_search').addEventListener('click', () => {
         console.log("click search " + searchTextField.value);
-        console.log("host " + window.location.hostname);
 
         if (searchTextField.value != "") {
             search(searchTextField.value, 1);
@@ -250,26 +249,7 @@ function showSearchResult(response) {
     for (const resItem of response.items) {
         i++;
         console.log("add result item = " + resItem.htmlTitle);
-        var aListItem = document.createElement('a');
-        aListItem.setAttribute("class", `mdc-deprecated-list-item search-result-item`);
-        aListItem.setAttribute("href", resItem.link);
-        aListItem.setAttribute("target", `_blank`);
-        var spanRipple = document.createElement('span');
-        spanRipple.setAttribute("class", `mdc-deprecated-list-item__ripple`);
-        aListItem.appendChild(spanRipple);
-
-        var divItem = document.createElement(`div`);
-        var spanTitle = document.createElement('h1');
-        spanTitle.setAttribute("class", `search-result-item-title `);
-        spanTitle.innerHTML = resItem.htmlTitle;
-        var spanSnippet = document.createElement('p');
-        spanSnippet.setAttribute("class", `search-result-item-snippet`);
-        spanSnippet.innerHTML = resItem.htmlSnippet;
-        divItem.appendChild(spanTitle);
-        divItem.appendChild(spanSnippet);
-        aListItem.append(divItem);
-
-        ulSearchResultList.appendChild(aListItem);
+        ulSearchResultList.appendChild(generateListItem(resItem));
 
         if (i != response.items.length) {
             var hrBottomDivider = document.createElement(`hr`);
@@ -282,49 +262,7 @@ function showSearchResult(response) {
     var totalPageNum = Math.ceil(response.searchInformation.totalResults / 10);
     var currentIndex = Math.ceil(response.queries.request[0].startIndex / 10);
 
-    var divResultNav = document.createElement(`div`);
-    divResultNav.setAttribute(`class`, `search-result-nav-wraper`);
-
-    var btnLeft = document.createElement(`button`);
-    btnLeft.setAttribute(`class`, `mdc-button btn-search-result-nav mdc-ripple-upgraded mdc-button--outlined mdc-button--unelevated`);
-    var spanLeftRipple = document.createElement(`span`);
-    spanLeftRipple.setAttribute(`class`, `mdc-button__ripple`);
-    var iLeft = document.createElement(`i`);
-    iLeft.setAttribute(`class`, `material-icons mdc-button__icon`);
-    iLeft.setAttribute(`aria-hidden`, `true`);
-    iLeft.innerHTML = "chevron_left";
-    var spanLeftText = document.createElement(`span`);
-    spanLeftText.setAttribute(`class`, `mdc-button__label`);
-    spanLeftText.innerHTML = "上一页";
-    btnLeft.appendChild(spanLeftRipple);
-    btnLeft.appendChild(iLeft);
-    btnLeft.appendChild(spanLeftText);
-
-    divResultNav.appendChild(btnLeft);
-
-
-    var spanIndex = document.createElement(`span`);
-    spanIndex.setAttribute(`class`, `search-result-index`);
-    spanIndex.innerHTML = currentIndex + "/" + totalPageNum;
-    divResultNav.appendChild(spanIndex);
-
-
-    var btnRight = document.createElement(`button`);
-    btnRight.setAttribute(`class`, `mdc-button btn-search-result-nav mdc-ripple-upgraded mdc-button--outlined mdc-button--unelevated`);
-    var spanRightRipple = document.createElement(`span`);
-    spanRightRipple.setAttribute(`class`, `mdc-button__ripple`);
-    var iRight = document.createElement(`i`);
-    iRight.setAttribute(`class`, `material-icons mdc-button__icon`);
-    iRight.setAttribute(`aria-hidden`, `true`);
-    iRight.innerHTML = "chevron_right";
-    var spanRightText = document.createElement(`span`);
-    spanRightText.setAttribute(`class`, `mdc-button__label`);
-    spanRightText.innerHTML = "下一页";
-    btnRight.appendChild(spanRightRipple);
-    btnRight.appendChild(spanRightText);
-    btnRight.appendChild(iRight);
-
-    divResultNav.appendChild(btnRight);
+    var { divResultNav, btnLeft, btnRight } = generateSearchResultNav(currentIndex, totalPageNum);
 
     searchResultWraper.appendChild(divResultNav);
 
@@ -343,5 +281,63 @@ function showSearchResult(response) {
             search(response.queries.request[0].exactTerms, response.queries.nextPage[0].startIndex);
         }
     });
+}
+
+function generateSearchResultNav(currentIndex, totalPageNum) {
+    var divResultNav = document.createElement(`div`);
+    divResultNav.setAttribute(`class`, `search-result-nav-wraper`);
+
+    var btnLeft = generateSearchResultNavBtn(true);
+    divResultNav.appendChild(btnLeft);
+
+    var spanIndex = document.createElement(`span`);
+    spanIndex.setAttribute(`class`, `search-result-index`);
+    spanIndex.innerHTML = currentIndex + "/" + totalPageNum;
+    divResultNav.appendChild(spanIndex);
+
+    var btnRight = generateSearchResultNavBtn(false);
+    divResultNav.appendChild(btnRight);
+    return { divResultNav, btnLeft, btnRight };
+}
+
+function generateSearchResultNavBtn(left) {
+    var btn = document.createElement(`button`);
+    btn.setAttribute(`class`, `mdc-button btn-search-result-nav mdc-ripple-upgraded mdc-button--outlined mdc-button--unelevated`);
+    var spanRipple = document.createElement(`span`);
+    spanRipple.setAttribute(`class`, `mdc-button__ripple`);
+    var i = document.createElement(`i`);
+    i.setAttribute(`class`, `material-icons mdc-button__icon`);
+    i.setAttribute(`aria-hidden`, `true`);
+
+    i.innerHTML = left ? "chevron_left" : "chevron_right";
+    var spanText = document.createElement(`span`);
+    spanText.setAttribute(`class`, `mdc-button__label`);
+    spanText.innerHTML = left ? "上一页" : "下一页";
+    btn.appendChild(spanRipple);
+    btn.appendChild(i);
+    btn.appendChild(spanText);
+    return btn;
+}
+
+function generateListItem(resItem) {
+    var aListItem = document.createElement('a');
+    aListItem.setAttribute("class", `mdc-deprecated-list-item search-result-item`);
+    aListItem.setAttribute("href", resItem.link);
+    aListItem.setAttribute("target", `_blank`);
+    var spanRipple = document.createElement('span');
+    spanRipple.setAttribute("class", `mdc-deprecated-list-item__ripple`);
+    aListItem.appendChild(spanRipple);
+
+    var divItem = document.createElement(`div`);
+    var spanTitle = document.createElement('h1');
+    spanTitle.setAttribute("class", `search-result-item-title `);
+    spanTitle.innerHTML = resItem.htmlTitle;
+    var spanSnippet = document.createElement('p');
+    spanSnippet.setAttribute("class", `search-result-item-snippet`);
+    spanSnippet.innerHTML = resItem.htmlSnippet;
+    divItem.appendChild(spanTitle);
+    divItem.appendChild(spanSnippet);
+    aListItem.append(divItem);
+    return aListItem;
 }
 

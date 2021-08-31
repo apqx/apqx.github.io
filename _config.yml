@@ -37,19 +37,19 @@ plugins:
   - jekyll-sitemap
   - jekyll-feed
   - jekyll-redirect-from
-  # - jekyll-archives
+  - jekyll-archives
 
 jekyll-archives:
   enabled:
-
+  # 只对tag启用archives 
   - tags
   layout: archive
   permalinks:
-    year: '/:year/'
-    month: '/:year/:month/'
-    day: '/:year/:month/:day/'
-    tag: '/tag/:name/'
-    category: '/category/:name/'
+    # year: '/:year/'
+    # month: '/:year/:month/'
+    # day: '/:year/:month/:day/'
+    tag: '/archive/tag/:name/'
+    # category: '/category/:name/'
 
 # 允许内网设备通过ip访问
 host: 0.0.0.0

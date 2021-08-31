@@ -7,7 +7,7 @@ author: Google
 date: 2010-03-22 +0800
 description: 
 cover: 
-tags: 思维
+tags: 思维 Google
 ---
 
 > 原文[在此](https://googleblog.blogspot.com/2010/03/new-approach-to-china-update.html){: target="_blank" }，那一年，我15岁，第一次离开县城，去市里的高中读书，却对这件事，一无所知。
