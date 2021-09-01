@@ -37,20 +37,6 @@ plugins:
   - jekyll-sitemap
   - jekyll-feed
   - jekyll-redirect-from
-  # - jekyll-archives
-
-# GitHub Pages不支持此插件，需要手动实现次功能
-jekyll-archives:
-  enabled:
-  # 只对tag启用archives 
-  - tags
-  layout: archive
-  permalinks:
-    # year: '/:year/'
-    # month: '/:year/:month/'
-    # day: '/:year/:month/:day/'
-    tag: '/archive/tag/:name/'
-    # category: '/category/:name/'
 
 # 手动实现archives
 collections:

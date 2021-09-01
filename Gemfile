@@ -11,6 +11,4 @@ group :jekyll_plugins do
   gem "jekyll-sitemap"
   gem "kramdown", ">= 2.3.1"
   gem 'jekyll-redirect-from'
-  # GitHub Pages不支持此插件
-  # gem 'jekyll-archives'
 end
