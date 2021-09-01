@@ -7,7 +7,7 @@ author: 立泉
 date: 2021-08-03 +0800
 description: 
 cover: 
-tags: CS GoogleSearch DarkMode
+tags: CS GoogleSearch DarkMode Blog
 ---
 
 自2016年创建此博客以来，一直使用[Materialize](https://materializecss.com){: target="_blank" }作为网页框架，它实现了符合[Material Design](https://material.io/design){: target="_blank" }规范的几乎所有组件，毫无疑问这是一个很优秀的开源框架。但是因为一些原因，它在三年前发布`v1.0.0`正式版后就不再更新了，而`Material Design`的设计理念本身却在不断进化，从起始时过度强调阴影和层级渐渐变得趋向扁平，所以我觉得，是时候切换到一个更现代、更有活力的`MD`框架了，翻开新的一页。
