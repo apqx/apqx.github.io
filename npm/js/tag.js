@@ -46,7 +46,8 @@ var dialogsTriggers = document.querySelectorAll('.dialog-trigger');
 // } catch (e) {
 //     console.log("tag catche e = " + e.message);
 // }
-
+const dialogMap = new Map();
+const progressbarMap = new Map();
 
 // 为每一个tag动态生成dialog
 for (const triger of dialogsTriggers) {
@@ -68,17 +69,41 @@ for (const triger of dialogsTriggers) {
             // 把生成的Dialog插入到指定位置
             document.getElementById("tag_dialog_container").appendChild(dialogE);
         }
-        // 请求该tag对应的文章列表
-        var dialog = new MDCDialog(dialogE);
-        var progressbar = new MDCLinearProgress(document.getElementById(progressId));
-        progressbar.determinate = false;
-        progressbar.close();
+        var dialog;
+        var progressbar;
+        if (dialogMap.has(dialogId)) {
+            dialog = dialogMap.get(dialogId);
+            progressbar = progressbarMap.get(dialogId);
+        } else {
+            dialog = new MDCDialog(dialogE);
+            dialogMap.set(dialogId, dialog);
+            progressbar = new MDCLinearProgress(document.getElementById(progressId));
+            progressbar.determinate = false;
+            progressbar.close();
+            progressbarMap.set(dialogId, progressbar);
+
+            var listEl = document.getElementById(listId);
+            var list = new MDCList(listEl);
+            // 监听dialog的弹出事件
+            dialog.listen('MDCDialog:opened', () => {
+                console.log("tag dialog opened " + triger.id);
+                // list.layout();
+                // Dialog弹出时似乎List获取了焦点，应该取消
+                // 先让Button获取焦点再取消，以转移焦点
+                document.getElementById(btnId).focus();
+                document.getElementById(btnId).blur();
+            });
+            // 点击列表中的item后，关闭Dialog
+            list.listen('MDCList:action', (event) => {
+                console.log("click tagList item");
+                // dialog.close();
+            });
+        }
         dialog.open();
-        var listEl = document.getElementById(listId);
-        var list = new MDCList(listEl);
-        if (listEl.childElementCount == 0) {
+        // 请求该tag对应的文章列表
+        if (document.getElementById(listId).childElementCount == 0) {
             // 只在无数据时请求
-            queryTagItemList(tag, listId, progressId, btnId, postType, progressbar);
+            queryTagItemList(tag, listId, postType, progressbar);
         }
         // var observer = new WebKitMutationObserver(function(mutations) {
         //     console.log("add node")
@@ -86,18 +111,8 @@ for (const triger of dialogsTriggers) {
         // observer.observe(listEl, {
         //     childList: true
         // });
-        // 监听dialog的弹出事件
-        dialog.listen('MDCDialog:opened', () => {
-            console.log("tag dialog opened " + triger.id);
-            // list.layout();
-            // Dialog弹出时似乎Button获取了焦点，应该取消
-            document.getElementById(btnId).blur();
-        });
-        // 点击列表中的item后，关闭Dialog
-        list.listen('MDCList:action', (event) => {
-            console.log("click tagList item");
-            dialog.close();
-        });
+
+
     });
 }
 
@@ -189,7 +204,7 @@ function generateTagDialog(tag, dialogId, listId, btnId, progressId, postType) {
     divDialogContent.setAttribute("id", "my-dialog-content");
     var pTitle = document.createElement("p");
     pTitle.setAttribute("class", "mdc-theme--on-surface");
-    pTitle.innerHTML = "标记TAG <code class=\"language-plaintext highlighter-rouge\">#" + tag + "</code>的<span>" + postType[1] +"</span>"
+    pTitle.innerHTML = "标记TAG <code class=\"language-plaintext highlighter-rouge\">#" + tag + "</code> 的<span>" + postType[1] + "</span>"
     divDialogContent.appendChild(pTitle);
 
     var divProgressbar = generateProgressbar(progressId);
@@ -266,17 +281,18 @@ function generateProgressbar(progressId) {
  * 
  * @param {*} tag 未处理的标签，url种的tag需要进行一些处理：小写，部分字符用 - 代替
  * @param {*} listId 要填充的列表id
- * @param {*} progressId 要控制的进度条Id
  * @param {*} postType 文章类型：original, repost, poetry, opera
  */
-function queryTagItemList(tag, listId, progressId, btnId, postType, progressbar) {
+function queryTagItemList(tag, listId, postType, progressbar) {
     var host = window.location.host;
     if (host.includes("localhost")) {
         host = "http://" + host;
     } else {
         host = "https://" + host;
     }
-    const request = new Request(host + "/archive/tag/" + tag.replace("·", "-") + "/index.html", {
+    var url = host + "/archive/tag/" + tag.replace("·", "-") + "/index.html";
+    console.log("queryTagItemList " + url);
+    const request = new Request(url, {
         method: 'GET'
     });
     progressbar.open();
@@ -289,21 +305,21 @@ function queryTagItemList(tag, listId, progressId, btnId, postType, progressbar)
             }
         })
         .then(response => {
-            progressbar.close();
             console.debug(response);
-            showTagItemList(JSON.parse(response), listId, btnId, postType);
+            progressbar.close();
+            showTagItemList(JSON.parse(response), listId, postType);
         }).catch(error => {
             console.error(error);
             progressbar.close();
         });
 }
 
-function showTagItemList(response, listId, btnId, postType) {
+function showTagItemList(response, listId, postType) {
     var ulList = document.getElementById(listId);
     var firstItem = true;
     for (var item of response.items) {
         // 只填充同一个postType的文章
-        if(!item.url.includes("/" + postType[0] + "/")) {
+        if (!item.url.includes("/" + postType[0] + "/")) {
             continue;
         }
 
@@ -318,7 +334,7 @@ function showTagItemList(response, listId, btnId, postType) {
     // ulList.innerHTML = response;
     // 填充后，似乎是list获得了焦点，应该取消
     // document.getElementById(listId).blur();
-    
+
 }
 
 function generateDivider() {
