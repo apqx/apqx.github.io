@@ -1,5 +1,4 @@
 // 处理文章的tag标记
-
 import { MDCList } from '@material/list';
 import { MDCDialog } from '@material/dialog';
 import { MDCLinearProgress } from '@material/linear-progress';
@@ -9,43 +8,17 @@ const POST_TYPE_REPOST = ["repost", "转载"];
 const POST_TYPE_POETRY = ["poetry", "诗文"];
 const POST_TYPE_OPERA = ["opera", "观剧记录"];
 
+/**
+ * 在archive/tag/index.html保存着所有tag和每一个tag对应文章的列表，只请求一次
+ */
+var tagJson = null;
+
 
 // tag对应的Dialog
 // 获取每一个标记了dialog-trigger的element，查找这个trigger对应的dialog，监听点击事件，弹出dialog
 var dialogsTriggers = document.querySelectorAll('.dialog-trigger');
 
-// try {
-//     for (const triger of dialogsTriggers) {
-//         // 获取每一个triger的id，找到它对应的dialogId，和dialog里的listId
-//         // chip_tag_随笔 dialog_tag_随笔 dialog_tag_list_随笔
-//         const dialogId = triger.id.replace("chip_tag_", "dialog_tag_");
-//         const listId = triger.id.replace("chip_tag_", "dialog_tag_list_");
-//         const btnId = triger.id.replace("chip_tag_", "btn_tag_dialog_close_");
-//         console.log(triger.id + " : " + dialogId + " : " + listId);
-//         // 监听trigger的点击事件
-//         triger.addEventListener('click', () => {
-//             console.log("click tag " + triger.id);
-//             const dialog = new MDCDialog(document.getElementById(dialogId));
-//             dialog.open();
-//             const listEl = document.getElementById(listId);
-//             const list = new MDCList(listEl);
-//             // 监听dialog的弹出事件
-//             dialog.listen('MDCDialog:opened', () => {
-//                 console.log("tag dialog opened " + triger.id);
-//                 // list.layout();
-//                 // Dialog弹出时似乎Button获取了焦点，应该取消
-//                 document.getElementById(btnId).blur();
-//             });
-//             // 点击列表中的item后，关闭Dialog
-//             list.listen('MDCList:action', (event) => {
-//                 console.log("click tagList item");
-//                 dialog.close();
-//             });
-//         });
-//     }
-// } catch (e) {
-//     console.log("tag catche e = " + e.message);
-// }
+
 const dialogMap = new Map();
 const progressbarMap = new Map();
 
@@ -103,16 +76,12 @@ for (const triger of dialogsTriggers) {
         // 请求该tag对应的文章列表
         if (document.getElementById(listId).childElementCount == 0) {
             // 只在无数据时请求
-            queryTagItemList(tag, listId, postType, progressbar);
+            if (tagJson != null) {
+                showTagItemList(tagJson, tag, listId, postType);
+            } else {
+                queryTagItemList(tag, listId, postType, progressbar);
+            }
         }
-        // var observer = new WebKitMutationObserver(function(mutations) {
-        //     console.log("add node")
-        // });
-        // observer.observe(listEl, {
-        //     childList: true
-        // });
-
-
     });
 }
 
@@ -290,7 +259,7 @@ function queryTagItemList(tag, listId, postType, progressbar) {
     } else {
         host = "https://" + host;
     }
-    var url = host + "/archive/tag/" + tag.replace("·", "-") + "/index.html";
+    var url = host + "/archive/tag/index.html";
     console.log("queryTagItemList " + url);
     const request = new Request(url, {
         method: 'GET'
@@ -307,19 +276,21 @@ function queryTagItemList(tag, listId, postType, progressbar) {
         .then(response => {
             console.debug(response);
             progressbar.close();
-            showTagItemList(JSON.parse(response), listId, postType);
+            tagJson = JSON.parse(response);
+            showTagItemList(tagJson, tag, listId, postType);
         }).catch(error => {
             console.error(error);
             progressbar.close();
         });
 }
 
-function showTagItemList(response, listId, postType) {
+function showTagItemList(tagJson, tag, listId, postType) {
     var ulList = document.getElementById(listId);
     var firstItem = true;
-    for (var item of response.items) {
+    var tagItem = findPost(tag, tagJson);
+    for (var post of tagItem.posts) {
         // 只填充同一个postType的文章
-        if (!item.url.includes("/" + postType[0] + "/")) {
+        if (!post.url.includes("/" + postType[0] + "/")) {
             continue;
         }
 
@@ -329,12 +300,18 @@ function showTagItemList(response, listId, postType) {
         } else {
             ulList.appendChild(generateDivider());
         }
-        ulList.appendChild(generateItem(item, postType));
+        ulList.appendChild(generateItem(post, postType));
     }
-    // ulList.innerHTML = response;
-    // 填充后，似乎是list获得了焦点，应该取消
-    // document.getElementById(listId).blur();
 
+}
+
+function findPost(tag, tagJson) {
+    for(var tagItem of tagJson.tags) {
+        if(tag == tagItem.tag) {
+            return tagItem;
+        }
+    }
+    return "";
 }
 
 function generateDivider() {
