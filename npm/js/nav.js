@@ -308,14 +308,18 @@ function generateSearchResultNavBtn(left) {
     var i = document.createElement(`i`);
     i.setAttribute(`class`, `material-icons mdc-button__icon`);
     i.setAttribute(`aria-hidden`, `true`);
-
     i.innerHTML = left ? "chevron_left" : "chevron_right";
     var spanText = document.createElement(`span`);
     spanText.setAttribute(`class`, `mdc-button__label`);
     spanText.innerHTML = left ? "上一页" : "下一页";
     btn.appendChild(spanRipple);
-    btn.appendChild(i);
-    btn.appendChild(spanText);
+    if (left) {
+        btn.appendChild(i);
+        btn.appendChild(spanText);
+    } else {
+        btn.appendChild(spanText);
+        btn.appendChild(i);
+    }
     return btn;
 }
 

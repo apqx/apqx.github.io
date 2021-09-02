@@ -118,25 +118,20 @@ body {
     --mdc-theme-on-primary: rgba(255, 255, 255, 0.85);
     --mdc-theme-secondary: #43A047;
     --mdc-theme-on-secondary: rgba(255, 255, 255, 0.85);
-    --mdc-theme-background: #252730;
-    --mdc-theme-surface: #2c3037;
-
-    --mdc-theme-background: rgb(17,17,17);
-    --mdc-theme-surface: rgb(25,25,25);
-
+    --mdc-theme-background: #333;
+    --mdc-theme-surface: rgb(68, 68, 68);
 
     // 主题字体色，段落p
-    --mdc-theme-on-surface: rgba(255, 255, 255, 0.80);
-
+    --mdc-theme-on-surface: rgba(255, 255, 255, 0.85);
     // 标题字体色，h
-    --mdc-theme-text-primary-on-background: rgba(255, 255, 255, 0.90);
+    --mdc-theme-text-primary-on-background: rgba(255, 255, 255, 0.95);
     // 小标题字体色
-    --mdc-theme-text-secondary-on-background: rgba(255, 255, 255, 0.60);
+    --mdc-theme-text-secondary-on-background: rgba(255, 255, 255, 0.65);
 
     --link-color: #54a0ff;
-    --em-color: rgba(255, 255, 255, 0.60);
+    --em-color: rgba(255, 255, 255, 0.65);
     --strong-color: rgba(255, 255, 255, 0.95);
-    --divider-color:rgb(58, 66, 74);
+    --divider-color:rgba(88, 96, 102, 0.68);
     
     --code-highlight-bg: rgba(240, 246, 252, 0.15);
 
@@ -147,7 +142,7 @@ body {
 
 
 .dark .mdc-text-field {
-    @include textfield.ink-color(map.get(colors.$theme-dark, "text-secondary-on-background"));
+    @include textfield.ink-color(map.get(colors.$theme-dark, "text-primary-on-background"));
     @include textfield.placeholder-color(map.get(colors.$theme-dark, "text-secondary-on-background"));
     @include textfield.label-color(map.get(colors.$theme-dark, "text-secondary-on-background"));
     @include textfield.focused-outline-color(map.get(colors.$theme-dark, "button-bg"));
@@ -413,12 +408,12 @@ p em code {
 }
 
 .btn-search {
-    @include button.ink-color(map.get(colors.$theme-light, "search_nav"));
+    @include button.ink-color(map.get(colors.$theme-light, "chip-ink"));
     @include button.container-fill-color(map.get(colors.$theme-light, "chip-bg"));
 }
 
 .dark .btn-search {
-    @include button.ink-color(map.get(colors.$theme-dark, "search_nav"));
+    @include button.ink-color(map.get(colors.$theme-dark, "chip-ink"));
     @include button.container-fill-color(map.get(colors.$theme-dark, "chip-bg"));
 }
 
@@ -428,12 +423,14 @@ p em code {
 
 .btn-search-result-nav {
     @include button.ink-color(map.get(colors.$theme-light, "search_nav"));
+    @include button.outline-color(map.get(colors.$theme-light, "divider"));
     margin-left: 1rem;
     margin-right: 1rem;
 }
 
 .dark .btn-search-result-nav {
     @include button.ink-color(map.get(colors.$theme-dark, "search_nav"));
+    @include button.outline-color(map.get(colors.$theme-dark, "divider"));
 }
 
 .search-result-index {
@@ -464,7 +461,11 @@ p em code {
 }
 
 p.search-result-item-snippet b {
-    color: #a25462;
+    color: map.get(colors.$theme-light, "search_nav");
+}
+
+.dark p.search-result-item-snippet b {
+    color: map.get(colors.$theme-dark, "search_nav");
 }
 
 

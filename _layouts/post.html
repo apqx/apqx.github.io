@@ -12,15 +12,13 @@
     <main class="mdc-top-app-bar--fixed-adjust main-container">
       <div class="mdc-card essy-card mdc-theme--surface mdc-theme--on-surface">
         <h1 class="essy-title ">{{ page.title }}</h1>
-        
         <span class="essy-author">{{ page.author }}</span>
-
         <!-- 支持非标准日期 -->
-        {% if page.moredate != null %}
+        {%- if page.moredate != null -%}
         <span class="essy-date">{{ page.moredate }}</span>
         {% else %}
         <span class="essy-date">{{ page.date | date: "%Y年%m月%d日" }}</span>
-        {% endif %}
+        {%- endif -%}
 
         <!-- tags -->
         <span class="mdc-evolution-chip-set tags" role="grid">
@@ -29,7 +27,7 @@
             {% comment %}
             <!-- 遍历本页的tag -->
             {% endcomment %}
-            {% for tagInPage in page.tags %}
+            {%- for tagInPage in page.tags -%}
             <span class="mdc-evolution-chip" role="row" id="chip">
               <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
                 <button class="mdc-evolution-chip__action mdc-evolution-chip__action--primary dialog-trigger"
@@ -42,7 +40,7 @@
             {% comment %}
             <!-- 结束遍历本页的tag -->
             {% endcomment %}
-            {% endfor %}
+            {%- endfor -%}
           </span>
         </span>
         {% if page.type == "opera" %}

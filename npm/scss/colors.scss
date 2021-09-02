@@ -36,6 +36,34 @@ $theme-dark: (
     "on-primary" : rgba(255, 255, 255, 0.85),
     "secondary" : #43A047,
     "on-secondary" : rgba(255, 255, 255, 0.85),
+    "background" : #333,
+    "surface" : rgb(68, 68, 68),
+    // 默认字体颜色，段落p
+    "on-surface" : rgba(255, 255, 255, 0.85),
+    // 标题字体色，h
+    "text-primary-on-background" : rgba(255, 255, 255, 0.95),
+    // 小标题字体色
+    "text-secondary-on-background" : rgba(255, 255, 255, 0.65),
+    
+    "link" : #54a0ff,
+    "em" : rgba(255, 255, 255, 0.65),
+    "code-highlight-bg" : rgba(240, 246, 252, 0.15),
+
+    "divider" : rgba(88, 96, 102, 0.68),
+
+    "chip-bg" : #fedbd0a1,
+    "chip-ink" : #7e3440,
+
+    "search_nav" : rgba(228, 96, 117, 0.93),
+    "button-bg" : #9b27b0,
+);
+
+$theme-black: (
+    "top-bar" : #ee6e73,
+    "primary" : #ff9ff3,
+    "on-primary" : rgba(255, 255, 255, 0.85),
+    "secondary" : #43A047,
+    "on-secondary" : rgba(255, 255, 255, 0.85),
     "background" : rgb(17,17,17),
     "surface" : rgb(25,25,25),
     // 默认字体颜色，段落p
@@ -56,4 +84,4 @@ $theme-dark: (
 
     "search_nav" : #a25462,
     "button-bg" : #9b27b0,
-);
+)
