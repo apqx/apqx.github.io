@@ -1,20 +1,19 @@
 <title>{{ page.title }}</title>
-
-
 <meta charset="UTF-8" />
 <!-- Open Graph protocol, define rich object for share, facebook read this to show a custon share link -->
 <meta property="og:url" content="{{ page.url | prepend: site.url }}" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="{{ page.title }}" />
-{% if page.description != null %}
-<meta property="og:description" content="{{ page.description }}" />
-{% endif %}
 
-{% if page.cover != null %}
+{%- if page.description != null -%}
+<meta property="og:description" content="{{ page.description }}" />
+{%- endif -%}
+
+{%- if page.cover != null -%}
 <meta property="og:image" content="{{ page.cover }}" />
 {% else %}
 <meta property="og:image" content="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg" />
-{% endif %}
+{%- endif -%}
 
 <!--Let browser know website is optimized for mobile-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -29,18 +28,19 @@
 <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" /> -->
 
 <!-- css和js文件由内部的npm工程输出 -->
+{% comment %}
 <!-- only for test -->
-<!-- <link rel="stylesheet" href="{{ " /npm/dist/apqx.css" }}" />
+<link rel="stylesheet" href="{{ " /npm/dist/apqx.css" }}" />
 <script type="text/javascript" src="{{ " /js/custom.js " }}" async></script> 
 <script type="text/javascript" src="{{ " /npm/dist/apqx.js " }}" async></script>
-<link rel="stylesheet" href="{{ " /css/materialFontsIcons.css " }}" /> -->
+<link rel="stylesheet" href="{{ " /css/materialFontsIcons.css " }}" />
+{% endcomment %}
 
 <!-- for publish -->
 <link rel="stylesheet" href="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/apqx.css" />
 <script type="text/javascript" src="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/custom.js" async></script>
 <script type="text/javascript" src="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/apqx.js" async></script>
 <link rel="stylesheet" href="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/materialFontsIcons.css" />
-
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <!-- close it when on test -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-GDLCDFZXBF"></script>
