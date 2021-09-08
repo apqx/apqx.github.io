@@ -28,14 +28,15 @@ try {
     console.log("catch e = " + e.message);
 }
 // top app bar, drawer
+var drawer;
 try {
     const topAppBar = new MDCTopAppBar(document.querySelector('.mdc-top-app-bar'));
     // 监听menu按钮点击
     topAppBar.listen('MDCTopAppBar:nav', () => {
-        console.log("click nav menu");
+        console.log("click nav menu " + drawer.open);
         drawer.open = !drawer.open;
     });
-    const drawer = MDCDrawer.attachTo(document.querySelector('.mdc-drawer'));
+    drawer = MDCDrawer.attachTo(document.querySelector('.mdc-drawer'));
     // drawer中的list
     const listEl = document.querySelector('.mdc-drawer .mdc-deprecated-list');
     const drawerList = new MDCList(listEl);
@@ -43,12 +44,15 @@ try {
     const originalSelectedItem = drawerList.selectedIndex
     console.log("originalSelectedItem " + originalSelectedItem);
     drawerList.listen('MDCList:action', (event) => {
-        drawer.open = false;
         // 获取点击的item索引
         console.log("click drawer list item " + event.detail.index);
-        if (event.detail.index > 1) {
-            // 点击了除 随笔 转载 之外的item，禁止选中，还原到原来的选中状态
-            drawerList.selectedIndex = originalSelectedItem
+        // 点击会跳转到新的页面，但是当前页面应该保持，还原到原来的选中状态
+        drawerList.selectedIndex = originalSelectedItem
+        if (event.detail.index > 4) {
+            // 点击了除 索引组 之外的item，关闭drawer
+            drawer.open = false;
+        } else {
+            // 点击了 索引组 的item，不要关闭Drawer，可能会因为页面跳转Deawer的状态无法还原成close，导致再退回到跳转前的页面时，drawer状态不对，无法打开drawer
         }
     });
 

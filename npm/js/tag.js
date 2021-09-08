@@ -6,7 +6,7 @@ import { MDCLinearProgress } from '@material/linear-progress';
 const POST_TYPE_ORIGINAL = ["original", "随笔"];
 const POST_TYPE_REPOST = ["repost", "转载"];
 const POST_TYPE_POETRY = ["poetry", "诗文"];
-const POST_TYPE_OPERA = ["opera", "观剧记录"];
+const POST_TYPE_OPERA = ["opera", "看剧"];
 
 /**
  * 在archive/tag/index.html保存着所有tag和每一个tag对应文章的列表，只请求一次
@@ -173,7 +173,8 @@ function generateTagDialog(tag, dialogId, listId, btnId, progressId, postType) {
     divDialogContent.setAttribute("id", "my-dialog-content");
     var pTitle = document.createElement("p");
     pTitle.setAttribute("class", "mdc-theme--on-surface");
-    pTitle.innerHTML = "标记TAG <code class=\"language-plaintext highlighter-rouge\">#" + tag + "</code> 的<span>" + postType[1] + "</span>"
+    // pTitle.innerHTML = "标记TAG <code class=\"language-plaintext highlighter-rouge\">#" + tag + "</code> 的<span>" + postType[1] + "</span>"
+    pTitle.innerHTML = "标记TAG <code class=\"language-plaintext highlighter-rouge\">#" + tag + "</code> 的<span>文章</span>"
     divDialogContent.appendChild(pTitle);
 
     var divProgressbar = generateProgressbar(progressId);
@@ -254,7 +255,7 @@ function generateProgressbar(progressId) {
  */
 function queryTagItemList(tag, listId, postType, progressbar) {
     var host = window.location.host;
-    if (host.includes("localhost")) {
+    if (!host.includes("apqx.me")) {
         host = "http://" + host;
     } else {
         host = "https://" + host;
@@ -290,8 +291,20 @@ function showTagItemList(tagJson, tag, listId, postType) {
     var tagItem = findPost(tag, tagJson);
     for (var post of tagItem.posts) {
         // 只填充同一个postType的文章
-        if (!post.url.includes("/" + postType[0] + "/")) {
-            continue;
+        // if (!post.url.includes("/" + postType[0] + "/")) {
+        //     continue;
+        // }
+        var itemPostType;
+        if (post.url.includes("/" + POST_TYPE_ORIGINAL[0] + "/")) {
+            itemPostType = POST_TYPE_ORIGINAL;
+        } else if (post.url.includes("/" + POST_TYPE_REPOST[0] + "/")) {
+            itemPostType = POST_TYPE_REPOST;
+        } else if (post.url.includes("/" + POST_TYPE_POETRY[0] + "/")) {
+            itemPostType = POST_TYPE_POETRY;
+        } else if (post.url.includes("/" + POST_TYPE_OPERA[0] + "/")) {
+            itemPostType = POST_TYPE_OPERA;
+        } else {
+            itemPostType = ["", "未知"];
         }
 
         // 除第一个外，每一个item之前都要添加divider分割线
@@ -300,7 +313,7 @@ function showTagItemList(tagJson, tag, listId, postType) {
         } else {
             ulList.appendChild(generateDivider());
         }
-        ulList.appendChild(generateItem(post, postType));
+        ulList.appendChild(generateItem(post, itemPostType));
     }
 
 }
@@ -321,7 +334,7 @@ function generateDivider() {
     return hr;
 }
 
-function generateItem(item, postType) {
+function generateItem(item, itemPostType) {
     var a = document.createElement("a");
     a.setAttribute("class", "mdc-deprecated-list-item");
     a.setAttribute("href", item.url);
@@ -338,9 +351,10 @@ function generateItem(item, postType) {
     var spanTextScondary = document.createElement("span");
     spanTextScondary.setAttribute("class", "mdc-deprecated-list-item__secondary-text");
     spanTextScondary.innerHTML = item.date + " ";
-    // var spanTextPostType = document.createElement("span");
-    // spanTextPostType.innerHTML = postType[1];
-    // spanTextScondary.appendChild(spanTextPostType);
+    var spanTextPostType = document.createElement("span");
+    spanTextPostType.setAttribute("class", "tag-essy-item-post-type");
+    spanTextPostType.innerHTML = itemPostType[1];
+    spanTextScondary.appendChild(spanTextPostType);
 
     spanText.appendChild(spanTextScondary);
 

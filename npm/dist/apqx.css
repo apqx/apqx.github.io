@@ -9875,7 +9875,7 @@ body {
   --em-color: rgba(255, 255, 255, 0.65);
   --strong-color: rgba(255, 255, 255, 0.95);
   --divider-color:rgba(88, 96, 102, 0.68);
-  --code-highlight-bg: rgba(240, 246, 252, 0.15);
+  --code-highlight-bg: rgba(55, 55, 55, 0.59);
   --search-result-item-title: #54a0ff;
   --search-result-item-snippet: rgba(255, 255, 255, 0.85);
 }
@@ -10141,7 +10141,7 @@ footer a {
   margin: 0;
 }
 
-/* 索引地点（观剧使用） */
+/* 索引地点（看剧使用） */
 .index-location {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -10312,6 +10312,7 @@ strong {
 
 a {
   text-decoration: underline;
+  text-underline-offset: 0.25rem;
   color: #6200ee;
   /* @alternate */
   color: var(--link-color, #6200ee);
@@ -10435,6 +10436,25 @@ p em code {
   margin-right: 0;
 }
 
+.tag-essy-item-post-type {
+  color: #84565E;
+  padding-left: 0.2rem;
+  padding-right: 0.2rem;
+  border-radius: 0.3rem;
+  border: 1px solid #FEDBD0;
+}
+
+@-moz-document url-prefix() {
+  .tag-essy-item-post-type {
+    padding-top: 1px;
+    padding-bottom: 0px;
+  }
+}
+.dark .tag-essy-item-post-type {
+  color: #c67c3b;
+  border: 1px solid rgba(248, 81, 73, 0.15);
+}
+
 .mdc-data-table {
   border-radius: 0.3rem;
   margin-top: 0.8rem;
@@ -10500,10 +10520,10 @@ p em code {
   background-color: #FEDBD0;
 }
 .dark .btn-search:not(:disabled) {
-  color: #7e3440;
+  color: #c67c3b;
 }
 .dark .btn-search:not(:disabled) {
-  background-color: #fedbd0a1;
+  background-color: rgba(248, 81, 73, 0.15);
 }
 .search-result-nav-wraper {
   margin-top: 10px;
@@ -10808,10 +10828,10 @@ p.search-result-item-snippet b {
   color: #84565E;
 }
 .dark .mdc-evolution-chip {
-  background-color: #fedbd0a1;
+  background-color: rgba(248, 81, 73, 0.15);
 }
 .dark .mdc-evolution-chip .mdc-evolution-chip__text-label {
-  color: #7e3440;
+  color: #c67c3b;
 }
 .mdc-fab__ripple {
   border-radius: 50% !important;

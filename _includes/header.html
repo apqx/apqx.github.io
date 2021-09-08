@@ -30,7 +30,6 @@
       <a class={% if page.type=="original" or page.type=="index" or page.type=="common-page" %}"mdc-deprecated-list-item
         mdc-deprecated-list-item--activated"{% else %}"mdc-deprecated-list-item"{% endif %} href="{{ "
         /index.html " }}">
-
         <span class="mdc-deprecated-list-item__ripple"></span>
         <i class="material-icons-outlined mdc-deprecated-list-item__graphic">palette</i>
         <span class="mdc-deprecated-list-item__text mdc-typography--body2">随笔</span>
@@ -49,13 +48,20 @@
         <i class="material-icons-outlined mdc-deprecated-list-item__graphic">translate</i>
         <span class="mdc-deprecated-list-item__text mdc-typography--body2">诗文</span>
       </a>
-      <!-- <a class={% if page.type=="opera" or page.type=="index-opera" %}"mdc-deprecated-list-item
+      <a class={% if page.type=="opera" or page.type=="index-opera" %}"mdc-deprecated-list-item
         mdc-deprecated-list-item--activated"{% else %}"mdc-deprecated-list-item"{% endif %} href="{{ "
         /index-opera.html " }}">
         <span class="mdc-deprecated-list-item__ripple"></span>
         <i class="material-icons-outlined mdc-deprecated-list-item__graphic">photo_camera</i>
-        <span class="mdc-deprecated-list-item__text mdc-typography--body2">观剧</span>
-      </a> -->
+        <span class="mdc-deprecated-list-item__text mdc-typography--body2">看剧</span>
+      </a>
+      <a class={% if page.type=="tag" or page.type=="index-tag" %}"mdc-deprecated-list-item
+        mdc-deprecated-list-item--activated"{% else %}"mdc-deprecated-list-item"{% endif %} href="{{ "
+        /index-tag.html " }}">
+        <span class="mdc-deprecated-list-item__ripple"></span>
+        <i class="material-icons-outlined mdc-deprecated-list-item__graphic">local_offer</i>
+        <span class="mdc-deprecated-list-item__text mdc-typography--body2">标签</span>
+      </a>
       <a class="mdc-deprecated-list-item" id="drawer-a-search">
         <span class="mdc-deprecated-list-item__ripple"></span>
         <i class="material-icons-outlined mdc-deprecated-list-item__graphic">search</i>
@@ -258,8 +264,9 @@
         <p style="margin: 1.6rem 1rem;">点击“OK”将跳转到原始尺寸的无水印高清大图，欢迎下载分享，只是唯一注意，<b>图片版权归属作者及原剧团演员所有</b>，未经允许，不可用于商业用途🤫。</p>
 
       </div>
+
       <div class="mdc-dialog__actions">
-        <button type="button" class="mdc-button mdc-button--unelevated center-horizontal"
+        <button type="button" class="mdc-button btn-common mdc-button--unelevated center-horizontal"
           style="width: 94%; margin-bottom: 1rem; margin-top: 1rem;" data-mdc-dialog-action="cancel"
           id="img_tips_dialog_btn_close">
           <div class="mdc-button__ripple"></div>
