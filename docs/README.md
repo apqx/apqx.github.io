@@ -102,7 +102,7 @@ redirect_from:
 两大类：
 
 * 碎碎念（戏剧，省昆，浙昆，苏昆，旅行，摄影）
-* CS（Android，Gradle，Java，Jvm，Flutter，Git，GitHub，Jekyll，JavaScript，Google_Search，Google_Cloud，VPS，ShadowSocks，HTTPS, SSH，RaspberryPi，Ubuntu，抓包，下载）
+* CS（二进制，Android，Gradle，Java，Jvm，Flutter，Git，GitHub，Jekyll，JavaScript，Google_Search，Google_Cloud，VPS，ShadowSocks，HTTPS, SSH，RaspberryPi，Ubuntu，抓包，下载）
 
 ### 转载文章tag
 
