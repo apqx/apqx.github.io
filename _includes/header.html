@@ -54,8 +54,15 @@
         /index-opera.html " }}">
         <span class="mdc-deprecated-list-item__ripple"></span>
         <i class="material-icons-outlined mdc-deprecated-list-item__graphic">photo_camera</i>
-        <span class="mdc-deprecated-list-item__text mdc-typography--body2">观剧</span>
+        <span class="mdc-deprecated-list-item__text mdc-typography--body2">看剧</span>
       </a> -->
+      <a class={% if page.type=="tag" or page.type=="index-tag" %}"mdc-deprecated-list-item
+        mdc-deprecated-list-item--activated"{% else %}"mdc-deprecated-list-item"{% endif %} href="{{ "
+        /index-tag.html " }}">
+        <span class="mdc-deprecated-list-item__ripple"></span>
+        <i class="material-icons-outlined mdc-deprecated-list-item__graphic">local_offer</i>
+        <span class="mdc-deprecated-list-item__text mdc-typography--body2">标签</span>
+      </a>
       <a class="mdc-deprecated-list-item" id="drawer-a-search">
         <span class="mdc-deprecated-list-item__ripple"></span>
         <i class="material-icons-outlined mdc-deprecated-list-item__graphic">search</i>

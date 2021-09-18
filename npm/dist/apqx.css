@@ -10141,7 +10141,7 @@ footer a {
   margin: 0;
 }
 
-/* 索引地点（观剧使用） */
+/* 索引地点（看剧使用） */
 .index-location {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -10433,6 +10433,21 @@ p em code {
   padding-right: 0.3rem;
   margin-left: 0;
   margin-right: 0;
+}
+
+.tag-essy-item-post-type {
+  background: #FEDBD0;
+  color: #84565E;
+  padding-left: 0.2rem;
+  padding-right: 0.2rem;
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
+  border-radius: 0.3rem;
+}
+
+.dark .tag-essy-item-post-type {
+  background: #fedbd0a1;
+  color: #7e3440;
 }
 
 .mdc-data-table {

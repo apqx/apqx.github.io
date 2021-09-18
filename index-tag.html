@@ -1,0 +1,34 @@
+---
+layout: index
+type: index-tag
+title: 立泉の写字板
+description: 昆虫，野生散养攻城狮，“十分”“业余”摄影FANS
+cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg
+---
+
+<div class="index-description">
+    <p>点击<code>#标签</code>可以查看所有标记了此<code>#标签</code>的文章列表</p>
+</div>
+
+<span class="mdc-evolution-chip-set tags" style="margin: 3rem 1rem;" role="grid">
+    <span class="mdc-evolution-chip-set__chips" role="presentation">
+        <div id="tag_dialog_container"></div>
+        {% comment %}
+        <!-- 遍历所有的tag -->
+        {% endcomment %}
+        {%- for tag in site.tags -%}
+        <span class="mdc-evolution-chip" role="row" id="chip">
+            <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
+                <button class="mdc-evolution-chip__action mdc-evolution-chip__action--primary dialog-trigger"
+                    type="button" id="chip_tag_{{ tag[0] }}">
+                    <span class="mdc-evolution-chip__ripple mdc-evolution-chip__ripple--primary"></span>
+                    <span class="mdc-evolution-chip__text-label">#{{ tag[0] }}</span>
+                </button>
+            </span>
+        </span>
+        {% comment %}
+        <!-- 结束遍历本页的tag -->
+        {% endcomment %}
+        {%- endfor -%}
+    </span>
+</span>

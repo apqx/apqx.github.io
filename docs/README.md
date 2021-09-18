@@ -26,7 +26,7 @@ redirect_from:
 | original | 随笔 |
 | repost   | 转载 |
 | poetry   | 诗文 |
-| opera    | 观剧 |
+| opera    | 看剧 |
 
 ### oroginal
 
@@ -42,7 +42,7 @@ redirect_from:
 
 ### opera
 
-观剧记录，剧照分享。
+看剧记录，剧照分享。
 
 ## layout
 
@@ -95,14 +95,15 @@ redirect_from:
 
 文章标签列表，此标签会显示在文章页面顶部，点击会列出包含该标签的所有文章。
 
-随笔、转载、诗文、观剧的tag分离。
+随笔、转载、诗文、看剧的tag分离。
 
 ### 随笔文章tag
 
 两大类：
 
-* 碎碎念（戏剧，省昆，浙昆，苏昆，旅行，摄影）
-* CS（二进制，Android，Gradle，Java，Jvm，Flutter，Git，GitHub，Jekyll，JavaScript，Google_Search，Google_Cloud，VPS，ShadowSocks，HTTPS, SSH，RaspberryPi，Ubuntu，抓包，下载）
+* 碎碎念（旅行，摄影，戏剧，昆曲，省昆，浙昆，苏昆）
+    * 如果有看剧，[剧种]，[剧团]，[剧名]，[折子（全场戏除外）]，[演员]，[剧院]
+* CS（二进制，Android，Gradle，Java，Jvm，Flutter，Git，GitHub，Jekyll，JavaScript，Google，GCE，VPS，ShadowSocks，HTTPS, SSH，RaspberryPi，Ubuntu，抓包，下载）
 
 ### 转载文章tag
 
@@ -112,9 +113,9 @@ redirect_from:
 
 [作者] [时代]
 
-### 观剧文章tag
+### 看剧文章tag
 
-[剧种]，[剧名]，[折子（全场戏除外）]，[剧团]，[演员]，[剧院]
+[剧种]，[剧团]，[剧名]，[折子（全场戏除外）]，[演员]，[剧院]
 
 ## show
 

@@ -3,6 +3,7 @@
 {% comment %}
 生产tag列表和每一个tag对应的文章列表
 {
+    "all":["单雯","戏剧"]
     "tags":[
         {
             "tag":"单雯",
@@ -34,6 +35,11 @@
 {% endcomment %}
 
 {
+    "all":[
+        {%- for tag in site.tags %}
+        "{{ tag[0] }}"{% unless forloop.last %},{% endunless %}
+        {%- endfor %}
+    ],
     "tags":[
         {%- for tag in site.tags %}
         {

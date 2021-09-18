@@ -236,7 +236,7 @@ footer a {
     margin: 0;
 }
 
-/* 索引地点（观剧使用） */
+/* 索引地点（看剧使用） */
 .index-location {
     @include typography.typography(subtitle1);
     text-align: left;
@@ -377,6 +377,21 @@ p em code {
     margin-left: 0;
     margin-right: 0;
 } 
+
+.tag-essy-item-post-type {
+    background: map.get(colors.$theme-light, "chip-bg");
+    color: map.get(colors.$theme-light, "chip-ink");
+    padding-left: 0.2rem;
+    padding-right: 0.2rem;
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
+    border-radius: 0.3rem;
+}
+
+.dark .tag-essy-item-post-type {
+    background: map.get(colors.$theme-dark, "chip-bg");
+    color: map.get(colors.$theme-dark, "chip-ink");
+}
 
 .mdc-data-table {
     @include data-table-theme.shape-radius(0.3rem);
