@@ -295,6 +295,8 @@ strong {
 a {
     // 链接加下划线，可能受mdc class的影响，有些地方下划线被取消了
     text-decoration: underline;
+    // 下划线与文字的间距
+    text-underline-offset: 0.25rem;
     @include theme.property(color, custom-properties.create(--link-color, #6200ee));
 }
 

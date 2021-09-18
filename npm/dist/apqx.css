@@ -10312,6 +10312,7 @@ strong {
 
 a {
   text-decoration: underline;
+  text-underline-offset: 0.25rem;
   color: #6200ee;
   /* @alternate */
   color: var(--link-color, #6200ee);
