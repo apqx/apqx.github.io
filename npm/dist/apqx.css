@@ -10718,6 +10718,27 @@ p.search-result-item-snippet b {
   height: 100%;
 }
 
+@-webkit-keyframes fade-in {
+  from {
+    transform: translateY(20rem);
+    opacity: 0.5;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    transform: translateY(20rem);
+    opacity: 0.5;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 .index-ul {
   padding: 12px 0;
   margin: 0;

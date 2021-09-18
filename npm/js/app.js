@@ -43,7 +43,7 @@ for (const btn of document.querySelectorAll('.mdc-button')) {
     btn.addEventListener('click', () => {
         console.log("click btn")
     });
-    const btnRipple = new MDCRipple(btn);
+    new MDCRipple(btn);
 }
 
 
@@ -52,11 +52,11 @@ var chipsetEs = document.querySelectorAll('.mdc-evolution-chip-set');
 for (let chipSetE of chipsetEs) {
     new MDCChipSet(chipSetE);
 }
-// 为chip添加ripple动画
-const chipActions = document.querySelectorAll('.mdc-evolution-chip__action');
-for (let chip of chipActions) {
-    new MDCRipple(chip);
-}
+// 为chip添加ripple动画，似乎不执行这里也能正常显示动画
+// const chipActions = document.querySelectorAll('.mdc-evolution-chip__action');
+// for (let chip of chipActions) {
+//     new MDCRipple(chip);
+// }
 
 
 // list，很多样式效果要实例化才会生效，比如点击选中

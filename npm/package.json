@@ -4,6 +4,7 @@
     "start": "webpack serve"
   },
   "dependencies": {
+    "@material/animation": "^11.0.0",
     "@material/button": "^11.0.0",
     "@material/card": "^11.0.0",
     "@material/chips": "^11.0.0",
