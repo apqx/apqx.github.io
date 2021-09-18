@@ -10447,8 +10447,8 @@ p em code {
 }
 
 .dark .tag-essy-item-post-type {
-  background: #fedbd0a1;
-  color: #7e3440;
+  background: rgba(248, 81, 73, 0.15);
+  color: #c46a1b;
 }
 
 .mdc-data-table {
@@ -10516,10 +10516,10 @@ p em code {
   background-color: #FEDBD0;
 }
 .dark .btn-search:not(:disabled) {
-  color: #7e3440;
+  color: #c46a1b;
 }
 .dark .btn-search:not(:disabled) {
-  background-color: #fedbd0a1;
+  background-color: rgba(248, 81, 73, 0.15);
 }
 .search-result-nav-wraper {
   margin-top: 10px;
@@ -10823,11 +10823,17 @@ p.search-result-item-snippet b {
 .mdc-evolution-chip .mdc-evolution-chip__text-label {
   color: #84565E;
 }
+.mdc-evolution-chip.mdc-evolution-chip--selected {
+  background-color: #FEDBD0;
+}
 .dark .mdc-evolution-chip {
-  background-color: #fedbd0a1;
+  background-color: rgba(248, 81, 73, 0.15);
 }
 .dark .mdc-evolution-chip .mdc-evolution-chip__text-label {
-  color: #7e3440;
+  color: #c46a1b;
+}
+.dark .mdc-evolution-chip.mdc-evolution-chip--selected {
+  background-color: rgba(248, 81, 73, 0.15);
 }
 .mdc-fab__ripple {
   border-radius: 50% !important;
