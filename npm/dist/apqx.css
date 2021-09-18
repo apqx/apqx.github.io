@@ -10444,6 +10444,12 @@ p em code {
   border: 1px solid #FEDBD0;
 }
 
+@-moz-document url-prefix() {
+  .tag-essy-item-post-type {
+    padding-top: 1px;
+    padding-bottom: 0px;
+  }
+}
 .dark .tag-essy-item-post-type {
   color: #c67c3b;
   border: 1px solid rgba(248, 81, 73, 0.15);
