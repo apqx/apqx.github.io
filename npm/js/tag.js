@@ -16,73 +16,69 @@ var tagJson = null;
 
 // tag对应的Dialog
 // 获取每一个标记了dialog-trigger的element，查找这个trigger对应的dialog，监听点击事件，弹出dialog
+// 所有tag共用一个dialog
 var dialogsTriggers = document.querySelectorAll('.dialog-trigger');
 
-
-const dialogMap = new Map();
-const progressbarMap = new Map();
-
-// 为每一个tag动态生成dialog
-for (const triger of dialogsTriggers) {
+// 为每一个tag添加点击监听
+for (var triger of dialogsTriggers) {
     // 获取每一个triger的id，找到它对应的dialogId，和dialog里的listId
-    // chip_tag_随笔 dialog_tag_随笔 dialog_tag_list_随笔
-    const dialogId = triger.id.replace("chip_tag_", "dialog_tag_");
-    const listId = triger.id.replace("chip_tag_", "dialog_tag_list_");
-    const progressId = triger.id.replace("chip_tag_", "dialog_tag_progress_");
-    const btnId = triger.id.replace("chip_tag_", "btn_tag_dialog_close_");
-    const tag = triger.id.replace("chip_tag_", "");
-    const postType = getPostType();
-    console.log(triger.id + " : " + dialogId + " : " + listId);
+    console.log(triger.id);
     // 监听trigger的点击事件
-    triger.addEventListener('click', () => {
-        console.log("click tag " + triger.id);
-        var dialogE = document.getElementById(dialogId);
-        if (dialogE == null) {
-            dialogE = generateTagDialog(tag, dialogId, listId, btnId, progressId, postType);
-            // 把生成的Dialog插入到指定位置
-            document.getElementById("tag_dialog_container").appendChild(dialogE);
-        }
-        var dialog;
-        var progressbar;
-        if (dialogMap.has(dialogId)) {
-            dialog = dialogMap.get(dialogId);
-            progressbar = progressbarMap.get(dialogId);
-        } else {
-            dialog = new MDCDialog(dialogE);
-            dialogMap.set(dialogId, dialog);
-            progressbar = new MDCLinearProgress(document.getElementById(progressId));
-            progressbar.determinate = false;
-            progressbar.close();
-            progressbarMap.set(dialogId, progressbar);
+    triger.addEventListener("click", clickTag);
+}
 
-            var listEl = document.getElementById(listId);
-            var list = new MDCList(listEl);
-            // 监听dialog的弹出事件
-            dialog.listen('MDCDialog:opened', () => {
-                console.log("tag dialog opened " + triger.id);
-                // list.layout();
-                // Dialog弹出时似乎List获取了焦点，应该取消
-                // 先让Button获取焦点再取消，以转移焦点
-                document.getElementById(btnId).focus();
-                document.getElementById(btnId).blur();
-            });
-            // 点击列表中的item后，关闭Dialog
-            list.listen('MDCList:action', (event) => {
-                console.log("click tagList item");
-                // dialog.close();
-            });
-        }
-        dialog.open();
-        // 请求该tag对应的文章列表
-        if (document.getElementById(listId).childElementCount == 0) {
-            // 只在无数据时请求
-            if (tagJson != null) {
-                showTagItemList(tagJson, tag, listId, postType);
-            } else {
-                queryTagItemList(tag, listId, postType, progressbar);
-            }
-        }
-    });
+var tagDialog = null;
+var tagDialogProgressbar = null;
+
+function clickTag() {
+    // TODO: 为什么使用event.target.id不可以？？
+    var chipId = this.id;
+    // chip_tag_随笔 dialog_tag_随笔 dialog_tag_list_随笔
+    console.log("click tag " + chipId);
+    var dialogId = "chip_tag_dialog";
+    var listId = "chip_tag_essy_list";
+    var progressId = "chip_tag_dialog_progress";
+    var btnId = "chip_tag_dialog_btn";
+    var tag = chipId.replace("chip_tag_", "");
+    var postType = getPostType();
+
+    var dialogE = document.getElementById(dialogId);
+    if (dialogE == null) {
+        console.log("create tag dialog");
+        dialogE = generateTagDialog(tag, dialogId, listId, btnId, progressId, postType);
+        // 把生成的Dialog插入到指定位置
+        document.getElementById("tag_dialog_container").appendChild(dialogE);
+        tagDialog = new MDCDialog(dialogE);
+        tagDialogProgressbar = new MDCLinearProgress(document.getElementById(progressId));
+        tagDialogProgressbar.determinate = false;
+        tagDialogProgressbar.close();
+        var listEl = document.getElementById(listId);
+        var list = new MDCList(listEl);
+        // 监听dialog的弹出事件
+        tagDialog.listen('MDCDialog:opened', () => {
+            console.log("tag dialog opened");
+            // list.layout();
+            // Dialog弹出时似乎List获取了焦点，应该取消
+            // 先让Button获取焦点再取消，以转移焦点
+            document.getElementById(btnId).focus();
+            document.getElementById(btnId).blur();
+        });
+        // 点击列表中的item后，关闭Dialog
+        list.listen('MDCList:action', () => {
+            console.log("click tagList item");
+            // dialog.close();
+        });
+    }
+    tagDialog.open();
+    // 修改dialog标题tag
+    document.getElementById("tag-dialog-tag-name").innerHTML = "#" + tag;
+
+    // 只在无数据时请求
+    if (tagJson != null) {
+        showTagItemList(tagJson, tag, listId, postType);
+    } else {
+        queryTagItemList(tag, listId, postType, tagDialogProgressbar);
+    }
 }
 
 function getPostType() {
@@ -109,7 +105,7 @@ function generateTagDialog(tag, dialogId, listId, btnId, progressId, postType) {
                 aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content">
             
                 <div class="mdc-dialog__content" id="my-dialog-content">
-                    <p class="mdc-theme--on-surface">标记TAG <code class="language-plaintext highlighter-rouge">#AirPlay</code>的<span>博文</span></p>
+                    <p class="mdc-theme--on-surface">标记TAG <code id="tag-dialog-tag-name" class="language-plaintext highlighter-rouge">#AirPlay</code>的<span>博文</span></p>
 
                     <!-- 进度条 -->
                     <div role="progressbar" class="mdc-linear-progress" aria-label="Example Progress Bar" aria-valuemin="0"
@@ -173,8 +169,7 @@ function generateTagDialog(tag, dialogId, listId, btnId, progressId, postType) {
     divDialogContent.setAttribute("id", "my-dialog-content");
     var pTitle = document.createElement("p");
     pTitle.setAttribute("class", "mdc-theme--on-surface");
-    // pTitle.innerHTML = "标记TAG <code class=\"language-plaintext highlighter-rouge\">#" + tag + "</code> 的<span>" + postType[1] + "</span>"
-    pTitle.innerHTML = "标记TAG <code class=\"language-plaintext highlighter-rouge\">#" + tag + "</code> 的<span>文章</span>"
+    pTitle.innerHTML = "标记TAG <code id=\"tag-dialog-tag-name\" class=\"language-plaintext highlighter-rouge\">#" + tag + "</code> 的<span>文章</span>"
     divDialogContent.appendChild(pTitle);
 
     var divProgressbar = generateProgressbar(progressId);
@@ -287,6 +282,10 @@ function queryTagItemList(tag, listId, postType, progressbar) {
 
 function showTagItemList(tagJson, tag, listId, postType) {
     var ulList = document.getElementById(listId);
+    // 删除所有子item，重新填充
+    while (ulList.firstChild) {
+        ulList.removeChild(ulList.lastChild);
+    }
     var firstItem = true;
     var tagItem = findPost(tag, tagJson);
     for (var post of tagItem.posts) {
@@ -319,8 +318,8 @@ function showTagItemList(tagJson, tag, listId, postType) {
 }
 
 function findPost(tag, tagJson) {
-    for(var tagItem of tagJson.tags) {
-        if(tag == tagItem.tag) {
+    for (var tagItem of tagJson.tags) {
+        if (tag == tagItem.tag) {
             return tagItem;
         }
     }
