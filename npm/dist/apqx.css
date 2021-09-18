@@ -10448,7 +10448,7 @@ p em code {
 
 .dark .tag-essy-item-post-type {
   background: rgba(248, 81, 73, 0.15);
-  color: #c46a1b;
+  color: #c67c3b;
 }
 
 .mdc-data-table {
@@ -10516,7 +10516,7 @@ p em code {
   background-color: #FEDBD0;
 }
 .dark .btn-search:not(:disabled) {
-  color: #c46a1b;
+  color: #c67c3b;
 }
 .dark .btn-search:not(:disabled) {
   background-color: rgba(248, 81, 73, 0.15);
@@ -10823,17 +10823,11 @@ p.search-result-item-snippet b {
 .mdc-evolution-chip .mdc-evolution-chip__text-label {
   color: #84565E;
 }
-.mdc-evolution-chip.mdc-evolution-chip--selected {
-  background-color: #FEDBD0;
-}
 .dark .mdc-evolution-chip {
   background-color: rgba(248, 81, 73, 0.15);
 }
 .dark .mdc-evolution-chip .mdc-evolution-chip__text-label {
-  color: #c46a1b;
-}
-.dark .mdc-evolution-chip.mdc-evolution-chip--selected {
-  background-color: rgba(248, 81, 73, 0.15);
+  color: #c67c3b;
 }
 .mdc-fab__ripple {
   border-radius: 50% !important;

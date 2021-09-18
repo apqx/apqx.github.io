@@ -255,7 +255,7 @@ function generateProgressbar(progressId) {
  */
 function queryTagItemList(tag, listId, postType, progressbar) {
     var host = window.location.host;
-    if (host.includes("localhost")) {
+    if (!host.includes("apqx.me")) {
         host = "http://" + host;
     } else {
         host = "https://" + host;
