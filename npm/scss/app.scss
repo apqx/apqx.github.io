@@ -381,18 +381,20 @@ p em code {
 } 
 
 .tag-essy-item-post-type {
-    background: map.get(colors.$theme-light, "chip-bg");
+    // background: map.get(colors.$theme-light, "chip-bg");
     color: map.get(colors.$theme-light, "chip-ink");
     padding-left: 0.2rem;
     padding-right: 0.2rem;
-    padding-top: 0.1rem;
-    padding-bottom: 0.1rem;
+    // padding-top: 0.05rem;
+    // padding-bottom: 0.05rem;
     border-radius: 0.3rem;
+    border: 1px solid map.get(colors.$theme-light, "chip-bg") ;
 }
 
 .dark .tag-essy-item-post-type {
-    background: map.get(colors.$theme-dark, "chip-bg");
+    // background: map.get(colors.$theme-dark, "chip-bg");
     color: map.get(colors.$theme-dark, "chip-ink");
+    border: 1px solid map.get(colors.$theme-dark, "chip-bg") ;
 }
 
 .mdc-data-table {
