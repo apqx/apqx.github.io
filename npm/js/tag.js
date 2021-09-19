@@ -102,9 +102,9 @@ function generateTagDialog(tag, dialogId, listId, btnId, progressId, postType) {
         <div class="mdc-dialog__container">
             <!-- 加上width500px后满足要求 -->
             <div class="mdc-dialog__surface common-dialog-container" role="alertdialog" aria-modal="true"
-                aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content">
+                aria-labelledby="tag-dialog-title" aria-describedby="tag-dialog-content">
             
-                <div class="mdc-dialog__content" id="my-dialog-content">
+                <div class="mdc-dialog__content" id="tag-dialog-content">
                     <p class="mdc-theme--on-surface">标记TAG <code id="tag-dialog-tag-name" class="language-plaintext highlighter-rouge">#AirPlay</code>的<span>博文</span></p>
 
                     <!-- 进度条 -->
@@ -160,13 +160,13 @@ function generateTagDialog(tag, dialogId, listId, btnId, progressId, postType) {
     divDialogSurface.setAttribute("class", "mdc-dialog__surface common-dialog-container");
     divDialogSurface.setAttribute("role", "alertdialog");
     divDialogSurface.setAttribute("aria-modal", "true");
-    divDialogSurface.setAttribute("aria-labelledby", "my-dialog-title");
-    divDialogSurface.setAttribute("aria-describedby", "my-dialog-content");
+    divDialogSurface.setAttribute("aria-labelledby", "tag-dialog-title");
+    divDialogSurface.setAttribute("aria-describedby", "tag-dialog-content");
     divDialogContainer.appendChild(divDialogSurface);
 
     var divDialogContent = document.createElement("div");
     divDialogContent.setAttribute("class", "mdc-dialog__content");
-    divDialogContent.setAttribute("id", "my-dialog-content");
+    divDialogContent.setAttribute("id", "tag-dialog-content");
     var pTitle = document.createElement("p");
     pTitle.setAttribute("class", "mdc-theme--on-surface");
     pTitle.innerHTML = "标记TAG <code id=\"tag-dialog-tag-name\" class=\"language-plaintext highlighter-rouge\">#" + tag + "</code> 的<span>文章</span>"
@@ -313,6 +313,8 @@ function showTagItemList(tagJson, tag, listId, postType) {
             ulList.appendChild(generateDivider());
         }
         ulList.appendChild(generateItem(post, itemPostType));
+        // 列表滚动到顶部
+        document.getElementById("tag-dialog-content").scrollIntoView();
     }
 
 }
