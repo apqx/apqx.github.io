@@ -552,7 +552,7 @@ p.search-result-item-snippet b {
 
 main.main-container {
     // 淡入动画
-    animation: animation.enter(/* $name: */ fade-in, /* $duration: */ 400ms);
+    // animation: animation.enter(/* $name: */ fade-in, /* $duration: */ 400ms);
 }
 
 @keyframes fade-in {

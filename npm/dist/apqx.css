@@ -10718,11 +10718,6 @@ p.search-result-item-snippet b {
   height: 100%;
 }
 
-main.main-container {
-  -webkit-animation: fade-in 400ms 0ms cubic-bezier(0, 0, 0.2, 1);
-          animation: fade-in 400ms 0ms cubic-bezier(0, 0, 0.2, 1);
-}
-
 @-webkit-keyframes fade-in {
   from {
     transform: translateY(20rem);
