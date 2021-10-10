@@ -40,8 +40,10 @@ plugins:
 
 # 手动实现archives
 collections:
+  # 配置文件目录为 `_archives`
   archives:
     output: true
+    # 生成文件目录为 `_site/archive`
     permalink: /archive/:path/
 
 # 允许内网设备通过ip访问
