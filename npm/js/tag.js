@@ -3,6 +3,8 @@ import { MDCList } from '@material/list';
 import { MDCDialog } from '@material/dialog';
 import { MDCLinearProgress } from '@material/linear-progress';
 
+import { MDCRipple } from '@material/ripple';
+
 const POST_TYPE_ORIGINAL = ["original", "随笔"];
 const POST_TYPE_REPOST = ["repost", "转载"];
 const POST_TYPE_POETRY = ["poetry", "诗文"];
@@ -48,6 +50,8 @@ function clickTag() {
         dialogE = generateTagDialog(tag, dialogId, listId, btnId, progressId, postType);
         // 把生成的Dialog插入到指定位置
         document.getElementById("tag_dialog_container").appendChild(dialogE);
+        // Button动画
+        new MDCRipple(document.getElementById(btnId));
         tagDialog = new MDCDialog(dialogE);
         tagDialogProgressbar = new MDCLinearProgress(document.getElementById(progressId));
         tagDialogProgressbar.determinate = false;
