@@ -10513,6 +10513,26 @@ p em code {
 .dark .btn-common:not(:disabled) {
   background-color: #9b27b0;
 }
+.btn-tag {
+  padding: 0 0.7rem 0 0.7rem;
+  height: 2rem;
+  text-transform: none;
+  font-size: 0.9rem;
+  font-weight: normal;
+  margin-top: 0.5rem;
+}
+.btn-tag:not(:disabled) {
+  color: #84565E;
+}
+.btn-tag:not(:disabled) {
+  background-color: #FEDBD0;
+}
+.dark .btn-tag:not(:disabled) {
+  color: #c67c3b;
+}
+.dark .btn-tag:not(:disabled) {
+  background-color: rgba(248, 81, 73, 0.15);
+}
 .btn-search:not(:disabled) {
   color: #84565E;
 }
