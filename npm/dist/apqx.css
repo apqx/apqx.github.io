@@ -9866,8 +9866,8 @@ body {
   --mdc-theme-on-primary: rgba(255, 255, 255, 0.85);
   --mdc-theme-secondary: #43A047;
   --mdc-theme-on-secondary: rgba(255, 255, 255, 0.85);
-  --mdc-theme-background: #333;
-  --mdc-theme-surface: rgb(68, 68, 68);
+  --mdc-theme-background: rgb(32, 33, 36);
+  --mdc-theme-surface: rgb(37, 38, 42);
   --mdc-theme-on-surface: rgba(255, 255, 255, 0.85);
   --mdc-theme-text-primary-on-background: rgba(255, 255, 255, 0.95);
   --mdc-theme-text-secondary-on-background: rgba(255, 255, 255, 0.65);
@@ -10512,6 +10512,26 @@ p em code {
 }
 .dark .btn-common:not(:disabled) {
   background-color: #9b27b0;
+}
+.btn-tag {
+  padding: 0 0.7rem 0 0.7rem;
+  height: 2rem;
+  text-transform: none;
+  font-size: 0.9rem;
+  font-weight: normal;
+  margin-top: 0.5rem;
+}
+.btn-tag:not(:disabled) {
+  color: #84565E;
+}
+.btn-tag:not(:disabled) {
+  background-color: #FEDBD0;
+}
+.dark .btn-tag:not(:disabled) {
+  color: #c67c3b;
+}
+.dark .btn-tag:not(:disabled) {
+  background-color: rgba(248, 81, 73, 0.15);
 }
 .btn-search:not(:disabled) {
   color: #84565E;

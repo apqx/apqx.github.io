@@ -120,3 +120,22 @@ redirect_from:
 ## show
 
 部分文章可能不想显示在索引中，设置此字段为`false`。
+
+## redirect_from
+
+为当前文章页面生成一个指定的URL，使这个URL在<header>中重定向到当前文章
+
+```html
+<!DOCTYPE html>
+<html lang="en-US">
+  <meta charset="utf-8">
+  <title>Redirecting&hellip;</title>
+  <link rel="canonical" href="https://apqx.me/post/original/2021/06/10/%E6%97%85%E8%A1%8C%E5%BF%9703-%E5%85%B0%E8%8B%91%E7%8B%AE%E5%90%BC.html">
+  <script>location="https://apqx.me/post/original/2021/06/10/%E6%97%85%E8%A1%8C%E5%BF%9703-%E5%85%B0%E8%8B%91%E7%8B%AE%E5%90%BC.html"</script>
+  <meta http-equiv="refresh" content="0; url=https://apqx.me/post/original/2021/06/10/%E6%97%85%E8%A1%8C%E5%BF%9703-%E5%85%B0%E8%8B%91%E7%8B%AE%E5%90%BC.html">
+  <!-- 自动添加noindex tag，使搜索引擎不抓取此页面 -->
+  <meta name="robots" content="noindex">
+  <h1>Redirecting&hellip;</h1>
+  <a href="https://apqx.me/post/original/2021/06/10/%E6%97%85%E8%A1%8C%E5%BF%9703-%E5%85%B0%E8%8B%91%E7%8B%AE%E5%90%BC.html">Click here if you are not redirected.</a>
+</html>
+```

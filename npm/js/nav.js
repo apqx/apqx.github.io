@@ -261,6 +261,8 @@ function showSearchResult(response) {
             ulSearchResultList.appendChild(hrBottomDivider);
         }
     }
+    // List的点击动画
+    new MDCList(ulSearchResultList).listElements.map((listItemEl) => new MDCRipple(listItemEl));
 
     // 搜索结果索引，每页10个
     var totalPageNum = Math.ceil(response.searchInformation.totalResults / 10);
@@ -324,6 +326,8 @@ function generateSearchResultNavBtn(left) {
         btn.appendChild(spanText);
         btn.appendChild(i);
     }
+    // 点击动画
+    new MDCRipple(btn);
     return btn;
 }
 

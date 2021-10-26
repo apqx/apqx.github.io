@@ -120,8 +120,8 @@ body {
     --mdc-theme-on-primary: rgba(255, 255, 255, 0.85);
     --mdc-theme-secondary: #43A047;
     --mdc-theme-on-secondary: rgba(255, 255, 255, 0.85);
-    --mdc-theme-background: #333;
-    --mdc-theme-surface: rgb(68, 68, 68);
+    --mdc-theme-background: rgb(32, 33, 36);
+    --mdc-theme-surface: rgb(37, 38, 42);
 
     // 主题字体色，段落p
     --mdc-theme-on-surface: rgba(255, 255, 255, 0.85);
@@ -432,6 +432,22 @@ p em code {
 
 .dark .btn-common {
     @include button.container-fill-color(map.get(colors.$theme-dark, "button-bg"));
+}
+
+.btn-tag {
+    @include button.ink-color(map.get(colors.$theme-light, "chip-ink"));
+    @include button.container-fill-color(map.get(colors.$theme-light, "chip-bg"));
+    @include button.horizontal-padding(0.7rem);
+    @include button.height(2rem);
+    text-transform: none;
+    font-size: 0.9rem;
+    font-weight: normal;
+    margin-top: 0.5rem;
+}
+
+.dark .btn-tag {
+    @include button.ink-color(map.get(colors.$theme-dark, "chip-ink"));
+    @include button.container-fill-color(map.get(colors.$theme-dark, "chip-bg"));
 }
 
 .btn-search {

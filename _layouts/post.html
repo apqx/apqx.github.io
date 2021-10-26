@@ -21,28 +21,22 @@
         {%- endif -%}
 
         <!-- tags -->
-        <span class="mdc-evolution-chip-set tags" role="grid">
-          <span class="mdc-evolution-chip-set__chips" role="presentation">
-            <div id="tag_dialog_container"></div>
-            {% comment %}
+        <div style="margin-top: 2rem;">
+          <div id="tag_dialog_container"></div>
+          {% comment %}
             <!-- 遍历本页的tag -->
             {% endcomment %}
             {%- for tagInPage in page.tags -%}
-            <span class="mdc-evolution-chip" role="row"">
-              <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
-                <button class="mdc-evolution-chip__action mdc-evolution-chip__action--primary dialog-trigger"
-                  type="button" id="chip_tag_{{ tagInPage }}">
-                  <span class="mdc-evolution-chip__ripple mdc-evolution-chip__ripple--primary"></span>
-                  <span class="mdc-evolution-chip__text-label">#{{ tagInPage }}</span>
-                </button>
-              </span>
-            </span>
+            <button type="button" class="mdc-button mdc-button--unelevated dialog-trigger btn-tag"
+              id="chip_tag_{{ tagInPage }}">
+              <div class="mdc-button__ripple"></div>
+              <span class="mdc-button__label">#{{ tagInPage }}</span>
+            </button>
             {% comment %}
             <!-- 结束遍历本页的tag -->
             {% endcomment %}
             {%- endfor -%}
-          </span>
-        </span>
+        </div>
         {% if page.type == "opera" %}
         <blockquote>
           <p>
