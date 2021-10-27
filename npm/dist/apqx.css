@@ -9866,8 +9866,8 @@ body {
   --mdc-theme-on-primary: rgba(255, 255, 255, 0.85);
   --mdc-theme-secondary: #43A047;
   --mdc-theme-on-secondary: rgba(255, 255, 255, 0.85);
-  --mdc-theme-background: #333;
-  --mdc-theme-surface: rgb(68, 68, 68);
+  --mdc-theme-background: rgb(32, 33, 36);
+  --mdc-theme-surface: rgb(37, 38, 42);
   --mdc-theme-on-surface: rgba(255, 255, 255, 0.85);
   --mdc-theme-text-primary-on-background: rgba(255, 255, 255, 0.95);
   --mdc-theme-text-secondary-on-background: rgba(255, 255, 255, 0.65);

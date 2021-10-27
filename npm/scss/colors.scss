@@ -64,24 +64,24 @@ $theme-black: (
     "on-primary" : rgba(255, 255, 255, 0.85),
     "secondary" : #43A047,
     "on-secondary" : rgba(255, 255, 255, 0.85),
-    "background" : rgb(17,17,17),
-    "surface" : rgb(25,25,25),
+    "background" : rgb(32, 33, 36),
+    "surface" : rgb(37, 38, 42),
     // 默认字体颜色，段落p
-    "on-surface" : rgba(255, 255, 255, 0.80),
+    "on-surface" : rgba(255, 255, 255, 0.85),
     // 标题字体色，h
-    "text-primary-on-background" : rgba(255, 255, 255, 0.90),
+    "text-primary-on-background" : rgba(255, 255, 255, 0.95),
     // 小标题字体色
-    "text-secondary-on-background" : rgba(255, 255, 255, 0.60),
+    "text-secondary-on-background" : rgba(255, 255, 255, 0.65),
     
     "link" : #54a0ff,
-    "em" : rgba(255, 255, 255, 0.60),
-    "code-highlight-bg" : rgba(240, 246, 252, 0.15),
+    "em" : rgba(255, 255, 255, 0.65),
+    "code-highlight-bg" : rgba(55, 55, 55, 0.59),
 
-    "divider" : rgb(58, 66, 74),
+    "divider" : rgba(88, 96, 102, 0.68),
 
-    "chip-bg" : #fedbd0a1,
-    "chip-ink" : #7e3440,
+    "chip-bg" : rgba(248, 81, 73, 0.15),
+    "chip-ink" : #c67c3b,
 
-    "search_nav" : #a25462,
+    "search_nav" : rgba(228, 96, 117, 0.93),
     "button-bg" : #9b27b0,
 )
