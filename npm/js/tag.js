@@ -161,6 +161,7 @@ function generateTagDialog(tag, dialogId, listId, btnId, progressId, postType) {
     divDialogContainer.setAttribute("class", "mdc-dialog__container");
     divDialog.appendChild(divDialogContainer);
 
+
     var divDialogSurface = document.createElement("div");
     divDialogSurface.setAttribute("class", "mdc-dialog__surface common-dialog-container");
     divDialogSurface.setAttribute("role", "alertdialog");
@@ -294,10 +295,6 @@ function showTagItemList(tagJson, tag, listId, postType) {
     var firstItem = true;
     var tagItem = findPost(tag, tagJson);
     for (var post of tagItem.posts) {
-        // 只填充同一个postType的文章
-        // if (!post.url.includes("/" + postType[0] + "/")) {
-        //     continue;
-        // }
         var itemPostType;
         if (post.url.includes("/" + POST_TYPE_ORIGINAL[0] + "/")) {
             itemPostType = POST_TYPE_ORIGINAL;
@@ -314,6 +311,8 @@ function showTagItemList(tagJson, tag, listId, postType) {
         // 除第一个外，每一个item之前都要添加divider分割线
         if (firstItem) {
             firstItem = false;
+            // 列表滚动到顶部，执行一次即可
+            document.getElementById("tag-dialog-content").scrollIntoView();
         } else {
             ulList.appendChild(generateDivider());
         }
@@ -321,8 +320,6 @@ function showTagItemList(tagJson, tag, listId, postType) {
     }
     // List的点击动画
     list.listElements.map((listItemEl) => new MDCRipple(listItemEl));
-    // 列表滚动到顶部
-    document.getElementById("tag-dialog-content").scrollIntoView();
 
 }
 
