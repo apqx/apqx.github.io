@@ -31,6 +31,7 @@ for (var triger of dialogsTriggers) {
 
 var tagDialog = null;
 var tagDialogProgressbar = null;
+var list = null;
 
 function clickTag() {
     // TODO: 为什么使用event.target.id不可以？？
@@ -57,7 +58,7 @@ function clickTag() {
         tagDialogProgressbar.determinate = false;
         tagDialogProgressbar.close();
         var listEl = document.getElementById(listId);
-        var list = new MDCList(listEl);
+        list = new MDCList(listEl);
         // 监听dialog的弹出事件
         tagDialog.listen('MDCDialog:opened', () => {
             console.log("tag dialog opened");
@@ -317,9 +318,11 @@ function showTagItemList(tagJson, tag, listId, postType) {
             ulList.appendChild(generateDivider());
         }
         ulList.appendChild(generateItem(post, itemPostType));
-        // 列表滚动到顶部
-        document.getElementById("tag-dialog-content").scrollIntoView();
     }
+    // List的点击动画
+    list.listElements.map((listItemEl) => new MDCRipple(listItemEl));
+    // 列表滚动到顶部
+    document.getElementById("tag-dialog-content").scrollIntoView();
 
 }
 
