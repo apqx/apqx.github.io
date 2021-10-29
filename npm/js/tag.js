@@ -39,7 +39,7 @@ function clickTag() {
     // chip_tag_随笔 dialog_tag_随笔 dialog_tag_list_随笔
     console.log("click tag " + chipId);
     var dialogId = "chip_tag_dialog";
-    var listId = "chip_tag_essy_list";
+    var listId = "chip_tag_essay_list";
     var progressId = "chip_tag_dialog_progress";
     var btnId = "chip_tag_dialog_btn";
     var tag = chipId.replace("chip_tag_", "");
@@ -357,7 +357,7 @@ function generateItem(item, itemPostType) {
     spanTextScondary.setAttribute("class", "mdc-deprecated-list-item__secondary-text");
     spanTextScondary.innerHTML = item.date + " ";
     var spanTextPostType = document.createElement("span");
-    spanTextPostType.setAttribute("class", "tag-essy-item-post-type");
+    spanTextPostType.setAttribute("class", "tag-essay-item-post-type");
     spanTextPostType.innerHTML = itemPostType[1];
     spanTextScondary.appendChild(spanTextPostType);
 

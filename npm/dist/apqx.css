@@ -9982,7 +9982,7 @@ footer a {
 }
 
 /* 文章题目 */
-.essy-title {
+.essay-title {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   font-family: Roboto, sans-serif;
@@ -10016,7 +10016,7 @@ footer a {
 }
 
 /* 文章署名 */
-.essy-author {
+.essay-author {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   font-family: Roboto, sans-serif;
@@ -10049,7 +10049,7 @@ footer a {
 }
 
 /* 文章日期 */
-.essy-date {
+.essay-date {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   font-family: Roboto, sans-serif;
@@ -10436,7 +10436,7 @@ p em code {
   margin-right: 0;
 }
 
-.tag-essy-item-post-type {
+.tag-essay-item-post-type {
   color: #84565E;
   padding-left: 0.2rem;
   padding-right: 0.2rem;
@@ -10445,12 +10445,12 @@ p em code {
 }
 
 @-moz-document url-prefix() {
-  .tag-essy-item-post-type {
+  .tag-essay-item-post-type {
     padding-top: 1px;
     padding-bottom: 0px;
   }
 }
-.dark .tag-essy-item-post-type {
+.dark .tag-essay-item-post-type {
   color: #c67c3b;
   border: 1px solid rgba(248, 81, 73, 0.15);
 }
@@ -10903,7 +10903,7 @@ img, video {
   height: 100%;
 }
 
-.essy-card {
+.essay-card {
   padding: 20px;
   margin: 24px 16px;
   /* @alternate */
@@ -10936,7 +10936,7 @@ img, video {
 }
 
 @media (max-width: 600px) {
-  .essy-card {
+  .essay-card {
     padding: 20px;
     margin: 24px 0;
   }
@@ -10965,7 +10965,7 @@ img, video {
     width: 880px;
   }
 
-  .essy-card {
+  .essay-card {
     padding: 24px 40px;
   }
 
