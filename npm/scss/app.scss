@@ -343,6 +343,13 @@ blockquote p {
     margin: 0;
 }
 
+.essay-description {
+    border: 1px solid rgba(63, 185, 80, 0.4);
+    border-radius: 4px;
+    background: rgba(46, 160, 67, 0.1);
+    padding: 1rem;
+}
+
 // 代码块
 pre code {
     font-size: 1.0rem;
