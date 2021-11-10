@@ -109,8 +109,6 @@ body {
     --strong-color: rgba(0, 0, 0, 0.87);
     --divider-color:rgba(0, 0, 0, 0.12);
 
-    --code-highlight-bg: rgba(27, 31, 35, 0.05);
-
     --search-result-item-title: #6200ee;
     --search-result-item-snippet: rgba(0, 0, 0, 0.85);
 }
@@ -135,8 +133,6 @@ body {
     --strong-color: rgba(255, 255, 255, 0.95);
     --divider-color:rgba(88, 96, 102, 0.68);
     
-    --code-highlight-bg: rgba(55, 55, 55, 0.59);
-
     --search-result-item-title: #54a0ff;
     --search-result-item-snippet: rgba(255, 255, 255, 0.85);
 } 
@@ -345,8 +341,10 @@ blockquote p {
 
 .essay-description {
     border: 1px solid rgba(63, 185, 80, 0.4);
+    // border: 1px solid rgba(248, 81, 73, 0.4);;
     border-radius: 4px;
     background: rgba(46, 160, 67, 0.1);
+    // background: rgba(248, 81, 73, 0.15);
     padding: 1rem;
 }
 
@@ -359,6 +357,7 @@ pre code {
 code.hljs {
     border-radius: 0.3rem;
     padding: 1rem;
+    background: map.get(colors.$theme-light, "pre-code-bg");
 }
 
 /* 段落中单词高亮 */
@@ -373,9 +372,13 @@ p code, li code {
     border-radius: 0.3rem;
     
     // color:$code-highlight-text;
-    // background: $code-highlight-bg;
-    @include theme.property(background, custom-properties.create(--code-highlight-bg, rgba(27, 31, 35, 0.05)));
-    // border:1px solid $code-highlight-border;
+    background: map.get(colors.$theme-light, "code-highlight-bg");
+    border:1px solid map.get(colors.$theme-light, "code-highlight-border");
+}
+
+.dark p code, .dark li code {
+    background: map.get(colors.$theme-dark, "code-highlight-bg");
+    border:1px solid map.get(colors.$theme-dark, "code-highlight-border");
 }
 
 strong code {
