@@ -9856,7 +9856,6 @@ body {
   --em-color: #535c68;
   --strong-color: rgba(0, 0, 0, 0.87);
   --divider-color:rgba(0, 0, 0, 0.12);
-  --code-highlight-bg: rgba(27, 31, 35, 0.05);
   --search-result-item-title: #6200ee;
   --search-result-item-snippet: rgba(0, 0, 0, 0.85);
 }
@@ -9875,7 +9874,6 @@ body {
   --em-color: rgba(255, 255, 255, 0.65);
   --strong-color: rgba(255, 255, 255, 0.95);
   --divider-color:rgba(88, 96, 102, 0.68);
-  --code-highlight-bg: rgba(55, 55, 55, 0.59);
   --search-result-item-title: #54a0ff;
   --search-result-item-snippet: rgba(255, 255, 255, 0.85);
 }
@@ -10392,6 +10390,7 @@ pre code {
 code.hljs {
   border-radius: 0.3rem;
   padding: 1rem;
+  background: #15171a;
 }
 
 /* 段落中单词高亮 */
@@ -10428,8 +10427,12 @@ p code, li code {
   margin-right: 0.05rem;
   border-radius: 0.3rem;
   background: rgba(27, 31, 35, 0.05);
-  /* @alternate */
-  background: var(--code-highlight-bg, rgba(27, 31, 35, 0.05));
+  border: 1px solid #e1eaef;
+}
+
+.dark p code, .dark li code {
+  background: rgba(55, 55, 55, 0.59);
+  border: 1px solid rgba(55, 55, 55, 0.59);
 }
 
 strong code {
