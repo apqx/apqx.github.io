@@ -60,55 +60,6 @@ try {
     console.log("catch e = " + e.message);
 }
 
-// TODO: 在一个页面切换主题后，要通知其它页面响应
-
-try {
-    const THEME_DAY = "0";
-    const THEME_NIGHT = "1";
-    const KEY_THEME = "theme";
-    
-    // var savedTheme = getCookie(KEY_THEME);
-    var savedTheme = localStorage.getItem(KEY_THEME);
-    console.log("saved theme = " + savedTheme);
-    var bodyE = document.getElementsByTagName(`body`)[0];
-    if (savedTheme == THEME_NIGHT) {
-        bodyE.classList.add(`dark`);
-        showThemeDark(true);
-    } else {
-        showThemeDark(false);
-    }
-    const btnTheme = document.getElementById('topbar_btn_theme')
-    if (btnTheme != null) {
-        btnTheme.addEventListener('click', () => {
-            if (bodyE.classList.contains(`dark`)) {
-                bodyE.classList.remove(`dark`);
-                showThemeDark(false);
-                // setCookie(KEY_THEME, THEME_DAY, 30);
-                localStorage.setItem(KEY_THEME, THEME_DAY);
-            } else {
-                bodyE.classList.add(`dark`);
-                showThemeDark(true);
-                // setCookie(KEY_THEME, THEME_NIGHT, 30);
-                localStorage.setItem(KEY_THEME, THEME_NIGHT);
-            }
-        });
-    }
-
-} catch (e) {
-    console.log("catch e = " + e.message);
-}
-
-function showThemeDark(dark) {
-    const btnTheme = document.getElementById('topbar_btn_theme')
-    if (btnTheme == null) return;
-    if (dark) {
-        btnTheme.innerHTML = "light_mode";
-    } else {
-        btnTheme.innerHTML = "dark_mode";
-
-    }
-}
-
 function getCookie(cname) {
     let name = cname + "=";
     let ca = document.cookie.split(';');
