@@ -126,3 +126,74 @@ function showThemeDarkIcon(dark) {
     <!-- chrome不支持h265 -->
     <source src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20210803/theme_change_h264.mp4" type="video/mp4">
 </video>
+
+# 新的问题
+
+这样实现的暗黑模式切换，我在使用一段时间后发现了一个明显的问题，闪屏。即当在一个页面切换到暗色主题后，再进入另一个页面，浏览器会先加载默认的亮色主题，然后再切换到暗色主题，两个暗色页面之间的短暂亮色页面就像“闪了一下”，这个闪屏在本地测试的时候几乎不出现，而在网络环境不佳的情况下一定会出现。
+
+其实原因也很简单，我把切换主题的`JavaScript`代码放到了外部的`js`文件中，浏览器在加载页面时会先根据获取到的`HTML+CSS`渲染页面，然后等待`js`文件下载完成并执行切换主题的`JavaScript`代码，加载暗色主题的`CSS`，这个时间差造成了“闪烁”。那么对应的解决方法也很直观，只需把切换主题的代码嵌入到静态的`HTML`页面里，使它在页面加载的时候就执行主题切换，不用再等，也就不存在闪烁了。
+
+```html
+<html>
+    <head></head>
+    <body>
+        <!-- 切换主题的Button -->
+        <button id="topbar_btn_theme">Change theme</button>
+        <!-- 切换主题的JavaScript -->
+        <script>
+            function checkTheme() {
+                try {
+                    const THEME_DAY = "0";
+                    const THEME_NIGHT = "1";
+                    const KEY_THEME = "theme";
+                    var savedTheme = localStorage.getItem(KEY_THEME);
+                    console.log("saved theme = " + savedTheme);
+                    // 注意，这里要对body添加class，必须在这个<body></body>里面或之后执行，否则是获取不到body的Element的
+                    var bodyE = document.getElementsByTagName(`body`)[0];
+                    if (savedTheme == THEME_NIGHT) {
+                        bodyE.classList.add(`dark`);
+                        showThemeDark(true);
+                    } else {
+                        showThemeDark(false);
+                    }
+                    // 注意，这里要对切换主题的Button设置监听事件，必须在这个Button加载后才能获取到它的Element
+                    var btnTheme = document.getElementById('topbar_btn_theme')
+                    if (btnTheme != null) {
+                        btnTheme.addEventListener('click', () => {
+                            if (bodyE.classList.contains(`dark`)) {
+                                bodyE.classList.remove(`dark`);
+                                showThemeDark(false);
+                                localStorage.setItem(KEY_THEME, THEME_DAY);
+                            } else {
+                                bodyE.classList.add(`dark`);
+                                showThemeDark(true);
+                                localStorage.setItem(KEY_THEME, THEME_NIGHT);
+                            }
+                        });
+                    }
+                } catch (e) {
+                    console.log("catch e = " + e.message);
+                }
+            }
+
+
+            function showThemeDark(dark) {
+                const btnTheme = document.getElementById('topbar_btn_theme')
+                if (btnTheme == null) return;
+                if (dark) {
+                    btnTheme.innerHTML = "light_mode";
+                } else {
+                    btnTheme.innerHTML = "dark_mode";
+                }
+            }
+
+            // 在body中立即执行Theme切换检查，这样每次页面加载，都会执行一次主题检查
+            // 包括修改主题后退回上一个页面的操作，上一个页面会自动更新为新的主题
+            checkTheme()
+        </script>
+    
+    <body>
+</html>
+```
+
+这样其实也解决了另一个问题，当从页面A进入到页面B，切换了主题，此时再退回页面A，因为这段`JavaScript`代码会在页面A加载时再次执行，就可以检测到页面B修改了主题，并立即应用在页面A上，让整个站点的主题保持一致。
