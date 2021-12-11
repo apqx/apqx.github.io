@@ -10224,6 +10224,7 @@ h1 {
   text-transform: inherit;
   /* @alternate */
   text-transform: var(--mdc-typography-headline4-text-transform, inherit);
+  font-size: 1.6rem;
 }
 
 h2 {
@@ -10251,6 +10252,7 @@ h2 {
   text-transform: inherit;
   /* @alternate */
   text-transform: var(--mdc-typography-headline5-text-transform, inherit);
+  font-size: 1.3rem;
 }
 
 h1, h2, h3, h4, h5, h6 {
