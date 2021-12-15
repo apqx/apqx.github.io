@@ -8,151 +8,166 @@ import { MDCList } from '@material/list';
 import { MDCTextField } from '@material/textfield';
 import { MDCLinearProgress } from '@material/linear-progress';
 
+var searchDialogProgressbar = null
 
-// 为fab添加ripple动画
-try {
-    var fabE = document.querySelector('.mdc-fab');
-    if (fabE != null) {
-        const fabRipple = new MDCRipple(fabE);
+if(document.readyState !== 'loading') {
+    runOnStart();
+} else {
+    // HTML元素加载完成，但是CSS等资源还未加载
+    document.addEventListener('DOMContentLoaded', (event) => {
+        runOnStart();
+    });
+}
+
+function runOnStart() {
+    initFab();
+    initDrawer();
+    initAboutMeDialog();
+    initSearchDialog();
+}
+
+/**
+ * 初始化Floating Action Button，点击回到顶部
+ */
+function initFab() {
+    // 为fab添加ripple动画
+    try {
+        var fabE = document.querySelector('.mdc-fab');
+        if (fabE != null) {
+            const fabRipple = new MDCRipple(fabE);
+        }
+    } catch (e) {
+        console.log("fab catch e = " + e.message);
     }
-} catch (e) {
-    console.log("fab catch e = " + e.message);
-}
-
-try {
-    const fabUp = document.getElementById('fabUp');
-    fabUp.addEventListener('click', () => {
-        console.log("click fab");
-    });
-} catch (e) {
-    console.log("catch e = " + e.message);
-}
-// top app bar, drawer
-var drawer;
-try {
-    const topAppBar = new MDCTopAppBar(document.querySelector('.mdc-top-app-bar'));
-    // 监听menu按钮点击
-    topAppBar.listen('MDCTopAppBar:nav', () => {
-        console.log("click nav menu " + drawer.open);
-        drawer.open = !drawer.open;
-    });
-    drawer = MDCDrawer.attachTo(document.querySelector('.mdc-drawer'));
-    // drawer中的list
-    const listEl = document.querySelector('.mdc-drawer .mdc-deprecated-list');
-    const drawerList = new MDCList(listEl);
-    const mainContentEl = document.querySelector('.main-content');
-    const originalSelectedItem = drawerList.selectedIndex
-    console.log("originalSelectedItem " + originalSelectedItem);
-    drawerList.listen('MDCList:action', (event) => {
-        // 获取点击的item索引
-        console.log("click drawer list item " + event.detail.index);
-        // 点击会跳转到新的页面，但是当前页面应该保持，还原到原来的选中状态
-        drawerList.selectedIndex = originalSelectedItem
-        if (event.detail.index > 4) {
-            // 点击了除 索引组 之外的item，关闭drawer
-            drawer.open = false;
-        } else {
-            // 点击了 索引组 的item，不要关闭Drawer，可能会因为页面跳转Deawer的状态无法还原成close，导致再退回到跳转前的页面时，drawer状态不对，无法打开drawer
-        }
-    });
-
-} catch (e) {
-    console.log("catch e = " + e.message);
-}
-
-function getCookie(cname) {
-    let name = cname + "=";
-    let ca = document.cookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
+    // 点击回到顶部
+    try {
+        const fabUp = document.getElementById('fabUp');
+        fabUp.addEventListener('click', () => {
+            console.log("click fab");
+        });
+    } catch (e) {
+        console.log("catch e = " + e.message);
     }
-    return "";
 }
 
-function setCookie(cname, cvalue, exdays) {
-    const d = new Date();
-    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-    let expires = "expires=" + d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+
+/**
+ * 初始化Top app bar，Drawer
+ */
+function initDrawer() {
+    var drawer;
+    try {
+        var topAppBar = new MDCTopAppBar(document.querySelector('.mdc-top-app-bar'));
+        // 监听menu按钮点击
+        topAppBar.listen('MDCTopAppBar:nav', () => {
+            console.log("click nav menu " + drawer.open);
+            drawer.open = !drawer.open;
+        });
+        drawer = MDCDrawer.attachTo(document.querySelector('.mdc-drawer'));
+        // drawer中的list
+        var listEl = document.querySelector('.mdc-drawer .mdc-deprecated-list');
+        var drawerList = new MDCList(listEl);
+        var mainContentEl = document.querySelector('.main-content');
+        var originalSelectedItem = drawerList.selectedIndex
+        console.log("originalSelectedItem " + originalSelectedItem);
+        drawerList.listen('MDCList:action', (event) => {
+            // 获取点击的item索引
+            console.log("click drawer list item " + event.detail.index);
+            // 点击会跳转到新的页面，但是当前页面应该保持，还原到原来的选中状态
+            drawerList.selectedIndex = originalSelectedItem
+            if (event.detail.index > 4) {
+                // 点击了除 索引组 之外的item，关闭drawer
+                drawer.open = false;
+            } else {
+                // 点击了 索引组 的item，不要关闭Drawer，可能会因为页面跳转Deawer的状态无法还原成close，导致再退回到跳转前的页面时，drawer状态不对，无法打开drawer
+            }
+        });
+    
+    } catch (e) {
+        console.log("catch e = " + e.message);
+    }
 }
 
-// 关于我dialog
-try {
-    const aboutMeDialog = new MDCDialog(document.getElementById('about_me_dialog'));
-    aboutMeDialog.listen('MDCDialog:opened', () => {
-        // Dialog弹出时应该让Button获取焦点，避免chip出现选中阴影
-        // 但是Button获取焦点后颜色会变化，所以立即取消焦点
-        var btnCloseE = document.getElementById('about_me_dialog_btn_close');
-        if (btnCloseE != null) {
-            btnCloseE.focus();
-            btnCloseE.blur();
-        }
-    });
-
-    document.getElementById('topbar_btn_about_me').addEventListener('click', () => {
-        console.log("click topbar about me");
-        aboutMeDialog.open();
-        // TODO: 在这里切换黑白主题
-        // document.body.classList.toggle('dark');
-    });
-    // 侧边导航的关于我
-    document.getElementById('drawer-a-about-me').addEventListener('click', () => {
-        console.log("click nav about me");
-        aboutMeDialog.open();
-    });
-
-} catch (e) {
-    console.log("catch e = " + e.message);
+/**
+ * 初始化关于我dialog
+ */
+function initAboutMeDialog() {
+    try {
+        const aboutMeDialog = new MDCDialog(document.getElementById('about_me_dialog'));
+        aboutMeDialog.listen('MDCDialog:opened', () => {
+            // Dialog弹出时应该让Button获取焦点，避免chip出现选中阴影
+            // 但是Button获取焦点后颜色会变化，所以立即取消焦点
+            var btnCloseE = document.getElementById('about_me_dialog_btn_close');
+            if (btnCloseE != null) {
+                btnCloseE.focus();
+                btnCloseE.blur();
+            }
+        });
+    
+        document.getElementById('topbar_btn_about_me').addEventListener('click', () => {
+            console.log("click topbar about me");
+            aboutMeDialog.open();
+            // TODO: 在这里切换黑白主题
+            // document.body.classList.toggle('dark');
+        });
+        // 侧边导航的关于我
+        document.getElementById('drawer-a-about-me').addEventListener('click', () => {
+            console.log("click nav about me");
+            aboutMeDialog.open();
+        });
+    
+    } catch (e) {
+        console.log("catch e = " + e.message);
+    }
 }
 
-// 搜索dialog
-const searchLinearProgress = new MDCLinearProgress(document.querySelector('.mdc-linear-progress'));
-searchLinearProgress.determinate = false;
-searchLinearProgress.close();
-try {
-    const searchDialog = new MDCDialog(document.getElementById('search_dialog'));
-    const searchTextField = new MDCTextField(document.getElementById('text-field-search'));
-    searchDialog.listen('MDCDialog:opened', () => {
-        // Dialog弹出时应该让Button获取焦点，避免chip出现选中阴影
-        // 但是Button获取焦点后颜色会变化，所以立即取消焦点
-        var btnCloseE = document.getElementById('search_dialog_btn_close');
-        if (btnCloseE != null) {
-            btnCloseE.focus();
-            btnCloseE.blur();
-        }
-    });
-    searchDialog.listen('MDCDialog:closing', () => {
-        removeSearchResult();
-        searchTextField.value = "";
-    });
-    // document.getElementById('topbar_btn_search').addEventListener('click', () => {
-    //     console.log("click topbar search");
-    //     searchDialog.open();
-    // });
-    // 侧边导航的搜索
-    document.getElementById('drawer-a-search').addEventListener('click', () => {
-        console.log("click nav search");
-        searchDialog.open();
-    });
-
-    document.getElementById('btn_search').addEventListener('click', () => {
-        console.log("click search " + searchTextField.value);
-
-        if (searchTextField.value != "") {
-            search(searchTextField.value, 1);
-        } else {
+/**
+ * 初始化搜索Dialog
+ * TODO: 切换搜索结果页的时候自动滚动到结果列表顶部
+ */
+function initSearchDialog() {
+    searchDialogProgressbar = new MDCLinearProgress(document.getElementById('search-progress-bar'));
+    searchDialogProgressbar.determinate = false;
+    searchDialogProgressbar.close();
+    try {
+        var searchDialog = new MDCDialog(document.getElementById('search_dialog'));
+        var searchTextField = new MDCTextField(document.getElementById('text-field-search'));
+        searchDialog.listen('MDCDialog:opened', () => {
+            // Dialog弹出时应该让Button获取焦点，避免chip出现选中阴影
+            // 但是Button获取焦点后颜色会变化，所以立即取消焦点
+            var btnCloseE = document.getElementById('search_dialog_btn_close');
+            if (btnCloseE != null) {
+                btnCloseE.focus();
+                btnCloseE.blur();
+            }
+        });
+        searchDialog.listen('MDCDialog:closing', () => {
             removeSearchResult();
-        }
-
-    });
-} catch (e) {
-    console.log("catch e = " + e.message);
+            searchTextField.value = "";
+        });
+        // document.getElementById('topbar_btn_search').addEventListener('click', () => {
+        //     console.log("click topbar search");
+        //     searchDialog.open();
+        // });
+        // 侧边导航的搜索
+        document.getElementById('drawer-a-search').addEventListener('click', () => {
+            console.log("click nav search");
+            searchDialog.open();
+        });
+    
+        document.getElementById('btn_search').addEventListener('click', () => {
+            console.log("click search " + searchTextField.value);
+    
+            if (searchTextField.value != "") {
+                search(searchTextField.value, 1);
+            } else {
+                removeSearchResult();
+            }
+    
+        });
+    } catch (e) {
+        console.log("catch e = " + e.message);
+    }
 }
 
 /**
@@ -161,10 +176,10 @@ try {
  * @param {*} startIndex 每页10个，本次请求的起始索引，从1开始
  */
 function search(key, startIndex) {
-    const request = new Request('https://customsearch.googleapis.com/customsearch/v1?cx=b74f06c1723da9656&exactTerms=' + key + '&key=AIzaSyDYDqedqxaV6Qfv2i8OWpcS0phD-G2WDcg&start=' + startIndex, {
+    var request = new Request('https://customsearch.googleapis.com/customsearch/v1?cx=b74f06c1723da9656&exactTerms=' + key + '&key=AIzaSyDYDqedqxaV6Qfv2i8OWpcS0phD-G2WDcg&start=' + startIndex, {
         method: 'GET'
     });
-    searchLinearProgress.open();
+    searchDialogProgressbar.open();
     fetch(request)
         .then(response => {
             if (response.status === 200) {
@@ -185,7 +200,7 @@ function search(key, startIndex) {
 
 
 function removeSearchResult() {
-    searchLinearProgress.close();
+    searchDialogProgressbar.close();
     var searchResultWraper = document.getElementById(`search-result-wraper`);
     while (searchResultWraper.firstChild) {
         searchResultWraper.removeChild(searchResultWraper.lastChild);
@@ -193,7 +208,7 @@ function removeSearchResult() {
 }
 
 function showSearchResult(response) {
-    searchLinearProgress.close();
+    searchDialogProgressbar.close();
     // 搜索结果列表
     if (response.searchInformation.totalResults == 0) return;
     var searchResultWraper = document.getElementById(`search-result-wraper`);
@@ -238,6 +253,7 @@ function showSearchResult(response) {
             search(response.queries.request[0].exactTerms, response.queries.nextPage[0].startIndex);
         }
     });
+    // document.getElementById("search-dialog-content").scrollIntoView();
 }
 
 function generateSearchResultNav(currentIndex, totalPageNum) {
