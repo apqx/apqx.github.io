@@ -15,19 +15,27 @@ const POST_TYPE_OPERA = ["opera", "看剧"];
  */
 var tagJson = null;
 
+// 在页面加载完成之后再执行，否则可能获取不到tag的trigger
+window.addEventListener('load', initTagTriggers);
 
-// tag对应的Dialog
-// 获取每一个标记了dialog-trigger的element，查找这个trigger对应的dialog，监听点击事件，弹出dialog
-// 所有tag共用一个dialog
-var dialogsTriggers = document.querySelectorAll('.dialog-trigger');
-
-// 为每一个tag添加点击监听
-for (var triger of dialogsTriggers) {
-    // 获取每一个triger的id，找到它对应的dialogId，和dialog里的listId
-    console.log(triger.id);
-    // 监听trigger的点击事件
-    triger.addEventListener("click", clickTag);
+/**
+ * 初始化tag的点击事件
+ */
+function initTagTriggers() {
+    // tag对应的Dialog
+    // 获取每一个标记了dialog-trigger的element，查找这个trigger对应的dialog，监听点击事件，弹出dialog
+    // 所有tag共用一个dialog
+    var dialogsTriggers = document.querySelectorAll('.dialog-trigger');
+    
+    // 为每一个tag添加点击监听
+    for (var triger of dialogsTriggers) {
+        // 获取每一个triger的id，找到它对应的dialogId，和dialog里的listId
+        console.log(triger.id);
+        // 监听trigger的点击事件
+        triger.addEventListener("click", clickTag);
+    }
 }
+
 
 var tagDialog = null;
 var tagDialogProgressbar = null;
