@@ -8,12 +8,23 @@ import { MDCList } from '@material/list';
 import { MDCTextField } from '@material/textfield';
 import { MDCLinearProgress } from '@material/linear-progress';
 
-window.addEventListener('load', function() {
+var searchDialogProgressbar = null
+
+if(document.readyState !== 'loading') {
+    runOnStart();
+} else {
+    // HTML元素加载完成，但是CSS等资源还未加载
+    document.addEventListener('DOMContentLoaded', (event) => {
+        runOnStart();
+    });
+}
+
+function runOnStart() {
     initFab();
     initDrawer();
     initAboutMeDialog();
     initSearchDialog();
-} );
+}
 
 /**
  * 初始化Floating Action Button，点击回到顶部
@@ -110,16 +121,14 @@ function initAboutMeDialog() {
     }
 }
 
-var searchLinearProgress = null
-
 /**
  * 初始化搜索Dialog
  * TODO: 切换搜索结果页的时候自动滚动到结果列表顶部
  */
 function initSearchDialog() {
-    searchLinearProgress = new MDCLinearProgress(document.querySelector('.mdc-linear-progress'));
-    searchLinearProgress.determinate = false;
-    searchLinearProgress.close();
+    searchDialogProgressbar = new MDCLinearProgress(document.getElementById('search-progress-bar'));
+    searchDialogProgressbar.determinate = false;
+    searchDialogProgressbar.close();
     try {
         var searchDialog = new MDCDialog(document.getElementById('search_dialog'));
         var searchTextField = new MDCTextField(document.getElementById('text-field-search'));
@@ -161,17 +170,16 @@ function initSearchDialog() {
     }
 }
 
-
 /**
  * 
  * @param {*} key 搜索关键字
  * @param {*} startIndex 每页10个，本次请求的起始索引，从1开始
  */
 function search(key, startIndex) {
-    const request = new Request('https://customsearch.googleapis.com/customsearch/v1?cx=b74f06c1723da9656&exactTerms=' + key + '&key=AIzaSyDYDqedqxaV6Qfv2i8OWpcS0phD-G2WDcg&start=' + startIndex, {
+    var request = new Request('https://customsearch.googleapis.com/customsearch/v1?cx=b74f06c1723da9656&exactTerms=' + key + '&key=AIzaSyDYDqedqxaV6Qfv2i8OWpcS0phD-G2WDcg&start=' + startIndex, {
         method: 'GET'
     });
-    searchLinearProgress.open();
+    searchDialogProgressbar.open();
     fetch(request)
         .then(response => {
             if (response.status === 200) {
@@ -192,7 +200,7 @@ function search(key, startIndex) {
 
 
 function removeSearchResult() {
-    searchLinearProgress.close();
+    searchDialogProgressbar.close();
     var searchResultWraper = document.getElementById(`search-result-wraper`);
     while (searchResultWraper.firstChild) {
         searchResultWraper.removeChild(searchResultWraper.lastChild);
@@ -200,7 +208,7 @@ function removeSearchResult() {
 }
 
 function showSearchResult(response) {
-    searchLinearProgress.close();
+    searchDialogProgressbar.close();
     // 搜索结果列表
     if (response.searchInformation.totalResults == 0) return;
     var searchResultWraper = document.getElementById(`search-result-wraper`);

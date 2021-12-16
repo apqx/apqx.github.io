@@ -1,6 +1,17 @@
 import { MDCDialog } from '@material/dialog';
 
-window.addEventListener('load', initImg);
+if(document.readyState !== 'loading') {
+    runOnStart();
+} else {
+    // HTML元素加载完成，但是CSS等资源还未加载
+    document.addEventListener('DOMContentLoaded', (event) => {
+        runOnStart();
+    });
+}
+
+function runOnStart() {
+    initImg();
+}
 
 function initImg() {
     var imgs = document.querySelectorAll('.clickShowOriginalImg');

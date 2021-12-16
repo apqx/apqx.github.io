@@ -6,10 +6,27 @@ import hljs from 'highlight.js/lib/core';
 // import hljs from 'highlight.js';
 import 'highlight.js/styles/androidstudio.css';
 
-window.addEventListener('load', function() {
+// 整个页面已经加载完成，包括CSS等外部资源
+window.addEventListener('load', () => {
+
+});
+// 监听HTML元素加载完成的DOMContentLoaded事件，但是有时候该事件会在设置监听器之前完成，所以这里检查一下是否已经完成了
+if(document.readyState !== 'loading') {
+    console.log("DOMContentLoaded ready before addListener, just init");
+    runOnStart();
+} else {
+    console.log("DOMContentLoaded not ready before addListener, so add listener");
+    // HTML元素加载完成，但是CSS等资源还未加载
+    document.addEventListener('DOMContentLoaded', (event) => {
+        console.log("DOMContentLoaded listener get called, so start init");
+        runOnStart();
+    });
+}
+
+function runOnStart() {
     initHljs();
     initViews();
-});
+}
 
 function initHljs() {
     hljs.registerLanguage('bash', require('highlight.js/lib/languages/bash'));

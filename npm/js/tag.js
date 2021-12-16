@@ -15,8 +15,22 @@ const POST_TYPE_OPERA = ["opera", "看剧"];
  */
 var tagJson = null;
 
-// 在页面加载完成之后再执行，否则可能获取不到tag的trigger
-window.addEventListener('load', initTagTriggers);
+var tagDialog = null;
+var tagDialogProgressbar = null;
+var tagEssayList = null;
+
+if(document.readyState !== 'loading') {
+    runOnStart();
+} else {
+    // HTML元素加载完成，但是CSS等资源还未加载
+    document.addEventListener('DOMContentLoaded', (event) => {
+        runOnStart();
+    });
+}
+
+function runOnStart() {
+    initTagTriggers()
+}
 
 /**
  * 初始化tag的点击事件
@@ -35,11 +49,6 @@ function initTagTriggers() {
         triger.addEventListener("click", clickTag);
     }
 }
-
-
-var tagDialog = null;
-var tagDialogProgressbar = null;
-var list = null;
 
 function clickTag() {
     // TODO: 为什么使用event.target.id不可以？？
@@ -66,7 +75,7 @@ function clickTag() {
         tagDialogProgressbar.determinate = false;
         tagDialogProgressbar.close();
         var listEl = document.getElementById(listId);
-        list = new MDCList(listEl);
+        tagEssayList = new MDCList(listEl);
         // 监听dialog的弹出事件
         tagDialog.listen('MDCDialog:opened', () => {
             console.log("tag dialog opened");
@@ -77,7 +86,7 @@ function clickTag() {
             document.getElementById(btnId).blur();
         });
         // 点击列表中的item后，关闭Dialog
-        list.listen('MDCList:action', () => {
+        tagEssayList.listen('MDCList:action', () => {
             console.log("click tagList item");
             // dialog.close();
         });
@@ -327,7 +336,7 @@ function showTagItemList(tagJson, tag, listId, postType) {
         ulList.appendChild(generateItem(post, itemPostType));
     }
     // List的点击动画
-    list.listElements.map((listItemEl) => new MDCRipple(listItemEl));
+    tagEssayList.listElements.map((listItemEl) => new MDCRipple(listItemEl));
 
 }
 
