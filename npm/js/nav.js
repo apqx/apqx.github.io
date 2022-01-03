@@ -44,11 +44,20 @@ function initFab() {
         const fabUp = document.getElementById('fabUp');
         fabUp.addEventListener('click', () => {
             console.log("click fab");
+            scrollToTop()
         });
     } catch (e) {
         console.log("catch e = " + e.message);
     }
 }
+
+function scrollToTop() {
+    const c = document.documentElement.scrollTop || document.body.scrollTop;
+    if (c > 0) {
+        window.requestAnimationFrame(scrollToTop);
+        window.scrollTo(0, c - c / 8);
+    } 
+};
 
 
 /**
