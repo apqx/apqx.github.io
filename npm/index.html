@@ -4,78 +4,28 @@
 <head>
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="apqx.css">
-  <script src="apqx.js" async></script>
+  <link rel="stylesheet" href="dist/apqx.css">
+  <script src="dist/apqx.js" async></script>
 </head>
 
 <body>
-
-  <header class="mdc-top-app-bar" id="top_app_bar">
+  <header class="mdc-top-app-bar">
     <div class="mdc-top-app-bar__row">
       <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-        <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">menu</button>
-        <!-- <span class="mdc-top-app-bar__title">标题</span> -->
+        <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button" aria-label="Open navigation menu">menu</button>
+        <span class="mdc-top-app-bar__title">Page title</span>
       </section>
-
       <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
-        <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="About me"
-          id="topbar_btn_about_me">account_circle</button>
+        <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Favorite">favorite</button>
+        <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Search">search</button>
+        <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Options">more_vert</button>
       </section>
     </div>
   </header>
-  <aside class="mdc-drawer mdc-drawer--modal">
-    <div class="mdc-drawer__header">
-      <h3 class="mdc-drawer__title"></h3>
-      <h6 class="mdc-drawer__subtitle"></h6>
-    </div>
-    <div class="mdc-drawer__header">
-      <h3 class="mdc-drawer__title">立泉の写字板</h3>
-      <h6 class="mdc-drawer__subtitle">https://apqx.me</h6>
-    </div>
-    <div class="mdc-drawer__content">
-      <nav class="mdc-deprecated-list">
-        <a class="mdc-deprecated-list-item
-          mdc-deprecated-list-item--activated" href="{{ " /index.html " }}"
-          aria-selected="true" tabindex="0">
-  
-          <span class="mdc-deprecated-list-item__ripple"></span>
-          <i class="material-icons mdc-deprecated-list-item__graphic" aria-hidden="true">lightbulb</i>
-          <span class="mdc-deprecated-list-item__text">随笔</span>
-        </a>
-        <a class="mdc-deprecated-list-item" href="{{ "
-          /index-repost.html " }}">
-          <span class="mdc-deprecated-list-item__ripple"></span>
-          <i class="material-icons mdc-deprecated-list-item__graphic" aria-hidden="true">share</i>
-          <span class="mdc-deprecated-list-item__text">转载</span>
-        </a>
-        <a class="mdc-deprecated-list-item" id="drawer-a-about-me">
-          <span class="mdc-deprecated-list-item__ripple"></span>
-          <i class="material-icons mdc-deprecated-list-item__graphic" aria-hidden="true">face</i>
-          <span class="mdc-deprecated-list-item__text">关于我</span>
-        </a>
-  
-        <hr class="mdc-deprecated-list-divider">
-        <h6 class="mdc-deprecated-list-group__subheader">工具</h6>
-        <a class="mdc-deprecated-list-item" href="#">
-          <span class="mdc-deprecated-list-item__ripple"></span>
-          <i class="material-icons mdc-deprecated-list-item__graphic" aria-hidden="true">rss_feed</i>
-          <span class="mdc-deprecated-list-item__text">RSS订阅</span>
-        </a>
-        <a class="mdc-deprecated-list-item" href="#">
-          <span class="mdc-deprecated-list-item__ripple"></span>
-          <i class="material-icons mdc-deprecated-list-item__graphic" aria-hidden="true">qr_code_2</i>
-          <span class="mdc-deprecated-list-item__text">本页二维码</span>
-        </a>
-        <a class="mdc-deprecated-list-item" href="#">
-          <span class="mdc-deprecated-list-item__ripple"></span>
-          <i class="material-icons mdc-deprecated-list-item__graphic" aria-hidden="true">insert_link</i>
-          <span class="mdc-deprecated-list-item__text">本页链接</span>
-        </a>
-      </nav>
-    </div>
-  </aside>
+  <main class="mdc-top-app-bar--fixed-adjust">
+    App content
+  </main>
 
-  <div class="mdc-drawer-scrim"></div>
   <main class="mdc-top-app-bar--fixed-adjust main-container">
 
     <div class="mdc-card essay-card-light mdc-theme--primary-bg mdc-theme--on-primary">

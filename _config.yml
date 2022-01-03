@@ -16,7 +16,8 @@ twitter_username: GuodongYuan
 github_username:  apqx
 
 exclude: [npm/node_modules/, npm/scss/, npm/js/, npm/index.html, 
-npm/package-lock.json, npm/package.json, npm/README.md, npm/webpack.config.js]
+npm/package-lock.json, npm/package.json, npm/README.md, npm/webpack.config.js,
+docs/, README.md]
 
 # Url output
 permalink: /post/:categories/:year/:month/:day/:title:output_ext

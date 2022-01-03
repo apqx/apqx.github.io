@@ -53,9 +53,8 @@
 // 组件层级，似乎可以动态
 @use "@material/elevation";
 @use "@material/elevation/mdc-elevation";
-@use '@material/chips';
-@use '@material/chips/chip';
-@use '@material/chips/chip-set';
+@use "@material/chips";
+@use "@material/chips/styles";
 
 @use "@material/data-table/data-table";
 @use "@material/data-table/data-table-theme";
@@ -86,12 +85,7 @@
 @use "@material/linear-progress/mdc-linear-progress";
 
 @use "@material/animation";
-
-
-// chip和list类似，处于版本迭代过程，有deprecated标记，暂时只能这样引入
-@include chip.core-styles;
-@include chip-set.core-styles;
-
+@use "@material/ripple";
 
 // 通过js给body添加dark class，可以实现对mac-theme的参数更改
 // 大部分组件都会正确相应颜色变化，但是list和chip却无效
@@ -191,8 +185,6 @@ footer a {
     // footer总高度100px，指定整个copyright高度60px
     height: 30px;
 }
-
-
 
 /* 文章题目 */
 .essay-title {
@@ -462,6 +454,15 @@ p em code {
     @include button.container-fill-color(map.get(colors.$theme-dark, "chip-bg"));
 }
 
+.btn-tag .mdc-button__ripple {
+    @include ripple.states(map.get(colors.$theme-light, "search_nav"), true);
+}
+
+.dark .btn-tag .mdc-button__ripple {
+    @include ripple.states(map.get(colors.$theme-dark, "search_nav"), true);
+}
+
+
 .btn-search {
     @include button.ink-color(map.get(colors.$theme-light, "chip-ink"));
     @include button.container-fill-color(map.get(colors.$theme-light, "chip-bg"));
@@ -580,7 +581,7 @@ p.search-result-item-snippet b {
 
 main.main-container {
     // 淡入动画
-    // animation: animation.enter(/* $name: */ fade-in, /* $duration: */ 400ms);
+    // animation: animation.enter(/* $name: */ fade-in, /* $duration: */ 600ms);
 }
 
 @keyframes fade-in {
@@ -631,6 +632,10 @@ main.main-container {
     @include top-app-bar.fill-color(map.get(colors.$theme-dark, "top-bar"));
     // 阴影
     @include elevation.elevation(10, map.get(colors.$theme-dark, "background"), 0);
+}
+
+.mdc-top-app-bar .mdc-icon-button__ripple {
+    @include ripple.states(white, true);
 }
 
 .mdc-drawer {

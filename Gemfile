@@ -1,4 +1,4 @@
-source "https://mirrors.aliyun.com/rubygems/"
+source "https://rubygems.org"
 
 gem "jekyll"
 # 必要时用rbenv指定工程使用的ruby版本，与系统级版本分离
@@ -10,5 +10,5 @@ group :jekyll_plugins do
   gem "jekyll-feed"
   gem "jekyll-sitemap"
   gem "kramdown", ">= 2.3.1"
-  gem 'jekyll-redirect-from'
+  gem "jekyll-redirect-from"
 end
