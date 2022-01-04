@@ -73,6 +73,14 @@ function initViews() {
         new MDCRipple(btn)
     }
 
+    for (const iconBtn of document.querySelectorAll('.mdc-icon-button')) {
+        iconBtn.addEventListener('click', () => {
+            console.log("click icon btn")
+        })
+        // 这里不能再设置MDCRipple
+        // new MDCRipple(iconBtn).unbounded = false
+    }
+
 
     // 初始化chipSet
     var chipsetEs = document.querySelectorAll('.mdc-evolution-chip-set')

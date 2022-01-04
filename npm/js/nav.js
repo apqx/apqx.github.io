@@ -1,5 +1,4 @@
 // 处理导航相关
-
 import { MDCDialog } from '@material/dialog'
 import { MDCTopAppBar } from '@material/top-app-bar'
 import { MDCRipple } from '@material/ripple'
@@ -7,10 +6,11 @@ import { MDCDrawer } from "@material/drawer"
 import { MDCList } from '@material/list'
 import { MDCTextField } from '@material/textfield'
 import { MDCLinearProgress } from '@material/linear-progress'
+import { MDCIconButtonToggle } from '@material/icon-button';
 
 var searchDialogProgressbar = null
 
-if(document.readyState !== 'loading') {
+if (document.readyState !== 'loading') {
     runOnStart()
 } else {
     // HTML元素加载完成，但是CSS等资源还未加载
@@ -20,10 +20,59 @@ if(document.readyState !== 'loading') {
 }
 
 function runOnStart() {
+    initTheme()
     initFab()
     initDrawer()
     initAboutMeDialog()
     initSearchDialog()
+}
+
+function initTheme() {
+    try {
+        const THEME_DAY = "0";
+        const THEME_NIGHT = "1";
+        const KEY_THEME = "theme";
+
+        var savedTheme = localStorage.getItem(KEY_THEME);
+        console.log("saved theme = " + savedTheme);
+        var bodyE = document.getElementsByTagName(`body`)[0];
+        var btnTheme = document.getElementById('topbar_btn_theme')
+        var iconToggle = new MDCIconButtonToggle(btnTheme)
+        if (savedTheme == THEME_NIGHT) {
+            bodyE.classList.add(`dark`);
+            showThemeDark(true, iconToggle);
+        } else {
+            showThemeDark(false, iconToggle);
+        }
+        if (btnTheme != null) {
+            btnTheme.addEventListener('click', () => {
+                if (bodyE.classList.contains(`dark`)) {
+                    bodyE.classList.remove(`dark`);
+                    showThemeDark(false, iconToggle);
+                    // setCookie(KEY_THEME, THEME_DAY, 30);
+                    localStorage.setItem(KEY_THEME, THEME_DAY);
+                } else {
+                    bodyE.classList.add(`dark`);
+                    showThemeDark(true, iconToggle);
+                    // setCookie(KEY_THEME, THEME_NIGHT, 30);
+                    localStorage.setItem(KEY_THEME, THEME_NIGHT);
+                }
+            });
+        }
+
+    } catch (e) {
+        console.log("catch e = " + e.message);
+    }
+}
+
+/**
+ * 设置ThemeButton显示的图标，是否显示暗黑页面对应的要切换到亮色主题的图标
+ * 
+ * @param {Boolean} dark 
+ * @param {MDCIconButtonToggle} iconToggle 
+ */
+function showThemeDark(dark, iconToggle) {
+    iconToggle.on = dark
 }
 
 /**
@@ -56,7 +105,7 @@ function scrollToTop() {
     if (c > 0) {
         window.requestAnimationFrame(scrollToTop)
         window.scrollTo(0, c - c / 8)
-    } 
+    }
 }
 
 
@@ -91,7 +140,7 @@ function initDrawer() {
                 // 点击了 索引组 的item，不要关闭Drawer，可能会因为页面跳转Deawer的状态无法还原成close，导致再退回到跳转前的页面时，drawer状态不对，无法打开drawer
             }
         })
-    
+
     } catch (e) {
         console.log("catch e = " + e.message)
     }
@@ -112,7 +161,7 @@ function initAboutMeDialog() {
                 btnCloseE.blur()
             }
         })
-    
+
         document.getElementById('topbar_btn_about_me').addEventListener('click', () => {
             console.log("click topbar about me")
             aboutMeDialog.open()
@@ -124,7 +173,7 @@ function initAboutMeDialog() {
             console.log("click nav about me")
             aboutMeDialog.open()
         })
-    
+
     } catch (e) {
         console.log("catch e = " + e.message)
     }
@@ -163,16 +212,16 @@ function initSearchDialog() {
             console.log("click nav search")
             searchDialog.open()
         })
-    
+
         document.getElementById('btn_search').addEventListener('click', () => {
             console.log("click search " + searchTextField.value)
-    
+
             if (searchTextField.value != "") {
                 search(searchTextField.value, 1)
             } else {
                 removeSearchResult()
             }
-    
+
         })
     } catch (e) {
         console.log("catch e = " + e.message)
@@ -284,7 +333,7 @@ function generateSearchResultNav(currentIndex, totalPageNum) {
 
 function generateSearchResultNavBtn(left) {
     var btn = document.createElement(`button`)
-    btn.setAttribute(`class`, `mdc-button btn-search-result-nav mdc-ripple-upgraded mdc-button--outlined mdc-button--unelevated`)
+    btn.setAttribute(`class`, `mdc-button btn-search-result-nav mdc-ripple-upgraded mdc-button--outlined`)
     var spanRipple = document.createElement(`span`)
     spanRipple.setAttribute(`class`, `mdc-button__ripple`)
     var i = document.createElement(`i`)

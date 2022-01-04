@@ -2,15 +2,25 @@
 <header class="mdc-top-app-bar" id="top_app_bar">
   <div class="mdc-top-app-bar__row">
     <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-      <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">menu</button>
+      <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">
+        <div class="mdc-icon-button__ripple"></div>
+        menu
+      </button>
       <!-- <span class="mdc-top-app-bar__title">HI</span> -->
     </section>
 
     <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
       <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Theme"
-        id="topbar_btn_theme">dark_mode</button>
+        id="topbar_btn_theme" aria-pressed="false">
+        <div class="mdc-icon-button__ripple"></div>
+        <i class="material-icons mdc-icon-button__icon mdc-icon-button__icon--on">light_mode</i>
+        <i class="material-icons mdc-icon-button__icon">dark_mode</i>
+      </button>
       <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="About me"
-        id="topbar_btn_about_me">account_circle</button>
+        id="topbar_btn_about_me">
+        <div class="mdc-icon-button__ripple"></div>
+        account_circle
+      </button>
     </section>
   </div>
 </header>
@@ -107,39 +117,46 @@
         <h1 class="about-me-name">立泉</h1>
 
         <span>
-          <span class="mdc-evolution-chip" role="row" id="about_me_chips">
+          <span class="mdc-evolution-chip" role="row">
             <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
-              <span class="mdc-evolution-chip__action mdc-evolution-chip__action--primary" type="button">
+              <button class="mdc-evolution-chip__action mdc-evolution-chip__action--primary" type="button">
+                <span class="mdc-evolution-chip__ripple mdc-evolution-chip__ripple--primary"></span>
+                <span class="mdc-evolution-chip__text-label">C++</span>
+              </button>
+            </span>
+          </span>
+          <span class="mdc-evolution-chip" role="row">
+            <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
+              <button class="mdc-evolution-chip__action mdc-evolution-chip__action--primary" type="button">
                 <span class="mdc-evolution-chip__ripple mdc-evolution-chip__ripple--primary"></span>
                 <span class="mdc-evolution-chip__text-label">Java</span>
-              </span>
+              </button>
             </span>
           </span>
           <span class="mdc-evolution-chip" role="row">
             <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
-              <span class="mdc-evolution-chip__action mdc-evolution-chip__action--primary" type="button">
+              <button class="mdc-evolution-chip__action mdc-evolution-chip__action--primary" type="button">
                 <span class="mdc-evolution-chip__ripple mdc-evolution-chip__ripple--primary"></span>
                 <span class="mdc-evolution-chip__text-label">Kotlin</span>
-              </span>
+              </button>
             </span>
           </span>
           <span class="mdc-evolution-chip" role="row">
             <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
-              <span class="mdc-evolution-chip__action mdc-evolution-chip__action--primary" type="button">
+              <button class="mdc-evolution-chip__action mdc-evolution-chip__action--primary" type="button">
                 <span class="mdc-evolution-chip__ripple mdc-evolution-chip__ripple--primary"></span>
                 <span class="mdc-evolution-chip__text-label">Android</span>
-              </span>
+              </button>
             </span>
           </span>
           <span class="mdc-evolution-chip" role="row">
             <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
-              <span class="mdc-evolution-chip__action mdc-evolution-chip__action--primary" type="button" tabindex="0">
+              <button class="mdc-evolution-chip__action mdc-evolution-chip__action--primary" type="button" tabindex="0">
                 <span class="mdc-evolution-chip__ripple mdc-evolution-chip__ripple--primary"></span>
                 <span class="mdc-evolution-chip__text-label">Git</span>
-              </span>
+              </button>
             </span>
           </span>
-
         </span>
 
         <p class="about-me-description">九五后，旅居杭州，<a href="{% link _posts/original/2019-05-18-槐安国内春生酒.md %}"

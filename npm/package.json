@@ -4,22 +4,22 @@
     "start": "webpack serve"
   },
   "dependencies": {
-    "@material/animation": "^11.0.0",
-    "@material/button": "^11.0.0",
-    "@material/card": "^11.0.0",
-    "@material/chips": "^11.0.0",
-    "@material/data-table": "^11.0.0",
-    "@material/dialog": "^11.0.0",
-    "@material/drawer": "^11.0.0",
-    "@material/elevation": "^11.0.0",
-    "@material/fab": "^11.0.0",
-    "@material/icon-button": "^11.0.0",
-    "@material/linear-progress": "^11.0.0",
-    "@material/list": "^11.0.0",
-    "@material/textfield": "^11.0.0",
-    "@material/theme": "^11.0.0",
-    "@material/top-app-bar": "^11.0.0",
-    "@material/typography": "^11.0.0",
+    "@material/animation": "^13.0.0",
+    "@material/button": "^13.0.0",
+    "@material/card": "^13.0.0",
+    "@material/chips": "^13.0.0",
+    "@material/data-table": "^13.0.0",
+    "@material/dialog": "^13.0.0",
+    "@material/drawer": "^13.0.0",
+    "@material/elevation": "^13.0.0",
+    "@material/fab": "^13.0.0",
+    "@material/icon-button": "^13.0.0",
+    "@material/linear-progress": "^13.0.0",
+    "@material/list": "^13.0.0",
+    "@material/textfield": "^13.0.0",
+    "@material/theme": "^13.0.0",
+    "@material/top-app-bar": "^13.0.0",
+    "@material/typography": "^13.0.0",
     "highlight.js": "^10.7.3",
     "jquery": "^3.6.0",
     "qrcode": "^1.4.4"
@@ -38,6 +38,6 @@
     "style-loader": "^2.0.0",
     "webpack": "^5.36.2",
     "webpack-cli": "^4.7.0",
-    "webpack-dev-server": "^3.11.2"
+    "webpack-dev-server": "^4.7.2"
   }
 }
