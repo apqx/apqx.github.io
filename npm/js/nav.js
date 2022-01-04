@@ -189,7 +189,8 @@ function initSearchDialog() {
     searchDialogProgressbar.close()
     try {
         var searchDialog = new MDCDialog(document.getElementById('search_dialog'))
-        var searchTextField = new MDCTextField(document.getElementById('text-field-search'))
+        var searchTextFieldE = document.getElementById('text-field-search')
+        var searchTextField = new MDCTextField(searchTextFieldE)
         searchDialog.listen('MDCDialog:opened', () => {
             // Dialog弹出时应该让Button获取焦点，避免chip出现选中阴影
             // 但是Button获取焦点后颜色会变化，所以立即取消焦点
@@ -214,17 +215,29 @@ function initSearchDialog() {
         })
 
         document.getElementById('btn_search').addEventListener('click', () => {
-            console.log("click search " + searchTextField.value)
-
-            if (searchTextField.value != "") {
-                search(searchTextField.value, 1)
-            } else {
-                removeSearchResult()
-            }
+            checkToSearch(searchTextField.value)
+        })
+        searchTextFieldE.addEventListener('keyup', (event) => {
+            if (event.key == "Enter")
+                checkToSearch(searchTextField.value)
 
         })
     } catch (e) {
         console.log("catch e = " + e.message)
+    }
+}
+
+/**
+ * 
+ * @param {string} searchValue 
+ */
+function checkToSearch(searchValue) {
+    console.log("click search " + searchValue)
+
+    if (searchValue != "") {
+        search(searchValue, 1)
+    } else {
+        removeSearchResult()
     }
 }
 
