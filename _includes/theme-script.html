@@ -3,15 +3,14 @@
     // 对切换Theme的Button图标的修改放在后面执行，不在这里
     function checkTheme() {
         try {
-            const THEME_DAY = "0";
-            const THEME_NIGHT = "1";
+            const THEME_LIGHT = "0";
+            const THEME_DARK = "1";
             const KEY_THEME = "theme";
 
             var savedTheme = localStorage.getItem(KEY_THEME);
-            console.log("saved theme = " + savedTheme);
             var bodyE = document.getElementsByTagName(`body`)[0];
             // 默认是没有.dark的，在确定是暗黑模式时加上.dark
-            if (savedTheme == THEME_NIGHT) {
+            if (savedTheme == THEME_DARK) {
                 bodyE.classList.add(`dark`);
             }
         } catch (e) {

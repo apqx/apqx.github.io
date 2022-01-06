@@ -8,6 +8,11 @@ import { MDCTextField } from '@material/textfield'
 import { MDCLinearProgress } from '@material/linear-progress'
 import { MDCIconButtonToggle } from '@material/icon-button';
 
+// Theme主题相关常量
+const THEME_LIGHT = "0"
+const THEME_DARK = "1"
+const KEY_THEME = "theme"
+// 搜索框的进度条
 var searchDialogProgressbar = null
 
 if (document.readyState !== 'loading') {
@@ -19,6 +24,9 @@ if (document.readyState !== 'loading') {
     })
 }
 
+// 初始化Chrome/Safari标题栏颜色，立即执行
+checkThemeColor()
+
 function runOnStart() {
     initTheme()
     initFab()
@@ -27,18 +35,13 @@ function runOnStart() {
     initSearchDialog()
 }
 
+
 function initTheme() {
     try {
-        const THEME_DAY = "0";
-        const THEME_NIGHT = "1";
-        const KEY_THEME = "theme";
-
-        var savedTheme = localStorage.getItem(KEY_THEME);
-        console.log("saved theme = " + savedTheme);
         var bodyE = document.getElementsByTagName(`body`)[0];
         var btnTheme = document.getElementById('topbar_btn_theme')
         var iconToggle = new MDCIconButtonToggle(btnTheme)
-        if (savedTheme == THEME_NIGHT) {
+        if (isSavedThemeDark()) {
             bodyE.classList.add(`dark`);
             showThemeDark(true, iconToggle);
         } else {
@@ -46,22 +49,41 @@ function initTheme() {
         }
         if (btnTheme != null) {
             btnTheme.addEventListener('click', () => {
-                if (bodyE.classList.contains(`dark`)) {
-                    bodyE.classList.remove(`dark`);
-                    showThemeDark(false, iconToggle);
-                    // setCookie(KEY_THEME, THEME_DAY, 30);
-                    localStorage.setItem(KEY_THEME, THEME_DAY);
-                } else {
-                    bodyE.classList.add(`dark`);
-                    showThemeDark(true, iconToggle);
-                    // setCookie(KEY_THEME, THEME_NIGHT, 30);
-                    localStorage.setItem(KEY_THEME, THEME_NIGHT);
-                }
+                toggleTheme(bodyE, iconToggle)
             });
         }
+        // 监听系统级主题变化，即系统和导航栏都可以控制主题变化，但是如果用户曾经在导航栏设置过主题，则不响应系统变化？？？
+        // 暂不响应系统级主题变化
+        // window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+        //     var newSysTheme = e.matches ? "dark" : "light";
+        //     console.log("system theme change to " + newSysTheme)
+        //     var newSysThemeChangeToDark = newSysTheme == "dark"
+        //     var isCurrentThemeDark = bodyE.classList.contains(`dark`)
+        //     if(isCurrentThemeDark != newSysThemeChangeToDark) {
+        //         // 响应系统的主题修改，即变化主题
+        //         toggleTheme(bodyE, iconToggle)
+        //     }
+        // });
 
     } catch (e) {
         console.log("catch e = " + e.message);
+    }
+}
+
+/**
+ * 切换主题
+ * @param {Element} bodyE 
+ * @param {MDCIconButtonToggle} iconToggle 
+ */
+function toggleTheme(bodyE, iconToggle) {
+    if (bodyE.classList.contains(`dark`)) {
+        bodyE.classList.remove(`dark`)
+        showThemeDark(false, iconToggle)
+        saveTheme(false)
+    } else {
+        bodyE.classList.add(`dark`)
+        showThemeDark(true, iconToggle)
+        saveTheme(true)
     }
 }
 
@@ -73,8 +95,87 @@ function initTheme() {
  */
 function showThemeDark(dark, iconToggle) {
     iconToggle.on = dark
+    // 当切换主题的时候，检查是否需要修改theme-color
+    // 目前不需要，只切换暗色、亮色主题，而设置的亮色theme-color在系统级暗色主题下无效，还不如直接交给浏览器去自动检测呢
+    // checkBroswerColor(dark)
 }
 
+function isMobileOrTablet() {
+    var check = false
+    var agent = navigator.userAgent || navigator.vendor || window.opera
+    if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i.test(agent) ||
+        /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(agent.substr(0, 4)))
+        check = true
+    console.log("isMobileOrTablet = " + check)
+    return check
+}
+/**
+ * 
+ * @param {Boolean} showThemeDark 
+ */
+function checkThemeColor(showThemeDark) {
+    if (isMobileOrTablet()) {
+        // 在mobile或tablet设备上添加theme-color，无论是暗色还是亮色主题，都设置浏览器标题栏theme-color主题颜色为淡红色
+        // 似乎检测不出iPad，不过没关系
+        // <meta name="theme-color" content="#df696e" />
+        setThemeColor("#df696e")
+    } else {
+        // 在desktop设备上，暗色和亮色主题下，分别设置theme-color为background，若不设置，Safari会自动使用检测到的background颜色作为theme-color
+        // 但是在系统暗色主题下，设置亮色的theme-color是无效的，所以，也就没必要再区分设置了，直接由Safari自动检测就行了
+        // if (showThemeDark) {
+        //     setThemeColor("rgb(32, 33, 36)")
+        // } else {
+        //     setThemeColor("#f7f7f7")
+        // }
+    }
+}
+
+/**
+ * 
+ * @param {String} color 
+ */
+function setThemeColor(color) {
+    console.log("setThemeColor " + color)
+    var themeColorE = null
+    for (const metaE of document.getElementsByTagName("meta")) {
+        if (metaE.getAttribute("name") == "theme-color") {
+            themeColorE = metaE
+            break
+        }
+    }
+    if (themeColorE == null) {
+        themeColorE = document.createElement('meta')
+        themeColorE.setAttribute("name", "theme-color")
+        themeColorE.setAttribute("content", color)
+        document.getElementsByTagName('head')[0].append(themeColorE)
+    } else {
+        themeColorE.setAttribute("content", color)
+        
+    }
+}
+
+
+/**
+ * 本地是否保存了用户设置的暗色主题，默认是没有的，即默认是亮色主题
+ */
+function isSavedThemeDark() {
+    var savedTheme = localStorage.getItem(KEY_THEME)
+    console.log("isSavedThemeDark = " + (savedTheme == THEME_DARK))
+    return savedTheme == THEME_DARK
+}
+
+/**
+ * 保存用户设置的主题
+ * @param {Boolean} isDark 是否是暗色主题
+ */
+function saveTheme(isDark) {
+    console.log("save theme, dark = " + isDark)
+    if (isDark) {
+        localStorage.setItem(KEY_THEME, THEME_DARK)
+    } else {
+        localStorage.setItem(KEY_THEME, THEME_LIGHT)
+    }
+}
 /**
  * 初始化Floating Action Button，点击回到顶部
  */
