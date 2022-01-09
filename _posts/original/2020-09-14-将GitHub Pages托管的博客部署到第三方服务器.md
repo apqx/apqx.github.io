@@ -7,7 +7,7 @@ author: 立泉
 date: 2020-09-14 +0800
 description: 是我的错觉吗？在大陆访问GitHub Pages正变得越来越慢。
 cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20200914/jekyll_project.png
-tags: CS GitHub Jekyll VPS HTTPS
+tags: CS GitHub Jekyll Blog VPS HTTPS
 ---
 
 这个博客是托管在`GitHub Pages`上的，绝对不是我的错觉，它在大陆的访问速度正变得越来越慢了，在一些情况下，甚至需要等待5秒以上才能打开，这是我无法接受的。正如博客的名字，`“立泉の写字板”`，这里是我沉淀知识和阅历的地方，应该在互联网上触手可及，而非莫名其妙的等待。

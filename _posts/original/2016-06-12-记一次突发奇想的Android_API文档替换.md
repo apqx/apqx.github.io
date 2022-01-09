@@ -10,7 +10,7 @@ cover:
 tags: CS Android Java
 ---
 
-在学习`Android`的过程中，自然要使用`Android`系统提供的应用开发接口，即要参阅`Android API`文档来选择需要的接口以调用相应的功能。实际上在`Android SDK`的本地文件夹中就有一份`HTML`版本的`API`文档，可以使用浏览器离线查看，但是当我用浏览器打开这些文档的时候，却发现在联网状态下加载速度极慢，而当断开网络的时候加载速度就正常了。考虑到墙的存在，猜测应该是`HTML`文档中存在需要联网下载的`StyleSheet`或`Javascript`，而要连接的域名十有八九就是`Google`。
+在学习`Android`的过程中，自然要使用`Android`系统提供的应用开发`API`，即要参阅`Android API`文档来选择需要的接口以调用相应的功能。实际上在`Android SDK`的本地文件夹中就有一份`HTML`版本的`API`文档，可以使用浏览器离线查看，但是当我用浏览器打开这些文档的时候，却发现在联网状态下加载速度极慢，而当断开网络的时候加载速度就正常了。考虑到墙的存在，猜测应该是`HTML`文档中存在需要联网下载的`StyleSheet`或`Javascript`，而要连接的域名十有八九就是`Google`。
 
 排查了一会，加载缓慢的元凶就是下面这段代码：
 
@@ -29,9 +29,9 @@ tags: CS Android Java
 </script>
 ```
 
-“正常”情况下无法访问的远程资源，浏览器等待服务器响应直至超时，造成了加载缓慢的现象，所以，删除这部分代码即可使浏览器正常加载，并不会对文档内容造成影响，仅仅是缺少某些不重要交互效果。当然还有一种完美的解决方法，“科学上网”，但是，这种方法在某种程度上说，并不方便。
+“正常”情况下无法访问的远程资源，浏览器等待服务器响应直至超时，造成了加载缓慢的现象，所以，删除这部分代码即可使浏览器正常加载，且不会对文档内容造成影响，仅仅是缺少某些不重要交互效果。当然还有一种完美的解决方法，“科学上网”，但是，这种方法在某种程度上说，并不方便。
 
-我写了下面的一个小程序来处理这几千个HTML文件，即扫描所有文件，一旦发现含有以上代码即删除，然后重新输出回原文件。逐一读写数千个文档是一个相当费时的操作，所幸我并不赶时间。
+我写了下面的一个小程序来扫描这几千个`HTML`文档，一旦发现含有以上代码即删除，然后重新输出回原文件，单线程处理是一个很费时的操作，所幸我并不赶时间。
 
 ```java
 package me.apqx.util;
@@ -47,10 +47,9 @@ import java.util.regex.Pattern;
  */
 public class ChangeFile {
     public static void main(String[] args) {
-        ChangeFile changeFile = new ChangeFile();
         // 文档所在的文件夹
         File file = new File("F:/docs");
-        changeFile.scanFile(file);
+        scanFile(file);
         try {
             Desktop.getDesktop().open(new File(file, "index.html"));
         } catch (IOException e) {
@@ -58,7 +57,7 @@ public class ChangeFile {
         }
     }
 
-    private void scanFile(File file) {
+    private static void scanFile(File file) {
         if (file.isDirectory()){
             File[] list = file.listFiles(new FileFilter() {
                 @Override
@@ -73,6 +72,7 @@ public class ChangeFile {
                 }
             });
             for (File f:list){
+                // 递归
                 scanFile(f);
             }
         } else {
@@ -80,7 +80,7 @@ public class ChangeFile {
         }
     }
     
-    private void changeContent(File file){
+    private static void changeContent(File file){
         BufferedReader bufferedReader = null;
         BufferedWriter bufferedWriter = null;
         try {
