@@ -45,7 +45,7 @@ fun main(args: Array<String>) {
 }
 ```
 
-启动了2个线程，`Thread-1`和`Thread-2`使用同一个`ThreadLocal`对象来分别在各自的线程里读写数据，实际打印日志可以发现，即使`Thread-1`一直在向`ThreadLocal`中写数据，`Thread-2`读到的永远都是`null`，而`Thread-1`却可以正常的读出数据，也就是说，一个线程只能通过`TheadLocal`读取到该线程存储的数据，这就是`ThreadLocal`的功能。
+启动了2个线程，`Thread-1`和`Thread-2`使用同一个`ThreadLocal`对象来分别在各自的线程里读写数据，实际打印日志可以发现，即使`Thread-1`一直在向`ThreadLocal`中写数据，`Thread-2`读到的永远都是`null`，而`Thread-1`却可以正常的读出数据。也就是说，一个线程只能通过`TheadLocal`读取到该线程存储的数据，这就是`ThreadLocal`的功能。
 
 那么它是如何做到的，看一下`ThreadLocal`存取数据的源码就知道了：
 
