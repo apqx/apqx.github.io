@@ -10,7 +10,8 @@ cover:
 tags: CS Google GCE VPS Shadowsocks Linux
 ---
 
-> 更新：有证据表明`GFW`已经可以精准识别`Shadowsocks`的流量特征，仅使用其作为工具可能导致服务器`端口/IP`被封禁，本文内容仅供参考。
+{: class="essay-description"}
+更新：有证据表明`GFW`已经可以精准识别`Shadowsocks`的流量特征，仅使用其作为工具可能导致服务器`端口/IP`被封禁，本文内容仅供参考。
 
 `GCE`(Google Compute Engine)即谷歌计算引擎，是`Google Cloud`的一部分，其实就是云端服务器，最低`VPS`套餐每月5美元，除了北美地区的一些机房流量免费外，其它地区的流量是单独计费的，尤其是流向中国大陆的流量，价格几乎翻倍了。但是，亚洲台湾机房的速度非常快，延迟在`60ms`左右，相比大部分`VPS`供应商动辄`200ms`的延迟，优势非常大，且`Google Cloud`可以免费试用一年，薅了一年羊毛之后，是否继续使用，就要看各自的需求了。
 

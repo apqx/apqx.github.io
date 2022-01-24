@@ -368,6 +368,4 @@ private void finish(Result result) {
 * 同一个`AsyncTask`的不同实例默认是串行执行的，但可以传入自己的`Executor`来改变其行为，比如变为并行
 * `AsyncTask`是可以被中断的，中断后将调用`onCanceled()`返回结果而不是`onPostExecute()`
 
-# 结语
-
-最近越来越喜欢通过阅读源码来分析某些组件的行为特点，之前只知道要使用`AsyncTask`必须这样做，看了源码才知道为什么要这样做。
+最近有点越来越喜欢通过阅读源码来分析某些组件的行为特点，之前只知道要使用`AsyncTask`必须这样做，看了源码才知道为什么要这样做。
