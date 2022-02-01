@@ -10,7 +10,7 @@ cover:
 tags: CS Google DarkMode Blog
 ---
 
-自2016年创建此博客以来，一直使用[Materialize](https://materializecss.com){: target="_blank" }作为网页框架，它实现了符合[Material Design](https://material.io/design){: target="_blank" }规范的几乎所有组件，毫无疑问这是一个很优秀的开源框架。但是因为一些原因，它在三年前发布`v1.0.0`正式版后就不再更新了，而`Material Design`的设计理念本身却在不断进化，从起始时过度强调阴影和层级渐渐变得趋向扁平，所以我觉得，是时候切换到一个更现代、更有活力的`MD`框架了，翻开新的一页。
+自2016年创建此博客以来，一直使用[Materialize](https://materializecss.com){: target="_blank" }作为网页框架，它实现了符合[Material Design](https://material.io/design){: target="_blank" }规范的几乎所有组件，毫无疑问这是一个很优秀的开源框架。但是因为一些原因，它在三年前发布`v1.0.0`正式版后就不再更新了，而`Material Design`的设计理念本身却在不断进化，从起始时过度强调阴影和层级渐渐变得趋向扁平，所以我觉得是时候切换到一个更现代、更有活力的`MD`框架了，翻开新的一页。
 
 我并非`Web`开发者，对`HTML`、`CSS`、`JS`、`NPM`仅仅是浅尝可用，花了些时间，解决了些问题，终于基于`Google`的[Material Design Components](https://github.com/material-components/material-components-web){: target="_blank" }重构了这个[博客小站](https://github.com/apqx/apqx.github.io){: target="_blank" }。刻意继承之前的页面设计，削减阴影，增加色彩，简洁紧凑而不失淡雅，虽还未达到设想中的完美状态，但以我当前的审美来看，十分还是可以给八分的。
 
