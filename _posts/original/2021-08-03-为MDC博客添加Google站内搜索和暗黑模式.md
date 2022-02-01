@@ -10,13 +10,13 @@ cover:
 tags: CS Google DarkMode Blog
 ---
 
-自2016年创建此博客以来，一直使用[Materialize](https://materializecss.com){: target="_blank" }作为网页框架，它实现了符合[Material Design](https://material.io/design){: target="_blank" }规范的几乎所有组件，毫无疑问这是一个很优秀的开源框架。但是因为一些原因，它在三年前发布`v1.0.0`正式版后就不再更新了，而`Material Design`的设计理念本身却在不断进化，从起始时过度强调阴影和层级渐渐变得趋向扁平，所以我觉得，是时候切换到一个更现代、更有活力的`MD`框架了，翻开新的一页。
+自2016年创建此博客以来，一直使用[Materialize](https://materializecss.com){: target="_blank" }作为网页框架，它实现了符合[Material Design](https://material.io/design){: target="_blank" }规范的几乎所有组件，毫无疑问这是一个很优秀的开源框架。但是因为一些原因，它在三年前发布`v1.0.0`正式版后就不再更新了，而`Material Design`的设计理念本身却在不断进化，从起始时过度强调阴影和层级渐渐变得趋向扁平，所以我觉得是时候切换到一个更现代、更有活力的`MD`框架了，翻开新的一页。
 
 我并非`Web`开发者，对`HTML`、`CSS`、`JS`、`NPM`仅仅是浅尝可用，花了些时间，解决了些问题，终于基于`Google`的[Material Design Components](https://github.com/material-components/material-components-web){: target="_blank" }重构了这个[博客小站](https://github.com/apqx/apqx.github.io){: target="_blank" }。刻意继承之前的页面设计，削减阴影，增加色彩，简洁紧凑而不失淡雅，虽还未达到设想中的完美状态，但以我当前的审美来看，十分还是可以给八分的。
 
 # 站内搜索
 
-[Jekyll](https://jekyllrb.com){: target="_blank" }原生支持用`Tag`来分类管理文章，在布局文件中可以轻易的用[Liquid](https://jekyllrb.com/docs/posts/#tags){: target="_blank" }语法获取每一个`Tag`和标记了该`Tag`的文章列表，比如这篇就标记了`CS`、`GoogleSearch`和`DarkMode`3个`Tag`，点击文章顶部的`Chips`就可以看到所有相关联的文章。但是`Tag`毕竟有限，不可能把文章里的每个关键词都设置为`Tag`，所以站内搜索自然就是一个非常诱人的功能点，随着写过的东西越来越多，我有时候也很想知道自己在多少文章中提到过某些内容。
+[Jekyll](https://jekyllrb.com){: target="_blank" }原生支持分类管理文章的`tag`，在布局文件中可以轻易的用[Liquid](https://jekyllrb.com/docs/posts/#tags){: target="_blank" }语法获取每一个`tag`和标记了该`tag`的文章列表，比如这篇就标记了`CS`、`Google`和`DarkMode`3个`tag`，点击文章顶部的`Chips`能看到所有相关联的文章弹窗。但是`tag`毕竟有限，不可能把文章里的每个关键词都设置为`tag`，所以站内搜索自然就是一个非常诱人的功能点，随着写过的东西越来越多，我有时候也很想知道自己在多少文章中提到过某些相似的内容。
 
 搜索无非2种方案，使用搜索引擎提供的站内搜索服务，或完全自己实现搜索。后者更加灵活且不依赖搜索引擎缓慢的索引更新，优势很大但暂时不适合我，需等待以后时机成熟。所以最终选定`Google`的站内搜索，一来是因为我的博客早就加入到了`Google`的索引中，可以直接使用，二来也是一个接触当前“最好搜索引擎”所提供的开发者服务的一个机会。
 
@@ -58,7 +58,7 @@ tags: CS Google DarkMode Blog
 }
 ```
 
-另一种方法就是定义一个表示暗黑主题的`dark`类，然后为需要的`class`和`element`定义在叠加了`dark`类之后对应主题的样式，这样在要切换暗黑模式时，只需要`JS`监听切换按键，给`body`添加上`dark`类即可，同时这种方式也适用于切换多种不同配色的主题，如`dark`，`red`，`blue`之类。
+另一种方法就是定义一个表示暗黑主题的`dark`类，然后为需要的`class`和`element`定义在叠加了`dark`类之后对应主题的样式，这样切换暗黑模式时，只需要`JS`监听切换按键，给`body`添加上`dark`类即可，同时这种方式也适用于切换多种不同配色的主题，如`dark`，`red`，`blue`之类。
 
 ```css
 .title {

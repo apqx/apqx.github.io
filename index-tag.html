@@ -12,12 +12,11 @@ sitemap: false
 </div>
 
 <div style="margin: 1.5rem 1rem;">
-    <div id="tag_dialog_container"></div>
     {% comment %}
     <!-- 遍历所有的tag -->
     {% endcomment %}
     {%- for tag in site.tags -%}
-    <button type="button" class="mdc-button mdc-button--unelevated dialog-trigger btn-tag"
+    <button type="button" class="mdc-button mdc-button--unelevated tag-dialog-trigger btn-tag"
         id="chip_tag_{{ tag[0] }}">
         <div class="mdc-button__ripple"></div>
         <span class="mdc-button__label">#{{ tag[0] }}</span>

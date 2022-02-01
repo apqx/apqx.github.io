@@ -265,6 +265,11 @@ p, li, a {
     line-height: 1.8rem;
 }
 
+a.clickable-empty-link {
+    // url为空的<a>
+    cursor: pointer;
+}
+
 li {
     // item间距
     margin: 0.1rem 0;
@@ -568,7 +573,7 @@ p.search-result-item-snippet b {
 }
 
 // 使用此class的标签，可以通过id chip_tag_随笔 弹出对应 dialog_随笔 的dialog
-.dialog-trigger {}
+.tag-dialog-trigger {}
 
 // 内容最外层的主容器
 .main-container {

@@ -27,7 +27,7 @@
             <!-- 遍历本页的tag -->
             {% endcomment %}
             {%- for tagInPage in page.tags -%}
-            <button type="button" class="mdc-button mdc-button--unelevated dialog-trigger btn-tag"
+            <button type="button" class="mdc-button mdc-button--unelevated tag-dialog-trigger btn-tag"
               id="chip_tag_{{ tagInPage }}">
               <div class="mdc-button__ripple"></div>
               <span class="mdc-button__label">#{{ tagInPage }}</span>
