@@ -2,7 +2,7 @@
 
 [https://apqx.me](https://apqx.me)
 
-基于`Jekyll`将`Markdown`格式文章转换为`HTML`网页，配合[GitHub Pages](https://pages.github.com)的免费托管服务就可以搭建一个属于自己的[博客小站](https://apqx.me)了。
+基于`Jekyll`将`Markdown`格式文章转换为`HTML`网页，配合[GitHub Pages](https://pages.github.com)的免费托管服务搭建的一个属于自己的[博客小站](https://apqx.me)。
 
 # 本地调试
 
