@@ -18,7 +18,7 @@ tags: CS Android
 
 > Model View Controller
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20190307/mvc.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="pic" }
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20190307/mvc.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="mvc" }
 
 * `View`即视图，用于接收UI事件，控制UI状态。
 * `Model`即数据模型，用于处理数据，比如从数据库和网络中读写操作。
@@ -127,7 +127,7 @@ class WeatherActivity : Activity(), OnBtnClickListener{
 
 > Model View Presenter
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20190307/mvp.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="pic" }
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20190307/mvp.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="mvp" }
 
 * `View`即视图，用于接收UI事件，控制UI状态，一般为`Activity`和`Fragment`。
 * `Model`即数据模型，用于处理数据，比如从数据库和网络中读写操作。
@@ -226,7 +226,7 @@ class WeatherPresenter(private val iWeatherActivity: IWeatherActivity) : IWeathe
 
 > Model View ViewModel
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20190307/mvvm.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="pic" }
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20190307/mvvm.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="mvvm" }
 
 * `View`即视图，用于接收UI事件，控制UI状态，一般为`Activity`和`Fragment`。
 * `Model`即数据模型，用于处理数据，比如从数据库和网络中读写操作。
