@@ -12142,6 +12142,10 @@ p, li, a {
   line-height: 1.8rem;
 }
 
+a.clickable-empty-link {
+  cursor: pointer;
+}
+
 li {
   margin: 0.1rem 0;
 }

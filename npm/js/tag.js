@@ -13,7 +13,7 @@ const POST_TYPE_OPERA = ["opera", "看剧"]
 /**
  * 在archive/tag/index.html保存着所有tag和每一个tag对应文章的列表，只请求一次
  */
-var tagJson = null
+var postJson = null
 
 var tagDialog = null
 var tagDialogProgressbar = null
@@ -37,9 +37,9 @@ function runOnStart() {
  */
 function initTagTriggers() {
     // tag对应的Dialog
-    // 获取每一个标记了dialog-trigger的element，查找这个trigger对应的dialog，监听点击事件，弹出dialog
+    // 获取每一个标记了tag-dialog-trigger的element，查找这个trigger对应的dialog，监听点击事件，弹出dialog
     // 所有tag共用一个dialog
-    var dialogsTriggers = document.querySelectorAll('.dialog-trigger')
+    var dialogsTriggers = document.querySelectorAll('.tag-dialog-trigger')
     
     // 为每一个tag添加点击监听
     for (var triger of dialogsTriggers) {
@@ -54,11 +54,13 @@ function clickTag() {
     // TODO: 为什么使用event.target.id不可以？？
     var chipId = this.id
     // chip_tag_随笔 dialog_tag_随笔 dialog_tag_list_随笔
+    // chip_tag_碎碎念&看剧 可以指定多个tag，用 & 分隔
     console.log("click tag " + chipId)
     var dialogId = "chip_tag_dialog"
     var listId = "chip_tag_essay_list"
     var progressId = "chip_tag_dialog_progress"
     var btnId = "chip_tag_dialog_btn"
+    // 这里的tag可能是由&连接的多个tag
     var tag = chipId.replace("chip_tag_", "")
     var postType = getPostType()
 
@@ -96,8 +98,8 @@ function clickTag() {
     document.getElementById("tag-dialog-tag-name").innerHTML = "#" + tag
 
     // 只在无数据时请求
-    if (tagJson != null) {
-        showTagItemList(tagJson, tag, listId, postType)
+    if (postJson != null) {
+        showTagItemList(postJson, tag, listId, postType)
     } else {
         queryTagItemList(tag, listId, postType, tagDialogProgressbar)
     }
@@ -278,7 +280,7 @@ function queryTagItemList(tag, listId, postType, progressbar) {
     } else {
         host = "https://" + host
     }
-    var url = host + "/archive/tag/index.html"
+    var url = host + "/archive/posts/index.html"
     console.log("queryTagItemList " + url)
     const request = new Request(url, {
         method: 'GET'
@@ -295,31 +297,31 @@ function queryTagItemList(tag, listId, postType, progressbar) {
         .then(response => {
             console.debug(response)
             progressbar.close()
-            tagJson = JSON.parse(response)
-            showTagItemList(tagJson, tag, listId, postType)
+            postJson = JSON.parse(response)
+            showTagItemList(postJson, tag, listId, postType)
         }).catch(error => {
             console.error(error)
             progressbar.close()
         })
 }
 
-function showTagItemList(tagJson, tag, listId, postType) {
+function showTagItemList(postJson, tag, listId, postType) {
     var ulList = document.getElementById(listId)
     // 删除所有子item，重新填充
     while (ulList.firstChild) {
         ulList.removeChild(ulList.lastChild)
     }
     var firstItem = true
-    var tagItem = findPost(tag, tagJson)
-    for (var post of tagItem.posts) {
+    var posts = findPost(tag, postJson)
+    for (var post of posts) {
         var itemPostType
-        if (post.url.includes("/" + POST_TYPE_ORIGINAL[0] + "/")) {
+        if (post.type == POST_TYPE_ORIGINAL[0]) {
             itemPostType = POST_TYPE_ORIGINAL
-        } else if (post.url.includes("/" + POST_TYPE_REPOST[0] + "/")) {
+        } else if (post.type == POST_TYPE_REPOST[0]) {
             itemPostType = POST_TYPE_REPOST
-        } else if (post.url.includes("/" + POST_TYPE_POETRY[0] + "/")) {
+        } else if (post.type == POST_TYPE_POETRY[0]) {
             itemPostType = POST_TYPE_POETRY
-        } else if (post.url.includes("/" + POST_TYPE_OPERA[0] + "/")) {
+        } else if (post.type ==  POST_TYPE_OPERA[0]) {
             itemPostType = POST_TYPE_OPERA
         } else {
             itemPostType = ["", "未知"]
@@ -340,13 +342,30 @@ function showTagItemList(tagJson, tag, listId, postType) {
 
 }
 
-function findPost(tag, tagJson) {
-    for (var tagItem of tagJson.tags) {
-        if (tag == tagItem.tag) {
-            return tagItem
+/**
+ * 
+ * @param {string} tags 
+ * @param {string} postJson 
+ * @returns tagItem数组
+ */
+function findPost(tags, postJson) {
+    var tagArray = tags.split("&")
+    var resultArray = []
+    for(const post of postJson.posts) {
+        var postTags = post.tag.split(",")
+        var hasBothTag = true
+        for(const tag of tagArray) {
+            if(!postTags.includes(tag)) {
+                hasBothTag = false
+                break
+            }
+        }
+        if (hasBothTag) {
+            resultArray.push(post)
         }
     }
-    return ""
+    console.log("find post with tag " + tagArray + ", result size is " + resultArray.length)
+    return resultArray
 }
 
 function generateDivider() {
