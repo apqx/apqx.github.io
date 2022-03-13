@@ -18,14 +18,22 @@ $theme-light: (
     
     "link" : #6200ee,
     "em" : #535c68,
-    "code-highlight-bg" : rgba(27, 31, 35, 0.05),
-    "code-highlight-border" : #e1eaef,
+    "code-highlight-bg" : #f8f9fa,
+    "code-highlight-border" : #e8eaed,
+    "code-highlight-bg-on-green" : rgba(231, 231, 231, 0.4),
+    "code-highlight-border-on-green" : rgba(213, 213, 213, 0.54),
     "pre-code-bg" : #15171a,
 
     "divider" : rgba(0, 0, 0, 0.12),
 
     "chip-bg" : #FEDBD0,
     "chip-ink" : #84565E,
+    "list-chip-1-bg" :rgba(211, 196, 249, 0.48),
+    "list-chip-1-ink" : #8167c1,
+    "list-chip-1-border" :rgba(211, 196, 249, 0.91),
+    "list-chip-2-bg" :rgba(255, 224, 221, 0.5),
+    "list-chip-2-ink" : #f77575,
+    "list-chip-2-border" :rgba(252, 155, 157, 0.55),
 
     "search_nav" : #a25462,
     "button-bg" : #9b27b0,
@@ -49,14 +57,22 @@ $theme-dark: (
     
     "link" : #54a0ff,
     "em" : rgba(255, 255, 255, 0.65),
-    "code-highlight-bg" : rgba(55, 55, 55, 0.59),
-    "code-highlight-border" : rgba(55, 55, 55, 0.59),
+    "code-highlight-bg" : rgba(55, 55, 55, 0.32),
+    "code-highlight-border" : rgba(69, 69, 69, 0.74),
+    "code-highlight-bg-on-green" : rgba(23, 23, 23, 0.17),
+    "code-highlight-border-on-green" : rgba(142, 142, 142, 0.32),
     "pre-code-bg" : #15171a,
 
     "divider" : rgba(88, 96, 102, 0.68),
 
     "chip-bg" : rgba(248, 81, 73, 0.15),
     "chip-ink" : #c67c3b,
+    "list-chip-1-bg" :rgba(212, 197, 249, 0.18),
+    "list-chip-1-ink" : rgb(210, 195, 249),
+    "list-chip-1-border" :rgba(210, 195, 249, 0.3),
+    "list-chip-2-bg" :rgba(182, 2, 5, 0.18),
+    "list-chip-2-ink" : rgb(253, 155, 157),
+    "list-chip-2-border" :rgba(253, 155, 157, 0.3),
 
     "search_nav" : rgba(228, 96, 117, 0.93),
     "button-bg" : #9b27b0,

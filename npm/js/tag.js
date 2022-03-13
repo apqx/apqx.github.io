@@ -19,7 +19,7 @@ var tagDialog = null
 var tagDialogProgressbar = null
 var tagEssayList = null
 
-if(document.readyState !== 'loading') {
+if (document.readyState !== 'loading') {
     runOnStart()
 } else {
     // HTML元素加载完成，但是CSS等资源还未加载
@@ -40,7 +40,7 @@ function initTagTriggers() {
     // 获取每一个标记了tag-dialog-trigger的element，查找这个trigger对应的dialog，监听点击事件，弹出dialog
     // 所有tag共用一个dialog
     var dialogsTriggers = document.querySelectorAll('.tag-dialog-trigger')
-    
+
     // 为每一个tag添加点击监听
     for (var triger of dialogsTriggers) {
         // 获取每一个triger的id，找到它对应的dialogId，和dialog里的listId
@@ -321,11 +321,14 @@ function showTagItemList(postJson, tag, listId, postType) {
             itemPostType = POST_TYPE_REPOST
         } else if (post.type == POST_TYPE_POETRY[0]) {
             itemPostType = POST_TYPE_POETRY
-        } else if (post.type ==  POST_TYPE_OPERA[0]) {
+        } else if (post.type == POST_TYPE_OPERA[0]) {
             itemPostType = POST_TYPE_OPERA
         } else {
             itemPostType = ["", "未知"]
         }
+
+        var author = post.author
+        var actor = post.actor.split(" ")
 
         // 除第一个外，每一个item之前都要添加divider分割线
         if (firstItem) {
@@ -335,7 +338,7 @@ function showTagItemList(postJson, tag, listId, postType) {
         } else {
             ulList.appendChild(generateDivider())
         }
-        ulList.appendChild(generateItem(post, itemPostType))
+        ulList.appendChild(generateItem(post, itemPostType, author, actor))
     }
     // List的点击动画
     tagEssayList.listElements.map((listItemEl) => new MDCRipple(listItemEl))
@@ -351,11 +354,11 @@ function showTagItemList(postJson, tag, listId, postType) {
 function findPost(tags, postJson) {
     var tagArray = tags.split("&")
     var resultArray = []
-    for(const post of postJson.posts) {
+    for (const post of postJson.posts) {
         var postTags = post.tag.split(",")
         var hasBothTag = true
-        for(const tag of tagArray) {
-            if(!postTags.includes(tag)) {
+        for (const tag of tagArray) {
+            if (!postTags.includes(tag)) {
                 hasBothTag = false
                 break
             }
@@ -375,7 +378,15 @@ function generateDivider() {
     return hr
 }
 
-function generateItem(item, itemPostType) {
+/**
+ * 
+ * @param {string} item 
+ * @param {Array} itemPostType 
+ * @param {string} author 文章作者
+ * @param {Array} actors 戏剧演员，只在「看剧」模块有
+ * @returns 
+ */
+function generateItem(item, itemPostType, author, actors) {
     var a = document.createElement("a")
     a.setAttribute("class", "mdc-deprecated-list-item")
     a.setAttribute("href", item.url)
@@ -389,17 +400,38 @@ function generateItem(item, itemPostType) {
     spanTextPrimary.setAttribute("class", "mdc-deprecated-list-item__primary-text")
     spanTextPrimary.innerHTML = item.title
     spanText.appendChild(spanTextPrimary)
-    var spanTextScondary = document.createElement("span")
-    spanTextScondary.setAttribute("class", "mdc-deprecated-list-item__secondary-text")
-    spanTextScondary.innerHTML = item.date + " "
+    var spanTextSecondary = document.createElement("span")
+    spanTextSecondary.setAttribute("class", "mdc-deprecated-list-item__secondary-text")
+    spanTextSecondary.innerHTML = item.date + " "
     var spanTextPostType = document.createElement("span")
     spanTextPostType.setAttribute("class", "tag-essay-item-post-type")
     spanTextPostType.innerHTML = itemPostType[1]
-    spanTextScondary.appendChild(spanTextPostType)
+    spanTextSecondary.appendChild(spanTextPostType)
 
-    spanText.appendChild(spanTextScondary)
+    if (itemPostType == POST_TYPE_OPERA) {
+        // 看剧，显示演员
+        for (var actor of actors) {
+            var spanTextPostActor = document.createElement("span")
+            spanTextPostActor.setAttribute("class", "tag-essay-item-post-actor")
+            spanTextPostActor.innerHTML = actor
+            spanTextSecondary.appendChild(spanTextPostActor)
+        }
+    } else if (itemPostType == POST_TYPE_ORIGINAL) {
+        // 随笔，不显示作者，也不显示演员
+    } else {
+        // 其它，显示作者，不显示演员
+        var spanTextPostAuthor = document.createElement("span")
+        spanTextPostAuthor.setAttribute("class", "tag-essay-item-post-actor")
+        spanTextPostAuthor.innerHTML = author
+        spanTextSecondary.appendChild(spanTextPostAuthor)
+    }
+
+
+
+    spanText.appendChild(spanTextSecondary)
 
     a.appendChild(spanText)
 
     return a
 }
+
