@@ -380,6 +380,16 @@ p code, li code {
     border:1px solid map.get(colors.$theme-dark, "code-highlight-border");
 }
 
+.green code {
+    background: map.get(colors.$theme-light, "code-highlight-bg-on-green");
+    border:1px solid map.get(colors.$theme-light, "code-highlight-border-on-green");
+}
+
+.dark .green code {
+    background: map.get(colors.$theme-dark, "code-highlight-bg-on-green");
+    border:1px solid map.get(colors.$theme-dark, "code-highlight-border-on-green");
+}
+
 strong code {
     font-weight: bold;
 }

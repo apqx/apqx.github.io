@@ -12284,13 +12284,23 @@ p code, li code {
   margin-left: 0.05rem;
   margin-right: 0.05rem;
   border-radius: 0.3rem;
-  background: rgba(27, 31, 35, 0.05);
-  border: 1px solid #e1eaef;
+  background: #f8f9fa;
+  border: 1px solid #e8eaed;
 }
 
 .dark p code, .dark li code {
-  background: rgba(55, 55, 55, 0.59);
-  border: 1px solid rgba(55, 55, 55, 0.59);
+  background: rgba(55, 55, 55, 0.32);
+  border: 1px solid rgba(69, 69, 69, 0.74);
+}
+
+.green code {
+  background: rgba(231, 231, 231, 0.4);
+  border: 1px solid rgba(213, 213, 213, 0.54);
+}
+
+.dark .green code {
+  background: rgba(23, 23, 23, 0.17);
+  border: 1px solid rgba(142, 142, 142, 0.32);
 }
 
 strong code {
