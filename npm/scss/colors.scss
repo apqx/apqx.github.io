@@ -28,6 +28,12 @@ $theme-light: (
 
     "chip-bg" : #FEDBD0,
     "chip-ink" : #84565E,
+    "list-chip-1-bg" :rgba(211, 196, 249, 0.48),
+    "list-chip-1-ink" : #8167c1,
+    "list-chip-1-border" :rgba(211, 196, 249, 0.91),
+    "list-chip-2-bg" :rgba(255, 224, 221, 0.5),
+    "list-chip-2-ink" : #f77575,
+    "list-chip-2-border" :rgba(252, 155, 157, 0.55),
 
     "search_nav" : #a25462,
     "button-bg" : #9b27b0,
@@ -61,6 +67,12 @@ $theme-dark: (
 
     "chip-bg" : rgba(248, 81, 73, 0.15),
     "chip-ink" : #c67c3b,
+    "list-chip-1-bg" :rgba(212, 197, 249, 0.18),
+    "list-chip-1-ink" : rgb(210, 195, 249),
+    "list-chip-1-border" :rgba(210, 195, 249, 0.3),
+    "list-chip-2-bg" :rgba(182, 2, 5, 0.18),
+    "list-chip-2-ink" : rgb(253, 155, 157),
+    "list-chip-2-border" :rgba(253, 155, 157, 0.3),
 
     "search_nav" : rgba(228, 96, 117, 0.93),
     "button-bg" : #9b27b0,

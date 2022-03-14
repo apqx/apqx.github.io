@@ -401,27 +401,41 @@ p em code {
     margin-right: 0;
 } 
 
-.tag-essay-item-post-type {
-    // background: map.get(colors.$theme-light, "chip-bg");
-    color: map.get(colors.$theme-light, "chip-ink");
-    padding-left: 0.2rem;
-    padding-right: 0.2rem;
-    border-radius: 0.3rem;
-    border: 1px solid map.get(colors.$theme-light, "chip-bg") ;
+.mdc-deprecated-list-item__secondary-text {
+    display: flex;
+    margin-top: 0.4rem;
 }
 
-@-moz-document url-prefix() {
-    // 针对Firefox单独设置垂直padding才能正常显示
-    .tag-essay-item-post-type {
-        padding-top: 1px;
-        padding-bottom: 0px;
-    }
+.tag-essay-item-post-type {
+    color: map.get(colors.$theme-light, "list-chip-1-ink");
+    background: map.get(colors.$theme-light, "list-chip-1-bg");
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+    border-radius: 0.5rem;
+    border: 1px solid map.get(colors.$theme-light, "list-chip-1-border");
+    margin-left: 0.2rem;
+}
+
+.tag-essay-item-post-actor {
+    color: map.get(colors.$theme-light, "list-chip-2-ink");
+    background: map.get(colors.$theme-light, "list-chip-2-bg");
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+    border-radius: 0.5rem;
+    border: 1px solid map.get(colors.$theme-light, "list-chip-2-border");
+    margin-left: 0.2rem;
 }
 
 .dark .tag-essay-item-post-type {
-    // background: map.get(colors.$theme-dark, "chip-bg");
-    color: map.get(colors.$theme-dark, "chip-ink");
-    border: 1px solid map.get(colors.$theme-dark, "chip-bg") ;
+    color: map.get(colors.$theme-dark, "list-chip-1-ink");
+    background: map.get(colors.$theme-dark, "list-chip-1-bg");
+    border: 1px solid map.get(colors.$theme-dark, "list-chip-1-border") ;
+}
+
+.dark .tag-essay-item-post-actor {
+    color: map.get(colors.$theme-dark, "list-chip-2-ink");
+    background: map.get(colors.$theme-dark, "list-chip-2-bg");
+    border: 1px solid map.get(colors.$theme-dark, "list-chip-2-border") ;
 }
 
 .mdc-data-table {
