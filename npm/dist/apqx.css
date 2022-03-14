@@ -12356,17 +12356,24 @@ p em code {
   color: var(--mdc-theme-text-secondary-on-background, #535c68);
   font-size: 0.9rem;
   display: flex;
-  margin-top: -4px;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
 }
 
 .tag-essay-item-tags-container {
-  overflow-x: scroll;
+  overflow-x: overlay;
 }
 
 .tag-essay-item-tags-container::-webkit-scrollbar {
   overflow: hidden !important;
 }
 
+@-moz-document url-prefix() {
+  .tag-essay-item-tags-container {
+    overflow-x: scroll;
+  }
+}
 .tag-essay-item-post-type {
   color: #8167c1;
   background: rgba(211, 196, 249, 0.48);
