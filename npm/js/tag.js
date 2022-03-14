@@ -201,7 +201,7 @@ function generateTagDialog(tag, dialogId, listId, btnId, progressId, postType) {
     divDialogContent.appendChild(divProgressbar)
 
     var ulList = document.createElement("ul")
-    ulList.setAttribute("class", "mdc-deprecated-list mdc-deprecated-list--two-line dialog-link-list")
+    ulList.setAttribute("class", "mdc-deprecated-list dialog-link-list")
     ulList.setAttribute("id", listId)
     divDialogContent.appendChild(ulList)
     divDialogSurface.appendChild(divDialogContent)
@@ -388,7 +388,7 @@ function generateDivider() {
  */
 function generateItem(item, itemPostType, author, actors) {
     var a = document.createElement("a")
-    a.setAttribute("class", "mdc-deprecated-list-item")
+    a.setAttribute("class", "mdc-deprecated-list-item tag-list-item")
     a.setAttribute("href", item.url)
     var spanRipple = document.createElement("span")
     spanRipple.setAttribute("class", "mdc-deprecated-list-item__ripple")
@@ -397,36 +397,45 @@ function generateItem(item, itemPostType, author, actors) {
     var spanText = document.createElement("span")
     spanText.setAttribute("class", "mdc-deprecated-list-item__text")
     var spanTextPrimary = document.createElement("span")
-    spanTextPrimary.setAttribute("class", "mdc-deprecated-list-item__primary-text")
+    spanTextPrimary.setAttribute("class", "my-list-item__primary-text")
     spanTextPrimary.innerHTML = item.title
     spanText.appendChild(spanTextPrimary)
-    var spanTextSecondary = document.createElement("span")
-    spanTextSecondary.setAttribute("class", "mdc-deprecated-list-item__secondary-text")
-    spanTextSecondary.innerHTML = item.date + " "
+    var spanTextSecondary = document.createElement("div")
+    spanTextSecondary.setAttribute("class", "my-list-item__secondary-text")
+
+    var spanTextDate = document.createElement("span")
+    spanTextDate.innerHTML = item.date + " "
+    spanTextSecondary.appendChild(spanTextDate)
+
+    var divTags = document.createElement("span")
+    divTags.setAttribute("class", "tag-essay-item-tags-container")
+
+
+
     var spanTextPostType = document.createElement("span")
     spanTextPostType.setAttribute("class", "tag-essay-item-post-type")
     spanTextPostType.innerHTML = itemPostType[1]
-    spanTextSecondary.appendChild(spanTextPostType)
+    divTags.appendChild(spanTextPostType)
 
-    if (itemPostType == POST_TYPE_OPERA) {
-        // 看剧，显示演员
-        for (var actor of actors) {
-            var spanTextPostActor = document.createElement("span")
-            spanTextPostActor.setAttribute("class", "tag-essay-item-post-actor")
-            spanTextPostActor.innerHTML = actor
-            spanTextSecondary.appendChild(spanTextPostActor)
-        }
-    } else if (itemPostType == POST_TYPE_ORIGINAL) {
-        // 随笔，不显示作者，也不显示演员
-    } else {
-        // 其它，显示作者，不显示演员
+    if (itemPostType != POST_TYPE_ORIGINAL && itemPostType != POST_TYPE_OPERA) {
+        // 非随笔、看剧，显示作者
         var spanTextPostAuthor = document.createElement("span")
         spanTextPostAuthor.setAttribute("class", "tag-essay-item-post-actor")
         spanTextPostAuthor.innerHTML = author
-        spanTextSecondary.appendChild(spanTextPostAuthor)
+        divTags.appendChild(spanTextPostAuthor)
+    }
+    if (actors.length > 0) {
+        // 如果有演员，显示演员
+        for (var actor of actors) {
+            if (actor == "") continue
+            var spanTextPostActor = document.createElement("span")
+            spanTextPostActor.setAttribute("class", "tag-essay-item-post-actor")
+            spanTextPostActor.innerHTML = actor
+            divTags.appendChild(spanTextPostActor)
+        }
     }
 
-
+    spanTextSecondary.appendChild(divTags)
 
     spanText.appendChild(spanTextSecondary)
 

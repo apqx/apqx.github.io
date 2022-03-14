@@ -12314,16 +12314,73 @@ p em code {
   margin-right: 0;
 }
 
-.mdc-deprecated-list-item__secondary-text {
+.tag-list-item.mdc-deprecated-list-item {
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
   display: flex;
-  margin-top: 0.4rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
+.my-list-item__primary-text {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-family: Roboto, sans-serif;
+  /* @alternate */
+  font-family: var(--mdc-typography-body1-font-family, var(--mdc-typography-font-family, Roboto, sans-serif));
+  font-size: 1rem;
+  /* @alternate */
+  font-size: var(--mdc-typography-body1-font-size, 1rem);
+  line-height: 1.5rem;
+  /* @alternate */
+  line-height: var(--mdc-typography-body1-line-height, 1.5rem);
+  font-weight: 400;
+  /* @alternate */
+  font-weight: var(--mdc-typography-body1-font-weight, 400);
+  letter-spacing: 0.03125em;
+  /* @alternate */
+  letter-spacing: var(--mdc-typography-body1-letter-spacing, 0.03125em);
+  text-decoration: inherit;
+  /* @alternate */
+  -webkit-text-decoration: var(--mdc-typography-body1-text-decoration, inherit);
+          text-decoration: var(--mdc-typography-body1-text-decoration, inherit);
+  text-transform: inherit;
+  /* @alternate */
+  text-transform: var(--mdc-typography-body1-text-transform, inherit);
+}
+
+.my-list-item__secondary-text {
+  color: #535c68;
+  /* @alternate */
+  color: var(--mdc-theme-text-secondary-on-background, #535c68);
+  font-size: 0.9rem;
+  display: flex;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
+.tag-essay-item-tags-container {
+  overflow-x: overlay;
+}
+
+.tag-essay-item-tags-container::-webkit-scrollbar {
+  overflow: hidden !important;
+}
+
+@-moz-document url-prefix() {
+  .tag-essay-item-tags-container {
+    overflow-x: scroll;
+  }
+}
 .tag-essay-item-post-type {
   color: #8167c1;
   background: rgba(211, 196, 249, 0.48);
   padding-left: 0.4rem;
   padding-right: 0.4rem;
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
   border-radius: 0.5rem;
   border: 1px solid rgba(211, 196, 249, 0.91);
   margin-left: 0.2rem;
@@ -12334,6 +12391,8 @@ p em code {
   background: rgba(255, 224, 221, 0.5);
   padding-left: 0.4rem;
   padding-right: 0.4rem;
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
   border-radius: 0.5rem;
   border: 1px solid rgba(252, 155, 157, 0.55);
   margin-left: 0.2rem;
