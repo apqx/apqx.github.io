@@ -12386,7 +12386,19 @@ p em code {
   margin-left: 0.2rem;
 }
 
-.tag-essay-item-post-actor {
+.tag-essay-item-post-author {
+  color: #9a6000;
+  background: rgba(254, 242, 192, 0.58);
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ffe065;
+  margin-left: 0.2rem;
+}
+
+.tag-essay-item-post-mention {
   color: #f77575;
   background: rgba(255, 224, 221, 0.5);
   padding-left: 0.4rem;
@@ -12404,7 +12416,13 @@ p em code {
   border: 1px solid rgba(210, 195, 249, 0.3);
 }
 
-.dark .tag-essay-item-post-actor {
+.dark .tag-essay-item-post-author {
+  color: #fef1be;
+  background: rgba(254, 242, 192, 0.18);
+  border: 1px solid rgba(254, 241, 190, 0.3);
+}
+
+.dark .tag-essay-item-post-mention {
   color: #fd9b9d;
   background: rgba(182, 2, 5, 0.18);
   border: 1px solid rgba(253, 155, 157, 0.3);

@@ -328,7 +328,7 @@ function showTagItemList(postJson, tag, listId, postType) {
         }
 
         var author = post.author
-        var actor = post.actor.split(" ")
+        var mention = post.mention.split(" ")
 
         // 除第一个外，每一个item之前都要添加divider分割线
         if (firstItem) {
@@ -338,7 +338,7 @@ function showTagItemList(postJson, tag, listId, postType) {
         } else {
             ulList.appendChild(generateDivider())
         }
-        ulList.appendChild(generateItem(post, itemPostType, author, actor))
+        ulList.appendChild(generateItem(post, itemPostType, author, mention))
     }
     // List的点击动画
     tagEssayList.listElements.map((listItemEl) => new MDCRipple(listItemEl))
@@ -383,10 +383,10 @@ function generateDivider() {
  * @param {string} item 
  * @param {Array} itemPostType 
  * @param {string} author 文章作者
- * @param {Array} actors 戏剧演员，只在「看剧」模块有
+ * @param {Array} mentions 文章提及的其他内容
  * @returns 
  */
-function generateItem(item, itemPostType, author, actors) {
+function generateItem(item, itemPostType, author, mentions) {
     var a = document.createElement("a")
     a.setAttribute("class", "mdc-deprecated-list-item tag-list-item")
     a.setAttribute("href", item.url)
@@ -418,19 +418,19 @@ function generateItem(item, itemPostType, author, actors) {
     divTags.appendChild(spanTextPostType)
 
     if (itemPostType != POST_TYPE_ORIGINAL && itemPostType != POST_TYPE_OPERA) {
-        // 非随笔、看剧，显示作者
+        // 非随笔、看剧，显示作者，因为这两个板块的作者就是我，没必要显示
         var spanTextPostAuthor = document.createElement("span")
-        spanTextPostAuthor.setAttribute("class", "tag-essay-item-post-actor")
+        spanTextPostAuthor.setAttribute("class", "tag-essay-item-post-author")
         spanTextPostAuthor.innerHTML = author
         divTags.appendChild(spanTextPostAuthor)
     }
-    if (actors.length > 0) {
-        // 如果有演员，显示演员
-        for (var actor of actors) {
-            if (actor == "") continue
+    if (mentions.length > 0) {
+        // 如果有提及的mention，显示mention
+        for (var mention of mentions) {
+            if (mention == "") continue
             var spanTextPostActor = document.createElement("span")
-            spanTextPostActor.setAttribute("class", "tag-essay-item-post-actor")
-            spanTextPostActor.innerHTML = actor
+            spanTextPostActor.setAttribute("class", "tag-essay-item-post-mention")
+            spanTextPostActor.innerHTML = mention
             divTags.appendChild(spanTextPostActor)
         }
     }
