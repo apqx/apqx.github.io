@@ -450,7 +450,19 @@ p em code {
     margin-left: 0.2rem;
 }
 
-.tag-essay-item-post-actor {
+.tag-essay-item-post-author {
+    color: map.get(colors.$theme-light, "list-chip-3-ink");
+    background: map.get(colors.$theme-light, "list-chip-3-bg");
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
+    border-radius: 0.5rem;
+    border: 1px solid map.get(colors.$theme-light, "list-chip-3-border");
+    margin-left: 0.2rem;
+}
+
+.tag-essay-item-post-mention {
     color: map.get(colors.$theme-light, "list-chip-2-ink");
     background: map.get(colors.$theme-light, "list-chip-2-bg");
     padding-left: 0.4rem;
@@ -468,7 +480,13 @@ p em code {
     border: 1px solid map.get(colors.$theme-dark, "list-chip-1-border") ;
 }
 
-.dark .tag-essay-item-post-actor {
+.dark .tag-essay-item-post-author {
+    color: map.get(colors.$theme-dark, "list-chip-3-ink");
+    background: map.get(colors.$theme-dark, "list-chip-3-bg");
+    border: 1px solid map.get(colors.$theme-dark, "list-chip-3-border") ;
+}
+
+.dark .tag-essay-item-post-mention {
     color: map.get(colors.$theme-dark, "list-chip-2-ink");
     background: map.get(colors.$theme-dark, "list-chip-2-bg");
     border: 1px solid map.get(colors.$theme-dark, "list-chip-2-border") ;

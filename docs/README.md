@@ -7,6 +7,7 @@ type: original
 categories: original
 title: "槐安国内春生酒"
 author: 立泉
+mention: 昆曲 牡丹亭
 date: 2019-05-18 +0800
 description: 从昆曲《南柯梦》的「入梦」一折看到的这句词，浮想联翩，意犹不尽。
 cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20190518/kunqv_nankemeng_diexi.jpg
@@ -74,6 +75,10 @@ redirect_from:
 ## author
 
 文章作者。
+
+## mention
+
+文章提及的其他关键词，应简练，显示在tag相关的文章列表里。
 
 ## date
 

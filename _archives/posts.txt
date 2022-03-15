@@ -10,7 +10,7 @@ sitemap: false
             "date":"date",
             "url":"url",
             "author":"立泉"
-            "actor":"单雯 施夏明"
+            "mention":"单雯 施夏明"
             "tag":"单雯,施夏明"
             "type":"opera"
         }
@@ -26,7 +26,7 @@ sitemap: false
             "date":"{{ post.date | date: "%Y年%m月%d日" }}",
             "url":"{{ post.url }}",
             "author":"{{ post.author }}",
-            "actor":"{{ post.actor }}",
+            "mention":"{{ post.mention }}",
             "tag":"
                 {%- for tag in post.tags -%}
                 {{ tag }}
