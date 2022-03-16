@@ -4,6 +4,7 @@ type: original
 categories: original
 title: "在GCE上搭建Shadowsocks的一些问题"
 author: 立泉
+mention: GFW 防火墙
 date: 2019-07-18 +0800
 description: 我一直觉得谷歌是一家很酷的公司，所以也很喜欢他们的产品，谷歌云也一样，只是价格么，相比别家，以个人使用的角度，的确算是偏贵的。
 cover: 
