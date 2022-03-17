@@ -12113,7 +12113,7 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--mdc-theme-text-primary-on-background, rgba(0, 0, 0, 0.87));
 }
 
-p, li, a {
+p, li, a, th, .mdc-data-table__cell {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   font-family: Roboto, sans-serif;
@@ -12252,7 +12252,7 @@ code.hljs {
 }
 
 /* 段落中单词高亮 */
-p code, li code {
+p code, li code, table code {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   font-family: Roboto, sans-serif;
@@ -12288,7 +12288,7 @@ p code, li code {
   border: 1px solid #e8eaed;
 }
 
-.dark p code, .dark li code {
+.dark p code, .dark li code, .dark table code {
   background: rgba(55, 55, 55, 0.32);
   border: 1px solid rgba(69, 69, 69, 0.74);
 }

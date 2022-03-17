@@ -256,7 +256,7 @@ h1, h2, h3, h4, h5, h6 {
 
 
 
-p, li, a {
+p, li, a, th, .mdc-data-table__cell, .mdc-data-table__header-cell {
     // 使用mdc的字体样式
     @include typography.typography(body1);
     // 段落间距
@@ -360,7 +360,7 @@ code.hljs {
 }
 
 /* 段落中单词高亮 */
-p code, li code {
+p code, li code, table code {
     @include typography.typography(body1);
     padding-left: 0.2rem;
     padding-right: 0.2rem;
@@ -375,7 +375,7 @@ p code, li code {
     border:1px solid map.get(colors.$theme-light, "code-highlight-border");
 }
 
-.dark p code, .dark li code {
+.dark p code, .dark li code, .dark table code {
     background: map.get(colors.$theme-dark, "code-highlight-bg");
     border:1px solid map.get(colors.$theme-dark, "code-highlight-border");
 }
