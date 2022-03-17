@@ -12113,7 +12113,7 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--mdc-theme-text-primary-on-background, rgba(0, 0, 0, 0.87));
 }
 
-p, li, a, th, .mdc-data-table__cell {
+p, li, a, th, .mdc-data-table__cell, .mdc-data-table__header-cell {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   font-family: Roboto, sans-serif;
