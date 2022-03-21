@@ -327,7 +327,11 @@ function showTagItemList(postJson, tag, listId, postType) {
             itemPostType = ["", "未知"]
         }
 
+        // 文章作者
         var author = post.author
+        // 主演，在「看剧」类型中存在
+        var actor = post.actor.split(" ")
+        // 文章提到的某些关键词
         var mention = post.mention.split(" ")
 
         // 除第一个外，每一个item之前都要添加divider分割线
@@ -338,7 +342,7 @@ function showTagItemList(postJson, tag, listId, postType) {
         } else {
             ulList.appendChild(generateDivider())
         }
-        ulList.appendChild(generateItem(post, itemPostType, author, mention))
+        ulList.appendChild(generateItem(post, itemPostType, author, actor, mention))
     }
     // List的点击动画
     tagEssayList.listElements.map((listItemEl) => new MDCRipple(listItemEl))
@@ -383,10 +387,11 @@ function generateDivider() {
  * @param {string} item 
  * @param {Array} itemPostType 
  * @param {string} author 文章作者
+ * @param {Array} actors 主演，在「看剧」模块中使用
  * @param {Array} mentions 文章提及的其他内容
  * @returns 
  */
-function generateItem(item, itemPostType, author, mentions) {
+function generateItem(item, itemPostType, author, actors, mentions) {
     var a = document.createElement("a")
     a.setAttribute("class", "mdc-deprecated-list-item tag-list-item")
     a.setAttribute("href", item.url)
@@ -423,6 +428,16 @@ function generateItem(item, itemPostType, author, mentions) {
         spanTextPostAuthor.setAttribute("class", "tag-essay-item-post-author")
         spanTextPostAuthor.innerHTML = author
         divTags.appendChild(spanTextPostAuthor)
+    }
+    if (actors.length > 0) {
+        // 如果有主演，在「看剧」模块，显示actor
+        for (var actor of actors) {
+            if (actor == "") continue
+            var spanTextPostActor = document.createElement("span")
+            spanTextPostActor.setAttribute("class", "tag-essay-item-post-author")
+            spanTextPostActor.innerHTML = actor
+            divTags.appendChild(spanTextPostActor)
+        }
     }
     if (mentions.length > 0) {
         // 如果有提及的mention，显示mention

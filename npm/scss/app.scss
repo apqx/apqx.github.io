@@ -426,10 +426,13 @@ p em code {
     overflow-x: overlay;
 }
 
-.tag-essay-item-tags-container::-webkit-scrollbar {
+// 移动端Chrome的scrollBar一直显示，需要消除，其它浏览器scrollBar都会自动隐藏
+// 如果对所有浏览器都启用这个，则桌面端Safari的scrollBar显示异常
+// 所以暂时不启用，等以后target android chrome单独启用
+// .tag-essay-item-tags-container::-webkit-scrollbar {
     // 消除scrollBar
-    overflow: hidden !important 
- }
+    // overflow: hidden !important 
+//  }
 
  @-moz-document url-prefix() { 
     //  FireFox暂时不支持overlay

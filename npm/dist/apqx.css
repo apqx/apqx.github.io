@@ -12365,10 +12365,6 @@ p em code {
   overflow-x: overlay;
 }
 
-.tag-essay-item-tags-container::-webkit-scrollbar {
-  overflow: hidden !important;
-}
-
 @-moz-document url-prefix() {
   .tag-essay-item-tags-container {
     overflow-x: scroll;
