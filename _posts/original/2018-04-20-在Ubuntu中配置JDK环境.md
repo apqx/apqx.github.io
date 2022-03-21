@@ -8,7 +8,7 @@ mention: $PATH
 date: 2018-04-20 +0800
 description: 
 cover: 
-tags: CS Java Ubuntu Linux
+tags: CS Java Ubuntu Linux JDK
 ---
 
 我经常会产生一些有意思的想法，对很多事情感到好奇，习惯了图形化交互高度成熟的`Windows 10`，有点想要尝试一下传说中“纯手工”操作的`Linux`，正好手里刚组了人生的第一个台式机，`Ubuntu`自然就成了首选操作系统。
