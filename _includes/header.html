@@ -37,37 +37,32 @@
   </div>
   <div class="mdc-drawer__content">
     <nav class="mdc-deprecated-list">
-      <a class={% if page.type=="original" or page.type=="index" or page.type=="common-page" %}"mdc-deprecated-list-item
-        mdc-deprecated-list-item--activated"{% else %}"mdc-deprecated-list-item"{% endif %} href="{{ "
-        /index.html " }}">
+      <a class={% if page.categories contains "original" or page.categories contains "main" or page.categories contains "common-page" %}"mdc-deprecated-list-item
+        mdc-deprecated-list-item--activated"{% else %}"mdc-deprecated-list-item"{% endif %} href="{% link index.html %}">
         <span class="mdc-deprecated-list-item__ripple"></span>
         <i class="material-icons-outlined mdc-deprecated-list-item__graphic">palette</i>
         <span class="mdc-deprecated-list-item__text mdc-typography--body2">随笔</span>
       </a>
-      <a class={% if page.type=="repost" or page.type=="index-repost" %}"mdc-deprecated-list-item
-        mdc-deprecated-list-item--activated"{% else %}"mdc-deprecated-list-item"{% endif %} href="{{ "
-        /index-repost.html " }}">
+      <a class={% if page.categories contains "repost" %}"mdc-deprecated-list-item
+        mdc-deprecated-list-item--activated"{% else %}"mdc-deprecated-list-item"{% endif %} href="{% link index-repost.html %}">
         <span class="mdc-deprecated-list-item__ripple"></span>
         <i class="material-icons-outlined mdc-deprecated-list-item__graphic">auto_awesome</i>
         <span class="mdc-deprecated-list-item__text mdc-typography--body2">转载</span>
       </a>
-      <a class={% if page.type=="poetry" or page.type=="index-poetry" %}"mdc-deprecated-list-item
-        mdc-deprecated-list-item--activated"{% else %}"mdc-deprecated-list-item"{% endif %} href="{{ "
-        /index-poetry.html " }}">
+      <a class={% if page.categories contains "poetry" %}"mdc-deprecated-list-item
+        mdc-deprecated-list-item--activated"{% else %}"mdc-deprecated-list-item"{% endif %} href="{% link index-poetry.html %}">
         <span class="mdc-deprecated-list-item__ripple"></span>
         <i class="material-icons-outlined mdc-deprecated-list-item__graphic">translate</i>
         <span class="mdc-deprecated-list-item__text mdc-typography--body2">诗文</span>
       </a>
-      <a class={% if page.type=="opera" or page.type=="index-opera" %}"mdc-deprecated-list-item
-        mdc-deprecated-list-item--activated"{% else %}"mdc-deprecated-list-item"{% endif %} href="{{ "
-        /index-opera.html " }}">
+      <a class={% if page.categories contains "opera" %}"mdc-deprecated-list-item
+        mdc-deprecated-list-item--activated"{% else %}"mdc-deprecated-list-item"{% endif %} href="{% link index-opera.html %}">
         <span class="mdc-deprecated-list-item__ripple"></span>
         <i class="material-icons-outlined mdc-deprecated-list-item__graphic">photo_camera</i>
         <span class="mdc-deprecated-list-item__text mdc-typography--body2">看剧</span>
       </a>
-      <a class={% if page.type=="tag" or page.type=="index-tag" %}"mdc-deprecated-list-item
-        mdc-deprecated-list-item--activated"{% else %}"mdc-deprecated-list-item"{% endif %} href="{{ "
-        /index-tag.html " }}">
+      <a class={% if page.categories contains "tag" %}"mdc-deprecated-list-item
+        mdc-deprecated-list-item--activated"{% else %}"mdc-deprecated-list-item"{% endif %} href="{% link index-tag.html %}">
         <span class="mdc-deprecated-list-item__ripple"></span>
         <i class="material-icons-outlined mdc-deprecated-list-item__graphic">local_offer</i>
         <span class="mdc-deprecated-list-item__text mdc-typography--body2">标签</span>

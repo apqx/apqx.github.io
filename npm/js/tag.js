@@ -280,7 +280,7 @@ function queryTagItemList(tag, listId, postType, progressbar) {
     } else {
         host = "https://" + host
     }
-    var url = host + "/archive/posts/index.html"
+    var url = host + "/archives/posts.txt"
     console.log("queryTagItemList " + url)
     const request = new Request(url, {
         method: 'GET'
@@ -315,13 +315,13 @@ function showTagItemList(postJson, tag, listId, postType) {
     var posts = findPost(tag, postJson)
     for (var post of posts) {
         var itemPostType
-        if (post.type == POST_TYPE_ORIGINAL[0]) {
+        if (post.categories.includes(POST_TYPE_ORIGINAL[0])) {
             itemPostType = POST_TYPE_ORIGINAL
-        } else if (post.type == POST_TYPE_REPOST[0]) {
+        } else if (post.categories.includes(POST_TYPE_REPOST[0])) {
             itemPostType = POST_TYPE_REPOST
-        } else if (post.type == POST_TYPE_POETRY[0]) {
+        } else if (post.categories.includes(POST_TYPE_POETRY[0])) {
             itemPostType = POST_TYPE_POETRY
-        } else if (post.type == POST_TYPE_OPERA[0]) {
+        } else if (post.categories.includes(POST_TYPE_OPERA[0])) {
             itemPostType = POST_TYPE_OPERA
         } else {
             itemPostType = ["", "未知"]

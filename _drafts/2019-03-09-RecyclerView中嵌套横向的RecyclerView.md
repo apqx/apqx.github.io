@@ -1,6 +1,5 @@
 ---
 layout: post
-type: original
 categories: original
 title: "RecyclerView中嵌套横向的RecyclerView"
 author: 立泉

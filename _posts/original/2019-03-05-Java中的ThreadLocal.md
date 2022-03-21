@@ -1,10 +1,9 @@
 ---
 layout: post
-type: original
 categories: original
 title: "Java中的ThreadLocal"
 author: 立泉
-mention: 线程
+mention: 线程私有
 date: 2019-03-05 +0800
 description: 虽然没怎么用过，但也很好奇它是怎么实现的。
 cover: 

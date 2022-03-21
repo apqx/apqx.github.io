@@ -1,9 +1,8 @@
 ---
 layout: post
-type: original
 categories: original
 title: "Android中的AsyncTask"
-mention: 线程 异步
+mention: 线程 异步 UI
 author: 立泉
 date: 2018-12-25 +0800
 description: 异步流RxJava越来越流行，可能Android原生提供的AsyncTask也很少有人用了。

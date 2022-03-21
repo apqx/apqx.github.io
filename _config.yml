@@ -39,13 +39,13 @@ plugins:
   - jekyll-feed
   - jekyll-redirect-from
 
-# 手动实现archives
+# 创建自定义的待处理的源目录
 collections:
-  # 配置文件目录为 `_archives`
+  # 生成tag和post列表，源目录为 `_archives`
   archives:
     output: true
-    # 生成文件目录为 `_site/archive`
-    permalink: /archive/:path/
+    # 输出目录为 `_site/archives`
+    permalink: /:collection/:name
 
 # 允许内网设备通过ip访问
 host: 0.0.0.0

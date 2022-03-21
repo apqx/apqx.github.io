@@ -1,6 +1,5 @@
 ---
 layout: post
-type: original
 categories: original
 title: "Android中的相对尺寸dp"
 author: 立泉

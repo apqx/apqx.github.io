@@ -1,10 +1,9 @@
 ---
 layout: post
-type: original
 categories: original
 title: "在Ubuntu中配置JDK环境"
 author: 立泉
-mention: $PATH
+mention: $PATH EXPORT
 date: 2018-04-20 +0800
 description: 
 cover: 

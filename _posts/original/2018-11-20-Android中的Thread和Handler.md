@@ -1,6 +1,5 @@
 ---
 layout: post
-type: original
 categories: original
 title: "Android中的Thread和Handler"
 author: 立泉

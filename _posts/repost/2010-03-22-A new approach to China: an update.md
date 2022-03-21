@@ -1,6 +1,5 @@
 ---
 layout: post
-type: repost
 categories: repost
 title: "A new approach to China: an update"
 author: Google

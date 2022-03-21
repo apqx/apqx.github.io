@@ -1,6 +1,5 @@
 ---
 layout: post
-type: original
 categories: original
 title: "为Ubuntu配置apt源服务器地址"
 author: 立泉

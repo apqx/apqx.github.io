@@ -1,6 +1,5 @@
 ---
 layout: post
-type: original
 categories: original
 title: "将GitHub Pages托管的博客部署到第三方服务器"
 author: 立泉

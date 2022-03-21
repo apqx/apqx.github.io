@@ -1,6 +1,5 @@
 ---
 layout: post
-type: original
 categories: original
 title: "在GCE上搭建Shadowsocks的一些问题"
 author: 立泉

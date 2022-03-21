@@ -1,8 +1,8 @@
 # 立泉の写字板
 
-[https://apqx.me](https://apqx.me)
+我的博客：[https://apqx.me](https://apqx.me)
 
-基于`Jekyll`将`Markdown`格式文章转换为`HTML`网页，配合[GitHub Pages](https://pages.github.com)的免费托管服务搭建的一个属于自己的[博客小站](https://apqx.me)。
+使用`Jekyll`把`Markdown`格式文章转换为`HTML`网页，托管在[GitHub Pages](https://pages.github.com)上。
 
 # 本地调试
 
