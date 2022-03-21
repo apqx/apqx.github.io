@@ -4,6 +4,7 @@ type: repost
 categories: repost
 title: "A new approach to China: an update"
 author: Google
+mention: 离开
 date: 2010-03-22 +0800
 description: 
 cover: 

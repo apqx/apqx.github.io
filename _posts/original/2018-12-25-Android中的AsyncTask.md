@@ -3,11 +3,12 @@ layout: post
 type: original
 categories: original
 title: "Android中的AsyncTask"
+mention: 线程 异步
 author: 立泉
 date: 2018-12-25 +0800
 description: 异步流RxJava越来越流行，可能Android原生提供的AsyncTask也很少有人用了。
 cover: 
-tags: CS Android
+tags: CS Android Thread
 ---
 
 编写高性能的`Android`程序必需遵守2个最基本的`线程`原则：
