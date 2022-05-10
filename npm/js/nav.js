@@ -222,6 +222,14 @@ function initDrawer() {
             console.log("click nav menu " + drawer.open)
             drawer.open = !drawer.open
         })
+        // 监听弹出Drawer
+        var togglerDowers = document.querySelectorAll('.toggle-drawer')
+        for (let toggle of togglerDowers) {
+            toggle.addEventListener('click', () => {
+                console.log("click toggle drawer " + drawer.open)
+                drawer.open = !drawer.open
+            })
+        }
         drawer = MDCDrawer.attachTo(document.querySelector('.mdc-drawer'))
         // drawer中的list
         var listEl = document.querySelector('.mdc-drawer .mdc-deprecated-list')
