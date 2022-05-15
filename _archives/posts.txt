@@ -13,11 +13,11 @@ sitemap: false
             "actor":"单雯 施夏明"
             "mention":"李鸿良 由腾腾"
             "tag":"单雯,施夏明"
-            "type":"opera"
+            "categories":"opera"
         }
     ]
 }
-{% endcomment %}
+{%- endcomment -%}
 
 {
     "posts":[
@@ -35,7 +35,7 @@ sitemap: false
                 {%- unless forloop.last %},{% endunless %}
                 {%- endfor -%}
             ",
-            "type":"{{ post.type }}"
+            "categories":"{{ post.categories }}"
         }{% unless forloop.last %},{% endunless %}
         {%- endfor %}
     ]

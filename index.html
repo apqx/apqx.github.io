@@ -1,6 +1,6 @@
 ---
 layout: index
-type: index
+categories: main index
 title: 立泉の写字板
 description: 昆虫，野生散养攻城狮，“十分”“业余”摄影FANS
 cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg
@@ -13,7 +13,7 @@ cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg
 </div>
 <ul class="index-ul">
     {% for post in site.posts %}
-    {%- if post.type == "original" and post.show != false %}
+    {%- if post.categories contains "original" and post.show != false %}
     <li class="index-li">
         <a class="index-a mdc-theme--on-surface" href="{{ post.url | prepend: site.baseurl }}">
             <div class="mdc-card index-card">

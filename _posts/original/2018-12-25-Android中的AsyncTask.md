@@ -1,6 +1,5 @@
 ---
 layout: post
-type: original
 categories: original
 title: "Android中的AsyncTask"
 mention: 线程 异步 UI

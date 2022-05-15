@@ -2,7 +2,7 @@
 sitemap: false
 ---
 {% comment %}
-生产tag列表和每一个tag对应的文章列表
+// 生成tag列表和每一个tag对应的文章列表
 {
     "all":["单雯","戏剧"]
     "tags":[
@@ -33,7 +33,7 @@ sitemap: false
         }
     ]
 }
-{% endcomment %}
+{%- endcomment -%}
 
 {
     "all":[

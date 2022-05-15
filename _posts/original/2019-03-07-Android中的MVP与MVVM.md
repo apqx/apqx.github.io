@@ -1,6 +1,5 @@
 ---
 layout: post
-type: original
 categories: original
 title: "Android中的MVP与MVVM"
 author: 立泉

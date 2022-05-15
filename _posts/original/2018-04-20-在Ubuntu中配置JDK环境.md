@@ -1,6 +1,5 @@
 ---
 layout: post
-type: original
 categories: original
 title: "在Ubuntu中配置JDK环境"
 author: 立泉

@@ -3,7 +3,6 @@
 ```markdown
 ---
 layout: post
-type: original
 categories: original
 title: "槐安国内春生酒"
 author: 立泉
@@ -18,32 +17,49 @@ redirect_from:
 ---
 ```
 
-## type
+## categories
 
-文章类型，目前有4种
+页面类型，一个页面可以标记多种类型，用于后期的过滤
 
-| type     | 说明 |
-|----------|----|
-| original | 随笔 |
-| repost   | 转载 |
-| poetry   | 诗文 |
-| opera    | 看剧 |
+同时它也被加到了`jekyll`生成的文章页面`URL`中，用于管理不同类型的文章
+
+| type        | 说明               |
+|-------------|------------------|
+| original    | 随笔               |
+| repost      | 转载               |
+| poetry      | 诗文               |
+| opera       | 看剧               |
+| common-page | 通用               |
+| index       | 索引               |
+| main        | 网站入口index.html |
 
 ### oroginal
 
-随笔，原创文章。
+随笔，原创文章，标记此类文章页
 
 ### repost
 
-转载文章，尽可能注明出处、作者、时间。
+转载，标记此类文章页和其索引页
 
 ### poetry
 
-诗文、歌赋、戏词。
+诗文、歌赋、戏词，标记此类文章页和其索引页
 
 ### opera
 
-看剧记录，剧照分享。
+看剧记录、剧照分享，标记此类文章页和其索引页
+
+## common-page
+
+通用页面，比如临时的分享页等
+
+## index
+
+索引，标记所有的索引页
+
+## main
+
+标记网站入口的index.html
 
 ## layout
 
@@ -63,10 +79,6 @@ redirect_from:
 ### _layout/index.html
 
 索引布局，每一个文章`type`都有独立的索引页面，命名为`/index-[type].html`。
-
-## categories
-
-与`type`一致，我把它加到了`jekyll`生成的`URL`中，用于区分不同`type`的文章。
 
 ## title
 

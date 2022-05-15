@@ -1,6 +1,5 @@
 ---
 layout: post
-type: original
 categories: original
 title: "Android中的Scroller"
 author: 立泉

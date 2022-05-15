@@ -1,6 +1,5 @@
 ---
 layout: post
-type: original
 categories: original
 title: "把Android Module的aar包发布到GitHub Packages"
 author: 立泉

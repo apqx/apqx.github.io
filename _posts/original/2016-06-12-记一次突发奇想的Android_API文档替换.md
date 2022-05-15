@@ -1,6 +1,5 @@
 ---
 layout: post
-type: original
 categories: original
 title: "记一次突发奇想的Android API文档替换"
 author: 立泉

@@ -1,6 +1,5 @@
 ---
 layout: post
-type: original
 categories: original
 title: "Java中的ThreadLocal"
 author: 立泉

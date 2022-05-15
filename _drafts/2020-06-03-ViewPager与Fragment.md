@@ -1,6 +1,5 @@
 ---
 layout: post
-type: original
 categories: original
 title: "ViewPager与Fragment"
 author: 立泉
