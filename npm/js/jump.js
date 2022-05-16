@@ -27,13 +27,29 @@ function runOnStart() {
 }
 
 /**
- * 进入页面，检查是否携带了跳转参数 http://hostname?pid=id
+ * 进入页面，检查是否携带了跳转参数 
+ * https://apqx.me?pid=id
+ * https://apqx.me/id
  */
 function checkJump() {
-    const urlParams = new URLSearchParams(window.location.search)
-    const pid = urlParams.get("pid")
+    var pid = null
+    const urlPath = window.location.pathname
+    const matches = urlPath.match(/(op|og|rp|pt)..$/)
+    if (matches != null && matches.length > 0) {
+        // 在404页面，检查可能携带的pid
+        // https://apqx.me/id
+        pid = matches[0]
+        console.log("404 page pid = " + pid + " : " + matches)
+        // 隐藏404提示
+        document.getElementById("card_404_content").style.display = "none"
+    } else {
+        // 普通页面，检查可能携带的pid
+        // https://apqx.me?pid=id
+        const urlParams = new URLSearchParams(window.location.search)
+        pid = urlParams.get("pid")
+        console.log("common page pid = " + pid)
+    }
     if (pid == null) return
-    console.log("jump pid = " + pid)
     progressbar = new MDCLinearProgress(document.getElementById("url_jumping_progressbar"))
     pTitle = document.getElementById("url_jumping_title")
     aTargetLink = document.getElementById("url_jumping_link")
