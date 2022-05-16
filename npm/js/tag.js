@@ -275,17 +275,14 @@ function generateProgressbar(progressId) {
  */
 function queryTagItemList(tag, listId, postType, progressbar) {
     var host = window.location.host
-    if (!host.includes("apqx.me")) {
-        host = "http://" + host
-    } else {
-        host = "https://" + host
-    }
+    host = window.location.protocol + "//" + host
     var url = host + "/archives/posts.txt"
     console.log("queryTagItemList " + url)
     const request = new Request(url, {
         method: 'GET'
     })
     progressbar.open()
+    // 异步请求
     fetch(request)
         .then(response => {
             if (response.status === 200) {

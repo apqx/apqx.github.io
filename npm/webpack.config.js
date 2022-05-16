@@ -5,7 +5,7 @@ module.exports = {
     mode: 'development',
     // 把app.scss转换为bundle.css
     // 给apqx.me使用的scss和js定义
-    entry: ['./scss/app.scss', './js/app.js', './js/tag.js', './js/img.js', './js/nav.js'],
+    entry: ['./scss/app.scss', './js/app.js', './js/tag.js', './js/img.js', './js/nav.js', './js/jump.js'],
     // 给测试使用的scss和js定义
     // entry: ['./scss/demo.scss', './js/demo.js'],
     output: {
