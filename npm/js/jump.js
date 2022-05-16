@@ -1,6 +1,13 @@
 // 处理页面跳转，短链接
+import { MDCDialog } from '@material/dialog'
+import { MDCLinearProgress } from '@material/linear-progress'
 
 // 监听当前文章页的标题，点击3次，触发短链服务
+
+var dialog = null
+var progressbar = null
+var pTitle = null
+var aTargetLink = null
 
 // 监听HTML元素加载完成的DOMContentLoaded事件，但是有时候该事件会在设置监听器之前完成，所以这里检查一下是否已经完成了
 if (document.readyState !== 'loading') {
@@ -27,6 +34,16 @@ function checkJump() {
     const pid = urlParams.get("pid")
     if (pid == null) return
     console.log("jump pid = " + pid)
+    progressbar = new MDCLinearProgress(document.getElementById("url_jumping_progressbar"))
+    pTitle = document.getElementById("url_jumping_title")
+    aTargetLink = document.getElementById("url_jumping_link")
+    dialog = new MDCDialog(document.getElementById("url_jumping_dialog"))
+
+    pTitle.innerText = "正在查询"
+    progressbar.determinate = false
+    // 禁止点击空白处dismiss，涉及到MDCDialogFoundation，暂时不做
+    // dialog.setScrimClickAction("")
+    dialog.open()
     // 查询url映射表中的pid
     findPid(pid)
 }
@@ -76,13 +93,21 @@ function findPid(pid) {
             if (item.id == pid) {
                 console.log("find pid " + pid + " => " + item.target.path)
                 // 跳转到目标页，不在浏览器中保留跳转记录
-                window.location.replace(host + item.target.path)
-                break
+                jumpToUrl(host + item.target.path, item.target.title)
+                return
             }
         }
+        jumpToUrl(host + "/404.html", "404 Not Found")
         console.log("pid not exist, will create new")
     }).catch(error => {
         console.error(error)
         // progressbar.close()
     })
+}
+
+function jumpToUrl(url, linkTitle) {
+    pTitle.innerText = "正在跳转"
+    aTargetLink.innerText = linkTitle
+    aTargetLink.href = url
+    window.location.replace(url)
 }
