@@ -38,6 +38,11 @@ function checkJump() {
     pTitle = document.getElementById("url_jumping_title")
     aTargetLink = document.getElementById("url_jumping_link")
     dialog = new MDCDialog(document.getElementById("url_jumping_dialog"))
+    dialog.listen('MDCDialog:opened', () => {
+        console.log("link jumping dialog opened")
+        // Dialog弹出时似乎link获取了焦点，应该取消
+        aTargetLink.blur()
+    })
 
     pTitle.innerText = "正在查询"
     progressbar.determinate = false
@@ -109,5 +114,9 @@ function jumpToUrl(url, linkTitle) {
     pTitle.innerText = "正在跳转"
     aTargetLink.innerText = linkTitle
     aTargetLink.href = url
+    // 监听点击，手动实现跳转，且不记入浏览器的跳转记录
+    aTargetLink.addEventListener("click", () => {
+        window.location.replace(url)
+    })
     window.location.replace(url)
 }
