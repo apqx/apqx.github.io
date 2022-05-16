@@ -37,32 +37,35 @@
   </div>
   <div class="mdc-drawer__content">
     <nav class="mdc-deprecated-list">
-      <a class={% if page.categories contains "original" or page.categories contains "main" or page.categories contains "common-page" %}"mdc-deprecated-list-item
-        mdc-deprecated-list-item--activated"{% else %}"mdc-deprecated-list-item"{% endif %} href="{% link index.html %}">
+      <a class={% if page.categories contains "original" or page.categories contains "main" or page.categories
+        contains "common-page" %}"mdc-deprecated-list-item mdc-deprecated-list-item--activated"{% else
+        %}"mdc-deprecated-list-item"{% endif %} href="{% link index.html %}">
         <span class="mdc-deprecated-list-item__ripple"></span>
         <i class="material-icons-outlined mdc-deprecated-list-item__graphic">palette</i>
         <span class="mdc-deprecated-list-item__text mdc-typography--body2">随笔</span>
       </a>
       <a class={% if page.categories contains "repost" %}"mdc-deprecated-list-item
-        mdc-deprecated-list-item--activated"{% else %}"mdc-deprecated-list-item"{% endif %} href="{% link index-repost.html %}">
+        mdc-deprecated-list-item--activated"{% else %}"mdc-deprecated-list-item"{% endif %}
+        href="{% link index-repost.html %}">
         <span class="mdc-deprecated-list-item__ripple"></span>
         <i class="material-icons-outlined mdc-deprecated-list-item__graphic">auto_awesome</i>
         <span class="mdc-deprecated-list-item__text mdc-typography--body2">转载</span>
       </a>
       <a class={% if page.categories contains "poetry" %}"mdc-deprecated-list-item
-        mdc-deprecated-list-item--activated"{% else %}"mdc-deprecated-list-item"{% endif %} href="{% link index-poetry.html %}">
+        mdc-deprecated-list-item--activated"{% else %}"mdc-deprecated-list-item"{% endif %}
+        href="{% link index-poetry.html %}">
         <span class="mdc-deprecated-list-item__ripple"></span>
         <i class="material-icons-outlined mdc-deprecated-list-item__graphic">translate</i>
         <span class="mdc-deprecated-list-item__text mdc-typography--body2">诗文</span>
       </a>
-      <a class={% if page.categories contains "opera" %}"mdc-deprecated-list-item
-        mdc-deprecated-list-item--activated"{% else %}"mdc-deprecated-list-item"{% endif %} href="{% link index-opera.html %}">
+      <a class={% if page.categories contains "opera" %}"mdc-deprecated-list-item mdc-deprecated-list-item--activated"{%
+        else %}"mdc-deprecated-list-item"{% endif %} href="{% link index-opera.html %}">
         <span class="mdc-deprecated-list-item__ripple"></span>
         <i class="material-icons-outlined mdc-deprecated-list-item__graphic">photo_camera</i>
         <span class="mdc-deprecated-list-item__text mdc-typography--body2">看剧</span>
       </a>
-      <a class={% if page.categories contains "tag" %}"mdc-deprecated-list-item
-        mdc-deprecated-list-item--activated"{% else %}"mdc-deprecated-list-item"{% endif %} href="{% link index-tag.html %}">
+      <a class={% if page.categories contains "tag" %}"mdc-deprecated-list-item mdc-deprecated-list-item--activated"{%
+        else %}"mdc-deprecated-list-item"{% endif %} href="{% link index-tag.html %}">
         <span class="mdc-deprecated-list-item__ripple"></span>
         <i class="material-icons-outlined mdc-deprecated-list-item__graphic">local_offer</i>
         <span class="mdc-deprecated-list-item__text mdc-typography--body2">标签</span>
@@ -77,221 +80,236 @@
         <i class="material-icons-outlined mdc-deprecated-list-item__graphic">face</i>
         <span class="mdc-deprecated-list-item__text mdc-typography--body2">关于我</span>
       </a>
-      <!-- <hr class="mdc-deprecated-list-divider"> -->
-      <!-- <h6 class="mdc-deprecated-list-group__subheader">工具</h6> -->
-      <!-- <a class="mdc-deprecated-list-item" href="{{ site.baseurl }}/feed.xml" target="_blank">
-        <span class="mdc-deprecated-list-item__ripple"></span>
-        <i class="material-icons mdc-deprecated-list-item__graphic">rss_feed</i>
-        <span class="mdc-deprecated-list-item__text">RSS订阅</span>
-      </a>
-      <a class="mdc-deprecated-list-item" href="#">
-        <span class="mdc-deprecated-list-item__ripple"></span>
-        <i class="material-icons mdc-deprecated-list-item__graphic">qr_code_2</i>
-        <span class="mdc-deprecated-list-item__text">本页二维码</span>
-      </a>
-      <a class="mdc-deprecated-list-item" href="#">
-        <span class="mdc-deprecated-list-item__ripple"></span>
-        <i class="material-icons mdc-deprecated-list-item__graphic">insert_link</i>
-        <span class="mdc-deprecated-list-item__text">本页链接</span>
-      </a> -->
     </nav>
   </div>
 </aside>
 <div class="mdc-drawer-scrim"></div>
 
-<!-- about me dialog -->
-<div class="mdc-dialog" id="about_me_dialog">
-  <div class="mdc-dialog__container common-dialog-container">
-    <!-- 加上width500px后满足要求 -->
-    <div class="mdc-dialog__surface" role="alertdialog" aria-modal="true" aria-labelledby="about-me-dialog-title"
-      aria-describedby="about-me-dialog-content">
-      <div class="mdc-dialog__content center-horizontal mdc-theme--on-surface" id="about-me-dialog-content">
+<div id="dialog_container">
+  <!-- about me dialog -->
+  <div class="mdc-dialog" id="about_me_dialog">
+    <div class="mdc-dialog__container common-dialog-container">
+      <!-- 加上width500px后满足要求 -->
+      <div class="mdc-dialog__surface" role="alertdialog" aria-modal="true" aria-labelledby="about-me-dialog-title"
+        aria-describedby="about-me-dialog-content">
+        <div class="mdc-dialog__content center-horizontal mdc-theme--on-surface" id="about-me-dialog-content">
 
-        <img height="100px" width="100dx" class="circle-avatar"
-          src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg" />
-        <h1 class="about-me-name">立泉</h1>
+          <img height="100px" width="100dx" class="circle-avatar"
+            src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg" />
+          <h1 class="about-me-name">立泉</h1>
 
-        <span>
-          <span class="mdc-evolution-chip" role="row">
-            <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
-              <button class="mdc-evolution-chip__action mdc-evolution-chip__action--primary" type="button">
-                <span class="mdc-evolution-chip__ripple mdc-evolution-chip__ripple--primary"></span>
-                <span class="mdc-evolution-chip__text-label">C++</span>
-              </button>
+          <span>
+            <span class="mdc-evolution-chip" role="row">
+              <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
+                <button class="mdc-evolution-chip__action mdc-evolution-chip__action--primary" type="button">
+                  <span class="mdc-evolution-chip__ripple mdc-evolution-chip__ripple--primary"></span>
+                  <span class="mdc-evolution-chip__text-label">C++</span>
+                </button>
+              </span>
+            </span>
+            <span class="mdc-evolution-chip" role="row">
+              <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
+                <button class="mdc-evolution-chip__action mdc-evolution-chip__action--primary" type="button">
+                  <span class="mdc-evolution-chip__ripple mdc-evolution-chip__ripple--primary"></span>
+                  <span class="mdc-evolution-chip__text-label">Java</span>
+                </button>
+              </span>
+            </span>
+            <span class="mdc-evolution-chip" role="row">
+              <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
+                <button class="mdc-evolution-chip__action mdc-evolution-chip__action--primary" type="button">
+                  <span class="mdc-evolution-chip__ripple mdc-evolution-chip__ripple--primary"></span>
+                  <span class="mdc-evolution-chip__text-label">Kotlin</span>
+                </button>
+              </span>
+            </span>
+            <span class="mdc-evolution-chip" role="row">
+              <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
+                <button class="mdc-evolution-chip__action mdc-evolution-chip__action--primary" type="button">
+                  <span class="mdc-evolution-chip__ripple mdc-evolution-chip__ripple--primary"></span>
+                  <span class="mdc-evolution-chip__text-label">Android</span>
+                </button>
+              </span>
+            </span>
+            <span class="mdc-evolution-chip" role="row">
+              <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
+                <button class="mdc-evolution-chip__action mdc-evolution-chip__action--primary" type="button"
+                  tabindex="0">
+                  <span class="mdc-evolution-chip__ripple mdc-evolution-chip__ripple--primary"></span>
+                  <span class="mdc-evolution-chip__text-label">Git</span>
+                </button>
+              </span>
             </span>
           </span>
-          <span class="mdc-evolution-chip" role="row">
-            <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
-              <button class="mdc-evolution-chip__action mdc-evolution-chip__action--primary" type="button">
-                <span class="mdc-evolution-chip__ripple mdc-evolution-chip__ripple--primary"></span>
-                <span class="mdc-evolution-chip__text-label">Java</span>
-              </button>
-            </span>
-          </span>
-          <span class="mdc-evolution-chip" role="row">
-            <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
-              <button class="mdc-evolution-chip__action mdc-evolution-chip__action--primary" type="button">
-                <span class="mdc-evolution-chip__ripple mdc-evolution-chip__ripple--primary"></span>
-                <span class="mdc-evolution-chip__text-label">Kotlin</span>
-              </button>
-            </span>
-          </span>
-          <span class="mdc-evolution-chip" role="row">
-            <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
-              <button class="mdc-evolution-chip__action mdc-evolution-chip__action--primary" type="button">
-                <span class="mdc-evolution-chip__ripple mdc-evolution-chip__ripple--primary"></span>
-                <span class="mdc-evolution-chip__text-label">Android</span>
-              </button>
-            </span>
-          </span>
-          <span class="mdc-evolution-chip" role="row">
-            <span class="mdc-evolution-chip__cell mdc-evolution-chip__cell--primary" role="gridcell">
-              <button class="mdc-evolution-chip__action mdc-evolution-chip__action--primary" type="button" tabindex="0">
-                <span class="mdc-evolution-chip__ripple mdc-evolution-chip__ripple--primary"></span>
-                <span class="mdc-evolution-chip__text-label">Git</span>
-              </button>
-            </span>
-          </span>
-        </span>
 
-        <p class="about-me-description">九五后，旅居杭州，<a href="{% link _posts/original/2019-05-18-槐安国内春生酒.md %}"
-            target="_blank">昆虫</a>，野生散养攻城狮，“十分”“业余”摄影Fans</p>
+          <p class="about-me-description">九五后，旅居杭州，<a href="{% link _posts/original/2019-05-18-槐安国内春生酒.md %}"
+              target="_blank">昆虫</a>，野生散养攻城狮，“十分”“业余”摄影Fans</p>
 
-        <ul class="mdc-deprecated-list dialog-link-list">
-          <a class="mdc-deprecated-list-item" href="https://github.com/apqx" target="_blank">
-            <span class="mdc-deprecated-list-item__ripple"></span>
-            <span class="mdc-deprecated-list-item__text">GitHub</span>
-          </a>
-          <hr class="mdc-deprecated-list-divider">
-          <a class="mdc-deprecated-list-item" href="https://www.facebook.com/apqx.me" target="_blank">
-            <span class="mdc-deprecated-list-item__ripple"></span>
-            <span class="mdc-deprecated-list-item__text">Facebook</span>
-          </a>
-          <hr class="mdc-deprecated-list-divider">
-          <a class="mdc-deprecated-list-item" href="https://www.youtube.com/channel/UCF3Qv9tpULGL-CabxSEaCaQ"
-            target="_blank">
-            <span class="mdc-deprecated-list-item__ripple"></span>
-            <span class="mdc-deprecated-list-item__text">YouTube</span>
-          </a>
-          <hr class="mdc-deprecated-list-divider">
-          <a class="mdc-deprecated-list-item" href="https://space.bilibili.com/11037907" target="_blank">
-            <span class="mdc-deprecated-list-item__ripple"></span>
-            <span class="mdc-deprecated-list-item__text">Bilibili</span>
-          </a>
-          <hr class="mdc-deprecated-list-divider">
-          <a class="mdc-deprecated-list-item" href="mailto:changgongapq@gmail.com" target="_blank">
-            <span class="mdc-deprecated-list-item__ripple"></span>
-            <span class="mdc-deprecated-list-item__text">Email</span>
-          </a>
-        </ul>
+          <ul class="mdc-deprecated-list dialog-link-list">
+            <a class="mdc-deprecated-list-item" href="https://github.com/apqx" target="_blank">
+              <span class="mdc-deprecated-list-item__ripple"></span>
+              <span class="mdc-deprecated-list-item__text">GitHub</span>
+            </a>
+            <hr class="mdc-deprecated-list-divider">
+            <a class="mdc-deprecated-list-item" href="https://www.facebook.com/apqx.me" target="_blank">
+              <span class="mdc-deprecated-list-item__ripple"></span>
+              <span class="mdc-deprecated-list-item__text">Facebook</span>
+            </a>
+            <hr class="mdc-deprecated-list-divider">
+            <a class="mdc-deprecated-list-item" href="https://www.youtube.com/channel/UCF3Qv9tpULGL-CabxSEaCaQ"
+              target="_blank">
+              <span class="mdc-deprecated-list-item__ripple"></span>
+              <span class="mdc-deprecated-list-item__text">YouTube</span>
+            </a>
+            <hr class="mdc-deprecated-list-divider">
+            <a class="mdc-deprecated-list-item" href="https://space.bilibili.com/11037907" target="_blank">
+              <span class="mdc-deprecated-list-item__ripple"></span>
+              <span class="mdc-deprecated-list-item__text">Bilibili</span>
+            </a>
+            <hr class="mdc-deprecated-list-divider">
+            <a class="mdc-deprecated-list-item" href="mailto:changgongapq@gmail.com" target="_blank">
+              <span class="mdc-deprecated-list-item__ripple"></span>
+              <span class="mdc-deprecated-list-item__text">Email</span>
+            </a>
+          </ul>
 
-      </div>
-      <div class="mdc-dialog__actions">
-        <button type="button" class="mdc-button btn-common mdc-button--unelevated center-horizontal"
-          style="width: 94%; margin-bottom: 1rem;" data-mdc-dialog-action="cancel" id="about_me_dialog_btn_close">
-          <div class="mdc-button__ripple"></div>
-          <span class="mdc-button__label">CLOSE</span>
-        </button>
-      </div>
-    </div>
-  </div>
-  <div class="mdc-dialog__scrim"></div>
-</div>
-
-<!-- Search Dialog -->
-<div class="mdc-dialog" id="search_dialog">
-  <div class="mdc-dialog__container common-dialog-container">
-    <!-- 加上width500px后满足要求 -->
-    <div class="mdc-dialog__surface" role="alertdialog" aria-modal="true" aria-labelledby="search-dialog-title"
-      aria-describedby="search-dialog-content">
-      <div class="mdc-dialog__content center-horizontal mdc-theme--on-surface" id="search-dialog-content">
-
-        <!-- API KEY: AIzaSyDYDqedqxaV6Qfv2i8OWpcS0phD-G2WDcg -->
-        <!-- Search engine ID:  b74f06c1723da9656-->
-
-        <label class="mdc-text-field mdc-text-field--outlined" style="width: 94%; margin-top: 40px"
-          id="text-field-search">
-          <span class="mdc-notched-outline">
-            <span class="mdc-notched-outline__leading"></span>
-            <span class="mdc-notched-outline__notch">
-              <span class="mdc-floating-label" id="search-label">Google</span>
-            </span>
-            <span class="mdc-notched-outline__trailing"></span>
-          </span>
-          <input type="text" class="mdc-text-field__input" aria-labelledby="search-label">
-          <button type="button" class="mdc-button mdc-button--unelevated btn-search center-horizontal"
-            style="min-width: fit-content;" id="btn_search">
+        </div>
+        <div class="mdc-dialog__actions">
+          <button type="button" class="mdc-button btn-common mdc-button--unelevated center-horizontal"
+            style="width: 94%; margin-bottom: 1rem;" data-mdc-dialog-action="cancel" id="about_me_dialog_btn_close">
             <div class="mdc-button__ripple"></div>
-            <i class="material-icons mdc-button__icon" aria-hidden="true">search</i>
-            <span class="mdc-button__label">SEARCH</span>
+            <span class="mdc-button__label">CLOSE</span>
           </button>
-        </label>
-
-        <p style="margin: 1.6rem 1rem;"><b>TIPS：</b>本<a href="https://cse.google.com/cse?cx=b74f06c1723da9656"
-            target="_blank">搜索</a>功能由<a href="https://cse.google.com/cse/all" target="_blank">Google站内搜索</a>提供，仅在能访问<a
-            href="https://google.com" target="_blank">Google</a>的网络环境下可用。</p>
-
-        <!-- 进度条 -->
-        <div role="progressbar" class="mdc-linear-progress" aria-label="Example Progress Bar" aria-valuemin="0"
-          aria-valuemax="1" aria-valuenow="0" id="search-progress-bar">
-          <div class="mdc-linear-progress__buffer">
-            <div class="mdc-linear-progress__buffer-bar"></div>
-            <div class="mdc-linear-progress__buffer-dots"></div>
-          </div>
-          <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
-            <span class="mdc-linear-progress__bar-inner"></span>
-          </div>
-          <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
-            <span class="mdc-linear-progress__bar-inner"></span>
-          </div>
         </div>
-        <div id="search-result-wraper">
-
-        </div>
-
-      </div>
-
-      <div class="mdc-dialog__actions">
-        <button type="button" class="mdc-button btn-common mdc-button--unelevated center-horizontal"
-          style="width: 94%; margin-bottom: 1rem; margin-top: 1rem;" data-mdc-dialog-action="cancel"
-          id="search_dialog_btn_close">
-          <div class="mdc-button__ripple"></div>
-          <span class="mdc-button__label">CLOSE</span>
-        </button>
-
       </div>
     </div>
+    <div class="mdc-dialog__scrim"></div>
   </div>
-  <div class="mdc-dialog__scrim"></div>
-</div>
 
-<!-- Image Tips Dialog -->
-<div class="mdc-dialog" id="img_tips_dialog">
-  <div class="mdc-dialog__container common-dialog-container">
-    <!-- 加上width500px后满足要求 -->
-    <div class="mdc-dialog__surface" role="alertdialog" aria-modal="true" aria-labelledby="img-tips-dialog-title"
-      aria-describedby="img-tips-dialog-content">
-      <div class="mdc-dialog__content center-horizontal mdc-theme--on-surface" id="img-tips-dialog-content">
+  <!-- search dialog -->
+  <div class="mdc-dialog" id="search_dialog">
+    <div class="mdc-dialog__container common-dialog-container">
+      <!-- 加上width500px后满足要求 -->
+      <div class="mdc-dialog__surface" role="alertdialog" aria-modal="true" aria-labelledby="search-dialog-title"
+        aria-describedby="search-dialog-content">
+        <div class="mdc-dialog__content center-horizontal mdc-theme--on-surface" id="search-dialog-content">
 
-        <h1>版权声明</h1>
+          <!-- API KEY: AIzaSyDYDqedqxaV6Qfv2i8OWpcS0phD-G2WDcg -->
+          <!-- Search engine ID:  b74f06c1723da9656-->
 
-        <p style="margin: 1.6rem 1rem;">点击“OK”将跳转到原始尺寸的无水印高清大图，欢迎下载分享，只是唯一注意，<b>图片版权归属作者及原剧团演员所有</b>，未经允许，不可用于商业用途🤫。
-        </p>
+          <label class="mdc-text-field mdc-text-field--outlined" style="width: 94%; margin-top: 40px"
+            id="text-field-search">
+            <span class="mdc-notched-outline">
+              <span class="mdc-notched-outline__leading"></span>
+              <span class="mdc-notched-outline__notch">
+                <span class="mdc-floating-label" id="search-label">Google</span>
+              </span>
+              <span class="mdc-notched-outline__trailing"></span>
+            </span>
+            <input type="text" class="mdc-text-field__input" aria-labelledby="search-label">
+            <button type="button" class="mdc-button mdc-button--unelevated btn-search center-horizontal"
+              style="min-width: fit-content;" id="btn_search">
+              <div class="mdc-button__ripple"></div>
+              <i class="material-icons mdc-button__icon" aria-hidden="true">search</i>
+              <span class="mdc-button__label">SEARCH</span>
+            </button>
+          </label>
 
-      </div>
+          <p style="margin: 1.6rem 1rem;"><b>TIPS：</b>本<a href="https://cse.google.com/cse?cx=b74f06c1723da9656"
+              target="_blank">搜索</a>功能由<a href="https://cse.google.com/cse/all" target="_blank">Google站内搜索</a>提供，仅在能访问<a
+              href="https://google.com" target="_blank">Google</a>的网络环境下可用。</p>
 
-      <div class="mdc-dialog__actions">
-        <button type="button" class="mdc-button btn-common mdc-button--unelevated center-horizontal"
-          style="width: 94%; margin-bottom: 1rem; margin-top: 1rem;" data-mdc-dialog-action="cancel"
-          id="img_tips_dialog_btn_close">
-          <div class="mdc-button__ripple"></div>
-          <span class="mdc-button__label">OK</span>
-        </button>
+          <!-- 进度条 -->
+          <div role="progressbar" class="mdc-linear-progress" aria-label="Example Progress Bar" aria-valuemin="0"
+            aria-valuemax="1" aria-valuenow="0" id="search-progress-bar">
+            <div class="mdc-linear-progress__buffer">
+              <div class="mdc-linear-progress__buffer-bar"></div>
+              <div class="mdc-linear-progress__buffer-dots"></div>
+            </div>
+            <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
+              <span class="mdc-linear-progress__bar-inner"></span>
+            </div>
+            <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
+              <span class="mdc-linear-progress__bar-inner"></span>
+            </div>
+          </div>
+          <div id="search-result-wraper">
+
+          </div>
+
+        </div>
+
+        <div class="mdc-dialog__actions">
+          <button type="button" class="mdc-button btn-common mdc-button--unelevated center-horizontal"
+            style="width: 94%; margin-bottom: 1rem; margin-top: 1rem;" data-mdc-dialog-action="cancel"
+            id="search_dialog_btn_close">
+            <div class="mdc-button__ripple"></div>
+            <span class="mdc-button__label">CLOSE</span>
+          </button>
+
+        </div>
       </div>
     </div>
+    <div class="mdc-dialog__scrim"></div>
   </div>
-  <div class="mdc-dialog__scrim"></div>
+
+  <!-- image tips dialog -->
+  <div class="mdc-dialog" id="img_tips_dialog">
+    <div class="mdc-dialog__container common-dialog-container">
+      <!-- 加上width500px后满足要求 -->
+      <div class="mdc-dialog__surface" role="alertdialog" aria-modal="true" aria-labelledby="img-tips-dialog-title"
+        aria-describedby="img-tips-dialog-content">
+        <div class="mdc-dialog__content center-horizontal mdc-theme--on-surface" id="img-tips-dialog-content">
+          <h1>版权声明</h1>
+          <p style="margin: 1.6rem 1rem;">点击“OK”将跳转到原始尺寸的无水印高清大图，欢迎下载分享，只是唯一注意，<b>图片版权归属作者及原剧团演员所有</b>，未经允许，不可用于商业用途🤫。
+          </p>
+        </div>
+        <div class="mdc-dialog__actions">
+          <button type="button" class="mdc-button btn-common mdc-button--unelevated center-horizontal"
+            style="width: 94%; margin-bottom: 1rem; margin-top: 1rem;" data-mdc-dialog-action="cancel"
+            id="img_tips_dialog_btn_close">
+            <div class="mdc-button__ripple"></div>
+            <span class="mdc-button__label">OK</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="mdc-dialog__scrim"></div>
+  </div>
+
+  <!-- url jumping dialog -->
+  <div class="mdc-dialog" id="url_jumping_dialog">
+    <div class="mdc-dialog__container common-dialog-container">
+      <!-- 加上width500px后满足要求 -->
+      <div class="mdc-dialog__surface" role="alertdialog" aria-modal="true" aria-labelledby="url_jumping_dialog-title"
+        aria-describedby="url_jumping_dialog-content">
+        <div class="mdc-dialog__content center-horizontal mdc-theme--on-surface" id="url_jumping_dialog-content">
+          <p style="text-align: center; font-size: 4rem; margin-top: 2rem;">😶</p>
+          <p style="text-align: center; margin-top: 2rem;"><em style="font-style: normal;" id="url_jumping_title"></em></p>
+          <p style="margin: 1rem 1rem;"><a id="url_jumping_link" class="clickable-empty-link"></a></p>
+          <!-- 进度条 -->
+          <div role="progressbar" class="mdc-linear-progress" aria-label="Example Progress Bar" aria-valuemin="0"
+            aria-valuemax="1" aria-valuenow="0" id="url_jumping_progressbar">
+            <div class="mdc-linear-progress__buffer">
+              <div class="mdc-linear-progress__buffer-bar"></div>
+              <div class="mdc-linear-progress__buffer-dots"></div>
+            </div>
+            <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
+              <span class="mdc-linear-progress__bar-inner"></span>
+            </div>
+            <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
+              <span class="mdc-linear-progress__bar-inner"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 注释这一行，则点击dialog外空白处不会dismiss -->
+    <!-- <div class="mdc-dialog__scrim"></div> -->
+  </div>
 </div>
+
+
 <!-- 执行Theme检查，根据用户配置，加载主题，放在这里是为了在页面加载完成前，给body赋予正确的主题class。
   如果放在外部的js资源中，可能会因为加载延迟出现闪屏。即默认先加载Light主题，然后再加Dark类，中间有一个时间差。 -->
 {% include theme-script.html %}

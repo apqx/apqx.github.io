@@ -11,7 +11,7 @@ const POST_TYPE_POETRY = ["poetry", "诗文"]
 const POST_TYPE_OPERA = ["opera", "看剧"]
 
 /**
- * 在archive/tag/index.html保存着所有tag和每一个tag对应文章的列表，只请求一次
+ * 在archives/posts.txt保存着所有文章及对应tag的列表，只请求一次
  */
 var postJson = null
 
@@ -69,7 +69,7 @@ function clickTag() {
         console.log("create tag dialog")
         dialogE = generateTagDialog(tag, dialogId, listId, btnId, progressId, postType)
         // 把生成的Dialog插入到指定位置
-        document.getElementById("tag_dialog_container").appendChild(dialogE)
+        document.getElementById("dialog_container").appendChild(dialogE)
         // Button动画
         new MDCRipple(document.getElementById(btnId))
         tagDialog = new MDCDialog(dialogE)
@@ -275,17 +275,14 @@ function generateProgressbar(progressId) {
  */
 function queryTagItemList(tag, listId, postType, progressbar) {
     var host = window.location.host
-    if (!host.includes("apqx.me")) {
-        host = "http://" + host
-    } else {
-        host = "https://" + host
-    }
+    host = window.location.protocol + "//" + host
     var url = host + "/archives/posts.txt"
     console.log("queryTagItemList " + url)
     const request = new Request(url, {
         method: 'GET'
     })
     progressbar.open()
+    // 异步请求
     fetch(request)
         .then(response => {
             if (response.status === 200) {
