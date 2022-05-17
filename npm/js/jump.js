@@ -36,20 +36,25 @@ function checkJump() {
     const urlPath = window.location.pathname
     const matches = urlPath.match(/(op|og|rp|pt)..$/)
     if (matches != null && matches.length > 0) {
-        // 在404页面，检查可能携带的pid
+        // 检查是否符合格式1
         // https://apqx.me/id
         pid = matches[0]
         console.log("404 page pid = " + pid + " : " + matches)
-        // 隐藏404提示
-        document.getElementById("card_404_content").style.display = "none"
     } else {
-        // 普通页面，检查可能携带的pid
+        // 检查是否符合格式2
         // https://apqx.me?pid=id
         const urlParams = new URLSearchParams(window.location.search)
         pid = urlParams.get("pid")
         console.log("common page pid = " + pid)
     }
-    if (pid == null) return
+    if (pid == null) {
+        // 不是跳转，且处于404页，显示404提示（默认是不显示的）
+        var e404 =  document.getElementById("card_404_content")
+        if (e404 != null) {
+            e404.style.display = "block"
+        }
+        return
+    }
     progressbar = new MDCLinearProgress(document.getElementById("url_jumping_progressbar"))
     pTitle = document.getElementById("url_jumping_title")
     aTargetLink = document.getElementById("url_jumping_link")
@@ -107,7 +112,6 @@ function findPid(pid) {
     })
     .then(response => {
         console.debug(response)
-        // progressbar.close()
         const mapJson = JSON.parse(response)
         for (let item of mapJson.map) {
             console.log(item.id)
@@ -118,11 +122,11 @@ function findPid(pid) {
                 return
             }
         }
-        jumpToUrl(host + "/404.html", "404 Not Found")
+        jumpToUrl(host + "/404.html", "未找到目标页面")
         console.log("pid not exist, will create new")
     }).catch(error => {
         console.error(error)
-        // progressbar.close()
+        jumpToUrl(host + "/404.html", "未找到映射表")
     })
 }
 
@@ -134,5 +138,8 @@ function jumpToUrl(url, linkTitle) {
     aTargetLink.addEventListener("click", () => {
         window.location.replace(url)
     })
-    window.location.replace(url)
+    setTimeout(() => {
+        // 延时2秒再跳转，显示动画
+        window.location.replace(url)
+    }, 2000)
 }
