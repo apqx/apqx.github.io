@@ -107,7 +107,6 @@ function findPid(pid) {
     })
     .then(response => {
         console.debug(response)
-        // progressbar.close()
         const mapJson = JSON.parse(response)
         for (let item of mapJson.map) {
             console.log(item.id)
@@ -118,11 +117,11 @@ function findPid(pid) {
                 return
             }
         }
-        jumpToUrl(host + "/404.html", "404 Not Found")
+        jumpToUrl(host + "/404.html", "未找到目标页面")
         console.log("pid not exist, will create new")
     }).catch(error => {
         console.error(error)
-        // progressbar.close()
+        jumpToUrl(host + "/404.html", "未找到映射表")
     })
 }
 
