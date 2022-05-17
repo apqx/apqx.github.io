@@ -41,6 +41,13 @@
                 "path": "/post/original/2021/06/10/旅行志03-兰苑狮吼.html",
                 "title": "旅行志03：兰苑狮吼"
             }
+        },
+        {
+            "id": "og01",
+            "target": {
+                "path": "/post/original/2021/02/25/央视-戏剧-4K-HEVC-惊喜连连.html",
+                "title": "央视、戏剧、4K、HEVC，惊喜连连"
+            }
         }
     ]
 }
