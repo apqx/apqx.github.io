@@ -1,4 +1,4 @@
-基于`Node.js`，以`npm`和`webpack`管理工程，为博客生成`css`和`js`文件
+以`npm`和`webpack`管理工程，为博客生成`css`和`js`文件
 
 # 使用
 
