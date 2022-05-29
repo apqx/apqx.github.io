@@ -1,9 +1,9 @@
 // 处理文章的tag标记
-import { MDCList } from '@material/list'
-import { MDCDialog } from '@material/dialog'
-import { MDCLinearProgress } from '@material/linear-progress'
+import { MDCList } from "@material/list"
+import { MDCDialog } from "@material/dialog"
+import { MDCLinearProgress } from "@material/linear-progress"
 
-import { MDCRipple } from '@material/ripple'
+import { MDCRipple } from "@material/ripple"
 
 const POST_TYPE_ORIGINAL = ["original", "随笔"]
 const POST_TYPE_REPOST = ["repost", "转载"]
@@ -19,11 +19,11 @@ var tagDialog = null
 var tagDialogProgressbar = null
 var tagEssayList = null
 
-if (document.readyState !== 'loading') {
+if (document.readyState !== "loading") {
     runOnStart()
 } else {
     // HTML元素加载完成，但是CSS等资源还未加载
-    document.addEventListener('DOMContentLoaded', (event) => {
+    document.addEventListener("DOMContentLoaded", (event) => {
         runOnStart()
     })
 }
@@ -39,7 +39,7 @@ function initTagTriggers() {
     // tag对应的Dialog
     // 获取每一个标记了tag-dialog-trigger的element，查找这个trigger对应的dialog，监听点击事件，弹出dialog
     // 所有tag共用一个dialog
-    var dialogsTriggers = document.querySelectorAll('.tag-dialog-trigger')
+    var dialogsTriggers = document.querySelectorAll(".tag-dialog-trigger")
 
     // 为每一个tag添加点击监听
     for (var triger of dialogsTriggers) {
@@ -79,7 +79,7 @@ function clickTag() {
         var listEl = document.getElementById(listId)
         tagEssayList = new MDCList(listEl)
         // 监听dialog的弹出事件
-        tagDialog.listen('MDCDialog:opened', () => {
+        tagDialog.listen("MDCDialog:opened", () => {
             console.log("tag dialog opened")
             // list.layout()
             // Dialog弹出时似乎List获取了焦点，应该取消
@@ -88,7 +88,7 @@ function clickTag() {
             document.getElementById(btnId).blur()
         })
         // 点击列表中的item后，关闭Dialog
-        tagEssayList.listen('MDCList:action', () => {
+        tagEssayList.listen("MDCList:action", () => {
             console.log("click tagList item")
             // dialog.close()
         })
@@ -279,7 +279,7 @@ function queryTagItemList(tag, listId, postType, progressbar) {
     var url = host + "/archives/posts.txt"
     console.log("queryTagItemList " + url)
     const request = new Request(url, {
-        method: 'GET'
+        method: "GET"
     })
     progressbar.open()
     // 异步请求
@@ -288,7 +288,7 @@ function queryTagItemList(tag, listId, postType, progressbar) {
             if (response.status === 200) {
                 return response.text()
             } else {
-                throw new Error('Something went wrong on api server!')
+                throw new Error("Something went wrong on api server!")
             }
         })
         .then(response => {
