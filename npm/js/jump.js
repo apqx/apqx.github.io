@@ -1,6 +1,6 @@
 // 处理页面跳转，短链接
-import { MDCDialog } from '@material/dialog'
-import { MDCLinearProgress } from '@material/linear-progress'
+import { MDCDialog } from "@material/dialog"
+import { MDCLinearProgress } from "@material/linear-progress"
 
 // 监听当前文章页的标题，点击3次，触发短链服务
 
@@ -10,13 +10,13 @@ var pTitle = null
 var aTargetLink = null
 
 // 监听HTML元素加载完成的DOMContentLoaded事件，但是有时候该事件会在设置监听器之前完成，所以这里检查一下是否已经完成了
-if (document.readyState !== 'loading') {
+if (document.readyState !== "loading") {
     console.log("DOMContentLoaded ready before addListener, just init")
     runOnStart()
 } else {
     console.log("DOMContentLoaded not ready before addListener, so add listener")
     // HTML元素加载完成，但是CSS等资源还未加载
-    document.addEventListener('DOMContentLoaded', (event) => {
+    document.addEventListener("DOMContentLoaded", (event) => {
         console.log("DOMContentLoaded listener get called, so start init")
         runOnStart()
     })
@@ -59,7 +59,7 @@ function checkJump() {
     pTitle = document.getElementById("url_jumping_title")
     aTargetLink = document.getElementById("url_jumping_link")
     dialog = new MDCDialog(document.getElementById("url_jumping_dialog"))
-    dialog.listen('MDCDialog:opened', () => {
+    dialog.listen("MDCDialog:opened", () => {
         console.log("link jumping dialog opened")
         // Dialog弹出时似乎link获取了焦点，应该取消
         aTargetLink.blur()
@@ -99,7 +99,7 @@ function findPid(pid) {
     host = window.location.protocol + "//" + host
     const url = host + "/assets/url-map.json"
     const request = new Request(url, {
-        method: 'GET'
+        method: "GET"
     })
     // 请求是异步的
     fetch(request)
@@ -107,7 +107,7 @@ function findPid(pid) {
         if (response.status === 200) {
             return response.text()
         } else {
-            throw new Error('Something went wrong on api server!')
+            throw new Error("Something went wrong on api server!")
         }
     })
     .then(response => {
