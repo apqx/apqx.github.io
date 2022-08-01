@@ -36,6 +36,13 @@
             }
         },
         {
+            "id": "op05",
+            "target": {
+                "path": "/post/opera/2022/07/23/昆曲-孽海记-思凡-折子.html",
+                "title": "昆曲「孽海记·思凡」折子"
+            }
+        },
+        {
             "id": "og00",
             "target": {
                 "path": "/post/original/2021/06/10/旅行志03-兰苑狮吼.html",
