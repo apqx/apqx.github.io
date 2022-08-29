@@ -7,7 +7,6 @@ module.exports = {
     // 给apqx.me使用的scss和js定义
     entry: ['./scss/app.scss', './js/app.js', './js/tag.js', './js/img.js', './js/nav.js', './js/jump.js'],
     // 给测试使用的scss和js定义
-    // entry: ['./scss/demo.scss', './js/demo.js'],
     output: {
         // 指定要生存的js文件名
         filename: 'apqx.js',
