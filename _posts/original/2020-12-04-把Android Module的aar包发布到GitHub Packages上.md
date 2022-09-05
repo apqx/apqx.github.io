@@ -5,12 +5,12 @@ title: "把Android Module的aar包发布到GitHub Packages"
 author: 立泉
 mention: Gradle Maven
 date: 2020-12-04 +0800
-description: 只是为了更好的管理自用的工具包。
+description: 成为一个全职Android开发工程师已有三年，经手的项目很多，也积累了一些自己常用的代码工具，我把它们封装在一个Library中，在我的各个业余项目中使用。但是每次都在工程中为它单独创建Module显然太过麻烦，直接打包为aar又会出现一些依赖问题，因为gradle并不会把外部依赖直接写进aar里，这意味着必须在使用该aar的Module中手动引入这些依赖，否则会因为依赖缺失而无法通过编译。
 cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20201204/github_packages_jettools.jpg
 tags: CS Android Gradle Build Maven GitHub
 ---
 
-成为一个全职`Android`开发工程师已有三年，经手的项目很多，也积累了一些自己常用的代码工具，我把它们封装在一个`Android Library`中，在我的各个业余项目中使用。但是每次都在工程中为它单独创建一个`Module`显然太过麻烦，直接打包为`aar`又会出现一些依赖问题，因为`gradle`并不会把`Module`的外部依赖直接写进`aar`里，这意味着必须在使用该`aar`的`Module`中手动引入这些依赖，否则会因为依赖缺失而无法通过编译。
+成为一个全职`Android`开发工程师已有三年，经手的项目很多，也积累了一些自己常用的代码工具，我把它们封装在一个`Library`中，在我的各个业余项目中使用。但是每次都在工程中为它单独创建一个`Module`显然太过麻烦，直接打包为`aar`又会出现一些依赖问题，因为`gradle`并不会把外部依赖直接写进`aar`里，这意味着必须在使用该`aar`的`Module`中手动引入这些依赖，否则会因为依赖缺失而无法通过编译。
 
 那么，为什么在`gradle`中使用`Maven`里的类库可以不用手动配置它依赖的第三方类库呢？其实，发布到`Maven`仓库的`aar`包同样不包含任何第三方依赖，只不过，发布时`Maven`插件会自动生成一个包含了所有依赖的`.pom`文件，而`gradle`在使用`Maven`里的类库时会自动下载这个文件，并且根据它的内容下载指定版本的依赖。
 
