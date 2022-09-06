@@ -4,20 +4,17 @@ import { MDCLinearProgress } from "@material/linear-progress"
 
 // 监听当前文章页的标题，点击3次，触发短链服务
 
-var dialog = null
-var progressbar = null
-var pTitle = null
-var aTargetLink = null
+let dialog = null
+let progressbar = null
+let pTitle = null
+let aTargetLink = null
 
 // 监听HTML元素加载完成的DOMContentLoaded事件，但是有时候该事件会在设置监听器之前完成，所以这里检查一下是否已经完成了
 if (document.readyState !== "loading") {
-    console.log("DOMContentLoaded ready before addListener, just init")
     runOnStart()
 } else {
-    console.log("DOMContentLoaded not ready before addListener, so add listener")
     // HTML元素加载完成，但是CSS等资源还未加载
-    document.addEventListener("DOMContentLoaded", (event) => {
-        console.log("DOMContentLoaded listener get called, so start init")
+    document.addEventListener("DOMContentLoaded", () => {
         runOnStart()
     })
 }
@@ -28,28 +25,20 @@ function runOnStart() {
 
 /**
  * 进入页面，检查是否携带了跳转参数 
- * https://apqx.me?pid=id
- * https://apqx.me/id
+ * https://apqx.me/pid
  */
 function checkJump() {
-    var pid = null
+    let pid
     const urlPath = window.location.pathname
     const matches = urlPath.match(/(op|og|rp|pt)..$/)
     if (matches != null && matches.length > 0) {
-        // 检查是否符合格式1
+        // 检查是否符合格式，会被自动重定向到404页，在该页的js处理短链跳转
         // https://apqx.me/id
         pid = matches[0]
-        console.log("404 page pid = " + pid + " : " + matches)
-    } else {
-        // 检查是否符合格式2
-        // https://apqx.me?pid=id
-        const urlParams = new URLSearchParams(window.location.search)
-        pid = urlParams.get("pid")
-        console.log("common page pid = " + pid)
     }
     if (pid == null) {
-        // 不是跳转，且处于404页，显示404提示（默认是不显示的）
-        var e404 =  document.getElementById("card_404_content")
+        // 不是短链跳转，如果处于404页，显示404提示（默认是不显示的）
+        const e404 =  document.getElementById("card_404_content")
         if (e404 != null) {
             e404.style.display = "block"
         }
@@ -60,7 +49,6 @@ function checkJump() {
     aTargetLink = document.getElementById("url_jumping_link")
     dialog = new MDCDialog(document.getElementById("url_jumping_dialog"))
     dialog.listen("MDCDialog:opened", () => {
-        console.log("link jumping dialog opened")
         // Dialog弹出时似乎link获取了焦点，应该取消
         aTargetLink.blur()
     })
@@ -95,8 +83,7 @@ function checkJump() {
  * @param {string} pid 
  */
 function findPid(pid) {
-    var host = window.location.host
-    host = window.location.protocol + "//" + host
+    const host = window.location.protocol + "//" + window.location.host
     const url = host + "/assets/url-map.json"
     const request = new Request(url, {
         method: "GET"
@@ -113,7 +100,7 @@ function findPid(pid) {
     .then(response => {
         console.debug(response)
         const mapJson = JSON.parse(response)
-        for (let item of mapJson.map) {
+        for (const item of mapJson.map) {
             console.log(item.id)
             if (item.id == pid) {
                 console.log("find pid " + pid + " => " + item.target.path)

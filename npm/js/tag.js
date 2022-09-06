@@ -13,17 +13,17 @@ const POST_TYPE_OPERA = ["opera", "看剧"]
 /**
  * 在archives/posts.txt保存着所有文章及对应tag的列表，只请求一次
  */
-var postJson = null
+let postJson = null
 
-var tagDialog = null
-var tagDialogProgressbar = null
-var tagEssayList = null
+let tagDialog = null
+let tagDialogProgressbar = null
+let tagEssayList = null
 
 if (document.readyState !== "loading") {
     runOnStart()
 } else {
     // HTML元素加载完成，但是CSS等资源还未加载
-    document.addEventListener("DOMContentLoaded", (event) => {
+    document.addEventListener("DOMContentLoaded", () => {
         runOnStart()
     })
 }
@@ -39,35 +39,34 @@ function initTagTriggers() {
     // tag对应的Dialog
     // 获取每一个标记了tag-dialog-trigger的element，查找这个trigger对应的dialog，监听点击事件，弹出dialog
     // 所有tag共用一个dialog
-    var dialogsTriggers = document.querySelectorAll(".tag-dialog-trigger")
+    const dialogsTriggers = document.querySelectorAll(".tag-dialog-trigger")
 
     // 为每一个tag添加点击监听
-    for (var triger of dialogsTriggers) {
-        // 获取每一个triger的id，找到它对应的dialogId，和dialog里的listId
-        console.log(triger.id)
+    for (const trigger of dialogsTriggers) {
+        // 获取每一个trigger的id，找到它对应的dialogId，和dialog里的listId
+        console.log(trigger.id)
         // 监听trigger的点击事件
-        triger.addEventListener("click", clickTag)
+        trigger.addEventListener("click", clickTag)
     }
 }
 
 function clickTag() {
     // TODO: 为什么使用event.target.id不可以？？
-    var chipId = this.id
+    const chipId = this.id
     // chip_tag_随笔 dialog_tag_随笔 dialog_tag_list_随笔
     // chip_tag_碎碎念&看剧 可以指定多个tag，用 & 分隔
     console.log("click tag " + chipId)
-    var dialogId = "chip_tag_dialog"
-    var listId = "chip_tag_essay_list"
-    var progressId = "chip_tag_dialog_progress"
-    var btnId = "chip_tag_dialog_btn"
+    const dialogId = "chip_tag_dialog"
+    const listId = "chip_tag_essay_list"
+    const progressId = "chip_tag_dialog_progress"
+    const btnId = "chip_tag_dialog_btn"
     // 这里的tag可能是由&连接的多个tag
-    var tag = chipId.replace("chip_tag_", "")
-    var postType = getPostType()
+    const tag = chipId.replace("chip_tag_", "")
 
-    var dialogE = document.getElementById(dialogId)
+    let dialogE = document.getElementById(dialogId)
     if (dialogE == null) {
         console.log("create tag dialog")
-        dialogE = generateTagDialog(tag, dialogId, listId, btnId, progressId, postType)
+        dialogE = generateTagDialog(tag, dialogId, listId, btnId, progressId)
         // 把生成的Dialog插入到指定位置
         document.getElementById("dialog_container").appendChild(dialogE)
         // Button动画
@@ -76,11 +75,10 @@ function clickTag() {
         tagDialogProgressbar = new MDCLinearProgress(document.getElementById(progressId))
         tagDialogProgressbar.determinate = false
         tagDialogProgressbar.close()
-        var listEl = document.getElementById(listId)
+        const listEl = document.getElementById(listId)
         tagEssayList = new MDCList(listEl)
         // 监听dialog的弹出事件
         tagDialog.listen("MDCDialog:opened", () => {
-            console.log("tag dialog opened")
             // list.layout()
             // Dialog弹出时似乎List获取了焦点，应该取消
             // 先让Button获取焦点再取消，以转移焦点
@@ -89,7 +87,6 @@ function clickTag() {
         })
         // 点击列表中的item后，关闭Dialog
         tagEssayList.listen("MDCList:action", () => {
-            console.log("click tagList item")
             // dialog.close()
         })
     }
@@ -99,9 +96,9 @@ function clickTag() {
 
     // 只在无数据时请求
     if (postJson != null) {
-        showTagItemList(postJson, tag, listId, postType)
+        showTagItemList(postJson, tag, listId)
     } else {
-        queryTagItemList(tag, listId, postType, tagDialogProgressbar)
+        queryTagItemList(tag, listId, tagDialogProgressbar)
     }
 }
 
@@ -120,7 +117,7 @@ function getPostType() {
 }
 
 // 生成Dialog
-function generateTagDialog(tag, dialogId, listId, btnId, progressId, postType) {
+function generateTagDialog(tag, dialogId, listId, btnId, progressId) {
     /*
     <div class="mdc-dialog" id="dialog_tag_昆曲">
         <div class="mdc-dialog__container">
@@ -173,15 +170,15 @@ function generateTagDialog(tag, dialogId, listId, btnId, progressId, postType) {
         <div class="mdc-dialog__scrim"></div>
     </div>
     */
-    var divDialog = document.createElement("div")
+    const divDialog = document.createElement("div")
     divDialog.setAttribute("class", "mdc-dialog")
     divDialog.setAttribute("id", dialogId)
-    var divDialogContainer = document.createElement("div")
+    const divDialogContainer = document.createElement("div")
     divDialogContainer.setAttribute("class", "mdc-dialog__container")
     divDialog.appendChild(divDialogContainer)
 
 
-    var divDialogSurface = document.createElement("div")
+    const divDialogSurface = document.createElement("div")
     divDialogSurface.setAttribute("class", "mdc-dialog__surface common-dialog-container")
     divDialogSurface.setAttribute("role", "alertdialog")
     divDialogSurface.setAttribute("aria-modal", "true")
@@ -189,35 +186,35 @@ function generateTagDialog(tag, dialogId, listId, btnId, progressId, postType) {
     divDialogSurface.setAttribute("aria-describedby", "tag-dialog-content")
     divDialogContainer.appendChild(divDialogSurface)
 
-    var divDialogContent = document.createElement("div")
+    const divDialogContent = document.createElement("div")
     divDialogContent.setAttribute("class", "mdc-dialog__content")
     divDialogContent.setAttribute("id", "tag-dialog-content")
-    var pTitle = document.createElement("p")
+    const pTitle = document.createElement("p")
     pTitle.setAttribute("class", "mdc-theme--on-surface")
     pTitle.innerHTML = "标记TAG <code id=\"tag-dialog-tag-name\" class=\"language-plaintext highlighter-rouge\">#" + tag + "</code> 的<span>文章</span>"
     divDialogContent.appendChild(pTitle)
 
-    var divProgressbar = generateProgressbar(progressId)
+    const divProgressbar = generateProgressbar(progressId)
     divDialogContent.appendChild(divProgressbar)
 
-    var ulList = document.createElement("ul")
+    const ulList = document.createElement("ul")
     ulList.setAttribute("class", "mdc-deprecated-list dialog-link-list")
     ulList.setAttribute("id", listId)
     divDialogContent.appendChild(ulList)
     divDialogSurface.appendChild(divDialogContent)
 
-    var divActions = document.createElement("div")
+    const divActions = document.createElement("div")
     divActions.setAttribute("class", "mdc-dialog__actions")
-    var btnClose = document.createElement("button")
+    const btnClose = document.createElement("button")
     btnClose.setAttribute("type", "button")
     btnClose.setAttribute("class", "mdc-button btn-common mdc-button--unelevated center-horizontal")
     btnClose.setAttribute("style", "width: 94%; margin-bottom: 1rem;")
     btnClose.setAttribute("data-mdc-dialog-action", "cancel")
     btnClose.setAttribute("id", btnId)
-    var divBtnCloseRipple = document.createElement("div")
+    const divBtnCloseRipple = document.createElement("div")
     divBtnCloseRipple.setAttribute("class", "mdc-button__ripple")
     btnClose.appendChild(divBtnCloseRipple)
-    var spanBtnClose = document.createElement("span")
+    const spanBtnClose = document.createElement("span")
     spanBtnClose.setAttribute("class", "mdc-button__label")
     spanBtnClose.innerHTML = "CLOSE"
     btnClose.appendChild(spanBtnClose)
@@ -225,7 +222,7 @@ function generateTagDialog(tag, dialogId, listId, btnId, progressId, postType) {
     divActions.appendChild(btnClose)
     divDialogSurface.appendChild(divActions)
 
-    var divScrim = document.createElement("div")
+    const divScrim = document.createElement("div")
     divScrim.setAttribute("class", "mdc-dialog__scrim")
     divDialog.appendChild(divScrim)
 
@@ -233,7 +230,7 @@ function generateTagDialog(tag, dialogId, listId, btnId, progressId, postType) {
 }
 
 function generateProgressbar(progressId) {
-    var divProgressbar = document.createElement("div")
+    const divProgressbar = document.createElement("div")
     divProgressbar.setAttribute("role", "progressbar")
     divProgressbar.setAttribute("class", "mdc-linear-progress")
     divProgressbar.setAttribute("aria-label", "Example Progress Bar")
@@ -241,26 +238,26 @@ function generateProgressbar(progressId) {
     divProgressbar.setAttribute("aria-valuemax", "1")
     divProgressbar.setAttribute("aria-valuenow", "0")
     divProgressbar.setAttribute("id", progressId)
-    var divProgressbarBuffer = document.createElement("div")
+    const divProgressbarBuffer = document.createElement("div")
     divProgressbarBuffer.setAttribute("class", "mdc-linear-progress__buffer")
-    var divProgressbarBufferBar = document.createElement("div")
+    const divProgressbarBufferBar = document.createElement("div")
     divProgressbarBufferBar.setAttribute("class", "mdc-linear-progress__buffer-bar")
     divProgressbarBuffer.appendChild(divProgressbarBufferBar)
-    var divProgressbarBufferDots = document.createElement("div")
+    const divProgressbarBufferDots = document.createElement("div")
     divProgressbarBufferDots.setAttribute("class", "mdc-linear-progress__buffer-dots")
     divProgressbarBuffer.appendChild(divProgressbarBufferDots)
     divProgressbar.appendChild(divProgressbarBuffer)
 
-    var divProgressbarPrimary = document.createElement("div")
+    const divProgressbarPrimary = document.createElement("div")
     divProgressbarPrimary.setAttribute("class", "mdc-linear-progress__bar mdc-linear-progress__primary-bar")
-    var spanProgressbarPrimary = document.createElement("span")
+    const spanProgressbarPrimary = document.createElement("span")
     spanProgressbarPrimary.setAttribute("class", "mdc-linear-progress__bar-inner")
     divProgressbarPrimary.appendChild(spanProgressbarPrimary)
     divProgressbar.appendChild(divProgressbarPrimary)
 
-    var divProgressbarSecondary = document.createElement("div")
+    const divProgressbarSecondary = document.createElement("div")
     divProgressbarSecondary.setAttribute("class", "mdc-linear-progress__bar mdc-linear-progress__secondary-bar")
-    var spanProgressbarSecondary = document.createElement("span")
+    const spanProgressbarSecondary = document.createElement("span")
     spanProgressbarSecondary.setAttribute("class", "mdc-linear-progress__bar-inner")
     divProgressbarSecondary.appendChild(spanProgressbarSecondary)
     divProgressbar.appendChild(divProgressbarSecondary)
@@ -271,12 +268,10 @@ function generateProgressbar(progressId) {
  * 
  * @param {*} tag 未处理的标签，url种的tag需要进行一些处理：小写，部分字符用 - 代替
  * @param {*} listId 要填充的列表id
- * @param {*} postType 文章类型：original, repost, poetry, opera
  */
-function queryTagItemList(tag, listId, postType, progressbar) {
-    var host = window.location.host
-    host = window.location.protocol + "//" + host
-    var url = host + "/archives/posts.txt"
+function queryTagItemList(tag, listId, progressbar) {
+    const host = window.location.protocol + "//" + window.location.host
+    const url = host + "/archives/posts.txt"
     console.log("queryTagItemList " + url)
     const request = new Request(url, {
         method: "GET"
@@ -292,25 +287,24 @@ function queryTagItemList(tag, listId, postType, progressbar) {
             }
         })
         .then(response => {
-            console.debug(response)
             progressbar.close()
             postJson = JSON.parse(response)
-            showTagItemList(postJson, tag, listId, postType)
+            showTagItemList(postJson, tag, listId)
         }).catch(error => {
             console.error(error)
             progressbar.close()
         })
 }
 
-function showTagItemList(postJson, tag, listId, postType) {
-    var ulList = document.getElementById(listId)
+function showTagItemList(postJson, tag, listId) {
+    const ulList = document.getElementById(listId)
     // 删除所有子item，重新填充
     while (ulList.firstChild) {
         ulList.removeChild(ulList.lastChild)
     }
-    var firstItem = true
-    var posts = findPost(tag, postJson)
-    for (var post of posts) {
+    let firstItem = true
+    const posts = findPost(tag, postJson)
+    for (const post of posts) {
         var itemPostType
         if (post.categories.includes(POST_TYPE_ORIGINAL[0])) {
             itemPostType = POST_TYPE_ORIGINAL
@@ -325,11 +319,11 @@ function showTagItemList(postJson, tag, listId, postType) {
         }
 
         // 文章作者
-        var author = post.author
+        const author = post.author
         // 主演，在「看剧」类型中存在
-        var actor = post.actor.split(" ")
+        const actor = post.actor.split(" ")
         // 文章提到的某些关键词
-        var mention = post.mention.split(" ")
+        const mention = post.mention.split(" ")
 
         // 除第一个外，每一个item之前都要添加divider分割线
         if (firstItem) {
@@ -353,11 +347,11 @@ function showTagItemList(postJson, tag, listId, postType) {
  * @returns tagItem数组
  */
 function findPost(tags, postJson) {
-    var tagArray = tags.split("&")
-    var resultArray = []
+    const tagArray = tags.split("&")
+    const resultArray = []
     for (const post of postJson.posts) {
-        var postTags = post.tag.split(",")
-        var hasBothTag = true
+        const postTags = post.tag.split(",")
+        let hasBothTag = true
         for (const tag of tagArray) {
             if (!postTags.includes(tag)) {
                 hasBothTag = false
@@ -374,7 +368,7 @@ function findPost(tags, postJson) {
 
 function generateDivider() {
     // <hr class="mdc-deprecated-list-divider"></hr>
-    var hr = document.createElement("hr")
+    const hr = document.createElement("hr")
     hr.setAttribute("class", "mdc-deprecated-list-divider")
     return hr
 }
@@ -389,48 +383,48 @@ function generateDivider() {
  * @returns 
  */
 function generateItem(item, itemPostType, author, actors, mentions) {
-    var a = document.createElement("a")
+    const a = document.createElement("a")
     a.setAttribute("class", "mdc-deprecated-list-item tag-list-item")
     a.setAttribute("href", item.url)
-    var spanRipple = document.createElement("span")
+    const spanRipple = document.createElement("span")
     spanRipple.setAttribute("class", "mdc-deprecated-list-item__ripple")
     a.appendChild(spanRipple)
 
-    var spanText = document.createElement("span")
+    const spanText = document.createElement("span")
     spanText.setAttribute("class", "mdc-deprecated-list-item__text")
-    var spanTextPrimary = document.createElement("span")
+    const spanTextPrimary = document.createElement("span")
     spanTextPrimary.setAttribute("class", "my-list-item__primary-text")
     spanTextPrimary.innerHTML = item.title
     spanText.appendChild(spanTextPrimary)
-    var spanTextSecondary = document.createElement("div")
+    const spanTextSecondary = document.createElement("div")
     spanTextSecondary.setAttribute("class", "my-list-item__secondary-text")
 
-    var spanTextDate = document.createElement("span")
+    const spanTextDate = document.createElement("span")
     spanTextDate.innerHTML = item.date + " "
     spanTextSecondary.appendChild(spanTextDate)
 
-    var divTags = document.createElement("span")
+    const divTags = document.createElement("span")
     divTags.setAttribute("class", "tag-essay-item-tags-container")
 
 
 
-    var spanTextPostType = document.createElement("span")
+    const spanTextPostType = document.createElement("span")
     spanTextPostType.setAttribute("class", "tag-essay-item-post-type")
     spanTextPostType.innerHTML = itemPostType[1]
     divTags.appendChild(spanTextPostType)
 
     if (itemPostType != POST_TYPE_ORIGINAL && itemPostType != POST_TYPE_OPERA) {
         // 非随笔、看剧，显示作者，因为这两个板块的作者就是我，没必要显示
-        var spanTextPostAuthor = document.createElement("span")
+        const spanTextPostAuthor = document.createElement("span")
         spanTextPostAuthor.setAttribute("class", "tag-essay-item-post-author")
         spanTextPostAuthor.innerHTML = author
         divTags.appendChild(spanTextPostAuthor)
     }
     if (actors.length > 0) {
         // 如果有主演，在「看剧」模块，显示actor
-        for (var actor of actors) {
+        for (const actor of actors) {
             if (actor == "") continue
-            var spanTextPostActor = document.createElement("span")
+            const spanTextPostActor = document.createElement("span")
             spanTextPostActor.setAttribute("class", "tag-essay-item-post-author")
             spanTextPostActor.innerHTML = actor
             divTags.appendChild(spanTextPostActor)
@@ -438,9 +432,9 @@ function generateItem(item, itemPostType, author, actors, mentions) {
     }
     if (mentions.length > 0) {
         // 如果有提及的mention，显示mention
-        for (var mention of mentions) {
+        for (const mention of mentions) {
             if (mention == "") continue
-            var spanTextPostActor = document.createElement("span")
+            const spanTextPostActor = document.createElement("span")
             spanTextPostActor.setAttribute("class", "tag-essay-item-post-mention")
             spanTextPostActor.innerHTML = mention
             divTags.appendChild(spanTextPostActor)

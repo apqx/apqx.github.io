@@ -12,13 +12,10 @@ window.addEventListener("load", () => {
 })
 // 监听HTML元素加载完成的DOMContentLoaded事件，但是有时候该事件会在设置监听器之前完成，所以这里检查一下是否已经完成了
 if (document.readyState !== "loading") {
-    console.log("DOMContentLoaded ready before addListener, just init")
     runOnStart()
 } else {
-    console.log("DOMContentLoaded not ready before addListener, so add listener")
     // HTML元素加载完成，但是CSS等资源还未加载
-    document.addEventListener("DOMContentLoaded", (event) => {
-        console.log("DOMContentLoaded listener get called, so start init")
+    document.addEventListener("DOMContentLoaded", () => {
         runOnStart()
     })
 }
@@ -63,28 +60,22 @@ function initHljs() {
 function initViews() {
     // 为所有的button添加ripple动画，要与 mdc-button__ripple 配合使用才会生效
     for (const btn of document.querySelectorAll(".mdc-button")) {
-        btn.addEventListener("click", () => {
-            console.log("click btn")
-        })
         new MDCRipple(btn)
     }
 
     for (const iconBtn of document.querySelectorAll(".mdc-icon-button")) {
-        iconBtn.addEventListener("click", () => {
-            console.log("click icon btn")
-        })
         // 这里不能再设置MDCRipple
         // new MDCRipple(iconBtn).unbounded = false
     }
 
     // 初始化chipSet
-    var chipsetEs = document.querySelectorAll(".mdc-evolution-chip-set")
-    for (let chipSetE of chipsetEs) {
+    const chipSetEs = document.querySelectorAll(".mdc-evolution-chip-set")
+    for (const chipSetE of chipSetEs) {
         new MDCChipSet(chipSetE)
     }
     // 为chip添加ripple动画
     const chipActions = document.querySelectorAll(".mdc-evolution-chip__action")
-    for (let chip of chipActions) {
+    for (const chip of chipActions) {
         new MDCRipple(chip)
     }
 
@@ -100,9 +91,6 @@ function initViews() {
     // 数据表
     const dataTables = document.querySelectorAll(".mdc-data-table")
     for (const dataTableE of dataTables) {
-        const item = new MDCDataTable(dataTableE)
+        new MDCDataTable(dataTableE)
     }
 }
-
-
-

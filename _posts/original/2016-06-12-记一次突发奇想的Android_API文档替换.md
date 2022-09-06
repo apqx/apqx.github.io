@@ -14,7 +14,7 @@ tags: CS Android Java 文档 GFW
 
 排查了一会，加载缓慢的元凶就是下面这段代码：
 
-```xml
+```html
 <script src="http://www.google.com/jsapi" type="text/javascript"></script>
 
 <script>
