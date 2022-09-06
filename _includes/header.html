@@ -3,22 +3,22 @@
   <div class="mdc-top-app-bar__row">
     <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
       <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">
-        <div class="mdc-icon-button__ripple"></div>
+        <span class="mdc-icon-button__ripple"></span>
         menu
       </button>
       <!-- <span class="mdc-top-app-bar__title">HI</span> -->
     </section>
 
-    <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+    <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end">
       <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Theme"
         id="topbar_btn_theme" aria-pressed="false">
-        <div class="mdc-icon-button__ripple"></div>
+        <span class="mdc-icon-button__ripple"></span>
         <i class="material-icons mdc-icon-button__icon mdc-icon-button__icon--on">light_mode</i>
         <i class="material-icons mdc-icon-button__icon">dark_mode</i>
       </button>
       <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="About me"
         id="topbar_btn_about_me">
-        <div class="mdc-icon-button__ripple"></div>
+        <span class="mdc-icon-button__ripple"></span>
         account_circle
       </button>
     </section>
@@ -172,7 +172,7 @@
         <div class="mdc-dialog__actions">
           <button type="button" class="mdc-button btn-common mdc-button--unelevated center-horizontal"
             style="width: 94%; margin-bottom: 1rem;" data-mdc-dialog-action="cancel" id="about_me_dialog_btn_close">
-            <div class="mdc-button__ripple"></div>
+            <span class="mdc-button__ripple"></span>
             <span class="mdc-button__label">CLOSE</span>
           </button>
         </div>
@@ -189,9 +189,6 @@
         aria-describedby="search-dialog-content">
         <div class="mdc-dialog__content center-horizontal mdc-theme--on-surface" id="search-dialog-content">
 
-          <!-- API KEY: AIzaSyDYDqedqxaV6Qfv2i8OWpcS0phD-G2WDcg -->
-          <!-- Search engine ID:  b74f06c1723da9656-->
-
           <label class="mdc-text-field mdc-text-field--outlined" style="width: 94%; margin-top: 40px"
             id="text-field-search">
             <span class="mdc-notched-outline">
@@ -204,7 +201,7 @@
             <input type="text" class="mdc-text-field__input" aria-labelledby="search-label">
             <button type="button" class="mdc-button mdc-button--unelevated btn-search center-horizontal"
               style="min-width: fit-content;" id="btn_search">
-              <div class="mdc-button__ripple"></div>
+              <span class="mdc-button__ripple"></span>
               <i class="material-icons mdc-button__icon" aria-hidden="true">search</i>
               <span class="mdc-button__label">SEARCH</span>
             </button>
@@ -228,43 +225,17 @@
               <span class="mdc-linear-progress__bar-inner"></span>
             </div>
           </div>
-          <div id="search-result-wraper">
+          <div id="search-result-wrapper">
 
           </div>
-
         </div>
 
         <div class="mdc-dialog__actions">
           <button type="button" class="mdc-button btn-common mdc-button--unelevated center-horizontal"
             style="width: 94%; margin-bottom: 1rem; margin-top: 1rem;" data-mdc-dialog-action="cancel"
             id="search_dialog_btn_close">
-            <div class="mdc-button__ripple"></div>
+            <span class="mdc-button__ripple"></span>
             <span class="mdc-button__label">CLOSE</span>
-          </button>
-
-        </div>
-      </div>
-    </div>
-    <div class="mdc-dialog__scrim"></div>
-  </div>
-
-  <!-- image tips dialog -->
-  <div class="mdc-dialog" id="img_tips_dialog">
-    <div class="mdc-dialog__container common-dialog-container">
-      <!-- 加上width500px后满足要求 -->
-      <div class="mdc-dialog__surface" role="alertdialog" aria-modal="true" aria-labelledby="img-tips-dialog-title"
-        aria-describedby="img-tips-dialog-content">
-        <div class="mdc-dialog__content center-horizontal mdc-theme--on-surface" id="img-tips-dialog-content">
-          <h1>版权声明</h1>
-          <p style="margin: 1.6rem 1rem;">点击“OK”将跳转到原始尺寸的无水印高清大图，欢迎下载分享，只是唯一注意，<b>图片版权归属作者及原剧团演员所有</b>，未经允许，不可用于商业用途🤫。
-          </p>
-        </div>
-        <div class="mdc-dialog__actions">
-          <button type="button" class="mdc-button btn-common mdc-button--unelevated center-horizontal"
-            style="width: 94%; margin-bottom: 1rem; margin-top: 1rem;" data-mdc-dialog-action="cancel"
-            id="img_tips_dialog_btn_close">
-            <div class="mdc-button__ripple"></div>
-            <span class="mdc-button__label">OK</span>
           </button>
         </div>
       </div>
@@ -301,6 +272,29 @@
     </div>
     <!-- 注释这一行，则点击dialog外空白处不会dismiss -->
     <!-- <div class="mdc-dialog__scrim"></div> -->
+  </div>
+
+  <!-- common alert dialog -->
+  <div class="mdc-dialog" id="common_alert_dialog">
+    <div class="mdc-dialog__container common-dialog-container">
+      <!-- 加上width500px后满足要求 -->
+      <div class="mdc-dialog__surface" role="alertdialog" aria-modal="true" aria-labelledby="common-alert-dialog-title"
+        aria-describedby="common-alert-dialog-content">
+        <div class="mdc-dialog__content center-horizontal mdc-theme--on-surface" id="common-alert-dialog-content">
+          <h1 id="common_alert_dialog_title"></h1>
+          <p style="margin: 1.6rem 1rem;" id="common_alert_dialog_content"></p>
+        </div>
+        <div class="mdc-dialog__actions">
+          <button type="button" class="mdc-button btn-common mdc-button--unelevated center-horizontal"
+            style="width: 94%; margin-bottom: 1rem; margin-top: 1rem;" data-mdc-dialog-action="cancel"
+            id="common_alert_dialog_btn_close">
+            <span class="mdc-button__ripple"></span>
+            <span class="mdc-button__label" id="common_alert_dialog_btn_close_label"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="mdc-dialog__scrim"></div>
   </div>
 </div>
 

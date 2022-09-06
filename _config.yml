@@ -15,9 +15,9 @@ url: "https://apqx.me" # the base hostname & protocol for your site
 twitter_username: GuodongYuan
 github_username:  apqx
 
-exclude: [npm/node_modules/, npm/scss/, npm/js/, npm/index.html, 
+exclude: [npm/node_modules/, npm/scss/, npm/js/,
 npm/package-lock.json, npm/package.json, npm/README.md, npm/webpack.config.js,
-docs/, tools/, README.md]
+docs/, tools/, .idea/, README.md]
 
 # Url output
 permalink: /post/:categories/:year/:month/:day/:title:output_ext

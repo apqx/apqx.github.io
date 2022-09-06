@@ -5,7 +5,8 @@ module.exports = {
     mode: 'development',
     // 把app.scss转换为bundle.css
     // 给apqx.me使用的scss和js定义
-    entry: ['./scss/app.scss', './js/app.js', './js/tag.js', './js/img.js', './js/nav.js', './js/jump.js'],
+    entry: ['./scss/app.scss', './js/app.js', './js/tag.js', './js/img.js', './js/nav.js', './js/jump.js',
+        './node_modules/long-press-event/src/long-press-event.js'],
     // 给测试使用的scss和js定义
     output: {
         // 指定要生存的js文件名
@@ -71,6 +72,6 @@ module.exports = {
                 use: ["style-loader", "css-loader"],
             },
         ],
-        
+
     },
 };
