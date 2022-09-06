@@ -8,25 +8,27 @@
 
 # 本地调试
 
-切换到内部的`npm`工程目录，编译生成所需的`js`、`css`文件：
+切换到内部的`npm`工程目录，构建生成所需的`js`、`css`文件：
 
 ```sh
 # 切换到内置的webpack工程目录
 cd npm
-# 编译生成所需的js、css文件
+# 安装所需module依赖
+npm install
+# 构建，在 /npm/dist/目录下生成 apqx.js 和 apqx.css
 npm run build
 ```
 
-在`_includes/head-common.html`中定义着网站使用的`js`和`css`资源，它们是由内部的`npm`工程生成的，为提高访问速度而被托管到阿里云的`OSS`上。
+在`_includes/head-common.html`中定义着网站使用的`apqx.js`和`apqx.css`，它们是由内部的`npm`工程生成的，为提高访问速度而被托管到阿里云的`OSS`上。
 
 本地调试时，需要修改这些资源为本地文件以实时响应`npm`工程的变化：
 
 ```html
 <!-- css和js文件由内部的npm工程输出 -->
 <!-- only for test -->
-<link rel="stylesheet" href="{{ " /npm/dist/apqx.css" }}" />
-<script type="text/javascript" src="{{ " /npm/dist/apqx.js " }}"></script>
-<link rel="stylesheet" href="{{ " /css/materialFontsIcons.css " }}" />
+<link rel="stylesheet" href="/npm/dist/apqx.css" />
+<script type="text/javascript" src="/npm/dist/apqx.js"></script>
+<link rel="stylesheet" href="/css/materialFontsIcons.css" />
 
 <!-- 这里用Jekyll的Liquid模版语言隐藏掉这段指向阿里云托管的外部资源的代码 -->
 {% comment %}
@@ -49,6 +51,8 @@ npm run build
 安装[Jekyll](https://jekyllrb.com/docs/installation/macos/)，启动服务：
 
 ```sh
+# 安装所需依赖
+bundle install
 # 启动jekyll服务，在http://localhost:4000即可访问生成的博客网站
 bundle exec jekyll serve
 ```
@@ -68,9 +72,9 @@ bundle exec jekyll serve
 <!-- 这里用Jekyll的Liquid模版语言隐藏掉这段指向本地资源的代码 -->
 {% comment %}
 <!-- only for test -->
-<link rel="stylesheet" href="{{ " /npm/dist/apqx.css" }}" />
-<script type="text/javascript" src="{{ " /npm/dist/apqx.js " }}"></script>
-<link rel="stylesheet" href="{{ " /css/materialFontsIcons.css " }}" />
+<link rel="stylesheet" href="/npm/dist/apqx.css" />
+<script type="text/javascript" src="/npm/dist/apqx.js"></script>
+<link rel="stylesheet" href="/css/materialFontsIcons.css" />
 {% endcomment %}
 
 <!-- for publish -->
