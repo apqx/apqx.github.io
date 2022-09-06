@@ -558,7 +558,7 @@ p em code {
     @include button.container-fill-color(map.get(colors.$theme-dark, "chip-bg"));
 }
 
-.search-result-nav-wraper {
+.search-result-nav-wrapper {
     margin-top: 10px;
 }
 
