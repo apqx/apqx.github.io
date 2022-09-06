@@ -11768,7 +11768,7 @@ p em code {
 .dark .btn-search:not(:disabled) {
   background-color: rgba(248, 81, 73, 0.15);
 }
-.search-result-nav-wraper {
+.search-result-nav-wrapper {
   margin-top: 10px;
 }
 

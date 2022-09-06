@@ -450,7 +450,7 @@ function showSearchResult(response) {
 
 function generateSearchResultNav(currentIndex, totalPageNum) {
     const divResultNav = document.createElement("div")
-    divResultNav.setAttribute("class", "search-result-nav-wraper")
+    divResultNav.setAttribute("class", "search-result-nav-wrapper")
 
     const btnLeft = generateSearchResultNavBtn(true)
     divResultNav.appendChild(btnLeft)
