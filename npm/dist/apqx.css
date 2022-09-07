@@ -10889,6 +10889,10 @@ a.mdc-list-item {
 
 似乎后期所有的core-styles写法都会被取消，取而代之的是这种直接引入所有属性
 */
+@font-face {
+  font-family: "JetBrainsMono";
+  src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/JetBrainsMono-Regular.woff2");
+}
 body {
   margin: 0;
   --mdc-theme-text-primary-on-background: rgba(0, 0, 0, 0.95);
@@ -10896,7 +10900,7 @@ body {
   --link-color: #6200ee;
   --em-color: #535c68;
   --strong-color: rgba(0, 0, 0, 0.87);
-  --divider-color:rgba(0, 0, 0, 0.12);
+  --divider-color: rgba(0, 0, 0, 0.12);
   --search-result-item-title: #6200ee;
   --search-result-item-snippet: rgba(0, 0, 0, 0.85);
 }
@@ -10914,7 +10918,7 @@ body {
   --link-color: #54a0ff;
   --em-color: rgba(255, 255, 255, 0.65);
   --strong-color: rgba(255, 255, 255, 0.95);
-  --divider-color:rgba(88, 96, 102, 0.68);
+  --divider-color: rgba(88, 96, 102, 0.68);
   --search-result-item-title: #54a0ff;
   --search-result-item-snippet: rgba(255, 255, 255, 0.85);
 }
@@ -10954,7 +10958,8 @@ body {
   border-color: rgba(88, 96, 102, 0.68);
 }
 
-html, body {
+html,
+body {
   height: 100%;
 }
 
@@ -10969,7 +10974,8 @@ html, body {
   display: block;
 }
 
-.site-footer, .page-wrap:after {
+.site-footer,
+.page-wrap:after {
   height: 80px;
 }
 
@@ -11293,13 +11299,23 @@ h2 {
   font-size: 1.3rem;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: rgba(0, 0, 0, 0.87);
   /* @alternate */
   color: var(--mdc-theme-text-primary-on-background, rgba(0, 0, 0, 0.87));
 }
 
-p, li, a, th, .mdc-data-table__cell, .mdc-data-table__header-cell {
+p,
+li,
+a,
+th,
+.mdc-data-table__cell,
+.mdc-data-table__header-cell {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   font-family: Roboto, sans-serif;
@@ -11325,7 +11341,7 @@ p, li, a, th, .mdc-data-table__cell, .mdc-data-table__header-cell {
   /* @alternate */
   text-transform: var(--mdc-typography-body1-text-transform, inherit);
   margin: 0.5rem 0;
-  line-height: 1.8rem;
+  line-height: 1.8;
 }
 
 a.clickable-empty-link {
@@ -11409,10 +11425,10 @@ blockquote {
   text-transform: inherit;
   /* @alternate */
   text-transform: var(--mdc-typography-body1-text-transform, inherit);
-  line-height: 1.8rem;
-  margin: 10px 0;
+  line-height: 1.8;
+  margin: 0.65rem 0;
   padding: 0 0 0 1rem;
-  border-left: 5px solid #ee6e73;
+  border-left: 0.3rem solid #ee6e73;
 }
 
 blockquote p {
@@ -11421,14 +11437,14 @@ blockquote p {
 
 .essay-description {
   border: 1px solid rgba(63, 185, 80, 0.4);
-  border-radius: 4px;
+  border-radius: 0.3rem;
   background: rgba(46, 160, 67, 0.1);
   padding: 1rem;
 }
 
 pre code {
-  font-size: 1rem;
-  line-height: 1.2rem;
+  font-family: JetBrainsMono, monospace;
+  line-height: 1.4;
 }
 
 code.hljs {
@@ -11438,7 +11454,9 @@ code.hljs {
 }
 
 /* 段落中单词高亮 */
-p code, li code, table code {
+p code,
+li code,
+table code {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   font-family: Roboto, sans-serif;
@@ -11474,7 +11492,9 @@ p code, li code, table code {
   border: 1px solid #e8eaed;
 }
 
-.dark p code, .dark li code, .dark table code {
+.dark p code,
+.dark li code,
+.dark table code {
   background: rgba(55, 55, 55, 0.32);
   border: 1px solid rgba(69, 69, 69, 0.74);
 }
@@ -11667,7 +11687,8 @@ p em code {
   border-top-color: rgba(88, 96, 102, 0.68);
 }
 
-.mdc-button, .mdc-button__ripple {
+.mdc-button,
+.mdc-button__ripple {
   border-radius: 20px !important;
   -webkit-mask-image: radial-gradient(white, black);
 }
@@ -12109,7 +12130,8 @@ p.search-result-item-snippet b {
   max-height: 100%;
 }
 
-.mdc-evolution-chip, .mdc-evolution-chip__ripple {
+.mdc-evolution-chip,
+.mdc-evolution-chip__ripple {
   border-radius: 20px !important;
   -webkit-mask-image: radial-gradient(white, black);
 }
@@ -12135,7 +12157,8 @@ img.clickable:hover {
   cursor: pointer;
 }
 
-img, video {
+img,
+video {
   max-width: 100%;
   height: auto;
 }
@@ -12147,7 +12170,9 @@ img, video {
   overflow: hidden;
 }
 
-.video-container iframe, .video-container object, .video-container embed {
+.video-container iframe,
+.video-container object,
+.video-container embed {
   position: absolute;
   top: 0;
   left: 0;
