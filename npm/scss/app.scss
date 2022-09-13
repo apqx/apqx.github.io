@@ -152,17 +152,20 @@ body {
     height: 100%;
 }
 
+// 设置.page-wrap的最小高度为页面高度，为下面预留80px的高度空间
 .page-wrap {
     min-height: 100%;
     /* equal to footer height */
     margin-bottom: -80px;
 }
 
+// 在.page-wrap后面/下面添加一个块元素空间，即.site-footer
 .page-wrap:after {
     content: "";
     display: block;
 }
 
+// 设置该块元素空间，即.site-footer的高度
 .site-footer,
 .page-wrap:after {
     height: 80px;
