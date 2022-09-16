@@ -8,10 +8,10 @@
             const KEY_THEME = "theme";
 
             var savedTheme = localStorage.getItem(KEY_THEME);
-            var bodyE = document.getElementsByTagName(`body`)[0];
+            var bodyE = document.getElementsByTagName("body")[0];
             // 默认是没有.dark的，在确定是暗黑模式时加上.dark
             if (savedTheme == THEME_DARK) {
-                bodyE.classList.add(`dark`);
+                bodyE.classList.add("dark");
             }
         } catch (e) {
             console.log("catch e = " + e.message);

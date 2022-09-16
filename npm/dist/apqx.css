@@ -11937,6 +11937,19 @@ p.search-result-item-snippet b {
   width: 880px;
 }
 
+.common-alert-dialog_content {
+  margin: 1.6rem 1rem;
+}
+
+.basic-dialog_actions {
+  justify-content: center;
+}
+
+.basic-dialog_btn_action {
+  width: 94%;
+  margin-bottom: 1rem;
+}
+
 .about-me-description {
   margin: 1.6rem 1rem;
 }

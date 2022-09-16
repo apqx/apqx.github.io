@@ -69,10 +69,10 @@ function initViews() {
     }
 
     // 初始化chipSet
-    const chipSetEs = document.querySelectorAll(".mdc-evolution-chip-set")
-    for (const chipSetE of chipSetEs) {
-        new MDCChipSet(chipSetE)
-    }
+    // const chipSetEs = document.querySelectorAll(".mdc-evolution-chip-set")
+    // for (const chipSetE of chipSetEs) {
+    //     new MDCChipSet(chipSetE)
+    // }
     // 为chip添加ripple动画
     const chipActions = document.querySelectorAll(".mdc-evolution-chip__action")
     for (const chip of chipActions) {

@@ -58,7 +58,6 @@
 @use "@material/data-table/data-table-theme";
 @use "@material/data-table/mdc-data-table";
 
-
 @use "@material/drawer";
 @use "@material/drawer/mdc-drawer";
 @use "@material/drawer/modal/mdc-drawer-modal";
@@ -86,176 +85,175 @@
 @use "@material/ripple";
 
 @font-face {
-    font-family: "JetBrainsMono";
-    src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/JetBrainsMono-Regular.woff2");
+  font-family: "JetBrainsMono";
+  src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/JetBrainsMono-Regular.woff2");
 }
 
 // 通过js给body添加dark class，可以实现对mac-theme的参数更改
 // 大部分组件都会正确相应颜色变化，但是list和chip却无效
 // 且theme.$property引用的值也没有动态变化
 body {
-    // 消除top app bar左侧的margin
-    margin: 0;
+  // 消除top app bar左侧的margin
+  margin: 0;
 
-    // 不知为何，theme的这个属性不能在 @use "@material/theme" 中定义，放在这里作为默认light主题的配色
-    --mdc-theme-text-primary-on-background: rgba(0, 0, 0, 0.95);
-    --mdc-theme-text-secondary-on-background: rgba(0, 0, 0, 0.60);
+  // 不知为何，theme的这个属性不能在 @use "@material/theme" 中定义，放在这里作为默认light主题的配色
+  --mdc-theme-text-primary-on-background: rgba(0, 0, 0, 0.95);
+  --mdc-theme-text-secondary-on-background: rgba(0, 0, 0, 0.60);
 
-    --link-color: #6200ee;
-    --em-color: #535c68;
-    --strong-color: rgba(0, 0, 0, 0.87);
-    --divider-color: rgba(0, 0, 0, 0.12);
+  --link-color: #6200ee;
+  --em-color: #535c68;
+  --strong-color: rgba(0, 0, 0, 0.87);
+  --divider-color: rgba(0, 0, 0, 0.12);
 
-    --search-result-item-title: #6200ee;
-    --search-result-item-snippet: rgba(0, 0, 0, 0.85);
+  --search-result-item-title: #6200ee;
+  --search-result-item-snippet: rgba(0, 0, 0, 0.85);
 }
 
 .dark {
-    --mdc-theme-primary: #ff9ff3;
-    --mdc-theme-on-primary: rgba(255, 255, 255, 0.85);
-    --mdc-theme-secondary: #43A047;
-    --mdc-theme-on-secondary: rgba(255, 255, 255, 0.85);
-    --mdc-theme-background: rgb(32, 33, 36);
-    --mdc-theme-surface: rgb(37, 38, 42);
+  --mdc-theme-primary: #ff9ff3;
+  --mdc-theme-on-primary: rgba(255, 255, 255, 0.85);
+  --mdc-theme-secondary: #43A047;
+  --mdc-theme-on-secondary: rgba(255, 255, 255, 0.85);
+  --mdc-theme-background: rgb(32, 33, 36);
+  --mdc-theme-surface: rgb(37, 38, 42);
 
-    // 主题字体色，段落p
-    --mdc-theme-on-surface: rgba(255, 255, 255, 0.85);
-    // 标题字体色，h
-    --mdc-theme-text-primary-on-background: rgba(255, 255, 255, 0.95);
-    // 小标题字体色
-    --mdc-theme-text-secondary-on-background: rgba(255, 255, 255, 0.65);
+  // 主题字体色，段落p
+  --mdc-theme-on-surface: rgba(255, 255, 255, 0.85);
+  // 标题字体色，h
+  --mdc-theme-text-primary-on-background: rgba(255, 255, 255, 0.95);
+  // 小标题字体色
+  --mdc-theme-text-secondary-on-background: rgba(255, 255, 255, 0.65);
 
-    --link-color: #54a0ff;
-    --em-color: rgba(255, 255, 255, 0.65);
-    --strong-color: rgba(255, 255, 255, 0.95);
-    --divider-color: rgba(88, 96, 102, 0.68);
+  --link-color: #54a0ff;
+  --em-color: rgba(255, 255, 255, 0.65);
+  --strong-color: rgba(255, 255, 255, 0.95);
+  --divider-color: rgba(88, 96, 102, 0.68);
 
-    --search-result-item-title: #54a0ff;
-    --search-result-item-snippet: rgba(255, 255, 255, 0.85);
+  --search-result-item-title: #54a0ff;
+  --search-result-item-snippet: rgba(255, 255, 255, 0.85);
 }
 
 
-
 .dark .mdc-text-field {
-    @include textfield.ink-color(map.get(colors.$theme-dark, "text-primary-on-background"));
-    @include textfield.placeholder-color(map.get(colors.$theme-dark, "text-secondary-on-background"));
-    @include textfield.label-color(map.get(colors.$theme-dark, "text-secondary-on-background"));
-    @include textfield.focused-outline-color(map.get(colors.$theme-dark, "button-bg"));
-    @include textfield.hover-outline-color(map.get(colors.$theme-dark, "text-secondary-on-background"));
-    @include textfield.outline-color(map.get(colors.$theme-dark, "divider"));
+  @include textfield.ink-color(map.get(colors.$theme-dark, "text-primary-on-background"));
+  @include textfield.placeholder-color(map.get(colors.$theme-dark, "text-secondary-on-background"));
+  @include textfield.label-color(map.get(colors.$theme-dark, "text-secondary-on-background"));
+  @include textfield.focused-outline-color(map.get(colors.$theme-dark, "button-bg"));
+  @include textfield.hover-outline-color(map.get(colors.$theme-dark, "text-secondary-on-background"));
+  @include textfield.outline-color(map.get(colors.$theme-dark, "divider"));
 }
 
 // footer吸附在页面底部
 
 html,
 body {
-    height: 100%;
+  height: 100%;
 }
 
 // 设置.page-wrap的最小高度为页面高度，为下面预留80px的高度空间
 .page-wrap {
-    min-height: 100%;
-    /* equal to footer height */
-    margin-bottom: -80px;
+  min-height: 100%;
+  /* equal to footer height */
+  margin-bottom: -80px;
 }
 
 // 在.page-wrap后面/下面添加一个块元素空间，即.site-footer
 .page-wrap:after {
-    content: "";
-    display: block;
+  content: "";
+  display: block;
 }
 
 // 设置该块元素空间，即.site-footer的高度
 .site-footer,
 .page-wrap:after {
-    height: 80px;
+  height: 80px;
 }
 
 .foot-header {
-    // 这里应该是20px，指定为22px可以把copyright向下多挤2px，使其紧贴底部，不留白
-    height: 22px;
-    background-color: rgba(51, 51, 51, 0.08);
+  // 这里应该是20px，指定为22px可以把copyright向下多挤2px，使其紧贴底部，不留白
+  height: 22px;
+  background-color: rgba(51, 51, 51, 0.08);
 }
 
 footer {
-    background-color: #ee6e73;
-    color: white;
+  background-color: #ee6e73;
+  color: white;
 }
 
 footer a {
-    color: #ffe0b2;
-    text-decoration: none;
+  color: #ffe0b2;
+  text-decoration: none;
 }
 
 .copyright {
-    padding: 15px 15px;
-    @include typography.typography(body1);
-    // footer总高度100px，指定整个copyright高度60px
-    height: 30px;
+  padding: 15px 15px;
+  @include typography.typography(body1);
+  // footer总高度100px，指定整个copyright高度60px
+  height: 30px;
 }
 
 /* 文章题目 */
 .essay-title {
-    @include typography.typography(headline4);
-    font-size: 1.8rem;
-    margin-top: 2.0rem;
-    text-align: center;
-    // 引用 theme中定义的属性，这个属性可以被 修改，以实现不同的theme主题
-    @include theme.property(color, text-primary-on-background);
+  @include typography.typography(headline4);
+  font-size: 1.8rem;
+  margin-top: 2.0rem;
+  text-align: center;
+  // 引用 theme中定义的属性，这个属性可以被 修改，以实现不同的theme主题
+  @include theme.property(color, text-primary-on-background);
 }
 
 /* 文章署名 */
 .essay-author {
-    @include typography.typography(subtitle1);
-    text-align: center;
-    margin-top: 0.8rem;
-    @include theme.property(color, text-primary-on-background);
+  @include typography.typography(subtitle1);
+  text-align: center;
+  margin-top: 0.8rem;
+  @include theme.property(color, text-primary-on-background);
 }
 
 /* 文章日期 */
 .essay-date {
-    @include typography.typography(subtitle1);
-    text-align: center;
-    margin-top: 0.5rem;
-    @include theme.property(color, text-primary-on-background);
+  @include typography.typography(subtitle1);
+  text-align: center;
+  margin-top: 0.5rem;
+  @include theme.property(color, text-primary-on-background);
 }
 
 /* 索引题目 */
 .index-title {
-    @include typography.typography(subtitle1);
-    margin: 0;
-    text-align: left;
+  @include typography.typography(subtitle1);
+  margin: 0;
+  text-align: left;
 }
 
 /* 索引署名 */
 .index-author {
-    @include typography.typography(subtitle1);
-    text-align: right;
-    margin: 0;
+  @include typography.typography(subtitle1);
+  text-align: right;
+  margin: 0;
 }
 
 /* 索引地点（看剧使用） */
 .index-location {
-    @include typography.typography(subtitle1);
-    text-align: left;
-    margin: 0;
+  @include typography.typography(subtitle1);
+  text-align: left;
+  margin: 0;
 }
 
 /* 索引日期 */
 .index-date {
-    @include typography.typography(subtitle1);
-    text-align: right;
-    margin: 0;
+  @include typography.typography(subtitle1);
+  text-align: right;
+  margin: 0;
 }
 
 h1 {
-    @include typography.typography(headline4);
-    font-size: 1.6rem;
+  @include typography.typography(headline4);
+  font-size: 1.6rem;
 }
 
 h2 {
-    @include typography.typography(headline5);
-    font-size: 1.3rem;
+  @include typography.typography(headline5);
+  font-size: 1.3rem;
 }
 
 h1,
@@ -264,9 +262,8 @@ h3,
 h4,
 h5,
 h6 {
-    @include theme.property(color, text-primary-on-background);
+  @include theme.property(color, text-primary-on-background);
 }
-
 
 
 p,
@@ -275,671 +272,684 @@ a,
 th,
 .mdc-data-table__cell,
 .mdc-data-table__header-cell {
-    // 使用mdc的字体样式
-    @include typography.typography(body1);
-    // 段落间距
-    margin: 0.5rem 0;
-    // 行间距
-    line-height: 1.8;
+  // 使用mdc的字体样式
+  @include typography.typography(body1);
+  // 段落间距
+  margin: 0.5rem 0;
+  // 行间距
+  line-height: 1.8;
 }
 
 a.clickable-empty-link {
-    // url为空的<a>
-    cursor: pointer;
+  // url为空的<a>
+  cursor: pointer;
 }
 
 li {
-    // item间距
-    margin: 0.1rem 0;
+  // item间距
+  margin: 0.1rem 0;
 }
 
 p {
-    text-align: justify;
+  text-align: justify;
 }
 
 // 斜体，一般用于图片说明
 em {
-    @include theme.property(color, custom-properties.create(--em-color, #535c68));
+  @include theme.property(color, custom-properties.create(--em-color, #535c68));
 }
 
 // 加粗强调，一般用于句子
 strong {
-    @include theme.property(color, custom-properties.create(--strong-color, rgba(0, 0, 0, 0.95)));
+  @include theme.property(color, custom-properties.create(--strong-color, rgba(0, 0, 0, 0.95)));
 }
 
 a {
-    // 链接加下划线，可能受mdc class的影响，有些地方下划线被取消了
-    text-decoration: underline;
-    // 下划线与文字的间距
-    text-underline-offset: 0.25rem;
-    @include theme.property(color, custom-properties.create(--link-color, #6200ee));
+  // 链接加下划线，可能受mdc class的影响，有些地方下划线被取消了
+  text-decoration: underline;
+  // 下划线与文字的间距
+  text-underline-offset: 0.25rem;
+  @include theme.property(color, custom-properties.create(--link-color, #6200ee));
 }
 
 a:hover {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 /* 无序列表 */
 ul {
-    padding-left: 18pt;
-    padding-right: 0;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-    /* 实心圆 */
-    list-style-type: disc;
+  padding-left: 18pt;
+  padding-right: 0;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  /* 实心圆 */
+  list-style-type: disc;
 }
 
 /* 有序列表 */
 ol {
-    padding-left: 18pt;
-    padding-right: 0;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-    /* 数字 */
-    list-style-type: decimal;
+  padding-left: 18pt;
+  padding-right: 0;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  /* 数字 */
+  list-style-type: decimal;
 }
 
 // 引用段落
 blockquote {
-    @include typography.typography(body1);
-    line-height: 1.8;
-    margin: 0.65rem 0;
-    padding: 0 0 0 1rem;
-    border-left: 0.3rem solid #ee6e73;
-    // border-right: 5px solid #ee6e73;
-    // background: $code-highlight-bg;
-    // border-radius: 0.2rem;
+  @include typography.typography(body1);
+  line-height: 1.8;
+  margin: 0.65rem 0;
+  padding: 0 0 0 1rem;
+  border-left: 0.3rem solid #ee6e73;
+  // border-right: 5px solid #ee6e73;
+  // background: $code-highlight-bg;
+  // border-radius: 0.2rem;
 }
 
 // 引用段落中的<p>
 blockquote p {
-    margin: 0;
+  margin: 0;
 }
 
 .essay-description {
-    border: 1px solid rgba(63, 185, 80, 0.4);
-    // border: 1px solid rgba(248, 81, 73, 0.4);;
-    border-radius: 0.3rem;
-    background: rgba(46, 160, 67, 0.1);
-    // background: rgba(248, 81, 73, 0.15);
-    padding: 1rem;
+  border: 1px solid rgba(63, 185, 80, 0.4);
+  // border: 1px solid rgba(248, 81, 73, 0.4);;
+  border-radius: 0.3rem;
+  background: rgba(46, 160, 67, 0.1);
+  // background: rgba(248, 81, 73, 0.15);
+  padding: 1rem;
 }
 
 // 代码块
 pre code {
-    font-family: JetBrainsMono, monospace;
-    // font-size: 1.0rem;
-    line-height: 1.4;
+  font-family: JetBrainsMono, monospace;
+  // font-size: 1.0rem;
+  line-height: 1.4;
 }
 
 code.hljs {
-    border-radius: 0.3rem;
-    padding: 1rem;
-    background: map.get(colors.$theme-light, "pre-code-bg");
+  border-radius: 0.3rem;
+  padding: 1rem;
+  background: map.get(colors.$theme-light, "pre-code-bg");
 }
 
 /* 段落中单词高亮 */
 p code,
 li code,
 table code {
-    @include typography.typography(body1);
-    padding-left: 0.2rem;
-    padding-right: 0.2rem;
-    padding-top: 0.1rem;
-    padding-bottom: 0.1rem;
-    margin-left: 0.05rem;
-    margin-right: 0.05rem;
-    border-radius: 0.3rem;
+  @include typography.typography(body1);
+  padding-left: 0.2rem;
+  padding-right: 0.2rem;
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
+  margin-left: 0.05rem;
+  margin-right: 0.05rem;
+  border-radius: 0.3rem;
 
-    // color:$code-highlight-text;
-    background: map.get(colors.$theme-light, "code-highlight-bg");
-    border: 1px solid map.get(colors.$theme-light, "code-highlight-border");
+  // color:$code-highlight-text;
+  background: map.get(colors.$theme-light, "code-highlight-bg");
+  border: 1px solid map.get(colors.$theme-light, "code-highlight-border");
 }
 
 .dark p code,
 .dark li code,
 .dark table code {
-    background: map.get(colors.$theme-dark, "code-highlight-bg");
-    border: 1px solid map.get(colors.$theme-dark, "code-highlight-border");
+  background: map.get(colors.$theme-dark, "code-highlight-bg");
+  border: 1px solid map.get(colors.$theme-dark, "code-highlight-border");
 }
 
 .green code {
-    background: map.get(colors.$theme-light, "code-highlight-bg-on-green");
-    border: 1px solid map.get(colors.$theme-light, "code-highlight-border-on-green");
+  background: map.get(colors.$theme-light, "code-highlight-bg-on-green");
+  border: 1px solid map.get(colors.$theme-light, "code-highlight-border-on-green");
 }
 
 .dark .green code {
-    background: map.get(colors.$theme-dark, "code-highlight-bg-on-green");
-    border: 1px solid map.get(colors.$theme-dark, "code-highlight-border-on-green");
+  background: map.get(colors.$theme-dark, "code-highlight-bg-on-green");
+  border: 1px solid map.get(colors.$theme-dark, "code-highlight-border-on-green");
 }
 
 strong code {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 p em code {
-    padding-left: 0.2rem;
-    padding-right: 0.3rem;
-    margin-left: 0.2rem;
-    margin-right: 0.2rem;
+  padding-left: 0.2rem;
+  padding-right: 0.3rem;
+  margin-left: 0.2rem;
+  margin-right: 0.2rem;
 }
 
 .tag-list-item.mdc-deprecated-list-item {
-    height: fit-content;
-    display: flex;
-    padding-left: 1rem;
-    padding-right: 1rem;
+  height: fit-content;
+  display: flex;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .my-list-item__primary-text {
-    @include typography.typography(body1);
+  @include typography.typography(body1);
 }
 
 .my-list-item__secondary-text {
-    @include theme.property(color, custom-properties.create(--mdc-theme-text-secondary-on-background, #535c68));
-    font-size: 0.9rem;
-    display: flex;
-    // margin-top: -4px;
-    // margin-bottom: -12px;
-    height: fit-content;
+  @include theme.property(color, custom-properties.create(--mdc-theme-text-secondary-on-background, #535c68));
+  font-size: 0.9rem;
+  display: flex;
+  // margin-top: -4px;
+  // margin-bottom: -12px;
+  height: fit-content;
 
 }
 
 .tag-essay-item-tags-container {
-    overflow-x: overlay;
+  overflow-x: overlay;
 }
 
 // 移动端Chrome的scrollBar一直显示，需要消除，其它浏览器scrollBar都会自动隐藏
 // 在保留滚动效果的同时，消除Safari，Chrome的scrollBar
 .tag-essay-item-tags-container::-webkit-scrollbar {
-    // 消除scrollBar
-    display: none;
+  // 消除scrollBar
+  display: none;
 }
 
 @-moz-document url-prefix() {
 
-    //  FireFox暂时不支持overlay
-    .tag-essay-item-tags-container {
-        overflow-x: scroll;
-    }
+  //  FireFox暂时不支持overlay
+  .tag-essay-item-tags-container {
+    overflow-x: scroll;
+  }
 }
 
 .tag-essay-item-post-type {
-    color: map.get(colors.$theme-light, "list-chip-1-ink");
-    background: map.get(colors.$theme-light, "list-chip-1-bg");
-    padding-left: 0.4rem;
-    padding-right: 0.4rem;
-    padding-top: 0.1rem;
-    padding-bottom: 0.1rem;
-    border-radius: 0.5rem;
-    border: 1px solid map.get(colors.$theme-light, "list-chip-1-border");
-    margin-left: 0.2rem;
+  color: map.get(colors.$theme-light, "list-chip-1-ink");
+  background: map.get(colors.$theme-light, "list-chip-1-bg");
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
+  border-radius: 0.5rem;
+  border: 1px solid map.get(colors.$theme-light, "list-chip-1-border");
+  margin-left: 0.2rem;
 }
 
 .tag-essay-item-post-author {
-    color: map.get(colors.$theme-light, "list-chip-3-ink");
-    background: map.get(colors.$theme-light, "list-chip-3-bg");
-    padding-left: 0.4rem;
-    padding-right: 0.4rem;
-    padding-top: 0.1rem;
-    padding-bottom: 0.1rem;
-    border-radius: 0.5rem;
-    border: 1px solid map.get(colors.$theme-light, "list-chip-3-border");
-    margin-left: 0.2rem;
+  color: map.get(colors.$theme-light, "list-chip-3-ink");
+  background: map.get(colors.$theme-light, "list-chip-3-bg");
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
+  border-radius: 0.5rem;
+  border: 1px solid map.get(colors.$theme-light, "list-chip-3-border");
+  margin-left: 0.2rem;
 }
 
 .tag-essay-item-post-mention {
-    color: map.get(colors.$theme-light, "list-chip-2-ink");
-    background: map.get(colors.$theme-light, "list-chip-2-bg");
-    padding-left: 0.4rem;
-    padding-right: 0.4rem;
-    padding-top: 0.1rem;
-    padding-bottom: 0.1rem;
-    border-radius: 0.5rem;
-    border: 1px solid map.get(colors.$theme-light, "list-chip-2-border");
-    margin-left: 0.2rem;
+  color: map.get(colors.$theme-light, "list-chip-2-ink");
+  background: map.get(colors.$theme-light, "list-chip-2-bg");
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
+  border-radius: 0.5rem;
+  border: 1px solid map.get(colors.$theme-light, "list-chip-2-border");
+  margin-left: 0.2rem;
 }
 
 .dark .tag-essay-item-post-type {
-    color: map.get(colors.$theme-dark, "list-chip-1-ink");
-    background: map.get(colors.$theme-dark, "list-chip-1-bg");
-    border: 1px solid map.get(colors.$theme-dark, "list-chip-1-border");
+  color: map.get(colors.$theme-dark, "list-chip-1-ink");
+  background: map.get(colors.$theme-dark, "list-chip-1-bg");
+  border: 1px solid map.get(colors.$theme-dark, "list-chip-1-border");
 }
 
 .dark .tag-essay-item-post-author {
-    color: map.get(colors.$theme-dark, "list-chip-3-ink");
-    background: map.get(colors.$theme-dark, "list-chip-3-bg");
-    border: 1px solid map.get(colors.$theme-dark, "list-chip-3-border");
+  color: map.get(colors.$theme-dark, "list-chip-3-ink");
+  background: map.get(colors.$theme-dark, "list-chip-3-bg");
+  border: 1px solid map.get(colors.$theme-dark, "list-chip-3-border");
 }
 
 .dark .tag-essay-item-post-mention {
-    color: map.get(colors.$theme-dark, "list-chip-2-ink");
-    background: map.get(colors.$theme-dark, "list-chip-2-bg");
-    border: 1px solid map.get(colors.$theme-dark, "list-chip-2-border");
+  color: map.get(colors.$theme-dark, "list-chip-2-ink");
+  background: map.get(colors.$theme-dark, "list-chip-2-bg");
+  border: 1px solid map.get(colors.$theme-dark, "list-chip-2-border");
 }
 
 .mdc-data-table {
-    @include data-table-theme.shape-radius(0.3rem);
-    // 设置标题背景为透明色，防止横向滚动时遮挡边框角
-    @include data-table-theme.header-row-fill-color(#00000000);
-    margin-top: 0.8rem;
-    margin-bottom: 0.8rem;
+  @include data-table-theme.shape-radius(0.3rem);
+  // 设置标题背景为透明色，防止横向滚动时遮挡边框角
+  @include data-table-theme.header-row-fill-color(#00000000);
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
 }
 
 .dark .mdc-data-table {
-    @include data-table-theme.header-row-text-color(map.get(colors.$theme-dark, "text-primary-on-background"));
-    @include data-table-theme.row-text-color(map.get(colors.$theme-dark, "on-surface"));
-    @include data-table-theme.divider-color(map.get(colors.$theme-dark, "divider"));
-    @include data-table-theme.stroke-color(map.get(colors.$theme-dark, "divider"));
+  @include data-table-theme.header-row-text-color(map.get(colors.$theme-dark, "text-primary-on-background"));
+  @include data-table-theme.row-text-color(map.get(colors.$theme-dark, "on-surface"));
+  @include data-table-theme.divider-color(map.get(colors.$theme-dark, "divider"));
+  @include data-table-theme.stroke-color(map.get(colors.$theme-dark, "divider"));
 }
 
 // 解决Safari的Ripple动画无圆角
 .mdc-button,
 .mdc-button__ripple {
-    border-radius: 20px !important;
-    -webkit-mask-image: radial-gradient(white, black);
+  border-radius: 20px !important;
+  -webkit-mask-image: radial-gradient(white, black);
 }
 
 .btn-common {
-    @include button.container-fill-color(map.get(colors.$theme-light, "button-bg"));
+  @include button.container-fill-color(map.get(colors.$theme-light, "button-bg"));
 }
 
 .dark .btn-common {
-    @include button.container-fill-color(map.get(colors.$theme-dark, "button-bg"));
+  @include button.container-fill-color(map.get(colors.$theme-dark, "button-bg"));
 }
 
 .btn-tag {
-    @include button.ink-color(map.get(colors.$theme-light, "chip-ink"));
-    @include button.container-fill-color(map.get(colors.$theme-light, "chip-bg"));
-    @include button.horizontal-padding(0.7rem);
-    @include button.height(2rem);
-    text-transform: none;
-    font-size: 0.9rem;
-    font-weight: normal;
-    margin-top: 0.5rem;
+  @include button.ink-color(map.get(colors.$theme-light, "chip-ink"));
+  @include button.container-fill-color(map.get(colors.$theme-light, "chip-bg"));
+  @include button.horizontal-padding(0.7rem);
+  @include button.height(2rem);
+  text-transform: none;
+  font-size: 0.9rem;
+  font-weight: normal;
+  margin-top: 0.5rem;
 }
 
 .dark .btn-tag {
-    @include button.ink-color(map.get(colors.$theme-dark, "chip-ink"));
-    @include button.container-fill-color(map.get(colors.$theme-dark, "chip-bg"));
+  @include button.ink-color(map.get(colors.$theme-dark, "chip-ink"));
+  @include button.container-fill-color(map.get(colors.$theme-dark, "chip-bg"));
 }
 
 .btn-tag .mdc-button__ripple {
-    @include ripple.states(map.get(colors.$theme-light, "search_nav"), true);
+  @include ripple.states(map.get(colors.$theme-light, "search_nav"), true);
 }
 
 .dark .btn-tag .mdc-button__ripple {
-    @include ripple.states(map.get(colors.$theme-dark, "search_nav"), true);
+  @include ripple.states(map.get(colors.$theme-dark, "search_nav"), true);
 }
 
 
 .btn-search {
-    @include button.ink-color(map.get(colors.$theme-light, "chip-ink"));
-    @include button.container-fill-color(map.get(colors.$theme-light, "chip-bg"));
+  @include button.ink-color(map.get(colors.$theme-light, "chip-ink"));
+  @include button.container-fill-color(map.get(colors.$theme-light, "chip-bg"));
 }
 
 .dark .btn-search {
-    @include button.ink-color(map.get(colors.$theme-dark, "chip-ink"));
-    @include button.container-fill-color(map.get(colors.$theme-dark, "chip-bg"));
+  @include button.ink-color(map.get(colors.$theme-dark, "chip-ink"));
+  @include button.container-fill-color(map.get(colors.$theme-dark, "chip-bg"));
 }
 
 .search-result-nav-wrapper {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 .btn-search-result-nav {
-    @include button.ink-color(map.get(colors.$theme-light, "search_nav"));
-    @include button.outline-color(map.get(colors.$theme-light, "divider"));
-    margin-left: 1rem;
-    margin-right: 1rem;
+  @include button.ink-color(map.get(colors.$theme-light, "search_nav"));
+  @include button.outline-color(map.get(colors.$theme-light, "divider"));
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 .dark .btn-search-result-nav {
-    @include button.ink-color(map.get(colors.$theme-dark, "search_nav"));
-    @include button.outline-color(map.get(colors.$theme-dark, "divider"));
+  @include button.ink-color(map.get(colors.$theme-dark, "search_nav"));
+  @include button.outline-color(map.get(colors.$theme-dark, "divider"));
 }
 
 .search-result-index {
-    color: map.get(colors.$theme-light, "search_nav");
+  color: map.get(colors.$theme-light, "search_nav");
 }
 
 .dark .search-result-index {
-    color: map.get(colors.$theme-dark, "search_nav");
+  color: map.get(colors.$theme-dark, "search_nav");
 }
 
 .search-result-item {
-    height: max-content;
+  height: max-content;
 }
 
 .search-result-item-title {
-    @include typography.typography(subtitle1);
-    @include theme.property(color, custom-properties.create(--search-result-item-title, map.get(colors.$theme-light, "link")));
-    margin: 0;
-    text-align: left;
+  @include typography.typography(subtitle1);
+  @include theme.property(color, custom-properties.create(--search-result-item-title, map.get(colors.$theme-light, "link")));
+  margin: 0;
+  text-align: left;
 }
 
 .search-result-item-snippet {
-    @include typography.typography(body1);
-    @include theme.property(color, custom-properties.create(--search-result-item-snippet, map.get(colors.$theme-light, "on-surface")));
-    margin: 0;
-    text-align: justify;
-    height: max-content;
+  @include typography.typography(body1);
+  @include theme.property(color, custom-properties.create(--search-result-item-snippet, map.get(colors.$theme-light, "on-surface")));
+  margin: 0;
+  text-align: justify;
+  height: max-content;
 }
 
 p.search-result-item-snippet b {
-    color: map.get(colors.$theme-light, "search_nav");
+  color: map.get(colors.$theme-light, "search_nav");
 }
 
 .dark p.search-result-item-snippet b {
-    color: map.get(colors.$theme-dark, "search_nav");
+  color: map.get(colors.$theme-dark, "search_nav");
 }
-
 
 
 .tags {
-    margin-top: 2rem;
+  margin-top: 2rem;
 }
 
 .about-me-name {
-    @include typography.typography(headline4);
-    font-size: 1.8rem;
-    text-align: center;
-    margin-top: 1.0rem;
-    margin-bottom: 1.0rem;
+  @include typography.typography(headline4);
+  font-size: 1.8rem;
+  text-align: center;
+  margin-top: 1.0rem;
+  margin-bottom: 1.0rem;
 }
 
 .common-dialog-container {
-    width: 880px;
+  width: 880px;
+}
+
+.common-alert-dialog_content {
+  margin: 1.6rem 1rem;
+}
+
+.basic-dialog_actions {
+  justify-content: center;
+}
+
+.basic-dialog_btn_action {
+  width: 94%;
+  margin-bottom: 1rem;
 }
 
 .about-me-description {
-    // @include typography.typography(body1);
-    margin: 1.6rem 1rem;
+  // @include typography.typography(body1);
+  margin: 1.6rem 1rem;
 }
 
 .mdc-dialog {
-    @include dialog.scroll-divider-color(map.get(colors.$theme-light, "divider"));
+  @include dialog.scroll-divider-color(map.get(colors.$theme-light, "divider"));
 }
 
 .dark .mdc-dialog {
-    @include dialog.scroll-divider-color(rgba(255, 255, 255, 0.87));
+  @include dialog.scroll-divider-color(rgba(255, 255, 255, 0.87));
 }
 
 .dialog-link-list {
-    // 底部边框由Divider填充
-    // border-top: 1px solid rgba(128, 128, 128, 0.336);
-    // border-left: 1px solid rgba(128, 128, 128, 0.336);
-    // border-right: 1px solid rgba(128, 128, 128, 0.336);
-    border: 1px solid;
-    @include theme.property(border-color, custom-properties.create(--divider-color, map.get(colors.$theme-light, "divider")));
-    border-radius: 3px;
-    padding-top: 0;
-    padding-bottom: 0;
+  // 底部边框由Divider填充
+  // border-top: 1px solid rgba(128, 128, 128, 0.336);
+  // border-left: 1px solid rgba(128, 128, 128, 0.336);
+  // border-right: 1px solid rgba(128, 128, 128, 0.336);
+  border: 1px solid;
+  @include theme.property(border-color, custom-properties.create(--divider-color, map.get(colors.$theme-light, "divider")));
+  border-radius: 3px;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 // 使用此class的标签，可以通过id chip_tag_随笔 弹出对应 dialog_随笔 的dialog
-.tag-dialog-trigger {}
+.tag-dialog-trigger {
+}
 
 // 内容最外层的主容器
 .main-container {
-    // 横向居中
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
-    height: 100%;
+  // 横向居中
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: 100%;
 }
 
 main.main-container {
-    // 淡入动画
-    // animation: animation.enter(/* $name: */ fade-in, /* $duration: */ 600ms);
+  // 淡入动画
+  // animation: animation.enter(/* $name: */ fade-in, /* $duration: */ 600ms);
 }
 
 @keyframes fade-in {
-    from {
-        transform: translateY(20rem);
-        opacity: 0.5;
-    }
+  from {
+    transform: translateY(20rem);
+    opacity: 0.5;
+  }
 
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 // 索引列表
 .index-ul {
-    // 注意列表第一个卡片到top bar的距离要和正文卡片与之的距离一致
-    padding: 12px 0;
-    margin: 0;
+  // 注意列表第一个卡片到top bar的距离要和正文卡片与之的距离一致
+  padding: 12px 0;
+  margin: 0;
 }
 
 .index-li {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
 // 索引链接
 .index-a {
-    // 去除下划线
-    text-decoration: none;
+  // 去除下划线
+  text-decoration: none;
 }
 
 // top-app-bar
 .mdc-top-app-bar {
-    // 使top bar的层级高于drawer
-    z-index: 7;
-    // 颜色
-    @include top-app-bar.fill-color(map.get(colors.$theme-light, "top-bar"));
-    // 阴影
-    @include elevation.elevation(10, map.get(colors.$theme-light, "top-bar"), 0);
+  // 使top bar的层级高于drawer
+  z-index: 7;
+  // 颜色
+  @include top-app-bar.fill-color(map.get(colors.$theme-light, "top-bar"));
+  // 阴影
+  @include elevation.elevation(10, map.get(colors.$theme-light, "top-bar"), 0);
 }
 
 .dark .mdc-top-app-bar {
-    // 使top bar的层级高于drawer
-    z-index: 7;
-    // 颜色
-    @include top-app-bar.fill-color(map.get(colors.$theme-dark, "top-bar"));
-    // 阴影
-    @include elevation.elevation(10, map.get(colors.$theme-dark, "background"), 0);
+  // 使top bar的层级高于drawer
+  z-index: 7;
+  // 颜色
+  @include top-app-bar.fill-color(map.get(colors.$theme-dark, "top-bar"));
+  // 阴影
+  @include elevation.elevation(10, map.get(colors.$theme-dark, "background"), 0);
 }
 
 .mdc-top-app-bar .mdc-icon-button__ripple {
-    @include ripple.states(white, true);
+  @include ripple.states(white, true);
 }
 
 .mdc-drawer {
-    // 使drawer的阴影和内容卡片一致，更协调
-    @include elevation.elevation(5, map.get(colors.$theme-light, "background"), 0);
-    @include drawer.item-text-ink-color(text-primary-on-background);
-    @include drawer.item-icon-ink-color(text-primary-on-background);
-    @include drawer.item-activated-text-ink-color(primary);
-    @include drawer.item-activated-icon-ink-color(primary);
+  // 使drawer的阴影和内容卡片一致，更协调
+  @include elevation.elevation(5, map.get(colors.$theme-light, "background"), 0);
+  @include drawer.item-text-ink-color(text-primary-on-background);
+  @include drawer.item-icon-ink-color(text-primary-on-background);
+  @include drawer.item-activated-text-ink-color(primary);
+  @include drawer.item-activated-icon-ink-color(primary);
 }
 
 .dark .mdc-drawer {
-    @include elevation.elevation(5, map.get(colors.$theme-dark, "background"), 0);
-    @include drawer.item-text-ink-color(map.get(colors.$theme-dark, "text-primary-on-background"));
-    @include drawer.item-icon-ink-color(map.get(colors.$theme-dark, "text-primary-on-background"));
-    @include drawer.item-activated-text-ink-color(map.get(colors.$theme-dark, "primary"));
-    @include drawer.item-activated-icon-ink-color(map.get(colors.$theme-dark, "primary"));
+  @include elevation.elevation(5, map.get(colors.$theme-dark, "background"), 0);
+  @include drawer.item-text-ink-color(map.get(colors.$theme-dark, "text-primary-on-background"));
+  @include drawer.item-icon-ink-color(map.get(colors.$theme-dark, "text-primary-on-background"));
+  @include drawer.item-activated-text-ink-color(map.get(colors.$theme-dark, "primary"));
+  @include drawer.item-activated-icon-ink-color(map.get(colors.$theme-dark, "primary"));
 }
 
 .mdc-deprecated-list {
-    @include list.deprecated-divider-color(map.get(colors.$theme-light, "divider"));
+  @include list.deprecated-divider-color(map.get(colors.$theme-light, "divider"));
 }
 
 .dark .mdc-deprecated-list {
-    @include list.deprecated-divider-color(map.get(colors.$theme-dark, "divider"));
+  @include list.deprecated-divider-color(map.get(colors.$theme-dark, "divider"));
 }
 
 // fab
 .mdc-fab {
-    @include elevation.elevation(5, map.get(colors.$theme-light, "secondary"), 0);
+  @include elevation.elevation(5, map.get(colors.$theme-light, "secondary"), 0);
 }
 
 .dark .mdc-fab {
-    @include elevation.elevation(5, map.get(colors.$theme-dark, "background"), 0);
+  @include elevation.elevation(5, map.get(colors.$theme-dark, "background"), 0);
 }
 
 .app-fab--absolute {
-    position: fixed;
-    bottom: 1rem;
-    right: 1rem;
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
 }
 
 @media(min-width: 1024px) {
-    .app-fab--absolute {
-        bottom: 1.5rem;
-        right: 1.55rem;
-    }
+  .app-fab--absolute {
+    bottom: 1.5rem;
+    right: 1.55rem;
+  }
 }
 
 // card
 .media-container {
-    max-width: 100%;
-    // height: fit-content;
-    max-height: 100%;
+  max-width: 100%;
+  // height: fit-content;
+  max-height: 100%;
 }
 
 // chips
 // 解决Safari的Ripple动画无圆角
 .mdc-evolution-chip,
 .mdc-evolution-chip__ripple {
-    border-radius: 20px !important;
-    -webkit-mask-image: radial-gradient(white, black);
+  border-radius: 20px !important;
+  -webkit-mask-image: radial-gradient(white, black);
 }
 
 .mdc-evolution-chip {
-    @include chips.text-label-color(map.get(colors.$theme-light, "chip-ink"));
-    @include chips.container-color(map.get(colors.$theme-light, "chip-bg"));
+  @include chips.text-label-color(map.get(colors.$theme-light, "chip-ink"));
+  @include chips.container-color(map.get(colors.$theme-light, "chip-bg"));
 }
 
 .dark .mdc-evolution-chip {
-    @include chips.text-label-color(map.get(colors.$theme-dark, "chip-ink"));
-    @include chips.container-color(map.get(colors.$theme-dark, "chip-bg"));
+  @include chips.text-label-color(map.get(colors.$theme-dark, "chip-ink"));
+  @include chips.container-color(map.get(colors.$theme-dark, "chip-bg"));
 }
 
 // 解决Safari的fab Ripple动画无圆角
 .mdc-fab__ripple {
-    border-radius: 50% !important;
-    -webkit-mask-image: radial-gradient(white, black);
+  border-radius: 50% !important;
+  -webkit-mask-image: radial-gradient(white, black);
 }
 
 img.clickable:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 img,
 video {
-    max-width: 100%;
-    height: auto;
-    // border-radius: 0.3rem;
+  max-width: 100%;
+  height: auto;
+  // border-radius: 0.3rem;
 }
 
 .video-container {
-    position: relative;
-    // 这个百分比越小，视频越扁
-    padding-bottom: 65%;
-    height: 0;
-    overflow: hidden;
+  position: relative;
+  // 这个百分比越小，视频越扁
+  padding-bottom: 65%;
+  height: 0;
+  overflow: hidden;
 }
 
 .video-container iframe,
 .video-container object,
 .video-container embed {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .essay-card {
-    padding: 20px;
-    margin: 24px 16px;
-    // 文章卡片的阴影，z高度，阴影颜色，扩散度
-    @include elevation.elevation(0, theme.$surface, 0);
+  padding: 20px;
+  margin: 24px 16px;
+  // 文章卡片的阴影，z高度，阴影颜色，扩散度
+  @include elevation.elevation(0, theme.$surface, 0);
 }
 
 .index-description {
-    border: 1px solid rgba(63, 185, 80, 0.4);
-    border-radius: 4px;
-    background: rgba(46, 160, 67, 0.1);
-    padding: 1rem;
-    margin-top: 2rem;
-    margin: 1rem 16px 0 16px;
+  border: 1px solid rgba(63, 185, 80, 0.4);
+  border-radius: 4px;
+  background: rgba(46, 160, 67, 0.1);
+  padding: 1rem;
+  margin-top: 2rem;
+  margin: 1rem 16px 0 16px;
 }
 
 .index-card {
-    padding: 20px;
-    margin: 12px 16px;
-    @include elevation.elevation(0, theme.$surface, 0);
+  padding: 20px;
+  margin: 12px 16px;
+  @include elevation.elevation(0, theme.$surface, 0);
 }
 
 .circle-avatar {
-    border-radius: 50%;
+  border-radius: 50%;
 }
 
 .center-horizontal {
-    margin: auto;
-    text-align: center;
+  margin: auto;
+  text-align: center;
 }
 
 // 手机小屏
 @media(max-width: 600px) {
-    .essay-card {
-        padding: 20px;
-        margin: 24px 0;
-    }
+  .essay-card {
+    padding: 20px;
+    margin: 24px 0;
+  }
 
-    .index-card {
-        padding: 20px;
-        margin: 12px 0;
-        // 小屏下索引卡片显示
-        // margin: 12px 16px;
-        // 小屏下取消索引卡片阴影
-    }
+  .index-card {
+    padding: 20px;
+    margin: 12px 0;
+    // 小屏下索引卡片显示
+    // margin: 12px 16px;
+    // 小屏下取消索引卡片阴影
+  }
 
-    .essay-card {
-        // 小屏下取消文章卡片阴影
-    }
+  .essay-card {
+    // 小屏下取消文章卡片阴影
+  }
 
-    .mdc-top-app-bar {
-        // 小屏下减少top bar阴影面积
-        @include elevation.elevation(5, map.get(colors.$theme-light, "top-bar"), 0);
+  .mdc-top-app-bar {
+    // 小屏下减少top bar阴影面积
+    @include elevation.elevation(5, map.get(colors.$theme-light, "top-bar"), 0);
 
-    }
+  }
 
-    .dark .mdc-top-app-bar {
-        @include elevation.elevation(5, map.get(colors.$theme-dark, "background"), 0);
-    }
+  .dark .mdc-top-app-bar {
+    @include elevation.elevation(5, map.get(colors.$theme-dark, "background"), 0);
+  }
 
-    // 小屏时纯英文段落不两边对齐，因为单词间隔可能很大
-    p.no-justify {
-        text-align: left;
-    }
+  // 小屏时纯英文段落不两边对齐，因为单词间隔可能很大
+  p.no-justify {
+    text-align: left;
+  }
 
 }
 
 // 平板中屏
 @media only screen and (min-width: 601px) and (max-width: 879) {
-    // 默认参数
+  // 默认参数
 }
 
 
 // 电脑大屏
 @media(min-width: 880px) {
-    .main-container {
-        width: 880px;
-    }
+  .main-container {
+    width: 880px;
+  }
 
-    .essay-card {
-        padding: 24px 40px;
-    }
+  .essay-card {
+    padding: 24px 40px;
+  }
 
-    .index-card {
-        padding: 20px 40px;
-    }
+  .index-card {
+    padding: 20px 40px;
+  }
 
 }
