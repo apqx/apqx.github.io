@@ -7,7 +7,8 @@ import {MDCList} from "@material/list"
 import {MDCTextField} from "@material/textfield"
 import {MDCLinearProgress} from "@material/linear-progress"
 import {MDCIconButtonToggle} from "@material/icon-button";
-import {showAlert} from "./alert"
+import {showAlertDialog} from "./component/CommonAlertDialog"
+import {showAboutMeDialog} from "./component/AboutMeDialog";
 
 // Theme主题相关常量
 const THEME_LIGHT = "0"
@@ -212,7 +213,7 @@ function initFab() {
 function showEncodedUrl() {
     const url = window.location.href
     const urlLink = "<a href=\"" + url + "\">Copy this link to get encoded url</a>"
-    showAlert("Encoded Url", urlLink , "OK", () => {
+    showAlertDialog("Encoded Url", urlLink , "OK", () => {
     })
 }
 
@@ -275,23 +276,14 @@ function initDrawer() {
  */
 function initAboutMeDialog() {
     try {
-        const aboutMeDialog = new MDCDialog(document.getElementById("about_me_dialog"))
-        aboutMeDialog.listen("MDCDialog:opened", () => {
-            // Dialog弹出时应该让Button获取焦点，避免chip出现选中阴影
-            // 但是Button获取焦点后颜色会变化，所以立即取消焦点
-            const btnCloseE = document.getElementById("about_me_dialog_btn_close")
-            if (btnCloseE != null) {
-                btnCloseE.focus()
-                btnCloseE.blur()
-            }
-        })
-
         document.getElementById("topbar_btn_about_me").addEventListener("click", () => {
-            aboutMeDialog.open()
+            // aboutMeDialog.open()
+            showAboutMeDialog()
         })
         // 侧边导航的关于我
         document.getElementById("drawer-a-about-me").addEventListener("click", () => {
-            aboutMeDialog.open()
+            // aboutMeDialog.open()
+            showAboutMeDialog()
         })
 
     } catch (e) {

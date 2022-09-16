@@ -6,6 +6,8 @@ module.exports = {
     // 把app.scss转换为bundle.css
     // 给apqx.me使用的scss和js定义
     entry: ['./scss/app.scss', './js/app.js', './js/tag.js', './js/img.js', './js/nav.js', './js/jump.js',
+        './js/component/CommonAlertDialog.js',
+        './js/component/AboutMeDialog.js',
         './node_modules/long-press-event/src/long-press-event.js'],
     // 给测试使用的scss和js定义
     output: {
@@ -60,11 +62,9 @@ module.exports = {
             },
             // 将ES2015 js转化为js
             {
-                test: /\.js$/,
-                loader: 'babel-loader',
-                options: {
-                    presets: ['@babel/preset-env'],
-                },
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader'
             },
             // 支持读取css
             {
