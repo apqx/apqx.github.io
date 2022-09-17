@@ -9,6 +9,7 @@ import {MDCLinearProgress} from "@material/linear-progress"
 import {MDCIconButtonToggle} from "@material/icon-button";
 import {showAlertDialog} from "./component/CommonAlertDialog"
 import {showAboutMeDialog} from "./component/AboutMeDialog";
+import {runOnHtmlDone} from "./util/tools";
 
 // Theme主题相关常量
 const THEME_LIGHT = "0"
@@ -17,26 +18,18 @@ const KEY_THEME = "theme"
 // 搜索框的进度条
 let searchDialogProgressbar = null
 
-if (document.readyState !== "loading") {
-    runOnStart()
-} else {
-    // HTML元素加载完成，但是CSS等资源还未加载
-    document.addEventListener("DOMContentLoaded", () => {
-        runOnStart()
-    })
-}
-
 // 初始化Chrome/Safari标题栏颜色，立即执行
 checkThemeColor()
 
-function runOnStart() {
+runOnHtmlDone(() => {
     initTheme()
     initFab()
     initDrawer()
     initAboutMeDialog()
     initSearchDialog()
     initLink()
-}
+})
+
 
 
 function initTheme() {

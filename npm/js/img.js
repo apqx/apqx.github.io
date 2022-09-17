@@ -1,17 +1,9 @@
 import { showAlertDialog } from "./component/CommonAlertDialog"
+import {runOnHtmlDone} from "./util/tools";
 
-if (document.readyState !== "loading") {
-    runOnStart()
-} else {
-    // HTML元素加载完成，但是CSS等资源还未加载
-    document.addEventListener("DOMContentLoaded", () => {
-        runOnStart()
-    })
-}
-
-function runOnStart() {
+runOnHtmlDone(() => {
     initImg()
-}
+})
 
 function initImg() {
     const imgs = document.querySelectorAll(".clickShowOriginalImg")

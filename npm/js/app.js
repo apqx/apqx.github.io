@@ -5,25 +5,13 @@ import { MDCDataTable } from "@material/data-table"
 import hljs from "highlight.js/lib/core"
 // import hljs from "highlight.js"
 import "highlight.js/styles/androidstudio.css"
+import {runOnHtmlDone} from "./util/tools";
 
-// 整个页面已经加载完成，包括CSS等外部资源
-window.addEventListener("load", () => {
-
-})
-// 监听HTML元素加载完成的DOMContentLoaded事件，但是有时候该事件会在设置监听器之前完成，所以这里检查一下是否已经完成了
-if (document.readyState !== "loading") {
-    runOnStart()
-} else {
-    // HTML元素加载完成，但是CSS等资源还未加载
-    document.addEventListener("DOMContentLoaded", () => {
-        runOnStart()
-    })
-}
-
-function runOnStart() {
+runOnHtmlDone(() => {
     initHljs()
     initViews()
-}
+})
+
 
 function initHljs() {
     hljs.registerLanguage("bash", require("highlight.js/lib/languages/bash"))

@@ -6,8 +6,6 @@ module.exports = {
     // 把app.scss转换为bundle.css
     // 给apqx.me使用的scss和js定义
     entry: ['./scss/app.scss', './js/app.js', './js/tag.js', './js/img.js', './js/nav.js', './js/jump.js',
-        './js/component/CommonAlertDialog.js',
-        './js/component/AboutMeDialog.js',
         './node_modules/long-press-event/src/long-press-event.js'],
     // 给测试使用的scss和js定义
     output: {
@@ -31,8 +29,12 @@ module.exports = {
                             name: 'apqx.css',
                         },
                     },
-                    { loader: 'extract-loader' },
-                    { loader: 'css-loader' },
+                    {
+                        loader: 'extract-loader'
+                    },
+                    {
+                        loader: 'css-loader'
+                    },
                     {
                         loader: 'postcss-loader',
                         options: {
@@ -48,7 +50,6 @@ module.exports = {
                         options: {
                             // Prefer Dart Sass
                             implementation: require('sass'),
-
                             // See https://github.com/webpack-contrib/sass-loader/issues/804
                             webpackImporter: false,
                             sassOptions: {

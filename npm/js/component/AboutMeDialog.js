@@ -5,14 +5,15 @@ import {MDCList} from "@material/list"
 
 class SkillChip extends React.Component {
 
-    componentDidMount() {
-        new MDCRipple(this.btn)
+    initButton(e) {
+        if (e == null) return
+        new MDCRipple(e)
     }
 
     render() {
         return (
             <button type="button" className="mdc-button mdc-button--unelevated tag-dialog-trigger btn-tag"
-                ref={e => this.btn = e}>
+                ref={e => this.initButton(e)}>
                 <span className="mdc-button__ripple"></span>
                 <span className="mdc-button__label">{this.props.text}</span>
             </button>
@@ -21,9 +22,15 @@ class SkillChip extends React.Component {
 }
 
 class LinkItem extends React.Component {
+    initRipple(e) {
+        if (e == null) return
+        new MDCRipple(e)
+    }
+
     render() {
         return(
-            <a className="mdc-deprecated-list-item" href={this.props.link} target="_blank">
+            <a className="mdc-deprecated-list-item" href={this.props.link} target="_blank"
+                ref={e => this.initRipple(e)}>
                 <span className="mdc-deprecated-list-item__ripple"></span>
                 <span className="mdc-deprecated-list-item__text">{this.props.text}</span>
             </a>
@@ -38,14 +45,16 @@ class AboutMeDialogContent extends React.Component {
 
 
     componentWillUnmount() {
-        // console.log("AboutMeDialogContent remove from DOM")
+        console.log("AboutMeDialogContent componentWillUnmount")
     }
 
     componentDidMount() {
-        // console.log("AboutMeDialogContent add to DOM")
-        const mdcList = new MDCList(document.getElementById("about-me-dialog_link_list"))
-        // 为每个item添加ripple动画
-        mdcList.listElements.map((listItemEl) => new MDCRipple(listItemEl))
+        console.log("AboutMeDialogContent componentDidMount")
+    }
+
+    initList(e) {
+        if (e == null) return
+        new MDCList(e)
     }
 
     getKunQvLink() {
@@ -53,11 +62,13 @@ class AboutMeDialogContent extends React.Component {
     }
 
     render() {
-        // console.log("render content = " + this.props.content)
+        console.log("AboutMeDialogContent render")
+        // 加tabIndex="0"为了解决Dialog弹出时可能出现的无法获得焦点或焦点位置不合适的问题
         return (
-            <div>
+            <div className="center-horizontal">
                 <img height="100px" width="100dx" className="circle-avatar"
-                     src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg"/>
+                     src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg"
+                     tabIndex="0" alt="avatar"/>
                 <h1 className="about-me-name">立泉</h1>
                 <span>
                     <SkillChip text="C++"/>
@@ -69,7 +80,8 @@ class AboutMeDialogContent extends React.Component {
                 <p className="about-me-description">九五后，旅居杭州，<a
                     href={this.getKunQvLink()}
                     target="_blank">昆虫</a>，野生散养攻城狮，“十分”“业余”摄影Fans</p>
-                <ul className="mdc-deprecated-list dialog-link-list" id="about-me-dialog_link_list">
+                <ul className="mdc-deprecated-list dialog-link-list" id="about-me-dialog_link_list"
+                    ref={e => this.initList(e)}>
                     <LinkItem link="https://github.com/apqx" text="GitHub"/>
                     <hr className="mdc-deprecated-list-divider" />
                     <LinkItem link="https://www.youtube.com/channel/UCF3Qv9tpULGL-CabxSEaCaQ" text="YouTube"/>
@@ -86,5 +98,5 @@ class AboutMeDialogContent extends React.Component {
 export function showAboutMeDialog() {
     // console.log("showAlert content = " + contentHTML)
     const dialogContentElement = <AboutMeDialogContent/>
-    showDialog(dialogContentElement, "Close")
+    showDialog(true, dialogContentElement, "Close", undefined)
 }

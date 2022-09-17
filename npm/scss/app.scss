@@ -473,7 +473,7 @@ p em code {
   margin-left: 0.2rem;
 }
 
-.tag-essay-item-post-author {
+.tag-essay-item-post-block1 {
   color: map.get(colors.$theme-light, "list-chip-3-ink");
   background: map.get(colors.$theme-light, "list-chip-3-bg");
   padding-left: 0.4rem;
@@ -485,7 +485,7 @@ p em code {
   margin-left: 0.2rem;
 }
 
-.tag-essay-item-post-mention {
+.tag-essay-item-post-block2 {
   color: map.get(colors.$theme-light, "list-chip-2-ink");
   background: map.get(colors.$theme-light, "list-chip-2-bg");
   padding-left: 0.4rem;
@@ -503,13 +503,13 @@ p em code {
   border: 1px solid map.get(colors.$theme-dark, "list-chip-1-border");
 }
 
-.dark .tag-essay-item-post-author {
+.dark .tag-essay-item-post-block1 {
   color: map.get(colors.$theme-dark, "list-chip-3-ink");
   background: map.get(colors.$theme-dark, "list-chip-3-bg");
   border: 1px solid map.get(colors.$theme-dark, "list-chip-3-border");
 }
 
-.dark .tag-essay-item-post-mention {
+.dark .tag-essay-item-post-block2 {
   color: map.get(colors.$theme-dark, "list-chip-2-ink");
   background: map.get(colors.$theme-dark, "list-chip-2-bg");
   border: 1px solid map.get(colors.$theme-dark, "list-chip-2-border");
@@ -664,6 +664,22 @@ p.search-result-item-snippet b {
 .about-me-description {
   // @include typography.typography(body1);
   margin: 1.6rem 1rem;
+}
+
+#short-link-jump-dialog_emoji {
+  text-align: center;
+  font-size: 4rem;
+  //margin-top: 2rem;
+}
+
+#short-link-jump-dialog_title {
+  text-align: center;
+  //margin-top: 2rem;
+  font-weight: normal;
+}
+
+#short-link-jump-dialog_link {
+  margin: 1rem 1rem;
 }
 
 .mdc-dialog {
