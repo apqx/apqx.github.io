@@ -1,29 +1,16 @@
 import { MDCRipple } from "@material/ripple"
-import { MDCChipSet } from "@material/chips/chip-set"
 import { MDCList } from "@material/list"
 import { MDCDataTable } from "@material/data-table"
 import hljs from "highlight.js/lib/core"
 // import hljs from "highlight.js"
 import "highlight.js/styles/androidstudio.css"
+import {runOnHtmlDone} from "./util/tools";
 
-// 整个页面已经加载完成，包括CSS等外部资源
-window.addEventListener("load", () => {
-
-})
-// 监听HTML元素加载完成的DOMContentLoaded事件，但是有时候该事件会在设置监听器之前完成，所以这里检查一下是否已经完成了
-if (document.readyState !== "loading") {
-    runOnStart()
-} else {
-    // HTML元素加载完成，但是CSS等资源还未加载
-    document.addEventListener("DOMContentLoaded", () => {
-        runOnStart()
-    })
-}
-
-function runOnStart() {
+runOnHtmlDone(() => {
     initHljs()
     initViews()
-}
+})
+
 
 function initHljs() {
     hljs.registerLanguage("bash", require("highlight.js/lib/languages/bash"))
@@ -62,23 +49,6 @@ function initViews() {
     for (const btn of document.querySelectorAll(".mdc-button")) {
         new MDCRipple(btn)
     }
-
-    for (const iconBtn of document.querySelectorAll(".mdc-icon-button")) {
-        // 这里不能再设置MDCRipple
-        // new MDCRipple(iconBtn).unbounded = false
-    }
-
-    // 初始化chipSet
-    // const chipSetEs = document.querySelectorAll(".mdc-evolution-chip-set")
-    // for (const chipSetE of chipSetEs) {
-    //     new MDCChipSet(chipSetE)
-    // }
-    // 为chip添加ripple动画
-    const chipActions = document.querySelectorAll(".mdc-evolution-chip__action")
-    for (const chip of chipActions) {
-        new MDCRipple(chip)
-    }
-
 
     // list，很多样式效果要实例化才会生效，比如点击选中
     const lists = document.querySelectorAll(".mdc-deprecated-list")

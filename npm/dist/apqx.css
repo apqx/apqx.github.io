@@ -11592,7 +11592,7 @@ p em code {
   margin-left: 0.2rem;
 }
 
-.tag-essay-item-post-author {
+.tag-essay-item-post-block1 {
   color: #9a6000;
   background: rgba(254, 242, 192, 0.58);
   padding-left: 0.4rem;
@@ -11604,7 +11604,7 @@ p em code {
   margin-left: 0.2rem;
 }
 
-.tag-essay-item-post-mention {
+.tag-essay-item-post-block2 {
   color: #f77575;
   background: rgba(255, 224, 221, 0.5);
   padding-left: 0.4rem;
@@ -11622,13 +11622,13 @@ p em code {
   border: 1px solid rgba(210, 195, 249, 0.3);
 }
 
-.dark .tag-essay-item-post-author {
+.dark .tag-essay-item-post-block1 {
   color: rgb(254, 241, 190);
   background: rgba(254, 242, 192, 0.18);
   border: 1px solid rgba(254, 241, 190, 0.3);
 }
 
-.dark .tag-essay-item-post-mention {
+.dark .tag-essay-item-post-block2 {
   color: rgb(253, 155, 157);
   background: rgba(182, 2, 5, 0.18);
   border: 1px solid rgba(253, 155, 157, 0.3);
@@ -11713,6 +11713,11 @@ p em code {
 .btn-tag:not(:disabled) {
   background-color: #FEDBD0;
 }
+.about-me-tag-wrapper .btn-tag {
+  margin-left: 0.1rem;
+  margin-right: 0.1rem;
+}
+
 .dark .btn-tag:not(:disabled) {
   color: #c67c3b;
 }
@@ -11777,6 +11782,20 @@ p em code {
   --mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.12);
 }
 
+#search-dialog_label {
+  width: 94%;
+  margin-top: 40px;
+}
+
+#search-dialog_tips {
+  margin: 1.6rem 1rem;
+}
+
+.btn-search {
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+}
 .btn-search:not(:disabled) {
   color: #84565E;
 }
@@ -11952,6 +11971,20 @@ p.search-result-item-snippet b {
 
 .about-me-description {
   margin: 1.6rem 1rem;
+}
+
+#short-link-jump-dialog_emoji {
+  text-align: center;
+  font-size: 4rem;
+}
+
+#short-link-jump-dialog_title {
+  text-align: center;
+  font-weight: normal;
+}
+
+#short-link-jump-dialog_link {
+  margin: 1rem 1rem;
 }
 
 .mdc-dialog.mdc-dialog--scrollable .mdc-dialog__title, .mdc-dialog.mdc-dialog--scrollable .mdc-dialog__actions, .mdc-dialog.mdc-dialog--scrollable.mdc-dialog-scroll-divider-footer .mdc-dialog__actions {

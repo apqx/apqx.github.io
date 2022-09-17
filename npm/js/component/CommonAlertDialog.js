@@ -1,5 +1,5 @@
 import React from "react"
-import {showDialog} from "./BasicDialog";
+import {COMMON_DIALOG_WRAPPER_ID, showDialog} from "./BasicDialog";
 
 class CommonAlertDialogContent extends React.Component {
     constructor(props) {
@@ -11,9 +11,8 @@ class CommonAlertDialogContent extends React.Component {
     }
 
     render() {
-        // console.log("render content = " + this.props.content)
         return (
-            <div>
+            <div className="center-horizontal">
                 <h1>{this.props.title}</h1>
                 <p className="common-alert-dialog_content" dangerouslySetInnerHTML={this.createDialogContent()}/>
             </div>
@@ -22,7 +21,6 @@ class CommonAlertDialogContent extends React.Component {
 }
 
 export function showAlertDialog(title, contentHTML, btnText, onClickBtn) {
-    // console.log("showAlert content = " + contentHTML)
     const dialogContentElement = <CommonAlertDialogContent title={title} contentHTML={contentHTML}/>
-    showDialog(dialogContentElement, btnText, onClickBtn)
+    showDialog(true, COMMON_DIALOG_WRAPPER_ID, true, dialogContentElement, btnText, onClickBtn)
 }

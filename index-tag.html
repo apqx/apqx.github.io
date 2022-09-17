@@ -16,11 +16,11 @@ sitemap: false
     <!-- 遍历所有的tag -->
     {% endcomment %}
     {%- for tag in site.tags -%}
-    <button type="button" class="mdc-button mdc-button--unelevated tag-dialog-trigger btn-tag"
+    <span class="mdc-button mdc-button--unelevated tag-dialog-trigger btn-tag"
         id="chip_tag_{{ tag[0] }}">
-        <div class="mdc-button__ripple"></div>
+        <span class="mdc-button__ripple"></span>
         <span class="mdc-button__label">#{{ tag[0] }}</span>
-    </button>
+    </span>
     {% comment %}
     <!-- 结束遍历本页的tag -->
     {% endcomment %}
