@@ -8,14 +8,12 @@ runOnHtmlDone(() => {
 
 function initImg() {
     const imgs = document.querySelectorAll(".clickShowOriginalImg")
-    const btnCancelE = document.getElementById("img_tips_dialog_btn_close")
     let firstClick = true
     let url = ""
     for (const img of imgs) {
         // 点击图片，跳转到原图
         img.addEventListener("click", () => {
             const hasCopyright = img.classList.contains("operaCopyright")
-            // var hasCopyright = false
             // 所有的图片，缩略图都加了_thumb后缀，删除后即为原图
             url = img.src.replace("_thumb", "")
             console_debug("click show original img, copyright = " + hasCopyright + ", => " + url)

@@ -24,7 +24,6 @@
     "@material/top-app-bar": "^13.0.0",
     "@material/typography": "^13.0.0",
     "highlight.js": "^10.7.3",
-    "jquery": "^3.6.0",
     "long-press-event": "^2.4.4",
     "qrcode": "^1.4.4"
   },

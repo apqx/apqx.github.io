@@ -10961,6 +10961,7 @@ body {
 html,
 body {
   height: 100%;
+  scroll-behavior: smooth;
 }
 
 .page-wrap {
@@ -11435,6 +11436,15 @@ blockquote p {
   margin: 0;
 }
 
+.chinese-handwriting {
+  display: block;
+  overflow-x: auto;
+}
+
+blockquote.chinese-handwriting.pre p {
+  white-space: pre;
+}
+
 .essay-description {
   border: 1px solid rgba(63, 185, 80, 0.4);
   border-radius: 0.3rem;
@@ -11442,8 +11452,21 @@ blockquote p {
   padding: 1rem;
 }
 
+.chinese-handwriting,
+.chinese-handwriting :not(i) {
+  font-family: "Ma Shan Zheng", cursive, Roboto, sans-serif;
+}
+
+.chinese-handwriting p {
+  font-size: 1.2rem;
+}
+
+audio {
+  width: auto;
+}
+
 pre code {
-  font-family: JetBrainsMono, monospace;
+  font-family: JetBrainsMono, monospace, Roboto, sans-serif;
   line-height: 1.4;
 }
 
@@ -11568,18 +11591,13 @@ p em code {
 }
 
 .tag-essay-item-tags-container {
-  overflow-x: overlay;
+  overflow-x: auto;
 }
 
 .tag-essay-item-tags-container::-webkit-scrollbar {
   display: none;
 }
 
-@-moz-document url-prefix() {
-  .tag-essay-item-tags-container {
-    overflow-x: scroll;
-  }
-}
 .tag-essay-item-post-type {
   color: #8167c1;
   background: rgba(211, 196, 249, 0.48);
@@ -12251,6 +12269,7 @@ video {
 
 .circle-avatar {
   border-radius: 50%;
+  margin-top: 2rem;
 }
 
 .center-horizontal {
