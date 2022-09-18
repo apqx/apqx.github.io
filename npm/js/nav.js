@@ -188,16 +188,6 @@ function initFab() {
     } catch (e) {
         console_debug("fab catch e = " + e.message)
     }
-    // 点击回到顶部
-    try {
-        const fabUp = document.getElementById("fabUp")
-        fabUp.addEventListener("click", () => {
-            console_debug("click fab")
-            scrollToTop()
-        })
-    } catch (e) {
-        console_debug("catch e = " + e.message)
-    }
 }
 
 function showEncodedUrl() {
@@ -207,6 +197,7 @@ function showEncodedUrl() {
     })
 }
 
+// 依赖jQuery
 function scrollToTop() {
     const c = document.documentElement.scrollTop || document.body.scrollTop
     if (c > 0) {

@@ -10961,6 +10961,7 @@ body {
 html,
 body {
   height: 100%;
+  scroll-behavior: smooth;
 }
 
 .page-wrap {
@@ -12251,6 +12252,7 @@ video {
 
 .circle-avatar {
   border-radius: 50%;
+  margin-top: 2rem;
 }
 
 .center-horizontal {
