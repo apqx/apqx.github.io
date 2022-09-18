@@ -11713,6 +11713,11 @@ p em code {
 .btn-tag:not(:disabled) {
   background-color: #FEDBD0;
 }
+.about-me-tag-wrapper .btn-tag {
+  margin-left: 0.1rem;
+  margin-right: 0.1rem;
+}
+
 .dark .btn-tag:not(:disabled) {
   color: #c67c3b;
 }
@@ -11777,6 +11782,20 @@ p em code {
   --mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.12);
 }
 
+#search-dialog_label {
+  width: 94%;
+  margin-top: 40px;
+}
+
+#search-dialog_tips {
+  margin: 1.6rem 1rem;
+}
+
+.btn-search {
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+}
 .btn-search:not(:disabled) {
   color: #84565E;
 }

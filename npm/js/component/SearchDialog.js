@@ -1,0 +1,208 @@
+import React from "react";
+import {Progressbar} from "./Progressbar";
+import {MDCRipple} from "@material/ripple";
+import {MDCTextField} from "@material/textfield";
+import {COMMON_DIALOG_WRAPPER_ID, SEARCH_DIALOG_WRAPPER_ID, showDialog} from "./BasicDialog";
+import {MDCList} from "@material/list";
+import {SearchDialogPresenter} from "./SearchDialogPresenter";
+
+class SearchDialog extends React.Component {
+    constructor(props) {
+        super(props);
+        this.presenter = new SearchDialogPresenter(this)
+        this.onClickSearch = this.onClickSearch.bind(this)
+        this.onClickLeftPage = this.onClickLeftPage.bind(this)
+        this.onClickRightPage = this.onClickRightPage.bind(this)
+        this.onInputChange = this.onInputChange.bind(this)
+        this.state = {
+            showLoading: false,
+            resultList: [],
+            totalPage: 1,
+            currentPage: 1,
+            previousPageStartIndex: -1,
+            nextPageStartIndex: -1,
+            searchText: ""
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        // DOM更新后，滚动到顶部
+        // 只有在搜索结果发生变化时，才滚动
+        if (prevState != null && prevState.resultList !== this.state.resultList) {
+            document.getElementById("basic-dialog-content").scrollTo(
+                {
+                    top: 0,
+                    behavior: "smooth"
+                }
+            )
+
+        }
+    }
+
+    onInputChange(e) {
+        this.input = e.target.value
+    }
+
+    onClickSearch() {
+        this.presenter.search(this.input, 1)
+    }
+
+    onClickLeftPage() {
+        if (this.state.currentPage <= 1 || this.state.previousPageStartIndex < 0) return
+        this.presenter.search(this.state.searchText, this.state.previousPageStartIndex)
+    }
+
+    onClickRightPage() {
+        if (this.state.currentPage >= this.state.totalPage || this.state.nextPageStartIndex < 0) return
+        this.presenter.search(this.state.searchText, this.state.nextPageStartIndex)
+    }
+
+    initBtn(e) {
+        if (e == null) return
+        new MDCRipple(e)
+    }
+
+    initTextField(e) {
+        if (e == null) return
+        const textField = new MDCTextField(e)
+        e.addEventListener("keyup", (event) => {
+            if (event.key === "Enter")
+                this.onClickSearch()
+        })
+    }
+
+    render() {
+        return (
+            <div className="center-horizontal">
+                <label className="mdc-text-field mdc-text-field--outlined" id="search-dialog_label"
+                       ref={e => this.initTextField(e)}>
+                    <span className="mdc-notched-outline">
+                      <span className="mdc-notched-outline__leading"></span>
+                      <span className="mdc-notched-outline__notch">
+                        <span className="mdc-floating-label" id="search-label">Google</span>
+                      </span>
+                      <span className="mdc-notched-outline__trailing"></span>
+                    </span>
+                    <input type="text" className="mdc-text-field__input" aria-labelledby="search-label"
+                           onChange={this.onInputChange}/>
+                    <button type="button" className="mdc-button mdc-button--unelevated btn-search center-horizontal"
+                            onClick={this.onClickSearch}
+                            ref={e => this.initBtn(e)}>
+                        <span className="mdc-button__ripple"></span>
+                        <i className="material-icons mdc-button__icon" aria-hidden="true">search</i>
+                        <span className="mdc-button__label">SEARCH</span>
+                    </button>
+                </label>
+
+                <p id="search-dialog_tips"><b>TIPS：</b>本<a href="https://cse.google.com/cse?cx=b74f06c1723da9656"
+                                                            target="_blank">搜索</a>功能由<a
+                    href="https://cse.google.com/cse/all" target="_blank">Google站内搜索</a>提供，仅在能访问<a
+                    href="https://google.com" target="_blank">Google</a>的网络环境下可用。</p>
+
+                <Progressbar loading={this.state.showLoading}/>
+                {(this.state.resultList !== undefined && this.state.resultList !== null && this.state.resultList.length > 0) &&
+                    <SearchResult list={this.state.resultList}
+                                  currentPage={this.state.currentPage}
+                                  totalPage={this.state.totalPage}
+                                  onClickLeft={this.onClickLeftPage}
+                                  onClickRight={this.onClickRightPage}/>
+                }
+            </div>
+        )
+    }
+}
+
+// [
+//     {
+//         title: "",
+//         description: "",
+//         url: ""
+//     }
+// ]
+
+class SearchResult extends React.Component {
+    initList(e) {
+        if (e == null) return
+        new MDCList(e)
+    }
+
+    initRipple(e) {
+        if (e == null) return
+        new MDCRipple(e)
+    }
+
+    render() {
+        if (this.props.list.size <= 0) return false
+        return (
+            <div>
+                <ul className="mdc-deprecated-list dialog-link-list"
+                    ref={e => this.initList(e)}>
+                    {this.props.list.map((item) =>
+                        <Item key={item.url}
+                              url={item.url}
+                              title={item.title}
+                              description={item.description}
+                              isLast={this.props.list.indexOf(item) === this.props.list.length - 1}/>
+                    )}
+                </ul>
+                <div className="search-result-nav-wrapper">
+                    <button className="mdc-button btn-search-result-nav mdc-ripple-upgraded mdc-button--outlined"
+                            ref={e => this.initRipple(e)}
+                            onClick={this.props.onClickLeft}>
+                        <span className="mdc-button__ripple"></span>
+                        <i className="material-icons mdc-button__icon" aria-hidden="true">chevron_left</i>
+                        <span className="mdc-button__label">上一页</span>
+                    </button>
+                    <span className="search-result-index">{this.props.currentPage + "/" + this.props.totalPage}</span>
+                    <button className="mdc-button btn-search-result-nav mdc-ripple-upgraded mdc-button--outlined"
+                            ref={e => this.initRipple(e)}
+                            onClick={this.props.onClickRight}>
+                        <span className="mdc-button__ripple"></span>
+                        <span className="mdc-button__label">下一页</span>
+                        <i className="material-icons mdc-button__icon" aria-hidden="true">chevron_right</i>
+                    </button>
+                </div>
+            </div>
+        )
+    }
+}
+
+class Item extends React.Component {
+
+    createHtmlContent(html) {
+        return {__html: html}
+    }
+
+    initRipple(e) {
+        if (e == null) return
+        new MDCRipple(e)
+    }
+
+    render() {
+        return (
+            <div>
+                <a className="mdc-deprecated-list-item search-result-item mdc-ripple-upgraded"
+                   href={this.props.url}
+                   target="_blank"
+                   ref={e => this.initRipple(e)}>
+                    <span className="mdc-deprecated-list-item__ripple"></span>
+                    <div>
+                        <h1 className="search-result-item-title"
+                            dangerouslySetInnerHTML={this.createHtmlContent(this.props.title)}/>
+                        <p className="search-result-item-snippet"
+                           dangerouslySetInnerHTML={this.createHtmlContent(this.props.description)}/>
+                    </div>
+                </a>
+                {!this.props.isLast && <hr className="mdc-deprecated-list-divider"/>}
+            </div>
+        )
+    }
+}
+
+export function showSearchDialog() {
+    // 是不是每次弹出都是新的空白窗口，不是，SearchDialog组件中的数据是保留的，虽然重新render，但并没有创建新的组件对象
+    const dialogContentElement = <SearchDialog/>
+    showDialog(true, COMMON_DIALOG_WRAPPER_ID, true, dialogContentElement, "Close", () => {
+        // showDialog(false, COMMON_DIALOG_WRAPPER_ID, true, undefined, undefined, undefined)
+    })
+}

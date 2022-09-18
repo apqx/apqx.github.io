@@ -1,38 +1,10 @@
-import React, {Component} from "react";
-import {showDialog} from "./BasicDialog";
+import React from "react";
+import {COMMON_DIALOG_WRAPPER_ID, showDialog, TAG_DIALOG_WRAPPER_ID} from "./BasicDialog";
 import {MDCList} from "@material/list";
 import {MDCRipple} from "@material/ripple";
-import {MDCLinearProgress} from "@material/linear-progress";
+import {Progressbar} from "./Progressbar";
 
-class TagEssayListDialog extends Component {
-
-    constructor(props) {
-        super(props)
-        console.log("TagEssayListDialog constructor")
-    }
-
-
-    componentDidMount() {
-        console.log("TagEssayListDialog componentDidMount")
-    }
-
-
-    componentWillUnmount() {
-        console.log("TagEssayListDialog componentWillUnmount")
-    }
-
-    initProgressbar(progressbarE) {
-        console.log("initProgressbar " + progressbarE)
-        if (progressbarE == null) return
-        this.progressbar = new MDCLinearProgress(progressbarE)
-        this.progressbar.determinate = false
-        if (this.props.showLoading) {
-            this.progressbar.open()
-        } else {
-            this.progressbar.close()
-        }
-
-    }
+class TagEssayListDialog extends React.Component {
 
     initList(listE) {
         if (listE == null) return
@@ -40,30 +12,15 @@ class TagEssayListDialog extends Component {
     }
 
     render() {
-        console.log("TagEssayListDialog render")
         return (
             <div>
-                <p className="mdc-theme--on-surface" >标记TAG
+                <p className="mdc-theme--on-surface">标记TAG
                     <code id="tag-dialog-tag-name"
                           className="language-plaintext highlighter-rouge">{this.props.tag}</code>
                     的<span>博文</span>
                 </p>
 
-                <div role="progressbar" className="mdc-linear-progress" aria-label="Example Progress Bar"
-                     aria-valuemin="0"
-                     aria-valuemax="1" aria-valuenow="0"
-                     ref={e => this.initProgressbar(e)}>
-                    <div className="mdc-linear-progress__buffer">
-                        <div className="mdc-linear-progress__buffer-bar"></div>
-                        <div className="mdc-linear-progress__buffer-dots"></div>
-                    </div>
-                    <div className="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
-                        <span className="mdc-linear-progress__bar-inner"></span>
-                    </div>
-                    <div className="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
-                        <span className="mdc-linear-progress__bar-inner"></span>
-                    </div>
-                </div>
+                <Progressbar loading={this.props.showLoading}/>
 
                 <ul className="mdc-deprecated-list mdc-deprecated-list--two-line dialog-link-list"
                     ref={e => this.initList(e)}>
@@ -86,13 +43,7 @@ class TagEssayListDialog extends Component {
     }
 }
 
-class EssayItem extends Component {
-    constructor(props) {
-        super(props)
-    }
-
-    componentDidMount() {
-    }
+class EssayItem extends React.Component {
 
     initRipple(e) {
         if (e == null) return
@@ -151,5 +102,5 @@ class EssayItem extends Component {
  */
 export function showTagEssayListDialog(_tag, _essayList, _showLoading) {
     const dialogContentElement = <TagEssayListDialog tag={_tag} essayList={_essayList} showLoading={_showLoading}/>
-    showDialog(true, dialogContentElement, "Close", undefined)
+    showDialog(true, COMMON_DIALOG_WRAPPER_ID, true, dialogContentElement, "Close", undefined)
 }

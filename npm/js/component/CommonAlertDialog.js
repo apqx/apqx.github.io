@@ -1,5 +1,5 @@
 import React from "react"
-import {showDialog} from "./BasicDialog";
+import {COMMON_DIALOG_WRAPPER_ID, showDialog} from "./BasicDialog";
 
 class CommonAlertDialogContent extends React.Component {
     constructor(props) {
@@ -11,11 +11,9 @@ class CommonAlertDialogContent extends React.Component {
     }
 
     render() {
-        // console.log("render content = " + this.props.content)
-        // 加tabIndex="0"为了解决Dialog弹出时可能出现的无法获得焦点或焦点位置不合适的问题
         return (
             <div className="center-horizontal">
-                <h1 tabIndex="0">{this.props.title}</h1>
+                <h1>{this.props.title}</h1>
                 <p className="common-alert-dialog_content" dangerouslySetInnerHTML={this.createDialogContent()}/>
             </div>
         )
@@ -23,7 +21,6 @@ class CommonAlertDialogContent extends React.Component {
 }
 
 export function showAlertDialog(title, contentHTML, btnText, onClickBtn) {
-    // console.log("showAlert content = " + contentHTML)
     const dialogContentElement = <CommonAlertDialogContent title={title} contentHTML={contentHTML}/>
-    showDialog(true, dialogContentElement, btnText, onClickBtn)
+    showDialog(true, COMMON_DIALOG_WRAPPER_ID, true, dialogContentElement, btnText, onClickBtn)
 }

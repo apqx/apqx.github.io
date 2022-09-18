@@ -1,6 +1,7 @@
 // 处理页面跳转，短链接
 import {runOnHtmlDone} from "./util/tools";
 import {showShortLinkJumpDialog} from "./component/ShortLinkJumpDialog";
+import {console_debug, console_error} from "./util/logutil";
 
 runOnHtmlDone(() => {
     checkJump()
@@ -68,21 +69,21 @@ function findPid(pid) {
             }
         })
         .then(response => {
-            console.debug(response)
+            console_debug(response)
             const mapJson = JSON.parse(response)
             for (const item of mapJson.map) {
-                console.log(item.id)
-                if (item.id == pid) {
-                    console.log("find pid " + pid + " => " + item.target.path)
+                console_debug(item.id)
+                if (item.id === pid) {
+                    console_debug("find pid " + pid + " => " + item.target.path)
                     // 跳转到目标页，不在浏览器中保留跳转记录
                     jumpToUrl(window.location.origin + item.target.path, item.target.title)
                     return
                 }
             }
             jumpToUrl(window.location.origin + "/404.html", "未找到目标页面")
-            console.log("pid not exist, will create new")
+            console_debug("pid not exist, will create new")
         }).catch(error => {
-        console.error(error)
+        console_error(error)
         jumpToUrl(window.location.origin + "/404.html", "未找到映射表")
     })
 }

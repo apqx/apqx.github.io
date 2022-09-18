@@ -1,5 +1,6 @@
 import { showAlertDialog } from "./component/CommonAlertDialog"
 import {runOnHtmlDone} from "./util/tools";
+import {console_debug} from "./util/logutil";
 
 runOnHtmlDone(() => {
     initImg()
@@ -17,9 +18,8 @@ function initImg() {
             // var hasCopyright = false
             // 所有的图片，缩略图都加了_thumb后缀，删除后即为原图
             url = img.src.replace("_thumb", "")
-            console.log("click show original img, copyright = " + hasCopyright + ", => " + url)
+            console_debug("click show original img, copyright = " + hasCopyright + ", => " + url)
             if (hasCopyright && firstClick) {
-                console.log("first click img, show tips dialog")
                 showAlertDialog("版权声明", "点击“OK”将跳转到原始尺寸的无水印高清大图，欢迎下载分享，只是唯一注意，<b>图片版权归属作者及原剧团演员所有</b>，未经允许，不可用于商业用途🤫。",
                     "OK", () => {
                         // 必须点击这个btn才允许跳转到大图

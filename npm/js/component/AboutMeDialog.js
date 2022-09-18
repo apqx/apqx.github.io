@@ -1,5 +1,5 @@
 import React from "react"
-import {showDialog} from "./BasicDialog"
+import {ABOUT_ME_DIALOG_WRAPPER_ID, COMMON_DIALOG_WRAPPER_ID, showDialog} from "./BasicDialog"
 import {MDCRipple} from "@material/ripple"
 import {MDCList} from "@material/list"
 
@@ -12,11 +12,11 @@ class SkillChip extends React.Component {
 
     render() {
         return (
-            <button type="button" className="mdc-button mdc-button--unelevated tag-dialog-trigger btn-tag"
+            <span className="mdc-button mdc-button--unelevated btn-tag"
                 ref={e => this.initButton(e)}>
                 <span className="mdc-button__ripple"></span>
                 <span className="mdc-button__label">{this.props.text}</span>
-            </button>
+            </span>
         )
     }
 }
@@ -43,15 +43,6 @@ class AboutMeDialogContent extends React.Component {
         super(props)
     }
 
-
-    componentWillUnmount() {
-        console.log("AboutMeDialogContent componentWillUnmount")
-    }
-
-    componentDidMount() {
-        console.log("AboutMeDialogContent componentDidMount")
-    }
-
     initList(e) {
         if (e == null) return
         new MDCList(e)
@@ -62,15 +53,13 @@ class AboutMeDialogContent extends React.Component {
     }
 
     render() {
-        console.log("AboutMeDialogContent render")
-        // 加tabIndex="0"为了解决Dialog弹出时可能出现的无法获得焦点或焦点位置不合适的问题
         return (
             <div className="center-horizontal">
                 <img height="100px" width="100dx" className="circle-avatar"
                      src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg"
-                     tabIndex="0" alt="avatar"/>
+                     alt="avatar"/>
                 <h1 className="about-me-name">立泉</h1>
-                <span>
+                <span className="about-me-tag-wrapper">
                     <SkillChip text="C++"/>
                     <SkillChip text="Java"/>
                     <SkillChip text="Kotlin"/>
@@ -96,7 +85,6 @@ class AboutMeDialogContent extends React.Component {
 }
 
 export function showAboutMeDialog() {
-    // console.log("showAlert content = " + contentHTML)
     const dialogContentElement = <AboutMeDialogContent/>
-    showDialog(true, dialogContentElement, "Close", undefined)
+    showDialog(true, COMMON_DIALOG_WRAPPER_ID, true, dialogContentElement, "Close", undefined)
 }

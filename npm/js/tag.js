@@ -1,11 +1,6 @@
-// 处理文章的tag标记
-import {MDCList} from "@material/list"
-import {MDCDialog} from "@material/dialog"
-import {MDCLinearProgress} from "@material/linear-progress"
-
-import {MDCRipple} from "@material/ripple"
 import {runOnHtmlDone} from "./util/tools";
 import {showTagEssayListDialog} from "./component/TagEssayListDialog";
+import {console_debug, console_error} from "./util/logutil";
 
 const POST_TYPE_ORIGINAL = ["original", "随笔"]
 const POST_TYPE_REPOST = ["repost", "转载"]
@@ -47,7 +42,7 @@ function initTagTriggers() {
     // 为每一个tag添加点击监听
     for (const trigger of dialogsTriggers) {
         // 获取每一个trigger的id，找到它对应的dialogId，和dialog里的listId
-        console.log(trigger.id)
+        console_debug(trigger.id)
         // 监听trigger的点击事件
         trigger.addEventListener("click", clickTag)
     }
@@ -58,16 +53,17 @@ function clickTag() {
     const chipId = this.id
     // chip_tag_随笔 dialog_tag_随笔 dialog_tag_list_随笔
     // chip_tag_碎碎念&看剧 可以指定多个tag，用 & 分隔
-    console.log("click tag " + chipId)
+    console_debug("click tag " + chipId)
     // 这里的tag可能是由&连接的多个tag
     const tag = chipId.replace("chip_tag_", "")
-    // 弹窗显示加载
-    showTagEssayListDialog(tag, undefined, true)
     // 只在无数据时请求
     if (postJson !== undefined && postJson !== null) {
         showTagItemList(postJson, tag)
     } else {
-        queryTagItemList(tag)
+        showTagEssayListDialog(tag, undefined, true)
+        setTimeout(() => {
+            queryTagItemList(tag)
+        }, 1000)
     }
 }
 
@@ -77,7 +73,7 @@ function clickTag() {
  */
 function queryTagItemList(tag) {
     const url = window.location.origin + "/archives/posts.txt"
-    console.log("queryTagItemList " + url)
+    console_debug("queryTagItemList " + url)
     const request = new Request(url, {
         method: "GET"
     })
@@ -94,7 +90,7 @@ function queryTagItemList(tag) {
             postJson = JSON.parse(response)
             showTagItemList(postJson, tag)
         }).catch(error => {
-            console.error(error)
+            console_error(error)
             showTagEssayListDialog(tag, undefined, false)
         }
     )
@@ -161,7 +157,6 @@ function getPostBlocks(author, actor, mention, postType) {
  *
  * @param {string} tags
  * @param {string} postJson
- * @returns post数组
  */
 function findPost(tags, postJson) {
     const tagArray = tags.split("&")
@@ -179,7 +174,7 @@ function findPost(tags, postJson) {
             resultArray.push(post)
         }
     }
-    console.log("find post with tag " + tagArray + ", result size is " + resultArray.length)
+    console_debug("find post with tag " + tagArray + ", result size is " + resultArray.length)
     return resultArray
 }
 

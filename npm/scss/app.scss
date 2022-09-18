@@ -556,6 +556,11 @@ p em code {
   margin-top: 0.5rem;
 }
 
+.about-me-tag-wrapper .btn-tag {
+  margin-left: 0.1rem;
+  margin-right: 0.1rem;
+}
+
 .dark .btn-tag {
   @include button.ink-color(map.get(colors.$theme-dark, "chip-ink"));
   @include button.container-fill-color(map.get(colors.$theme-dark, "chip-bg"));
@@ -569,10 +574,19 @@ p em code {
   @include ripple.states(map.get(colors.$theme-dark, "search_nav"), true);
 }
 
+#search-dialog_label {
+  width: 94%;
+  margin-top: 40px
+}
+
+#search-dialog_tips {
+  margin: 1.6rem 1rem;
+}
 
 .btn-search {
   @include button.ink-color(map.get(colors.$theme-light, "chip-ink"));
   @include button.container-fill-color(map.get(colors.$theme-light, "chip-bg"));
+  min-width: fit-content;
 }
 
 .dark .btn-search {

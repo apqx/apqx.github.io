@@ -1,5 +1,4 @@
 import { MDCRipple } from "@material/ripple"
-import { MDCChipSet } from "@material/chips/chip-set"
 import { MDCList } from "@material/list"
 import { MDCDataTable } from "@material/data-table"
 import hljs from "highlight.js/lib/core"
@@ -50,23 +49,6 @@ function initViews() {
     for (const btn of document.querySelectorAll(".mdc-button")) {
         new MDCRipple(btn)
     }
-
-    for (const iconBtn of document.querySelectorAll(".mdc-icon-button")) {
-        // 这里不能再设置MDCRipple
-        // new MDCRipple(iconBtn).unbounded = false
-    }
-
-    // 初始化chipSet
-    // const chipSetEs = document.querySelectorAll(".mdc-evolution-chip-set")
-    // for (const chipSetE of chipSetEs) {
-    //     new MDCChipSet(chipSetE)
-    // }
-    // 为chip添加ripple动画
-    const chipActions = document.querySelectorAll(".mdc-evolution-chip__action")
-    for (const chip of chipActions) {
-        new MDCRipple(chip)
-    }
-
 
     // list，很多样式效果要实例化才会生效，比如点击选中
     const lists = document.querySelectorAll(".mdc-deprecated-list")
