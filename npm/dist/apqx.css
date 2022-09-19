@@ -11444,7 +11444,7 @@ blockquote p {
 }
 
 pre code {
-  font-family: JetBrainsMono, monospace;
+  font-family: JetBrainsMono, monospace, Roboto, sans-serif;
   line-height: 1.4;
 }
 
