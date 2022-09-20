@@ -354,6 +354,24 @@ blockquote p {
   margin: 0;
 }
 
+// 手写诗文
+.chinese-handwriting {
+  display: block;
+  overflow-x: auto;
+}
+// 手写诗文，保持原有排版，横向滚动
+// 此时，如果是blockquote，注意不要行尾加双空格，jekyll会处理成以下格式，导致行1和行2之间多了一行
+// <p>行1
+// <br/>
+// 行2</p>
+// jekyll会把 > 转换为以下格式，这里只给p加white-space: pre，如果blockquote加了，则上下会多一行
+// <blockquote>
+// <p>文本</p>
+// </blockquote>
+blockquote.chinese-handwriting.pre p {
+  white-space: pre;
+}
+
 .essay-description {
   border: 1px solid rgba(63, 185, 80, 0.4);
   // border: 1px solid rgba(248, 81, 73, 0.4);;
@@ -361,6 +379,19 @@ blockquote p {
   background: rgba(46, 160, 67, 0.1);
   // background: rgba(248, 81, 73, 0.15);
   padding: 1rem;
+}
+
+.chinese-handwriting,
+.chinese-handwriting span,
+.chinese-handwriting h1,
+.chinese-handwriting h2,
+.chinese-handwriting h3,
+.chinese-handwriting code,
+.chinese-handwriting a,
+.chinese-handwriting button,
+.chinese-handwriting p {
+  font-family: "Ma Shan Zheng", cursive, Roboto, sans-serif;
+  font-size: 1.2rem;
 }
 
 // 代码块
