@@ -3,13 +3,11 @@ const autoprefixer = require('autoprefixer');
 
 module.exports = {
     mode: 'development',
-    // 把app.scss转换为bundle.css
-    // 给apqx.me使用的scss和js定义
+    // 打包入口
     entry: ['./scss/app.scss', './js/app.js', './js/tag.js', './js/img.js', './js/nav.js', './js/jump.js',
         './node_modules/long-press-event/src/long-press-event.js'],
-    // 给测试使用的scss和js定义
     output: {
-        // 指定要生存的js文件名
+        // 指定要生成的js文件名
         filename: 'apqx.js',
     },
     // resolve: {
@@ -18,7 +16,7 @@ module.exports = {
     // },
     module: {
         rules: [
-            // 将scss转换为css
+            // 支持scss
             {
                 test: /\.scss$/,
                 use: [
@@ -61,16 +59,16 @@ module.exports = {
 
                 ]
             },
-            // 将ES2015 js转化为js
+            // 支持css
+            {
+                test: /\.css$/i,
+                use: ["style-loader", "css-loader"],
+            },
+            // 支持ES2015 js/jsx
             {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader'
-            },
-            // 支持读取css
-            {
-                test: /\.css$/i,
-                use: ["style-loader", "css-loader"],
             },
         ],
 

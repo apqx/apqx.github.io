@@ -11436,11 +11436,33 @@ blockquote p {
   margin: 0;
 }
 
+.chinese-handwriting {
+  display: block;
+  overflow-x: auto;
+}
+
+blockquote.chinese-handwriting.pre p {
+  white-space: pre;
+}
+
 .essay-description {
   border: 1px solid rgba(63, 185, 80, 0.4);
   border-radius: 0.3rem;
   background: rgba(46, 160, 67, 0.1);
   padding: 1rem;
+}
+
+.chinese-handwriting,
+.chinese-handwriting span,
+.chinese-handwriting h1,
+.chinese-handwriting h2,
+.chinese-handwriting h3,
+.chinese-handwriting code,
+.chinese-handwriting a,
+.chinese-handwriting button,
+.chinese-handwriting p {
+  font-family: "Ma Shan Zheng", cursive, Roboto, sans-serif;
+  font-size: 1.2rem;
 }
 
 pre code {

@@ -141,10 +141,9 @@ function getPostBlocks(author, actor, mention, postType) {
     const actorArray = actor === "" ? [] : actor.split(" ")
     const mentionArray = mention === "" ? [] : mention.split(" ")
     if (postType[0] === POST_TYPE_ORIGINAL[0]) {
-        // 随笔，不显示author和actor，显示mention
+        // 随笔，不显示author，显示actor和mention
         return [actorArray, mentionArray]
     } else if (postType[0] === POST_TYPE_OPERA[0]) {
-        // actor只在看剧中出现
         // 看剧，显示actor和mention
         return [actorArray, mentionArray]
     } else {

@@ -24,7 +24,6 @@ runOnHtmlDone(() => {
     initDrawer()
     initAboutMeDialog()
     initSearchDialog()
-    initLink()
 })
 
 
@@ -175,18 +174,14 @@ function saveTheme(isDark) {
  */
 function initFab() {
     // 为fab添加ripple动画
-    try {
-        const fabE = document.querySelector(".mdc-fab")
-        if (fabE != null) {
-            const fabRipple = new MDCRipple(fabE)
-            // topAppBar监听长按，把当前页编码后的URL复制到剪切板上
-            fabE.addEventListener("long-press", () => {
-                console_debug("long-press fab")
-                showEncodedUrl()
-            })
-        }
-    } catch (e) {
-        console_debug("fab catch e = " + e.message)
+    const fabE = document.querySelector(".mdc-fab")
+    if (fabE != null) {
+        const fabRipple = new MDCRipple(fabE)
+        // topAppBar监听长按，把当前页编码后的URL复制到剪切板上
+        fabE.addEventListener("long-press", () => {
+            console_debug("long-press fab")
+            showEncodedUrl()
+        })
     }
 }
 
@@ -256,20 +251,13 @@ function initDrawer() {
  * 初始化关于我dialog
  */
 function initAboutMeDialog() {
-    try {
-        document.getElementById("topbar_btn_about_me").addEventListener("click", () => {
-            // aboutMeDialog.open()
-            showAboutMeDialog()
-        })
-        // 侧边导航的关于我
-        document.getElementById("drawer-a-about-me").addEventListener("click", () => {
-            // aboutMeDialog.open()
-            showAboutMeDialog()
-        })
-
-    } catch (e) {
-        console_debug("catch e = " + e.message)
-    }
+    document.getElementById("topbar_btn_about_me").addEventListener("click", () => {
+        showAboutMeDialog()
+    })
+    // 侧边导航的关于我
+    document.getElementById("drawer-a-about-me").addEventListener("click", () => {
+        showAboutMeDialog()
+    })
 }
 
 /**
@@ -277,19 +265,6 @@ function initAboutMeDialog() {
  */
 function initSearchDialog() {
     document.getElementById("drawer-a-search").addEventListener("click", () => {
-        console_debug("click nav search")
         showSearchDialog()
     })
 }
-
-/**
- * 给指定的link添加扩展名
- */
-function initLink() {
-    const aList = document.getElementsByClassName("extension-txt")
-    for (const a of aList) {
-        const url = a.getAttribute("href") + ".txt"
-        a.setAttribute("href", url)
-    }
-}
-
