@@ -382,16 +382,16 @@ blockquote.chinese-handwriting.pre p {
 }
 
 .chinese-handwriting,
-.chinese-handwriting span,
-.chinese-handwriting h1,
-.chinese-handwriting h2,
-.chinese-handwriting h3,
-.chinese-handwriting code,
-.chinese-handwriting a,
-.chinese-handwriting button,
-.chinese-handwriting p {
+.chinese-handwriting :not(i) {
   font-family: "Ma Shan Zheng", cursive, Roboto, sans-serif;
+}
+
+.chinese-handwriting p {
   font-size: 1.2rem;
+}
+
+audio {
+  width: auto;
 }
 
 // 代码块
@@ -475,7 +475,7 @@ p em code {
 }
 
 .tag-essay-item-tags-container {
-  overflow-x: overlay;
+  overflow-x: auto;
 }
 
 // 移动端Chrome的scrollBar一直显示，需要消除，其它浏览器scrollBar都会自动隐藏
@@ -483,14 +483,6 @@ p em code {
 .tag-essay-item-tags-container::-webkit-scrollbar {
   // 消除scrollBar
   display: none;
-}
-
-@-moz-document url-prefix() {
-
-  //  FireFox暂时不支持overlay
-  .tag-essay-item-tags-container {
-    overflow-x: scroll;
-  }
 }
 
 .tag-essay-item-post-type {

@@ -11453,16 +11453,16 @@ blockquote.chinese-handwriting.pre p {
 }
 
 .chinese-handwriting,
-.chinese-handwriting span,
-.chinese-handwriting h1,
-.chinese-handwriting h2,
-.chinese-handwriting h3,
-.chinese-handwriting code,
-.chinese-handwriting a,
-.chinese-handwriting button,
-.chinese-handwriting p {
+.chinese-handwriting :not(i) {
   font-family: "Ma Shan Zheng", cursive, Roboto, sans-serif;
+}
+
+.chinese-handwriting p {
   font-size: 1.2rem;
+}
+
+audio {
+  width: auto;
 }
 
 pre code {
@@ -11591,18 +11591,13 @@ p em code {
 }
 
 .tag-essay-item-tags-container {
-  overflow-x: overlay;
+  overflow-x: auto;
 }
 
 .tag-essay-item-tags-container::-webkit-scrollbar {
   display: none;
 }
 
-@-moz-document url-prefix() {
-  .tag-essay-item-tags-container {
-    overflow-x: scroll;
-  }
-}
 .tag-essay-item-post-type {
   color: #8167c1;
   background: rgba(211, 196, 249, 0.48);
