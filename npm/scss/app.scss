@@ -372,6 +372,16 @@ blockquote.chinese-handwriting.pre p {
   white-space: pre;
 }
 
+.chinese-handwriting,
+.chinese-handwriting :not(i) {
+  font-family: "Ma Shan Zheng", cursive, Roboto, sans-serif;
+}
+
+.chinese-handwriting p,
+.chinese-handwriting code {
+  font-size: 1.2rem;
+}
+
 .essay-description {
   border: 1px solid rgba(63, 185, 80, 0.4);
   // border: 1px solid rgba(248, 81, 73, 0.4);;
@@ -379,15 +389,6 @@ blockquote.chinese-handwriting.pre p {
   background: rgba(46, 160, 67, 0.1);
   // background: rgba(248, 81, 73, 0.15);
   padding: 1rem;
-}
-
-.chinese-handwriting,
-.chinese-handwriting :not(i) {
-  font-family: "Ma Shan Zheng", cursive, Roboto, sans-serif;
-}
-
-.chinese-handwriting p {
-  font-size: 1.2rem;
 }
 
 audio {

@@ -1,17 +1,12 @@
 // 处理页面跳转，短链接
-import {runOnHtmlDone} from "./util/tools";
 import {showShortLinkJumpDialog} from "./component/ShortLinkJumpDialog";
-import {console_debug, console_error} from "./util/logutil";
-
-runOnHtmlDone(() => {
-    checkJump()
-})
+import {console_debug, console_error} from "./util/LogUtil";
 
 /**
  * 进入页面，检查是否携带了跳转参数
  * https://apqx.me/pid
  */
-function checkJump() {
+export function checkJump() {
     let pid
     const urlPath = window.location.pathname
     const matches = urlPath.match(/(op|og|rp|pt)..$/)
@@ -29,7 +24,7 @@ function checkJump() {
         return
     }
 
-    showShortLinkJumpDialog("正在查询", "")
+    showShortLinkJumpDialog("正在查询", "", undefined)
     // 查询url映射表中的pid
     findPid(pid)
 }
@@ -48,13 +43,24 @@ function checkJump() {
         },
     ]
 }
-/*
 
+ */
+
+interface UrlMapJson {
+    map: UrlMapItem[]
+}
+
+interface UrlMapItem {
+    "id": string,
+    "target": {
+        "path": string,
+        "title": string
+    }
+}
 /**
  * 从url映射文件中查询pid
- * @param {string} pid 
  */
-function findPid(pid) {
+function findPid(pid: string) {
     const url = window.location.origin + "/assets/url-map.json"
     const request = new Request(url, {
         method: "GET"
@@ -63,15 +69,13 @@ function findPid(pid) {
     fetch(request)
         .then(response => {
             if (response.status === 200) {
-                return response.text()
+                return response.json()
             } else {
                 throw new Error("Something went wrong on api server!")
             }
         })
-        .then(response => {
-            console_debug(response)
-            const mapJson = JSON.parse(response)
-            for (const item of mapJson.map) {
+        .then((response: UrlMapJson) => {
+            for (const item of response.map) {
                 console_debug(item.id)
                 if (item.id === pid) {
                     console_debug("find pid " + pid + " => " + item.target.path)
@@ -83,12 +87,13 @@ function findPid(pid) {
             jumpToUrl(window.location.origin + "/404.html", "未找到目标页面")
             console_debug("pid not exist, will create new")
         }).catch(error => {
-        console_error(error)
-        jumpToUrl(window.location.origin + "/404.html", "未找到映射表")
-    })
+            console_error(error)
+            jumpToUrl(window.location.origin + "/404.html", "未找到映射表")
+        }
+    )
 }
 
-function jumpToUrl(url, linkTitle) {
+function jumpToUrl(url: string, linkTitle: string) {
     showShortLinkJumpDialog("正在跳转", linkTitle, () => {
         // 监听点击，手动实现跳转，且不记入浏览器的跳转记录
         window.location.replace(url)

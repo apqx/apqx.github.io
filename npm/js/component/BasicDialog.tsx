@@ -1,12 +1,23 @@
-import React from "react";
-import {createRoot} from 'react-dom/client'
-import {MDCDialog} from "@material/dialog"
-import {MDCRipple} from "@material/ripple"
-import {console_debug} from "../util/logutil";
+import * as React from "react";
+import {console_debug} from "../util/LogUtil";
+import {MDCDialog} from "@material/dialog";
+import {MDCRipple} from "@material/ripple";
+import {createRoot, Root} from "react-dom/client";
 
-export class BasicDialog extends React.Component {
-    constructor(props) {
-        super(props)
+interface Props {
+    open: boolean,
+    fixedWidth: boolean,
+    contentElement: JSX.Element,
+    btnText: string,
+    btnOnClick: (e: React.MouseEvent<HTMLElement>) => void
+}
+
+export class BasicDialog extends React.Component<Props, any> {
+    mdcDialog: MDCDialog
+
+    constructor(props: Props) {
+        super(props);
+        this.mdcDialog = null
         console_debug("BasicDialog constructor")
     }
 
@@ -18,15 +29,14 @@ export class BasicDialog extends React.Component {
         console_debug("BasicDialog componentWillUnmount")
     }
 
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<any>, snapshot?: any) {
         console_debug("BasicDialog componentDidUpdate")
     }
 
-    initDialog(dialogE) {
-        console_debug("BasicDialog initDialog " + dialogE)
-        if (dialogE == null) return
-        this.mdcDialog = new MDCDialog(dialogE)
+    initDialog(e: Element) {
+        console_debug("BasicDialog initDialog " + e)
+        if (e == null) return
+        this.mdcDialog = new MDCDialog(e)
         this.mdcDialog.listen("MDCDialog:opened", () => {
             // 列表滚动到顶部，执行一次即可
             document.getElementById("basic-dialog-content").scrollTo(
@@ -50,9 +60,9 @@ export class BasicDialog extends React.Component {
         }
     }
 
-    initActionBtn(btnE) {
-        if (btnE == null) return
-        new MDCRipple(btnE)
+    initActionBtn(e: Element) {
+        if (e == null) return
+        new MDCRipple(e)
     }
 
     render() {
@@ -69,7 +79,7 @@ export class BasicDialog extends React.Component {
                              id="basic-dialog-content">
                             {this.props.contentElement}
                         </div>
-                        {(this.props.btnText !== undefined && this.props.btnText !== null) &&
+                        {(this.props.btnText != null) &&
                             <div className="mdc-dialog__actions basic-dialog_actions">
                                 <button type="button"
                                         className="mdc-button btn-common mdc-button--unelevated basic-dialog_btn_action"
@@ -77,7 +87,7 @@ export class BasicDialog extends React.Component {
                                         ref={e => this.initActionBtn(e)}
                                         onClick={this.props.btnOnClick}
                                         id="basic-dialog_btn_close"
-                                        tabIndex="0">
+                                        tabIndex={0}>
                                     <span className="mdc-button__ripple"></span>
                                     <span className="mdc-button__label"
                                           id="basic-dialog_btn_close_label"
@@ -117,20 +127,12 @@ const roots = [
     },
 ]
 
-/**
- * 弹出Dialog
- * @param _open 是否弹出
- * @param _wrapperId Dialog要添加到的位置
- * @param _fixedWidth 是否固定Dialog宽度，false则Dialog会适应children的宽度
- * @param _contentElement Dialog的Content，JSX.Element
- * @param _btnText Action Button显示的文字
- * @param _onClickBtn Action Button的点击监听
- */
-export function showDialog(_open, _wrapperId, _fixedWidth, _contentElement, _btnText, _onClickBtn) {
-    let root = undefined
+export function showDialog(_open: boolean, _wrapperId: string, _fixedWidth: boolean, _contentElement: JSX.Element,
+                           _btnText: string, _onClickBtn: (e: React.MouseEvent<HTMLElement>) => void) {
+    let root: Root = null
     for (const item of roots) {
         if (item.id === _wrapperId) {
-            if (item.root === undefined || item.root === null) {
+            if (item.root == null) {
                 console_debug("--------create root " + item.id)
                 item.root = createRoot(document.getElementById(item.id))
             }
@@ -138,11 +140,11 @@ export function showDialog(_open, _wrapperId, _fixedWidth, _contentElement, _btn
             break
         }
     }
-    if (root === undefined || root === null) return
+    if (root == null) return
     root.render(
         <BasicDialog
-            fixedWidth={_fixedWidth}
             open={_open}
+            fixedWidth={_fixedWidth}
             contentElement={_contentElement}
             btnText={_btnText}
             btnOnClick={_onClickBtn}
