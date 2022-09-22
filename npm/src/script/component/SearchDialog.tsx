@@ -38,7 +38,6 @@ export class SearchDialog extends React.Component<any, SearchDialogState> {
         this.onClickLeftPage = this.onClickLeftPage.bind(this)
         this.onClickRightPage = this.onClickRightPage.bind(this)
         this.onInputChange = this.onInputChange.bind(this)
-        console.log("loadingis ====== " + this.state.showLoading)
     }
 
     onClickSearch() {
