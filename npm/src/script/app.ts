@@ -1,14 +1,25 @@
-import { MDCRipple } from "@material/ripple"
-import { MDCList } from "@material/list"
-import { MDCDataTable } from "@material/data-table"
+import {MDCRipple} from "@material/ripple"
+import {MDCList} from "@material/list"
+import {MDCDataTable} from "@material/data-table"
 import hljs from "highlight.js/lib/core"
-// import hljs from "highlight.js"
-import "highlight.js/styles/androidstudio.css"
-import {runOnHtmlDone} from "./util/tools";
+import "highlight.js/styles/atom-one-dark.css"
+import {runOnHtmlDone} from "./util/Tools"
+import {checkJump} from "./jump"
+import {initAboutMeDialog, initDrawer, initFab, initSearchDialog, initTheme} from "./nav"
+import {initTagTriggers} from "./tag"
+import {initImg} from "./img"
 
 runOnHtmlDone(() => {
     initHljs()
     initViews()
+    initImg()
+    checkJump()
+    initTheme()
+    initFab()
+    initDrawer()
+    initAboutMeDialog()
+    initSearchDialog()
+    initTagTriggers()
 })
 
 

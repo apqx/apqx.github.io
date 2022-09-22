@@ -1,11 +1,14 @@
-import React, {Component} from "react";
-
+import * as React from "react";
 import {MDCLinearProgress} from "@material/linear-progress";
-import {log} from "qrcode/lib/core/galois-field";
 
-export class Progressbar extends React.Component {
+interface Props {
+    loading: boolean
+}
 
-    init(e) {
+export class Progressbar extends React.Component<Props, any> {
+    progressbar: MDCLinearProgress = null
+
+    init(e: Element) {
         if (e == null) return
         this.progressbar = new MDCLinearProgress(e)
         this.progressbar.determinate = false
@@ -17,11 +20,11 @@ export class Progressbar extends React.Component {
     }
 
     render() {
-        return(
+        return (
             <div role="progressbar" className="mdc-linear-progress" aria-label="Example Progress Bar"
-                 aria-valuemin="0"
-                 aria-valuemax="1" aria-valuenow="0"
-                ref={e => this.init(e)}>
+                 // aria-valuemin="0"
+                 // aria-valuemax="1" aria-valuenow="0"
+                 ref={e => this.init(e)}>
                 <div className="mdc-linear-progress__buffer">
                     <div className="mdc-linear-progress__buffer-bar"></div>
                     <div className="mdc-linear-progress__buffer-dots"></div>

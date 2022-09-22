@@ -4,16 +4,17 @@ const autoprefixer = require('autoprefixer');
 module.exports = {
     mode: 'development',
     // 打包入口
-    entry: ['./scss/app.scss', './js/app.js', './js/tag.js', './js/img.js', './js/nav.js', './js/jump.js',
+    entry: ['./src/scss/app.scss', './src/script/app.ts',
         './node_modules/long-press-event/src/long-press-event.js'],
     output: {
         // 指定要生成的js文件名
         filename: 'apqx.js',
     },
-    // resolve: {
-    //     extensions: [".tsx", ".ts", ".js", ".json"],
-    //     fallback: { "https": false }
-    // },
+    resolve: {
+        // 指定webpack要处理的文件类型，如果这里不指定.ts等，在打包时会找不到除入口文件之外的该类型文件
+        extensions: [".tsx", ".ts", ".js", ".json"],
+        fallback: {"https": false}
+    },
     module: {
         rules: [
             // 支持scss
@@ -64,9 +65,9 @@ module.exports = {
                 test: /\.css$/i,
                 use: ["style-loader", "css-loader"],
             },
-            // 支持ES2015 js/jsx
+            // 支持ES2015 js/jsx/ts/tsx
             {
-                test: /\.(js|jsx)$/,
+                test: /\.(js|jsx|ts|tsx)$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader'
             },

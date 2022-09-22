@@ -1,12 +1,14 @@
-import {COMMON_DIALOG_WRAPPER_ID, showDialog} from "./BasicDialog";
-import React from "react";
+import * as React from "react";
 import {Progressbar} from "./Progressbar";
+import {COMMON_DIALOG_WRAPPER_ID, showDialog} from "./BasicDialog";
 
-class ShortLinkJumpDialogContent extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+interface DialogContentProps {
+    title: string,
+    content: string,
+    onClickLink: (e: React.MouseEvent<HTMLElement>) => void
+}
 
+class DialogContent extends React.Component<DialogContentProps, any> {
     render() {
         return (
             <div className="center-horizontal">
@@ -22,7 +24,7 @@ class ShortLinkJumpDialogContent extends React.Component {
     }
 }
 
-export function showShortLinkJumpDialog(_title, _content, _onClickLink) {
-    const dialogContentElement = <ShortLinkJumpDialogContent title={_title} content={_content} onClickLink={_onClickLink}/>
+export function showShortLinkJumpDialog(_title: string, _content: string, _onClickLink: (e: React.MouseEvent<HTMLElement>) => void) {
+    const dialogContentElement = <DialogContent title={_title} content={_content} onClickLink={_onClickLink}/>
     showDialog(true, COMMON_DIALOG_WRAPPER_ID, false, dialogContentElement, undefined, undefined)
 }

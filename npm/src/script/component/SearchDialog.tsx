@@ -1,46 +1,43 @@
-import React from "react";
-import {Progressbar} from "./Progressbar";
+import * as React from "react";
+import {SearchDialogPresenter} from "./SearchDialogPresenter";
 import {MDCRipple} from "@material/ripple";
 import {MDCTextField} from "@material/textfield";
-import {COMMON_DIALOG_WRAPPER_ID, SEARCH_DIALOG_WRAPPER_ID, showDialog} from "./BasicDialog";
+import {Progressbar} from "./Progressbar";
 import {MDCList} from "@material/list";
-import {SearchDialogPresenter} from "./SearchDialogPresenter";
+import {createHtmlContent} from "../util/Tools";
+import {COMMON_DIALOG_WRAPPER_ID, showDialog} from "./BasicDialog";
 
-class SearchDialog extends React.Component {
-    constructor(props) {
+interface SearchDialogState {
+    showLoading: boolean
+    resultList: ResultItemData[]
+    totalPage: number
+    currentPage: number
+    previousPageStartIndex: number
+    nextPageStartIndex: number
+    searchText: string
+}
+
+export class SearchDialog extends React.Component<any, SearchDialogState> {
+    state: SearchDialogState = {
+        showLoading: false,
+        resultList: null,
+        totalPage: 1,
+        currentPage: 1,
+        previousPageStartIndex: -1,
+        nextPageStartIndex: -1,
+        searchText: ""
+    }
+
+    presenter: SearchDialogPresenter = null
+    input: string = ""
+
+    constructor(props: any) {
         super(props);
         this.presenter = new SearchDialogPresenter(this)
         this.onClickSearch = this.onClickSearch.bind(this)
         this.onClickLeftPage = this.onClickLeftPage.bind(this)
         this.onClickRightPage = this.onClickRightPage.bind(this)
         this.onInputChange = this.onInputChange.bind(this)
-        this.state = {
-            showLoading: false,
-            resultList: [],
-            totalPage: 1,
-            currentPage: 1,
-            previousPageStartIndex: -1,
-            nextPageStartIndex: -1,
-            searchText: ""
-        }
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        // DOM更新后，滚动到顶部
-        // 只有在搜索结果发生变化时，才滚动
-        if (prevState != null && prevState.resultList !== this.state.resultList) {
-            document.getElementById("basic-dialog-content").scrollTo(
-                {
-                    top: 0,
-                    behavior: "smooth"
-                }
-            )
-
-        }
-    }
-
-    onInputChange(e) {
-        this.input = e.target.value
     }
 
     onClickSearch() {
@@ -57,15 +54,33 @@ class SearchDialog extends React.Component {
         this.presenter.search(this.state.searchText, this.state.nextPageStartIndex)
     }
 
-    initBtn(e) {
+    onInputChange(e) {
+        this.input = e.target.value
+    }
+
+    componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<SearchDialogState>, snapshot?: any) {
+        // DOM更新后，滚动到顶部
+        // 只有在搜索结果发生变化时，才滚动
+        if (prevState != null && prevState.resultList != this.state.resultList) {
+            document.getElementById("basic-dialog-content").scrollTo(
+                {
+                    top: 0,
+                    behavior: "smooth"
+                }
+            )
+
+        }
+    }
+
+    initBtn(e: Element) {
         if (e == null) return
         new MDCRipple(e)
     }
 
-    initTextField(e) {
+    initTextField(e: Element) {
         if (e == null) return
-        const textField = new MDCTextField(e)
-        e.addEventListener("keyup", (event) => {
+        new MDCTextField(e)
+        e.addEventListener("keyup", (event: KeyboardEvent) => {
             if (event.key === "Enter")
                 this.onClickSearch()
         })
@@ -100,7 +115,7 @@ class SearchDialog extends React.Component {
                     href="https://google.com" target="_blank">Google</a>的网络环境下可用。</p>
 
                 <Progressbar loading={this.state.showLoading}/>
-                {(this.state.resultList !== undefined && this.state.resultList !== null && this.state.resultList.length > 0) &&
+                {(this.state.resultList != null && this.state.resultList.length > 0) &&
                     <SearchResult list={this.state.resultList}
                                   currentPage={this.state.currentPage}
                                   totalPage={this.state.totalPage}
@@ -112,37 +127,35 @@ class SearchDialog extends React.Component {
     }
 }
 
-// [
-//     {
-//         title: "",
-//         description: "",
-//         url: ""
-//     }
-// ]
+interface SearchResultProps {
+    list: ResultItemData[]
+    currentPage: number
+    totalPage: number
+    onClickLeft: () => void
+    onClickRight: () => void
+}
 
-class SearchResult extends React.Component {
-    initList(e) {
+class SearchResult extends React.Component<SearchResultProps, any> {
+    initList(e: Element) {
         if (e == null) return
         new MDCList(e)
     }
 
-    initRipple(e) {
+    initRipple(e: Element) {
         if (e == null) return
         new MDCRipple(e)
     }
 
     render() {
-        if (this.props.list.size <= 0) return false
+        if (this.props.list.length <= 0) return false
         return (
             <div>
                 <ul className="mdc-deprecated-list dialog-link-list"
                     ref={e => this.initList(e)}>
                     {this.props.list.map((item) =>
-                        <Item key={item.url}
-                              url={item.url}
-                              title={item.title}
-                              description={item.description}
-                              isLast={this.props.list.indexOf(item) === this.props.list.length - 1}/>
+                        <ResultItem key={item.url}
+                                    data={new ResultItemData(item.title, item.description, item.url)}
+                                    isLast={this.props.list.indexOf(item) === this.props.list.length - 1}/>
                     )}
                 </ul>
                 <div className="search-result-nav-wrapper">
@@ -167,13 +180,25 @@ class SearchResult extends React.Component {
     }
 }
 
-class Item extends React.Component {
+interface ResultItemProps {
+    data: ResultItemData
+    isLast: boolean
+}
 
-    createHtmlContent(html) {
-        return {__html: html}
+export class ResultItemData {
+    title: string
+    description: string
+    url: string
+
+    constructor(title: string, description: string, url: string) {
+        this.title = title
+        this.description = description
+        this.url = url
     }
+}
 
-    initRipple(e) {
+class ResultItem extends React.Component<ResultItemProps, any> {
+    initRipple(e: Element) {
         if (e == null) return
         new MDCRipple(e)
     }
@@ -182,15 +207,15 @@ class Item extends React.Component {
         return (
             <div>
                 <a className="mdc-deprecated-list-item search-result-item mdc-ripple-upgraded"
-                   href={this.props.url}
+                   href={this.props.data.url}
                    target="_blank"
                    ref={e => this.initRipple(e)}>
                     <span className="mdc-deprecated-list-item__ripple"></span>
                     <div>
                         <h1 className="search-result-item-title"
-                            dangerouslySetInnerHTML={this.createHtmlContent(this.props.title)}/>
+                            dangerouslySetInnerHTML={createHtmlContent(this.props.data.title)}/>
                         <p className="search-result-item-snippet"
-                           dangerouslySetInnerHTML={this.createHtmlContent(this.props.description)}/>
+                           dangerouslySetInnerHTML={createHtmlContent(this.props.data.description)}/>
                     </div>
                 </a>
                 {!this.props.isLast && <hr className="mdc-deprecated-list-divider"/>}
