@@ -1,5 +1,6 @@
 import {EssayItemData, showTagEssayListDialog} from "./component/TagEssayListDialog";
 import {console_debug, console_error} from "./util/LogUtil";
+import {showAboutMeDialog} from "./component/AboutMeDialog";
 
 /**
  * 初始化tag的点击事件

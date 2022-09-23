@@ -54,15 +54,13 @@ export class TagEssayListDialogPresenter {
 
     findTaggedEssays(tag: string) {
         this.component.setState({
-            showLoading : true,
-            essayList: []
+            showLoading: true,
+            // essayList: []
         })
         console_debug("findTaggedEssays " + tag)
         if (postList != null) {
             // 使用本页缓存
-            setTimeout(() => {
             this.showTagItemList(postList, tag)
-            }, 500)
             return
         }
         const url = window.location.origin + "/archives/posts.txt"

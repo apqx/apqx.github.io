@@ -148,7 +148,8 @@ body {
 html,
 body {
   height: 100%;
-  scroll-behavior: smooth;
+  //影响jQuery的滚动到顶部
+  //scroll-behavior: smooth;
 }
 
 // 设置.page-wrap的最小高度为页面高度，为下面预留80px的高度空间

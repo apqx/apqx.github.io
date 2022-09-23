@@ -50,15 +50,15 @@ export class TagEssayDialogContent extends React.Component<DialogContentProps, D
         console_debug("TagEssayListDialogContent shouldComponentUpdate" +
             " props: " + this.props.tag + " -> " + nextProps.tag +
             " state: " + this.state.showLoading + " " + this.state.essayList.length + " -> " + nextState.showLoading + " " + nextState.essayList.length)
-
         if (this.props.tag != nextProps.tag) {
             // props变化，触发获取对应的数据，不render，当数据获取完成后，会自动setState触发state变化，再render
-            //  TODO：如果获取数据失败，再点击Tag，这里的tag一致吗
+            // TODO: 当props没有变化，但是上次请求失败，不render，重新获取数据
+            // TODO: 中途关掉Dialog，应终止presenter可能存在的异步任务
             console_debug("tag different, no render")
             this.presenter.findTaggedEssays(nextProps.tag)
             return false
         }
-        if (this.state.showLoading != nextState.showLoading  ||
+        if (this.state.showLoading != nextState.showLoading ||
             !this.isEssayListSame(this.state.essayList, nextState.essayList)) {
             console_debug("state different, render")
             return true
