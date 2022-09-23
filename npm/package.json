@@ -1,8 +1,7 @@
 {
   "version": "2.1.5",
   "scripts": {
-    "build-tsc": "tsc",
-    "build-webpack": "webpack",
+    "build": "webpack",
     "start": "webpack serve"
   },
   "dependencies": {
