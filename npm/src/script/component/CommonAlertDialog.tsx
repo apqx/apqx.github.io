@@ -7,19 +7,20 @@ interface Props {
     contentHTML: string
 }
 
-class DialogContent extends React.Component<Props, any> {
+class CommonAlertDialogContent extends React.Component<Props, any> {
 
     render() {
         return (
             <div className="center-horizontal">
                 <h1>{this.props.title}</h1>
-                <p className="common-alert-dialog_content" dangerouslySetInnerHTML={createHtmlContent(this.props.contentHTML)}/>
+                <p className="common-alert-dialog_content"
+                   dangerouslySetInnerHTML={createHtmlContent(this.props.contentHTML)}/>
             </div>
         )
     }
 }
 
 export function showAlertDialog(title: string, contentHTML: string, btnText: string, onClickBtn: (e: React.MouseEvent<HTMLElement>) => void) {
-    const dialogContentElement = <DialogContent title={title} contentHTML={contentHTML}/>
+    const dialogContentElement = <CommonAlertDialogContent title={title} contentHTML={contentHTML}/>
     showDialog(true, COMMON_DIALOG_WRAPPER_ID, true, dialogContentElement, btnText, onClickBtn)
 }

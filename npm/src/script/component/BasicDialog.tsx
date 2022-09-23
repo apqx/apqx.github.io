@@ -36,23 +36,25 @@ export class BasicDialog extends React.Component<Props, any> {
     initDialog(e: Element) {
         console_debug("BasicDialog initDialog " + e)
         if (e == null) return
-        this.mdcDialog = new MDCDialog(e)
-        this.mdcDialog.listen("MDCDialog:opened", () => {
-            // 列表滚动到顶部，执行一次即可
-            document.getElementById("basic-dialog-content").scrollTo(
-                {
-                    top: 0,
-                    behavior: "smooth"
+        if (this.mdcDialog == null) {
+            this.mdcDialog = new MDCDialog(e)
+            this.mdcDialog.listen("MDCDialog:opened", () => {
+                // 列表滚动到顶部，执行一次即可
+                document.getElementById("basic-dialog-content").scrollTo(
+                    {
+                        top: 0,
+                        behavior: "smooth"
+                    }
+                )
+                // Dialog弹出时应该让Button获取焦点，避免chip出现选中阴影
+                // 但是Button获取焦点后颜色会变化，所以立即取消焦点
+                const btnCloseE = document.getElementById("basic-dialog_btn_close")
+                if (btnCloseE != null) {
+                    // btnCloseE.focus()
+                    btnCloseE.blur()
                 }
-            )
-            // Dialog弹出时应该让Button获取焦点，避免chip出现选中阴影
-            // 但是Button获取焦点后颜色会变化，所以立即取消焦点
-            const btnCloseE = document.getElementById("basic-dialog_btn_close")
-            if (btnCloseE != null) {
-                // btnCloseE.focus()
-                btnCloseE.blur()
-            }
-        })
+            })
+        }
         if (this.props.open) {
             this.mdcDialog.open()
         } else {
@@ -127,6 +129,7 @@ const roots = [
     },
 ]
 
+// TODO: 传入一个ID，表示Content是否变化
 export function showDialog(_open: boolean, _wrapperId: string, _fixedWidth: boolean, _contentElement: JSX.Element,
                            _btnText: string, _onClickBtn: (e: React.MouseEvent<HTMLElement>) => void) {
     let root: Root = null

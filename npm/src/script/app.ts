@@ -58,6 +58,8 @@ function initHljs() {
 function initViews() {
     // 为所有的button添加ripple动画，要与 mdc-button__ripple 配合使用才会生效
     for (const btn of document.querySelectorAll(".mdc-button")) {
+        // TODO: Tag弹出Dialog的React操作似乎被点击Tag的Ripple动画所影响，慢一拍，取消动画就好了，或者按住一会，等动画完成后再松开
+        // 浏览器似乎是单线程运行的
         new MDCRipple(btn)
     }
 

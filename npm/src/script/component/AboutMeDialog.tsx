@@ -3,8 +3,10 @@ import {MDCList} from "@material/list";
 import * as url from "url";
 import {MDCRipple} from "@material/ripple";
 import {COMMON_DIALOG_WRAPPER_ID, showDialog} from "./BasicDialog";
+import {console_debug} from "../util/LogUtil";
 
-class DialogContent extends React.Component<any, any> {
+class AboutMeDialogContent extends React.Component<any, any> {
+
     initList(e: Element) {
         if (e == null) return
         new MDCList(e)
@@ -14,7 +16,12 @@ class DialogContent extends React.Component<any, any> {
         return window.location.origin + "/post/original/2019/05/18/槐安国内春生酒.html"
     }
 
+    shouldComponentUpdate(nextProps: Readonly<any>, nextState: Readonly<any>, nextContext: any): boolean {
+        return false
+    }
+
     render() {
+        console_debug("AboutMeDialogContent render")
         return (
             <div className="center-horizontal">
                 <img height="100px" width="100dx" className="circle-avatar"
@@ -90,6 +97,6 @@ class LinkItem extends React.Component<LinkItemProps, any> {
 }
 
 export function showAboutMeDialog() {
-    const dialogContentElement = <DialogContent />
+    const dialogContentElement = <AboutMeDialogContent />
     showDialog(true, COMMON_DIALOG_WRAPPER_ID, true, dialogContentElement, "Close", undefined)
 }

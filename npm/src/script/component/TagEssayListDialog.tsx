@@ -3,20 +3,85 @@ import {MDCList} from "@material/list";
 import {Progressbar} from "./Progressbar";
 import {MDCRipple} from "@material/ripple";
 import {COMMON_DIALOG_WRAPPER_ID, showDialog} from "./BasicDialog";
+import {console_debug} from "../util/LogUtil";
+import {TagEssayListDialogPresenter} from "./TagEssayListDialogPresenter";
 
 interface DialogContentProps {
     tag: string,
+}
+
+interface DialogContentState {
     showLoading: boolean,
     essayList: EssayItemData[]
 }
 
-class DialogContent extends React.Component<DialogContentProps, any> {
+export class TagEssayDialogContent extends React.Component<DialogContentProps, DialogContentState> {
+    presenter: TagEssayListDialogPresenter = null
+
+    constructor(props) {
+        super(props)
+        console_debug("TagEssayListDialogContent constructor")
+        this.presenter = new TagEssayListDialogPresenter(this)
+        this.state = {
+            showLoading: true,
+            essayList: []
+        }
+    }
+
     initList(e: Element) {
         if (e == null) return
         new MDCList(e)
     }
 
+    componentDidMount() {
+        console_debug("TagEssayListDialogContent componentDidMount")
+        // 对象初始化，会直接触发render，显示默认初始页，同时执行获异步取数据的操作
+        this.presenter.findTaggedEssays(this.props.tag)
+    }
+
+    componentDidUpdate(prevProps: Readonly<DialogContentProps>, prevState: Readonly<DialogContentState>, snapshot?: any) {
+        console_debug("TagEssayListDialogContent componentDidUpdate")
+    }
+
+    shouldComponentUpdate(nextProps: Readonly<DialogContentProps>, nextState: Readonly<DialogContentState>, nextContext: any): boolean {
+        // 当外部以<Tag />的形式重新传入props时，或内部state变化时，这里执行，判断是否要render
+        // props是UI的数据id，state则是要展示的UI状态，更新props，会触发重新获取要展示的UI对应的数据，调用setState触发state变化，引起UI变化
+
+        console_debug("TagEssayListDialogContent shouldComponentUpdate" +
+            " props: " + this.props.tag + " -> " + nextProps.tag +
+            " state: " + this.state.showLoading + " " + this.state.essayList.length + " -> " + nextState.showLoading + " " + nextState.essayList.length)
+        if (this.props.tag != nextProps.tag) {
+            // props变化，触发获取对应的数据，不render，当数据获取完成后，会自动setState触发state变化，再render
+            // TODO: 当props没有变化，但是上次请求失败，不render，重新获取数据
+            // TODO: 中途关掉Dialog，应终止presenter可能存在的异步任务
+            console_debug("tag different, no render")
+            this.presenter.findTaggedEssays(nextProps.tag)
+            return false
+        }
+        if (this.state.showLoading != nextState.showLoading ||
+            !this.isEssayListSame(this.state.essayList, nextState.essayList)) {
+            console_debug("state different, render")
+            return true
+        }
+        console_debug("props and state no change, no render")
+        return false
+    }
+
+    private isEssayListSame(list1: EssayItemData[], list2: EssayItemData[]) {
+        if (list1.length != list2.length) return false
+        list1.forEach((item, index) => {
+            if (item.url != list2[index].url) return false
+        })
+        return true
+    }
+
+// TODO: 找到方法把这个监听器传到BasicDialog中
+    onDialogOpen(open: boolean) {
+        console_debug("TagEssayListDialogContent onDialogOpenListener " + open)
+    }
+
     render() {
+        console_debug("TagEssayListDialogContent render")
         return (
             <div>
                 <p className="mdc-theme--on-surface">标记TAG
@@ -25,15 +90,15 @@ class DialogContent extends React.Component<DialogContentProps, any> {
                     的<span>博文</span>
                 </p>
 
-                <Progressbar loading={this.props.showLoading}/>
+                <Progressbar loading={this.state.showLoading}/>
 
                 <ul className="mdc-deprecated-list mdc-deprecated-list--two-line dialog-link-list"
                     ref={e => this.initList(e)}>
-                    {this.props.essayList != null && this.props.essayList.map(item =>
+                    {this.state.essayList != null && this.state.essayList.map(item =>
                         <EssayItem
                             key={item.title + item.date}
                             data={new EssayItemData(item.url, item.title, item.date, item.type, item.block1Array, item.block2Array)}
-                            isLast={this.props.essayList.indexOf(item) === (this.props.essayList.length - 1)}
+                            isLast={this.state.essayList.indexOf(item) === (this.state.essayList.length - 1)}
                         />
                     )}
 
@@ -72,7 +137,7 @@ interface EssayItemProps {
 }
 
 class EssayItem extends React.Component<EssayItemProps, any> {
-    initRipple(e) {
+    public initRipple(e) {
         if (e == null) return
         new MDCRipple(e)
     }
@@ -110,7 +175,8 @@ class EssayItem extends React.Component<EssayItemProps, any> {
     }
 }
 
-export function showTagEssayListDialog(_tag: string, _essayList: EssayItemData[], _showLoading: boolean) {
-    const dialogContentElement = <DialogContent tag={_tag} essayList={_essayList} showLoading={_showLoading}/>
+export function showTagEssayListDialog(tag: string) {
+    console_debug("TagEssayListDialogContent showTagEssayListDialog " + tag)
+    const dialogContentElement = <TagEssayDialogContent tag={tag}/>
     showDialog(true, COMMON_DIALOG_WRAPPER_ID, true, dialogContentElement, "Close", undefined)
 }

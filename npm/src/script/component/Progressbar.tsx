@@ -10,8 +10,11 @@ export class Progressbar extends React.Component<Props, any> {
 
     init(e: Element) {
         if (e == null) return
-        this.progressbar = new MDCLinearProgress(e)
-        this.progressbar.determinate = false
+        if (this.progressbar == null) {
+            this.progressbar = new MDCLinearProgress(e)
+            this.progressbar.determinate = false
+        }
+
         if (this.props.loading) {
             this.progressbar.open()
         } else {
@@ -22,8 +25,8 @@ export class Progressbar extends React.Component<Props, any> {
     render() {
         return (
             <div role="progressbar" className="mdc-linear-progress" aria-label="Example Progress Bar"
-                 // aria-valuemin="0"
-                 // aria-valuemax="1" aria-valuenow="0"
+                // aria-valuemin="0"
+                // aria-valuemax="1" aria-valuenow="0"
                  ref={e => this.init(e)}>
                 <div className="mdc-linear-progress__buffer">
                     <div className="mdc-linear-progress__buffer-bar"></div>

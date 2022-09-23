@@ -1,10 +1,10 @@
-import {ResultItemData, SearchDialog} from "./SearchDialog";
+import {ResultItemData, SearchDialogContent} from "./SearchDialog";
 import {console_error} from "../util/LogUtil";
 
 export class SearchDialogPresenter {
-    component: SearchDialog = null
+    component: SearchDialogContent = null
 
-    constructor(component: SearchDialog) {
+    constructor(component: SearchDialogContent) {
         this.component = component
     }
 

@@ -162,6 +162,10 @@ export function initFab() {
             console_debug("long-press fab")
             showEncodedUrl()
         })
+        fabE.addEventListener("click", () => {
+            scrollToTop()
+            // window.location.replace("#top")
+        })
     }
 }
 
