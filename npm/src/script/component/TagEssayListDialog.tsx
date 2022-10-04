@@ -69,13 +69,13 @@ export class TagEssayDialogContent extends React.Component<DialogContentProps, D
 
     private isEssayListSame(list1: EssayItemData[], list2: EssayItemData[]) {
         if (list1.length != list2.length) return false
-        list1.forEach((item, index) => {
-            if (item.url != list2[index].url) return false
-        })
+        for (let i = 0; i < list1.length; i++) {
+            if (list1[i].url != list2[i].url) return false
+        }
         return true
     }
 
-// TODO: 找到方法把这个监听器传到BasicDialog中
+    // TODO: 找到方法把这个监听器传到BasicDialog中
     onDialogOpen(open: boolean) {
         console_debug("TagEssayListDialogContent onDialogOpenListener " + open)
     }
