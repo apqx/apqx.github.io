@@ -37,7 +37,7 @@ class AboutMeDialogContent extends React.Component<any, any> {
                 </span>
                 <p className="about-me-description">九五后，旅居杭州，<a
                     href={this.getKunQvLink()}
-                    target="_blank">昆虫</a>，野生散养攻城狮，“十分”“业余”摄影Fans</p>
+                    target="_blank">昆虫</a>，野生散养攻城狮，“十分”“业余”摄影Fans。联系我可以通过邮件<code>Email</code>👇🏻，如果有必要的话，也可以用<a href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/wechat.jpg" target="_blank">微信</a>。</p>
                 <ul className="mdc-deprecated-list dialog-link-list" id="about-me-dialog_link_list"
                     ref={e => this.initList(e)}>
                     <LinkItem link="https://github.com/apqx" title="GitHub"/>
@@ -45,6 +45,8 @@ class AboutMeDialogContent extends React.Component<any, any> {
                     <LinkItem link="https://www.youtube.com/channel/UCF3Qv9tpULGL-CabxSEaCaQ" title="YouTube"/>
                     <hr className="mdc-deprecated-list-divider" />
                     <LinkItem link="https://space.bilibili.com/11037907" title="Bilibili"/>
+                    <hr className="mdc-deprecated-list-divider" />
+                    <LinkItem link="https://weibo.com/u/7026785047" title="Weibo"/>
                     <hr className="mdc-deprecated-list-divider" />
                     <LinkItem link="mailto:changgongapq@gmail.com" title="Email"/>
                 </ul>
