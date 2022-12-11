@@ -984,7 +984,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"console_debug\": () => (/* binding */ console_debug),\n/* harmony export */   \"console_error\": () => (/* binding */ console_error)\n/* harmony export */ });\nvar debugMode = true;\nfunction console_debug(str) {\n  if (debugMode) console.log(str);\n}\nfunction console_error(str) {\n  if (debugMode) console.error(str);\n}\n\n//# sourceURL=webpack:///./src/script/util/LogUtil.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"console_debug\": () => (/* binding */ console_debug),\n/* harmony export */   \"console_error\": () => (/* binding */ console_error)\n/* harmony export */ });\nvar debugMode = false;\nfunction console_debug(str) {\n  if (debugMode) console.log(str);\n}\nfunction console_error(str) {\n  if (debugMode) console.error(str);\n}\n\n//# sourceURL=webpack:///./src/script/util/LogUtil.ts?");
 
 /***/ }),
 

@@ -62,8 +62,12 @@ export class PreferenceDialogContent extends React.Component<any, DialogContentS
         return (
             <div>
                 <div className="preference-item-toggle">
-                    <span className="preference-item-toggle__title">使用<a href="https://fonts.google.com/specimen/Ma+Shan+Zheng" target="_blank">马善政手写楷书</a>字体</span>
-                    <button id="handwriting-switch" className="mdc-switch mdc-switch--unselected preference-item-toggle__toggle" type="button" role="switch"
+                    <span className="preference-item-toggle__title">使用<a
+                        href="https://fonts.google.com/specimen/Ma+Shan+Zheng"
+                        target="_blank">马善政手写楷书</a>字体</span>
+                    <button id="handwriting-switch"
+                            className="mdc-switch mdc-switch--unselected preference-item-toggle__toggle" type="button"
+                            role="switch"
                             aria-checked="false"
                             ref={e => this.initHandwritingSwitch(e)}
                             onClick={this.onClickHandwritingFontSwitch}>
@@ -85,6 +89,6 @@ export class PreferenceDialogContent extends React.Component<any, DialogContentS
 
 export function showPreferenceDialog() {
     console_debug("PreferenceDialogContent showPreferenceDialog ")
-    const dialogContentElement = <PreferenceDialogContent />
+    const dialogContentElement = <PreferenceDialogContent/>
     showDialog(true, COMMON_DIALOG_WRAPPER_ID, true, dialogContentElement, "Close", undefined)
 }
