@@ -9,6 +9,9 @@ import {showAboutMeDialog} from "./component/AboutMeDialog";
 import {showSearchDialog} from "./component/SearchDialog";
 import {console_debug, console_error} from "./util/LogUtil";
 import {MDCListActionEvent} from "@material/list/types";
+import {showPreferenceDialog} from "./component/PreferenceDialog";
+import {LocalRepository} from "./repository/LocalRepository";
+import {toggleClassWithEnable} from "./util/Tools";
 
 // Theme主题相关常量
 const THEME_LIGHT = "0"
@@ -18,6 +21,7 @@ const KEY_THEME = "theme"
 // 初始化Chrome/Safari标题栏颜色，立即执行
 checkThemeColor()
 
+// TODO: 使用LocalRepository重构，类似initHandwriting
 export function initTheme() {
     try {
         const bodyE = document.getElementsByTagName("body")[0];
@@ -172,7 +176,7 @@ export function initFab() {
 function showEncodedUrl() {
     const url = window.location.href
     const urlLink = "Copy this <a href=\"" + url + "\">link</a> to get encoded url"
-    showAlertDialog("TIPS", urlLink , "OK", () => {
+    showAlertDialog("TIPS", urlLink, "OK", () => {
     })
 }
 
@@ -251,4 +255,20 @@ export function initSearchDialog() {
     document.getElementById("drawer-a-search").addEventListener("click", () => {
         showSearchDialog()
     })
+}
+
+/**
+ * 初始化偏好Dialog
+ */
+export function initPreferenceDialog() {
+    document.getElementById("drawer-a-preference").addEventListener("click", () => {
+        showPreferenceDialog()
+    })
+}
+
+export function initHandwritingFont() {
+    const localRepository = new LocalRepository()
+    const localHandWritingFontOn = localRepository.getHandWritingFontOn()
+    const bodyE = document.getElementsByTagName("body")[0];
+    toggleClassWithEnable(bodyE, "handwriting", localHandWritingFontOn)
 }

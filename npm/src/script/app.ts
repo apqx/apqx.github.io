@@ -5,7 +5,15 @@ import hljs from "highlight.js/lib/core"
 import "highlight.js/styles/atom-one-dark.css"
 import {runOnHtmlDone} from "./util/Tools"
 import {checkJump} from "./jump"
-import {initAboutMeDialog, initDrawer, initFab, initSearchDialog, initTheme} from "./nav"
+import {
+    initAboutMeDialog,
+    initDrawer,
+    initFab,
+    initHandwritingFont,
+    initPreferenceDialog,
+    initSearchDialog,
+    initTheme
+} from "./nav"
 import {initTagTriggers} from "./tag"
 import {initImg} from "./img"
 
@@ -15,10 +23,12 @@ runOnHtmlDone(() => {
     initImg()
     checkJump()
     initTheme()
+    initHandwritingFont()
     initFab()
     initDrawer()
-    initAboutMeDialog()
+    initPreferenceDialog()
     initSearchDialog()
+    initAboutMeDialog()
     initTagTriggers()
 })
 

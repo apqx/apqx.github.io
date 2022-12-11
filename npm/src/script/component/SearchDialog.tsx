@@ -212,7 +212,7 @@ class ResultItem extends React.Component<ResultItemProps, any> {
                    ref={e => this.initRipple(e)}>
                     <span className="mdc-deprecated-list-item__ripple"></span>
                     <div>
-                        <h1 className="search-result-item-title"
+                        <p className="search-result-item-title"
                             dangerouslySetInnerHTML={createHtmlContent(this.props.data.title)}/>
                         <p className="search-result-item-snippet"
                            dangerouslySetInnerHTML={createHtmlContent(this.props.data.description)}/>
