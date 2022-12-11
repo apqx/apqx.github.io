@@ -1,4 +1,4 @@
-const debugMode = false
+const debugMode = true
 
 
 export function console_debug(str: string) {

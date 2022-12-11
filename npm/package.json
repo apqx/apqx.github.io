@@ -18,6 +18,7 @@
     "@material/linear-progress": "^13.0.0",
     "@material/list": "^13.0.0",
     "@material/ripple": "^13.0.0",
+    "@material/switch": "^13.0.0",
     "@material/textfield": "^13.0.0",
     "@material/theme": "^13.0.0",
     "@material/top-app-bar": "^13.0.0",

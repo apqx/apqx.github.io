@@ -34,11 +34,16 @@
 @use "@material/theme/custom-properties";
 
 @use "@material/theme/mdc-theme";
+@use '@material/theme/color-palette';
+@use '@material/theme/shadow-dom';
 
 @use "@material/button";
 @use '@material/button/mdc-button';
 @use "@material/icon-button";
 @use "@material/icon-button/mdc-icon-button";
+
+@use "@material/switch";
+@use "@material/switch/styles" as switchStyles;
 
 @use "@material/top-app-bar";
 @use "@material/top-app-bar/mdc-top-app-bar";
@@ -52,7 +57,7 @@
 @use "@material/elevation";
 @use "@material/elevation/mdc-elevation";
 @use "@material/chips";
-@use "@material/chips/styles";
+@use "@material/chips/styles" as chipStyles;
 
 @use "@material/data-table/data-table";
 @use "@material/data-table/data-table-theme";
@@ -356,7 +361,7 @@ blockquote p {
 }
 
 // 手写诗文
-.chinese-handwriting {
+.handwriting {
   display: block;
   overflow-x: auto;
 }
@@ -369,18 +374,30 @@ blockquote p {
 // <blockquote>
 // <p>文本</p>
 // </blockquote>
-blockquote.chinese-handwriting.pre p {
+blockquote.handwriting.pre p {
   white-space: pre;
 }
 
-.chinese-handwriting,
-.chinese-handwriting :not(i) {
+//.handwriting,
+.handwriting :not(i, pre code, pre code *) {
   font-family: "Ma Shan Zheng", cursive, Roboto, sans-serif;
 }
 
-.chinese-handwriting p,
-.chinese-handwriting code {
-  font-size: 1.2rem;
+.handwriting p,
+.handwriting p *,
+.handwriting li,
+.handwriting li *,
+.handwriting table * {
+  font-size: 1.1rem;
+}
+
+.handwriting .btn-tag {
+  font-size: 0.95rem;
+}
+
+.handwriting .english,
+.handwriting .english * {
+  font-size: 1.3rem;
 }
 
 .essay-description {
@@ -953,6 +970,29 @@ video {
   text-align: center;
 }
 
+.mdc-switch {
+  @include switch.theme((
+          selected-handle-color: color-palette.$purple-300,
+          selected-track-color: color-palette.$purple-100,
+  ));
+}
+
+.preference-item-toggle {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.preference-item-toggle__title {
+  flex: 1;
+}
+
+.preference-item-toggle__toggle {
+
+}
+
 // 手机小屏
 @media(max-width: 600px) {
   .essay-card {
@@ -1008,5 +1048,4 @@ video {
   .index-card {
     padding: 20px 40px;
   }
-
 }

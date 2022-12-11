@@ -19,3 +19,15 @@ export function runOnHtmlDone(task: () => void) {
 export function createHtmlContent(html: string) {
     return {__html: html}
 }
+
+export function toggleClass(e: Element, className: string) {
+
+}
+
+export function toggleClassWithEnable(e: Element, className: string, enable: boolean) {
+    if (enable && !e.classList.contains(className)) {
+        e.classList.add(className)
+    } else if (!enable && e.classList.contains(className)) {
+        e.classList.remove(className)
+    }
+}
