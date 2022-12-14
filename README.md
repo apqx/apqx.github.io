@@ -54,7 +54,7 @@ npm run build
 # 安装所需依赖
 bundle install
 # 启动jekyll服务，在http://localhost:4000即可访问生成的博客网站
-bundle exec jekyll serve
+bundle exec jekyll serve -l -o
 ```
 
 `Jekyll`会在`_site/`目录下生成一个由静态`HTML`页面构成的网站源码，在本地`4000`端口可以访问。

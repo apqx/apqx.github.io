@@ -41,7 +41,8 @@ export class SearchDialogContent extends React.Component<any, SearchDialogState>
     }
 
     onClickSearch() {
-        this.presenter.search(this.input, 1)
+        // this.presenter.search(this.input, 1)
+        this.presenter.searchJumpGoogle(this.input)
     }
 
     onClickLeftPage() {
