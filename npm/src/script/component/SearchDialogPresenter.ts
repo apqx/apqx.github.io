@@ -78,6 +78,15 @@ export class SearchDialogPresenter {
             searchText: ""
         })
     }
+
+    /**
+     * 跳转到Google，指定网站搜索
+     */
+    searchJumpGoogle(input: string) {
+        if (input !== "") {
+            window.open("https://www.google.com/search?q=" + input + "+site:apqx.me", "_blank")
+        }
+    }
 }
 
 interface SearchResponse {
