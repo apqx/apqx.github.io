@@ -110,8 +110,7 @@ export class SearchDialogContent extends React.Component<any, SearchDialogState>
                     </button>
                 </label>
 
-                <p id="search-dialog_tips"><b>TIPS：</b>本<a href="https://cse.google.com/cse?cx=b74f06c1723da9656"
-                                                            target="_blank">搜索</a>功能由<a
+                <p id="search-dialog_tips"><b>TIPS：</b>本搜索功能由<a
                     href="https://cse.google.com/cse/all" target="_blank">Google站内搜索</a>提供，仅在能访问<a
                     href="https://google.com" target="_blank">Google</a>的网络环境下可用。</p>
 
