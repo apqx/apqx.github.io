@@ -18,7 +18,7 @@ tags: CS GitHub Jekyll Blog VPS HTTPS
 
 为了减少`GitHub`的仓库容量，毕竟速度那么慢，我把博客里的图片、视频资源都放在了阿里云的`对象存储OSS`上，这个只需要实名，不用备案。关于费用，我看到很多人会选择一些小服务商的`OSS`，只是因为它们提供了一定的免费额度，实际上，虽然阿里云的报价表看起来很贵的样子，但对于我这样的个人博客，本来访问量就少，流量并不会太大，所以大可不必担心费用问题。看了下账单，每个月2毛钱左右，充个5元，可以用上好几年吧。
 
-解决了资源的访问，那么整个博客的速度瓶颈就只剩下对`GitHub`服务器本身的连接速度了，而`GitHub`在大陆没有数据中心，所以这个不使用`CDN`没办法优化，而我又不能使用`CDN`，所以几乎唯一可行的方法是，在一台靠近大陆的服务器上创建这个博客的镜像，然后把我的域名[apqx.me](https://apqx.me){: target="_blank" }解析到这台服务器上。虽然要多付出一台`VPS`的费用，也看起来多此一举，但它确实解决了博客访问速度慢的问题，而且，可能这台服务器之后会不仅仅用来托管博客镜像，随着我的一些想法越来越多，也会发挥更大的作用。
+解决了资源的访问，那么整个博客的速度瓶颈就只剩下对`GitHub`服务器本身的连接速度了，而`GitHub`在大陆没有数据中心，所以这个不使用`CDN`没办法优化，而我又不能使用`CDN`，所以几乎唯一可行的方法是，在一台靠近大陆的服务器上创建这个博客的镜像，然后把我的域名[mudan.me](https://mudan.me){: target="_blank" }解析到这台服务器上。虽然要多付出一台`VPS`的费用，也看起来多此一举，但它确实解决了博客访问速度慢的问题，而且，可能这台服务器之后会不仅仅用来托管博客镜像，随着我的一些想法越来越多，也会发挥更大的作用。
 
 # 实施
 
@@ -46,7 +46,7 @@ server {
     index index.html index.htm index.nginx-debian.html;
 
     # 域名
-    server_name apqx.me;
+    server_name mudan.me;
 
     location / {
             # First attempt to serve request as file, then
@@ -87,9 +87,9 @@ server {
     # ipv6
     listen [::]:443 ssl http2 ipv6only=on; 
     # ssl要使用的证书信息
-    ssl_certificate /etc/letsencrypt/live/apqx.me/fullchain.pem; 
+    ssl_certificate /etc/letsencrypt/live/mudan.me/fullchain.pem; 
     # 密钥
-    ssl_certificate_key /etc/letsencrypt/live/apqx.me/privkey.pem; 
+    ssl_certificate_key /etc/letsencrypt/live/mudan.me/privkey.pem; 
     include /etc/letsencrypt/options-ssl-nginx.conf; 
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; 
 
@@ -100,7 +100,7 @@ server {
     index index.html index.htm index.nginx-debian.html;
 
     # 域名
-    server_name apqx.me;
+    server_name mudan.me;
 
     location / {
             # First attempt to serve request as file, then

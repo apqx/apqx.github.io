@@ -3,7 +3,7 @@ import {showShortLinkJumpDialog} from "./component/ShortLinkJumpDialog";
 
 /**
  * 进入页面，检查是否携带了跳转参数
- * https://apqx.me/pid
+ * https://mudan.me/pid
  */
 export function checkJump() {
     let pid
@@ -11,7 +11,7 @@ export function checkJump() {
     const matches = urlPath.match(/(op|og|rp|pt)..$/)
     if (matches != null && matches.length > 0) {
         // 检查是否符合格式，取出pid
-        // https://apqx.me/id
+        // https://mudan.me/id
         pid = matches[0]
     }
     if (pid == null) {
