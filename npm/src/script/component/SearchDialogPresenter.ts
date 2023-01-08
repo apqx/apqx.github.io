@@ -84,7 +84,7 @@ export class SearchDialogPresenter {
      */
     searchJumpGoogle(input: string) {
         if (input !== "") {
-            window.open("https://www.google.com/search?q=" + input + "+site:apqx.me", "_blank")
+            window.open("https://www.google.com/search?q=" + input + "+site:mudan.me", "_blank")
         }
     }
 }

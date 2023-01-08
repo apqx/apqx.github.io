@@ -1,6 +1,6 @@
 # 立泉の写字板
 
-基于`Jekyll`的开源[个人博客](https://apqx.me)示例，遵循[Material Design](https://material.io)设计规范，使用`Google`的[Material components web](https://github.com/material-components/material-components-web)组件库。
+基于`Jekyll`的开源[个人博客](https://mudan.me)示例，遵循[Material Design](https://material.io)设计规范，使用`Google`的[Material components web](https://github.com/material-components/material-components-web)组件库。
 
 极简风格，文字、色彩、动画之外不添加多余元素，这也是我自己的博客。
 
