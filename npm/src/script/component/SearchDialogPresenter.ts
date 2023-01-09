@@ -1,8 +1,12 @@
-import {ResultItemData, SearchDialogContent} from "./SearchDialog";
-import {console_error} from "../util/LogUtil";
+import { ResultItemData, SearchDialogContent } from "./SearchDialog";
+import { console_error } from "../util/LogUtil";
 
 export class SearchDialogPresenter {
     component: SearchDialogContent = null
+    // Google programmable search engine id
+    searchEngineId: string = ""
+    // Google cloud platform project key
+    gcpKey: string = ""
 
     constructor(component: SearchDialogContent) {
         this.component = component
@@ -15,8 +19,11 @@ export class SearchDialogPresenter {
      */
     search(key: string, startIndex: number) {
         if (key == null || key == "") return
-        const request = new Request("https://customsearch.googleapis.com/customsearch/v1?cx=b74f06c1723da9656&exactTerms=" +
-            key + "&key=AIzaSyDYDqedqxaV6Qfv2i8OWpcS0phD-G2WDcg&start=" + startIndex, {method: "GET"}
+        const request = new Request("https://customsearch.googleapis.com/customsearch/v1?" +
+            "cx=" + this.searchEngineId +
+            "&exactTerms=" + key +
+            "&key=" + this.gcpKey +
+            "&start=" + startIndex, { method: "GET" }
         )
         this.component.setState({
             showLoading: true
@@ -35,7 +42,7 @@ export class SearchDialogPresenter {
                 console_error(error)
                 this.removeSearchResult()
             }
-        )
+            )
     }
 
     /**
