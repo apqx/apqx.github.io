@@ -1,20 +1,20 @@
 ---
 layout: post
 categories: original
-title: "把Android Module的aar包发布到GitHub Packages"
+title: "发布Android aar包到GitHub Packages"
 author: 立泉
 mention: Gradle Maven
 date: 2020-12-04 +0800
-description: 成为一个全职Android开发工程师已有三年，经手的项目很多，也积累了一些自己常用的代码工具，我把它们封装在一个Library中，在我的各个业余项目中使用。但是每次都在工程中为它单独创建Module显然太过麻烦，直接打包为aar又会出现一些依赖问题，因为gradle并不会把外部依赖直接写进aar里，这意味着必须在使用该aar的Module中手动引入这些依赖，否则会因为依赖缺失而无法通过编译。
+description: 成为一个全职Android开发工程师已有三年，经手的项目很多，也积累了一些自己常用的代码工具，我把它们封装到一个Library里在我的各个业余项目中使用。但是每次都在工程中为它单独创建一个Module显然太过麻烦，直接打包为aar又会出现一些依赖问题，因为gradle并不会把外部依赖直接写进aar中，这意味着必须在使用该aar的Module里手动引入这些依赖，否则就会因为依赖缺失而无法通过编译。
 cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20201204/github_packages_jettools.jpg
 tags: CS Android Gradle Build Maven GitHub
 ---
 
-成为一个全职`Android`开发工程师已有三年，经手的项目很多，也积累了一些自己常用的代码工具，我把它们封装在一个`Library`中，在我的各个业余项目中使用。但是每次都在工程中为它单独创建一个`Module`显然太过麻烦，直接打包为`aar`又会出现一些依赖问题，因为`gradle`并不会把外部依赖直接写进`aar`里，这意味着必须在使用该`aar`的`Module`中手动引入这些依赖，否则会因为依赖缺失而无法通过编译。
+成为一个全职`Android`开发工程师已有三年，经手的项目很多，也积累了一些自己常用的代码工具，我把它们封装到一个`Library`里在我的各个业余项目中使用。但是每次都在工程中为它单独创建一个`Module`显然太过麻烦，直接打包为`aar`又会出现一些依赖问题，因为`gradle`并不会把外部依赖直接写进`aar`中，这意味着必须在使用该`aar`的`Module`里手动引入这些依赖，否则就会因为依赖缺失而无法通过编译。
 
-那么，为什么在`gradle`中使用`Maven`里的类库可以不用手动配置它依赖的第三方类库呢？其实，发布到`Maven`仓库的`aar`包同样不包含任何第三方依赖，只不过，发布时`Maven`插件会自动生成一个包含了所有依赖的`.pom`文件，而`gradle`在使用`Maven`里的类库时会自动下载这个文件，并且根据它的内容下载指定版本的依赖。
+那么，为什么`gradle`使用`Maven`里的类库可以不用手动引入它依赖的其它类库呢？其实，发布到`Maven`仓库的`aar`包同样不包含任何依赖，只不过发布时`Maven`插件会自动生成一个包含了所有依赖的`.pom`文件，而`gradle`在使用`Maven`里的类库会自动下载这个文件，并根据它的内容去下载指定版本的依赖包。
 
-既然如此，我们是否可以把自己的包发布到`Maven`仓库呢？当然可以，很多公司都会搭建自己的`Maven`服务器，来实现一些通用包的共享，在内网中的访问速度也非常快。注意在这里，提到了可以自己搭建`Maven`仓库，所以`Maven`只是一种通用的远程依赖管理技术，并不特指某一个仓库，实际上，我们在`Android`项目中不也是配置过指向不同`URL`的`Maven`仓库吗？
+既然如此，是否可以把自己的包发布到`Maven`仓库呢？当然可以，很多公司都会搭建自己的`Maven`服务器来实现一些通用包的共享，在内网中获得非常快的访问速度。注意这里提到了可以自己搭建`Maven`仓库，所以`Maven`只是一种通用的远程依赖管理技术，并不特指某一个仓库，比如`Android`工程就配置了几个指向不同`URL`的`Maven`仓库。
 
 ```groovy
 // project根目录的build.gradle文件
@@ -23,30 +23,27 @@ allprojects {
     repositories {
         // google的maven仓库在阿里云上的镜像
         maven { url 'https://maven.aliyun.com/repository/google' }
-        // jcenter的maven仓库在阿里云上的镜像
-        maven { url 'https://maven.aliyun.com/repository/jcenter' }
-        // google和jcenter的maven仓库，当以上的镜像地址没有及时更新时，会从这里查找所需的依赖
-        google()
-        jcenter()
+        // maven central的maven仓库在阿里云上的镜像
+        maven { url 'https://maven.aliyun.com/repository/central' }
     }
 }
 ```
 
 # GitHub Packages
 
-简单的说，`GitHub Packages`就是`GitHub`托管的`Maven`仓库，它允许把软件二进制包发布到指定的私有或公开的`GitHub Repository`中，所以相比其它的`Maven`仓库，`GitHub Packages`的优势在于它把源码和编译后的包放到了同一个位置。
+`GitHub Packages`是`GitHub`托管的`Maven`仓库，它允许将软件二进制包发布到指定的私有或公开的`Repository`中，所以相比其它仓库其优势也就在于能把源码和编译后的包放到同一个位置。
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20201204/github_packages_jettools.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="github packages" }
 
-左边是源码，右边就是发布的包，一目了然，这也是我更喜欢使用它的原因。
+左边是源码，右边是发布的包，一目了然，这也是我更喜欢使用它的原因。
 
 # Access token
 
-`GitHub Packages`只允许获得授权的用户把包发布到指定的`Repository`中，也只有获得授权的用户才可以用`gradle`配置该`Repository`的包作为项目的远程依赖，即发包和使用包都需要授权。这里的授权，指的是一个用户自己配置了指定权限的`access token`，在`Settings` -> `Developer settings`的`Personal access tokens`里可以创建或删除`token`。
+`GitHub Packages`只允许获得授权的用户把包发布到指定的`Repository`中，也只有获得授权的用户才可以用`gradle`引入该`Repository`的包作为项目的远程依赖，即发包和使用包都需要授权。这里的授权，指的是一个配置了指定权限的用户`access token`，在`Settings` -> `Developer settings`的`Personal access tokens`里可以创建或删除`token`。
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20201204/github_packages_token.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="github access token" }
 
-创建`token`时，如果想向一个`Repository`中发布包，需要`write:packages`权限，如果只是读取包，只需要`read:packages`，要注意的是，必须按提示在`token`创建完成后把它记录下来，一旦离开这个页面，就再也看不到它了。
+创建`token`时，如果想要向一个`Repository`中发布包，需要`write:packages`权限，如果只是读取包，只需要`read:packages`，要注意的是，必须按提示在`token`创建完成后把它记录下来，一旦离开这个页面就再也看不到它了。
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20201204/github_packages_token_create.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="github access token permission" }
 
@@ -61,9 +58,7 @@ buildscript {
     ext.kotlin_version = "1.4.10"
     repositories {
         maven { url 'https://maven.aliyun.com/repository/google' }
-        maven { url 'https://maven.aliyun.com/repository/jcenter' }
-        google()
-        jcenter()
+        maven { url 'https://maven.aliyun.com/repository/central' }
     }
     dependencies {
         // Android Gradle plugin版本
@@ -131,11 +126,11 @@ android {
 用于发包的`token`属于私密信息，如果这个工程是公开上传到`GitHub`上的，当然不希望`token`也被公开，可以在工程根目录下创建一个`github.properties`文件，存放用户名和`token`，但不要`push`到`GitHub`上。
 
 ```sh
-gpr.usr=apqx
+gpr.usr=user_name
 gpr.key=your_token
 ```
 
-配置要发包的`Module`的`build.gradle`文件：
+配置要发包`Module`的`build.gradle`文件：
 
 ```groovy
 // 要发包的Module的build.gradle
@@ -226,14 +221,12 @@ buildscript {
     ext.kotlin_version = "1.4.20"
     repositories {
         maven { url 'https://maven.aliyun.com/repository/google' }
-        maven { url 'https://maven.aliyun.com/repository/jcenter' }
-        google()
-        jcenter()
+        maven { url 'https://maven.aliyun.com/repository/central' }
 
         // 该包所在的GitHub Repository地址
         maven { url 'https://maven.pkg.github.com/apqx/JetTools'
             credentials {
-                username = "apqx"
+                username = "user_name"
                 password = "your_token"
             }
         }
@@ -292,8 +285,8 @@ dependencies {
 
 # 一些限制
 
-通过上面可以看到，不同于常见的`Maven`，要通过`gradle`依赖`GitHub Packages`上的包是需要授权的，这种限制意味着它只适合应用在一些很小的圈子里，比如团队或个人的私有类库，如果在大范围内分享，这种授权限制就很不方便了。
+通过上面可以看到，不同于常见的`Maven`，`gradle`依赖`GitHub Packages`上的包是需要授权的，这种限制意味着它只适合应用在一些很小的圈子里，比如团队或个人的私有类库，如果在大范围内分享，这种授权限制就很不方便了。
 
-还有一点是关于删除已发布的包，`GitHub`允许删除私有仓库的包，但不允许删除公共仓库的包，因为可能已经有其它项目正在使用，如果某个版本存在问题，正确的解决方法不是删除该包，而是发布一个修复了问题的新版本的包。
+还有一点是关于删除已发布的包，`GitHub`允许删除私有仓库的包，但不允许删除公共仓库的包，因为可能已经有其它项目正在使用。如果某个版本存在问题，正确的解决方法不是删除该包而是发布一个修复了问题的新版本的包。
 
-更多信息可以查看`Android Developers`对[Maven Publish Gradle plugin](https://developer.android.com/studio/build/maven-publish-plugin){: target="_blank" }的描述。
+更多信息可以参见`Android Developers`对[Maven Publish Gradle plugin](https://developer.android.com/studio/build/maven-publish-plugin){: target="_blank" }的描述。
