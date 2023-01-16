@@ -10,7 +10,7 @@ cover:
 tags: CS Java Thread
 ---
 
-在`Android`的消息机制中，创建`Handler`需要一个`Looper`，如果不在构造器中指定，一般是自动获取当前线程的`Looper`：
+在`Android`的消息机制中，创建`Handler`需要一个`Looper`，如果不在构造器中指定，会自动获取当前线程的`Looper`：
 
 ```java
 // Handler的构造器，获取当前线程的Looper
@@ -21,7 +21,7 @@ public static @Nullable Looper myLooper() {
 }
 ```
 
-可以看到这里用到了`ThreadLocal`来获取创建`Handler`时所在线程的`Looper`，再看一个例子：
+这里用到了`ThreadLocal`来获取创建`Handler`时所在线程的`Looper`，再看一个例子：
 
 ```kotlin
 fun main(args: Array<String>) {
