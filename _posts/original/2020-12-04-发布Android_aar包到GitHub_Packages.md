@@ -1,7 +1,7 @@
 ---
 layout: post
 categories: original
-title: "把Android Module的aar包发布到GitHub Packages"
+title: "发布Android aar包到GitHub Packages"
 author: 立泉
 mention: Gradle Maven
 date: 2020-12-04 +0800

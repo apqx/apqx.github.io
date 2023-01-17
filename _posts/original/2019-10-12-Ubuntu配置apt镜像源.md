@@ -1,31 +1,31 @@
 ---
 layout: post
 categories: original
-title: "为Ubuntu配置apt源服务器地址"
+title: "Ubuntu配置apt镜像源"
 author: 立泉
 mention: 阿里云 镜像源
 date: 2019-10-12 +0800
-description: 一直觉得大陆像是一个互联网孤岛，很多网络服务都要切换到本地平台，对Ubuntu的源服务器选择，显然离我最近的阿里云速度更快。
+description: 基于Debian的Linux发行版中可以使用apt(Advanced Packaging Tool)高级包管理器来安装软件，其默认的源在中国大陆的访问速度非常慢，所以有必要修改到最近的镜像源，阿里云提供的镜像是一个不错的选择。
 cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20191012/ubuntu_settings_apt_thumb.webp
 tags: CS Ubuntu Linux APT 阿里云 镜像源
 ---
 
-在基于`Debian`的`Linux`发行版中，可以使用`apt(Advanced Packaging Tool)`高级包管理器来直接安装软件。
+基于`Debian`的`Linux`发行版可以使用`apt(Advanced Packaging Tool)`高级包管理器来安装软件。
 
 ```sh
 # 比如安装jekyll，这是一个基于Markdown的静态网站生成工具
 sudo apt install jekyll
 ```
 
-`apt`会自动从指定的源服务器上查找`jekyll`软件包，下载并安装，在`Software & Update`中，可以看到系统当前使用的源是`Main server`。
+`apt`会自动从指定的`源`服务器上查找`jekyll`软件包，下载并安装，在`Software & Update`中可以看到系统当前使用的源是`Main server`。
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20191012/ubuntu_settings_apt_thumb.webp){: loading="lazy" class="clickable clickShowOriginalImg" alt="ubuntu" }
 
-这个`Main server`在中国大陆的访问速度非常慢，所以必须修改为最近的`源镜像服务器`。我使用的是`Ubuntu 18.04.3 LTS`，点击`Download from`下拉列表，会发现系统已经提供了很多大陆的源服务器镜像，比如`阿里云`就是一个不错的选择。
+众所周知的网络原因，这个`Main server`在中国大陆的访问速度非常慢，有必要修改为国内的`镜像`服务器。我使用的是`Ubuntu 18.04.3 LTS`，点击`Download from`下拉列表，会发现系统已经提供了很多大陆的`源`，比如`阿里云`就是一个不错的选择。
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20191012/ubuntu_settings_apt_source.webp){: loading="lazy" class="clickable clickShowOriginalImg" alt="ubuntu" }
 
-设置好后，在`Terminal`里更新一下包索引，可以看到，`apt源`已经变成阿里云的镜像地址了。
+设置好后，在`Terminal`里更新一下包索引，可以看到`apt源`已经变成阿里云的`镜像`地址了。
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20191012/ubuntu_terminal_apt_update_thumb.webp){: loading="lazy" class="clickable clickShowOriginalImg" alt="ubuntu terminal" }
 
@@ -97,11 +97,11 @@ deb-src http://cn.archive.ubuntu.com/ubuntu/ bionic-backports main restricted un
 
 每一行都由3部分组成：
 
-* 第1部分是`deb`或`deb-src`，分别表示直接通过`.deb包`安装和通过`源文件`安装。
-* 第2部分是源服务器的`URL`根地址。
-* 第3部分是源服务器的`URL`根地址之下的具体目录结构。
+* 第1部分是`deb`或`deb-src`，分别表示直接通过`.deb包`安装和通过`源代码`安装。
+* 第2部分是`源`服务器的`URL`根地址。
+* 第3部分是`源`服务器的`URL`根地址之下的具体目录结构。
 
-实际每一行，都定义了一个镜像服务器的一个或多个目录地址。
+实际每一行都定义了一个`镜像`服务器的多个目录地址。
 
 浏览器访问`http://cn.archive.ubuntu.com/ubuntu/`：
 
@@ -111,13 +111,13 @@ deb-src http://cn.archive.ubuntu.com/ubuntu/ bionic-backports main restricted un
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20191012/ubuntu_apt_cnserver_dists.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="apt" }
 
-可以看到，对每一个`Ubuntu`系统代号，都有5个目录，比如`18.04`代号是`bionic`，就对应`bionic/`, `bionic-backports/`, `bionic-proposed/`, `bionic-sercurity/`, `bionic-updates/`，随便进入一个目录，`/bionic/`：
+可以看到，每一个`Ubuntu`系统代号都有5个目录，比如`18.04`代号是`bionic`，就对应`bionic/`、`bionic-backports/`、`bionic-proposed/`、`bionic-sercurity/`和`bionic-updates/`，随便进入一个目录，`/bionic/`：
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20191012/ubuntu_apt_cnserver_bionic.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="apt" }
 
-`main/`, `universe/`, `multiverse/`, `retricted/`都是具体的目录，这样看来，就可以理解`/etc/apt/sources.list`每一行的含义了。
+`main/`、`universe/`、`multiverse/`、`retricted/`都是具体的目录，这样看来，就可以理解`/etc/apt/sources.list`每一行的含义了。
 
-根据[官网](https://developer.aliyun.com/mirror/){: target="_blank" }，阿里云对应`Ubuntu 18.04`的镜像源地址如下：
+根据[官网](https://developer.aliyun.com/mirror/){: target="_blank" }，阿里云对应`Ubuntu 18.04`的`镜像`地址如下：
 
 ```sh
 deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
@@ -136,7 +136,7 @@ deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe 
 deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
 ```
 
-如果要自定义`apt源`，可以直接修改`/etc/apt/sources.list`文件，用以上内容替换掉原内容即可。
+如果要自定义`apt源`，可以直接修改`/etc/apt/sources.list`文件，用以上内容替换掉原内容。
 
 ```sh
 # 修改系统文件前备份是个好习惯
@@ -146,7 +146,7 @@ sudo vim /etc/apt/sources.list
 sudo apt update
 ```
 
-其实`Ubuntu`也提供了一个`/etc/apt/sources.list.d/`目录来存放用户自定义的源地址，所以，可以不修改`/etc/apt/sources.list`而在`/etc/apt/sources.list.d/`目录下新建一个`aliyun.list`文件，把阿里云的镜像地址复制进去即可。
+其实`Ubuntu`也提供了一个`/etc/apt/sources.list.d/`目录来存放用户自定义的`源`地址，可以不修改`/etc/apt/sources.list`而在`/etc/apt/sources.list.d/`目录下新建一个`aliyun.list`文件，把阿里云的镜像地址复制进去即可。
 
 ```sh
 # 创建aliyun.list文件，并把阿里云的镜像地址复制进去
