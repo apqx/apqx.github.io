@@ -138,6 +138,14 @@ body {
   --search-result-item-snippet: rgba(255, 255, 255, 0.85);
 }
 
+.mdc-text-field {
+  @include textfield.ink-color(map.get(colors.$theme-light, "text-primary-on-background"));
+  @include textfield.placeholder-color(map.get(colors.$theme-light, "text-secondary-on-background"));
+  @include textfield.label-color(map.get(colors.$theme-light, "text-secondary-on-background"));
+  @include textfield.focused-outline-color(map.get(colors.$theme-light, "button-bg"));
+  @include textfield.hover-outline-color(map.get(colors.$theme-light, "text-secondary-on-background"));
+  @include textfield.outline-color(map.get(colors.$theme-light, "divider"));
+}
 
 .dark .mdc-text-field {
   @include textfield.ink-color(map.get(colors.$theme-dark, "text-primary-on-background"));

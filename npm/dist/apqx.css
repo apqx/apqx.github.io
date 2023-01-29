@@ -11106,6 +11106,41 @@ body {
   --search-result-item-snippet: rgba(255, 255, 255, 0.85);
 }
 
+.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input {
+  color: rgba(0, 0, 0, 0.9);
+}
+@media all {
+  .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input::-moz-placeholder {
+    color: rgba(0, 0, 0, 0.6);
+  }
+  .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input::placeholder {
+    color: rgba(0, 0, 0, 0.6);
+  }
+}
+@media all {
+  .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input:-ms-input-placeholder {
+    color: rgba(0, 0, 0, 0.6);
+  }
+}
+.mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label {
+  color: rgba(0, 0, 0, 0.6);
+}
+.mdc-text-field:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__leading,
+.mdc-text-field:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__notch,
+.mdc-text-field:not(.mdc-text-field--disabled).mdc-text-field--focused .mdc-notched-outline__trailing {
+  border-color: #9b27b0;
+}
+.mdc-text-field:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__leading,
+.mdc-text-field:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__notch,
+.mdc-text-field:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-notched-outline .mdc-notched-outline__trailing {
+  border-color: rgba(0, 0, 0, 0.6);
+}
+.mdc-text-field:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,
+.mdc-text-field:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,
+.mdc-text-field:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing {
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
 .dark .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input {
   color: rgba(255, 255, 255, 0.95);
 }
