@@ -12373,7 +12373,7 @@ p.search-result-item-snippet b {
 }
 
 .mdc-drawer__title {
-  font-weight: 400;
+  font-weight: normal;
 }
 
 .mdc-deprecated-list .mdc-deprecated-list-divider {
