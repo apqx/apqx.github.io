@@ -9,7 +9,8 @@ interface Props {
     fixedWidth: boolean,
     contentElement: JSX.Element,
     btnText: string,
-    btnOnClick: (e: React.MouseEvent<HTMLElement>) => void
+    btnOnClick: (e: React.MouseEvent<HTMLElement>) => void,
+    closeOnClickOutside: boolean
 }
 
 export class BasicDialog extends React.Component<Props, any> {
@@ -38,6 +39,10 @@ export class BasicDialog extends React.Component<Props, any> {
         if (e == null) return
         if (this.mdcDialog == null) {
             this.mdcDialog = new MDCDialog(e)
+            if(!this.props.closeOnClickOutside) {
+                // 设置为空，点击Dialog外部，不取消
+                this.mdcDialog.scrimClickAction = ""
+            }
             this.mdcDialog.listen("MDCDialog:opened", () => {
                 // 列表滚动到顶部，执行一次即可
                 document.getElementById("basic-dialog-content").scrollTo(
@@ -131,7 +136,7 @@ const roots = [
 
 // TODO: 传入一个ID，表示Content是否变化
 export function showDialog(_open: boolean, _wrapperId: string, _fixedWidth: boolean, _contentElement: JSX.Element,
-                           _btnText: string, _onClickBtn: (e: React.MouseEvent<HTMLElement>) => void) {
+                           _btnText: string, _onClickBtn: (e: React.MouseEvent<HTMLElement>) => void, _closeOnClickOutside: boolean) {
     let root: Root = null
     for (const item of roots) {
         if (item.id === _wrapperId) {
@@ -151,6 +156,7 @@ export function showDialog(_open: boolean, _wrapperId: string, _fixedWidth: bool
             contentElement={_contentElement}
             btnText={_btnText}
             btnOnClick={_onClickBtn}
+            closeOnClickOutside={_closeOnClickOutside}
         />
     )
 }

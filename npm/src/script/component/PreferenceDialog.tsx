@@ -90,5 +90,5 @@ export class PreferenceDialogContent extends React.Component<any, DialogContentS
 export function showPreferenceDialog() {
     console_debug("PreferenceDialogContent showPreferenceDialog ")
     const dialogContentElement = <PreferenceDialogContent/>
-    showDialog(true, COMMON_DIALOG_WRAPPER_ID, true, dialogContentElement, "Close", undefined)
+    showDialog(true, COMMON_DIALOG_WRAPPER_ID, true, dialogContentElement, "Close", undefined, true)
 }

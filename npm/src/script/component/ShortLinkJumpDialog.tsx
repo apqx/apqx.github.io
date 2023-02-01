@@ -51,5 +51,5 @@ export class ShortLinkDialogContent extends React.Component<DialogContentProps, 
 
 export function showShortLinkJumpDialog(_pid: string) {
     const dialogContentElement = <ShortLinkDialogContent pid={_pid}/>
-    showDialog(true, COMMON_DIALOG_WRAPPER_ID, false, dialogContentElement, undefined, undefined)
+    showDialog(true, COMMON_DIALOG_WRAPPER_ID, false, dialogContentElement, undefined, undefined, false)
 }

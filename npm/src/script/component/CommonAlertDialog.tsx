@@ -22,5 +22,5 @@ class CommonAlertDialogContent extends React.Component<Props, any> {
 
 export function showAlertDialog(title: string, contentHTML: string, btnText: string, onClickBtn: (e: React.MouseEvent<HTMLElement>) => void) {
     const dialogContentElement = <CommonAlertDialogContent title={title} contentHTML={contentHTML}/>
-    showDialog(true, COMMON_DIALOG_WRAPPER_ID, true, dialogContentElement, btnText, onClickBtn)
+    showDialog(true, COMMON_DIALOG_WRAPPER_ID, true, dialogContentElement, btnText, onClickBtn, true)
 }
