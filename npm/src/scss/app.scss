@@ -33,6 +33,11 @@
     $on-surface: map.get(colors.$theme-light, "on-surface"));
 @use "@material/theme/custom-properties";
 
+@use "@material/typography" with (
+  $font-family: unquote("PingFang SC, Noto Sans SC, sans-serif, Apple Color Emoji, Noto Color Emoji")
+);
+@use "@material/typography/mdc-typography";
+
 @use "@material/theme/mdc-theme";
 @use '@material/theme/color-palette';
 @use '@material/theme/shadow-dom';
@@ -73,9 +78,6 @@
 
 @use "@material/dialog";
 @use "@material/dialog/mdc-dialog";
-
-@use "@material/typography";
-@use "@material/typography/mdc-typography";
 
 @use "@material/floating-label/mdc-floating-label";
 @use "@material/line-ripple/mdc-line-ripple";
@@ -388,7 +390,7 @@ blockquote.handwriting.pre p {
 
 //.handwriting,
 .handwriting :not(i, pre code, pre code *) {
-  font-family: "Ma Shan Zheng", Roboto, sans-serif;
+  font-family: "Ma Shan Zheng", "PingFang SC", "Noto Sans SC", sans-serif, "Apple Color Emoji", "Noto Color Emoji";
 }
 
 .handwriting p,
@@ -423,7 +425,7 @@ audio {
 
 // 代码块
 pre code {
-  font-family: JetBrainsMono, monospace, Roboto, sans-serif;
+  font-family: JetBrainsMono, monospace, "PingFang SC", "Noto Sans SC", sans-serif, "Apple Color Emoji", "Noto Color Emoji";
   // font-size: 1.0rem;
   line-height: 1.4;
 }
@@ -441,8 +443,8 @@ table code {
   @include typography.typography(body1);
   padding-left: 0.2rem;
   padding-right: 0.2rem;
-  padding-top: 0.1rem;
-  padding-bottom: 0.1rem;
+  padding-top: 0.01rem;
+  padding-bottom: 0.01rem;
   margin-left: 0.05rem;
   margin-right: 0.05rem;
   border-radius: 0.3rem;
@@ -517,8 +519,8 @@ p em code {
   background: map.get(colors.$theme-light, "list-chip-1-bg");
   padding-left: 0.4rem;
   padding-right: 0.4rem;
-  padding-top: 0.1rem;
-  padding-bottom: 0.1rem;
+  padding-top: 0.04rem;
+  padding-bottom: 0.04rem;
   border-radius: 0.5rem;
   border: 1px solid map.get(colors.$theme-light, "list-chip-1-border");
   margin-left: 0.2rem;
@@ -529,8 +531,8 @@ p em code {
   background: map.get(colors.$theme-light, "list-chip-3-bg");
   padding-left: 0.4rem;
   padding-right: 0.4rem;
-  padding-top: 0.1rem;
-  padding-bottom: 0.1rem;
+  padding-top: 0.04rem;
+  padding-bottom: 0.04rem;
   border-radius: 0.5rem;
   border: 1px solid map.get(colors.$theme-light, "list-chip-3-border");
   margin-left: 0.2rem;
@@ -541,8 +543,8 @@ p em code {
   background: map.get(colors.$theme-light, "list-chip-2-bg");
   padding-left: 0.4rem;
   padding-right: 0.4rem;
-  padding-top: 0.1rem;
-  padding-bottom: 0.1rem;
+  padding-top: 0.04rem;
+  padding-bottom: 0.04rem;
   border-radius: 0.5rem;
   border: 1px solid map.get(colors.$theme-light, "list-chip-2-border");
   margin-left: 0.2rem;
@@ -854,6 +856,10 @@ main.main-container {
   @include drawer.item-icon-ink-color(map.get(colors.$theme-dark, "text-primary-on-background"));
   @include drawer.item-activated-text-ink-color(map.get(colors.$theme-dark, "primary"));
   @include drawer.item-activated-icon-ink-color(map.get(colors.$theme-dark, "primary"));
+}
+
+.mdc-drawer__title {
+  font-weight: 400;
 }
 
 .mdc-deprecated-list {
