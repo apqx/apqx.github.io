@@ -11663,7 +11663,7 @@ blockquote.handwriting.pre p {
 }
 
 .handwriting :not(i, pre code, pre code *) {
-  font-family: "Ma Shan Zheng", cursive, Roboto, sans-serif;
+  font-family: "Ma Shan Zheng", Roboto, sans-serif;
 }
 
 .handwriting p,
