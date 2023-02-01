@@ -229,5 +229,5 @@ export function showSearchDialog() {
     const dialogContentElement = <SearchDialogContent/>
     showDialog(true, COMMON_DIALOG_WRAPPER_ID, true, dialogContentElement, "Close", () => {
         // showDialog(false, COMMON_DIALOG_WRAPPER_ID, true, undefined, undefined, undefined)
-    })
+    }, true)
 }

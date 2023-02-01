@@ -178,5 +178,5 @@ class EssayItem extends React.Component<EssayItemProps, any> {
 export function showTagEssayListDialog(tag: string) {
     console_debug("TagEssayListDialogContent showTagEssayListDialog " + tag)
     const dialogContentElement = <TagEssayDialogContent tag={tag}/>
-    showDialog(true, COMMON_DIALOG_WRAPPER_ID, true, dialogContentElement, "Close", undefined)
+    showDialog(true, COMMON_DIALOG_WRAPPER_ID, true, dialogContentElement, "Close", undefined, true)
 }
