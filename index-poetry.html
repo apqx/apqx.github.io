@@ -14,13 +14,8 @@ sitemap: false
     <a class="index-a mdc-theme--on-surface" href="{{ post.url | prepend: site.baseurl }}">
       <div class="mdc-card index-card mdc-theme--surface">
         <p class="index-title">{{ post.title }}</p>
-        <span class="index-author">{{ post.author }}</span>
-        <!-- 支持非标准日期 -->
-        {% if post.moredate != null %}
-        <span class="index-date">{{ post.moredate }}</span>
-        {% else %}
+        <span class="index-author">{% if post.moredate != null %}{{ post.moredate }} {% endif %}{{ post.author }}</span>
         <span class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
-        {% endif %}
       </div>
     </a>
   </li>
