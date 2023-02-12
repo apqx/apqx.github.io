@@ -11686,6 +11686,11 @@ blockquote.handwriting.pre p {
   font-size: 0.95rem;
 }
 
+.handwriting .index-author,
+.handwriting .index-date {
+  font-size: 1rem;
+}
+
 .handwriting .english,
 .handwriting .english * {
   font-size: 1.3rem;
