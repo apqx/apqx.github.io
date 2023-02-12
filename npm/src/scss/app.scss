@@ -227,7 +227,7 @@ footer a {
   @include typography.typography(subtitle1);
   text-align: center;
   margin-top: 0.8rem;
-  @include theme.property(color, text-primary-on-background);
+  @include theme.property(color, text-secondary-on-background);
 }
 
 /* 文章日期 */
@@ -235,7 +235,7 @@ footer a {
   @include typography.typography(subtitle1);
   text-align: center;
   margin-top: 0.5rem;
-  @include theme.property(color, text-primary-on-background);
+  @include theme.property(color, text-secondary-on-background);
 }
 
 /* 索引题目 */
@@ -248,6 +248,8 @@ footer a {
 /* 索引署名 */
 .index-author {
   @include typography.typography(subtitle1);
+  @include theme.property(color, text-secondary-on-background);
+  font-size: 0.95rem;
   text-align: right;
   margin: 0;
 }
@@ -262,6 +264,8 @@ footer a {
 /* 索引日期 */
 .index-date {
   @include typography.typography(subtitle1);
+  @include theme.property(color, text-secondary-on-background);
+  font-size: 0.95rem;
   text-align: right;
   margin: 0;
 }

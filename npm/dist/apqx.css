@@ -11303,9 +11303,9 @@ footer a {
   text-transform: var(--mdc-typography-subtitle1-text-transform, inherit);
   text-align: center;
   margin-top: 0.8rem;
-  color: rgba(0, 0, 0, 0.87);
+  color: rgba(0, 0, 0, 0.54);
   /* @alternate */
-  color: var(--mdc-theme-text-primary-on-background, rgba(0, 0, 0, 0.87));
+  color: var(--mdc-theme-text-secondary-on-background, rgba(0, 0, 0, 0.54));
 }
 
 /* 文章日期 */
@@ -11336,9 +11336,9 @@ footer a {
   text-transform: var(--mdc-typography-subtitle1-text-transform, inherit);
   text-align: center;
   margin-top: 0.5rem;
-  color: rgba(0, 0, 0, 0.87);
+  color: rgba(0, 0, 0, 0.54);
   /* @alternate */
-  color: var(--mdc-theme-text-primary-on-background, rgba(0, 0, 0, 0.87));
+  color: var(--mdc-theme-text-secondary-on-background, rgba(0, 0, 0, 0.54));
 }
 
 /* 索引题目 */
@@ -11397,6 +11397,10 @@ footer a {
   text-transform: inherit;
   /* @alternate */
   text-transform: var(--mdc-typography-subtitle1-text-transform, inherit);
+  color: rgba(0, 0, 0, 0.54);
+  /* @alternate */
+  color: var(--mdc-theme-text-secondary-on-background, rgba(0, 0, 0, 0.54));
+  font-size: 0.95rem;
   text-align: right;
   margin: 0;
 }
@@ -11457,6 +11461,10 @@ footer a {
   text-transform: inherit;
   /* @alternate */
   text-transform: var(--mdc-typography-subtitle1-text-transform, inherit);
+  color: rgba(0, 0, 0, 0.54);
+  /* @alternate */
+  color: var(--mdc-theme-text-secondary-on-background, rgba(0, 0, 0, 0.54));
+  font-size: 0.95rem;
   text-align: right;
   margin: 0;
 }
