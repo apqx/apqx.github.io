@@ -120,15 +120,15 @@ body {
 }
 
 .dark {
-  --mdc-theme-primary: #ff9ff3;
-  --mdc-theme-on-primary: rgba(255, 255, 255, 0.85);
+  --mdc-theme-primary: #ee6e73;
+  --mdc-theme-on-primary: rgba(255, 255, 255, 0.95);
   --mdc-theme-secondary: #43A047;
   --mdc-theme-on-secondary: rgba(255, 255, 255, 0.85);
   --mdc-theme-background: rgb(32, 33, 36);
   --mdc-theme-surface: rgb(37, 38, 42);
 
   // 主题字体色，段落p
-  --mdc-theme-on-surface: rgba(255, 255, 255, 0.85);
+  --mdc-theme-on-surface: rgba(255, 255, 255, 0.90);
   // 标题字体色，h
   --mdc-theme-text-primary-on-background: rgba(255, 255, 255, 0.95);
   // 小标题字体色
@@ -145,6 +145,7 @@ body {
 
 .mdc-text-field {
   @include textfield.ink-color(map.get(colors.$theme-light, "text-primary-on-background"));
+  @include textfield.caret-color(map.get(colors.$theme-light, "text-primary-on-background"));
   @include textfield.placeholder-color(map.get(colors.$theme-light, "text-secondary-on-background"));
   @include textfield.label-color(map.get(colors.$theme-light, "text-secondary-on-background"));
   @include textfield.focused-outline-color(map.get(colors.$theme-light, "button-bg"));
@@ -154,6 +155,7 @@ body {
 
 .dark .mdc-text-field {
   @include textfield.ink-color(map.get(colors.$theme-dark, "text-primary-on-background"));
+  @include textfield.caret-color(map.get(colors.$theme-dark, "text-primary-on-background"));
   @include textfield.placeholder-color(map.get(colors.$theme-dark, "text-secondary-on-background"));
   @include textfield.label-color(map.get(colors.$theme-dark, "text-secondary-on-background"));
   @include textfield.focused-outline-color(map.get(colors.$theme-dark, "button-bg"));
@@ -206,10 +208,8 @@ footer a {
 }
 
 .copyright {
-  padding: 15px 15px;
+  padding: 1rem;
   @include typography.typography(body1);
-  // footer总高度100px，指定整个copyright高度60px
-  height: 30px;
 }
 
 /* 文章题目 */
@@ -227,7 +227,7 @@ footer a {
   @include typography.typography(subtitle1);
   text-align: center;
   margin-top: 0.8rem;
-  @include theme.property(color, text-primary-on-background);
+  @include theme.property(color, text-secondary-on-background);
 }
 
 /* 文章日期 */
@@ -235,7 +235,7 @@ footer a {
   @include typography.typography(subtitle1);
   text-align: center;
   margin-top: 0.5rem;
-  @include theme.property(color, text-primary-on-background);
+  @include theme.property(color, text-secondary-on-background);
 }
 
 /* 索引题目 */
@@ -248,6 +248,9 @@ footer a {
 /* 索引署名 */
 .index-author {
   @include typography.typography(subtitle1);
+  @include theme.property(color, text-secondary-on-background);
+  font-size: 0.95rem;
+  line-height: 1.5rem;
   text-align: right;
   margin: 0;
 }
@@ -262,6 +265,9 @@ footer a {
 /* 索引日期 */
 .index-date {
   @include typography.typography(subtitle1);
+  @include theme.property(color, text-secondary-on-background);
+  font-size: 0.95rem;
+  line-height: 1.5rem;
   text-align: right;
   margin: 0;
 }
@@ -408,6 +414,11 @@ blockquote.handwriting.pre p {
   font-size: 0.95rem;
 }
 
+.handwriting .index-author,
+.handwriting .index-date {
+  font-size: 1rem;
+}
+
 .handwriting .english,
 .handwriting .english * {
   font-size: 1.3rem;
@@ -500,8 +511,8 @@ p em code {
   @include theme.property(color, custom-properties.create(--mdc-theme-text-secondary-on-background, #535c68));
   font-size: 0.9rem;
   display: flex;
-  // margin-top: -4px;
-  // margin-bottom: -12px;
+  // margin-top: -0.25rem;
+  // margin-bottom: -0.75rem;
   height: fit-content;
 
 }
@@ -589,7 +600,7 @@ p em code {
 // 解决Safari的Ripple动画无圆角
 .mdc-button,
 .mdc-button__ripple {
-  border-radius: 20px !important;
+  border-radius: 1.3rem !important;
   -webkit-mask-image: radial-gradient(white, black);
 }
 
@@ -783,6 +794,15 @@ p.search-result-item-snippet b {
   margin-right: auto;
   width: 100%;
   height: 100%;
+  padding: 4.5rem 0 1rem 0;
+}
+
+.foot-container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: 100%;
+  padding: 0;
 }
 
 main.main-container {
@@ -802,11 +822,31 @@ main.main-container {
   }
 }
 
+.essay-card {
+  padding: 1.3rem 2.5rem;
+  margin: 0.75rem 1rem;
+  // 文章卡片的阴影，z高度，阴影颜色，扩散度
+  @include elevation.elevation(0, theme.$surface, 0);
+}
+
+.index-card {
+  padding: 1.3rem 2.5rem;
+  margin: 0.75rem 1rem;
+  @include elevation.elevation(0, theme.$surface, 0);
+}
+
+.index-description {
+  border: 1px solid rgba(63, 185, 80, 0.4);
+  border-radius: 4px;
+  background: rgba(46, 160, 67, 0.1);
+  padding: 0.6rem 1rem;
+  margin: 0.75rem 1rem 0 1rem;
+}
+
 // 索引列表
 .index-ul {
   // 注意列表第一个卡片到top bar的距离要和正文卡片与之的距离一致
-  padding: 12px 0;
-  margin: 0;
+  padding: 0;
 }
 
 .index-li {
@@ -825,17 +865,17 @@ main.main-container {
 .mdc-top-app-bar {
   // 使top bar的层级高于drawer
   z-index: 7;
-  // 颜色
-  @include top-app-bar.fill-color(map.get(colors.$theme-light, "top-bar"));
+  // 颜色，默认为 primary 
+  // @include top-app-bar.fill-color(map.get(colors.$theme-light, "top-bar"));
   // 阴影
-  @include elevation.elevation(10, map.get(colors.$theme-light, "top-bar"), 0);
+  @include elevation.elevation(10, map.get(colors.$theme-light, "primary"), 0);
 }
 
 .dark .mdc-top-app-bar {
   // 使top bar的层级高于drawer
   z-index: 7;
   // 颜色
-  @include top-app-bar.fill-color(map.get(colors.$theme-dark, "top-bar"));
+  // @include top-app-bar.fill-color(map.get(colors.$theme-dark, "top-bar"));
   // 阴影
   @include elevation.elevation(10, map.get(colors.$theme-dark, "background"), 0);
 }
@@ -847,22 +887,26 @@ main.main-container {
 .mdc-drawer {
   // 使drawer的阴影和内容卡片一致，更协调
   @include elevation.elevation(5, map.get(colors.$theme-light, "background"), 0);
-  @include drawer.item-text-ink-color(text-primary-on-background);
-  @include drawer.item-icon-ink-color(text-primary-on-background);
-  @include drawer.item-activated-text-ink-color(primary);
-  @include drawer.item-activated-icon-ink-color(primary);
+  @include drawer.item-text-ink-color(on-surface);
+  @include drawer.item-icon-ink-color(on-surface);
+  @include drawer.item-activated-text-ink-color(on-surface);
+  @include drawer.item-activated-icon-ink-color(on-surface);
 }
 
 .dark .mdc-drawer {
   @include elevation.elevation(5, map.get(colors.$theme-dark, "background"), 0);
-  @include drawer.item-text-ink-color(map.get(colors.$theme-dark, "text-primary-on-background"));
-  @include drawer.item-icon-ink-color(map.get(colors.$theme-dark, "text-primary-on-background"));
-  @include drawer.item-activated-text-ink-color(map.get(colors.$theme-dark, "primary"));
-  @include drawer.item-activated-icon-ink-color(map.get(colors.$theme-dark, "primary"));
+  @include drawer.item-text-ink-color(map.get(colors.$theme-dark, "on-surface"));
+  @include drawer.item-icon-ink-color(map.get(colors.$theme-dark, "on-surface"));
+  @include drawer.item-activated-text-ink-color(map.get(colors.$theme-dark, "on-surface"));
+  @include drawer.item-activated-icon-ink-color(map.get(colors.$theme-dark, "on-surface"));
 }
 
 .mdc-drawer__title {
   font-weight: normal;
+}
+
+.mdc-drawer__content .mdc-deprecated-list-item--activated .mdc-deprecated-list-item__text {
+  font-weight: normal
 }
 
 .mdc-deprecated-list {
@@ -871,6 +915,14 @@ main.main-container {
 
 .dark .mdc-deprecated-list {
   @include list.deprecated-divider-color(map.get(colors.$theme-dark, "divider"));
+}
+
+.mdc-deprecated-list-item:hover {
+  background-color: #00000008
+}
+
+.dark .mdc-deprecated-list-item:hover {
+  background-color: #ffffff08
 }
 
 // fab
@@ -906,7 +958,7 @@ main.main-container {
 // 解决Safari的Ripple动画无圆角
 .mdc-evolution-chip,
 .mdc-evolution-chip__ripple {
-  border-radius: 20px !important;
+  border-radius: 1.3rem !important;
   -webkit-mask-image: radial-gradient(white, black);
 }
 
@@ -955,28 +1007,6 @@ video {
   height: 100%;
 }
 
-.essay-card {
-  padding: 20px;
-  margin: 24px 16px;
-  // 文章卡片的阴影，z高度，阴影颜色，扩散度
-  @include elevation.elevation(0, theme.$surface, 0);
-}
-
-.index-description {
-  border: 1px solid rgba(63, 185, 80, 0.4);
-  border-radius: 4px;
-  background: rgba(46, 160, 67, 0.1);
-  padding: 1rem;
-  margin-top: 2rem;
-  margin: 1rem 16px 0 16px;
-}
-
-.index-card {
-  padding: 20px;
-  margin: 12px 16px;
-  @include elevation.elevation(0, theme.$surface, 0);
-}
-
 .circle-avatar {
   border-radius: 50%;
   margin-top: 2rem;
@@ -989,8 +1019,8 @@ video {
 
 .mdc-switch {
   @include switch.theme((
-          selected-handle-color: color-palette.$purple-300,
-          selected-track-color: color-palette.$purple-100,
+          selected-handle-color: text-secondary-on-background,
+          // selected-track-color: text-primary-on-background,
   ));
 }
 
@@ -1012,17 +1042,23 @@ video {
 
 // 手机小屏
 @media(max-width: 600px) {
+
+  .main-container {
+    padding: 3.8rem 0 1rem 0;
+  }
+
+  .index-description {
+    margin: 0.75rem 1rem 0 1rem;
+  }
+
   .essay-card {
-    padding: 20px;
-    margin: 24px 0;
+    padding: 1.3rem;
+    margin: 0.75rem 0;
   }
 
   .index-card {
-    padding: 20px;
-    margin: 12px 0;
-    // 小屏下索引卡片显示
-    // margin: 12px 16px;
-    // 小屏下取消索引卡片阴影
+    padding: 1rem 1.3rem;
+    margin: 0.75rem 0;
   }
 
   .essay-card {
@@ -1031,7 +1067,7 @@ video {
 
   .mdc-top-app-bar {
     // 小屏下减少top bar阴影面积
-    @include elevation.elevation(5, map.get(colors.$theme-light, "top-bar"), 0);
+    @include elevation.elevation(5, map.get(colors.$theme-light, "primary"), 0);
 
   }
 
@@ -1058,11 +1094,7 @@ video {
     width: 880px;
   }
 
-  .essay-card {
-    padding: 24px 40px;
-  }
-
-  .index-card {
-    padding: 20px 40px;
+  .foot-container {
+    width: 880px;
   }
 }

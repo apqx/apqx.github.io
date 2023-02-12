@@ -2,8 +2,7 @@
 // 定义所有要使用的颜色
 
 $theme-light: (
-    "top-bar" : #ee6e73,
-    "primary" : #9b27b0,
+    "primary" : #ee6e73,
     "on-primary" : rgba(255, 255, 255, 0.95),
     "secondary" : #43A047,
     "on-secondary" : rgba(255, 255, 255, 0.85),
@@ -44,15 +43,14 @@ $theme-light: (
 
 // dark
 $theme-dark: (
-    "top-bar" : #ee6e73,
-    "primary" : #ff9ff3,
-    "on-primary" : rgba(255, 255, 255, 0.85),
+    "primary" : #ee6e73,
+    "on-primary" : rgba(255, 255, 255, 0.95),
     "secondary" : #43A047,
     "on-secondary" : rgba(255, 255, 255, 0.85),
     "background" : rgb(32, 33, 36),
     "surface" : rgb(37, 38, 42),
     // 默认字体颜色，段落p
-    "on-surface" : rgba(255, 255, 255, 0.85),
+    "on-surface" : rgba(255, 255, 255, 0.90),
     // 标题字体色，h
     "text-primary-on-background" : rgba(255, 255, 255, 0.95),
     // 小标题字体色
@@ -85,7 +83,6 @@ $theme-dark: (
 );
 
 $theme-black: (
-    "top-bar" : #ee6e73,
     "primary" : #ff9ff3,
     "on-primary" : rgba(255, 255, 255, 0.85),
     "secondary" : #43A047,

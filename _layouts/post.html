@@ -13,13 +13,8 @@
     <main class="mdc-top-app-bar--fixed-adjust main-container">
       <div class="mdc-card essay-card mdc-theme--surface mdc-theme--on-surface">
         <h1 class="essay-title">{{ page.title }}</h1>
-        <span class="essay-author">{{ page.author }}</span>
-        <!-- 支持非标准日期 -->
-        {%- if page.moredate != null -%}
-        <span class="essay-date">{{ page.moredate }}</span>
-        {% else %}
+        <span class="essay-author">{% if page.moredate != null %}{{ page.moredate }} {% endif %}{{ page.author }}</span>
         <span class="essay-date">{{ page.date | date: "%Y年%m月%d日" }}</span>
-        {%- endif -%}
 
         <!-- tags -->
         <div style="margin-top: 2rem; margin-bottom: 0.5rem;">
