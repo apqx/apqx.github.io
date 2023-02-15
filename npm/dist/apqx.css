@@ -11400,6 +11400,7 @@ footer a {
   /* @alternate */
   color: var(--mdc-theme-text-secondary-on-background, rgba(0, 0, 0, 0.54));
   font-size: 0.95rem;
+  line-height: 1.5rem;
   text-align: right;
   margin: 0;
 }
@@ -11464,6 +11465,7 @@ footer a {
   /* @alternate */
   color: var(--mdc-theme-text-secondary-on-background, rgba(0, 0, 0, 0.54));
   font-size: 0.95rem;
+  line-height: 1.5rem;
   text-align: right;
   margin: 0;
 }

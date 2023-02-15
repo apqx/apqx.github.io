@@ -208,8 +208,6 @@ footer a {
 .copyright {
   padding: 1rem;
   @include typography.typography(body1);
-  // footer总高度100px，指定整个copyright高度60px
-  // height: 30px;
 }
 
 /* 文章题目 */
@@ -250,6 +248,7 @@ footer a {
   @include typography.typography(subtitle1);
   @include theme.property(color, text-secondary-on-background);
   font-size: 0.95rem;
+  line-height: 1.5rem;
   text-align: right;
   margin: 0;
 }
@@ -266,6 +265,7 @@ footer a {
   @include typography.typography(subtitle1);
   @include theme.property(color, text-secondary-on-background);
   font-size: 0.95rem;
+  line-height: 1.5rem;
   text-align: right;
   margin: 0;
 }
