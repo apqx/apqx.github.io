@@ -206,10 +206,10 @@ footer a {
 }
 
 .copyright {
-  padding: 15px 15px;
+  padding: 1rem;
   @include typography.typography(body1);
   // footer总高度100px，指定整个copyright高度60px
-  height: 30px;
+  // height: 30px;
 }
 
 /* 文章题目 */
@@ -509,8 +509,8 @@ p em code {
   @include theme.property(color, custom-properties.create(--mdc-theme-text-secondary-on-background, #535c68));
   font-size: 0.9rem;
   display: flex;
-  // margin-top: -4px;
-  // margin-bottom: -12px;
+  // margin-top: -0.25rem;
+  // margin-bottom: -0.75rem;
   height: fit-content;
 
 }
@@ -598,7 +598,7 @@ p em code {
 // 解决Safari的Ripple动画无圆角
 .mdc-button,
 .mdc-button__ripple {
-  border-radius: 20px !important;
+  border-radius: 1.3rem !important;
   -webkit-mask-image: radial-gradient(white, black);
 }
 
@@ -792,6 +792,15 @@ p.search-result-item-snippet b {
   margin-right: auto;
   width: 100%;
   height: 100%;
+  padding: 4.5rem 0 1rem 0;
+}
+
+.foot-container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: 100%;
+  padding: 0;
 }
 
 main.main-container {
@@ -811,11 +820,31 @@ main.main-container {
   }
 }
 
+.essay-card {
+  padding: 1.3rem 2.5rem;
+  margin: 0.75rem 1rem;
+  // 文章卡片的阴影，z高度，阴影颜色，扩散度
+  @include elevation.elevation(0, theme.$surface, 0);
+}
+
+.index-card {
+  padding: 1.3rem 2.5rem;
+  margin: 0.75rem 1rem;
+  @include elevation.elevation(0, theme.$surface, 0);
+}
+
+.index-description {
+  border: 1px solid rgba(63, 185, 80, 0.4);
+  border-radius: 4px;
+  background: rgba(46, 160, 67, 0.1);
+  padding: 0.6rem 1rem;
+  margin: 0.75rem 1rem 0 1rem;
+}
+
 // 索引列表
 .index-ul {
   // 注意列表第一个卡片到top bar的距离要和正文卡片与之的距离一致
-  padding: 12px 0;
-  margin: 0;
+  padding: 0;
 }
 
 .index-li {
@@ -915,7 +944,7 @@ main.main-container {
 // 解决Safari的Ripple动画无圆角
 .mdc-evolution-chip,
 .mdc-evolution-chip__ripple {
-  border-radius: 20px !important;
+  border-radius: 1.3rem !important;
   -webkit-mask-image: radial-gradient(white, black);
 }
 
@@ -964,28 +993,6 @@ video {
   height: 100%;
 }
 
-.essay-card {
-  padding: 20px;
-  margin: 24px 16px;
-  // 文章卡片的阴影，z高度，阴影颜色，扩散度
-  @include elevation.elevation(0, theme.$surface, 0);
-}
-
-.index-description {
-  border: 1px solid rgba(63, 185, 80, 0.4);
-  border-radius: 4px;
-  background: rgba(46, 160, 67, 0.1);
-  padding: 1rem;
-  margin-top: 2rem;
-  margin: 1rem 16px 0 16px;
-}
-
-.index-card {
-  padding: 20px;
-  margin: 12px 16px;
-  @include elevation.elevation(0, theme.$surface, 0);
-}
-
 .circle-avatar {
   border-radius: 50%;
   margin-top: 2rem;
@@ -1021,17 +1028,23 @@ video {
 
 // 手机小屏
 @media(max-width: 600px) {
+
+  .main-container {
+    padding: 4.1rem 0 1rem 0;
+  }
+
+  .index-description {
+    margin: 0.75rem 1rem 0 1rem;
+  }
+
   .essay-card {
-    padding: 20px;
-    margin: 24px 0;
+    padding: 1.3rem;
+    margin: 0.75rem 0;
   }
 
   .index-card {
-    padding: 20px;
-    margin: 12px 0;
-    // 小屏下索引卡片显示
-    // margin: 12px 16px;
-    // 小屏下取消索引卡片阴影
+    padding: 1rem 1.3rem;
+    margin: 0.75rem 0;
   }
 
   .essay-card {
@@ -1067,11 +1080,7 @@ video {
     width: 880px;
   }
 
-  .essay-card {
-    padding: 24px 40px;
-  }
-
-  .index-card {
-    padding: 20px 40px;
+  .foot-container {
+    width: 880px;
   }
 }
