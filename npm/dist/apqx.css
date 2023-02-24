@@ -11095,7 +11095,7 @@ body {
   --mdc-theme-on-secondary: rgba(255, 255, 255, 0.85);
   --mdc-theme-background: rgb(32, 33, 36);
   --mdc-theme-surface: rgb(37, 38, 42);
-  --mdc-theme-on-surface: rgba(255, 255, 255, 0.85);
+  --mdc-theme-on-surface: rgba(255, 255, 255, 0.90);
   --mdc-theme-text-primary-on-background: rgba(255, 255, 255, 0.95);
   --mdc-theme-text-secondary-on-background: rgba(255, 255, 255, 0.65);
   --link-color: #54a0ff;
@@ -11937,7 +11937,7 @@ p em code {
 .dark .mdc-data-table .mdc-data-table__pagination-total,
 .dark .mdc-data-table .mdc-data-table__pagination-rows-per-page-label,
 .dark .mdc-data-table .mdc-data-table__cell {
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.9);
 }
 .dark .mdc-data-table .mdc-data-table__pagination-rows-per-page-select:not(.mdc-select--disabled) .mdc-notched-outline__leading,
 .dark .mdc-data-table .mdc-data-table__pagination-rows-per-page-select:not(.mdc-select--disabled) .mdc-notched-outline__notch,
