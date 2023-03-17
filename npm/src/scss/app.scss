@@ -1,5 +1,4 @@
 @use "sass:map";
-@use "./src/scss/colors.scss";
 
 /*
 引用一个组件，比如mdc-button，首先要引用button这个module
@@ -19,26 +18,13 @@
 似乎后期所有的core-styles写法都会被取消，取而代之的是这种直接引入所有属性
 */
 
-@use "@material/theme" with ( // 这里定义的属性都可以被tag或class引用，而又可以在不同的主题class中修改，以实现不同的主题
-    // nav，button，drawer的主色
-    $primary: map.get(colors.$theme-light, "primary"),
-    $on-primary: map.get(colors.$theme-light, "on-primary"),
-    // fab
-    $secondary: map.get(colors.$theme-light, "secondary"),
-    $on-secondary: map.get(colors.$theme-light, "on-secondary"),
-
-    $background: map.get(colors.$theme-light, "background"),
-
-    $surface: map.get(colors.$theme-light, "surface"),
-    $on-surface: map.get(colors.$theme-light, "on-surface"));
+@use "@material/theme";
 @use "@material/theme/custom-properties";
 
-@use "@material/typography" with (
-  // Noto Sans是思源黑体的拉丁文字体，Noto Sans SC是其简体中文字体，因为SC的引号是全角字符，特别别扭，所以在前面用拉丁文字体先处理这些标点符号和字母
+@use "@material/typography" with ( // Noto Sans是思源黑体的拉丁文字体，Noto Sans SC是其简体中文字体，因为SC的引号是全角字符，特别别扭，所以在前面用拉丁文字体先处理这些标点符号和字母
   // SC还有一个问题是，如果前面用的是Roboto等非思源字体处理符号和字母，可能会出现用style绘制背景的时候，上下padding尺寸不一致，必须收到增加上padding才行
   // 所以，在同一个设备上，应该使用同一套字体
-  $font-family: unquote("PingFang SC, Noto Sans, Noto Sans SC, sans-serif, Apple Color Emoji, Noto Color Emoji")
-);
+  $font-family: unquote("PingFang SC, Noto Sans, Noto Sans SC, sans-serif, Apple Color Emoji, Noto Color Emoji"));
 @use "@material/typography/mdc-typography";
 
 @use "@material/theme/mdc-theme";
@@ -99,24 +85,55 @@
   src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/JetBrainsMono-Regular.woff2");
 }
 
-// 通过js给body添加dark class，可以实现对mac-theme的参数更改
-// 大部分组件都会正确相应颜色变化，但是list和chip却无效
-// 且theme.$property引用的值也没有动态变化
-body {
-  // 消除top app bar左侧的margin
-  margin: 0;
-
-  // 不知为何，theme的这个属性不能在 @use "@material/theme" 中定义，放在这里作为默认light主题的配色
-  --mdc-theme-text-primary-on-background: rgba(0, 0, 0, 0.95);
+:root {
+  --mdc-theme-primary: #ee6e73;
+  --mdc-theme-on-primary: rgba(255, 255, 255, 0.95);
+  --mdc-theme-secondary: #43A047;
+  --mdc-theme-on-secondary: rgba(255, 255, 255, 0.85);
+  --mdc-theme-background: #f7f7f7;
+  --mdc-theme-surface: white;
+  // 默认字体颜色，段落p
+  --mdc-theme-on-surface: rgba(0, 0, 0, 0.80);
+  // 不知为何，theme的这两个属性不能在 @use "@material/theme" 中定义，放在这里作为默认light主题的配色
+  // 标题字体色
+  --mdc-theme-text-primary-on-background: rgba(0, 0, 0, 0.90);
+  // 小标题字体色
   --mdc-theme-text-secondary-on-background: rgba(0, 0, 0, 0.60);
+
+  // Drawer
+  --drawer-ink: black;
+
+  // Button
+  --button-bg: #9b27b0;
+  --search-nav: #a25462;
+
+  // Code
+  --code-highlight-bg: #f8f9fa;
+  --code-highlight-border: #e8eaed;
+  --code-highlight-bg-on-green: rgba(231, 231, 231, 0.2);
+  --code-highlight-border-on-green: rgba(213, 213, 213, 0.54);
+  --pre-code-bg: #15171a;
+
+  // Chip
+  --chip-bg: #FEDBD0;
+  --chip-ink: #84565E;
+  --list-chip-1-bg: rgba(211, 196, 249, 0.48);
+  --list-chip-1-ink: #8167c1;
+  --list-chip-1-border: rgba(211, 196, 249, 0.91);
+  --list-chip-2-bg: rgba(255, 224, 221, 0.5);
+  --list-chip-2-ink: #f77575;
+  --list-chip-2-border: rgba(252, 155, 157, 0.55);
+  --list-chip-3-bg: rgba(254, 242, 192, 0.58);
+  --list-chip-3-ink: #9a6000;
+  --list-chip-3-border: rgba(255, 224, 101, 1);
+
+  --list-hover: #00000008;
 
   --link-color: #6200ee;
   --em-color: #535c68;
-  --strong-color: rgba(0, 0, 0, 0.87);
+  --strong-color: rgba(0, 0, 0, 0.90);
+  --strong-underline-color: rgba(255, 0, 0, 0.25);
   --divider-color: rgba(0, 0, 0, 0.12);
-
-  --search-result-item-title: #6200ee;
-  --search-result-item-snippet: rgba(0, 0, 0, 0.85);
 }
 
 .dark {
@@ -126,41 +143,60 @@ body {
   --mdc-theme-on-secondary: rgba(255, 255, 255, 0.85);
   --mdc-theme-background: rgb(32, 33, 36);
   --mdc-theme-surface: rgb(37, 38, 42);
-
-  // 主题字体色，段落p
   --mdc-theme-on-surface: rgba(255, 255, 255, 0.90);
-  // 标题字体色，h
   --mdc-theme-text-primary-on-background: rgba(255, 255, 255, 0.95);
-  // 小标题字体色
   --mdc-theme-text-secondary-on-background: rgba(255, 255, 255, 0.65);
+
+  // Drawer
+  --drawer-ink: white;
+
+  --search-nav: rgba(228, 96, 117, 0.93);
+
+  // Code
+  --code-highlight-bg: rgba(55, 55, 55, 0.32);
+  --code-highlight-border: rgba(69, 69, 69, 0.74);
+  --code-highlight-bg-on-green: rgba(23, 23, 23, 0.17);
+  --code-highlight-border-on-green: rgba(142, 142, 142, 0.32);
+  --pre-code-bg: #15171a;
+
+  // Chip
+  --chip-bg: rgba(248, 81, 73, 0.15);
+  --chip-ink: #c67c3b;
+  --list-chip-1-bg: rgba(212, 197, 249, 0.18);
+  --list-chip-1-ink: rgb(210, 195, 249);
+  --list-chip-1-border: rgba(210, 195, 249, 0.3);
+  --list-chip-2-bg: rgba(182, 2, 5, 0.18);
+  --list-chip-2-ink: rgb(253, 155, 157);
+  --list-chip-2-border: rgba(253, 155, 157, 0.3);
+  --list-chip-3-bg: rgba(254, 242, 192, 0.18);
+  --list-chip-3-ink: rgb(254, 241, 190);
+  --list-chip-3-border: rgba(254, 241, 190, 0.3);
+
+  --list-hover: #ffffff08;
 
   --link-color: #54a0ff;
   --em-color: rgba(255, 255, 255, 0.65);
   --strong-color: rgba(255, 255, 255, 0.95);
+  --strong-underline-color: rgba(255, 73, 73, 0.5);
   --divider-color: rgba(88, 96, 102, 0.68);
-
-  --search-result-item-title: #54a0ff;
-  --search-result-item-snippet: rgba(255, 255, 255, 0.85);
 }
 
 .mdc-text-field {
-  @include textfield.ink-color(map.get(colors.$theme-light, "text-primary-on-background"));
-  @include textfield.caret-color(map.get(colors.$theme-light, "text-primary-on-background"));
-  @include textfield.placeholder-color(map.get(colors.$theme-light, "text-secondary-on-background"));
-  @include textfield.label-color(map.get(colors.$theme-light, "text-secondary-on-background"));
-  @include textfield.focused-outline-color(map.get(colors.$theme-light, "button-bg"));
-  @include textfield.hover-outline-color(map.get(colors.$theme-light, "text-secondary-on-background"));
-  @include textfield.outline-color(map.get(colors.$theme-light, "divider"));
+  @include textfield.ink-color(var(--mdc-theme-text-primary-on-background));
+  @include textfield.caret-color(var(--mdc-theme-text-primary-on-background));
+  @include textfield.placeholder-color(var(--mdc-theme-text-secondary-on-background));
+  @include textfield.label-color(var(--mdc-theme-text-secondary-on-background));
+  @include textfield.focused-outline-color(var(--button-bg));
+  @include textfield.hover-outline-color(var(--mdc-theme-text-secondary-on-background));
+  @include textfield.outline-color(var(--divider-color));
 }
 
-.dark .mdc-text-field {
-  @include textfield.ink-color(map.get(colors.$theme-dark, "text-primary-on-background"));
-  @include textfield.caret-color(map.get(colors.$theme-dark, "text-primary-on-background"));
-  @include textfield.placeholder-color(map.get(colors.$theme-dark, "text-secondary-on-background"));
-  @include textfield.label-color(map.get(colors.$theme-dark, "text-secondary-on-background"));
-  @include textfield.focused-outline-color(map.get(colors.$theme-dark, "button-bg"));
-  @include textfield.hover-outline-color(map.get(colors.$theme-dark, "text-secondary-on-background"));
-  @include textfield.outline-color(map.get(colors.$theme-dark, "divider"));
+// 通过js给body添加dark class，可以实现对mac-theme的参数更改
+// 大部分组件都会正确相应颜色变化，但是list和chip却无效
+// 且theme.$property引用的值也没有动态变化
+body {
+  // 消除top app bar左侧的margin
+  margin: 0;
 }
 
 // footer吸附在页面底部
@@ -322,12 +358,13 @@ p {
 
 // 斜体，一般用于图片说明
 em {
-  @include theme.property(color, custom-properties.create(--em-color, #535c68));
+  color: var(--em-color);
 }
 
 // 加粗强调，一般用于句子
 strong {
-  @include theme.property(color, custom-properties.create(--strong-color, rgba(0, 0, 0, 0.95)));
+  color: var(--strong-color);
+  box-shadow: inset 0 -8px 0 0 var(--strong-underline-color);
 }
 
 a {
@@ -335,7 +372,7 @@ a {
   text-decoration: underline;
   // 下划线与文字的间距
   text-underline-offset: 0.25rem;
-  @include theme.property(color, custom-properties.create(--link-color, #6200ee));
+  color: var(--link-color);
 }
 
 a:hover {
@@ -384,6 +421,7 @@ blockquote p {
   display: block;
   overflow-x: auto;
 }
+
 // 手写诗文，保持原有排版，横向滚动
 // 此时，如果是blockquote，注意不要行尾加双空格，jekyll会处理成以下格式，导致行1和行2之间多了一行
 // <p>行1
@@ -447,7 +485,7 @@ pre code {
 code.hljs {
   border-radius: 0.3rem;
   padding: 1rem;
-  background: map.get(colors.$theme-light, "pre-code-bg");
+  background: var(--pre-code-bg);
 }
 
 /* 段落中单词高亮 */
@@ -464,25 +502,13 @@ table code {
   border-radius: 0.3rem;
 
   // color:$code-highlight-text;
-  background: map.get(colors.$theme-light, "code-highlight-bg");
-  border: 1px solid map.get(colors.$theme-light, "code-highlight-border");
-}
-
-.dark p code,
-.dark li code,
-.dark table code {
-  background: map.get(colors.$theme-dark, "code-highlight-bg");
-  border: 1px solid map.get(colors.$theme-dark, "code-highlight-border");
+  background: var(--code-highlight-bg);
+  border: 1px solid var(--code-highlight-border);
 }
 
 .green code {
-  background: map.get(colors.$theme-light, "code-highlight-bg-on-green");
-  border: 1px solid map.get(colors.$theme-light, "code-highlight-border-on-green");
-}
-
-.dark .green code {
-  background: map.get(colors.$theme-dark, "code-highlight-bg-on-green");
-  border: 1px solid map.get(colors.$theme-dark, "code-highlight-border-on-green");
+  background: var(--code-highlight-bg-on-green);
+  border: 1px solid var(--code-highlight-border-on-green);
 }
 
 strong code {
@@ -508,7 +534,7 @@ p em code {
 }
 
 .my-list-item__secondary-text {
-  @include theme.property(color, custom-properties.create(--mdc-theme-text-secondary-on-background, #535c68));
+  color: var(--mdc-theme-text-secondary-on-background);
   font-size: 0.9rem;
   display: flex;
   // margin-top: -0.25rem;
@@ -529,72 +555,51 @@ p em code {
 }
 
 .tag-essay-item-post-type {
-  color: map.get(colors.$theme-light, "list-chip-1-ink");
-  background: map.get(colors.$theme-light, "list-chip-1-bg");
+  color: var(--list-chip-1-ink);
+  background: var(--list-chip-1-bg);
   padding-left: 0.4rem;
   padding-right: 0.4rem;
   padding-top: 0.04rem;
   padding-bottom: 0.04rem;
   border-radius: 0.5rem;
-  border: 1px solid map.get(colors.$theme-light, "list-chip-1-border");
+  border: 1px solid var(--list-chip-1-border);
   margin-left: 0.2rem;
 }
 
 .tag-essay-item-post-block1 {
-  color: map.get(colors.$theme-light, "list-chip-3-ink");
-  background: map.get(colors.$theme-light, "list-chip-3-bg");
+  color: var(--list-chip-3-ink);
+  background: var(--list-chip-3-bg);
   padding-left: 0.4rem;
   padding-right: 0.4rem;
   padding-top: 0.04rem;
   padding-bottom: 0.04rem;
   border-radius: 0.5rem;
-  border: 1px solid map.get(colors.$theme-light, "list-chip-3-border");
+  border: 1px solid var(--list-chip-3-border);
   margin-left: 0.2rem;
 }
 
 .tag-essay-item-post-block2 {
-  color: map.get(colors.$theme-light, "list-chip-2-ink");
-  background: map.get(colors.$theme-light, "list-chip-2-bg");
+  color: var(--list-chip-2-ink);
+  background: var(--list-chip-2-bg);
   padding-left: 0.4rem;
   padding-right: 0.4rem;
   padding-top: 0.04rem;
   padding-bottom: 0.04rem;
   border-radius: 0.5rem;
-  border: 1px solid map.get(colors.$theme-light, "list-chip-2-border");
+  border: 1px solid var(--list-chip-2-border);
   margin-left: 0.2rem;
-}
-
-.dark .tag-essay-item-post-type {
-  color: map.get(colors.$theme-dark, "list-chip-1-ink");
-  background: map.get(colors.$theme-dark, "list-chip-1-bg");
-  border: 1px solid map.get(colors.$theme-dark, "list-chip-1-border");
-}
-
-.dark .tag-essay-item-post-block1 {
-  color: map.get(colors.$theme-dark, "list-chip-3-ink");
-  background: map.get(colors.$theme-dark, "list-chip-3-bg");
-  border: 1px solid map.get(colors.$theme-dark, "list-chip-3-border");
-}
-
-.dark .tag-essay-item-post-block2 {
-  color: map.get(colors.$theme-dark, "list-chip-2-ink");
-  background: map.get(colors.$theme-dark, "list-chip-2-bg");
-  border: 1px solid map.get(colors.$theme-dark, "list-chip-2-border");
 }
 
 .mdc-data-table {
   @include data-table-theme.shape-radius(0.3rem);
   // 设置标题背景为透明色，防止横向滚动时遮挡边框角
   @include data-table-theme.header-row-fill-color(#00000000);
+  @include data-table-theme.header-row-text-color(var(--mdc-theme-text-primary-on-background));
+  @include data-table-theme.row-text-color(var(--mdc-theme-on-surface));
+  @include data-table-theme.divider-color(var(--divider-color));
+  @include data-table-theme.stroke-color(var(--divider-color));
   margin-top: 0.8rem;
   margin-bottom: 0.8rem;
-}
-
-.dark .mdc-data-table {
-  @include data-table-theme.header-row-text-color(map.get(colors.$theme-dark, "text-primary-on-background"));
-  @include data-table-theme.row-text-color(map.get(colors.$theme-dark, "on-surface"));
-  @include data-table-theme.divider-color(map.get(colors.$theme-dark, "divider"));
-  @include data-table-theme.stroke-color(map.get(colors.$theme-dark, "divider"));
 }
 
 // 解决Safari的Ripple动画无圆角
@@ -605,16 +610,12 @@ p em code {
 }
 
 .btn-common {
-  @include button.container-fill-color(map.get(colors.$theme-light, "button-bg"));
-}
-
-.dark .btn-common {
-  @include button.container-fill-color(map.get(colors.$theme-dark, "button-bg"));
+  @include button.container-fill-color(var(--button-bg));
 }
 
 .btn-tag {
-  @include button.ink-color(map.get(colors.$theme-light, "chip-ink"));
-  @include button.container-fill-color(map.get(colors.$theme-light, "chip-bg"));
+  @include button.ink-color(var(--chip-ink));
+  @include button.container-fill-color(var(--chip-bg));
   @include button.horizontal-padding(0.7rem);
   @include button.height(2rem);
   text-transform: none;
@@ -628,17 +629,12 @@ p em code {
   margin-right: 0.1rem;
 }
 
-.dark .btn-tag {
-  @include button.ink-color(map.get(colors.$theme-dark, "chip-ink"));
-  @include button.container-fill-color(map.get(colors.$theme-dark, "chip-bg"));
-}
-
 .btn-tag .mdc-button__ripple {
-  @include ripple.states(map.get(colors.$theme-light, "search_nav"), true);
+  @include ripple.states(#a25462, true);
 }
 
 .dark .btn-tag .mdc-button__ripple {
-  @include ripple.states(map.get(colors.$theme-dark, "search_nav"), true);
+  @include ripple.states(rgba(228, 96, 117, 0.93), true);
 }
 
 #search-dialog_label {
@@ -651,14 +647,9 @@ p em code {
 }
 
 .btn-search {
-  @include button.ink-color(map.get(colors.$theme-light, "chip-ink"));
-  @include button.container-fill-color(map.get(colors.$theme-light, "chip-bg"));
+  @include button.ink-color(var(--chip-ink));
+  @include button.container-fill-color(var(--chip-bg));
   min-width: fit-content;
-}
-
-.dark .btn-search {
-  @include button.ink-color(map.get(colors.$theme-dark, "chip-ink"));
-  @include button.container-fill-color(map.get(colors.$theme-dark, "chip-bg"));
 }
 
 .search-result-nav-wrapper {
@@ -666,23 +657,14 @@ p em code {
 }
 
 .btn-search-result-nav {
-  @include button.ink-color(map.get(colors.$theme-light, "search_nav"));
-  @include button.outline-color(map.get(colors.$theme-light, "divider"));
+  @include button.ink-color(var(--search-nav));
+  @include button.outline-color(var(--divider-color));
   margin-left: 1rem;
   margin-right: 1rem;
 }
 
-.dark .btn-search-result-nav {
-  @include button.ink-color(map.get(colors.$theme-dark, "search_nav"));
-  @include button.outline-color(map.get(colors.$theme-dark, "divider"));
-}
-
 .search-result-index {
-  color: map.get(colors.$theme-light, "search_nav");
-}
-
-.dark .search-result-index {
-  color: map.get(colors.$theme-dark, "search_nav");
+  color: var(--search-nav);
 }
 
 .search-result-item {
@@ -691,25 +673,21 @@ p em code {
 
 .search-result-item-title {
   @include typography.typography(subtitle1);
-  @include theme.property(color, custom-properties.create(--search-result-item-title, map.get(colors.$theme-light, "link")));
+  color: var(--link-color);
   margin: 0;
   text-align: left;
 }
 
 .search-result-item-snippet {
   @include typography.typography(body1);
-  @include theme.property(color, custom-properties.create(--search-result-item-snippet, map.get(colors.$theme-light, "on-surface")));
+  color: var(--mdc-theme-on-surface);
   margin: 0;
   text-align: justify;
   height: max-content;
 }
 
 p.search-result-item-snippet b {
-  color: map.get(colors.$theme-light, "search_nav");
-}
-
-.dark p.search-result-item-snippet b {
-  color: map.get(colors.$theme-dark, "search_nav");
+  color: var(--search-nav);
 }
 
 
@@ -764,11 +742,13 @@ p.search-result-item-snippet b {
 }
 
 .mdc-dialog {
-  @include dialog.scroll-divider-color(map.get(colors.$theme-light, "divider"));
+  // 亮色主题的divider自动生成，颜色合适，但暗色主题颜色不合适，因此需要手动指定
+  // 这里会自动根据颜色计算出divider颜色，但是把同样的颜色用var引用却不可以，奇怪
+  @include dialog.scroll-divider-color(black);
 }
 
 .dark .mdc-dialog {
-  @include dialog.scroll-divider-color(rgba(255, 255, 255, 0.87));
+  @include dialog.scroll-divider-color(white);
 }
 
 .dialog-link-list {
@@ -777,15 +757,14 @@ p.search-result-item-snippet b {
   // border-left: 1px solid rgba(128, 128, 128, 0.336);
   // border-right: 1px solid rgba(128, 128, 128, 0.336);
   border: 1px solid;
-  @include theme.property(border-color, custom-properties.create(--divider-color, map.get(colors.$theme-light, "divider")));
+  border-color: var(--divider-color);
   border-radius: 3px;
   padding-top: 0;
   padding-bottom: 0;
 }
 
 // 使用此class的标签，可以通过id chip_tag_随笔 弹出对应 dialog_随笔 的dialog
-.tag-dialog-trigger {
-}
+.tag-dialog-trigger {}
 
 // 内容最外层的主容器
 .main-container {
@@ -868,16 +847,14 @@ main.main-container {
   // 颜色，默认为 primary 
   // @include top-app-bar.fill-color(map.get(colors.$theme-light, "top-bar"));
   // 阴影
-  @include elevation.elevation(10, map.get(colors.$theme-light, "primary"), 0);
+  @include elevation.elevation(10, #ee6e73, 0);
 }
 
 .dark .mdc-top-app-bar {
-  // 使top bar的层级高于drawer
-  z-index: 7;
   // 颜色
   // @include top-app-bar.fill-color(map.get(colors.$theme-dark, "top-bar"));
   // 阴影
-  @include elevation.elevation(10, map.get(colors.$theme-dark, "background"), 0);
+  @include elevation.elevation(10, rgb(32, 33, 36), 0);
 }
 
 .mdc-top-app-bar .mdc-icon-button__ripple {
@@ -886,19 +863,18 @@ main.main-container {
 
 .mdc-drawer {
   // 使drawer的阴影和内容卡片一致，更协调
-  @include elevation.elevation(5, map.get(colors.$theme-light, "background"), 0);
-  @include drawer.item-text-ink-color(on-surface);
-  @include drawer.item-icon-ink-color(on-surface);
-  @include drawer.item-activated-text-ink-color(on-surface);
-  @include drawer.item-activated-icon-ink-color(on-surface);
+  @include elevation.elevation(5, var(--mdc-theme-background), 0);
+  @include drawer.item-text-ink-color(black);
+  @include drawer.item-icon-ink-color(black);
+  @include drawer.item-activated-text-ink-color(black);
+  @include drawer.item-activated-icon-ink-color(black);
 }
 
 .dark .mdc-drawer {
-  @include elevation.elevation(5, map.get(colors.$theme-dark, "background"), 0);
-  @include drawer.item-text-ink-color(map.get(colors.$theme-dark, "on-surface"));
-  @include drawer.item-icon-ink-color(map.get(colors.$theme-dark, "on-surface"));
-  @include drawer.item-activated-text-ink-color(map.get(colors.$theme-dark, "on-surface"));
-  @include drawer.item-activated-icon-ink-color(map.get(colors.$theme-dark, "on-surface"));
+  @include drawer.item-text-ink-color(white);
+  @include drawer.item-icon-ink-color(white);
+  @include drawer.item-activated-text-ink-color(white);
+  @include drawer.item-activated-icon-ink-color(white);
 }
 
 .mdc-drawer__title {
@@ -910,28 +886,21 @@ main.main-container {
 }
 
 .mdc-deprecated-list {
-  @include list.deprecated-divider-color(map.get(colors.$theme-light, "divider"));
-}
-
-.dark .mdc-deprecated-list {
-  @include list.deprecated-divider-color(map.get(colors.$theme-dark, "divider"));
+  @include list.deprecated-divider-color(var(--divider-color));
 }
 
 .mdc-deprecated-list-item:hover {
-  background-color: #00000008
-}
-
-.dark .mdc-deprecated-list-item:hover {
-  background-color: #ffffff08
+  background-color: var(--list-hover)
 }
 
 // fab
 .mdc-fab {
-  @include elevation.elevation(5, map.get(colors.$theme-light, "secondary"), 0);
+  // TODO: 使用var设置的阴影是失效的
+  @include elevation.elevation(5, var(--mdc-theme-secondary), 0);
 }
 
 .dark .mdc-fab {
-  @include elevation.elevation(5, map.get(colors.$theme-dark, "background"), 0);
+  @include elevation.elevation(5, var(--mdc-theme-background), 0);
 }
 
 .app-fab--absolute {
@@ -963,13 +932,8 @@ main.main-container {
 }
 
 .mdc-evolution-chip {
-  @include chips.text-label-color(map.get(colors.$theme-light, "chip-ink"));
-  @include chips.container-color(map.get(colors.$theme-light, "chip-bg"));
-}
-
-.dark .mdc-evolution-chip {
-  @include chips.text-label-color(map.get(colors.$theme-dark, "chip-ink"));
-  @include chips.container-color(map.get(colors.$theme-dark, "chip-bg"));
+  @include chips.text-label-color(var(--chip-ink));
+  @include chips.container-color(var(--chip-bg));
 }
 
 // 解决Safari的fab Ripple动画无圆角
@@ -1018,10 +982,9 @@ video {
 }
 
 .mdc-switch {
-  @include switch.theme((
-          selected-handle-color: text-secondary-on-background,
-          // selected-track-color: text-primary-on-background,
-  ));
+  @include switch.theme((selected-handle-color: text-secondary-on-background,
+      // selected-track-color: text-primary-on-background,
+    ));
 }
 
 .preference-item-toggle {
@@ -1036,9 +999,7 @@ video {
   flex: 1;
 }
 
-.preference-item-toggle__toggle {
-
-}
+.preference-item-toggle__toggle {}
 
 // 手机小屏
 @media(max-width: 600px) {
@@ -1061,18 +1022,14 @@ video {
     margin: 0.75rem 0;
   }
 
-  .essay-card {
-    // 小屏下取消文章卡片阴影
-  }
-
   .mdc-top-app-bar {
     // 小屏下减少top bar阴影面积
-    @include elevation.elevation(5, map.get(colors.$theme-light, "primary"), 0);
+    @include elevation.elevation(5, #ee6e73, 0);
 
   }
 
   .dark .mdc-top-app-bar {
-    @include elevation.elevation(5, map.get(colors.$theme-dark, "background"), 0);
+    @include elevation.elevation(5, rgb(32, 33, 36), 0);
   }
 
   // 小屏时纯英文段落不两边对齐，因为单词间隔可能很大
