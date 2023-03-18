@@ -11529,7 +11529,7 @@ a.mdc-list-item {
   --link-color: #6200ee;
   --em-color: #535c68;
   --strong-color: rgba(0, 0, 0, 0.90);
-  --strong-underline-color: rgba(255, 0, 0, 0.25);
+  --strong-underline-color: rgba(255, 0, 0, 0.18);
   --divider-color: rgba(0, 0, 0, 0.12);
 }
 
@@ -11538,9 +11538,9 @@ a.mdc-list-item {
   --mdc-theme-on-primary: rgba(255, 255, 255, 0.95);
   --mdc-theme-secondary: #43A047;
   --mdc-theme-on-secondary: rgba(255, 255, 255, 0.85);
-  --mdc-theme-background: rgb(32, 33, 36);
-  --mdc-theme-surface: rgb(37, 38, 42);
-  --mdc-theme-on-surface: rgba(255, 255, 255, 0.90);
+  --mdc-theme-background: rgb(15, 15, 15);
+  --mdc-theme-surface: rgb(22, 22, 22);
+  --mdc-theme-on-surface: rgba(255, 255, 255, 0.85);
   --mdc-theme-text-primary-on-background: rgba(255, 255, 255, 0.95);
   --mdc-theme-text-secondary-on-background: rgba(255, 255, 255, 0.65);
   --drawer-ink: white;
@@ -11549,7 +11549,7 @@ a.mdc-list-item {
   --code-highlight-border: rgba(69, 69, 69, 0.74);
   --code-highlight-bg-on-green: rgba(23, 23, 23, 0.17);
   --code-highlight-border-on-green: rgba(142, 142, 142, 0.32);
-  --pre-code-bg: #15171a;
+  --pre-code-bg: #0f0f0f;
   --chip-bg: rgba(248, 81, 73, 0.15);
   --chip-ink: #c67c3b;
   --list-chip-1-bg: rgba(212, 197, 249, 0.18);
@@ -11565,7 +11565,7 @@ a.mdc-list-item {
   --link-color: #54a0ff;
   --em-color: rgba(255, 255, 255, 0.65);
   --strong-color: rgba(255, 255, 255, 0.95);
-  --strong-underline-color: rgba(255, 73, 73, 0.5);
+  --strong-underline-color: rgba(254, 96, 96, 0.4);
   --divider-color: rgba(88, 96, 102, 0.68);
 }
 
@@ -12887,7 +12887,7 @@ video {
 }
 
 .mdc-switch {
-  --mdc-switch-selected-handle-color: var(--mdc-theme-text-secondary-on-background, rgba(0, 0, 0, 0.54));
+  --mdc-switch-selected-handle-color: var(--mdc-theme-on-surface);
 }
 
 .preference-item-toggle {
