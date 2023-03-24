@@ -175,8 +175,8 @@ export function initFab() {
 
 function showEncodedUrl() {
     const url = window.location.href
-    const urlLink = "Copy this <a href=\"" + url + "\">link</a> to get encoded url"
-    showAlertDialog("TIPS", urlLink, "OK", () => {
+    const urlLink = "当前页面的编码URL为<a href=\"" + url + "\">此链接</a>"
+    showAlertDialog("提示", urlLink, "OK", () => {
     })
 }
 
