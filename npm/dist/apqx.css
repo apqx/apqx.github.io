@@ -11498,14 +11498,14 @@ a.mdc-list-item {
 }
 :root {
   --mdc-theme-primary: #ee6e73;
-  --mdc-theme-on-primary: rgba(255, 255, 255, 0.95);
-  --mdc-theme-secondary: #43A047;
-  --mdc-theme-on-secondary: rgba(255, 255, 255, 0.85);
+  --mdc-theme-on-primary: #f5f5f5;
+  --mdc-theme-secondary: #43a047;
+  --mdc-theme-on-secondary: #f5f5f5;
   --mdc-theme-background: #f7f7f7;
   --mdc-theme-surface: white;
-  --mdc-theme-on-surface: rgba(0, 0, 0, 0.80);
-  --mdc-theme-text-primary-on-background: rgba(0, 0, 0, 0.90);
-  --mdc-theme-text-secondary-on-background: rgba(0, 0, 0, 0.60);
+  --mdc-theme-on-surface: #323232;
+  --mdc-theme-text-primary-on-background: #191919;
+  --mdc-theme-text-secondary-on-background: #676767;
   --drawer-ink: black;
   --button-bg: #9b27b0;
   --search-nav: #a25462;
@@ -11514,8 +11514,8 @@ a.mdc-list-item {
   --code-highlight-bg-on-green: rgba(231, 231, 231, 0.2);
   --code-highlight-border-on-green: rgba(213, 213, 213, 0.54);
   --pre-code-bg: #15171a;
-  --chip-bg: #FEDBD0;
-  --chip-ink: #84565E;
+  --chip-bg: #fedbd0;
+  --chip-ink: #84565e;
   --list-chip-1-bg: rgba(211, 196, 249, 0.48);
   --list-chip-1-ink: #8167c1;
   --list-chip-1-border: rgba(211, 196, 249, 0.91);
@@ -11536,14 +11536,14 @@ a.mdc-list-item {
 
 .dark {
   --mdc-theme-primary: #ee6e73;
-  --mdc-theme-on-primary: rgba(255, 255, 255, 0.95);
-  --mdc-theme-secondary: #43A047;
-  --mdc-theme-on-secondary: rgba(255, 255, 255, 0.85);
-  --mdc-theme-background: rgb(15, 15, 15);
-  --mdc-theme-surface: rgb(20, 20, 20);
-  --mdc-theme-on-surface: rgba(255, 255, 255, 0.85);
-  --mdc-theme-text-primary-on-background: rgba(255, 255, 255, 0.95);
-  --mdc-theme-text-secondary-on-background: rgba(255, 255, 255, 0.65);
+  --mdc-theme-on-primary: #f5f5f5;
+  --mdc-theme-secondary: #43a047;
+  --mdc-theme-on-secondary: #f5f5f5;
+  --mdc-theme-background: #0f0f0f;
+  --mdc-theme-surface: #141414;
+  --mdc-theme-on-surface: #e6e6e6;
+  --mdc-theme-text-primary-on-background: #f5f5f5;
+  --mdc-theme-text-secondary-on-background: #969696;
   --drawer-ink: white;
   --search-nav: rgba(228, 96, 117, 0.93);
   --code-highlight-bg: rgba(55, 55, 55, 0.32);

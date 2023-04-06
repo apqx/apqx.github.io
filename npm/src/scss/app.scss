@@ -87,18 +87,18 @@
 
 :root {
   --mdc-theme-primary: #ee6e73;
-  --mdc-theme-on-primary: rgba(255, 255, 255, 0.95);
-  --mdc-theme-secondary: #43A047;
-  --mdc-theme-on-secondary: rgba(255, 255, 255, 0.85);
+  --mdc-theme-on-primary: #f5f5f5;
+  --mdc-theme-secondary: #43a047;
+  --mdc-theme-on-secondary: #f5f5f5;
   --mdc-theme-background: #f7f7f7;
   --mdc-theme-surface: white;
   // 默认字体颜色，段落p
-  --mdc-theme-on-surface: rgba(0, 0, 0, 0.80);
+  --mdc-theme-on-surface: #323232;
   // 不知为何，theme的这两个属性不能在 @use "@material/theme" 中定义，放在这里作为默认light主题的配色
   // 标题字体色
-  --mdc-theme-text-primary-on-background: rgba(0, 0, 0, 0.90);
+  --mdc-theme-text-primary-on-background: #191919;
   // 小标题字体色
-  --mdc-theme-text-secondary-on-background: rgba(0, 0, 0, 0.60);
+  --mdc-theme-text-secondary-on-background: #676767;
 
   // Drawer
   --drawer-ink: black;
@@ -115,8 +115,8 @@
   --pre-code-bg: #15171a;
 
   // Chip
-  --chip-bg: #FEDBD0;
-  --chip-ink: #84565E;
+  --chip-bg: #fedbd0;
+  --chip-ink: #84565e;
   --list-chip-1-bg: rgba(211, 196, 249, 0.48);
   --list-chip-1-ink: #8167c1;
   --list-chip-1-border: rgba(211, 196, 249, 0.91);
@@ -140,14 +140,14 @@
 
 .dark {
   --mdc-theme-primary: #ee6e73;
-  --mdc-theme-on-primary: rgba(255, 255, 255, 0.95);
-  --mdc-theme-secondary: #43A047;
-  --mdc-theme-on-secondary: rgba(255, 255, 255, 0.85);
-  --mdc-theme-background: rgb(15, 15, 15);
-  --mdc-theme-surface: rgb(20, 20, 20);
-  --mdc-theme-on-surface: rgba(255, 255, 255, 0.85);
-  --mdc-theme-text-primary-on-background: rgba(255, 255, 255, 0.95);
-  --mdc-theme-text-secondary-on-background: rgba(255, 255, 255, 0.65);
+  --mdc-theme-on-primary: #f5f5f5;
+  --mdc-theme-secondary: #43a047;
+  --mdc-theme-on-secondary: #f5f5f5;
+  --mdc-theme-background: #0f0f0f;
+  --mdc-theme-surface: #141414;
+  --mdc-theme-on-surface: #e6e6e6;
+  --mdc-theme-text-primary-on-background: #f5f5f5;
+  --mdc-theme-text-secondary-on-background: #969696;
 
   // Drawer
   --drawer-ink: white;
