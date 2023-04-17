@@ -34,7 +34,7 @@ redirect_from:
 | index       | 索引               |
 | main        | 网站入口index.html |
 
-### oroginal
+### original
 
 随笔，原创文章，标记此类文章页
 

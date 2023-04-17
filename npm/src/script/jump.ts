@@ -8,7 +8,7 @@ import {showShortLinkJumpDialog} from "./component/ShortLinkJumpDialog";
 export function checkJump() {
     let pid
     const urlPath = window.location.pathname
-    const matches = urlPath.match(/(op|og|rp|pt)..$/)
+    const matches = urlPath.match(/(op|og|rp|pt|ot)..$/)
     if (matches != null && matches.length > 0) {
         // 检查是否符合格式，取出pid
         // https://mudan.me/id

@@ -59,6 +59,12 @@
                 "path": "/post/opera/2022/09/25/昆曲-西厢记-四折.html",
                 "title": "昆曲「西厢记」四折"
             }
+        },{
+            "id": "op09",
+            "target": {
+                "path": "/post/opera/2022/02/15/昆曲-雷峰塔-水斗-折子与幕后.html",
+                "title": "昆曲「雷峰塔·水斗」折子与幕后"
+            }
         },
         {
             "id": "og00",
@@ -79,6 +85,34 @@
             "target": {
                 "path": "/post/repost/2012/07/12/张继青亲授单雯再现经典-牡丹亭.html",
                 "title": "张继青亲授单雯再现经典《牡丹亭》"
+            }
+        },
+        {
+            "id": "ot00",
+            "target": {
+                "path": "https://www.bilibili.com/video/BV1Ch411v7PY",
+                "title": "【倪润志】昆曲-扈家庄（水仙子）"
+            }
+        },
+        {
+            "id": "ot01",
+            "target": {
+                "path": "https://www.bilibili.com/video/BV16f4y187jB",
+                "title": "【倪润志&张唐逍】昆曲-雷峰塔·水斗（水仙子）"
+            }
+        },
+        {
+            "id": "ot02",
+            "target": {
+                "path": "https://www.bilibili.com/video/BV1sN4y1P7RM",
+                "title": "【倪润志】昆曲-青冢记·昭君出塞"
+            }
+        },
+        {
+            "id": "ot03",
+            "target": {
+                "path": "https://www.bilibili.com/video/BV1Nf4y1h7ce",
+                "title": "【倪润志&王恒涛】昆曲-雷峰塔·断桥（金络索）"
             }
         }
     ]

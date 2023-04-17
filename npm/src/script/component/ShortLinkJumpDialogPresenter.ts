@@ -42,8 +42,13 @@ export class ShortLinkJumpDialogPresenter {
                 for (const item of response.map) {
                     if (item.id === pid) {
                         console_debug("find pid " + pid + " => " + item.target.path)
-                        // 跳转到目标页，不在浏览器中保留跳转记录
-                        this.showJump(window.location.origin + item.target.path, item.target.title)
+                        // 跳转到目标页，不在浏览器中保留跳转记录，url可以是站内的相对path，也可以是站外http的绝对path
+                        var jumpUrl = item.target.path
+                        if(!item.target.path.startsWith("http")) {
+                            jumpUrl = window.location.origin + item.target.path
+                        }
+                        console_debug("jumpUrl is " + jumpUrl)
+                        this.showJump(jumpUrl, item.target.title)
                         return
                     }
                 }
