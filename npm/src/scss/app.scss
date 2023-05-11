@@ -849,16 +849,25 @@ main.main-container {
   // 使top bar的层级高于drawer
   z-index: 7;
   // 颜色，默认为 primary 
-  // @include top-app-bar.fill-color(map.get(colors.$theme-light, "top-bar"));
+  // @include top-app-bar.fill-color(var(--top-app-bar));
   // 阴影
   @include elevation.elevation(10, #ee6e73, 0);
 }
 
 .dark .mdc-top-app-bar {
   // 颜色
-  // @include top-app-bar.fill-color(map.get(colors.$theme-dark, "top-bar"));
   // 阴影
   @include elevation.elevation(10, rgb(32, 33, 36), 0);
+}
+
+.top-app-bar--blur {
+  backdrop-filter: blur(5px);
+  background-color: rgba(226, 64, 71, 0.75);
+}
+
+.dark .top-app-bar--blur {
+  backdrop-filter: blur(5px);
+  background-color: rgba(252, 105, 111, 0.75);
 }
 
 .mdc-top-app-bar .mdc-icon-button__ripple {

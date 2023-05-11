@@ -10914,49 +10914,31 @@ a.mdc-list-item {
   .mdc-text-field--disabled .mdc-text-field__input:-ms-input-placeholder {
     color: GrayText;
   }
-}
-@media screen and (forced-colors: active), (-ms-high-contrast: active) {
   .mdc-text-field--disabled .mdc-floating-label {
     color: GrayText;
   }
-}
-@media screen and (forced-colors: active), (-ms-high-contrast: active) {
   .mdc-text-field--disabled + .mdc-text-field-helper-line .mdc-text-field-helper-text {
     color: GrayText;
   }
-}
-@media screen and (forced-colors: active), (-ms-high-contrast: active) {
   .mdc-text-field--disabled .mdc-text-field-character-counter,
   .mdc-text-field--disabled + .mdc-text-field-helper-line .mdc-text-field-character-counter {
     color: GrayText;
   }
-}
-@media screen and (forced-colors: active), (-ms-high-contrast: active) {
   .mdc-text-field--disabled .mdc-text-field__icon--leading {
     color: GrayText;
   }
-}
-@media screen and (forced-colors: active), (-ms-high-contrast: active) {
   .mdc-text-field--disabled .mdc-text-field__icon--trailing {
     color: GrayText;
   }
-}
-@media screen and (forced-colors: active), (-ms-high-contrast: active) {
   .mdc-text-field--disabled .mdc-text-field__affix--prefix {
     color: GrayText;
   }
-}
-@media screen and (forced-colors: active), (-ms-high-contrast: active) {
   .mdc-text-field--disabled .mdc-text-field__affix--suffix {
     color: GrayText;
   }
-}
-@media screen and (forced-colors: active), (-ms-high-contrast: active) {
   .mdc-text-field--disabled .mdc-line-ripple::before {
     border-bottom-color: GrayText;
   }
-}
-@media screen and (forced-colors: active), (-ms-high-contrast: active) {
   .mdc-text-field--disabled .mdc-notched-outline__leading,
   .mdc-text-field--disabled .mdc-notched-outline__notch,
   .mdc-text-field--disabled .mdc-notched-outline__trailing {
@@ -11506,6 +11488,7 @@ a.mdc-list-item {
   --mdc-theme-on-surface: #323232;
   --mdc-theme-text-primary-on-background: #191919;
   --mdc-theme-text-secondary-on-background: #676767;
+  --top-app-bar: #ee6e73;
   --drawer-ink: black;
   --button-bg: #9b27b0;
   --search-nav: #a25462;
@@ -11544,6 +11527,7 @@ a.mdc-list-item {
   --mdc-theme-on-surface: #e6e6e6;
   --mdc-theme-text-primary-on-background: #f5f5f5;
   --mdc-theme-text-secondary-on-background: #969696;
+  --top-app-bar: #ee6e73;
   --drawer-ink: white;
   --search-nav: rgba(228, 96, 117, 0.93);
   --code-highlight-bg: rgba(55, 55, 55, 0.32);
@@ -12724,6 +12708,7 @@ p.search-result-item-snippet b {
 
 .mdc-top-app-bar {
   z-index: 7;
+  background-color: var(--top-app-bar);
   /* @alternate */
   box-shadow: 0px 6px 6px -3px rgba(238, 110, 115, 0.2), 0px 10px 14px 1px rgba(238, 110, 115, 0.14), 0px 4px 18px 3px rgba(238, 110, 115, 0.12);
 }
@@ -12731,6 +12716,18 @@ p.search-result-item-snippet b {
 .dark .mdc-top-app-bar {
   /* @alternate */
   box-shadow: 0px 6px 6px -3px rgba(32, 33, 36, 0.2), 0px 10px 14px 1px rgba(32, 33, 36, 0.14), 0px 4px 18px 3px rgba(32, 33, 36, 0.12);
+}
+
+.top-app-bar--blur {
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  background-color: rgba(226, 64, 71, 0.75);
+}
+
+.dark .top-app-bar--blur {
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  background-color: rgba(252, 105, 111, 0.75);
 }
 
 .mdc-top-app-bar .mdc-icon-button__ripple::before, .mdc-top-app-bar .mdc-icon-button__ripple::after {

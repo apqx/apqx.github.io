@@ -19,11 +19,12 @@ const THEME_DARK = "1"
 const KEY_THEME = "theme"
 
 // 初始化Chrome/Safari标题栏颜色，立即执行
-checkThemeColor()
+// checkThemeColor()
 
 // TODO: 使用LocalRepository重构，类似initHandwriting
 export function initTheme() {
     try {
+        checkThemeColor()
         const bodyE = document.getElementsByTagName("body")[0];
         const btnTheme = document.getElementById("topbar_btn_theme")
         const iconToggle = new MDCIconButtonToggle(btnTheme)
@@ -97,6 +98,11 @@ function checkThemeColor() {
         // <meta name="theme-color" content="#df696e" />
         setThemeColor("#df696e")
     } else {
+        // desktop设备上，topBar固定背景模糊
+        // const topBarE = document.getElementById("top_app_bar")
+        // topBarE.classList.add("mdc-top-app-bar--fixed")
+        // topBarE.classList.add("top-app-bar--blur")
+        
         // 在desktop设备上，暗色和亮色主题下，分别设置theme-color为background，若不设置，Safari会自动使用检测到的background颜色作为theme-color
         // 但是在系统暗色主题下，设置亮色的theme-color是无效的，所以，也就没必要再区分设置了，直接由Safari自动检测就行了
         // if (showThemeDark) {
