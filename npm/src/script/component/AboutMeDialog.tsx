@@ -48,7 +48,7 @@ class AboutMeDialogContent extends React.Component<any, any> {
                     <hr className="mdc-deprecated-list-divider" />
                     <LinkItem link="https://weibo.com/u/7026785047" title="Weibo"/>
                     <hr className="mdc-deprecated-list-divider" />
-                    <LinkItem link="mailto:changgongapq@gmail.com" title="Email"/>
+                    <LinkItem link="mailto:safari@mudan.me" title="Email"/>
                 </ul>
             </div>
         )

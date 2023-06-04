@@ -11488,7 +11488,6 @@ a.mdc-list-item {
   --mdc-theme-on-surface: #323232;
   --mdc-theme-text-primary-on-background: #191919;
   --mdc-theme-text-secondary-on-background: #676767;
-  --top-app-bar: #ee6e73;
   --drawer-ink: black;
   --button-bg: #9b27b0;
   --search-nav: #a25462;
@@ -11527,7 +11526,6 @@ a.mdc-list-item {
   --mdc-theme-on-surface: #e6e6e6;
   --mdc-theme-text-primary-on-background: #f5f5f5;
   --mdc-theme-text-secondary-on-background: #969696;
-  --top-app-bar: #ee6e73;
   --drawer-ink: white;
   --search-nav: rgba(228, 96, 117, 0.93);
   --code-highlight-bg: rgba(55, 55, 55, 0.32);
@@ -12708,7 +12706,6 @@ p.search-result-item-snippet b {
 
 .mdc-top-app-bar {
   z-index: 7;
-  background-color: var(--top-app-bar);
   /* @alternate */
   box-shadow: 0px 6px 6px -3px rgba(238, 110, 115, 0.2), 0px 10px 14px 1px rgba(238, 110, 115, 0.14), 0px 4px 18px 3px rgba(238, 110, 115, 0.12);
 }
