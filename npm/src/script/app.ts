@@ -73,6 +73,10 @@ function initViews() {
         new MDCRipple(btn)
     }
 
+    for (const ele of document.querySelectorAll(".index-card")) {
+        new MDCRipple(ele)
+    }
+
     // list，很多样式效果要实例化才会生效，比如点击选中
     const lists = document.querySelectorAll(".mdc-deprecated-list")
     for (const list of lists) {

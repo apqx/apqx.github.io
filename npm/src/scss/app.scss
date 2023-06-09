@@ -349,6 +349,11 @@ a.clickable-empty-link {
   cursor: pointer;
 }
 
+a {
+  // 去除移动版Chrome点击时默认的蓝色背景
+  -webkit-tap-highlight-color: transparent;
+}
+
 li {
   // item间距
   margin: 0.1rem 0;
@@ -814,9 +819,19 @@ main.main-container {
 
 .index-card {
   padding: 1.3rem 2.5rem;
-  margin: 0.75rem 1rem;
   border-radius: var(--card-round);
   @include elevation.elevation(0, theme.$surface, 0);
+  // 添加Ripple动画
+  overflow: hidden;
+  @include ripple.surface;
+  @include ripple.radius-bounded(100%);
+  @include ripple.states-base-color(black);
+  @include ripple.states-opacities((hover: .0, focus: .1, press: .08));
+}
+
+.dark .index-card {
+  @include ripple.states-base-color(white);
+  @include ripple.states-opacities((hover: .0, focus: .1, press: .05));
 }
 
 .index-description {
@@ -829,13 +844,14 @@ main.main-container {
 
 // 索引列表
 .index-ul {
-  // 注意列表第一个卡片到top bar的距离要和正文卡片与之的距离一致
+  // 注意列表第一个卡片到top bar的距离要和正文卡片与之的距离一致 0.75rem，各个item之间的距离0.75rem
   padding: 0;
+  margin: 0;
 }
 
 .index-li {
   list-style-type: none;
-  margin: 0;
+  margin: 0.75rem 1rem;
   padding: 0;
 }
 
@@ -843,6 +859,9 @@ main.main-container {
 .index-a {
   // 去除下划线
   text-decoration: none;
+  // 去除点击时的默认的背景，防止干扰Ripple动画
+  background-color: transparent;
+
 }
 
 // top-app-bar
@@ -1031,9 +1050,12 @@ video {
     margin: 0.75rem 0;
   }
 
+  .index-li {
+    margin: 0.75rem 0;
+  }
+
   .index-card {
     padding: 1rem 1.3rem;
-    margin: 0.75rem 0;
   }
 
   .mdc-top-app-bar {

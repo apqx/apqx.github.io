@@ -11993,6 +11993,10 @@ a.clickable-empty-link {
   cursor: pointer;
 }
 
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
 li {
   margin: 0.1rem 0;
 }
@@ -12677,10 +12681,126 @@ p.search-result-item-snippet b {
 
 .index-card {
   padding: 1.3rem 2.5rem;
-  margin: 0.75rem 1rem;
   border-radius: var(--card-round);
   /* @alternate */
   box-shadow: 0px 0px 0px 0px rgba(255, 255, 255, 0.2), 0px 0px 0px 0px rgba(255, 255, 255, 0.14), 0px 0px 0px 0px rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+  --mdc-ripple-fg-size: 0;
+  --mdc-ripple-left: 0;
+  --mdc-ripple-top: 0;
+  --mdc-ripple-fg-scale: 1;
+  --mdc-ripple-fg-translate-end: 0;
+  --mdc-ripple-fg-translate-start: 0;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  will-change: transform, opacity;
+}
+.index-card::before, .index-card::after {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  content: "";
+}
+.index-card::before {
+  transition: opacity 15ms linear, background-color 15ms linear;
+  z-index: 1;
+  /* @alternate */
+  z-index: var(--mdc-ripple-z-index, 1);
+}
+.index-card::after {
+  z-index: 0;
+  /* @alternate */
+  z-index: var(--mdc-ripple-z-index, 0);
+}
+.index-card.mdc-ripple-upgraded::before {
+  transform: scale(var(--mdc-ripple-fg-scale, 1));
+}
+.index-card.mdc-ripple-upgraded::after {
+  top: 0;
+  /* @noflip */ /*rtl:ignore*/
+  left: 0;
+  transform: scale(0);
+  transform-origin: center center;
+}
+.index-card.mdc-ripple-upgraded--unbounded::after {
+  top: var(--mdc-ripple-top, 0);
+  /* @noflip */ /*rtl:ignore*/
+  left: var(--mdc-ripple-left, 0);
+}
+.index-card.mdc-ripple-upgraded--foreground-activation::after {
+  animation: mdc-ripple-fg-radius-in 225ms forwards, mdc-ripple-fg-opacity-in 75ms forwards;
+}
+.index-card.mdc-ripple-upgraded--foreground-deactivation::after {
+  animation: mdc-ripple-fg-opacity-out 150ms;
+  transform: translate(var(--mdc-ripple-fg-translate-end, 0)) scale(var(--mdc-ripple-fg-scale, 1));
+}
+.index-card::before, .index-card::after {
+  top: calc(50% - 100%);
+  /* @noflip */ /*rtl:ignore*/
+  left: calc(50% - 100%);
+  width: 200%;
+  height: 200%;
+}
+.index-card.mdc-ripple-upgraded::after {
+  width: var(--mdc-ripple-fg-size, 100%);
+  height: var(--mdc-ripple-fg-size, 100%);
+}
+.index-card::before, .index-card::after {
+  background-color: black;
+  /* @alternate */
+  background-color: var(--mdc-ripple-color, black);
+}
+.index-card:hover::before, .index-card.mdc-ripple-surface--hover::before {
+  opacity: 0;
+  /* @alternate */
+  opacity: var(--mdc-ripple-hover-opacity, 0);
+}
+.index-card.mdc-ripple-upgraded--background-focused::before, .index-card:not(.mdc-ripple-upgraded):focus::before {
+  transition-duration: 75ms;
+  opacity: 0.1;
+  /* @alternate */
+  opacity: var(--mdc-ripple-focus-opacity, 0.1);
+}
+.index-card:not(.mdc-ripple-upgraded)::after {
+  transition: opacity 150ms linear;
+}
+.index-card:not(.mdc-ripple-upgraded):active::after {
+  transition-duration: 75ms;
+  opacity: 0.08;
+  /* @alternate */
+  opacity: var(--mdc-ripple-press-opacity, 0.08);
+}
+.index-card.mdc-ripple-upgraded {
+  --mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.08);
+}
+
+.dark .index-card::before, .dark .index-card::after {
+  background-color: white;
+  /* @alternate */
+  background-color: var(--mdc-ripple-color, white);
+}
+.dark .index-card:hover::before, .dark .index-card.mdc-ripple-surface--hover::before {
+  opacity: 0;
+  /* @alternate */
+  opacity: var(--mdc-ripple-hover-opacity, 0);
+}
+.dark .index-card.mdc-ripple-upgraded--background-focused::before, .dark .index-card:not(.mdc-ripple-upgraded):focus::before {
+  transition-duration: 75ms;
+  opacity: 0.1;
+  /* @alternate */
+  opacity: var(--mdc-ripple-focus-opacity, 0.1);
+}
+.dark .index-card:not(.mdc-ripple-upgraded)::after {
+  transition: opacity 150ms linear;
+}
+.dark .index-card:not(.mdc-ripple-upgraded):active::after {
+  transition-duration: 75ms;
+  opacity: 0.05;
+  /* @alternate */
+  opacity: var(--mdc-ripple-press-opacity, 0.05);
+}
+.dark .index-card.mdc-ripple-upgraded {
+  --mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.05);
 }
 
 .index-description {
@@ -12693,16 +12813,18 @@ p.search-result-item-snippet b {
 
 .index-ul {
   padding: 0;
+  margin: 0;
 }
 
 .index-li {
   list-style-type: none;
-  margin: 0;
+  margin: 0.75rem 1rem;
   padding: 0;
 }
 
 .index-a {
   text-decoration: none;
+  background-color: transparent;
 }
 
 .mdc-top-app-bar {
@@ -12911,9 +13033,11 @@ video {
     padding: 1.3rem;
     margin: 0.75rem 0;
   }
+  .index-li {
+    margin: 0.75rem 0;
+  }
   .index-card {
     padding: 1rem 1.3rem;
-    margin: 0.75rem 0;
   }
   .mdc-top-app-bar {
     /* @alternate */
