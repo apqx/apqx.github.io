@@ -16,6 +16,9 @@ import {
 } from "./nav"
 import {initTagTriggers} from "./tag"
 import {initImg} from "./img"
+import { LocalRepository } from "./repository/LocalRepository"
+
+export var localRepository: LocalRepository = new LocalRepository()
 
 runOnHtmlDone(() => {
     initHljs()
