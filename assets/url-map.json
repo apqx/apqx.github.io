@@ -67,6 +67,13 @@
             }
         },
         {
+            "id": "op10",
+            "target": {
+                "path": "/post/opera/2022/01/08/昆曲-牡丹亭-游园-寻梦-讲赏.html",
+                "title": "昆曲「牡丹亭·游园、寻梦」讲赏"
+            }
+        },
+        {
             "id": "og00",
             "target": {
                 "path": "/post/original/2021/06/10/旅行志03-兰苑狮吼.html",
