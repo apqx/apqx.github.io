@@ -349,11 +349,6 @@ a.clickable-empty-link {
   cursor: pointer;
 }
 
-a {
-  // 去除移动版Chrome点击时默认的蓝色背景
-  -webkit-tap-highlight-color: transparent;
-}
-
 li {
   // item间距
   margin: 0.1rem 0;
@@ -376,6 +371,8 @@ strong {
 }
 
 a {
+  // 去除移动版Chrome点击时默认的蓝色背景
+  -webkit-tap-highlight-color: transparent;
   // 链接加下划线，可能受mdc class的影响，有些地方下划线被取消了
   text-decoration: underline;
   // 下划线与文字的间距
@@ -871,13 +868,13 @@ main.main-container {
   // 颜色，默认为 primary 
   // @include top-app-bar.fill-color(var(--top-app-bar));
   // 阴影
-  @include elevation.elevation(10, #ee6e73, 0);
+  @include elevation.elevation(5, #df696e, 0);
 }
 
 .dark .mdc-top-app-bar {
   // 颜色
   // 阴影
-  @include elevation.elevation(10, rgb(32, 33, 36), 0);
+  @include elevation.elevation(5, black, 0);
 }
 
 .top-app-bar--blur {
@@ -929,11 +926,7 @@ main.main-container {
 // fab
 .mdc-fab {
   // TODO: 使用var设置的阴影是失效的
-  @include elevation.elevation(5, var(--mdc-theme-secondary), 0);
-}
-
-.dark .mdc-fab {
-  @include elevation.elevation(5, var(--mdc-theme-background), 0);
+  @include elevation.elevation(3, black, 0);
 }
 
 .app-fab--absolute {
@@ -1036,7 +1029,7 @@ video {
 .preference-item-toggle__toggle {}
 
 // 手机小屏
-@media(max-width: 600px) {
+@media all and (max-width: 600px) {
 
   .main-container {
     padding: 3.8rem 0 1rem 0;
@@ -1059,16 +1052,6 @@ video {
     padding: 1rem 1.3rem;
   }
 
-  .mdc-top-app-bar {
-    // 小屏下减少top bar阴影面积
-    @include elevation.elevation(5, #ee6e73, 0);
-
-  }
-
-  .dark .mdc-top-app-bar {
-    @include elevation.elevation(5, rgb(32, 33, 36), 0);
-  }
-
   // 小屏时纯英文段落不两边对齐，因为单词间隔可能很大
   p.no-justify {
     text-align: left;
@@ -1077,13 +1060,13 @@ video {
 }
 
 // 平板中屏
-@media only screen and (min-width: 601px) and (max-width: 879) {
+@media all and (min-width: 601px) and (max-width: 879px) {
   // 默认参数
 }
 
 
 // 电脑大屏
-@media(min-width: 880px) {
+@media all and (min-width: 880px) {
   .main-container {
     width: 880px;
   }

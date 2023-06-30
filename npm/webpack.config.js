@@ -1,5 +1,7 @@
 const autoprefixer = require('autoprefixer');
 
+const Package = require('./package.json');
+const version = Package.version;
 
 module.exports = {
     mode: 'development',
@@ -8,6 +10,7 @@ module.exports = {
         './node_modules/long-press-event/src/long-press-event.js'],
     output: {
         // 指定要生成的js文件名
+        // filename: `apqx-${version}.js`,
         filename: 'apqx.js',
     },
     resolve: {
@@ -17,7 +20,18 @@ module.exports = {
     },
     module: {
         rules: [
-            // 支持scss
+            // 支持ES2015、Typescript、React，扩展名.js/.jsx/.ts/.tsx
+            {
+                test: /\.(js|jsx|ts|tsx)$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader'
+            },
+            // 支持Css，扩展名.css
+            {
+                test: /\.css$/i,
+                use: ["style-loader", "css-loader"],
+            },
+            // 支持Sass，扩展名.scss
             {
                 test: /\.scss$/,
                 use: [
@@ -57,21 +71,8 @@ module.exports = {
                             }
                         },
                     }
-
                 ]
             },
-            // 支持css
-            {
-                test: /\.css$/i,
-                use: ["style-loader", "css-loader"],
-            },
-            // 支持ES2015 js/jsx/ts/tsx
-            {
-                test: /\.(js|jsx|ts|tsx)$/,
-                exclude: /node_modules/,
-                loader: 'babel-loader'
-            },
         ],
-
     },
 };

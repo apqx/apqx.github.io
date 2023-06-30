@@ -11,7 +11,7 @@
 切换到内部的`npm`工程目录，构建生成所需的`js`、`css`文件：
 
 ```sh
-# 切换到内置的webpack工程目录
+# 切换到内置的npm工程目录
 cd npm
 # 安装所需module依赖
 npm install

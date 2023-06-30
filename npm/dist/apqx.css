@@ -11993,10 +11993,6 @@ a.clickable-empty-link {
   cursor: pointer;
 }
 
-a {
-  -webkit-tap-highlight-color: transparent;
-}
-
 li {
   margin: 0.1rem 0;
 }
@@ -12016,6 +12012,7 @@ strong {
 }
 
 a {
+  -webkit-tap-highlight-color: transparent;
   text-decoration: underline;
   text-underline-offset: 0.25rem;
   color: var(--link-color);
@@ -12830,12 +12827,12 @@ p.search-result-item-snippet b {
 .mdc-top-app-bar {
   z-index: 7;
   /* @alternate */
-  box-shadow: 0px 6px 6px -3px rgba(238, 110, 115, 0.2), 0px 10px 14px 1px rgba(238, 110, 115, 0.14), 0px 4px 18px 3px rgba(238, 110, 115, 0.12);
+  box-shadow: 0px 3px 5px -1px rgba(223, 105, 110, 0.2), 0px 5px 8px 0px rgba(223, 105, 110, 0.14), 0px 1px 14px 0px rgba(223, 105, 110, 0.12);
 }
 
 .dark .mdc-top-app-bar {
   /* @alternate */
-  box-shadow: 0px 6px 6px -3px rgba(32, 33, 36, 0.2), 0px 10px 14px 1px rgba(32, 33, 36, 0.14), 0px 4px 18px 3px rgba(32, 33, 36, 0.12);
+  box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 5px 8px 0px rgba(0, 0, 0, 0.14), 0px 1px 14px 0px rgba(0, 0, 0, 0.12);
 }
 
 .top-app-bar--blur {
@@ -12927,12 +12924,7 @@ p.search-result-item-snippet b {
 
 .mdc-fab {
   /* @alternate */
-  box-shadow: 0px 3px 5px -1px rgba(var(--mdc-theme-secondary), 0.2), 0px 5px 8px 0px rgba(var(--mdc-theme-secondary), 0.14), 0px 1px 14px 0px rgba(var(--mdc-theme-secondary), 0.12);
-}
-
-.dark .mdc-fab {
-  /* @alternate */
-  box-shadow: 0px 3px 5px -1px rgba(var(--mdc-theme-background), 0.2), 0px 5px 8px 0px rgba(var(--mdc-theme-background), 0.14), 0px 1px 14px 0px rgba(var(--mdc-theme-background), 0.12);
+  box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2), 0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
 }
 
 .app-fab--absolute {
@@ -13023,7 +13015,7 @@ video {
   flex: 1;
 }
 
-@media (max-width: 600px) {
+@media all and (max-width: 600px) {
   .main-container {
     padding: 3.8rem 0 1rem 0;
   }
@@ -13040,19 +13032,11 @@ video {
   .index-card {
     padding: 1rem 1.3rem;
   }
-  .mdc-top-app-bar {
-    /* @alternate */
-    box-shadow: 0px 3px 5px -1px rgba(238, 110, 115, 0.2), 0px 5px 8px 0px rgba(238, 110, 115, 0.14), 0px 1px 14px 0px rgba(238, 110, 115, 0.12);
-  }
-  .dark .mdc-top-app-bar {
-    /* @alternate */
-    box-shadow: 0px 3px 5px -1px rgba(32, 33, 36, 0.2), 0px 5px 8px 0px rgba(32, 33, 36, 0.14), 0px 1px 14px 0px rgba(32, 33, 36, 0.12);
-  }
   p.no-justify {
     text-align: left;
   }
 }
-@media (min-width: 880px) {
+@media all and (min-width: 880px) {
   .main-container {
     width: 880px;
   }
