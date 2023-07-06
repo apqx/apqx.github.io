@@ -1,0 +1,73 @@
+@use "@material/linear-progress";
+@use "@material/linear-progress/mdc-linear-progress";
+@use "@material/typography";
+
+// 使用此class的标签，可以通过id chip_tag_随笔 弹出对应 dialog_随笔 的dialog
+.tag-dialog-trigger {}
+
+.tag-list-item.mdc-deprecated-list-item {
+  height: fit-content;
+  display: flex;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.my-list-item__primary-text {
+  @include typography.typography(body1);
+}
+
+.my-list-item__secondary-text {
+  color: var(--mdc-theme-text-secondary-on-background);
+  font-size: 0.9rem;
+  display: flex;
+  // margin-top: -0.25rem;
+  // margin-bottom: -0.75rem;
+  height: fit-content;
+}
+
+.tag-essay-item-tags-container {
+  overflow-x: auto;
+}
+
+// 移动端Chrome的scrollBar一直显示，需要消除，其它浏览器scrollBar都会自动隐藏
+// 在保留滚动效果的同时，消除Safari，Chrome的scrollBar
+.tag-essay-item-tags-container::-webkit-scrollbar {
+  // 消除scrollBar
+  display: none;
+}
+
+.tag-essay-item-post-type {
+  color: var(--list-chip-1-ink);
+  background: var(--list-chip-1-bg);
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  padding-top: 0.04rem;
+  padding-bottom: 0.04rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--list-chip-1-border);
+  margin-left: 0.2rem;
+}
+
+.tag-essay-item-post-block1 {
+  color: var(--list-chip-3-ink);
+  background: var(--list-chip-3-bg);
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  padding-top: 0.04rem;
+  padding-bottom: 0.04rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--list-chip-3-border);
+  margin-left: 0.2rem;
+}
+
+.tag-essay-item-post-block2 {
+  color: var(--list-chip-2-ink);
+  background: var(--list-chip-2-bg);
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  padding-top: 0.04rem;
+  padding-bottom: 0.04rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--list-chip-2-border);
+  margin-left: 0.2rem;
+}
