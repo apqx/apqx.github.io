@@ -1,0 +1,123 @@
+// 先引入mdc的theme，然后用自定义变量覆盖其原有配置
+@use "@material/theme";
+@use "@material/theme/mdc-theme";
+@use "sass:map";
+
+@font-face {
+  font-family: "JetBrainsMono";
+  src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/JetBrainsMono-Regular.woff2");
+}
+
+$text-font: unquote("PingFang SC, Noto Sans, Noto Sans SC, sans-serif, Apple Color Emoji, Noto Color Emoji");
+$handwriting-font: "Ma Shan Zheng", "PingFang SC", "Noto Sans", "Noto Sans SC", sans-serif, "Apple Color Emoji", "Noto Color Emoji";
+$code-block-font: JetBrainsMono, "PingFang SC", "Noto Sans", "Noto Sans SC", sans-serif, "Apple Color Emoji", "Noto Color Emoji";
+
+@mixin light {
+  --mdc-theme-primary: #ee6e73;
+  --mdc-theme-on-primary: #f5f5f5;
+  --mdc-theme-secondary: #43a047;
+  --mdc-theme-on-secondary: #f5f5f5;
+  --mdc-theme-background: #f7f7f7;
+  --mdc-theme-surface: white;
+  // 默认字体颜色，段落p
+  --mdc-theme-on-surface: #323232;
+  // 不知为何，theme的这两个属性不能在 @use "@material/theme" 中定义，放在这里作为默认light主题的配色
+  // 标题字体色
+  --mdc-theme-text-primary-on-background: #191919;
+  // 小标题字体色
+  --mdc-theme-text-secondary-on-background: #676767;
+
+  --top-app-bar-blur: #df696e;
+
+  // Drawer
+  --drawer-ink: black;
+
+  // Button
+  --button-bg: #9b27b0;
+  --search-nav: #a25462;
+
+  // Code
+  --code-highlight-bg: #f8f9fa;
+  --code-highlight-border: #e8eaed;
+  --code-highlight-bg-on-green: rgba(231, 231, 231, 0.2);
+  --code-highlight-border-on-green: rgba(213, 213, 213, 0.54);
+  --pre-code-bg: #15171a;
+
+  // Chip
+  --chip-bg: #fedbd0;
+  --chip-ink: #84565e;
+  --list-chip-1-bg: rgba(211, 196, 249, 0.48);
+  --list-chip-1-ink: #8167c1;
+  --list-chip-1-border: rgba(211, 196, 249, 0.91);
+  --list-chip-2-bg: rgba(255, 224, 221, 0.5);
+  --list-chip-2-ink: #f77575;
+  --list-chip-2-border: rgba(252, 155, 157, 0.55);
+  --list-chip-3-bg: rgba(254, 242, 192, 0.58);
+  --list-chip-3-ink: #9a6000;
+  --list-chip-3-border: rgba(255, 224, 101, 1);
+
+  --list-hover: #f5f5f5;
+
+  --link-color: #6200ee;
+  --em-color: #535c68;
+  --strong-color: rgba(0, 0, 0, 0.90);
+  --strong-underline-color: rgba(255, 0, 0, 0.18);
+  --divider-color: rgba(0, 0, 0, 0.12);
+
+  --card-round: 0.3rem;
+}
+
+@mixin dark {
+  --mdc-theme-primary: #ee6e73;
+  --mdc-theme-on-primary: #f5f5f5;
+  --mdc-theme-secondary: #43a047;
+  --mdc-theme-on-secondary: #f5f5f5;
+  --mdc-theme-background: #0f0f0f;
+  --mdc-theme-surface: #141414;
+  --mdc-theme-on-surface: #e6e6e6;
+  --mdc-theme-text-primary-on-background: #f5f5f5;
+  --mdc-theme-text-secondary-on-background: #969696;
+
+  --top-app-bar-blur: black;
+
+  // Drawer
+  --drawer-ink: white;
+
+  --search-nav: rgba(228, 96, 117, 0.93);
+
+  // Code
+  --code-highlight-bg: rgba(55, 55, 55, 0.32);
+  --code-highlight-border: rgba(69, 69, 69, 0.74);
+  --code-highlight-bg-on-green: rgba(23, 23, 23, 0.17);
+  --code-highlight-border-on-green: rgba(142, 142, 142, 0.32);
+  --pre-code-bg: #0f0f0f;
+
+  // Chip
+  --chip-bg: rgba(134, 83, 81, 0.2);
+  --chip-ink: #c67c3b;
+  --list-chip-1-bg: rgba(212, 197, 249, 0.18);
+  --list-chip-1-ink: rgb(210, 195, 249);
+  --list-chip-1-border: rgba(210, 195, 249, 0.3);
+  --list-chip-2-bg: rgba(182, 2, 5, 0.18);
+  --list-chip-2-ink: rgb(253, 155, 157);
+  --list-chip-2-border: rgba(253, 155, 157, 0.3);
+  --list-chip-3-bg: rgba(254, 242, 192, 0.18);
+  --list-chip-3-ink: rgb(254, 241, 190);
+  --list-chip-3-border: rgba(254, 241, 190, 0.3);
+
+  --list-hover: #252525;
+
+  --link-color: #54a0ff;
+  --em-color: rgba(255, 255, 255, 0.65);
+  --strong-color: rgba(255, 255, 255, 0.95);
+  --strong-underline-color: rgba(254, 96, 96, 0.4);
+  --divider-color: rgba(88, 96, 102, 0.68);
+}
+
+:root {
+  @include light;
+}
+
+.dark {
+  @include dark;
+}

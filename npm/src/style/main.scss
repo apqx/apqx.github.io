@@ -1,0 +1,139 @@
+@use "theme";
+@use "basic";
+@use "nav";
+@use "index";
+@use "essay";
+@use "basic_dialog";
+@use "about-me-dialog";
+@use "search-dialog";
+@use "preference-dialog";
+@use "short-link";
+
+@use "@material/typography";
+
+// 通过js给body添加dark class，可以实现对mac-theme的参数更改
+// 大部分组件都会正确相应颜色变化，但是list和chip却无效
+// 且theme.$property引用的值也没有动态变化
+body {
+  // 消除top app bar左侧的margin
+  margin: 0;
+}
+
+// footer吸附在页面底部
+
+html,
+body {
+  height: 100%;
+  //影响jQuery的滚动到顶部
+  //scroll-behavior: smooth;
+}
+
+// 设置.page-wrap的最小高度为页面高度，为下面预留80px的高度空间
+.page-wrap {
+  min-height: 100%;
+  /* equal to footer height */
+  margin-bottom: -80px;
+}
+
+// 在.page-wrap后面/下面添加一个块元素空间，即.site-footer
+.page-wrap:after {
+  content: "";
+  display: block;
+}
+
+// 设置该块元素空间，即.site-footer的高度
+.site-footer,
+.page-wrap:after {
+  height: 80px;
+}
+
+.foot-header {
+  // 这里应该是20px，指定为22px可以把copyright向下多挤2px，使其紧贴底部，不留白
+  height: 22px;
+  background-color: rgba(51, 51, 51, 0.08);
+}
+
+footer {
+  background-color: #ee6e73;
+  color: white;
+}
+
+footer a {
+  color: #ffe0b2;
+  text-decoration: none;
+}
+
+.copyright {
+  padding: 1rem;
+  @include typography.typography(body1);
+}
+
+// 内容最外层的主容器
+.main-container {
+  // 横向居中
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: 100%;
+  padding: 4.5rem 0 1rem 0;
+}
+
+.foot-container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+}
+
+main.main-container {
+  // 淡入动画
+  // animation: animation.enter(/* $name: */ fade-in, /* $duration: */ 600ms);
+}
+
+@keyframes fade-in {
+  from {
+    transform: translateY(20rem);
+    opacity: 0.5;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media(min-width: 1024px) {
+  .app-fab--absolute {
+    bottom: 1.5rem;
+    right: 1.55rem;
+  }
+}
+
+.center-horizontal {
+  margin: auto;
+  text-align: center;
+}
+
+// 手机小屏
+@media all and (max-width: basic.$screen-middle-min-width) {
+  .main-container {
+    padding: 3.8rem 0 1rem 0;
+  }
+}
+
+// 平板中屏
+@media all and (min-width: basic.$screen-middle-min-width + 1px) and (max-width: basic.$screen-middle-max-width -1px) {
+  // 默认参数
+}
+
+// 电脑大屏
+@media all and (min-width: 880px) {
+  .main-container {
+    width: basic.$center-card-max-width;
+  }
+
+  .foot-container {
+    width: basic.$center-card-max-width;
+  }
+}

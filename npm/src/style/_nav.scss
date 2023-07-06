@@ -1,0 +1,92 @@
+@use "@material/button";
+@use "@material/button/mdc-button";
+@use "@material/icon-button";
+@use "@material/icon-button/mdc-icon-button";
+@use "@material/animation";
+@use "@material/ripple";
+@use "@material/elevation";
+@use "@material/elevation/mdc-elevation";
+@use "@material/top-app-bar";
+@use "@material/top-app-bar/mdc-top-app-bar";
+@use "@material/drawer";
+@use "@material/drawer/mdc-drawer";
+@use "@material/drawer/modal/mdc-drawer-modal";
+@use "@material/drawer/dismissible/mdc-drawer-dismissible";
+@use "@material/fab";
+@use "@material/fab/mdc-fab";
+
+// top-app-bar
+.mdc-top-app-bar {
+  // 使top bar的层级高于drawer
+  z-index: 7;
+  // 颜色，默认为 primary
+  // @include top-app-bar.fill-color(var(--top-app-bar));
+  // 阴影
+  @include elevation.elevation(5, #df696e, 0);
+}
+
+.dark .mdc-top-app-bar {
+  // 颜色
+  // 阴影
+  @include elevation.elevation(5, black, 0);
+}
+
+.top-app-bar--blur {
+  backdrop-filter: blur(5px);
+  background-color: rgba(226, 64, 71, 0.75);
+}
+
+.dark .top-app-bar--blur {
+  backdrop-filter: blur(5px);
+  background-color: rgba(252, 105, 111, 0.75);
+}
+
+.mdc-top-app-bar .mdc-icon-button__ripple {
+  @include ripple.states(white, true);
+}
+
+.mdc-drawer {
+  // 使drawer的阴影和内容卡片一致，更协调
+  @include elevation.elevation(5, var(--mdc-theme-background), 0);
+  @include drawer.item-text-ink-color(var(--drawer-ink));
+  @include drawer.item-icon-ink-color(var(--drawer-ink));
+  @include drawer.item-activated-text-ink-color(var(--drawer-ink));
+  @include drawer.item-activated-icon-ink-color(var(--drawer-ink));
+}
+
+.mdc-drawer__title {
+  font-weight: normal;
+}
+
+.mdc-drawer__content .mdc-deprecated-list-item--activated .mdc-deprecated-list-item__text {
+  font-weight: normal
+}
+
+// fab
+.mdc-fab {
+  // TODO: 使用var设置的阴影是失效的
+  @include elevation.elevation(3, black, 0);
+}
+
+.app-fab--absolute {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+}
+
+// 解决Safari的fab Ripple动画无圆角
+.mdc-fab__ripple {
+  border-radius: 50% !important;
+  -webkit-mask-image: radial-gradient(white, black);
+}
+
+// 解决Safari的Ripple动画无圆角
+.mdc-button,
+.mdc-button__ripple {
+  border-radius: 1.3rem !important;
+  -webkit-mask-image: radial-gradient(white, black);
+}
+
+.btn-common {
+  @include button.container-fill-color(var(--button-bg));
+}

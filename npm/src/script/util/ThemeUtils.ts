@@ -1,4 +1,4 @@
-import { localRepository } from "../app"
+import { localRepository } from "../main"
 import { iconToggle } from "../nav"
 import { console_debug } from "./LogUtil"
 import { toggleClassWithEnable } from "./Tools"

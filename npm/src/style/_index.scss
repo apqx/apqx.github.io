@@ -1,0 +1,70 @@
+@use "basic";
+@use "@material/elevation";
+@use "@material/elevation/mdc-elevation";
+@use "@material/animation";
+@use "@material/ripple";
+@use "@material/theme";
+@use "@material/card";
+@use "@material/card/mdc-card";
+
+.index-card {
+  padding: 1.3rem 2.5rem;
+  border-radius: var(--card-round);
+  @include elevation.elevation(0, theme.$surface, 0);
+  // 添加Ripple动画
+  overflow: hidden;
+  @include ripple.surface;
+  @include ripple.radius-bounded(100%);
+  @include ripple.states-base-color(black);
+  @include ripple.states-opacities((hover: .0, focus: .1, press: .08));
+}
+
+.dark .index-card {
+  @include ripple.states-base-color(white);
+  @include ripple.states-opacities((hover: .0, focus: .1, press: .05));
+}
+
+.index-description {
+  border: 1px solid rgba(63, 185, 80, 0.4);
+  border-radius: var(--card-round);
+  background: rgba(46, 160, 67, 0.1);
+  padding: 0.6rem 1rem;
+  margin: 0.75rem 1rem 0 1rem;
+}
+
+// 索引列表
+.index-ul {
+  // 注意列表第一个卡片到top bar的距离要和正文卡片与之的距离一致 0.75rem，各个item之间的距离0.75rem
+  padding: 0;
+  margin: 0;
+}
+
+.index-li {
+  list-style-type: none;
+  margin: 0.75rem 1rem;
+  padding: 0;
+}
+
+// 索引链接
+.index-a {
+  // 去除下划线
+  text-decoration: none;
+  // 去除点击时的默认的背景，防止干扰Ripple动画
+  background-color: transparent;
+
+}
+
+// 手机小屏
+@media all and (max-width: basic.$screen-middle-min-width) {
+  .index-description {
+    margin: 0.75rem 1rem 0 1rem;
+  }
+
+  .index-li {
+    margin: 0.75rem 0;
+  }
+
+  .index-card {
+    padding: 1rem 1.3rem;
+  }
+}

@@ -1,0 +1,238 @@
+@use "theme" as blogTheme;
+
+@use "@material/typography" with (
+  // Noto Sans是思源黑体的拉丁文字体，Noto Sans SC是其简体中文字体，因为SC的引号是全角字符，特别别扭，所以在前面用拉丁文字体先处理这些标点符号和字母
+  // SC还有一个问题是，如果前面用的是Roboto等非思源字体处理符号和字母，可能会出现用style绘制背景的时候，上下padding尺寸不一致，必须收到增加上padding才行
+  // 所以，在同一个设备上，应该使用同一套字体
+  $font-family: blogTheme.$text-font
+);
+
+@use "@material/theme";
+@use "@material/theme/mdc-theme";
+@use "@material/theme/custom-properties";
+
+@use '@material/theme/color-palette';
+@use '@material/theme/shadow-dom';
+@use "@material/list";
+@use "@material/list/mdc-list";
+@use "@material/data-table/data-table";
+@use "@material/data-table/data-table-theme";
+@use "@material/data-table/mdc-data-table";
+
+@use "@material/typography/mdc-typography";
+
+@use "@material/textfield";
+@use "@material/textfield/mdc-text-field";
+@use "@material/chips";
+@use "@material/chips/styles" as chipStyles;
+
+$screen-middle-min-width: 600px;
+$screen-middle-max-width: 880px;
+$center-card-max-width: 880px;
+
+@mixin basicText {
+  // 使用mdc的字体样式
+  @include typography.typography(body1);
+  // 段落间距
+  margin: 0.5rem 0;
+  // 行间距
+  line-height: 1.8;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @include theme.property(color, text-primary-on-background);
+}
+
+h1 {
+  @include typography.typography(headline4);
+  font-size: 1.6rem;
+}
+
+h2 {
+  @include typography.typography(headline5);
+  font-size: 1.3rem;
+}
+
+p {
+  @include basicText();
+  text-align: justify;
+}
+
+@media all and (max-width: $screen-middle-min-width) {
+  // 小屏时纯英文段落不两边对齐，因为单词间隔可能很大
+  p.no-justify {
+    text-align: left;
+  }
+}
+
+li {
+  @include basicText();
+  // item间距
+  margin: 0.1rem 0;
+}
+
+// 斜体，一般用于图片说明
+em {
+  color: var(--em-color);
+}
+
+// 加粗强调，一般用于句子
+strong {
+  color: var(--strong-color);
+  box-shadow: inset 0 -8px 0 0 var(--strong-underline-color);
+  font-weight: 500;
+}
+
+a {
+  @include basicText();
+  // 去除移动版Chrome点击时默认的蓝色背景
+  -webkit-tap-highlight-color: transparent;
+  // 链接加下划线，可能受mdc class的影响，有些地方下划线被取消了
+  text-decoration: underline;
+  // 下划线与文字的间距
+  text-underline-offset: 0.25rem;
+  color: var(--link-color);
+}
+
+a.clickable-empty-link {
+  // url为空的<a>
+  cursor: pointer;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+/* 无序列表 */
+ul {
+  padding-left: 2rem;
+  padding-right: 0;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  /* 实心圆 */
+  list-style-type: disc;
+}
+
+/* 有序列表 */
+ol {
+  padding-left: 2rem;
+  padding-right: 0;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  /* 数字 */
+  list-style-type: decimal;
+}
+
+// 引用段落
+blockquote {
+  @include basicText();
+  margin: 0.65rem 0;
+  padding: 0 0 0 1rem;
+  border-left: 0.3rem solid #ee6e73;
+  // border-right: 5px solid #ee6e73;
+  // background: $code-highlight-bg;
+  // border-radius: 0.2rem;
+}
+
+// 引用段落中的<p>
+blockquote p {
+  margin: 0;
+}
+
+th,
+.mdc-data-table__cell,
+.mdc-data-table__header-cell {
+  @include basicText();
+}
+
+audio {
+  width: auto;
+}
+
+// 手写诗文
+.handwriting {
+  display: block;
+  overflow-x: auto;
+}
+
+// 手写诗文，保持原有排版，横向滚动
+// 此时，如果是blockquote，注意不要行尾加双空格，jekyll会处理成以下格式，导致行1和行2之间多了一行
+// <p>行1
+// <br/>
+// 行2</p>
+// jekyll会把 > 转换为以下格式，这里只给p加white-space: pre，如果blockquote加了，则上下会多一行
+// <blockquote>
+// <p>文本</p>
+// </blockquote>
+blockquote.handwriting.pre p {
+  white-space: pre;
+}
+
+//.handwriting,
+.handwriting :not(i, pre code, pre code *) {
+  font-family: blogTheme.$handwriting-font;
+}
+
+.handwriting p,
+.handwriting p *,
+.handwriting li,
+.handwriting li *,
+.handwriting table * {
+  font-size: 1.1rem;
+}
+
+.handwriting .btn-tag {
+  font-size: 0.95rem;
+}
+
+.handwriting .index-author,
+.handwriting .index-date {
+  font-size: 1rem;
+}
+
+.handwriting .english,
+.handwriting .english * {
+  font-size: 1.3rem;
+}
+
+
+.mdc-deprecated-list {
+  @include list.deprecated-divider-color(var(--divider-color));
+}
+
+.mdc-deprecated-list-item:hover {
+  background-color: var(--list-hover)
+}
+
+.mdc-data-table {
+  @include data-table-theme.shape-radius(0.3rem);
+  // 设置标题背景为透明色，防止横向滚动时遮挡边框角
+  @include data-table-theme.header-row-fill-color(#00000000);
+  @include data-table-theme.header-row-text-color(var(--mdc-theme-text-primary-on-background));
+  @include data-table-theme.row-text-color(var(--mdc-theme-on-surface));
+  @include data-table-theme.divider-color(var(--divider-color));
+  @include data-table-theme.stroke-color(var(--divider-color));
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+
+// chips
+// 解决Safari的Ripple动画无圆角
+.mdc-evolution-chip,
+.mdc-evolution-chip__ripple {
+  border-radius: 1.3rem !important;
+  -webkit-mask-image: radial-gradient(white, black);
+}
+
+.mdc-evolution-chip {
+  @include chips.text-label-color(var(--chip-ink));
+  @include chips.container-color(var(--chip-bg));
+}
+
+

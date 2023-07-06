@@ -1,0 +1,23 @@
+@use "@material/switch";
+@use "@material/switch/styles" as switchStyles;
+
+.mdc-switch {
+  @include switch.theme((selected-handle-color: var(--mdc-theme-on-surface),
+    // selected-track-color: var(--mdc-theme-text-secondary-on-background),
+  ));
+}
+
+.preference-item-toggle {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.preference-item-toggle__title {
+  flex: 1;
+}
+
+.preference-item-toggle__toggle {}

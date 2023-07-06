@@ -12,7 +12,7 @@ import { MDCListActionEvent } from "@material/list/types";
 import { showPreferenceDialog } from "./component/PreferenceDialog";
 import { LocalRepository } from "./repository/LocalRepository";
 import { isMobileOrTablet, toggleClassWithEnable } from "./util/Tools";
-import { localRepository } from "./app";
+import { localRepository } from "./main";
 import { darkClass, setThemeColor, showThemeDark, toggleTheme } from "./util/ThemeUtils";
 
 // 初始化Chrome/Safari标题栏颜色，立即执行

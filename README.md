@@ -19,7 +19,7 @@ npm install
 npm run build
 ```
 
-在`_includes/head-common.html`中定义着网站使用的`apqx.js`和`apqx.css`，它们是由内部的`npm`工程生成的，为提高访问速度而被托管到阿里云的`OSS`上。
+在`_includes/head-common.html`中定义着网站使用的`js`和`css`，它们是由内部的`npm`工程生成的，为提高访问速度而被托管到阿里云的`OSS`上。
 
 本地调试时，需要修改这些资源为本地文件以实时响应`npm`工程的变化：
 
@@ -72,14 +72,14 @@ bundle exec jekyll serve -l -o
 <!-- 这里用Jekyll的Liquid模版语言隐藏掉这段指向本地资源的代码 -->
 {% comment %}
 <!-- only for test -->
-<link rel="stylesheet" href="/npm/dist/apqx.css" />
-<script type="text/javascript" src="/npm/dist/apqx.js"></script>
+<link rel="stylesheet" href="/npm/dist/apqx.v[version].css" />
+<script type="text/javascript" src="/npm/dist/apqx.v[version].js"></script>
 <link rel="stylesheet" href="/css/materialFontsIcons.css" />
 {% endcomment %}
 
 <!-- for publish -->
-<link rel="stylesheet" href="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/apqx.css" />
-<script type="text/javascript" src="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/apqx.js"></script>
+<link rel="stylesheet" href="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/apqx.v[version].css" />
+<script type="text/javascript" src="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/apqx.v[version].js"></script>
 <link rel="stylesheet" href="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/materialFontsIcons.css" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <!-- close it when on test -->

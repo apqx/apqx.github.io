@@ -4,7 +4,7 @@ import { console_debug } from "../util/LogUtil";
 import { COMMON_DIALOG_WRAPPER_ID, showDialog } from "./BasicDialog";
 import { MDCSwitch } from '@material/switch';
 import { SettingsToggle } from "./SettingsToggle";
-import { localRepository } from "../app";
+import { localRepository } from "../main";
 
 interface DialogContentState {
     handwritingFontOn: boolean

@@ -1,0 +1,68 @@
+@use "@material/button";
+@use '@material/button/mdc-button';
+@use "@material/typography";
+@use "@material/textfield";
+@use "@material/textfield/mdc-text-field";
+
+#search-dialog_label {
+  width: 94%;
+  margin-top: 40px
+}
+
+#search-dialog_tips {
+  margin: 1.6rem 1rem;
+}
+
+.mdc-text-field {
+  @include textfield.ink-color(var(--mdc-theme-text-primary-on-background));
+  @include textfield.caret-color(var(--mdc-theme-text-primary-on-background));
+  @include textfield.placeholder-color(var(--mdc-theme-text-secondary-on-background));
+  @include textfield.label-color(var(--mdc-theme-text-secondary-on-background));
+  @include textfield.focused-outline-color(var(--button-bg));
+  @include textfield.hover-outline-color(var(--mdc-theme-text-secondary-on-background));
+  @include textfield.outline-color(var(--divider-color));
+}
+
+.btn-search {
+  @include button.ink-color(var(--chip-ink));
+  @include button.container-fill-color(var(--chip-bg));
+  min-width: fit-content;
+}
+
+.search-result-nav-wrapper {
+  margin-top: 10px;
+}
+
+.btn-search-result-nav {
+  @include button.ink-color(var(--search-nav));
+  @include button.outline-color(var(--divider-color));
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.search-result-index {
+  color: var(--search-nav);
+}
+
+.search-result-item {
+  height: max-content;
+}
+
+.search-result-item-title {
+  @include typography.typography(subtitle1);
+  color: var(--link-color);
+  margin: 0;
+  text-align: left;
+}
+
+.search-result-item-snippet {
+  @include typography.typography(body1);
+  color: var(--mdc-theme-on-surface);
+  margin: 0;
+  text-align: justify;
+  height: max-content;
+}
+
+p.search-result-item-snippet b {
+  color: var(--search-nav);
+}

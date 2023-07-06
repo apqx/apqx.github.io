@@ -1,0 +1,47 @@
+@use "@material/typography";
+@use "@material/button";
+@use "@material/button/mdc-button";
+@use "@material/ripple";
+
+.about-me-name {
+  @include typography.typography(headline4);
+  font-size: 1.8rem;
+  text-align: center;
+  margin-top: 1.0rem;
+  margin-bottom: 1.0rem;
+}
+
+.about-me-description {
+  // @include typography.typography(body1);
+  margin: 1.6rem 1rem;
+}
+
+.circle-avatar {
+  border-radius: 50%;
+  margin-top: 2rem;
+}
+
+
+.btn-tag {
+  @include button.ink-color(var(--chip-ink));
+  @include button.container-fill-color(var(--chip-bg));
+  @include button.horizontal-padding(0.7rem);
+  @include button.height(2rem);
+  text-transform: none;
+  font-size: 0.9rem;
+  font-weight: normal;
+  margin-top: 0.5rem;
+}
+
+.about-me-tag-wrapper .btn-tag {
+  margin-left: 0.1rem;
+  margin-right: 0.1rem;
+}
+
+.btn-tag .mdc-button__ripple {
+  @include ripple.states(#a25462, true);
+}
+
+.dark .btn-tag .mdc-button__ripple {
+  @include ripple.states(rgba(228, 96, 117, 0.93), true);
+}

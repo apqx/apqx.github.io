@@ -1,0 +1,250 @@
+@use "basic";
+@use "theme" as blogTheme;
+@use "@material/theme";
+@use "@material/theme/custom-properties";
+@use "@material/button";
+@use "@material/button/mdc-button";
+@use "@material/typography";
+@use "@material/elevation";
+@use "@material/elevation/mdc-elevation";
+@use "@material/card";
+@use "@material/card/mdc-card";
+
+.essay-card {
+  padding: 1.3rem 2.5rem;
+  margin: 0.75rem 1rem;
+  border-radius: var(--card-round);
+  // 文章卡片的阴影，z高度，阴影颜色，扩散度
+  @include elevation.elevation(0, theme.$surface, 0);
+}
+
+// 手机小屏
+@media all and (max-width: basic.$screen-middle-min-width) {
+  .essay-card {
+    padding: 1.3rem;
+    margin: 0.75rem 0;
+  }
+}
+
+/* 文章题目 */
+.essay-title {
+  @include typography.typography(headline4);
+  @include theme.property(color, text-primary-on-background);
+  font-size: 1.8rem;
+  margin-top: 2.0rem;
+  text-align: center;
+  // 引用 theme中定义的属性，这个属性可以被 修改，以实现不同的theme主题
+}
+
+/* 文章署名 */
+.essay-author {
+  @include typography.typography(subtitle1);
+  @include theme.property(color, text-secondary-on-background);
+  text-align: center;
+  margin-top: 0.8rem;
+}
+
+/* 文章日期 */
+.essay-date {
+  @include typography.typography(subtitle1);
+  @include theme.property(color, text-secondary-on-background);
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+/* 索引题目 */
+.index-title {
+  @include typography.typography(subtitle1);
+  margin: 0;
+  text-align: left;
+}
+
+/* 索引署名 */
+.index-author {
+  @include typography.typography(subtitle1);
+  @include theme.property(color, text-secondary-on-background);
+  font-size: 0.95rem;
+  line-height: 1.5rem;
+  text-align: right;
+  margin: 0;
+}
+
+/* 索引地点（看剧使用） */
+.index-location {
+  @include typography.typography(subtitle1);
+  text-align: left;
+  margin: 0;
+}
+
+/* 索引日期 */
+.index-date {
+  @include typography.typography(subtitle1);
+  @include theme.property(color, text-secondary-on-background);
+  font-size: 0.95rem;
+  line-height: 1.5rem;
+  text-align: right;
+  margin: 0;
+}
+
+.essay-description {
+  border: 1px solid rgba(63, 185, 80, 0.4);
+  // border: 1px solid rgba(248, 81, 73, 0.4);;
+  border-radius: 0.3rem;
+  background: rgba(46, 160, 67, 0.1);
+  // background: rgba(248, 81, 73, 0.15);
+  padding: 1rem;
+}
+
+
+// 代码块
+pre code {
+  font-family: blogTheme.$code-block-font;
+  // font-size: 1.0rem;
+  line-height: 1.4;
+}
+
+code.hljs {
+  border-radius: 0.3rem;
+  padding: 1rem;
+  background: var(--pre-code-bg);
+}
+
+/* 段落中单词高亮 */
+p code,
+li code,
+table code {
+  @include typography.typography(body1);
+  padding-left: 0.2rem;
+  padding-right: 0.2rem;
+  padding-top: 0.01rem;
+  padding-bottom: 0.01rem;
+  margin-left: 0.05rem;
+  margin-right: 0.05rem;
+  border-radius: 0.3rem;
+
+  // color:$code-highlight-text;
+  background: var(--code-highlight-bg);
+  border: 1px solid var(--code-highlight-border);
+}
+
+.green code {
+  background: var(--code-highlight-bg-on-green);
+  border: 1px solid var(--code-highlight-border-on-green);
+}
+
+strong code {
+  font-weight: bold;
+}
+
+p em code {
+  padding-left: 0.2rem;
+  padding-right: 0.3rem;
+  margin-left: 0.2rem;
+  margin-right: 0.2rem;
+}
+
+// 使用此class的标签，可以通过id chip_tag_随笔 弹出对应 dialog_随笔 的dialog
+.tag-dialog-trigger {}
+
+.tag-list-item.mdc-deprecated-list-item {
+  height: fit-content;
+  display: flex;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.my-list-item__primary-text {
+  @include typography.typography(body1);
+}
+
+.my-list-item__secondary-text {
+  color: var(--mdc-theme-text-secondary-on-background);
+  font-size: 0.9rem;
+  display: flex;
+  // margin-top: -0.25rem;
+  // margin-bottom: -0.75rem;
+  height: fit-content;
+}
+
+.tag-essay-item-tags-container {
+  overflow-x: auto;
+}
+
+// 移动端Chrome的scrollBar一直显示，需要消除，其它浏览器scrollBar都会自动隐藏
+// 在保留滚动效果的同时，消除Safari，Chrome的scrollBar
+.tag-essay-item-tags-container::-webkit-scrollbar {
+  // 消除scrollBar
+  display: none;
+}
+
+.tag-essay-item-post-type {
+  color: var(--list-chip-1-ink);
+  background: var(--list-chip-1-bg);
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  padding-top: 0.04rem;
+  padding-bottom: 0.04rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--list-chip-1-border);
+  margin-left: 0.2rem;
+}
+
+.tag-essay-item-post-block1 {
+  color: var(--list-chip-3-ink);
+  background: var(--list-chip-3-bg);
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  padding-top: 0.04rem;
+  padding-bottom: 0.04rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--list-chip-3-border);
+  margin-left: 0.2rem;
+}
+
+.tag-essay-item-post-block2 {
+  color: var(--list-chip-2-ink);
+  background: var(--list-chip-2-bg);
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  padding-top: 0.04rem;
+  padding-bottom: 0.04rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--list-chip-2-border);
+  margin-left: 0.2rem;
+}
+
+
+img.clickable:hover {
+  cursor: pointer;
+}
+
+.media-container {
+  max-width: 100%;
+  // height: fit-content;
+  max-height: 100%;
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+  // border-radius: 0.3rem;
+}
+
+.video-container {
+  position: relative;
+  // 这个百分比越小，视频越扁
+  padding-bottom: 65%;
+  height: 0;
+  overflow: hidden;
+}
+
+.video-container iframe,
+.video-container object,
+.video-container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}

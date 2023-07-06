@@ -6,12 +6,12 @@ const version = Package.version;
 module.exports = {
     mode: 'development',
     // 打包入口
-    entry: ['./src/scss/app.scss', './src/script/app.ts',
+    entry: ['./src/style/main.scss', './src/script/main.ts',
         './node_modules/long-press-event/src/long-press-event.js'],
     output: {
         // 指定要生成的js文件名
-        // filename: `apqx-${version}.js`,
-        filename: 'apqx.js',
+        filename: `apqx-v${version}.js`,
+        // filename: 'apqx.js',
     },
     resolve: {
         // 指定webpack要处理的文件类型，如果这里不指定.ts等，在打包时会找不到除入口文件之外的该类型文件
@@ -39,7 +39,7 @@ module.exports = {
                         loader: 'file-loader',
                         options: {
                             // 输出文件
-                            name: 'apqx.css',
+                            name: `apqx-v${version}.css`,
                         },
                     },
                     {
