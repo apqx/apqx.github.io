@@ -1,4 +1,4 @@
-@use "theme";
+@use "theme" as blogTheme;
 @use "basic";
 @use "nav";
 @use "index";
@@ -9,8 +9,11 @@
 @use "search-dialog";
 @use "preference-dialog";
 @use "short-link";
+@use "sass:map";
 
 @use "@material/typography";
+@use "@material/elevation";
+@use "@material/elevation/mdc-elevation";
 
 // 通过js给body添加dark class，可以实现对mac-theme的参数更改
 // 大部分组件都会正确相应颜色变化，但是list和chip却无效
@@ -55,12 +58,12 @@ body {
 }
 
 footer {
-  background-color: #ee6e73;
-  color: white;
+  background-color: blogTheme.$top-bar-color-darken;
+  color: blogTheme.$footer-ink-color;
 }
 
 footer a {
-  color: #ffe0b2;
+  color: blogTheme.$footer-link-color;
   text-decoration: none;
 }
 
@@ -117,24 +120,24 @@ main.main-container {
 }
 
 // 手机小屏
-@media all and (max-width: basic.$screen-middle-min-width) {
+@media all and (max-width: blogTheme.$screen-middle-min-width) {
   .main-container {
     padding: 3.8rem 0 1rem 0;
   }
 }
 
 // 平板中屏
-@media all and (min-width: basic.$screen-middle-min-width + 1px) and (max-width: basic.$screen-middle-max-width -1px) {
+@media all and (min-width: blogTheme.$screen-middle-min-width + 1px) and (max-width: blogTheme.$screen-middle-max-width - 1px) {
   // 默认参数
 }
 
 // 电脑大屏
 @media all and (min-width: 880px) {
   .main-container {
-    width: basic.$center-card-max-width;
+    width: blogTheme.$center-card-max-width;
   }
 
   .foot-container {
-    width: basic.$center-card-max-width;
+    width: blogTheme.$center-card-max-width;
   }
 }

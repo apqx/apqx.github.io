@@ -223,6 +223,7 @@
   --strong-underline-color: rgba(255, 0, 0, 0.18);
   --divider-color: rgba(0, 0, 0, 0.12);
   --card-round: 0.3rem;
+  --index-subtitle: #808080;
 }
 
 .dark {
@@ -230,8 +231,8 @@
   --mdc-theme-on-primary: #f5f5f5;
   --mdc-theme-secondary: #43a047;
   --mdc-theme-on-secondary: #f5f5f5;
-  --mdc-theme-background: #0f0f0f;
-  --mdc-theme-surface: #141414;
+  --mdc-theme-background: #151515;
+  --mdc-theme-surface: #1a1a1a;
   --mdc-theme-on-surface: #e6e6e6;
   --mdc-theme-text-primary-on-background: #f5f5f5;
   --mdc-theme-text-secondary-on-background: #969696;
@@ -259,9 +260,16 @@
   --em-color: rgba(255, 255, 255, 0.65);
   --strong-color: rgba(255, 255, 255, 0.95);
   --strong-underline-color: rgba(254, 96, 96, 0.4);
-  --divider-color: rgba(88, 96, 102, 0.68);
+  --divider-color: #353535;
+  --index-subtitle: #808080;
 }
 
+@media all and (max-width: 600px) {
+  .dark {
+    --mdc-theme-background: #151515;
+    --mdc-theme-surface: #1a1a1a;
+  }
+}
 .mdc-deprecated-list {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -10043,12 +10051,12 @@ svg.mdc-button__icon {
 .mdc-top-app-bar {
   z-index: 7;
   /* @alternate */
-  box-shadow: 0px 3px 5px -1px rgba(223, 105, 110, 0.2), 0px 5px 8px 0px rgba(223, 105, 110, 0.14), 0px 1px 14px 0px rgba(223, 105, 110, 0.12);
+  box-shadow: 0px 2px 4px -1px rgba(223, 105, 110, 0.2), 0px 4px 5px 0px rgba(223, 105, 110, 0.14), 0px 1px 10px 0px rgba(223, 105, 110, 0.12);
 }
 
 .dark .mdc-top-app-bar {
   /* @alternate */
-  box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 5px 8px 0px rgba(0, 0, 0, 0.14), 0px 1px 14px 0px rgba(0, 0, 0, 0.12);
+  box-shadow: 0px 2px 4px -1px rgba(32, 32, 32, 0.2), 0px 4px 5px 0px rgba(32, 32, 32, 0.14), 0px 1px 10px 0px rgba(32, 32, 32, 0.12);
 }
 
 .top-app-bar--blur {
@@ -10094,7 +10102,7 @@ svg.mdc-button__icon {
 
 .mdc-drawer {
   /* @alternate */
-  box-shadow: 0px 3px 5px -1px rgba(var(--mdc-theme-background), 0.2), 0px 5px 8px 0px rgba(var(--mdc-theme-background), 0.14), 0px 1px 14px 0px rgba(var(--mdc-theme-background), 0.12);
+  box-shadow: 0px 3px 3px -2px rgba(42, 42, 42, 0.2), 0px 3px 4px 0px rgba(42, 42, 42, 0.14), 0px 1px 8px 0px rgba(42, 42, 42, 0.12);
 }
 .mdc-drawer .mdc-deprecated-list-item {
   color: rgba(var(--drawer-ink), 0.87);
@@ -10109,6 +10117,11 @@ svg.mdc-button__icon {
   color: rgba(var(--drawer-ink), 1);
 }
 
+.dark .mdc-drawer {
+  /* @alternate */
+  box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2), 0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
+}
+
 .mdc-drawer__title {
   font-weight: normal;
 }
@@ -10119,7 +10132,12 @@ svg.mdc-button__icon {
 
 .mdc-fab {
   /* @alternate */
-  box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2), 0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
+  box-shadow: 0px 3px 3px -2px rgba(32, 32, 32, 0.2), 0px 3px 4px 0px rgba(32, 32, 32, 0.14), 0px 1px 8px 0px rgba(32, 32, 32, 0.12);
+}
+
+.mdc-fab {
+  /* @alternate */
+  box-shadow: 0px 3px 3px -2px rgba(32, 32, 32, 0.2), 0px 3px 4px 0px rgba(32, 32, 32, 0.14), 0px 1px 8px 0px rgba(32, 32, 32, 0.12);
 }
 
 .app-fab--absolute {
@@ -10500,7 +10518,7 @@ svg.mdc-button__icon {
   padding: 1.3rem 2.5rem;
   border-radius: var(--card-round);
   /* @alternate */
-  box-shadow: 0px 0px 0px 0px rgba(255, 255, 255, 0.2), 0px 0px 0px 0px rgba(255, 255, 255, 0.14), 0px 0px 0px 0px rgba(255, 255, 255, 0.12);
+  box-shadow: 0px 3px 1px -2px rgba(213, 213, 213, 0.2), 0px 2px 2px 0px rgba(213, 213, 213, 0.14), 0px 1px 5px 0px rgba(213, 213, 213, 0.12);
   overflow: hidden;
   --mdc-ripple-fg-size: 0;
   --mdc-ripple-left: 0;
@@ -10591,6 +10609,10 @@ svg.mdc-button__icon {
   --mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.08);
 }
 
+.dark .index-card {
+  /* @alternate */
+  box-shadow: 0px 3px 1px -2px rgba(16, 16, 16, 0.2), 0px 2px 2px 0px rgba(16, 16, 16, 0.14), 0px 1px 5px 0px rgba(16, 16, 16, 0.12);
+}
 .dark .index-card::before, .dark .index-card::after {
   background-color: white;
   /* @alternate */
@@ -10612,20 +10634,160 @@ svg.mdc-button__icon {
 }
 .dark .index-card:not(.mdc-ripple-upgraded):active::after {
   transition-duration: 75ms;
-  opacity: 0.05;
+  opacity: 0.08;
   /* @alternate */
-  opacity: var(--mdc-ripple-press-opacity, 0.05);
+  opacity: var(--mdc-ripple-press-opacity, 0.08);
 }
 .dark .index-card.mdc-ripple-upgraded {
-  --mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.05);
+  --mdc-ripple-fg-opacity: var(--mdc-ripple-press-opacity, 0.08);
 }
 
+@media all and (max-width: 880px) {
+  .index-card {
+    /* @alternate */
+    box-shadow: 0px 3px 1px -2px rgba(227, 227, 227, 0.2), 0px 2px 2px 0px rgba(227, 227, 227, 0.14), 0px 1px 5px 0px rgba(227, 227, 227, 0.12);
+  }
+  .dark .index-card {
+    /* @alternate */
+    box-shadow: 0px 3px 1px -2px rgba(10, 10, 10, 0.2), 0px 2px 2px 0px rgba(10, 10, 10, 0.14), 0px 1px 5px 0px rgba(10, 10, 10, 0.12);
+  }
+}
 .index-description {
   border: 1px solid rgba(63, 185, 80, 0.4);
   border-radius: var(--card-round);
   background: rgba(46, 160, 67, 0.1);
   padding: 0.6rem 1rem;
   margin: 0.75rem 1rem 0 1rem;
+}
+
+/* 索引题目 */
+.index-title {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-family: PingFang SC, Noto Sans, Noto Sans SC, sans-serif, Apple Color Emoji, Noto Color Emoji;
+  /* @alternate */
+  font-family: var(--mdc-typography-subtitle1-font-family, var(--mdc-typography-font-family, PingFang SC, Noto Sans, Noto Sans SC, sans-serif, Apple Color Emoji, Noto Color Emoji));
+  font-size: 1rem;
+  /* @alternate */
+  font-size: var(--mdc-typography-subtitle1-font-size, 1rem);
+  line-height: 1.75rem;
+  /* @alternate */
+  line-height: var(--mdc-typography-subtitle1-line-height, 1.75rem);
+  font-weight: 400;
+  /* @alternate */
+  font-weight: var(--mdc-typography-subtitle1-font-weight, 400);
+  letter-spacing: 0.009375em;
+  /* @alternate */
+  letter-spacing: var(--mdc-typography-subtitle1-letter-spacing, 0.009375em);
+  text-decoration: inherit;
+  /* @alternate */
+  -webkit-text-decoration: var(--mdc-typography-subtitle1-text-decoration, inherit);
+          text-decoration: var(--mdc-typography-subtitle1-text-decoration, inherit);
+  text-transform: inherit;
+  /* @alternate */
+  text-transform: var(--mdc-typography-subtitle1-text-transform, inherit);
+  margin: 0;
+  text-align: left;
+}
+
+/* 索引署名 */
+.index-author {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-family: PingFang SC, Noto Sans, Noto Sans SC, sans-serif, Apple Color Emoji, Noto Color Emoji;
+  /* @alternate */
+  font-family: var(--mdc-typography-subtitle1-font-family, var(--mdc-typography-font-family, PingFang SC, Noto Sans, Noto Sans SC, sans-serif, Apple Color Emoji, Noto Color Emoji));
+  font-size: 1rem;
+  /* @alternate */
+  font-size: var(--mdc-typography-subtitle1-font-size, 1rem);
+  line-height: 1.75rem;
+  /* @alternate */
+  line-height: var(--mdc-typography-subtitle1-line-height, 1.75rem);
+  font-weight: 400;
+  /* @alternate */
+  font-weight: var(--mdc-typography-subtitle1-font-weight, 400);
+  letter-spacing: 0.009375em;
+  /* @alternate */
+  letter-spacing: var(--mdc-typography-subtitle1-letter-spacing, 0.009375em);
+  text-decoration: inherit;
+  /* @alternate */
+  -webkit-text-decoration: var(--mdc-typography-subtitle1-text-decoration, inherit);
+          text-decoration: var(--mdc-typography-subtitle1-text-decoration, inherit);
+  text-transform: inherit;
+  /* @alternate */
+  text-transform: var(--mdc-typography-subtitle1-text-transform, inherit);
+  color: rgba(0, 0, 0, 0.54);
+  /* @alternate */
+  color: var(--mdc-theme-text-secondary-on-background, rgba(0, 0, 0, 0.54));
+  font-size: 0.9rem;
+  line-height: 1.5rem;
+  text-align: right;
+  margin: 0;
+}
+
+/* 索引地点（看剧使用） */
+.index-location {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-family: PingFang SC, Noto Sans, Noto Sans SC, sans-serif, Apple Color Emoji, Noto Color Emoji;
+  /* @alternate */
+  font-family: var(--mdc-typography-subtitle1-font-family, var(--mdc-typography-font-family, PingFang SC, Noto Sans, Noto Sans SC, sans-serif, Apple Color Emoji, Noto Color Emoji));
+  font-size: 1rem;
+  /* @alternate */
+  font-size: var(--mdc-typography-subtitle1-font-size, 1rem);
+  line-height: 1.75rem;
+  /* @alternate */
+  line-height: var(--mdc-typography-subtitle1-line-height, 1.75rem);
+  font-weight: 400;
+  /* @alternate */
+  font-weight: var(--mdc-typography-subtitle1-font-weight, 400);
+  letter-spacing: 0.009375em;
+  /* @alternate */
+  letter-spacing: var(--mdc-typography-subtitle1-letter-spacing, 0.009375em);
+  text-decoration: inherit;
+  /* @alternate */
+  -webkit-text-decoration: var(--mdc-typography-subtitle1-text-decoration, inherit);
+          text-decoration: var(--mdc-typography-subtitle1-text-decoration, inherit);
+  text-transform: inherit;
+  /* @alternate */
+  text-transform: var(--mdc-typography-subtitle1-text-transform, inherit);
+  text-align: left;
+  margin: 0;
+}
+
+/* 索引日期 */
+.index-date {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-family: PingFang SC, Noto Sans, Noto Sans SC, sans-serif, Apple Color Emoji, Noto Color Emoji;
+  /* @alternate */
+  font-family: var(--mdc-typography-subtitle1-font-family, var(--mdc-typography-font-family, PingFang SC, Noto Sans, Noto Sans SC, sans-serif, Apple Color Emoji, Noto Color Emoji));
+  font-size: 1rem;
+  /* @alternate */
+  font-size: var(--mdc-typography-subtitle1-font-size, 1rem);
+  line-height: 1.75rem;
+  /* @alternate */
+  line-height: var(--mdc-typography-subtitle1-line-height, 1.75rem);
+  font-weight: 400;
+  /* @alternate */
+  font-weight: var(--mdc-typography-subtitle1-font-weight, 400);
+  letter-spacing: 0.009375em;
+  /* @alternate */
+  letter-spacing: var(--mdc-typography-subtitle1-letter-spacing, 0.009375em);
+  text-decoration: inherit;
+  /* @alternate */
+  -webkit-text-decoration: var(--mdc-typography-subtitle1-text-decoration, inherit);
+          text-decoration: var(--mdc-typography-subtitle1-text-decoration, inherit);
+  text-transform: inherit;
+  /* @alternate */
+  text-transform: var(--mdc-typography-subtitle1-text-transform, inherit);
+  color: rgba(0, 0, 0, 0.54);
+  /* @alternate */
+  color: var(--mdc-theme-text-secondary-on-background, rgba(0, 0, 0, 0.54));
+  font-size: 0.9rem;
+  line-height: 1.5rem;
+  text-align: right;
+  margin: 0;
 }
 
 .index-ul {
@@ -10648,11 +10810,27 @@ svg.mdc-button__icon {
   .index-description {
     margin: 0.75rem 1rem 0 1rem;
   }
+  .index-author {
+    font-size: 0.75rem;
+    color: var(--index-subtitle);
+  }
+  .index-date {
+    font-size: 0.75rem;
+    color: var(--index-subtitle);
+  }
   .index-li {
-    margin: 0.75rem 0;
+    margin: 0.75rem 0.5rem;
   }
   .index-card {
-    padding: 1rem 1.3rem;
+    padding: 1rem 1rem;
+  }
+}
+@media all and (min-width: 601px) and (max-width: 879px) {
+  .index-author {
+    font-size: 0.8rem;
+  }
+  .index-date {
+    font-size: 0.8rem;
   }
 }
 .essay-card {
@@ -10660,13 +10838,24 @@ svg.mdc-button__icon {
   margin: 0.75rem 1rem;
   border-radius: var(--card-round);
   /* @alternate */
-  box-shadow: 0px 0px 0px 0px rgba(255, 255, 255, 0.2), 0px 0px 0px 0px rgba(255, 255, 255, 0.14), 0px 0px 0px 0px rgba(255, 255, 255, 0.12);
+  box-shadow: 0px 3px 1px -2px rgba(200, 200, 200, 0.2), 0px 2px 2px 0px rgba(200, 200, 200, 0.14), 0px 1px 5px 0px rgba(200, 200, 200, 0.12);
+}
+
+.dark .essay-card {
+  /* @alternate */
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
 }
 
 @media all and (max-width: 600px) {
   .essay-card {
-    padding: 1.3rem;
+    padding: 1.3rem 1.3rem;
     margin: 0.75rem 0;
+    /* @alternate */
+    box-shadow: 0px 3px 1px -2px rgba(227, 227, 227, 0.2), 0px 2px 2px 0px rgba(227, 227, 227, 0.14), 0px 1px 5px 0px rgba(227, 227, 227, 0.12);
+  }
+  .dark .essay-card {
+    /* @alternate */
+    box-shadow: 0px 3px 1px -2px rgba(10, 10, 10, 0.2), 0px 2px 2px 0px rgba(10, 10, 10, 0.14), 0px 1px 5px 0px rgba(10, 10, 10, 0.12);
   }
 }
 /* 文章题目 */
@@ -10767,136 +10956,6 @@ svg.mdc-button__icon {
   color: var(--mdc-theme-text-secondary-on-background, rgba(0, 0, 0, 0.54));
   text-align: center;
   margin-top: 0.5rem;
-}
-
-/* 索引题目 */
-.index-title {
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  font-family: PingFang SC, Noto Sans, Noto Sans SC, sans-serif, Apple Color Emoji, Noto Color Emoji;
-  /* @alternate */
-  font-family: var(--mdc-typography-subtitle1-font-family, var(--mdc-typography-font-family, PingFang SC, Noto Sans, Noto Sans SC, sans-serif, Apple Color Emoji, Noto Color Emoji));
-  font-size: 1rem;
-  /* @alternate */
-  font-size: var(--mdc-typography-subtitle1-font-size, 1rem);
-  line-height: 1.75rem;
-  /* @alternate */
-  line-height: var(--mdc-typography-subtitle1-line-height, 1.75rem);
-  font-weight: 400;
-  /* @alternate */
-  font-weight: var(--mdc-typography-subtitle1-font-weight, 400);
-  letter-spacing: 0.009375em;
-  /* @alternate */
-  letter-spacing: var(--mdc-typography-subtitle1-letter-spacing, 0.009375em);
-  text-decoration: inherit;
-  /* @alternate */
-  -webkit-text-decoration: var(--mdc-typography-subtitle1-text-decoration, inherit);
-          text-decoration: var(--mdc-typography-subtitle1-text-decoration, inherit);
-  text-transform: inherit;
-  /* @alternate */
-  text-transform: var(--mdc-typography-subtitle1-text-transform, inherit);
-  margin: 0;
-  text-align: left;
-}
-
-/* 索引署名 */
-.index-author {
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  font-family: PingFang SC, Noto Sans, Noto Sans SC, sans-serif, Apple Color Emoji, Noto Color Emoji;
-  /* @alternate */
-  font-family: var(--mdc-typography-subtitle1-font-family, var(--mdc-typography-font-family, PingFang SC, Noto Sans, Noto Sans SC, sans-serif, Apple Color Emoji, Noto Color Emoji));
-  font-size: 1rem;
-  /* @alternate */
-  font-size: var(--mdc-typography-subtitle1-font-size, 1rem);
-  line-height: 1.75rem;
-  /* @alternate */
-  line-height: var(--mdc-typography-subtitle1-line-height, 1.75rem);
-  font-weight: 400;
-  /* @alternate */
-  font-weight: var(--mdc-typography-subtitle1-font-weight, 400);
-  letter-spacing: 0.009375em;
-  /* @alternate */
-  letter-spacing: var(--mdc-typography-subtitle1-letter-spacing, 0.009375em);
-  text-decoration: inherit;
-  /* @alternate */
-  -webkit-text-decoration: var(--mdc-typography-subtitle1-text-decoration, inherit);
-          text-decoration: var(--mdc-typography-subtitle1-text-decoration, inherit);
-  text-transform: inherit;
-  /* @alternate */
-  text-transform: var(--mdc-typography-subtitle1-text-transform, inherit);
-  color: rgba(0, 0, 0, 0.54);
-  /* @alternate */
-  color: var(--mdc-theme-text-secondary-on-background, rgba(0, 0, 0, 0.54));
-  font-size: 0.95rem;
-  line-height: 1.5rem;
-  text-align: right;
-  margin: 0;
-}
-
-/* 索引地点（看剧使用） */
-.index-location {
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  font-family: PingFang SC, Noto Sans, Noto Sans SC, sans-serif, Apple Color Emoji, Noto Color Emoji;
-  /* @alternate */
-  font-family: var(--mdc-typography-subtitle1-font-family, var(--mdc-typography-font-family, PingFang SC, Noto Sans, Noto Sans SC, sans-serif, Apple Color Emoji, Noto Color Emoji));
-  font-size: 1rem;
-  /* @alternate */
-  font-size: var(--mdc-typography-subtitle1-font-size, 1rem);
-  line-height: 1.75rem;
-  /* @alternate */
-  line-height: var(--mdc-typography-subtitle1-line-height, 1.75rem);
-  font-weight: 400;
-  /* @alternate */
-  font-weight: var(--mdc-typography-subtitle1-font-weight, 400);
-  letter-spacing: 0.009375em;
-  /* @alternate */
-  letter-spacing: var(--mdc-typography-subtitle1-letter-spacing, 0.009375em);
-  text-decoration: inherit;
-  /* @alternate */
-  -webkit-text-decoration: var(--mdc-typography-subtitle1-text-decoration, inherit);
-          text-decoration: var(--mdc-typography-subtitle1-text-decoration, inherit);
-  text-transform: inherit;
-  /* @alternate */
-  text-transform: var(--mdc-typography-subtitle1-text-transform, inherit);
-  text-align: left;
-  margin: 0;
-}
-
-/* 索引日期 */
-.index-date {
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  font-family: PingFang SC, Noto Sans, Noto Sans SC, sans-serif, Apple Color Emoji, Noto Color Emoji;
-  /* @alternate */
-  font-family: var(--mdc-typography-subtitle1-font-family, var(--mdc-typography-font-family, PingFang SC, Noto Sans, Noto Sans SC, sans-serif, Apple Color Emoji, Noto Color Emoji));
-  font-size: 1rem;
-  /* @alternate */
-  font-size: var(--mdc-typography-subtitle1-font-size, 1rem);
-  line-height: 1.75rem;
-  /* @alternate */
-  line-height: var(--mdc-typography-subtitle1-line-height, 1.75rem);
-  font-weight: 400;
-  /* @alternate */
-  font-weight: var(--mdc-typography-subtitle1-font-weight, 400);
-  letter-spacing: 0.009375em;
-  /* @alternate */
-  letter-spacing: var(--mdc-typography-subtitle1-letter-spacing, 0.009375em);
-  text-decoration: inherit;
-  /* @alternate */
-  -webkit-text-decoration: var(--mdc-typography-subtitle1-text-decoration, inherit);
-          text-decoration: var(--mdc-typography-subtitle1-text-decoration, inherit);
-  text-transform: inherit;
-  /* @alternate */
-  text-transform: var(--mdc-typography-subtitle1-text-transform, inherit);
-  color: rgba(0, 0, 0, 0.54);
-  /* @alternate */
-  color: var(--mdc-theme-text-secondary-on-background, rgba(0, 0, 0, 0.54));
-  font-size: 0.95rem;
-  line-height: 1.5rem;
-  text-align: right;
-  margin: 0;
 }
 
 .essay-description {
@@ -13007,7 +13066,7 @@ body {
 }
 
 footer {
-  background-color: #ee6e73;
+  background-color: #df696e;
   color: white;
 }
 

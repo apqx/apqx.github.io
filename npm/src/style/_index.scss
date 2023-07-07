@@ -1,16 +1,19 @@
 @use "basic";
+@use "theme" as blogTheme;
 @use "@material/elevation";
 @use "@material/elevation/mdc-elevation";
 @use "@material/animation";
 @use "@material/ripple";
 @use "@material/theme";
+@use "@material/typography";
 @use "@material/card";
 @use "@material/card/mdc-card";
+@use "sass:map";
 
 .index-card {
   padding: 1.3rem 2.5rem;
   border-radius: var(--card-round);
-  @include elevation.elevation(0, theme.$surface, 0);
+  @include elevation.elevation(map.get(blogTheme.$index-card-elevation, "elevation"), map.get(blogTheme.$index-card-elevation, "shadow-light"), 0);
   // 添加Ripple动画
   overflow: hidden;
   @include ripple.surface;
@@ -20,8 +23,22 @@
 }
 
 .dark .index-card {
+  @include elevation.elevation(map.get(blogTheme.$index-card-elevation, "elevation"),
+          map.get(blogTheme.$index-card-elevation, "shadow-dark"), 0);
   @include ripple.states-base-color(white);
-  @include ripple.states-opacities((hover: .0, focus: .1, press: .05));
+  @include ripple.states-opacities((hover: .0, focus: .1, press: .08));
+}
+
+// 小屏
+@media all and (max-width: blogTheme.$screen-middle-max-width) {
+  .index-card {
+    @include elevation.elevation(map.get(blogTheme.$index-card-elevation, "elevation"),
+            map.get(blogTheme.$index-card-elevation, "min-screen-shadow-light"), 0);
+  }
+  .dark .index-card {
+    @include elevation.elevation(map.get(blogTheme.$index-card-elevation, "elevation"),
+            map.get(blogTheme.$index-card-elevation, "min-screen-shadow-dark"), 0);
+  }
 }
 
 .index-description {
@@ -30,6 +47,41 @@
   background: rgba(46, 160, 67, 0.1);
   padding: 0.6rem 1rem;
   margin: 0.75rem 1rem 0 1rem;
+}
+
+
+/* 索引题目 */
+.index-title {
+  @include typography.typography(subtitle1);
+  margin: 0;
+  text-align: left;
+}
+
+/* 索引署名 */
+.index-author {
+  @include typography.typography(subtitle1);
+  @include theme.property(color, text-secondary-on-background);
+  font-size: 0.9rem;
+  line-height: 1.5rem;
+  text-align: right;
+  margin: 0;
+}
+
+/* 索引地点（看剧使用） */
+.index-location {
+  @include typography.typography(subtitle1);
+  text-align: left;
+  margin: 0;
+}
+
+/* 索引日期 */
+.index-date {
+  @include typography.typography(subtitle1);
+  @include theme.property(color, text-secondary-on-background);
+  font-size: 0.9rem;
+  line-height: 1.5rem;
+  text-align: right;
+  margin: 0;
 }
 
 // 索引列表
@@ -55,16 +107,40 @@
 }
 
 // 手机小屏
-@media all and (max-width: basic.$screen-middle-min-width) {
+@media all and (max-width: blogTheme.$screen-middle-min-width) {
   .index-description {
     margin: 0.75rem 1rem 0 1rem;
   }
 
+  .index-author {
+    font-size: 0.75rem;
+    //font-weight: lighter;
+    color: var(--index-subtitle);
+  }
+
+  .index-date {
+    font-size: 0.75rem;
+    //font-weight: lighter;
+    color: var(--index-subtitle);
+  }
+
   .index-li {
-    margin: 0.75rem 0;
+    margin: 0.75rem 0.5rem;
   }
 
   .index-card {
-    padding: 1rem 1.3rem;
+    padding: 1rem 1rem;
   }
+}
+
+// 平板中屏
+@media all and (min-width: blogTheme.$screen-middle-min-width + 1px) and (max-width: blogTheme.$screen-middle-max-width - 1px) {
+  .index-author {
+    font-size: 0.8rem;
+  }
+
+  .index-date {
+    font-size: 0.8rem;
+  }
+
 }

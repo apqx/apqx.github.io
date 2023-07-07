@@ -1,3 +1,4 @@
+@use "theme" as blogTheme;
 @use "@material/button";
 @use "@material/button/mdc-button";
 @use "@material/icon-button";
@@ -14,6 +15,7 @@
 @use "@material/drawer/dismissible/mdc-drawer-dismissible";
 @use "@material/fab";
 @use "@material/fab/mdc-fab";
+@use "sass:map";
 
 // top-app-bar
 .mdc-top-app-bar {
@@ -22,13 +24,13 @@
   // 颜色，默认为 primary
   // @include top-app-bar.fill-color(var(--top-app-bar));
   // 阴影
-  @include elevation.elevation(5, #df696e, 0);
+  @include elevation.elevation(map.get(blogTheme.$top-bar-elevation, "elevation"), map.get(blogTheme.$top-bar-elevation, "shadow-light"), 0);
 }
 
 .dark .mdc-top-app-bar {
   // 颜色
   // 阴影
-  @include elevation.elevation(5, black, 0);
+  @include elevation.elevation(map.get(blogTheme.$top-bar-elevation, "elevation"), map.get(blogTheme.$top-bar-elevation, "shadow-dark"), 0);
 }
 
 .top-app-bar--blur {
@@ -46,12 +48,15 @@
 }
 
 .mdc-drawer {
-  // 使drawer的阴影和内容卡片一致，更协调
-  @include elevation.elevation(5, var(--mdc-theme-background), 0);
+  @include elevation.elevation(map.get(blogTheme.$drawer-elevation, "elevation"), map.get(blogTheme.$drawer-elevation, "shadow-light"), 0);
   @include drawer.item-text-ink-color(var(--drawer-ink));
   @include drawer.item-icon-ink-color(var(--drawer-ink));
   @include drawer.item-activated-text-ink-color(var(--drawer-ink));
   @include drawer.item-activated-icon-ink-color(var(--drawer-ink));
+}
+
+.dark .mdc-drawer {
+  @include elevation.elevation(map.get(blogTheme.$drawer-elevation, "elevation"), map.get(blogTheme.$drawer-elevation, "shadow-dark"), 0);
 }
 
 .mdc-drawer__title {
@@ -65,7 +70,11 @@
 // fab
 .mdc-fab {
   // TODO: 使用var设置的阴影是失效的
-  @include elevation.elevation(3, black, 0);
+  @include elevation.elevation(map.get(blogTheme.$fab-elevation, "elevation"), map.get(blogTheme.$fab-elevation, "shadow-light"), 0);
+}
+
+.mdc-fab {
+  @include elevation.elevation(map.get(blogTheme.$fab-elevation, "elevation"), map.get(blogTheme.$fab-elevation, "shadow-dark"), 0);
 }
 
 .app-fab--absolute {

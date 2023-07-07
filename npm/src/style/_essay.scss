@@ -9,20 +9,34 @@
 @use "@material/elevation/mdc-elevation";
 @use "@material/card";
 @use "@material/card/mdc-card";
+@use "sass:map";
 
 .essay-card {
   padding: 1.3rem 2.5rem;
   margin: 0.75rem 1rem;
   border-radius: var(--card-round);
   // 文章卡片的阴影，z高度，阴影颜色，扩散度
-  @include elevation.elevation(0, theme.$surface, 0);
+  @include elevation.elevation(map.get(blogTheme.$essay-card-elevation, "elevation"),
+          map.get(blogTheme.$essay-card-elevation, "shadow-light"), 0);
+}
+
+.dark .essay-card {
+  @include elevation.elevation(map.get(blogTheme.$essay-card-elevation, "elevation"),
+          map.get(blogTheme.$essay-card-elevation, "shadow-dark"), 0);
+
 }
 
 // 手机小屏
-@media all and (max-width: basic.$screen-middle-min-width) {
+@media all and (max-width: blogTheme.$screen-middle-min-width) {
   .essay-card {
-    padding: 1.3rem;
+    padding: 1.3rem 1.3rem;
     margin: 0.75rem 0;
+    @include elevation.elevation(map.get(blogTheme.$essay-card-elevation, "elevation"),
+            map.get(blogTheme.$essay-card-elevation, "min-screen-shadow-light"), 0);
+  }
+  .dark .essay-card {
+    @include elevation.elevation(map.get(blogTheme.$essay-card-elevation, "elevation"),
+            map.get(blogTheme.$essay-card-elevation, "min-screen-shadow-dark"), 0);
   }
 }
 
@@ -50,40 +64,6 @@
   @include theme.property(color, text-secondary-on-background);
   text-align: center;
   margin-top: 0.5rem;
-}
-
-/* 索引题目 */
-.index-title {
-  @include typography.typography(subtitle1);
-  margin: 0;
-  text-align: left;
-}
-
-/* 索引署名 */
-.index-author {
-  @include typography.typography(subtitle1);
-  @include theme.property(color, text-secondary-on-background);
-  font-size: 0.95rem;
-  line-height: 1.5rem;
-  text-align: right;
-  margin: 0;
-}
-
-/* 索引地点（看剧使用） */
-.index-location {
-  @include typography.typography(subtitle1);
-  text-align: left;
-  margin: 0;
-}
-
-/* 索引日期 */
-.index-date {
-  @include typography.typography(subtitle1);
-  @include theme.property(color, text-secondary-on-background);
-  font-size: 0.95rem;
-  line-height: 1.5rem;
-  text-align: right;
-  margin: 0;
 }
 
 .essay-description {

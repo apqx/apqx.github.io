@@ -26,10 +26,6 @@
 @use "@material/chips";
 @use "@material/chips/styles" as chipStyles;
 
-$screen-middle-min-width: 600px;
-$screen-middle-max-width: 880px;
-$center-card-max-width: 880px;
-
 @mixin basicText {
   // 使用mdc的字体样式
   @include typography.typography(body1);
@@ -63,7 +59,7 @@ p {
   text-align: justify;
 }
 
-@media all and (max-width: $screen-middle-min-width) {
+@media all and (max-width: blogTheme.$screen-middle-min-width) {
   // 小屏时纯英文段落不两边对齐，因为单词间隔可能很大
   p.no-justify {
     text-align: left;

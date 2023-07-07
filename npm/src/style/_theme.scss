@@ -8,17 +8,57 @@
   src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/JetBrainsMono-Regular.woff2");
 }
 
+$screen-middle-min-width: 600px;
+$screen-middle-max-width: 880px;
+$center-card-max-width: 880px;
+
 $text-font: unquote("PingFang SC, Noto Sans, Noto Sans SC, sans-serif, Apple Color Emoji, Noto Color Emoji");
+//$text-font: unquote("Noto Sans, Noto Sans SC, sans-serif, Apple Color Emoji, Noto Color Emoji");
 $handwriting-font: "Ma Shan Zheng", "PingFang SC", "Noto Sans", "Noto Sans SC", sans-serif, "Apple Color Emoji", "Noto Color Emoji";
 $code-block-font: JetBrainsMono, "PingFang SC", "Noto Sans", "Noto Sans SC", sans-serif, "Apple Color Emoji", "Noto Color Emoji";
 
+$top-bar-color: #ee6e73;
+$top-bar-color-darken: #df696e;
+$footer-ink-color: white;
+$footer-link-color: #ffe0b2;
+$background: (
+        light: #f7f7f7,
+        //dark: #282828,
+        dark: #151515,
+        min-screen-dark: #151515
+);
+$surface: (
+        light: white,
+        //dark: #202020,
+        dark: #1a1a1a,
+        min-screen-dark: #1a1a1a
+);
+
+$top-bar-elevation: (elevation: 4, shadow-light: $top-bar-color-darken, shadow-dark: #202020);
+$drawer-elevation: (elevation: 3, shadow-light: #2a2a2a, shadow-dark: black);
+$fab-elevation: (elevation: 3, shadow-light: #202020, shadow-dark: #202020);
+$index-card-elevation: (
+        elevation: 2,
+        shadow-light: #d5d5d5,
+        min-screen-shadow-light: #e3e3e3,
+        shadow-dark: #101010,
+        min-screen-shadow-dark: #0a0a0a,
+);
+$essay-card-elevation: (
+        elevation: 2,
+        shadow-light: #c8c8c8,
+        min-screen-shadow-light: #e3e3e3,
+        shadow-dark: black,
+        min-screen-shadow-dark: #0a0a0a,
+);
+
 @mixin light {
-  --mdc-theme-primary: #ee6e73;
+  --mdc-theme-primary: #{$top-bar-color};
   --mdc-theme-on-primary: #f5f5f5;
   --mdc-theme-secondary: #43a047;
   --mdc-theme-on-secondary: #f5f5f5;
-  --mdc-theme-background: #f7f7f7;
-  --mdc-theme-surface: white;
+  --mdc-theme-background: #{map.get($background, "light")};
+  --mdc-theme-surface: #{map.get($surface, "light")};
   // 默认字体颜色，段落p
   --mdc-theme-on-surface: #323232;
   // 不知为何，theme的这两个属性不能在 @use "@material/theme" 中定义，放在这里作为默认light主题的配色
@@ -65,15 +105,17 @@ $code-block-font: JetBrainsMono, "PingFang SC", "Noto Sans", "Noto Sans SC", san
   --divider-color: rgba(0, 0, 0, 0.12);
 
   --card-round: 0.3rem;
+
+  --index-subtitle: #808080;
 }
 
 @mixin dark {
-  --mdc-theme-primary: #ee6e73;
+  --mdc-theme-primary: #{$top-bar-color};
   --mdc-theme-on-primary: #f5f5f5;
   --mdc-theme-secondary: #43a047;
   --mdc-theme-on-secondary: #f5f5f5;
-  --mdc-theme-background: #0f0f0f;
-  --mdc-theme-surface: #141414;
+  --mdc-theme-background: #{map.get($background, "dark")};
+  --mdc-theme-surface: #{map.get($surface, "dark")};
   --mdc-theme-on-surface: #e6e6e6;
   --mdc-theme-text-primary-on-background: #f5f5f5;
   --mdc-theme-text-secondary-on-background: #969696;
@@ -111,7 +153,9 @@ $code-block-font: JetBrainsMono, "PingFang SC", "Noto Sans", "Noto Sans SC", san
   --em-color: rgba(255, 255, 255, 0.65);
   --strong-color: rgba(255, 255, 255, 0.95);
   --strong-underline-color: rgba(254, 96, 96, 0.4);
-  --divider-color: rgba(88, 96, 102, 0.68);
+  --divider-color: #353535;
+
+  --index-subtitle: #808080;
 }
 
 :root {
@@ -120,4 +164,12 @@ $code-block-font: JetBrainsMono, "PingFang SC", "Noto Sans", "Noto Sans SC", san
 
 .dark {
   @include dark;
+}
+
+// 小屏
+@media all and (max-width: $screen-middle-min-width) {
+  .dark {
+    --mdc-theme-background: #{map.get($background, "min-screen-dark")};
+    --mdc-theme-surface: #{map.get($surface, "min-screen-dark")};
+  }
 }
