@@ -71,3 +71,7 @@
   border: 1px solid var(--list-chip-2-border);
   margin-left: 0.2rem;
 }
+
+.mdc-linear-progress {
+  @include linear-progress.buffer-color(var(--mdc-theme-background))
+}
