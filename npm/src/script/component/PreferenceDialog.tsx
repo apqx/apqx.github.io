@@ -76,6 +76,12 @@ export class PreferenceDialogContent extends React.Component<any, DialogContentS
         console_debug("PreferenceDialogContent render")
         return (
             <div>
+                <div className="center-horizontal">
+                    <picture>
+                        <source srcSet="https://fonts.gstatic.com/s/e/notoemoji/latest/1f636/512.webp" type="image/webp" />
+                        <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f636/512.gif" alt="" width="64" height="64" />
+                    </picture>
+                </div>
                 <SettingsToggle titleHtml={this.handwritingFontTitle} on={this.state.handwritingFontOn} onClickToggle={this.onClickHandwritingFontSwitch} />
                 <SettingsToggle titleHtml="跟随系统自动切换暗色主题" on={this.state.autoThemeOn} onClickToggle={this.onClickAutoThemeSwitch} />
             </div>

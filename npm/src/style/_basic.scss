@@ -174,21 +174,12 @@ blockquote.handwriting.pre p {
   font-family: blogTheme.$handwriting-font;
 }
 
-.handwriting p,
-.handwriting p *,
-.handwriting li,
-.handwriting li *,
-.handwriting table * {
-  font-size: 1.1rem;
+.handwriting {
+  --mdc-typography-body1-font-size: 1.1rem
 }
 
 .handwriting .btn-tag {
   font-size: 0.95rem;
-}
-
-.handwriting .index-author,
-.handwriting .index-date {
-  font-size: 1rem;
 }
 
 .handwriting .english,

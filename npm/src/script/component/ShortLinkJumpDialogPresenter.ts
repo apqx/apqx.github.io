@@ -75,6 +75,6 @@ export class ShortLinkJumpDialogPresenter {
         setTimeout(() => {
             // 延时2秒再跳转，显示动画
             window.location.replace(url)
-        }, 2000)
+        }, 2500)
     }
 }
