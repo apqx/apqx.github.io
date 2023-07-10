@@ -17,10 +17,13 @@ import {
 import {initTagTriggers} from "./tag"
 import {initImg} from "./img"
 import {LocalRepository} from "./repository/LocalRepository"
+import * as Masonry from "masonry-layout";
 
 export var localRepository: LocalRepository = new LocalRepository()
+export var masonry: Masonry = null;
 
 runOnHtmlDone(() => {
+    initGridIndex()
     initHljs()
     initViews()
     initImg()
@@ -35,6 +38,21 @@ runOnHtmlDone(() => {
     initTagTriggers()
 })
 
+function initGridIndex() {
+    var indexContainerE = document.querySelector(".grid")
+    masonry = new Masonry(indexContainerE, {
+        percentPosition: true,
+        itemSelector: ".grid-item",
+        columnWidth: ".grid-sizer",
+    })
+
+    for (const ele of document.getElementsByClassName("index-lazy-img")) {
+        const imgE = ele as HTMLImageElement
+        imgE.onload = (event) => {
+            masonry.layout()
+        }
+    }
+}
 
 function initHljs() {
     hljs.registerLanguage("bash", require("highlight.js/lib/languages/bash"))
@@ -76,7 +94,7 @@ function initViews() {
         new MDCRipple(btn)
     }
 
-    for (const ele of document.querySelectorAll(".index-card")) {
+    for (const ele of document.querySelectorAll(".index-card,.grid-index-card")) {
         new MDCRipple(ele)
     }
 
@@ -94,3 +112,4 @@ function initViews() {
         new MDCDataTable(dataTableE)
     }
 }
+

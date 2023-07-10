@@ -15,26 +15,26 @@
 cd npm
 # 安装所需module依赖
 npm install
-# 构建，在 /npm/dist/目录下生成 apqx.js 和 apqx.css
+# 构建，在/npm/dist/目录下生成js和css
 npm run build
 ```
 
-在`_includes/head-common.html`中定义着网站使用的`js`和`css`，它们是由内部的`npm`工程生成的，为提高访问速度而被托管到阿里云的`OSS`上。
+在`_includes/head-common.html`中定义着网站使用的`js`和`css`，它们是由内部的`npm`工程生成的，为提高访问速度而被托管到阿里云`OSS`上。
 
 本地调试时，需要修改这些资源为本地文件以实时响应`npm`工程的变化：
 
 ```html
 <!-- css和js文件由内部的npm工程输出 -->
 <!-- only for test -->
-<link rel="stylesheet" href="/npm/dist/apqx.css" />
-<script type="text/javascript" src="/npm/dist/apqx.js"></script>
+<link rel="stylesheet" href="/npm/dist/apqx.v[version].css" />
+<script type="text/javascript" src="/npm/dist/apqx.v[version].js"></script>
 <link rel="stylesheet" href="/css/materialFontsIcons.css" />
 
 <!-- 这里用Jekyll的Liquid模版语言隐藏掉这段指向阿里云托管的外部资源的代码 -->
 {% comment %}
 <!-- for publish -->
-<link rel="stylesheet" href="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/apqx.css" />
-<script type="text/javascript" src="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/apqx.js"></script>
+<link rel="stylesheet" href="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/apqx.v[version].css" />
+<script type="text/javascript" src="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/apqx.v[version].js"></script>
 <link rel="stylesheet" href="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/materialFontsIcons.css" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <!-- close it when on test -->
@@ -51,7 +51,7 @@ npm run build
 安装[Jekyll](https://jekyllrb.com/docs/installation/macos/)，启动服务：
 
 ```sh
-# 安装所需依赖
+# jekyll安装后，继续安装定义在_config.yml中的jekyll插件
 bundle install
 # 启动jekyll服务，在http://localhost:4000即可访问生成的博客网站
 bundle exec jekyll serve -l -o
@@ -63,9 +63,9 @@ bundle exec jekyll serve -l -o
 
 # 部署到GitHub Pages
 
-对于部署到[GitHub Pages](https://pages.github.com)的情况，因为中国大陆的访问速度受限，一般会把`HTML`网页之外的所有资源文件托管到大陆的云服务平台上以提高国内的访问速度，比如阿里云`OSS`就非常合适。
+对于部署到[GitHub Pages](https://pages.github.com)的情况，因为中国大陆的访问速度受限，一般会把`HTML`网页之外的资源文件托管到大陆的云服务平台上以提高国内的访问速度，比如阿里云`OSS`就非常合适。
 
-本地调试完成后，如果`npm`工程生成了新的`js`和`css`资源文件，需要更新阿里云`OSS`托管的旧文件，修改`_includes/head-common.html`以使用这些云端托管的资源文件。
+本地调试完成后，如果`npm`工程生成了新的`js`和`css`文件，需要更新阿里云`OSS`托管的旧文件，修改`_includes/head-common.html`以使用这些云端托管的资源文件。
 
 ```html
 <!-- css和js文件由内部的npm工程输出 -->
@@ -95,6 +95,7 @@ bundle exec jekyll serve -l -o
 把本地修改`commit`后`push`到自己的`GitHub repository`上，`GitHub Pages`会自动执行`Jekyll`的编译操作，就像本地调试时那样把`Markdown`文章转换为`HTML`页面并更新到指定的域名下。
 
 ```sh
+# 本地commit
 git commit
 # push到自己的Github repository上
 git push origin

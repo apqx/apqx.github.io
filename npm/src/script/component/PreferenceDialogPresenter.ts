@@ -2,6 +2,7 @@ import {PreferenceDialogContent} from "./PreferenceDialog";
 import {LocalRepository} from "../repository/LocalRepository";
 import {toggleClassWithEnable} from "../util/Tools";
 import { saveTheme, toggleTheme } from "../util/ThemeUtils";
+import { masonry } from "../main";
 
 export class PreferenceDialogPresenter {
 
@@ -23,8 +24,9 @@ export class PreferenceDialogPresenter {
 
     onClickHandwritingFontSwitch(on: boolean) {
         this.localRepository.saveHandwritingFontOn(on)
-        const bodyE = document.getElementsByTagName("body")[0];
+        const bodyE = document.getElementsByTagName("body")[0]
         toggleClassWithEnable(bodyE, this.handwritingClass, on)
+        masonry.layout()
     }
 
     onClickAutoThemeSwitch(on: boolean) {

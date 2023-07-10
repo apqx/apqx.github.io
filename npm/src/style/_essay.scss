@@ -14,7 +14,6 @@
 .essay-card {
   padding: 1.3rem 2.5rem;
   margin: 0.75rem 1rem;
-  border-radius: var(--card-round);
   // 文章卡片的阴影，z高度，阴影颜色，扩散度
   @include elevation.elevation(map.get(blogTheme.$essay-card-elevation, "elevation"),
           map.get(blogTheme.$essay-card-elevation, "shadow-light"), 0);
@@ -68,10 +67,8 @@
 
 .essay-description {
   border: 1px solid rgba(63, 185, 80, 0.4);
-  // border: 1px solid rgba(248, 81, 73, 0.4);;
-  border-radius: 0.3rem;
+  border-radius: var(--essay-inner-shape-round);
   background: rgba(46, 160, 67, 0.1);
-  // background: rgba(248, 81, 73, 0.15);
   padding: 1rem;
 }
 
@@ -84,7 +81,7 @@ pre code {
 }
 
 code.hljs {
-  border-radius: 0.3rem;
+  border-radius: var(--essay-inner-shape-round);
   padding: 1rem;
   background: var(--pre-code-bg);
 }

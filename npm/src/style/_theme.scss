@@ -13,7 +13,7 @@ $screen-middle-max-width: 880px;
 $center-card-max-width: 880px;
 
 $text-font: unquote("PingFang SC, Noto Sans, Noto Sans SC, sans-serif, Apple Color Emoji, Noto Color Emoji");
-//$text-font: unquote("Noto Sans, Noto Sans SC, sans-serif, Apple Color Emoji, Noto Color Emoji");
+// $text-font: unquote("Noto Sans, Noto Sans SC, sans-serif, Apple Color Emoji, Noto Color Emoji");
 $handwriting-font: "Ma Shan Zheng", "PingFang SC", "Noto Sans", "Noto Sans SC", sans-serif, "Apple Color Emoji", "Noto Color Emoji";
 $code-block-font: JetBrainsMono, "PingFang SC", "Noto Sans", "Noto Sans SC", sans-serif, "Apple Color Emoji", "Noto Color Emoji";
 
@@ -23,13 +23,11 @@ $footer-ink-color: white;
 $footer-link-color: #ffe0b2;
 $background: (
         light: #f7f7f7,
-        //dark: #282828,
         dark: #151515,
         min-screen-dark: #151515
 );
 $surface: (
         light: white,
-        //dark: #202020,
         dark: #1a1a1a,
         min-screen-dark: #1a1a1a
 );
@@ -42,6 +40,13 @@ $index-card-elevation: (
         shadow-light: #d5d5d5,
         min-screen-shadow-light: #e3e3e3,
         shadow-dark: #101010,
+        min-screen-shadow-dark: #0a0a0a,
+);
+$grid-index-card-elevation: (
+        elevation: 2,
+        shadow-light: #c8c8c8,
+        min-screen-shadow-light: #e3e3e3,
+        shadow-dark: #0a0a0a,
         min-screen-shadow-dark: #0a0a0a,
 );
 $essay-card-elevation: (
@@ -61,11 +66,14 @@ $essay-card-elevation: (
   --mdc-theme-surface: #{map.get($surface, "light")};
   // 默认字体颜色，段落p
   --mdc-theme-on-surface: #323232;
-  // 不知为何，theme的这两个属性不能在 @use "@material/theme" 中定义，放在这里作为默认light主题的配色
   // 标题字体色
   --mdc-theme-text-primary-on-background: #191919;
   // 小标题字体色
   --mdc-theme-text-secondary-on-background: #676767;
+  // card, dialog 圆角
+  --mdc-shape-medium: 0.3rem;
+  // 文章内元素圆角，code block和description
+  --essay-inner-shape-round: 0.3rem;
 
   --top-app-bar-blur: #df696e;
 
@@ -104,9 +112,8 @@ $essay-card-elevation: (
   --strong-underline-color: rgba(255, 0, 0, 0.18);
   --divider-color: rgba(0, 0, 0, 0.12);
 
-  --card-round: 0.3rem;
-
   --index-subtitle: #808080;
+  --index-description: #393939;
 }
 
 @mixin dark {
@@ -156,6 +163,7 @@ $essay-card-elevation: (
   --divider-color: #353535;
 
   --index-subtitle: #808080;
+  --index-description: #cccccc;
 }
 
 :root {

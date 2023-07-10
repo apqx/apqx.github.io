@@ -7,15 +7,15 @@ cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg
 sitemap: false
 ---
 
-<div class="index-description green mdc-theme--on-surface">
+<div class="index-description green">
     <p>一个收藏夹，慢慢鼓起来。</p>
 </div>
 <ul class="index-ul">
     {% for post in site.posts %}
     {%- if post.categories contains "repost" and post.show != false %}
     <li class="index-li">
-        <a class="index-a mdc-theme--on-surface" href="{{ post.url | prepend: site.baseurl }}">
-            <div class="mdc-card index-card mdc-theme--surface">
+        <a class="index-a" href="{{ post.url | prepend: site.baseurl }}">
+            <div class="mdc-card index-card">
                 <p class="index-title">{{ post.title }}</p>
                 <span class="index-author">{{ post.author }}</span>
                 <span class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
