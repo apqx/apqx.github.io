@@ -60,6 +60,10 @@ p {
   text-align: justify;
 }
 
+:not(pre) code {
+  line-break: anywhere;
+}
+
 p.no-justify {
   text-align: left;
 }
