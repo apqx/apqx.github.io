@@ -7544,11 +7544,10 @@ p {
   text-align: justify;
 }
 
-@media all and (max-width: 600px) {
-  p.no-justify {
-    text-align: left;
-  }
+p.no-justify {
+  text-align: left;
 }
+
 li {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -7591,33 +7590,6 @@ strong {
 }
 
 a {
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  font-family: PingFang SC, Noto Sans, Noto Sans SC, sans-serif, Apple Color Emoji, Noto Color Emoji;
-  /* @alternate */
-  font-family: var(--mdc-typography-body1-font-family, var(--mdc-typography-font-family, PingFang SC, Noto Sans, Noto Sans SC, sans-serif, Apple Color Emoji, Noto Color Emoji));
-  font-size: 1rem;
-  /* @alternate */
-  font-size: var(--mdc-typography-body1-font-size, 1rem);
-  line-height: 1.5rem;
-  /* @alternate */
-  line-height: var(--mdc-typography-body1-line-height, 1.5rem);
-  font-weight: 400;
-  /* @alternate */
-  font-weight: var(--mdc-typography-body1-font-weight, 400);
-  letter-spacing: 0.03125em;
-  /* @alternate */
-  letter-spacing: var(--mdc-typography-body1-letter-spacing, 0.03125em);
-  text-decoration: inherit;
-  /* @alternate */
-  -webkit-text-decoration: var(--mdc-typography-body1-text-decoration, inherit);
-          text-decoration: var(--mdc-typography-body1-text-decoration, inherit);
-  text-transform: inherit;
-  /* @alternate */
-  text-transform: var(--mdc-typography-body1-text-transform, inherit);
-  color: var(--mdc-theme-on-surface);
-  margin: 0.5rem 0;
-  line-height: 1.8;
   -webkit-tap-highlight-color: transparent;
   text-decoration: underline;
   text-underline-offset: 0.25rem;
@@ -7653,33 +7625,6 @@ ol {
 }
 
 blockquote {
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  font-family: PingFang SC, Noto Sans, Noto Sans SC, sans-serif, Apple Color Emoji, Noto Color Emoji;
-  /* @alternate */
-  font-family: var(--mdc-typography-body1-font-family, var(--mdc-typography-font-family, PingFang SC, Noto Sans, Noto Sans SC, sans-serif, Apple Color Emoji, Noto Color Emoji));
-  font-size: 1rem;
-  /* @alternate */
-  font-size: var(--mdc-typography-body1-font-size, 1rem);
-  line-height: 1.5rem;
-  /* @alternate */
-  line-height: var(--mdc-typography-body1-line-height, 1.5rem);
-  font-weight: 400;
-  /* @alternate */
-  font-weight: var(--mdc-typography-body1-font-weight, 400);
-  letter-spacing: 0.03125em;
-  /* @alternate */
-  letter-spacing: var(--mdc-typography-body1-letter-spacing, 0.03125em);
-  text-decoration: inherit;
-  /* @alternate */
-  -webkit-text-decoration: var(--mdc-typography-body1-text-decoration, inherit);
-          text-decoration: var(--mdc-typography-body1-text-decoration, inherit);
-  text-transform: inherit;
-  /* @alternate */
-  text-transform: var(--mdc-typography-body1-text-transform, inherit);
-  color: var(--mdc-theme-on-surface);
-  margin: 0.5rem 0;
-  line-height: 1.8;
   margin: 0.65rem 0;
   padding: 0 0 0 1rem;
   border-left: 0.3rem solid #ee6e73;
@@ -11601,11 +11546,11 @@ video {
 }
 
 .tag-list-item.mdc-deprecated-list-item {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   height: -moz-fit-content;
   height: fit-content;
   display: flex;
-  padding-left: 1rem;
-  padding-right: 1rem;
 }
 
 .my-list-item__primary-text {
@@ -11652,39 +11597,37 @@ video {
 }
 
 .tag-essay-item-post-type {
+  font-size: 0.8rem;
+  padding: 0.04rem 0.4rem;
+  border-radius: 0.5rem;
+  margin-left: 0.2rem;
   color: var(--list-chip-1-ink);
   background: var(--list-chip-1-bg);
-  padding-left: 0.4rem;
-  padding-right: 0.4rem;
-  padding-top: 0.04rem;
-  padding-bottom: 0.04rem;
-  border-radius: 0.5rem;
   border: 1px solid var(--list-chip-1-border);
-  margin-left: 0.2rem;
 }
 
 .tag-essay-item-post-block1 {
+  font-size: 0.8rem;
+  padding: 0.04rem 0.4rem;
+  border-radius: 0.5rem;
+  margin-left: 0.2rem;
   color: var(--list-chip-3-ink);
   background: var(--list-chip-3-bg);
-  padding-left: 0.4rem;
-  padding-right: 0.4rem;
-  padding-top: 0.04rem;
-  padding-bottom: 0.04rem;
-  border-radius: 0.5rem;
   border: 1px solid var(--list-chip-3-border);
-  margin-left: 0.2rem;
 }
 
 .tag-essay-item-post-block2 {
+  font-size: 0.8rem;
+  padding: 0.04rem 0.4rem;
+  border-radius: 0.5rem;
+  margin-left: 0.2rem;
   color: var(--list-chip-2-ink);
   background: var(--list-chip-2-bg);
-  padding-left: 0.4rem;
-  padding-right: 0.4rem;
-  padding-top: 0.04rem;
-  padding-bottom: 0.04rem;
-  border-radius: 0.5rem;
   border: 1px solid var(--list-chip-2-border);
-  margin-left: 0.2rem;
+}
+
+.handwriting .tag-essay-item-post-type, .handwriting .tag-essay-item-post-block1, .handwriting .tag-essay-item-post-block2 {
+  padding: 0.1rem 0.4rem;
 }
 
 .mdc-linear-progress .mdc-linear-progress__buffer-dots {
