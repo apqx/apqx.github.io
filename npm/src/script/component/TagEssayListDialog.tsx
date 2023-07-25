@@ -83,7 +83,7 @@ export class TagEssayDialogContent extends React.Component<DialogContentProps, D
     render() {
         console_debug("TagEssayListDialogContent render")
         return (
-            <div>
+            <>
                 <p className="mdc-theme--on-surface">标记TAG
                     <code id="tag-dialog-tag-name"
                           className="language-plaintext highlighter-rouge">{this.props.tag}</code>
@@ -103,7 +103,7 @@ export class TagEssayDialogContent extends React.Component<DialogContentProps, D
                     )}
 
                 </ul>
-            </div>
+            </>
         )
     }
 }

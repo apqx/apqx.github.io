@@ -10,8 +10,11 @@
 @use "@material/card/mdc-card";
 @use "sass:map";
 
+// 页面主体内容，距离main-container上下边界0.74rem
+// 小屏时，下边界0.6rem
+
 .index-card {
-  padding: 1.3rem 2.5rem;
+  padding: 1.3rem 2.3rem;
   @include elevation.elevation(map.get(blogTheme.$index-card-elevation, "elevation"), map.get(blogTheme.$index-card-elevation, "shadow-light"), 0);
   // 添加Ripple动画
   overflow: hidden;
@@ -45,7 +48,7 @@
   border-radius: var(--mdc-shape-medium);
   background: rgba(46, 160, 67, 0.1);
   padding: 0.6rem 1rem;
-  margin: 0.75rem 1rem 0 1rem;
+  margin: 0.74rem 1rem;
 }
 
 
@@ -92,7 +95,7 @@
 
 .index-li {
   list-style-type: none;
-  margin: 0.75rem 1rem;
+  margin: 0.74rem 1rem;
   padding: 0;
 }
 
@@ -124,19 +127,19 @@
   @include ripple.states-opacities((hover: .0, focus: .1, press: .08));
 }
 
-// 索引卡片，左右离container边界1rem空白，上下item间0.8rem空白，卡片组距顶部0.75rem空白，表格十字线宽度0.8rem
-// 小屏时，左右离浏览器container边界0.5rem空白
+// 索引卡片，左右离container边界1rem空白，上下item间0.74rem空白，卡片组距顶部item 0.74rem空白，表格十字线宽度0.74rem
+// 小屏时，左右离浏览器container边界0.5rem空白，上下item间0.7rem空白
 
 .grid-index-ul {
   padding: 0;
   padding-inline-start: 0;
-  margin: 0.35rem 0.6rem;
+  margin: -0.37rem 0.6rem 0.37rem 0.6rem;
 }
 
 .grid-index-li {
   list-style-type: none;
   box-sizing: border-box;
-  padding: 0.4rem 0.4rem;
+  padding: 0.37rem 0.4rem;
   margin: 0;
 }
 
@@ -187,10 +190,6 @@
 
 // 手机小屏
 @media all and (max-width: blogTheme.$screen-middle-min-width) {
-  .index-description {
-    margin: 0.75rem 1rem 0 1rem;
-  }
-
   .index-author {
     font-size: 0.75rem;
     //font-weight: lighter;
@@ -204,7 +203,7 @@
   }
 
   .index-li {
-    margin: 0.75rem 0.5rem;
+    margin: 0.6rem 0.5rem;
   }
 
   .index-card {
@@ -214,11 +213,11 @@
   // new grid index
 
   .grid-index-ul {
-    margin: 0.35rem 0;
+    margin: -0.35rem 0.1rem 0.25rem 0.1rem;
   }
 
   .grid-index-li {
-    padding: 0.4rem 0.5rem;
+    padding: 0.35rem 0.4rem;
   }
 
   .grid-sizer,
@@ -233,6 +232,10 @@
 
 // 平板中屏
 @media all and (min-width: (blogTheme.$screen-middle-min-width + 1px)) and (max-width: (blogTheme.$screen-middle-max-width - 1px)) {
+  .index-card {
+    padding: 1.2rem 2rem;
+  }
+  
   .index-author {
     font-size: 0.8rem;
   }

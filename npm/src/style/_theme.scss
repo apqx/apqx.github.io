@@ -56,6 +56,11 @@ $essay-card-elevation: (
         min-screen-shadow-dark: #0a0a0a,
 );
 
+$chip-ripple: (
+  light: #a25462,
+  dark: rgb(218, 94, 115)
+);
+
 @mixin light {
   --mdc-theme-primary: #{$top-bar-color};
   --mdc-theme-on-primary: #f5f5f5;

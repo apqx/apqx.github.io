@@ -32,29 +32,20 @@ body {
   //scroll-behavior: smooth;
 }
 
-// 设置.page-wrap的最小高度为页面高度，为下面预留80px的高度空间
+// 设置.page-wrap的最小高度为页面高度，为下面预留80px的高度空间给footer
 .page-wrap {
   min-height: 100%;
   /* equal to footer height */
-  margin-bottom: -80px;
+  margin-bottom: -5rem;
 }
 
-// 在.page-wrap后面/下面添加一个块元素空间，即.site-footer
-.page-wrap:after {
+// 在.page-wrap的内容最后再添加一个空的子元素，高度为footer的高度
+// 如果其内容已经占满屏幕高度，那这个多余的子元素空间正好提供给footer
+// 如果其内容没有占满屏幕高度，则这个多余的子元素不会挤占footer的空间
+.page-wrap::after {
   content: "";
   display: block;
-}
-
-// 设置该块元素空间，即.site-footer的高度
-.site-footer,
-.page-wrap:after {
-  height: 80px;
-}
-
-.foot-header {
-  // 这里应该是20px，指定为22px可以把copyright向下多挤2px，使其紧贴底部，不留白
-  height: 22px;
-  background-color: rgba(51, 51, 51, 0.08);
+  height: 5rem;
 }
 
 footer {
@@ -66,6 +57,12 @@ footer a {
   color: blogTheme.$footer-link-color;
   text-decoration: none;
 }
+
+.foot-header {
+  height: 1.5rem;
+  background-color: rgba(51, 51, 51, 0.08);
+}
+
 
 .copyright {
   padding: 1rem;
