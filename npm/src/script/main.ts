@@ -17,7 +17,7 @@ import {
 import {initTagTriggers} from "./tag"
 import {initImg} from "./img"
 import {LocalRepository} from "./repository/LocalRepository"
-import * as Masonry from "masonry-layout";
+import Masonry from "masonry-layout";
 
 export var localRepository: LocalRepository = new LocalRepository()
 export var masonry: Masonry = null;

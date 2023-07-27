@@ -1,0 +1,41 @@
+---
+layout: index
+categories: poetry index
+title: 立泉の诗文
+description: 昆虫，野生散养攻城狮，“十分”“业余”摄影FANS
+cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg
+sitemap: false
+noindex: true
+---
+
+<div class="index-description green">
+  <p>旧时王谢堂前燕，飞入寻常百姓家。</p>
+</div>
+<ul class="grid grid-index-ul">
+  <div class="grid-sizer"></div>
+  {% for post in site.posts %}
+  {%- if post.categories contains "poetry" and post.show != false %}
+  <li class="grid-item grid-index-li">
+      <a class="index-a" href="{{ post.url | prepend: site.baseurl }}">
+          <div class="mdc-card grid-index-card">
+              {%- if post.index-cover != null %}
+              <img class="index-lazy-img" loading="lazy" src="{{ post.index-cover }}" />
+              {% elsif post.cover != null %}
+              <img class="index-lazy-img" loading="lazy" src="{{ post.cover }}" />
+              {% else %}
+              <div style="height: 0.5rem;"></div>
+              {%- endif %}
+              <div class="grid-index-text-container">
+                  <p class="grid-index-title">{{ post.title }}</p>
+                  <div>
+                      <span class="grid-index-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
+                      <span class="grid-index-author">{% if post.moredate != null %}{{ post.moredate }} {% endif %}{{ post.author }}</span>
+                  </div>
+                  <p class="grid-index-description">{{ post.description }}</p>
+              </div>
+          </div>
+      </a>
+  </li>
+  {% endif -%}
+  {% endfor %}
+</ul>
