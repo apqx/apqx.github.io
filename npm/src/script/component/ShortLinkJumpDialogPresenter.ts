@@ -25,7 +25,7 @@ export class ShortLinkJumpDialogPresenter {
      * 从url映射文件中查询pid
      */
     findPage(pid: string) {
-        const url = window.location.origin + "/assets/url-map.json"
+        const url = window.location.origin + "/archives/url-map.txt"
         const request = new Request(url, {
             method: "GET"
         })

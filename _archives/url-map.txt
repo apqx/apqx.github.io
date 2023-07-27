@@ -1,96 +1,99 @@
+---
+sitemap: false
+---
 {
     "map": [
         {
             "id": "op00",
             "target": {
-                "path": "/post/opera/2021/08/08/昆曲-红梨记-亭会-折子.html",
+                "path": "{% link _posts/opera/2021-08-08-昆曲「红梨记·亭会」折子.md %}",
                 "title": "昆曲「红梨记·亭会」折子"
             }
         },
         {
             "id": "op01",
             "target": {
-                "path": "/post/opera/2022/02/20/昆曲-铁冠图-刺虎-折子.html",
+                "path": "{% link _posts/opera/2022-02-20-昆曲「铁冠图·刺虎」折子.md %}",
                 "title": "昆曲「铁冠图·刺虎」折子"
             }
         },
         {
             "id": "op02",
             "target": {
-                "path": "/post/opera/2021/07/18/昆曲-牡丹亭-寻梦-折子.html",
+                "path": "{% link _posts/opera/2021-07-18-昆曲「牡丹亭·寻梦」折子.md %}",
                 "title": "昆曲「牡丹亭·寻梦」折子"
             }
         },
         {
             "id": "op03",
             "target": {
-                "path": "/post/opera/2021/10/23/昆曲-西厢记-佳期-折子.html",
+                "path": "{% link _posts/opera/2021-10-23-昆曲「西厢记·佳期」折子.md %}",
                 "title": "昆曲「西厢记·佳期」折子"
             }
         },
         {
             "id": "op04",
             "target": {
-                "path": "/post/opera/2021/07/18/昆曲-鸳鸯笺-扈家庄-折子.html",
+                "path": "{% link _posts/opera/2021-07-18-昆曲「鸳鸯笺·扈家庄」折子.md %}",
                 "title": "昆曲「鸳鸯笺·扈家庄」折子"
             }
         },
         {
             "id": "op05",
             "target": {
-                "path": "/post/opera/2022/07/23/昆曲-孽海记-思凡-折子.html",
+                "path": "{% link _posts/opera/2022-07-23-昆曲「孽海记·思凡」折子.md %}",
                 "title": "昆曲「孽海记·思凡」折子"
             }
         },{
             "id": "op06",
             "target": {
-                "path": "/post/opera/2022/07/08/昆曲-青冢记-昭君出塞-折子.html",
+                "path": "{% link _posts/opera/2022-07-08-昆曲「青冢记·昭君出塞」折子.md %}",
                 "title": "昆曲「青冢记·昭君出塞」折子"
             }
         },{
             "id": "op07",
             "target": {
-                "path": "/post/opera/2022/08/21/昆曲-西厢记-跳墙着棋-折子.html",
+                "path": "{% link _posts/opera/2022-08-21-昆曲「西厢记·跳墙着棋」折子.md %}",
                 "title": "昆曲「西厢记·跳墙着棋」折子"
             }
         },{
             "id": "op08",
             "target": {
-                "path": "/post/opera/2022/09/25/昆曲-西厢记-四折.html",
+                "path": "{% link _posts/opera/2022-09-25-昆曲「西厢记」四折.md %}",
                 "title": "昆曲「西厢记」四折"
             }
         },{
             "id": "op09",
             "target": {
-                "path": "/post/opera/2022/02/15/昆曲-雷峰塔-水斗-折子与幕后.html",
+                "path": "{% link _posts/opera/2022-02-15-昆曲「雷峰塔·水斗」折子与幕后.md %}",
                 "title": "昆曲「雷峰塔·水斗」折子与幕后"
             }
         },
         {
             "id": "op10",
             "target": {
-                "path": "/post/opera/2022/01/08/昆曲-牡丹亭-游园-寻梦-讲赏.html",
+                "path": "{% link _posts/opera/2022-01-08-昆曲「牡丹亭·游园、寻梦」讲赏.md %}",
                 "title": "昆曲「牡丹亭·游园、寻梦」讲赏"
             }
         },
         {
             "id": "og00",
             "target": {
-                "path": "/post/original/2021/06/10/旅行志03-兰苑狮吼.html",
+                "path": "{% link _posts/original/2021-06-10-旅行志03：兰苑狮吼.md %}",
                 "title": "旅行志03：兰苑狮吼"
             }
         },
         {
             "id": "og01",
             "target": {
-                "path": "/post/original/2021/02/25/央视-戏剧-4K-HEVC-惊喜连连.html",
+                "path": "{% link _posts/original/2021-02-25-央视、戏剧、4K、HEVC，惊喜连连.md %}",
                 "title": "央视、戏剧、4K、HEVC，惊喜连连"
             }
         },
         {
             "id": "rp00",
             "target": {
-                "path": "/post/repost/2012/07/12/张继青亲授单雯再现经典-牡丹亭.html",
+                "path": "{% link _posts/repost/2012-07-12-张继青亲授单雯再现经典《牡丹亭》.md %}",
                 "title": "张继青亲授单雯再现经典《牡丹亭》"
             }
         },

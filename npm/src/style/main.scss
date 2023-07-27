@@ -14,6 +14,7 @@
 @use "@material/typography";
 @use "@material/elevation";
 @use "@material/elevation/mdc-elevation";
+@use "@material/animation";
 
 // 通过js给body添加dark class，可以实现对mac-theme的参数更改
 // 大部分组件都会正确相应颜色变化，但是list和chip却无效
@@ -87,10 +88,10 @@ footer a {
   padding: 0;
 }
 
-main.main-container {
-  // 淡入动画
-  // animation: animation.enter(/* $name: */ fade-in, /* $duration: */ 600ms);
-}
+// .mdc-dialog__content {
+//   // 淡入动画
+//   animation: animation.enter($name: fade-in, $duration: 600ms);
+// }
 
 @keyframes fade-in {
   from {
@@ -124,7 +125,7 @@ main.main-container {
 }
 
 // 平板中屏
-@media all and (min-width: blogTheme.$screen-middle-min-width + 1px) and (max-width: blogTheme.$screen-middle-max-width - 1px) {
+@media all and (min-width: (blogTheme.$screen-middle-min-width + 1px)) and (max-width: (blogTheme.$screen-middle-max-width - 1px)) {
   // 默认参数
 }
 
