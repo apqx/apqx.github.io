@@ -12,7 +12,7 @@
 {%- else %}
 <meta property="og:image" content="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg" />
 {%- endif %}
-{%- if page.noindex == true %}
+{%- if page.blockFromSearchEngine == true %}
 <!-- Let search engine not index this page -->
 <meta name="robots" content="noindex">
 {%- endif %}
@@ -29,14 +29,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"> 
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Ma+Shan+Zheng&family=Noto+Color+Emoji&display=swap" rel="stylesheet">
-
 {%- comment %}
 <!-- css和js文件由内部的npm工程输出 -->
 <!-- only for test -->
 <link rel="stylesheet" href="{{ "/npm/dist/apqx-v2.1.6.css" }}" />
 <script type="text/javascript" src="{{ "/npm/dist/apqx-v2.1.6.js" }}"></script>
-{%- endcomment %}
 
+{%- endcomment %}
 <!-- for publish -->
 <link rel="stylesheet" href="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/apqx-v2.1.6.css" />
 <script type="text/javascript" src="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/apqx-v2.1.6.js"></script>

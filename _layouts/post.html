@@ -13,7 +13,7 @@
     <main class="mdc-top-app-bar--fixed-adjust main-container">
       <div class="mdc-card essay-card">
         <h1 class="essay-title">{{ page.title }}</h1>
-        <span class="essay-author">{% if page.moredate != null %}{{ page.moredate }} {% endif %}{{ page.author }}</span>
+        <span class="essay-author">{% if page.moreDate != null %}{{ page.moreDate }} {% endif %}{{ page.author }}</span>
         <span class="essay-date">{{ page.date | date: "%Y年%m月%d日" }}</span>
 
         <!-- tags -->

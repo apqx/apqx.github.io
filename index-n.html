@@ -5,7 +5,7 @@ title: 立泉の写字板
 description: 昆虫，野生散养攻城狮，“十分”“业余”摄影FANS
 cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg
 sitemap: false
-noindex: true
+blockFromSearchEngine: true
 ---
 
 <div class="index-description green">
@@ -14,7 +14,7 @@ noindex: true
 <ul class="grid grid-index-ul">
     <div class="grid-sizer"></div>
     {% for post in site.posts %}
-    {%- if post.categories contains "original" and post.show != false %}
+    {%- if post.categories contains "original" and post.hideFromIndex != true %}
     <li class="grid-item grid-index-li">
         <a class="index-a" href="{{ post.url | prepend: site.baseurl }}">
             <div class="mdc-card grid-index-card">

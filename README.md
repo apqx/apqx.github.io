@@ -1,10 +1,10 @@
 # 立泉の写字板
 
-基于`Jekyll`的开源[个人博客](https://mudan.me)示例，遵循[Material Design](https://material.io)设计规范，使用`Google`的[Material components web](https://github.com/material-components/material-components-web)组件库。
+这是一个基于`Jekyll`的开源[博客](https://mudan.me)示例，遵循[Material Design](https://material.io)设计规范，使用`Google`的[Material components web](https://github.com/material-components/material-components-web)组件库。
 
-极简风格，文字、色彩、动画之外不添加多余元素，这也是我自己的博客。
+淡雅极简风，文字、色彩、动画之外不添加多余元素，这也是我自己的博客。
 
-由`Jekyll`把`Markdown`格式文章转换为`HTML`网页，生成一个静态站点，可以托管在[GitHub Pages](https://pages.github.com)或更灵活的个人服务器上。
+博文使用`Markdown`格式撰写，由`Jekyll`将其按照指定的方式转换为`HTML`网页，生成一个静态站点，可以托管在[GitHub Pages](https://pages.github.com)或更灵活的云服务器上。
 
 # 本地调试
 
@@ -19,11 +19,13 @@ npm install
 npm run build
 ```
 
-在`_includes/head-common.html`中定义着网站使用的`js`和`css`，它们是由内部的`npm`工程生成的，为提高访问速度而被托管到阿里云`OSS`上。
+在`_includes/head-common.html`中定义着网站使用的`js`和`css`，它们由内部的`npm`工程生成，为提高访问速度而被托管到阿里云`OSS`上。
 
 本地调试时，需要修改这些资源为本地文件以实时响应`npm`工程的变化：
 
 ```html
+<!-- _includes/head-common.html -->
+
 <!-- css和js文件由内部的npm工程输出 -->
 <!-- only for test -->
 <link rel="stylesheet" href="/npm/dist/apqx.v[version].css" />
@@ -48,26 +50,30 @@ npm run build
 {% endcomment %}
 ```
 
-安装[Jekyll](https://jekyllrb.com/docs/installation/macos/)，启动服务：
+安装[Jekyll](https://jekyllrb.com/docs/installation/macos/)后，启动本地服务：
 
 ```sh
-# jekyll安装后，继续安装定义在_config.yml中的jekyll插件
+# 安装jekyll，macOS使用home-brew
+brew install jekyll
+# 安装定义在_config.yml中的jekyll插件
 bundle install
-# 启动jekyll服务，在http://localhost:4000即可访问生成的博客网站
+# 启动jekyll服务，同时自动调用浏览器打开http://localhost:4000
 bundle exec jekyll serve -l -o
 ```
 
-`Jekyll`会在`_site/`目录下生成一个由静态`HTML`页面构成的网站源码，在本地`4000`端口可以访问。
+`Jekyll`会在`_site/`目录下生成一个由静态`HTML`页面构成的网站源码，浏览器访问本地`4000`端口就可以看到这个博客网站了。
 
 `http://localhost:4000`
 
 # 部署到GitHub Pages
 
-对于部署到[GitHub Pages](https://pages.github.com)的情况，因为中国大陆的访问速度受限，一般会把`HTML`网页之外的资源文件托管到大陆的云服务平台上以提高国内的访问速度，比如阿里云`OSS`就非常合适。
+对于部署到[GitHub Pages](https://pages.github.com)的情况，因为中国大陆的访问速度受限，一般会把`HTML`网页之外的资源文件托管到大陆的云服务平台上以提高国内的访问速度，比如阿里云的`OSS`对象存储服务。
 
 本地调试完成后，如果`npm`工程生成了新的`js`和`css`文件，需要更新阿里云`OSS`托管的旧文件，修改`_includes/head-common.html`以使用这些云端托管的资源文件。
 
 ```html
+<!-- _includes/head-common.html -->
+
 <!-- css和js文件由内部的npm工程输出 -->
 <!-- 这里用Jekyll的Liquid模版语言隐藏掉这段指向本地资源的代码 -->
 {% comment %}

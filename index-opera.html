@@ -45,7 +45,7 @@ sitemap: false
 <ul class="grid grid-index-ul">
     <div class="grid-sizer"></div>
     {% for post in site.posts %}
-    {%- if post.categories contains "opera" and post.show != false %}
+    {%- if post.categories contains "opera" and post.hideFromIndex != true %}
     <li class="grid-item grid-index-li">
         <a class="index-a" href="{{ post.url | prepend: site.baseurl }}">
             <div class="mdc-card grid-index-card">
