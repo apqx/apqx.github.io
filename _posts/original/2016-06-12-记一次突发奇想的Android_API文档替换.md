@@ -10,7 +10,7 @@ cover:
 tags: CS Android Java 文档 GFW
 ---
 
-在学习`Android`的过程中，自然要使用`Android`系统提供的应用开发`API`来选择需要的接口以调用相应的功能，实际上在`Android SDK`的本地文件夹中就有一份`HTML`版本的`API`文档，可以使用浏览器离线查看，但是当我用浏览器打开这些文档的时候，却发现在联网状态下加载速度极慢，而如果断开网络加载速度就正常了。考虑到墙的存在，猜测应该是`HTML`文档中存在需要联网下载的`StyleSheet`或`Javascript`，而要连接的域名十有八九就是`Google`。
+在学习`Android`的过程中，要参阅系统提供的应用开发接口`API`来实现相应的功能，实际上在`Android SDK`本地文件夹中就有一份`HTML`版本的`API`文档，可以使用浏览器离线查看。但是当我用浏览器打开这些文档的时候却发现在联网状态下加载速度极慢，而如果断开网络加载速度就正常了。考虑到墙的存在，猜测应该是`HTML`中存在需要联网下载的`StyleSheet`或`Javascript`，而要连接的域名十有八九就是`Google`。
 
 排查了一会，加载缓慢的元凶就是下面这段代码：
 
@@ -29,9 +29,9 @@ tags: CS Android Java 文档 GFW
 </script>
 ```
 
-“正常”情况下无法访问的远程资源，浏览器等待服务器响应直至超时，造成了加载缓慢的现象，所以，删除这部分代码即可使浏览器正常加载，且不会对文档内容造成影响，仅仅是缺少某些不重要交互效果。
+“正常”情况下无法访问的远程资源，使浏览器等待服务器响应直至超时，造成了加载缓慢的现象，所以删除这部分代码即可，并不会对文档内容造成影响，仅仅是缺少了某些不重要的交互效果。
 
-我写了下面的一个小程序来扫描这几千个`HTML`文档，一旦发现含有以上代码即删除，然后重新输出回原文件，单线程处理是一个很费时的操作，所幸我并不赶时间。
+我写了一个小程序来扫描这几千个`HTML`文档，一旦发现含有以上代码随即删除，然后重新输出回原文件。单线程处理是一个很费时的操作，所幸我并不赶时间。
 
 ```java
 package me.apqx.util;
@@ -92,12 +92,12 @@ public class ChangeFile {
             }
             string = stringBuilder.toString();
             Matcher matcher = Pattern.compile("(<script .*http.*></script>)|((?s)<script>\n.*tracker\\.\n</script>)").matcher(string);
-            while (matcher.find()) {
+            if (matcher.find()) {
                 string = matcher.replaceAll("");
             }
             bufferedWriter = new BufferedWriter(new FileWriter(file));
             bufferedWriter.write(string);
-            System.out.println("已处理\n"+file.getAbsolutePath());
+            System.out.println("已处理：" + file.getAbsolutePath());
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

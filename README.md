@@ -11,9 +11,9 @@
 切换到内部的`npm`工程目录，构建生成所需的`js`、`css`文件：
 
 ```sh
-# 切换到内置的npm工程目录
+# 进入内部npm工程
 cd npm
-# 安装所需module依赖
+# 安装所需依赖
 npm install
 # 构建，在/npm/dist/目录下生成js和css
 npm run build
@@ -67,9 +67,9 @@ bundle exec jekyll serve -l -o
 
 # 部署到GitHub Pages
 
-对于部署到[GitHub Pages](https://pages.github.com)的情况，因为中国大陆的访问速度受限，一般会把`HTML`网页之外的资源文件托管到大陆的云服务平台上以提高国内的访问速度，比如阿里云的`OSS`对象存储服务。
+对于部署到[GitHub Pages](https://pages.github.com)的情况，因为中国大陆的访问速度受限，一般会把`HTML`网页之外的资源托管到大陆的云平台上以提高国内访问速度，比如阿里云的`OSS`对象存储服务。
 
-本地调试完成后，如果`npm`工程生成了新的`js`和`css`文件，需要更新阿里云`OSS`托管的旧文件，修改`_includes/head-common.html`以使用这些云端托管的资源文件。
+本地调试完成后，如果`npm`工程生成了新的`js`和`css`文件，需要更新阿里云`OSS`托管的旧文件，修改`_includes/head-common.html`以使用这些云端托管的资源。
 
 ```html
 <!-- _includes/head-common.html -->
@@ -107,4 +107,4 @@ git commit
 git push origin
 ```
 
-等待数秒或数分钟，取决于`GitHub Pages`等待执行的任务量，完成后`GitHub Pages`上的网页就会更新。
+等待数秒或数分钟，取决于`Pages`等待执行的任务量，完成后`Pages`上的网页就会更新。
