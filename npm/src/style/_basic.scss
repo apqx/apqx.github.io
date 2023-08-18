@@ -25,6 +25,7 @@
 @use "@material/textfield/mdc-text-field";
 @use "@material/chips";
 @use "@material/chips/styles" as chipStyles;
+@use "@material/ripple";
 
 @mixin basicText {
   // 使用mdc的字体样式
@@ -194,8 +195,30 @@ blockquote.handwriting.pre p {
   @include list.deprecated-divider-color(var(--divider-color));
 }
 
-.mdc-deprecated-list-item:hover {
-  background-color: var(--list-hover)
+// .mdc-deprecated-list-item:hover {
+//   background-color: var(--list-hover)
+// }
+
+// list的ripple和active item的背景色由__ripple定义
+// 消除list默认的ripple，似乎没有除净
+.mdc-deprecated-list-item__ripple {
+  @include ripple.surface;
+  @include ripple.radius-bounded(100%);
+  @include ripple.states-base-color(transparent);
+  @include ripple.states-opacities((hover: .0, focus: .0, press: .0));
+}
+
+// 与__ripple叠加
+.mdc-deprecated-list-item {
+  @include ripple.surface;
+  @include ripple.radius-bounded(100%);
+  @include ripple.states-base-color(black);
+  @include ripple.states-opacities((hover: .02, focus: .02, press: .0));
+}
+
+.dark .mdc-deprecated-list-item {
+  @include ripple.states-base-color(white);
+  @include ripple.states-opacities((hover: .05, focus: .05, press: .08));
 }
 
 .mdc-data-table {
