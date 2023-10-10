@@ -1,5 +1,13 @@
 <title>{{ page.title }}</title>
 <meta charset="UTF-8" />
+{%- if page.author != null %}
+<meta name="author" content="{{ page.author }}"/>
+{%- endif %}
+{%- if page.web-seo-description != null %}
+<meta name="description" content="{{ page.web-seo-description }}"/>
+{%- elsif page.description != null %}
+<meta name="description" content="{{ page.description }}"/>
+{%- endif %}
 <!-- Open Graph protocol, define rich object for share -->
 <meta property="og:url" content="{{ page.url | prepend: site.url }}" />
 <meta property="og:type" content="article" />
