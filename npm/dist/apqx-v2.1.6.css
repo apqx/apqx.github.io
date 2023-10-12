@@ -11146,6 +11146,7 @@ svg.mdc-button__icon {
   text-transform: var(--mdc-typography-subtitle1-text-transform, inherit);
   font-size: 1.5rem;
   margin: 0.5rem 0 0.1rem 0;
+  text-align: left;
 }
 
 .grid-index-date {
