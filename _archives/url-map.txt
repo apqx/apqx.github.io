@@ -77,6 +77,13 @@ sitemap: false
             }
         },
         {
+            "id": "op11",
+            "target": {
+                "path": "{% link _posts/opera/2021-07-18-昆曲「铁冠图·刺虎」折子.md %}",
+                "title": "昆曲「铁冠图·刺虎」折子"
+            }
+        },
+        {
             "id": "og00",
             "target": {
                 "path": "{% link _posts/original/2021-06-10-旅行志03：兰苑狮吼.md %}",
