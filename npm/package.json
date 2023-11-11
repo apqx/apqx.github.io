@@ -3,6 +3,7 @@
   "version": "2.1.6",
   "scripts": {
     "build": "webpack --mode=development",
+    "watch": "webpack watch --mode=development",
     "release": "webpack --mode=production --node-env=production"
   },
   "dependencies": {
