@@ -1,9 +1,9 @@
 ---
 layout: post
 categories: original
-title: "Ubuntu配置apt镜像源"
+title: "为Ubuntu的apt配置大陆镜像源"
 author: 立泉
-mention: 阿里云 镜像源
+mention: Linux 包管理器 阿里云
 date: 2019-10-12 +0800
 description: 基于Debian的Linux发行版中可以使用apt(Advanced Packaging Tool)高级包管理器来安装软件，其默认的源在中国大陆的访问速度非常慢，所以有必要修改到最近的镜像源，阿里云提供的镜像是一个不错的选择。
 cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20191012/ubuntu_settings_apt_thumb.webp
