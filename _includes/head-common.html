@@ -1,12 +1,14 @@
+{% assign debug = false %}
 <title>{{ page.title }}</title>
 <meta charset="UTF-8" />
+<meta name="debug" content="{{ debug }}" />
 {%- if page.author != null %}
-<meta name="author" content="{{ page.author }}"/>
+<meta name="author" content="{{ page.author }}" />
 {%- endif %}
 {%- if page.web-seo-description != null %}
-<meta name="description" content="{{ page.web-seo-description }}"/>
+<meta name="description" content="{{ page.web-seo-description }}" />
 {%- elsif page.description != null %}
-<meta name="description" content="{{ page.description }}"/>
+<meta name="description" content="{{ page.description }}" />
 {%- endif %}
 <!-- Open Graph protocol, define rich object for share -->
 <meta property="og:url" content="{{ page.url | prepend: site.url }}" />
@@ -30,16 +32,16 @@
 
 <link rel="shortcut icon" href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/snail.png" />
 <link rel="apple-touch-icon" href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/snail_white_bg.png" />
-<!--Material Icons-->
+<!-- Material Icons -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" />
-<!--Google Fonts-->
-<link rel="preconnect" href="https://fonts.googleapis.com"> 
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Ma+Shan+Zheng&family=Noto+Color+Emoji&display=swap" rel="stylesheet">
-
-<!-- css和js文件由内部的npm工程输出 -->
-{% assign debug = false %}
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+  href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Ma+Shan+Zheng&family=Noto+Color+Emoji&display=swap"
+  rel="stylesheet">
+{% comment %} js和css资源由内部npm工程输出，debug模式下使用localhost版本，release模式下使用托管在阿里云上的版本 {% endcomment %}
 {% if debug == true %}
 {% include head-debug.html %}
 {% else %}
