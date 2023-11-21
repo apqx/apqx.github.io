@@ -21,39 +21,56 @@ $top-bar-color-darken: #df696e;
 $footer-ink-color: white;
 $footer-link-color: #ffe0b2;
 $background: (
-        light: #f7f7f7,
-        dark: #151515,
-        min-screen-dark: #151515
+  light: #f7f7f7,
+  dark: #151515,
+  min-screen-dark: #151515
 );
 $surface: (
-        light: white,
-        dark: #1a1a1a,
-        min-screen-dark: #1a1a1a
+  light: white,
+  dark: #1a1a1a,
+  min-screen-dark: #1a1a1a
 );
 
-$top-bar-elevation: (elevation: 4, shadow-light: $top-bar-color-darken, shadow-dark: #202020);
-$drawer-elevation: (elevation: 3, shadow-light: #2a2a2a, shadow-dark: black);
-$fab-elevation: (elevation: 3, shadow-light: #202020, shadow-dark: #202020);
+$on-surface: (
+  light: #323232,
+  dark: #e6e6e6
+);
+
+$top-bar-elevation: (
+  elevation: 4,
+  shadow-light: $top-bar-color-darken,
+  shadow-dark: #202020
+);
+$drawer-elevation: (
+  elevation: 3,
+  shadow-light: #2a2a2a,
+  shadow-dark: black
+);
+$fab-elevation: (
+  elevation: 3,
+  shadow-light: #202020,
+  shadow-dark: #202020
+);
 $index-card-elevation: (
-        elevation: 2,
-        shadow-light: #d5d5d5,
-        min-screen-shadow-light: #e3e3e3,
-        shadow-dark: #101010,
-        min-screen-shadow-dark: #0a0a0a,
+  elevation: 2,
+  shadow-light: #d5d5d5,
+  min-screen-shadow-light: #e3e3e3,
+  shadow-dark: #101010,
+  min-screen-shadow-dark: #0a0a0a,
 );
 $grid-index-card-elevation: (
-        elevation: 2,
-        shadow-light: #c8c8c8,
-        min-screen-shadow-light: #e3e3e3,
-        shadow-dark: #0a0a0a,
-        min-screen-shadow-dark: #0a0a0a,
+  elevation: 2,
+  shadow-light: #c8c8c8,
+  min-screen-shadow-light: #e3e3e3,
+  shadow-dark: #0a0a0a,
+  min-screen-shadow-dark: #0a0a0a,
 );
 $essay-card-elevation: (
-        elevation: 2,
-        shadow-light: #c8c8c8,
-        min-screen-shadow-light: #e3e3e3,
-        shadow-dark: black,
-        min-screen-shadow-dark: #0a0a0a,
+  elevation: 2,
+  shadow-light: #c8c8c8,
+  min-screen-shadow-light: #e3e3e3,
+  shadow-dark: black,
+  min-screen-shadow-dark: #0a0a0a,
 );
 
 $chip-ripple: (
@@ -69,7 +86,7 @@ $chip-ripple: (
   --mdc-theme-background: #{map.get($background, "light")};
   --mdc-theme-surface: #{map.get($surface, "light")};
   // 默认字体颜色，段落p
-  --mdc-theme-on-surface: #323232;
+  --mdc-theme-on-surface: #{map.get($on-surface, "light")};
   // 标题字体色
   --mdc-theme-text-primary-on-background: #191919;
   // 小标题字体色
@@ -127,7 +144,7 @@ $chip-ripple: (
   --mdc-theme-on-secondary: #f5f5f5;
   --mdc-theme-background: #{map.get($background, "dark")};
   --mdc-theme-surface: #{map.get($surface, "dark")};
-  --mdc-theme-on-surface: #e6e6e6;
+  --mdc-theme-on-surface: #{map.get($on-surface, "dark")};
   --mdc-theme-text-primary-on-background: #f5f5f5;
   --mdc-theme-text-secondary-on-background: #969696;
 

@@ -53,6 +53,7 @@ export function initTheme() {
         }
         if (btnThemeE != null) {
             btnThemeE.addEventListener("click", () => {
+                // toggleButton会自动toggle图标
                 toggleTheme(true)
             });
         }

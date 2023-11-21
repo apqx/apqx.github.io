@@ -50,9 +50,14 @@ function initGridIndex() {
     for (const ele of document.getElementsByClassName("index-lazy-img")) {
         const imgE = ele as HTMLImageElement
         imgE.onload = (event) => {
-            masonry.layout()
+            masonryLayout()
         }
     }
+}
+
+export function masonryLayout() {
+    if (masonry == null) return
+    masonry.layout()
 }
 
 function initHljs() {

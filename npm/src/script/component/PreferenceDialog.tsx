@@ -27,14 +27,24 @@ export class PreferenceDialogContent extends React.Component<any, DialogContentS
         }
     }
 
-    onClickHandwritingFontSwitch(on: boolean) {
+    onClickHandwritingFontSwitch() {
         console_debug("PreferenceDialogContent onClickHandwritingSwitch")
-        this.presenter.onClickHandwritingFontSwitch(on)
+        const newState = !this.state.handwritingFontOn
+        this.presenter.onClickHandwritingFontSwitch(newState)
+        // 更新state，刷新UI
+        this.setState({
+            handwritingFontOn: newState
+        })
     }
 
-    onClickAutoThemeSwitch(on: boolean) {
+    onClickAutoThemeSwitch() {
         console_debug("PreferenceDialogContent onClickAutoThemeSwitch")
-        this.presenter.onClickAutoThemeSwitch(on)
+        const newState = !this.state.autoThemeOn
+        this.presenter.onClickAutoThemeSwitch(newState)
+        // 更新state，刷新UI
+        this.setState({
+            autoThemeOn: newState
+        })
     }
 
     componentDidMount() {
@@ -82,8 +92,14 @@ export class PreferenceDialogContent extends React.Component<any, DialogContentS
                         <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f636/512.gif" alt="" width="64" height="64" />
                     </picture>
                 </div>
-                <SettingsToggle titleHtml={this.handwritingFontTitle} on={this.state.handwritingFontOn} onClickToggle={this.onClickHandwritingFontSwitch} />
-                <SettingsToggle titleHtml="跟随系统自动切换暗色主题" on={this.state.autoThemeOn} onClickToggle={this.onClickAutoThemeSwitch} />
+                <SettingsToggle titleHtml={this.handwritingFontTitle}
+                    on={this.state.handwritingFontOn}
+                    onClickToggle={this.onClickHandwritingFontSwitch}
+                    floatTop={false} />
+                <SettingsToggle titleHtml="跟随系统自动切换暗色主题"
+                    on={this.state.autoThemeOn}
+                    onClickToggle={this.onClickAutoThemeSwitch}
+                    floatTop={true} />
             </>
         );
     }
