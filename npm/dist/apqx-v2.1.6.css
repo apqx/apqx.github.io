@@ -7545,7 +7545,7 @@ p {
 }
 
 :not(pre) code {
-  line-break: anywhere;
+  line-break: normal;
 }
 
 p.no-justify {
