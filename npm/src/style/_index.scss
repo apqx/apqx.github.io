@@ -12,9 +12,39 @@
 // 页面主体内容，距离main-container上下边界0.74rem
 // 小屏时，下边界0.6rem
 
+@mixin cardElevation {
+  @include elevation.elevation(map.get(blogTheme.$index-card-elevation, "elevation"),
+    map.get(blogTheme.$index-card-elevation, "shadow-light"), 0);
+}
+
+@mixin cardElevationDark {
+  @include elevation.elevation(map.get(blogTheme.$index-card-elevation, "elevation"),
+    map.get(blogTheme.$index-card-elevation, "shadow-dark"), 0);
+}
+
+@mixin cardElevationMiniScreen {
+  @include elevation.elevation(map.get(blogTheme.$index-card-elevation, "elevation"),
+    map.get(blogTheme.$index-card-elevation, "min-screen-shadow-light"), 0);
+}
+
+@mixin cardElevationMiniScreenDark {
+  @include elevation.elevation(map.get(blogTheme.$index-card-elevation, "elevation"),
+    map.get(blogTheme.$index-card-elevation, "min-screen-shadow-dark"), 0);
+}
+
+@mixin gridCardElevation {
+  @include elevation.elevation(map.get(blogTheme.$grid-index-card-elevation, "elevation"),
+    map.get(blogTheme.$grid-index-card-elevation, "shadow-light"), 0);
+}
+
+@mixin gridCardElevationDark {
+  @include elevation.elevation(map.get(blogTheme.$grid-index-card-elevation, "elevation"),
+    map.get(blogTheme.$grid-index-card-elevation, "shadow-dark"), 0);
+}
+
 .index-card {
   padding: 1.3rem 2.3rem;
-  @include elevation.elevation(map.get(blogTheme.$index-card-elevation, "elevation"), map.get(blogTheme.$index-card-elevation, "shadow-light"), 0);
+  @include cardElevation();
   // 添加Ripple动画
   overflow: hidden;
   @include ripple.surface;
@@ -24,8 +54,7 @@
 }
 
 .dark .index-card {
-  @include elevation.elevation(map.get(blogTheme.$index-card-elevation, "elevation"),
-          map.get(blogTheme.$index-card-elevation, "shadow-dark"), 0);
+  @include cardElevationDark();
   @include ripple.states-base-color(white);
   @include ripple.states-opacities((hover: .0, focus: .1, press: .08));
 }
@@ -33,12 +62,11 @@
 // 小屏
 @media all and (max-width: blogTheme.$screen-middle-max-width) {
   .index-card {
-    @include elevation.elevation(map.get(blogTheme.$index-card-elevation, "elevation"),
-            map.get(blogTheme.$index-card-elevation, "min-screen-shadow-light"), 0);
+    @include cardElevationMiniScreen();
   }
+
   .dark .index-card {
-    @include elevation.elevation(map.get(blogTheme.$index-card-elevation, "elevation"),
-            map.get(blogTheme.$index-card-elevation, "min-screen-shadow-dark"), 0);
+    @include cardElevationMiniScreenDark();
   }
 }
 
@@ -48,6 +76,21 @@
   background: rgba(46, 160, 67, 0.1);
   padding: 0.6rem 1rem;
   margin: 0.74rem 1rem;
+}
+
+.index-description-card {
+  @include gridCardElevation();
+  padding: 1rem 2rem;
+  margin: 0.74rem 1rem 0.9rem 1rem;
+  // background-color: var(--index-description-card-bg);
+}
+
+.dark .index-description-card {
+  @include gridCardElevationDark();
+}
+
+.index-description-card__short {
+  padding: 0.6rem 1.8rem;
 }
 
 
@@ -109,8 +152,7 @@
 // new grid index
 
 .grid-index-card {
-  @include elevation.elevation(map.get(blogTheme.$grid-index-card-elevation, "elevation"), 
-  map.get(blogTheme.$grid-index-card-elevation, "shadow-light"), 0);
+  @include gridCardElevation();
   // 添加Ripple动画
   overflow: hidden;
   @include ripple.surface;
@@ -120,8 +162,7 @@
 }
 
 .dark .grid-index-card {
-  @include elevation.elevation(map.get(blogTheme.$grid-index-card-elevation, "elevation"),
-          map.get(blogTheme.$grid-index-card-elevation, "shadow-dark"), 0);
+  @include gridCardElevationDark();
   @include ripple.states-base-color(white);
   @include ripple.states-opacities((hover: .0, focus: .1, press: .08));
 }
@@ -147,7 +188,7 @@
 }
 
 .grid-index-text-container {
-  padding: 0.8rem 2rem 1rem 2rem ;
+  padding: 0.8rem 2rem 1rem 2rem;
 }
 
 .grid-index-li a {
@@ -172,7 +213,7 @@
 
 .grid-index-date {
   @include typography.typography(body1);
-  color: var(--index-subtitle);
+  color: var(--index-item-subtitle);
   font-size: 0.75rem;
   margin: 0;
 }
@@ -185,7 +226,7 @@
 
 .grid-index-description {
   margin: 0;
-  color: var(--index-description);
+  color: var(--index-item-description);
 }
 
 // 手机小屏
@@ -193,13 +234,13 @@
   .index-author {
     font-size: 0.75rem;
     //font-weight: lighter;
-    color: var(--index-subtitle);
+    color: var(--index-item-subtitle);
   }
 
   .index-date {
     font-size: 0.75rem;
     //font-weight: lighter;
-    color: var(--index-subtitle);
+    color: var(--index-item-subtitle);
   }
 
   .index-li {
@@ -220,13 +261,18 @@
     padding: 0.35rem 0.4rem;
   }
 
+  .index-description-card {
+    padding: 0.7rem 1.6rem;
+    margin: 0.74rem 0.5rem 0.8rem 0.5rem;
+  }
+
   .grid-sizer,
   .grid-item {
     width: 100%;
   }
 
   .grid-index-text-container {
-    padding: 0.5rem 1.5rem 1rem 1.5rem ;
+    padding: 0.5rem 1.5rem 1rem 1.5rem;
   }
 }
 
@@ -235,7 +281,7 @@
   .index-card {
     padding: 1.2rem 2rem;
   }
-  
+
   .index-author {
     font-size: 0.8rem;
   }
@@ -246,7 +292,7 @@
 
   // new grid index
   .grid-index-text-container {
-    padding: 0.5rem 1.8rem 1rem 1.8rem ;
+    padding: 0.5rem 1.8rem 1rem 1.8rem;
   }
 
 }

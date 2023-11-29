@@ -13,7 +13,7 @@ $screen-middle-max-width: 880px;
 $center-card-max-width: 880px;
 
 $text-font: unquote("PingFang SC, Noto Sans, Noto Sans SC, sans-serif, Apple Color Emoji, Noto Color Emoji");
-$handwriting-font: "Ma Shan Zheng", "PingFang SC", "Noto Sans", "Noto Sans SC", sans-serif, "Apple Color Emoji", "Noto Color Emoji";
+$handwritten-font: "Ma Shan Zheng", "PingFang SC", "Noto Sans", "Noto Sans SC", sans-serif, "Apple Color Emoji", "Noto Color Emoji";
 $code-block-font: JetBrainsMono, "PingFang SC", "Noto Sans", "Noto Sans SC", sans-serif, "Apple Color Emoji", "Noto Color Emoji";
 
 $top-bar-color: #ee6e73;
@@ -133,8 +133,9 @@ $chip-ripple: (
   --strong-underline-color: rgba(255, 0, 0, 0.18);
   --divider-color: rgba(0, 0, 0, 0.12);
 
-  --index-subtitle: #808080;
-  --index-description: #393939;
+  --index-description-card-bg: #f9eacc;
+  --index-item-subtitle: #808080;
+  --index-item-description: #393939;
 }
 
 @mixin dark {
@@ -183,8 +184,9 @@ $chip-ripple: (
   --strong-underline-color: rgba(254, 96, 96, 0.4);
   --divider-color: #353535;
 
-  --index-subtitle: #808080;
-  --index-description: #cccccc;
+  --index-description-card-bg: #301e00;
+  --index-item-subtitle: #808080;
+  --index-item-description: #cccccc;
 }
 
 :root {

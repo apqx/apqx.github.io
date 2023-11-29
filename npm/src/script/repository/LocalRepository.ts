@@ -1,6 +1,6 @@
 export class LocalRepository {
 
-    KEY_HANDWRITING_FONT = "handwritingFont"
+    KEY_HANDWRITTEN_FONT = "handwrittenFont"
     KEY_THEME = "theme"
 
     VALUE_THEME_DARK = "dark"
@@ -30,11 +30,11 @@ export class LocalRepository {
     }
 
     saveHandwritingFontOn(on: boolean) {
-        this.saveBoolean(this.KEY_HANDWRITING_FONT, on)
+        this.saveBoolean(this.KEY_HANDWRITTEN_FONT, on)
     }
 
     getHandWritingFontOn(): boolean {
-        return this.getBoolean(this.KEY_HANDWRITING_FONT)
+        return this.getBoolean(this.KEY_HANDWRITTEN_FONT)
     }
 
     getTheme(): string {

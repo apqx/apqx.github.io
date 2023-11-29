@@ -9,7 +9,7 @@ export class PreferenceDialogPresenter {
     component: PreferenceDialogContent = null
     localRepository: LocalRepository = new LocalRepository()
     darkClass: string = "dark"
-    handwritingClass: string = "handwriting"
+    handwrittenClass: string = "handwritten"
 
     constructor(component: PreferenceDialogContent) {
         this.component = component
@@ -17,7 +17,7 @@ export class PreferenceDialogPresenter {
 
     initSettings() {
         this.component.setState({
-            handwritingFontOn: this.localHandWritingFontOn(),
+            handwrittenFontOn: this.localHandWritingFontOn(),
             autoThemeOn: this.localAutoThemeOn()
         })
     }
@@ -25,7 +25,7 @@ export class PreferenceDialogPresenter {
     onClickHandwritingFontSwitch(on: boolean) {
         this.localRepository.saveHandwritingFontOn(on)
         const bodyE = document.getElementsByTagName("body")[0]
-        toggleClassWithEnable(bodyE, this.handwritingClass, on)
+        toggleClassWithEnable(bodyE, this.handwrittenClass, on)
         masonryLayout()
     }
 

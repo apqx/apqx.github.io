@@ -216,5 +216,5 @@ export function initHandwritingFont() {
     const localRepository = new LocalRepository()
     const localHandWritingFontOn = localRepository.getHandWritingFontOn()
     const bodyE = document.getElementsByTagName("body")[0];
-    toggleClassWithEnable(bodyE, "handwriting", localHandWritingFontOn)
+    toggleClassWithEnable(bodyE, "handwritten", localHandWritingFontOn)
 }

@@ -154,7 +154,7 @@ audio {
 }
 
 // 手写诗文
-.handwriting {
+.handwritten {
   display: block;
   overflow-x: auto;
 }
@@ -168,25 +168,25 @@ audio {
 // <blockquote>
 // <p>文本</p>
 // </blockquote>
-blockquote.handwriting.pre p {
+blockquote.handwritten.pre p {
   white-space: pre;
 }
 
-//.handwriting,
-.handwriting :not(i, pre code, pre code *) {
-  font-family: blogTheme.$handwriting-font;
+//.handwritten,
+.handwritten :not(i, pre code, pre code *) {
+  font-family: blogTheme.$handwritten-font;
 }
 
-.handwriting {
+.handwritten {
   --mdc-typography-body1-font-size: 1.1rem
 }
 
-.handwriting .btn-tag {
+.handwritten .btn-tag {
   font-size: 0.95rem;
 }
 
-.handwriting .english,
-.handwriting .english * {
+.handwritten .english,
+.handwritten .english * {
   font-size: 1.3rem;
 }
 
