@@ -100,6 +100,8 @@ redirect_from:
     * 如果有看剧，[剧种]，[剧团]，[剧名]，[折子（全场戏除外）]，[演员]，[剧院]
 * CS（二进制，Android，Gradle，Java，Jvm，Flutter，Git，GitHub，Jekyll，JavaScript，Google，GCE，VPS，ShadowSocks，HTTPS, SSH，RaspberryPi，Ubuntu，抓包，下载）
 
+以上分类中的子项并不全，可以按需求新增。
+
 ### 转载文章tag
 
 戏剧，昆曲，京剧，历史，[作者]，[人物]，思维，看客（贬义）
@@ -126,7 +128,7 @@ redirect_from:
 
 ## redirect_from
 
-为当前文章页面生成一个指定的URL，使这个URL在<header>中重定向到当前文章。
+为当前文章页面生成一个指定的URL，使这个URL在`<header>`中重定向到当前文章。
 
 ```html
 <!DOCTYPE html>
