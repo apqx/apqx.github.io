@@ -8,22 +8,34 @@ sitemap: false
 blockFromSearchEngine: true
 ---
 
-<div class="index-description green">
-    <p>点击<a href="{% link _posts/original/2021-09-01-基于Jekyll的博客文章「标签化」实现.md %}" target="_blank">标签</a>可以查看所有标记了此标签的文章列表</p>
-</div>
+<div class="mdc-card essay-card">
+    <div class="center-horizontal" style="margin: 1rem 0;">
+        <picture>
+            <source srcset="https://fonts.gstatic.com/s/e/notoemoji/latest/1f373/512.webp" type="image/webp">
+            <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f373/512.gif" alt="🍳" width="100" height="100">
+          </picture>
+    </div>
 
-<div style="margin: -0.5rem 1rem 0.74rem 1rem;">
-    {% comment %}
-    <!-- 遍历所有的tag -->
-    {% endcomment %}
-    {%- for tag in site.tags -%}
-    <span class="mdc-button mdc-button--unelevated tag-dialog-trigger btn-tag"
-        id="chip_tag_{{ tag[0] }}">
-        <span class="mdc-button__ripple"></span>
-        <span class="mdc-button__label">#{{ tag[0] }}</span>
-    </span>
-    {% comment %}
-    <!-- 结束遍历本页的tag -->
-    {% endcomment %}
-    {%- endfor -%}
+    <div>
+        {% comment %}
+        <!-- 遍历所有的tag -->
+        {% endcomment %}
+        {%- for tag in site.tags -%}
+        <span class="mdc-button mdc-button--unelevated tag-dialog-trigger btn-tag" id="chip_tag_{{ tag[0] }}">
+            <span class="mdc-button__ripple"></span>
+            <span class="mdc-button__label">#{{ tag[0] }}</span>
+        </span>
+        {% comment %}
+        <!-- 结束遍历本页的tag -->
+        {% endcomment %}
+        {%- endfor -%}
+    </div>
+
+    <div class="center-horizontal" style="margin: 1rem 0;">
+        <picture>
+            <source srcset="https://fonts.gstatic.com/s/e/notoemoji/latest/1f373/512.webp" type="image/webp">
+            <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f373/512.gif" alt="🍳" width="100" height="100">
+          </picture>
+    </div>
+
 </div>
