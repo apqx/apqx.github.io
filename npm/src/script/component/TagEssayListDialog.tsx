@@ -84,7 +84,7 @@ export class TagEssayDialogContent extends React.Component<DialogContentProps, D
         console_debug("TagEssayListDialogContent render")
         return (
             <>
-                <p className="mdc-theme--on-surface">标记TAG
+                <p className="mdc-theme--on-surface">标记
                     <code id="tag-dialog-tag-name"
                           className="language-plaintext highlighter-rouge">{this.props.tag}</code>
                     的<span>博文</span>
