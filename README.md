@@ -27,10 +27,10 @@ npm run build
 
 `_includes/head-common.html`中定义着网站使用的`js`和`css`资源，它们由内部`webpack`工程生成，为提高访问速度而被托管到阿里云`OSS`上。
 
-本地调试时，需要进入`debug`模式使用上面👆生成的本地资源以实时响应`webpack`工程变化：
+使用本地/云端资源由`_includes/configure.html`中的`debug`参数控制。本地调试时，需要将其设为`true`，进入`debug`模式使用上面👆生成的本地资源以实时响应`webpack`工程变化。
 
 ```html
-<!-- _includes/head-common.html -->
+<!-- _includes/configure.html -->
 
 <!-- 设置debug为true，将会使用本地资源 -->
 {% assign debug = true %}
@@ -58,10 +58,10 @@ http://localhost:4000
 
 因为[GitHub Pages](https://pages.github.com)在中国大陆受限，所以一般会把`HTML`页面里的资源托管到大陆的云平台上以提高国内访问速度，比如阿里云的`OSS`对象存储服务。如果域名已备案也可以再叠一层`CDN`加速。
 
-本地调试完成后，如果`webpack`生成了新的`js`和`css`，需要上传到`OSS`托管，然后修改`_includes/head-common.html`关闭`debug`模式即可使用这些托管的资源。
+本地调试完成后，如果`webpack`生成了新的`js`和`css`，需要上传到`OSS`托管，然后修改`_includes/configure.html`关闭`debug`模式即可使用这些托管的资源。
 
 ```html
-<!-- _includes/head-common.html -->
+<!-- _includes/configure.html -->
 
 <!-- 设置debug为false，将使用云端托管资源 -->
 {% assign debug = false %}
