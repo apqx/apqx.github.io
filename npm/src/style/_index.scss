@@ -83,6 +83,8 @@
   padding: 1rem 2rem;
   margin: 0.74rem 1rem 0.9rem 1rem;
   // background-color: var(--index-description-card-bg);
+  // border: 1px solid rgba(63, 185, 80, 0.4);
+  // background: rgba(46, 160, 67, 0.1);
 }
 
 .dark .index-description-card {
@@ -91,6 +93,10 @@
 
 .index-description-card__short {
   padding: 0.6rem 1.8rem;
+}
+
+.empty-index-description {
+  margin-top: 0.74rem;
 }
 
 
@@ -189,10 +195,6 @@
 
 .grid-index-text-container {
   padding: 0.8rem 2rem 1rem 2rem;
-}
-
-.grid-index-li a {
-  text-decoration: none;
 }
 
 .grid-sizer,

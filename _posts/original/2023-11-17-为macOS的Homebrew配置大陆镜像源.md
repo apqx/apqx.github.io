@@ -6,7 +6,7 @@ author: 立泉
 mention: 包管理器 阿里云 清华大学
 date: 2023-11-17 +0800
 description: Homebrew之于macOS正如apt之于Ubuntu，且正如apt在大陆面临的网络问题一样，Homebrew也面临着相近甚至更糟的网络问题，因为它默认的源居然就是“剪不断、理还乱”的GitHub和GitHub Packages...
-cover: 
+cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20231117/homebrew_social_cardcard_thumb.jpg
 tags: CS Git macOS Homebrew GitHub 阿里云 清华大学 镜像源
 ---
 
