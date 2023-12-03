@@ -1,5 +1,6 @@
 import {ShortLinkDialogContent, showShortLinkJumpDialog} from "./ShortLinkJumpDialog";
 import {console_debug, console_error} from "../util/LogUtil";
+import { isDebug } from "../util/Tools";
 
 
 interface UrlMapJson {
@@ -25,7 +26,12 @@ export class ShortLinkJumpDialogPresenter {
      * 从url映射文件中查询pid
      */
     findPage(pid: string) {
-        const url = window.location.origin + "/archives/url-map.txt"
+        var url = undefined
+        if (isDebug()) {
+            url = window.location.origin + "/archives/url-map.txt"
+        } else {
+            url = "https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/archive/url-map.txt"
+        }
         const request = new Request(url, {
             method: "GET"
         })

@@ -43,3 +43,13 @@ export function isMobileOrTablet(): boolean {
     console_debug("isMobileOrTablet = " + check)
     return check
 }
+
+var debugMode:boolean = undefined
+
+export function isDebug(): boolean {
+    if(debugMode != undefined) return debugMode
+    // 读取head里的debug标志
+    const debugStr: string = document.querySelector("meta[name=debug]").getAttribute("content")
+    debugMode = JSON.parse(debugStr)
+    return debugMode
+}

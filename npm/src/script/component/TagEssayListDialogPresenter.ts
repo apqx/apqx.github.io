@@ -1,5 +1,6 @@
-import {TagEssayDialogContent, EssayItemData, showTagEssayListDialog} from "./TagEssayListDialog";
-import {console_debug, console_error} from "../util/LogUtil";
+import { TagEssayDialogContent, EssayItemData, showTagEssayListDialog } from "./TagEssayListDialog";
+import { console_debug, console_error } from "../util/LogUtil";
+import { isDebug } from "../util/Tools";
 
 const POST_TYPE_ORIGINAL = ["original", "随笔"]
 const POST_TYPE_REPOST = ["repost", "转载"]
@@ -26,13 +27,13 @@ class PostItem {
     categories: string
 
     constructor(title: string,
-                date: string,
-                url: string,
-                author: string,
-                actor: string,
-                mention: string,
-                tag: string,
-                categories: string) {
+        date: string,
+        url: string,
+        author: string,
+        actor: string,
+        mention: string,
+        tag: string,
+        categories: string) {
         this.title = title
         this.date = date
         this.url = url
@@ -83,7 +84,7 @@ export class TagEssayListDialogPresenter {
                 console_error(error)
                 this.showTagItemList([], tag)
             }
-        )
+            )
     }
 
     showTagItemList(postList: PostItem[], tag: string) {
