@@ -5,12 +5,12 @@
 
 @font-face {
   font-family: "JetBrainsMono";
-  src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/JetBrainsMono-Regular.woff2");
+  src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/font/JetBrainsMono-Regular.woff2");
 }
 
 @font-face {
-  font-family: "HYYiHeXianJingW";
-  src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/HYYiHeXianJingW.ttf");
+  font-family: "HYZhuangYuanXingW";
+  src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/HYZhuangYuanXingW.ttf");
 }
 
 $screen-middle-min-width: 600px;
@@ -158,7 +158,8 @@ $chip-ripple: (
 
   // Drawer
   --drawer-ink: white;
-
+  
+  --button-bg: #9b27b0;
   --search-nav: rgba(228, 96, 117, 0.93);
 
   // Code
@@ -194,7 +195,7 @@ $chip-ripple: (
   --index-item-description: #cccccc;
 }
 
-:root {
+body {
   @include light;
 }
 

@@ -100,5 +100,5 @@ class LinkItem extends React.Component<LinkItemProps, any> {
 
 export function showAboutMeDialog() {
     const dialogContentElement = <AboutMeDialogContent />
-    showDialog(true, COMMON_DIALOG_WRAPPER_ID, true, dialogContentElement, "Close", undefined, true)
+    showDialog(true, COMMON_DIALOG_WRAPPER_ID, true, dialogContentElement, "Cancel", undefined, true)
 }

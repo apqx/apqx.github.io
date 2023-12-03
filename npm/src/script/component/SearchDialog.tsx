@@ -227,7 +227,7 @@ class ResultItem extends React.Component<ResultItemProps, any> {
 export function showSearchDialog() {
     // 是不是每次弹出都是新的空白窗口，不是，SearchDialog组件中的数据是保留的，虽然重新render，但并没有创建新的组件对象
     const dialogContentElement = <SearchDialogContent/>
-    showDialog(true, COMMON_DIALOG_WRAPPER_ID, true, dialogContentElement, "Close", () => {
+    showDialog(true, COMMON_DIALOG_WRAPPER_ID, true, dialogContentElement, "Cancel", () => {
         // showDialog(false, COMMON_DIALOG_WRAPPER_ID, true, undefined, undefined, undefined)
     }, true)
 }
