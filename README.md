@@ -2,15 +2,20 @@
 
 一个基于[Jekyll](https://jekyllrb.com)的[Material Design](https://material.io)开源博客，使用`Google`提供的[Material Components Web](https://github.com/material-components/material-components-web)组件库。
 
-这是我自己的博客网站，它并非通用`Jekyll`模版，而是包含了太多我个人倾向的私人分享空间，淡红色极简风，文字、色彩、动画之外不添加多余元素，可以把它当作一个使用`Material Design`的个人站参考。
+这是我自己的博客网站，它并非通用`Jekyll`模版，而是包含了太多我个人倾向的分享空间，淡红色极简风，文字、色彩、动画之外不添加多余元素，可以把它当作一个使用`Material Design`的个人站参考。
 
 博客链接 👉 [立泉の写字板](https://mudan.me)
 
-![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/screenshot_01.webp)
+![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/img/screenshot_index.webp)
+
+看剧分享 📸
+
+![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/img/screenshot_index_opera.webp)
+
 
 博文使用`Markdown`格式撰写，由`Jekyll`将其按指定方式转换为`HTML`网页，生成静态站点，可以托管在[GitHub Pages](https://pages.github.com)或更灵活的云服务器上。
 
-![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/screenshot_02.webp)
+![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/img/screenshot_essay.webp)
 
 # 本地调试
 
@@ -27,7 +32,7 @@ npm run build
 
 `_includes/head-common.html`中定义着网站使用的`js`和`css`资源，它们由内部`webpack`工程生成，为提高访问速度而被托管到阿里云`OSS`上。
 
-使用本地/云端资源由`_includes/configure.html`中的`debug`参数控制。本地调试时，需要将其设为`true`，进入`debug`模式使用上面👆生成的本地资源以实时响应`webpack`工程变化。
+使用本地/云端资源由`_includes/configure.html`中的`debug`参数控制。本地调试时，需要将其设为`true`，进入`debug`模式使用上面生成的本地资源以实时响应`webpack`工程变化。
 
 ```html
 <!-- _includes/configure.html -->
@@ -48,7 +53,7 @@ bundle install
 bundle exec jekyll serve -l -o
 ```
 
-`Jekyll`会在`_site/`目录下生成一个由`HTML`页面构成的静态网站，并`serve`到本地4000端口，通过这个👇链接访问：
+`Jekyll`会在`_site/`目录下生成一个由`HTML`页面构成的静态网站，并`serve`到本地4000端口，通过这个链接访问：
 
 ```sh
 http://localhost:4000
@@ -78,4 +83,4 @@ git push origin
 
 静候数秒或数分钟，取决于`Pages`等待执行的任务量，完成后`Pages`上的网页就会更新。
 
-![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/screenshot_03.webp)
+![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/img/screenshot_index_phone.webp)
