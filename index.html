@@ -7,8 +7,15 @@ description: 昆虫，野生散养攻城狮，“十分”“业余”摄影Fans
 cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg
 ---
 
-<div class="index-description green">
+<!-- <div class="mdc-card index-description-card index-description-card__short">
     <p>Bonjour, click <a class="toggle-drawer clickable-empty-link">here</a> to safari 😶</p>
+</div> -->
+<div class="mdc-card index-top-card toggle-drawer">
+    <img src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/index_hangzhou_thumb.jpg"  class="index-lazy-img"
+    style="object-fit: cover;"/>
+    <div class="index-top-card-container handwritten">
+        <p style="text-align: right;">暖风吹得游人醉，直把杭州作汴州</p>
+    </div>
 </div>
 <ul class="index-ul">
     {% for post in site.posts %}
@@ -17,8 +24,8 @@ cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg
         <a class="index-a" href="{{ post.url | prepend: site.baseurl }}">
             <div class="mdc-card index-card">
                 <p class="index-title">{{ post.title }}</p>
-                <span class="index-author">{{ post.author }}</span>
-                <span class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
+                <p class="index-author">{{ post.author }}</p>
+                <p class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</p>
             </div>
         </a>
     </li>

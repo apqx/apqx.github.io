@@ -5,36 +5,26 @@ title: 立泉の诗文
 description: 昆虫，野生散养攻城狮，“十分”“业余”摄影Fans。
 cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg
 sitemap: false
-blockFromSearchEngine: true
 ---
 
-<div class="mdc-card index-description-card index-description-card__short handwritten">
-  <p>旧时王谢堂前燕，飞入寻常百姓家。</p>
+<div class="mdc-card index-top-card toggle-drawer">
+    <img src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/index_mudanting_thumb.jpg"  class="index-lazy-img"
+    style="object-fit: cover;"/>
+    <div class="index-top-card-container handwritten">
+        <p style="text-align: right;">旧时王谢堂前燕，飞入寻常百姓家</p>
+    </div>
 </div>
-<ul class="grid grid-index-ul">
-  <div class="grid-sizer"></div>
+<ul class="index-ul">
   {% for post in site.posts %}
   {%- if post.categories contains "poetry" and post.hideFromIndex != true %}
-  <li class="grid-item grid-index-li">
-      <a class="index-a" href="{{ post.url | prepend: site.baseurl }}">
-          <div class="mdc-card grid-index-card">
-              {%- if post.index-cover != null %}
-              <img class="index-lazy-img" loading="lazy" src="{{ post.index-cover }}" />
-              {% elsif post.cover != null %}
-              <img class="index-lazy-img" loading="lazy" src="{{ post.cover }}" />
-              {% else %}
-              <div style="height: 0.5rem;"></div>
-              {%- endif %}
-              <div class="grid-index-text-container">
-                  <p class="grid-index-title">{{ post.title }}</p>
-                  <div>
-                      <span class="grid-index-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
-                      <span class="grid-index-author">{% if post.moreDate != null %}{{ post.moreDate }} {% endif %}{{ post.author }}</span>
-                  </div>
-                  <p class="grid-index-description">{{ post.description }}</p>
-              </div>
-          </div>
-      </a>
+  <li class="index-li">
+    <a class="index-a" href="{{ post.url | prepend: site.baseurl }}">
+      <div class="mdc-card index-card">
+        <p class="index-title">{{ post.title }}</p>
+        <span class="index-author">{% if post.moreDate != null %}{{ post.moreDate }} {% endif %}{{ post.author }}</span>
+        <span class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
+      </div>
+    </a>
   </li>
   {% endif -%}
   {% endfor %}

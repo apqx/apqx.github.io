@@ -2,38 +2,30 @@
 layout: index
 categories: main index
 title: 立泉の写字板
+web-seo-description: 立泉落落，九五后，旅居杭州，昆虫，野生散养攻城狮，“十分”“业余”摄影Fans。
 description: 昆虫，野生散养攻城狮，“十分”“业余”摄影Fans。
 cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg
-sitemap: false
-blockFromSearchEngine: true
 ---
 
-<div class="mdc-card index-description-card index-description-card__short handwritten">
+<!-- <div class="mdc-card index-description-card index-description-card__short">
     <p>Bonjour, click <a class="toggle-drawer clickable-empty-link">here</a> to safari 😶</p>
+</div> -->
+<div class="mdc-card index-top-card toggle-drawer">
+    <img src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/index_hangzhou_thumb.jpg"  class="index-lazy-img"
+    style="object-fit: cover;"/>
+    <div class="index-top-card-container handwritten">
+        <p style="text-align: right;">暖风吹得游人醉，直把杭州作汴州</p>
+    </div>
 </div>
-<!-- <div class="empty-index-description"></div> -->
-<ul class="grid grid-index-ul">
-    <div class="grid-sizer"></div>
+<ul class="index-ul">
     {% for post in site.posts %}
     {%- if post.categories contains "original" and post.hideFromIndex != true %}
-    <li class="grid-item grid-index-li">
+    <li class="index-li">
         <a class="index-a" href="{{ post.url | prepend: site.baseurl }}">
-            <div class="mdc-card grid-index-card">
-                {%- if post.index-cover != null %}
-                <img class="index-lazy-img" loading="lazy" src="{{ post.index-cover }}" />
-                {% elsif post.cover != null %}
-                <img class="index-lazy-img" loading="lazy" src="{{ post.cover }}" />
-                {% else %}
-                <div style="height: 0.5rem;"></div>
-                {%- endif %}
-                <div class="grid-index-text-container">
-                    <p class="grid-index-title">{{ post.title }}</p>
-                    <div>
-                        <span class="grid-index-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
-                        <span class="grid-index-author">{{ post.author }}</span>
-                    </div>
-                    <p class="grid-index-description">{{ post.description }}</p>
-                </div>
+            <div class="mdc-card index-card">
+                <p class="index-title">{{ post.title }}</p>
+                <p class="index-author">{{ post.author }}</p>
+                <p class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</p>
             </div>
         </a>
     </li>

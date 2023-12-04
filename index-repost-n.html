@@ -8,12 +8,18 @@ sitemap: false
 blockFromSearchEngine: true
 ---
 
-<div class="mdc-card index-description-card index-description-card__short handwritten">
-        <p>一个收藏夹，慢慢鼓起来。</p>
-</div>
+<div class="empty-index-description"></div>
 
 <ul class="grid grid-index-ul">
     <div class="grid-sizer"></div>
+    <li class="grid-item grid-index-li">
+        <div class="mdc-card grid-index-card">
+            <div style="height: 0.5rem;"></div>
+            <div class="grid-index-text-container">
+                <p>一个收藏夹，慢慢鼓起来。</p>
+            </div>
+        </div>
+    </li>
     {% for post in site.posts %}
     {%- if post.categories contains "repost" and post.hideFromIndex != true %}
     <li class="grid-item grid-index-li">

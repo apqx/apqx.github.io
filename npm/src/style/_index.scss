@@ -12,6 +12,9 @@
 // 页面主体内容，距离main-container上下边界0.74rem
 // 小屏时，下边界0.6rem
 
+// 卡片间距0.74rem
+// 小屏时，间距0.6rem
+
 @mixin cardElevation {
   @include elevation.elevation(map.get(blogTheme.$index-card-elevation, "elevation"),
     map.get(blogTheme.$index-card-elevation, "shadow-light"), 0);
@@ -42,10 +45,7 @@
     map.get(blogTheme.$grid-index-card-elevation, "shadow-dark"), 0);
 }
 
-.index-card {
-  padding: 1.3rem 2.3rem;
-  @include cardElevation();
-  // 添加Ripple动画
+@mixin cardRipple {
   overflow: hidden;
   @include ripple.surface;
   @include ripple.radius-bounded(100%);
@@ -53,10 +53,36 @@
   @include ripple.states-opacities((hover: .0, focus: .1, press: .08));
 }
 
-.dark .index-card {
-  @include cardElevationDark();
+@mixin cardRippleDark {
   @include ripple.states-base-color(white);
   @include ripple.states-opacities((hover: .0, focus: .1, press: .08));
+}
+
+.index-top-card {
+  margin: 0.74rem 1rem;
+  @include cardElevation();
+  @include cardRipple();
+}
+
+.dark .index-top-card {
+  @include cardElevationDark();
+  @include cardRippleDark();
+}
+
+.index-top-card-container {
+  padding: 0.5rem 2.3rem;
+}
+
+.index-card {
+  padding: 1.3rem 2.3rem;
+  @include cardElevation();
+  // 添加Ripple动画
+  @include cardRipple();
+}
+
+.dark .index-card {
+  @include cardElevationDark();
+  @include cardRippleDark();
 }
 
 // 小屏
@@ -68,6 +94,15 @@
   .dark .index-card {
     @include cardElevationMiniScreenDark();
   }
+
+  .index-top-card {
+    @include cardElevationMiniScreen();
+  }
+
+  .dark .index-top-card {
+    @include cardElevationMiniScreenDark();
+  }
+
 }
 
 .index-description {
@@ -79,7 +114,7 @@
 }
 
 .index-description-card {
-  @include gridCardElevation();
+  @include cardElevation();
   padding: 1rem 2rem;
   margin: 0.74rem 1rem;
   // background-color: var(--index-description-card-bg);
@@ -88,7 +123,7 @@
 }
 
 .dark .index-description-card {
-  @include gridCardElevationDark();
+  @include cardElevationDark();
 }
 
 .index-description-card__short {
@@ -253,6 +288,14 @@
     padding: 1rem 1rem;
   }
 
+  .index-top-card {
+    margin: 0.74rem 0.5rem 0.6rem 0.5rem;
+  }
+
+  .index-top-card-container {
+    padding: 0.5rem 1rem;
+  }
+
   // new grid index
 
   .grid-index-ul {
@@ -268,6 +311,10 @@
     margin: 0.74rem 0.5rem;
   }
 
+  .index-description-card__short {
+    padding: 0.5rem 1.6rem;
+  }
+
   .grid-sizer,
   .grid-item {
     width: 100%;
@@ -280,6 +327,10 @@
 
 // 平板中屏
 @media all and (min-width: (blogTheme.$screen-middle-min-width + 1px)) and (max-width: (blogTheme.$screen-middle-max-width - 1px)) {
+  .index-top-card-container {
+    padding: 0.5rem 2rem;
+  }
+  
   .index-card {
     padding: 1.2rem 2rem;
   }
