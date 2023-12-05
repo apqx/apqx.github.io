@@ -1,10 +1,10 @@
 import * as React from "react";
-import {MDCList} from "@material/list";
-import {Progressbar} from "./Progressbar";
-import {MDCRipple} from "@material/ripple";
-import {COMMON_DIALOG_WRAPPER_ID, showDialog} from "./BasicDialog";
-import {console_debug} from "../util/LogUtil";
-import {TagEssayListDialogPresenter} from "./TagEssayListDialogPresenter";
+import { MDCList } from "@material/list";
+import { Progressbar } from "./Progressbar";
+import { MDCRipple } from "@material/ripple";
+import { COMMON_DIALOG_WRAPPER_ID, showDialog } from "./BasicDialog";
+import { console_debug } from "../util/LogUtil";
+import { TagEssayListDialogPresenter } from "./TagEssayListDialogPresenter";
 
 interface DialogContentProps {
     tag: string,
@@ -86,23 +86,24 @@ export class TagEssayDialogContent extends React.Component<DialogContentProps, D
             <>
                 <p className="mdc-theme--on-surface">标记
                     <code id="tag-dialog-tag-name"
-                          className="language-plaintext highlighter-rouge">{this.props.tag}</code>
+                        className="language-plaintext highlighter-rouge">{this.props.tag}</code>
                     的<span>博文</span>
                 </p>
 
-                <Progressbar loading={this.state.showLoading}/>
+                <Progressbar loading={this.state.showLoading} />
 
-                <ul className="mdc-deprecated-list mdc-deprecated-list--two-line dialog-link-list"
-                    ref={e => this.initList(e)}>
-                    {this.state.essayList != null && this.state.essayList.map(item =>
-                        <EssayItem
-                            key={item.title + item.date}
-                            data={new EssayItemData(item.url, item.title, item.date, item.type, item.block1Array, item.block2Array)}
-                            isLast={this.state.essayList.indexOf(item) === (this.state.essayList.length - 1)}
-                        />
-                    )}
-
-                </ul>
+                {this.state.essayList != null && this.state.essayList.length != 0 &&
+                    <ul className="mdc-deprecated-list mdc-deprecated-list--two-line dialog-link-list"
+                        ref={e => this.initList(e)}>
+                        {this.state.essayList.map(item =>
+                            <EssayItem
+                                key={item.title + item.date}
+                                data={new EssayItemData(item.url, item.title, item.date, item.type, item.block1Array, item.block2Array)}
+                                isLast={this.state.essayList.indexOf(item) === (this.state.essayList.length - 1)}
+                            />
+                        )}
+                    </ul>
+                }
             </>
         )
     }
@@ -117,11 +118,11 @@ export class EssayItemData {
     block2Array: string[]
 
     constructor(url: string,
-                title: string,
-                date: string,
-                type: string,
-                block1Array: string[],
-                block2Array: string[]) {
+        title: string,
+        date: string,
+        type: string,
+        block1Array: string[],
+        block2Array: string[]) {
         this.url = url
         this.title = title
         this.date = date
@@ -146,8 +147,8 @@ class EssayItem extends React.Component<EssayItemProps, any> {
         return (
             <div>
                 <a className="mdc-deprecated-list-item tag-list-item mdc-ripple-upgraded"
-                   href={this.props.data.url}
-                   ref={e => this.initRipple(e)}>
+                    href={this.props.data.url}
+                    ref={e => this.initRipple(e)}>
                     <span className="mdc-deprecated-list-item__ripple"></span>
                     <span className="mdc-deprecated-list-item__text">
                         <span className="my-list-item__primary-text">{this.props.data.title}</span>
@@ -169,7 +170,7 @@ class EssayItem extends React.Component<EssayItemProps, any> {
                         </div>
                     </span>
                 </a>
-                {!this.props.isLast && <hr className="mdc-deprecated-list-divider"/>}
+                {!this.props.isLast && <hr className="mdc-deprecated-list-divider" />}
             </div>
         )
     }
@@ -177,6 +178,6 @@ class EssayItem extends React.Component<EssayItemProps, any> {
 
 export function showTagEssayListDialog(tag: string) {
     console_debug("TagEssayListDialogContent showTagEssayListDialog " + tag)
-    const dialogContentElement = <TagEssayDialogContent tag={tag}/>
+    const dialogContentElement = <TagEssayDialogContent tag={tag} />
     showDialog(true, COMMON_DIALOG_WRAPPER_ID, true, dialogContentElement, "Cancel", undefined, true)
 }

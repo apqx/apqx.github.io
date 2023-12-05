@@ -144,7 +144,7 @@
 
 /* 索引署名 */
 .index-author {
-  @include typography.typography(subtitle1);
+  @include typography.typography(body1);
   @include theme.property(color, text-secondary-on-background);
   font-size: 0.9rem;
   line-height: 1.5rem;
@@ -154,14 +154,14 @@
 
 /* 索引地点（看剧使用） */
 .index-location {
-  @include typography.typography(subtitle1);
+  @include typography.typography(body1);
   text-align: left;
   margin: 0;
 }
 
 /* 索引日期 */
 .index-date {
-  @include typography.typography(subtitle1);
+  @include typography.typography(body1);
   @include theme.property(color, text-secondary-on-background);
   font-size: 0.9rem;
   line-height: 1.5rem;
