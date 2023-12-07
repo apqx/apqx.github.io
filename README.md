@@ -2,7 +2,7 @@
 
 一个基于[Jekyll](https://jekyllrb.com)的[Material Design](https://material.io)开源博客，使用`Google`提供的[Material Components Web](https://github.com/material-components/material-components-web)组件库。
 
-这是我自己的博客网站，它并非通用`Jekyll`模版，而是包含了太多我个人倾向的分享空间，淡红色极简风，文字、色彩、动画之外不添加多余元素，可以把它当作一个使用`Material Design`的个人站参考。
+这是我自己的博客网站，它并非通用`Jekyll`模版，而是包含了太多我个人倾向的分享空间，淡红色极简风格，文字、色彩、动画之外不添加多余元素，可以把它当作一个使用`Material Design`的个人站参考。
 
 博客链接 👉 [立泉の写字板](https://mudan.me)
 

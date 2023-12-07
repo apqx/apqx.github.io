@@ -8,6 +8,9 @@ date: 2010-03-22 +0800
 description: 谷歌退出中国大陆，那一年我15岁，第一次离开县城去市里的高中读书，对这件事一无所知。
 cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/repost_20100322/google_quite_china.jpg
 tags: 转载 思维 Google 退出中国
+hideFromIndex: true
+sitemap: false
+blockFromSearchEngine: true
 ---
 
 > 原文[在此](https://googleblog.blogspot.com/2010/03/new-approach-to-china-update.html){: target="_blank" }，那一年我15岁，第一次离开县城去市里的高中读书，对这件事一无所知。
