@@ -100,7 +100,7 @@ function initViews() {
         new MDCRipple(ele)
     }
 
-    for (const ele of document.querySelectorAll(".index-card,.grid-index-card,.index-top-card")) {
+    for (const ele of document.querySelectorAll(".index-card,.grid-index-card_ripple,.index-top-card")) {
         new MDCRipple(ele)
     }
 

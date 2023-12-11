@@ -53,6 +53,11 @@
   @include ripple.states-opacities((hover: .0, focus: .1, press: .08));
 }
 
+@mixin cardRippleDeeper {
+  @include cardRipple();
+  @include ripple.states-opacities((hover: .0, focus: .1, press: .09));
+}
+
 @mixin cardRippleDark {
   @include ripple.states-base-color(white);
   @include ripple.states-opacities((hover: .0, focus: .1, press: .08));
@@ -199,18 +204,18 @@
 
 .grid-index-card {
   @include gridCardElevation();
-  // 添加Ripple动画
-  overflow: hidden;
-  @include ripple.surface;
-  @include ripple.radius-bounded(100%);
-  @include ripple.states-base-color(black);
-  @include ripple.states-opacities((hover: .0, focus: .1, press: .09));
 }
 
 .dark .grid-index-card {
   @include gridCardElevationDark();
-  @include ripple.states-base-color(white);
-  @include ripple.states-opacities((hover: .0, focus: .1, press: .08));
+}
+
+.grid-index-card_ripple {
+  @include cardRippleDeeper();
+}
+
+.dark .grid-index-card_ripple {
+  @include cardRippleDark();
 }
 
 // 索引卡片，左右离container边界1rem空白，上下item间0.74rem空白，卡片组距顶部item 0.74rem空白，表格十字线宽度0.74rem

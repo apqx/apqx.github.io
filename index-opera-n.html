@@ -19,7 +19,7 @@ blockFromSearchEngine: true
     <P><em>只是时常偷懒，更新的剧目还不多，我会慢慢整理上传的。</em></P>
 </div> -->
 
-<div class="mdc-card index-top-card toggle-drawer">
+<div class="mdc-card index-top-card drawer-trigger">
     <img src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/index_duliniang_thumb.jpg" class="index-lazy-img"
         style="object-fit: cover;" />
     <div class="index-top-card-container handwritten">
@@ -63,7 +63,7 @@ blockFromSearchEngine: true
     {%- if post.categories contains "opera" and post.hideFromIndex != true %}
     <li class="grid-item grid-index-li">
         <a class="index-a" href="{{ post.url | prepend: site.baseurl }}">
-            <div class="mdc-card grid-index-card">
+            <div class="mdc-card grid-index-card grid-index-card_ripple">
                 {%- if post.index-cover != null %}
                 <img class="index-lazy-img" loading="lazy" src="{{ post.index-cover }}" />
                 {% elsif post.cover != null %}

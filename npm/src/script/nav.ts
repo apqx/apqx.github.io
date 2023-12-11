@@ -150,7 +150,7 @@ export function initDrawer() {
             drawer.open = !drawer.open
         })
         // 监听弹出Drawer
-        const toggleDowers = document.querySelectorAll(".toggle-drawer")
+        const toggleDowers = document.querySelectorAll(".drawer-trigger")
         for (const toggle of toggleDowers) {
             toggle.addEventListener("click", () => {
                 drawer.open = !drawer.open
