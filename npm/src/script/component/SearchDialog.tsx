@@ -99,7 +99,7 @@ export class SearchDialogContent extends React.Component<any, SearchDialogState>
                       </span>
                       <span className="mdc-notched-outline__trailing"></span>
                     </span>
-                    <input type="text" className="mdc-text-field__input" aria-labelledby="search-label"
+                    <input type="search" className="mdc-text-field__input" aria-labelledby="search-label"
                            onChange={this.onInputChange}/>
                     <button type="button" className="mdc-button mdc-button--unelevated btn-search center-horizontal"
                             onClick={this.onClickSearch}

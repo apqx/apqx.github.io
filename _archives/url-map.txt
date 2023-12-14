@@ -90,6 +90,27 @@ sitemap: false
                 "title": "昆曲「雅观楼」折子与幕后"
             }
         },
+         {
+            "id": "op13",
+            "target": {
+                "path": "{% link _posts/opera/2022-07-08-昆曲「玉簪记·琴挑」折子.md %}",
+                "title": "昆曲「玉簪记·琴挑」折子"
+            }
+        },
+         {
+            "id": "op14",
+            "target": {
+                "path": "{% link _posts/opera/2022-07-23-昆曲「玉簪记·琴挑」折子.md %}",
+                "title": "昆曲「玉簪记·琴挑」折子"
+            }
+        },
+         {
+            "id": "op15",
+            "target": {
+                "path": "{% link _posts/opera/2023-08-26-昆曲「玉簪记·琴挑」折子.md %}",
+                "title": "昆曲「玉簪记·琴挑」折子"
+            }
+        },
         {
             "id": "og00",
             "target": {
