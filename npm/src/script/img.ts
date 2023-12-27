@@ -13,7 +13,7 @@ export function initImg() {
             url = img.getAttribute("src").replace("_thumb", "")
             console_debug("click show original img, copyright = " + hasCopyright + ", => " + url)
             if (hasCopyright && firstClick) {
-                showAlertDialog("版权声明", "点击“OK”将跳转到大尺寸无水印原图，欢迎下载分享，只是唯一注意，<b>图片版权归属作者及原剧团演员所有</b>，未经允许，不可用于商业用途🤫。",
+                showAlertDialog("版权声明", "点击“OK”将跳转到大尺寸无水印原图，欢迎下载分享，只是唯一注意，<b>图片版权归属作者及剧团演员所有</b>，未经允许，不可用于商业用途🤫。",
                     "OK", () => {
                         // 必须点击这个btn才允许跳转到大图
                         firstClick = false

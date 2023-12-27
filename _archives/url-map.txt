@@ -112,6 +112,13 @@ sitemap: false
             }
         },
         {
+            "id": "op16",
+            "target": {
+                "path": "{% link _posts/opera/2023-05-28-昆曲「西厢记·佳期」折子.md %}",
+                "title": "昆曲「西厢记·佳期」折子"
+            }
+        },
+        {
             "id": "og00",
             "target": {
                 "path": "{% link _posts/original/2021-06-10-旅行志03：兰苑狮吼.md %}",
