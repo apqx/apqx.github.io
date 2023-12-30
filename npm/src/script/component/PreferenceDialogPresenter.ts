@@ -1,17 +1,17 @@
-import {PreferenceDialogContent} from "./PreferenceDialog";
+import {PreferenceDialog} from "./PreferenceDialog";
 import {LocalRepository} from "../repository/LocalRepository";
 import {toggleClassWithEnable} from "../util/Tools";
-import { saveTheme, toggleTheme } from "../util/ThemeUtils";
-import { masonryLayout } from "../main";
+import {saveTheme, toggleTheme} from "../util/ThemeUtils";
+import {masonryLayout} from "../main";
 
 export class PreferenceDialogPresenter {
 
-    component: PreferenceDialogContent = null
+    component: PreferenceDialog = null
     localRepository: LocalRepository = new LocalRepository()
     darkClass: string = "dark"
     handwrittenClass: string = "handwritten"
 
-    constructor(component: PreferenceDialogContent) {
+    constructor(component: PreferenceDialog) {
         this.component = component
     }
 

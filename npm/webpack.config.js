@@ -1,17 +1,17 @@
 const autoprefixer = require('autoprefixer');
+const isProduction = process.env.NODE_ENV === 'production';
 
 const Package = require('./package.json');
 const version = Package.version;
 
-module.exports = {
-    mode: 'development',
+const config = {
+    mode: '',
     // 打包入口
     entry: ['./src/style/main.scss', './src/script/main.ts',
         './node_modules/long-press-event/src/long-press-event.js'],
     output: {
         // 指定要生成的js文件名
         filename: `apqx-v${version}.js`,
-        // filename: 'apqx.js',
     },
     resolve: {
         // 指定webpack要处理的文件类型，如果这里不指定.ts等，在打包时会找不到除入口文件之外的该类型文件
@@ -75,4 +75,13 @@ module.exports = {
             },
         ],
     },
+};
+
+module.exports = () => {
+    if (isProduction) {
+        config.mode = 'production';
+    } else {
+        config.mode = 'development';
+    }
+    return config;
 };

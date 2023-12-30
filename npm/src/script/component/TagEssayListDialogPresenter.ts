@@ -1,6 +1,5 @@
-import { TagEssayDialogContent, EssayItemData, showTagEssayListDialog } from "./TagEssayListDialog";
-import { console_debug, console_error } from "../util/LogUtil";
-import { isDebug } from "../util/Tools";
+import {TagEssayDialog, EssayItemData} from "./TagEssayListDialog";
+import {console_debug, console_error} from "../util/LogUtil";
 
 const POST_TYPE_ORIGINAL = ["original", "随笔"]
 const POST_TYPE_REPOST = ["repost", "转载"]
@@ -27,13 +26,13 @@ class PostItem {
     categories: string
 
     constructor(title: string,
-        date: string,
-        url: string,
-        author: string,
-        actor: string,
-        mention: string,
-        tag: string,
-        categories: string) {
+                date: string,
+                url: string,
+                author: string,
+                actor: string,
+                mention: string,
+                tag: string,
+                categories: string) {
         this.title = title
         this.date = date
         this.url = url
@@ -47,9 +46,10 @@ class PostItem {
 
 export class TagEssayListDialogPresenter {
 
-    component: TagEssayDialogContent = null
+    component: TagEssayDialog = null
+    abortController: AbortController = null
 
-    constructor(component: TagEssayDialogContent) {
+    constructor(component: TagEssayDialog) {
         this.component = component
     }
 
@@ -68,27 +68,29 @@ export class TagEssayListDialogPresenter {
         const request = new Request(url, {
             method: "GET"
         })
+        this.abortController = new AbortController()
         // 异步请求
-        fetch(request)
-            .then(response => {
+        let promise: Promise<void> = fetch(request, {signal: this.abortController.signal})
+            .then((response: Response) => {
                 if (response.status === 200) {
                     return response.json()
                 } else {
                     throw new Error("Something went wrong on api server!")
                 }
             })
-            .then((response: PostsJson) => {
-                postList = response.posts
+            .then((postsJson: PostsJson) => {
+                postList = postsJson.posts
                 this.showTagItemList(postList, tag)
             }).catch(error => {
-                console_error(error)
-                this.showTagItemList([], tag)
-            }
+                    console_error(error)
+                    this.showTagItemList([], tag)
+                }
             )
     }
 
     showTagItemList(postList: PostItem[], tag: string) {
         const posts = this.findPost(tag, postList)
+        console_debug("showTagItemList count = " + posts.length)
         const essayListForShow: EssayItemData[] = []
         for (const post of posts) {
             const postType = this.getPostType(post.categories)
@@ -154,5 +156,10 @@ export class TagEssayListDialogPresenter {
         }
         console_debug("find post with tag " + tagArray + ", result size is " + resultArray.length)
         return resultArray
+    }
+
+    abortFetch() {
+        if (this.abortController != null)
+            this.abortController.abort("Abort fetch by user")
     }
 }

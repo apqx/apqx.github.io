@@ -4,19 +4,17 @@ import {MDCDialog} from "@material/dialog";
 import {MDCRipple} from "@material/ripple";
 import {createRoot, Root} from "react-dom/client";
 
-interface Props {
-    open: boolean,
+export interface BasicDialogProps {
     fixedWidth: boolean,
-    contentElement: JSX.Element,
     btnText: string,
     btnOnClick: (e: React.MouseEvent<HTMLElement>) => void,
     closeOnClickOutside: boolean
 }
 
-export class BasicDialog extends React.Component<Props, any> {
+export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.Component<T, V> {
     mdcDialog: MDCDialog
 
-    constructor(props: Props) {
+    constructor(props: T) {
         super(props);
         this.mdcDialog = null
         console_debug("BasicDialog constructor")
@@ -24,14 +22,34 @@ export class BasicDialog extends React.Component<Props, any> {
 
     componentDidMount() {
         console_debug("BasicDialog componentDidMount")
+        if (this.mdcDialog != null && !this.mdcDialog.isOpen)
+            this.mdcDialog.open()
     }
 
     componentWillUnmount() {
         console_debug("BasicDialog componentWillUnmount")
+        this.mdcDialog = null
+        mdcDialog = null
     }
 
-    componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<any>, snapshot?: any) {
+    shouldComponentUpdate(nextProps: Readonly<T>, nextState: Readonly<V>, nextContext: any): boolean {
+        // 在这里可以确保每一次数据变化都会检查dialog是否打开了
+        // 但是在tagDialog如果加载失败而用户关闭了dialog，则自己又会弹出来
+        // if (this.mdcDialog != null && !this.mdcDialog.isOpen)
+        //     this.mdcDialog.open()
+        return true;
+    }
+
+    componentDidUpdate(prevProps: Readonly<BasicDialogProps>, prevState: Readonly<any>, snapshot?: any) {
         console_debug("BasicDialog componentDidUpdate")
+    }
+
+    onDialogOpen(): void {
+        console_debug("BasicDialog onDialogOpen")
+    }
+
+    onDialogClose(): void {
+        console_debug("BasicDialog onDialogClose")
     }
 
     initDialog(e: Element) {
@@ -39,7 +57,8 @@ export class BasicDialog extends React.Component<Props, any> {
         if (e == null) return
         if (this.mdcDialog == null) {
             this.mdcDialog = new MDCDialog(e)
-            if(!this.props.closeOnClickOutside) {
+            mdcDialog = this.mdcDialog
+            if (!this.props.closeOnClickOutside) {
                 // 设置为空，点击Dialog外部，不取消
                 this.mdcDialog.scrimClickAction = ""
             }
@@ -58,12 +77,11 @@ export class BasicDialog extends React.Component<Props, any> {
                     // btnCloseE.focus()
                     btnCloseE.blur()
                 }
+                this.onDialogOpen()
             })
-        }
-        if (this.props.open) {
-            this.mdcDialog.open()
-        } else {
-            this.mdcDialog.close()
+            this.mdcDialog.listen("MDCDialog:closing", () => {
+                this.onDialogClose()
+            })
         }
     }
 
@@ -84,7 +102,7 @@ export class BasicDialog extends React.Component<Props, any> {
                         aria-describedby="basic-dialog-content">
                         <div className="mdc-dialog__content mdc-theme--on-surface"
                              id="basic-dialog-content">
-                            {this.props.contentElement}
+                            {this.dialogContent()}
                         </div>
                         {(this.props.btnText != null) &&
                             <div className="mdc-dialog__actions basic-dialog_actions">
@@ -108,55 +126,24 @@ export class BasicDialog extends React.Component<Props, any> {
             </div>
         )
     }
+
+    abstract dialogContent(): JSX.Element
 }
 
-export const COMMON_DIALOG_WRAPPER_ID = "common-dialog-wrapper"
-export const SEARCH_DIALOG_WRAPPER_ID = "search-dialog-wrapper"
-export const TAG_DIALOG_WRAPPER_ID = "tag-dialog-wrapper"
-export const ABOUT_ME_DIALOG_WRAPPER_ID = "about-me-dialog-wrapper"
+const COMMON_DIALOG_WRAPPER_ID = "common-dialog-wrapper"
+let mdcDialog: MDCDialog = null
 
-const roots = [
-    {
-        id: COMMON_DIALOG_WRAPPER_ID,
-        root: undefined
-    },
-    {
-        id: SEARCH_DIALOG_WRAPPER_ID,
-        root: undefined
-    },
-    {
-        id: TAG_DIALOG_WRAPPER_ID,
-        root: undefined
-    },
-    {
-        id: ABOUT_ME_DIALOG_WRAPPER_ID,
-        root: undefined
-    },
-]
-
-// TODO: 传入一个ID，表示Content是否变化
-export function showDialog(_open: boolean, _wrapperId: string, _fixedWidth: boolean, _contentElement: JSX.Element,
-                           _btnText: string, _onClickBtn: (e: React.MouseEvent<HTMLElement>) => void, _closeOnClickOutside: boolean) {
-    let root: Root = null
-    for (const item of roots) {
-        if (item.id === _wrapperId) {
-            if (item.root == null) {
-                console_debug("--------create root " + item.id)
-                item.root = createRoot(document.getElementById(item.id))
-            }
-            root = item.root
-            break
-        }
+let root: Root = null
+let lastDialogType = null
+export function showDialog(_contentElement: JSX.Element) {
+    if (root == null)
+        root = createRoot(document.getElementById(COMMON_DIALOG_WRAPPER_ID))
+    root.render(_contentElement)
+    if (mdcDialog != null && lastDialogType != null && _contentElement.type == lastDialogType) {
+            // dialog的第一次加载一定会执行componentDidMount，在那里处理第一次弹出
+            // 在这里实现对于同一个dialog的多次点击弹出，即使内容不变，只要保留有上一次弹出时的mdcDialog对象即可
+            // 切换到其它dialog的时候，而且这个对象可能已经过时了，所以这种情况下不open
+            mdcDialog.open()
     }
-    if (root == null) return
-    root.render(
-        <BasicDialog
-            open={_open}
-            fixedWidth={_fixedWidth}
-            contentElement={_contentElement}
-            btnText={_btnText}
-            btnOnClick={_onClickBtn}
-            closeOnClickOutside={_closeOnClickOutside}
-        />
-    )
+    lastDialogType = _contentElement.type
 }

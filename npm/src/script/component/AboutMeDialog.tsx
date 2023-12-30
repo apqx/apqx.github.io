@@ -1,11 +1,10 @@
 import * as React from "react";
 import {MDCList} from "@material/list";
-import * as url from "url";
 import {MDCRipple} from "@material/ripple";
-import {COMMON_DIALOG_WRAPPER_ID, showDialog} from "./BasicDialog";
+import {BasicDialog, BasicDialogProps, showDialog} from "./BasicDialog";
 import {console_debug} from "../util/LogUtil";
 
-class AboutMeDialogContent extends React.Component<any, any> {
+class AboutMeDialog extends BasicDialog<BasicDialogProps, any> {
 
     initList(e: Element) {
         if (e == null) return
@@ -16,12 +15,13 @@ class AboutMeDialogContent extends React.Component<any, any> {
         return window.location.origin + "/post/original/2019/05/18/槐安国内春生酒.html"
     }
 
-    shouldComponentUpdate(nextProps: Readonly<any>, nextState: Readonly<any>, nextContext: any): boolean {
+    shouldComponentUpdate(nextProps: Readonly<BasicDialogProps>, nextState: Readonly<any>, nextContext: any): boolean {
+        super.shouldComponentUpdate(nextProps, nextState, nextContext);
         return false
     }
 
-    render() {
-        console_debug("AboutMeDialogContent render")
+    dialogContent(): JSX.Element {
+        console_debug("AboutMeDialog render")
         return (
             <div className="center-horizontal">
                 <img height="100px" width="100dx" className="circle-avatar"
@@ -37,17 +37,18 @@ class AboutMeDialogContent extends React.Component<any, any> {
                 </span>
                 <p className="about-me-description">九五后，旅居杭州，<a
                     href={this.getKunQvLink()}
-                    target="_blank">昆虫</a>，野生散养攻城狮，“十分”“业余”摄影Fans。联系我可以通过邮件<code>Email</code>👇🏻，如果有必要也可以用<a href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/wechat.jpg" target="_blank">微信</a>。</p>
+                    target="_blank">昆虫</a>，野生散养攻城狮，“十分”“业余”摄影Fans。联系我可以通过邮件<code>Email</code>👇🏻，如果有必要也可以用<a
+                    href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/wechat.jpg" target="_blank">微信</a>。</p>
                 <ul className="mdc-deprecated-list dialog-link-list" id="about-me-dialog_link_list"
                     ref={e => this.initList(e)}>
                     <LinkItem link="https://github.com/apqx" title="GitHub"/>
-                    <hr className="mdc-deprecated-list-divider" />
+                    <hr className="mdc-deprecated-list-divider"/>
                     <LinkItem link="https://www.youtube.com/channel/UCF3Qv9tpULGL-CabxSEaCaQ" title="YouTube"/>
-                    <hr className="mdc-deprecated-list-divider" />
+                    <hr className="mdc-deprecated-list-divider"/>
                     <LinkItem link="https://space.bilibili.com/11037907" title="Bilibili"/>
-                    <hr className="mdc-deprecated-list-divider" />
+                    <hr className="mdc-deprecated-list-divider"/>
                     <LinkItem link="https://weibo.com/u/7026785047" title="Weibo"/>
-                    <hr className="mdc-deprecated-list-divider" />
+                    <hr className="mdc-deprecated-list-divider"/>
                     <LinkItem link="mailto:safari@mudan.me" title="Email"/>
                 </ul>
             </div>
@@ -88,7 +89,7 @@ class LinkItem extends React.Component<LinkItemProps, any> {
     }
 
     render() {
-        return(
+        return (
             <a className="mdc-deprecated-list-item" href={this.props.link} target="_blank"
                ref={e => this.initRipple(e)}>
                 <span className="mdc-deprecated-list-item__ripple"></span>
@@ -99,6 +100,7 @@ class LinkItem extends React.Component<LinkItemProps, any> {
 }
 
 export function showAboutMeDialog() {
-    const dialogContentElement = <AboutMeDialogContent />
-    showDialog(true, COMMON_DIALOG_WRAPPER_ID, true, dialogContentElement, "Cancel", undefined, true)
+    showDialog(<AboutMeDialog fixedWidth={true} btnText={"Cancel"}
+                                                      btnOnClick={null}
+                                                      closeOnClickOutside={true}/>)
 }

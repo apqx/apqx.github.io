@@ -5,7 +5,8 @@ import {MDCTextField} from "@material/textfield";
 import {Progressbar} from "./Progressbar";
 import {MDCList} from "@material/list";
 import {createHtmlContent} from "../util/Tools";
-import {COMMON_DIALOG_WRAPPER_ID, showDialog} from "./BasicDialog";
+import {BasicDialog, BasicDialogProps, showDialog} from "./BasicDialog";
+
 
 interface SearchDialogState {
     showLoading: boolean
@@ -17,7 +18,7 @@ interface SearchDialogState {
     searchText: string
 }
 
-export class SearchDialogContent extends React.Component<any, SearchDialogState> {
+export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogState> {
     state: SearchDialogState = {
         showLoading: false,
         resultList: null,
@@ -81,13 +82,14 @@ export class SearchDialogContent extends React.Component<any, SearchDialogState>
     initTextField(e: Element) {
         if (e == null) return
         new MDCTextField(e)
+        // TODO: 点击enter搜索
         e.addEventListener("keyup", (event: KeyboardEvent) => {
             if (event.key === "Enter")
                 this.onClickSearch()
         })
     }
 
-    render() {
+    dialogContent(): JSX.Element {
         return (
             <div className="center-horizontal">
                 <label className="mdc-text-field mdc-text-field--outlined" id="search-dialog_label"
@@ -226,8 +228,5 @@ class ResultItem extends React.Component<ResultItemProps, any> {
 
 export function showSearchDialog() {
     // 是不是每次弹出都是新的空白窗口，不是，SearchDialog组件中的数据是保留的，虽然重新render，但并没有创建新的组件对象
-    const dialogContentElement = <SearchDialogContent/>
-    showDialog(true, COMMON_DIALOG_WRAPPER_ID, true, dialogContentElement, "Cancel", () => {
-        // showDialog(false, COMMON_DIALOG_WRAPPER_ID, true, undefined, undefined, undefined)
-    }, true)
+    showDialog(<SearchDialog fixedWidth={true} btnText={"Cancel"} btnOnClick={null} closeOnClickOutside={true} />)
 }

@@ -1,6 +1,6 @@
-import {ShortLinkDialogContent, showShortLinkJumpDialog} from "./ShortLinkJumpDialog";
+import {ShortLinkDialog} from "./ShortLinkJumpDialog";
 import {console_debug, console_error} from "../util/LogUtil";
-import { isDebug } from "../util/Tools";
+import {isDebug} from "../util/Tools";
 
 
 interface UrlMapJson {
@@ -16,9 +16,9 @@ interface UrlMapItem {
 }
 
 export class ShortLinkJumpDialogPresenter {
-    component: ShortLinkDialogContent = null
+    component: ShortLinkDialog = null
 
-    constructor(component: ShortLinkDialogContent) {
+    constructor(component: ShortLinkDialog) {
         this.component = component
     }
 
@@ -26,7 +26,7 @@ export class ShortLinkJumpDialogPresenter {
      * 从url映射文件中查询pid
      */
     findPage(pid: string) {
-        var url = undefined
+        let url;
         if (isDebug()) {
             url = window.location.origin + "/archives/url-map.txt"
         } else {
