@@ -12,9 +12,9 @@ tags: CS Java Ubuntu Linux JDK
 
 我经常会产生一些有意思的想法，对很多事情感到好奇，习惯了图形化交互高度成熟的`Windows 10`，有点想尝试一下传说中“纯手工”操作的`Linux`。正好手里刚组了人生的第一个台式机，`Ubuntu`自然就成了首选操作系统。
 
-作为一个10年的`Windows`用户，翻遍了`Ubuntu`的`Settings`也没有发现和`Environment Variables`相关的选项，设置界面相比于`Windows`的控制面板只能用“简陋”来形容。在这一刻，我好像突然明白了为什么`Windows`能占领民用桌面操作系统市场，真的是“同行的衬托”。相比`Linux`的高冷，`Windows`对几乎所有操作都提供了图形化界面，动动鼠标就能完成的事，对于普通人，谁会想再去面对那个“恐怖”的`Terminal`呢。
+作为一个10年的`Windows`用户，翻遍`Ubuntu`的`Settings`也没有发现和`Environment Variables`相关的选项，设置界面比起`Windows`的控制面板只能用“简陋”来形容。在这一刻我好像突然明白了为什么`Windows`能占领民用桌面操作系统市场，真的是“同行的衬托”，相比`Linux`的高冷，`Windows`对几乎所有操作都有提供图形界面，动动鼠标就能完成的事，普通人谁会想去面对那个“恐怖”的`Terminal`呢。
 
-看了几篇文章，在`Ubuntu`中配置`环境变量`无非两种方式，直接修改`环境变量`配置文件`/etc/environment`，或者使用`export`命令将新的`环境变量`插入到系统设置中。
+参考几篇文章，在`Ubuntu`中配置`环境变量`无非两种方式，直接修改`环境变量`配置文件`/etc/environment`，或者使用`export`命令将新的`环境变量`插入到系统设置中。
 
 # 安装JDK
 
@@ -74,7 +74,7 @@ export JAVA_HOME=/usr/lib/jdk-10.0.1
 export PATH=$PATH:$JAVA_HOME/bin
 ```
 
-即定义了一个`JAVA_HOME`环境变量，并将其路径添加到了系统环境变量`PATH`的后面，此时执行：
+即定义了一个`JAVA_HOME`环境变量，并将其路径添加到系统环境变量`PATH`之后，此时执行：
 
 ```sh
 echo $PATH

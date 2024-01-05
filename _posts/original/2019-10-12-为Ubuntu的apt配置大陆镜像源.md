@@ -19,19 +19,19 @@ sudo apt install jekyll
 
 `apt`会自动从指定的`源`服务器上查找`jekyll`软件包，下载并安装，在`Software & Update`中可以看到系统当前使用的源是`Main server`。
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20191012/ubuntu_settings_apt_thumb.webp){: loading="lazy" class="clickable clickShowOriginalImg" alt="ubuntu" }
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20191012/ubuntu_settings_apt_thumb.webp){: loading="lazy" class="clickable clickShowOriginalImg" alt="Ubuntu" }
 
 众所周知的网络原因，这个`Main server`在中国大陆的访问速度非常慢，有必要修改为国内的`镜像`服务器。我使用的是`Ubuntu 18.04.3 LTS`，点击`Download from`下拉列表，会发现系统已经提供了很多大陆的`源`，比如`阿里云`就是一个不错的选择。
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20191012/ubuntu_settings_apt_source.webp){: loading="lazy" class="clickable clickShowOriginalImg" alt="ubuntu" }
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20191012/ubuntu_settings_apt_source.webp){: loading="lazy" class="clickable clickShowOriginalImg" alt="Ubuntu" }
 
 设置好后，在`Terminal`里更新一下包索引，可以看到`apt源`已经变成阿里云的`镜像`地址了。
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20191012/ubuntu_terminal_apt_update_thumb.webp){: loading="lazy" class="clickable clickShowOriginalImg" alt="ubuntu terminal" }
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20191012/ubuntu_terminal_apt_update_thumb.webp){: loading="lazy" class="clickable clickShowOriginalImg" alt="Ubuntu Terminal" }
 
 # 手动配置
 
-对于一些老版本的`Ubuntu`，可能就需要自己去修改`/etc/apt/sources.list`文件来配置`apt源`了，其实`Software & Update`本质上也是修改的这个文件，只是提供了一种更直观的图形化界面。
+对于一些老版本的`Ubuntu`，可能就需要自己去修改`/etc/apt/sources.list`文件来配置`apt源`了，其实`Software & Update`本质上也是修改的这个文件，只是提供了一种更直观的图形界面。
 
 默认的`/etc/apt/sources.list`文件内容是类似于如下格式的，可能服务器地址有些不同，和安装`Ubuntu`时选择的国家和地区有关。
 

@@ -74,11 +74,23 @@
   margin-top: 0.5rem;
 }
 
-.essay-description {
-  border: 1px solid rgba(63, 185, 80, 0.4);
+.surface-block {
+  border: 1px dashed var(--surface-block-border);
   border-radius: var(--essay-inner-shape-round);
-  background: rgba(46, 160, 67, 0.1);
+  background: var(--surface-block-bg);
   padding: 1rem;
+}
+
+.line-divider {
+  width: 80%;
+  border: none;
+  border-top: 2px dashed var(--divider-color);
+  margin: 1rem auto;
+}
+
+.icon-divider {
+  text-align: center;
+  margin: 0.5rem;
 }
 
 .btn-tag {
@@ -129,11 +141,6 @@ table code {
   // color:$code-highlight-text;
   background: var(--code-highlight-bg);
   border: 1px solid var(--code-highlight-border);
-}
-
-.green code {
-  background: var(--code-highlight-bg-on-green);
-  border: 1px solid var(--code-highlight-border-on-green);
 }
 
 strong code {

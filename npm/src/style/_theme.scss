@@ -113,8 +113,6 @@ $chip-ripple: (
   // Code
   --code-highlight-bg: #f8f9fa;
   --code-highlight-border: #e8eaed;
-  --code-highlight-bg-on-green: rgba(231, 231, 231, 0.2);
-  --code-highlight-border-on-green: rgba(213, 213, 213, 0.54);
   --pre-code-bg: #15171a;
 
   // Chip
@@ -137,6 +135,9 @@ $chip-ripple: (
   --strong-color: rgba(0, 0, 0, 0.90);
   --strong-underline-color: rgba(255, 0, 0, 0.18);
   --divider-color: rgba(0, 0, 0, 0.12);
+
+  --surface-block-border: rgba(188, 188, 188, 0.4);
+  --surface-block-bg: rgba(209, 209, 209, 0.1);
 
   --index-description-card-bg: #f9eacc;
   --index-item-subtitle: #808080;
@@ -165,8 +166,6 @@ $chip-ripple: (
   // Code
   --code-highlight-bg: rgba(55, 55, 55, 0.32);
   --code-highlight-border: rgba(69, 69, 69, 0.74);
-  --code-highlight-bg-on-green: rgba(23, 23, 23, 0.17);
-  --code-highlight-border-on-green: rgba(142, 142, 142, 0.32);
   --pre-code-bg: #0f0f0f;
 
   // Chip
@@ -189,6 +188,9 @@ $chip-ripple: (
   --strong-color: rgba(255, 255, 255, 0.95);
   --strong-underline-color: rgba(254, 96, 96, 0.4);
   --divider-color: #353535;
+
+  --surface-block-border: rgba(188, 188, 188, 0.4);
+  --surface-block-bg: rgba(0, 0, 0, 0.1);
 
   --index-description-card-bg: #301e00;
   --index-item-subtitle: #808080;
