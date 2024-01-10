@@ -34,12 +34,11 @@
 }
 
 .top-app-bar--blur {
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(20px);
   background-color: rgba(226, 64, 71, 0.75);
 }
 
 .dark .top-app-bar--blur {
-  backdrop-filter: blur(5px);
   background-color: rgba(252, 105, 111, 0.75);
 }
 

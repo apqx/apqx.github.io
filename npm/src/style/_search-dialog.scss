@@ -18,9 +18,9 @@
   @include textfield.caret-color(var(--mdc-theme-text-primary-on-background));
   @include textfield.placeholder-color(var(--mdc-theme-text-secondary-on-background));
   @include textfield.label-color(var(--mdc-theme-text-secondary-on-background));
-  @include textfield.focused-outline-color(var(--button-bg));
-  @include textfield.hover-outline-color(var(--mdc-theme-text-secondary-on-background));
   @include textfield.outline-color(var(--divider-color));
+  @include textfield.hover-outline-color(var(--divider-color));
+  @include textfield.focused-outline-color(var(--button-bg));
 }
 
 .btn-search {
