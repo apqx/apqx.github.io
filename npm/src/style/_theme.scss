@@ -2,17 +2,17 @@
 @use "@material/theme";
 @use "@material/theme/mdc-theme";
 @use "sass:map";
-@use "font";
+@use "font/font";
 
 $screen-middle-min-width: 600px;
 $screen-middle-max-width: 880px;
 $center-card-max-width: 880px;
-
-$text-font: unquote("PingFang SC, Noto Sans, Noto Sans SC, sans-serif, Apple Color Emoji, Noto Color Emoji");
-// 马善政字体缺少“璟”，汉仪颐和仙境缺少“瓅”，所以用汉仪新蒂文征明体作为补全
-$handwritten-font: "HYYiHeXianJing W", "HanyiSentyWen", "PingFang SC", "Noto Sans", "Noto Sans SC", sans-serif, "Apple Color Emoji", "Noto Color Emoji";
-$handwritten-mashanzheng-font: "Ma Shan Zheng", "PingFang SC", "Noto Sans", "Noto Sans SC", sans-serif, "Apple Color Emoji", "Noto Color Emoji";
-$code-block-font: JetBrainsMono, "PingFang SC", "Noto Sans", "Noto Sans SC", sans-serif, "Apple Color Emoji", "Noto Color Emoji";
+// 霞鹜文楷
+$text-font: unquote("LXGW WenKai, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
+// 马善政字体缺少“璟”，汉仪颐和仙境缺少“瓅”
+$handwritten-font: "HYYiHeXianJing W", "LXGW WenKai", "PingFang SC", Roboto, sans-serif, "Apple Color Emoji", "Noto Color Emoji";
+$handwritten-mashanzheng-font: "Ma Shan Zheng", "LXGW WenKai", "PingFang SC", Roboto, sans-serif, "Apple Color Emoji", "Noto Color Emoji";
+$code-block-font: JetBrainsMono, "LXGW WenKai", "PingFang SC", Roboto, sans-serif, "Apple Color Emoji", "Noto Color Emoji";
 
 $top-bar-color: #ee6e73;
 $top-bar-color-darken: #df696e;
@@ -126,7 +126,7 @@ $chip-ripple: (
   --link-color: #2b00fe;
   --em-color: #535c68;
   --strong-color: rgba(0, 0, 0, 0.90);
-  --strong-underline-color: rgba(255, 0, 0, 0.18);
+  --strong-underline-color: rgba(255, 0, 0, 0.12);
   --divider-color: rgba(0, 0, 0, 0.12);
 
   --surface-block-border: rgba(188, 188, 188, 0.4);
@@ -179,7 +179,7 @@ $chip-ripple: (
   --link-color: #54a0ff;
   --em-color: rgba(255, 255, 255, 0.65);
   --strong-color: rgba(255, 255, 255, 0.95);
-  --strong-underline-color: rgba(254, 96, 96, 0.4);
+  --strong-underline-color: rgba(254, 96, 96, 0.3);
   --divider-color: #353535;
 
   --surface-block-border: rgba(188, 188, 188, 0.4);
