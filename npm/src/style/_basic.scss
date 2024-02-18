@@ -190,6 +190,10 @@ blockquote.handwritten.pre p {
   font-size: 1.3rem;
 }
 
+.handwritten.handwritten__mashanzheng * {
+  font-family: blogTheme.$handwritten-mashanzheng-font;
+}
+
 
 .mdc-deprecated-list {
   @include list.deprecated-divider-color(var(--divider-color));

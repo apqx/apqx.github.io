@@ -73,7 +73,7 @@ export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogConten
         return false
     }
 
-    handwrittenFontTitle = "使用<a href=\"https://fonts.google.com/specimen/Ma+Shan+Zheng\" target=\"_blank\">马善政手写楷书</a>字体"
+    handwrittenFontTitle = "使用<a href=\"https://www.hanyi.com.cn/productdetail.php?id=8433&type=0\" target=\"_blank\">汉仪颐和仙境楷书</a>字体"
 
     dialogContent(): JSX.Element {
         console_debug("PreferenceDialogContent render")

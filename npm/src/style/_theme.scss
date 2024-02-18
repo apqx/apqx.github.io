@@ -2,23 +2,16 @@
 @use "@material/theme";
 @use "@material/theme/mdc-theme";
 @use "sass:map";
-
-@font-face {
-  font-family: "JetBrainsMono";
-  src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/font/JetBrainsMono-Regular.woff2");
-}
-
-@font-face {
-  font-family: "HYZhuangYuanXingW";
-  src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/HYZhuangYuanXingW.ttf");
-}
+@use "font";
 
 $screen-middle-min-width: 600px;
 $screen-middle-max-width: 880px;
 $center-card-max-width: 880px;
 
 $text-font: unquote("PingFang SC, Noto Sans, Noto Sans SC, sans-serif, Apple Color Emoji, Noto Color Emoji");
-$handwritten-font: "Ma Shan Zheng", "PingFang SC", "Noto Sans", "Noto Sans SC", sans-serif, "Apple Color Emoji", "Noto Color Emoji";
+// 马善政字体缺少“璟”，汉仪颐和仙境缺少“瓅”，所以用汉仪新蒂文征明体作为补全
+$handwritten-font: "HYYiHeXianJing W", "HanyiSentyWen", "PingFang SC", "Noto Sans", "Noto Sans SC", sans-serif, "Apple Color Emoji", "Noto Color Emoji";
+$handwritten-mashanzheng-font: "Ma Shan Zheng", "PingFang SC", "Noto Sans", "Noto Sans SC", sans-serif, "Apple Color Emoji", "Noto Color Emoji";
 $code-block-font: JetBrainsMono, "PingFang SC", "Noto Sans", "Noto Sans SC", sans-serif, "Apple Color Emoji", "Noto Color Emoji";
 
 $top-bar-color: #ee6e73;
