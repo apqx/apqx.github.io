@@ -81,6 +81,7 @@
 .index-top-card-text {
   @include typography.typography(subtitle1);
   text-align: right;
+  font-size: 1.1rem;
 }
 
 .index-card {
@@ -150,6 +151,10 @@
   @include typography.typography(subtitle1);
   margin: 0;
   text-align: left;
+}
+
+.handwritten .index-title {
+  font-size: 1.1rem;
 }
 
 /* 索引署名 */
@@ -273,7 +278,6 @@
 }
 
 .grid-index-description {
-  @include typography.typography(body1);
   margin: 0;
   color: var(--index-item-description);
 }

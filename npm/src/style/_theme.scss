@@ -10,8 +10,7 @@ $center-card-max-width: 880px;
 // 霞鹜文楷
 $text-font: unquote("LXGW WenKai, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
 // 马善政字体缺少“璟”，汉仪颐和仙境缺少“瓅”
-$handwritten-font: "HYYiHeXianJing W", "LXGW WenKai", "PingFang SC", Roboto, sans-serif, "Apple Color Emoji", "Noto Color Emoji";
-$handwritten-mashanzheng-font: "Ma Shan Zheng", "LXGW WenKai", "PingFang SC", Roboto, sans-serif, "Apple Color Emoji", "Noto Color Emoji";
+$handwritten-font: "HYXuJingXingKaiW", "LXGW WenKai", "PingFang SC", Roboto, sans-serif, "Apple Color Emoji", "Noto Color Emoji";
 $code-block-font: JetBrainsMono, "LXGW WenKai", "PingFang SC", Roboto, sans-serif, "Apple Color Emoji", "Noto Color Emoji";
 
 $top-bar-color: #ee6e73;
@@ -157,7 +156,7 @@ $chip-ripple: (
   --search-nav: rgba(228, 96, 117, 0.93);
 
   // Code
-  --code-highlight-bg: rgba(55, 55, 55, 0.32);
+  --code-highlight-bg: rgba(55, 55, 55, 0.18);
   --code-highlight-border: rgba(69, 69, 69, 0.74);
   --pre-code-bg: #0f0f0f;
 

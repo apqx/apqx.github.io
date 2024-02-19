@@ -1,7 +1,9 @@
-// 汉仪颐和仙境楷书
-@use "HYYiHeXianJingW";
-// 马善政楷书
-@use "MaShanZhengRegular";
+// 汉仪颐和仙境楷书，缺少“瓅”，楷书太方正
+// @use "HYYiHeXianJingW";
+// 马善政手写楷书，缺少“璟”、“瓅”，且“井”被显示为“弗”，问题太多
+// @use "MaShanZhengRegular";
+// 汉仪许静行楷W，也缺字，但现在只对部分诗文使用，不对全站应用，所以此行书最合适
+@use "_HYXuJingXingKaiW";
 // JetBrainsMono代码字体
 @use "JetBrainsMono";
 // 霞鹜文楷
@@ -10,3 +12,11 @@
 // Material Icons
 @use "MaterialIcons";
 @use "MaterialIconsOutlined";
+
+// @font-face {
+//     font-family: "test";
+//     src: url("http://localhost:4000/assets/HanyiSentyFoundation.ttf");
+//     font-style: normal;
+//     font-weight: 400;
+//     font-display: swap;
+// }

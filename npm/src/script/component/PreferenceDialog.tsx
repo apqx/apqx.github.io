@@ -73,7 +73,7 @@ export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogConten
         return false
     }
 
-    handwrittenFontTitle = "使用<a href=\"https://www.hanyi.com.cn/productdetail.php?id=8433&type=0\" target=\"_blank\">汉仪颐和仙境楷书</a>字体"
+    handwrittenFontTitle = "使用<a href=\"https://www.hanyi.com.cn/productdetail?id=2987&type=0\" target=\"_blank\">汉仪许静行楷</a>字体"
     autoThemeTitle = "跟随系统自动切换<a href=\"/post/original/2021/08/03/%E4%B8%BA%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0%E7%AB%99%E5%86%85%E6%90%9C%E7%B4%A2%E5%92%8C%E6%9A%97%E9%BB%91%E6%A8%A1%E5%BC%8F\" target=\"_blank\">暗色主题</a>"
 
     dialogContent(): JSX.Element {
@@ -88,14 +88,14 @@ export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogConten
                              height="64"/>
                     </picture>
                 </div>
-                {/* <SettingsToggle titleHtml={this.handwrittenFontTitle}
+                <SettingsToggle titleHtml={this.handwrittenFontTitle}
                                 on={this.state.handwrittenFontOn}
                                 onClickToggle={this.onClickHandwritingFontSwitch}
-                                floatTop={false}/> */}
+                                floatTop={false}/>
                 <SettingsToggle titleHtml={this.autoThemeTitle}
                                 on={this.state.autoThemeOn}
                                 onClickToggle={this.onClickAutoThemeSwitch}
-                                floatTop={false}/>
+                                floatTop={true}/>
             </>
         );
     }

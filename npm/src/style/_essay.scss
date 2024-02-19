@@ -13,14 +13,14 @@
 @use "sass:map";
 
 @mixin cardElevation {
-    // 文章卡片的阴影，z高度，阴影颜色，扩散度
-    @include elevation.elevation(map.get(blogTheme.$essay-card-elevation, "elevation"),
+  // 文章卡片的阴影，z高度，阴影颜色，扩散度
+  @include elevation.elevation(map.get(blogTheme.$essay-card-elevation, "elevation"),
     map.get(blogTheme.$essay-card-elevation, "shadow-light"), 0);
 }
 
 @mixin cardElevationDark {
   @include elevation.elevation(map.get(blogTheme.$essay-card-elevation, "elevation"),
-  map.get(blogTheme.$essay-card-elevation, "shadow-dark"), 0);
+    map.get(blogTheme.$essay-card-elevation, "shadow-dark"), 0);
 }
 
 .essay-card {
@@ -40,11 +40,12 @@
     padding: 1.3rem 1.3rem;
     margin: 0.74rem 0;
     @include elevation.elevation(map.get(blogTheme.$essay-card-elevation, "elevation"),
-            map.get(blogTheme.$essay-card-elevation, "min-screen-shadow-light"), 0);
+      map.get(blogTheme.$essay-card-elevation, "min-screen-shadow-light"), 0);
   }
+
   .dark .essay-card {
     @include elevation.elevation(map.get(blogTheme.$essay-card-elevation, "elevation"),
-            map.get(blogTheme.$essay-card-elevation, "min-screen-shadow-dark"), 0);
+      map.get(blogTheme.$essay-card-elevation, "min-screen-shadow-dark"), 0);
   }
 }
 
@@ -130,10 +131,7 @@ p code,
 li code,
 table code {
   @include typography.typography(body1);
-  padding-left: 0.2rem;
-  padding-right: 0.2rem;
-  padding-top: 0.01rem;
-  padding-bottom: 0.01rem;
+  padding: 0.01rem 0.2rem 0.01rem 0.2rem;
   margin-left: 0.05rem;
   margin-right: 0.05rem;
   border-radius: 0.3rem;
@@ -141,6 +139,14 @@ table code {
   // color:$code-highlight-text;
   background: var(--code-highlight-bg);
   border: 1px solid var(--code-highlight-border);
+}
+
+.handwritten {
+  p code,
+  li code,
+  table code {
+    padding: 0rem 0.2rem 0.04rem 0.2rem;
+  }
 }
 
 p em code {
