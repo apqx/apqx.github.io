@@ -1,11 +1,9 @@
 @use "theme" as blogTheme;
 
-@use "@material/typography" with (
-  // Noto Sans是思源黑体的拉丁文字体，Noto Sans SC是其简体中文字体，因为SC的引号是全角字符，特别别扭，所以在前面用拉丁文字体先处理这些标点符号和字母
+@use "@material/typography" with ( // Noto Sans是思源黑体的拉丁文字体，Noto Sans SC是其简体中文字体，因为SC的引号是全角字符，特别别扭，所以在前面用拉丁文字体先处理这些标点符号和字母
   // SC还有一个问题是，如果前面用的是Roboto等非思源字体处理符号和字母，可能会出现用style绘制背景的时候，上下padding尺寸不一致，必须收到增加上padding才行
   // 所以，在同一个设备上，应该使用同一套字体
-  $font-family: blogTheme.$text-font
-);
+  $font-family: blogTheme.$text-font);
 
 @use "@material/theme";
 @use "@material/theme/mdc-theme";
@@ -88,11 +86,11 @@ b {
 strong {
   color: var(--strong-color);
   box-shadow: inset 0 -8px 0 0 var(--strong-underline-color);
-  font-weight:700;
+  font-weight: 700;
 }
 
 .handwritten strong {
-  font-weight:normal;
+  font-weight: normal;
 }
 
 a {
@@ -193,6 +191,10 @@ blockquote.handwritten.pre p {
   font-size: 0.95rem;
 }
 
+.handwritten .mdc-button .mdc-button__label {
+  margin-bottom: 0.2rem;
+}
+
 .handwritten .english,
 .handwritten .english * {
   font-size: 1.3rem;
@@ -252,5 +254,3 @@ blockquote.handwritten.pre p {
   @include chips.text-label-color(var(--chip-ink));
   @include chips.container-color(var(--chip-bg));
 }
-
-
