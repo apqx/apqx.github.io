@@ -7,11 +7,11 @@
 $screen-middle-min-width: 600px;
 $screen-middle-max-width: 880px;
 $center-card-max-width: 880px;
-// 霞鹜文楷
-$text-font: unquote("LXGW WenKai, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
+// 霞鹜文楷GB
+$text-font: unquote("LXGW WenKai GB, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
 // 马善政字体缺少“璟”，汉仪颐和仙境缺少“瓅”
-$handwritten-font: "HYXuJingXingKaiW", "LXGW WenKai", "PingFang SC", Roboto, sans-serif, "Apple Color Emoji", "Noto Color Emoji";
-$code-block-font: JetBrainsMono, "LXGW WenKai", "PingFang SC", Roboto, sans-serif, "Apple Color Emoji", "Noto Color Emoji";
+$handwritten-font: "HYXuJingXingKaiW", "LXGW WenKai GB", "PingFang SC", Roboto, sans-serif, "Apple Color Emoji", "Noto Color Emoji";
+$code-block-font: "LXGW WenKai Mono GB", "LXGW WenKai GB", "PingFang SC", Roboto, sans-serif, "Apple Color Emoji", "Noto Color Emoji";
 
 $top-bar-color: #ee6e73;
 $top-bar-color-darken: #df696e;

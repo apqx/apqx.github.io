@@ -7,15 +7,16 @@
 // JetBrainsMono代码字体
 @use "JetBrainsMono";
 // 霞鹜文楷
-@use "LXGWWenKaiBold";
-@use "LXGWWenKaiRegular";
+@use "LXGWWenKaiGBBold";
+@use "LXGWWenKaiGBRegular";
+@use "LXGWWenKaiMonoGBRegular";
 // Material Icons
 @use "MaterialIcons";
 @use "MaterialIconsOutlined";
 
 // @font-face {
 //     font-family: "test";
-//     src: url("http://localhost:4000/assets/HanyiSentyFoundation.ttf");
+//     src: url("http://localhost:4000/assets/LXGWWenKaiMonoGB-Regular.ttf");
 //     font-style: normal;
 //     font-weight: 400;
 //     font-display: swap;
