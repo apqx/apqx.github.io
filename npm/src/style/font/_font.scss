@@ -6,6 +6,8 @@
 @use "_HYXuJingXingKaiW";
 // JetBrainsMono代码字体
 @use "JetBrainsMono";
+// 苹方的 Horizontal Ellipsis 字符，即…省略号，因为霞鹜文楷的省略号竖向居中，不合适，用苹方的替代
+@use "PingFangSCEllipsis";
 // 霞鹜文楷
 @use "LXGWWenKaiGBBold";
 @use "LXGWWenKaiGBRegular";
