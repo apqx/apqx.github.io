@@ -151,6 +151,12 @@
   @include typography.typography(subtitle1);
   margin: 0;
   text-align: left;
+  /* 不换行 */
+  white-space: nowrap;
+  /* 超出部分隐藏 */
+  overflow: hidden;
+  /* 文字超出部分显示省略号 */
+  text-overflow: ellipsis;
 }
 
 .handwritten .index-title {
@@ -346,7 +352,7 @@
   .index-top-card-container {
     padding: 0.5rem 2rem;
   }
-  
+
   .index-card {
     padding: 1.2rem 2rem;
   }

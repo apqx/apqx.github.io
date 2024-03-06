@@ -86,7 +86,7 @@
   width: 80%;
   border: none;
   border-top: 2px dashed var(--divider-color);
-  margin: 1rem auto;
+  margin: 1.5rem auto;
 }
 
 .icon-divider {
@@ -131,7 +131,7 @@ p code,
 li code,
 table code {
   @include typography.typography(body1);
-  padding: 0.05rem 0.2rem 0.01rem 0.2rem;
+  padding: 0.01rem 0.2rem 0.05rem 0.2rem;
   margin-left: 0.05rem;
   margin-right: 0.05rem;
   border-radius: 0.3rem;
