@@ -7,13 +7,13 @@ mention: 线程 异步 UI
 date: 2018-12-25 +0800
 description: 编写高性能的Android程序必须遵循2个最基本的线程规则，即只在工作线程中执行耗时任务和只在主线程中操作UI。要兼顾这两项，代码执行中切换线程就是一个频繁而必要的操作，可以通过Android提供的Handler来将Runnable发送到指定的线程中执行，而AsyncTask则是对Handler的进一步封装。
 cover: 
-tags: CS Android Thread
+tags: CS Android Thread Handler
 ---
 
 编写高性能的`Android`程序必须遵循2个最基本的`线程`规则：
 
-* 只在`工作线程`中执行耗时任务。
-* 只在`主线程`中操作UI。
+* 只在`工作线程`中执行耗时任务
+* 只在`主线程`中操作UI
 
 要兼顾这两项，代码执行中`切换线程`就是一个频繁而必要的操作，可以通过`Android`提供的`Handler`来将`Message`和`Runnable`发送到指定的`线程`中执行：
 
@@ -88,7 +88,7 @@ public void onCreate(Bundle savedInstanceState) {
 }
 ```
 
-使用`Java 8`的`Lambda`表达式可能会好一些，但还是不够优雅。
+使用`Java 8`的`Lambda`表达式可能会好一些，但还是不够精炼。
 
 所以`Android`有了`AsyncTask`，一个对`Handler`进行多层封装后专门用来执行`短期耗时操作`并不断根据进度信息更新UI的工具。
 
@@ -368,4 +368,4 @@ private void finish(Result result) {
 * 同一个`AsyncTask`的不同实例默认是串行执行的，但可以传入自己的`Executor`来改变其行为，比如变为并行。
 * `AsyncTask`是可以被中断的，中断后将调用`onCanceled()`返回结果而不是`onPostExecute()`。
 
-最近有点越来越喜欢通过阅读源码来分析某些组件的行为，之前只是知道使用`AsyncTask`必须这样做，看了源码才知道为什么必须这样做，知其然也知其所以然，其乐无穷。
+最近有点越来越喜欢通过阅读源码来分析某些组件的行为，之前只是知道使用`AsyncTask`必须这样做，看了源码才知道为什么必须这样做，知其然也知其所以然。

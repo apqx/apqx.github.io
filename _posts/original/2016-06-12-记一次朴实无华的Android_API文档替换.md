@@ -5,9 +5,9 @@ title: "记一次朴实无华的Android API文档替换"
 author: 立泉
 mention: GFW Java
 date: 2016-06-12 +0800
-description: 在学习Android的过程中，要参阅系统提供的应用开发接口API来实现所需功能，实际上在Android SDK本地文件夹中就有一份HTML版本的API文档，可以使用浏览器离线查看。但是当我用浏览器打开这些文档时却发现其在联网状态下加载速度极慢，而如果断开网络就正常了...
+description: 使用浏览器查看Android SDK本地文件夹的API文档，发现其在联网状态下加载速度极慢，而如果断开网络就正常了...
 cover: 
-tags: CS Android Java 文档 GFW
+tags: CS Android Java GFW
 ---
 
 在学习`Android`的过程中，要参阅系统提供的应用开发接口`API`来实现所需功能，实际上在`Android SDK`本地文件夹中就有一份`HTML`版本的`API`文档，可以使用浏览器离线查看。但是当我用浏览器打开这些文档时却发现其在联网状态下加载速度极慢，而如果断开网络就正常了，考虑到墙的存在，猜测应该是页面中存在需要联网下载的`StyleSheet`或`Javascript`，而要连接的域名十有八九就是`Google`。
@@ -31,7 +31,7 @@ tags: CS Android Java 文档 GFW
 
 “正常”情况下无法访问的远程资源使浏览器等待服务器响应直至超时，造成加载缓慢的现象，所以删除这部分代码即可，并不会对文档内容造成影响，仅仅是缺少某些不重要的交互效果。
 
-我写了一个小程序来扫描这几千个`HTML`文档，一旦发现含有以上代码随即删除，然后重新输出回原文件。单线程依次处理是一个很费时的操作，所幸我并不赶时间☕️。
+写了一个小程序来扫描这几千个`HTML`文档，一旦发现含有以上代码随即删除，然后重新输出回原文件。单线程依次处理是一个很费时的操作，不过我并不赶时间☕️。
 
 ```java
 package me.apqx.util;
@@ -50,11 +50,6 @@ public class ChangeFile {
         // 文档所在的文件夹
         File file = new File("F:/docs");
         scanFile(file);
-        try {
-            Desktop.getDesktop().open(new File(file, "index.html"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private static void scanFile(File file) {
@@ -62,13 +57,7 @@ public class ChangeFile {
             File[] list = file.listFiles(new FileFilter() {
                 @Override
                 public boolean accept(File file) {
-                    if (file.isDirectory()){
-                        return true;
-                    } else if (file.getName().contains("html")){
-                        return true;
-                    } else {
-                        return false;
-                    }
+                    return file.isDirectory() || file.getName().contains("html");
                 }
             });
             for (File f:list){

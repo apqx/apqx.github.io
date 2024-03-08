@@ -7,7 +7,7 @@ mention: 线程私有
 date: 2019-03-05 +0800
 description: 虽然没怎么用过，但也很好奇它是怎么实现的。
 cover: 
-tags: CS Java Thread
+tags: CS Java Thread Handler
 ---
 
 在`Android`的消息机制中，创建`Handler`需要一个`Looper`，如果不在构造器中指定，会自动获取当前线程的`Looper`：

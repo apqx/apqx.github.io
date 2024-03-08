@@ -1,7 +1,7 @@
 ---
 layout: post
 categories: original
-title: "Ubuntu配置JDK环境"
+title: "Ubuntu配置JDK环境变量"
 author: 立泉
 mention: $PATH EXPORT
 date: 2018-04-20 +0800
@@ -9,6 +9,8 @@ description: 我经常会产生一些有意思的想法，对很多事情感到�
 cover: 
 tags: CS Java Ubuntu Linux JDK
 ---
+
+> **本文时间久远，部分信息可能已经过时，仅供参考。**
 
 我经常会产生一些有意思的想法，对很多事情感到好奇，习惯了图形化交互高度成熟的`Windows 10`，有点想尝试一下传说中“纯手工”操作的`Linux`。正好手里刚组了人生的第一个台式机，`Ubuntu`自然就成了首选操作系统。
 
@@ -35,7 +37,7 @@ sudo tar -xf /home/apqx/Downloads/jdk-10.0.1_linux-x64_bin.tar.gz /usr/lib
 sudo vim /etc/environment
 ```
 
-里面的内容应该是类似这样的：
+里面的内容是类似这样的：
 
 ```sh
 PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
@@ -50,7 +52,7 @@ PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/u
 
 要注意的是，`/etc/environment`中不能使用`$`来引用已有环境变量，也不能使用`export`命令，即必须填写绝对路径，就像上面那样。
 
-加载修改后的文件，使在当前`Terminal`立即生效，全局生效则需要重新登陆。
+加载修改后的文件，使其在当前`Terminal`立即生效，全局生效则需要重新登录。
 
 ```sh
 source /etc/environment
@@ -80,9 +82,9 @@ export PATH=$PATH:$JAVA_HOME/bin
 echo $PATH
 ```
 
-就可以看到已经添加成功了，但是这种方式设置的`环境变量`只对当前`Terminal`及其衍生`Terminal`有效。解决方法是在用户登陆时自动在根`Terminal`中执行`export`命令，这样才是全局生效的。
+就可以看到已经添加成功了，但是这种方式设置的`环境变量`只对当前`Terminal`及其衍生`Terminal`有效。解决方法是在用户登录时自动在根`Terminal`中执行`export`命令，这样才是全局生效的。
 
-`Linux`中有一个特殊的目录`/etc/profile.d/`，此目录下的脚本文件都会在`用户登录`时自动被执行。当然`Linux`的`开机`并不等于`用户登陆`，所以这种方式和`开机自启`还是有一些区别，但对于设置`环境变量`来说足够了。
+`Linux`中有一个特殊的目录`/etc/profile.d/`，此目录下的脚本文件都会在`用户登录`时自动被执行。当然`Linux`的`开机`并不等于`用户登录`，所以这种方式和`开机自启`还是有一些区别，但对于设置`环境变量`来说足够了。
 
 在`/etc/profile.d`目录下创建用于设置`环境变量`的脚本文件`environment.sh`：
 
@@ -123,4 +125,4 @@ java --version
 sudo apt install openjdk-8-jdk
 ```
 
-其实，随着`Ubuntu`的版本迭代，越来越多原本复杂的手工操作都会被更加方便、快捷的自动化方式取代。对用户而言，`Linux`的亲和性也在这一不断完善的过程中愈加展现出更多的吸引力。
+其实，随着`Ubuntu`的版本迭代，越来越多原本复杂的手工操作都会被更加方便快捷的自动化方式取代。对用户而言，`Linux`的亲和性也在这一不断完善的过程中愈加展现出更多的吸引力。
