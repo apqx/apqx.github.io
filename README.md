@@ -16,7 +16,7 @@
 
 # Markdown
 
-博文使用`Markdown`格式撰写，由`Jekyll`将其转换为`HTML`网页，生成静态站点，可以托管在[GitHub Pages](https://pages.github.com)或更灵活的云服务器上。
+博文使用`Markdown`格式撰写，由`Jekyll`将其转换为`HTML`网页，生成静态站点，可以托管在[GitHub Pages](https://pages.github.com)或其它云服务器上。
 
 ![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/img/screenshot_essay.webp)
 
@@ -86,6 +86,10 @@ git push origin
 静候数秒或数分钟，取决于`Pages`的执行速度，完成后网页就会更新。
 
 ![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/img/screenshot_index_phone.webp)
+
+# 版权
+
+此博客工程代码以`GPL`许可开源，但对其中的文章内容仍保留著作权，尤其`看剧`模块中外链的摄影照片，可能包含剧团、演员和摄影师的版权，未经允许不可用于商业用途。
 
 # 致谢
 
