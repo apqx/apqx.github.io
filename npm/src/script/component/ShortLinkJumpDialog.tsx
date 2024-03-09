@@ -35,8 +35,8 @@ export class ShortLinkDialog extends BasicDialog<DialogContentProps, DialogConte
         return (
             <div className="center-horizontal">
                 <picture>
-                    <source srcSet="https://fonts.gstatic.com/s/e/notoemoji/latest/1f99a/512.webp" type="image/webp"/>
-                    <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f99a/512.gif" alt="" width="164"
+                    <source srcSet="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emoji/noto-animated-emoji/lottie/512.webp" type="image/webp"/>
+                    <img src="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emoji/noto-animated-emoji/lottie/512.gif" alt="🦚" width="164"
                          height="164"/>
                 </picture>
                 <p id="short-link-jump-dialog_title">{this.state.title}</p>

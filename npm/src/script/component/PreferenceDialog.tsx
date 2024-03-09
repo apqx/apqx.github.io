@@ -82,9 +82,9 @@ export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogConten
             <>
                 <div className="center-horizontal">
                     <picture>
-                        <source srcSet="https://fonts.gstatic.com/s/e/notoemoji/latest/1f636/512.webp"
+                        <source srcSet="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emoji/noto-animated-emoji/mouth-none/512.webp"
                                 type="image/webp"/>
-                        <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f636/512.gif" alt="" width="64"
+                        <img src="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emoji/noto-animated-emoji/mouth-none/512.gif" alt="😶" width="64"
                              height="64"/>
                     </picture>
                 </div>

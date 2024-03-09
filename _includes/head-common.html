@@ -32,7 +32,7 @@
 
 <link rel="shortcut icon" href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/snail.png" />
 <link rel="apple-touch-icon" href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/snail_white_bg.png" />
-{% comment %} js和css资源由内部npm工程输出，debug模式下使用localhost版本，release模式下使用托管在阿里云上的版本 {% endcomment %}
+{% comment %} js和css资源由内部webpack工程输出，debug模式下使用localhost版本，release模式下使用托管在阿里云上的版本 {% endcomment %}
 {% if debug == true %}
 {% include head-debug.html %}
 {% else %}

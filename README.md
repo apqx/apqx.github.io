@@ -4,7 +4,7 @@
 
 基于[Jekyll](https://jekyllrb.com)并遵循[Material Design](https://material.io)的开源博客，使用`Google`提供的[Material Components Web](https://github.com/material-components/material-components-web)组件库。
 
-它并非一般通用的博客模版，而是完全以我自己的喜好量身定制的个人空间。由随笔、转载、诗文、看剧4个模块组成，整体采用淡红色极简风格，在文字、色彩和动画之外不添加任何多余元素，可以把它当作一个使用`Material Design`的个人站参考。
+它并非一般通用的博客模版，而是完全以我自己的喜好量身定制的分享空间。由随笔、转载、诗文、看剧4个模块组成，整体采用淡红色极简风格，在文字、色彩和动画之外不添加任何多余元素。或可作为使用`Material Design`的个人站参考，但不建议直接套用，因为目前尚未进行普适的模版优化，灵活性不足。
 
 博客链接 👉 [立泉の写字板](https://mudan.me)
 
@@ -24,18 +24,18 @@
 
 博客由`Jekyll`和`Webpack`组成，`Jekyll`用来将`Markdown`文章转换为`HTML`网页，`Webpack`用于生成网站所需的`Javascript`和`CSS`资源。
 
-首先切换到内部`Webpack`工程目录，编译生成`Js`、`CSS`文件：
+首先切换到内部`Webpack`工程目录，编译生成`Js`、`CSS`：
 
 ```sh
 # 进入内部Webpack工程
 cd npm
 # 安装所需依赖
 npm install
-# 在/npm/dist/目录下生成Js和CSS
+# 在/npm/dist/目录下生成Js、CSS
 npm run build-release
 ```
 
-博客网站部署时为提高访问速度这些资源文件会被托管到`阿里云OSS`上，在`_includes/head-common.html`可以看到对它们的引用。
+博客网站部署时这些资源文件会被托管到`阿里云OSS`上以提高中国大陆的访问速度，在`_includes/head-common.html`中可以看到对它们的引用。
 
 调试时则使用本地资源以实时响应`Webpack`工程的变化，需要将`_includes/configure.html`中的`debug`参数设为`true`，进入`debug`模式后`Js`日志也会输出到浏览器的`Console`中。
 
@@ -75,16 +75,15 @@ http://localhost:4000
 {% assign debug = false %}
 ```
 
-本地修改`commit`后`push`到自己的`GitHub repository`，`GitHub Pages`会自动执行`Jekyll`的`build`操作，把`Markdown`文章转换为`HTML`页面并`serve`到指定域名下。
+本地修改后`push`到自己的`repository`，`GitHub Pages`会自动执行`Jekyll`的`build`操作，生成静态网站并`serve`到指定域名下。
 
 ```sh
-# 本地commit
 git commit
-# push到自己的Github repository
+# push到自己的repository
 git push origin
 ```
 
-静候数秒或数分钟，取决于`Pages`等待执行的任务量，完成后网页就会更新。
+静候数秒或数分钟，取决于`Pages`的执行速度，完成后网页就会更新。
 
 ![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/img/screenshot_index_phone.webp)
 
