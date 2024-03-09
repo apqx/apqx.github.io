@@ -19,11 +19,11 @@ tags: CS Git GitHub SSH
 
 # 你是谁
 
-`GitHub`作为远程仓库，在与本地仓库建立关联后，本地的`push`会更改它所托管的内容，这中间的身份验证就十分重要了，只有被验证拥有权限的用户才能执行这些操作。
+`GitHub`作为远程仓库，在与本地仓库建立关联后，本地的`push`会更改它所托管的内容，所以中间的身份验证十分重要，只有被验证拥有权限的用户才能执行这些操作。
 
 `GitHub`鉴权有三种方式，常规的用户名+密码、服务端生成的授权`token`和基于非对称加密的`SSH key`。
 
-默认情况下，如果链接远程仓库的格式是`https://github.com/*`而非`SSH`的`git@github.com:*`，向其`push`会触发`git`要求输入用户名+密码来验证身份，这种方式非常直观，但却是每次`push`都要求重新输入验证。
+默认情况下，如果链接远程仓库的格式是`https://github.com/*`而非`SSH`的`git@github.com:*`，向其`push`会触发`git`要求输入用户名+密码来验证身份。这种方式非常直观，但是每次`push`都要求重新输入验证。
 
 如果要`git`记住用户名和密码，需要为每个仓库逐一设置`git config`，这样第一次`push`时输入的验证信息就会被保存给之后复用。
 
@@ -32,11 +32,13 @@ tags: CS Git GitHub SSH
 git config --global credential.helper store
 ```
 
-授权`token`是在`GitHub`中配置生成的，可以指定该`token`的权限范围，包括从访问用户名下的仓库直至创建、删除仓库在内的一系列危险操作，它和用户名+密码一样通常被`IDE`使用以在本地管理远程仓库，比如`Intellj Idea`在创建工程时就可以直接从用户的`GitHub`仓库中`clone`。
+授权`token`是在`GitHub`中配置生成的，可以指定该`token`的权限范围，包括从访问用户名下的仓库直至创建、删除仓库在内的一系列危险操作。它和用户名+密码一样通常被`IDE`使用以在本地管理远程仓库，比如`Intellj Idea`在创建工程时就可以直接从用户的`GitHub`仓库中`clone`。
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20230605/idea_github_repository.webp){: loading="lazy" class="clickable clickShowOriginalImg" alt="Intellij Idea GitHub Repository" }
 
-相比之下，基于非对称加密机制的[SSH key则是一种更方便的无密码验证方式]({%  link _posts/original/2019-06-11-基于非对称加密的HTTPS与SSH.md %}){: target="_blank" }，只需要用`ssh-keygen`生成一对密钥，私钥保存在本地，公钥上传至`GitHub`，在鉴权的时候一端发送一段密文，如果另一端能够解密即验证成功，使用这种机制要求指向远程仓库的链接是符合`git@github.com:*`的`SSH`格式。
+相比之下，基于非对称加密的[SSH key则是一种更方便的无密码验证方式]({%  link _posts/original/2019-06-11-基于非对称加密的HTTPS与SSH.md %}){: target="_blank" }。只需要用`ssh-keygen`生成一对密钥，私钥保存在本地，公钥上传至`GitHub`，鉴权时一端发送一段密文，如果另一端能够解密即验证成功。
+
+使用这种机制要求指向远程仓库的链接是符合`git@github.com:*`的`SSH`格式。
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20230605/github_url_ssh_thumb.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="GitHub SSH URL" }
 
@@ -46,7 +48,7 @@ git config --global credential.helper store
 
 ## 克隆
 
-最常见也是最简单的一种情况是`clone`一个`GitHub`仓库到本地，这种情况下本地仓库是自动与该远程仓库绑定的，在本地仓库目录下执行`git remote -v`就能看到这个名为`origin`的远程仓库了。
+最常见也是最简单的一种情况是`clone`一个`GitHub`仓库到本地，这种情况下本地仓库是自动与该远程仓库绑定的，在本地仓库目录下执行`git remote -v`就能看到这个名为`origin`的远程仓库。
 
 ```sh
 # 查看远程仓库
@@ -78,7 +80,7 @@ git push
 	merge = refs/heads/master
 ```
 
-一个小技巧是可以把这个`.git`目录复制到任何一个目录下，则该目录就变成了一个链接对应远程仓库的本地`git`仓库，`git`会检查当前目录相对于`HEAD`指向的`commit`文件版本的变化，等待用户新的`commit`提交。
+一个小技巧是可以把这个`.git`目录复制到任何一个目录下，则该目录就变成了一个链接对应远程仓库的本地`git`仓库。`git`会检查当前目录相对于`HEAD`所指向`commit`版本的文件变化，等待用户新的`commit`提交。
 
 ## 手动关联
 
@@ -105,7 +107,7 @@ git commit -m "This is a commit"
 
 在`GitHub`上创建远程仓库时，不要选择添加`.gitignore`和`README.md`，会导致`GitHub`自动为这两个文件的创建产生`commit`记录，没有必要，在本地仓库添加这两个文件更合适。
 
-对于分支需要知道，未进行过`commit`的仓库是没有可用于链接的有效分支的，初始情况下本地`git`默认有一个`master`分支，`GitHub`则是`main`，如果要保持一致建议在本地有过`commit`之后修改`master`分支名为`main`。
+对于分支需要知道，未进行过`commit`的仓库是没有可用于链接的有效分支的。初始情况下本地`git`默认有一个`master`分支，`GitHub`则是`main`，如果要保持一致建议在本地有过`commit`之后修改`master`分支名为`main`。
 
 ```sh
 # 本地有过commit记录后，master分支是有效的
@@ -147,7 +149,7 @@ git pull --allow-unrelated-histories
 # 执行完成后2个分支就建立了关联，可以正常pull、push
 ```
 
-如果本地新增了分支，也可以像上面第1种情况那样直接`push`到远程仓库里。
+如果本地新增分支，也可以像上面第1种情况那样直接`push`到远程仓库里。
 
 ```sh
 # 比如本地有一个新的dev分支要push到远程仓库
@@ -169,4 +171,4 @@ git push origin --delete <branch-name>
 
 # 尾声
 
-`GitHub`在被微软并入后能感觉到其功能迭代更加活跃，已经在之前的博文中提过`Pages`，再排除今天写的部分，还有一些`GitHub`功能没有涉及到，如`Fork`和`Action`，不过应该很快也会有，计划中的一个东西涉及到这两个点，等我做完一定会把相关的心得也分享出来。
+`GitHub`在被微软并入后能感觉到其功能迭代更加活跃，已经在之前的博文中提过`Pages`，再排除今天写的部分，还有一些`GitHub`功能没有涉及到，如`Fork`和`Action`。不过应该很快也会有，计划中的一个东西涉及到这它们，等我做完同样会把相关的心得分享出来。

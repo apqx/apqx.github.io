@@ -16,7 +16,7 @@ tags: CS Android Thread Handler
 
 # Main Thread
 
-`Android`中的`Thread`也即是`Java`线程，当一个APP启动时，系统会为它创建一个`Linux Process`和一个`Execution Thread`。默认情况下，此APP的所有组件都会运行在这个进程的单一执行线程中，包括UI上产生的各种触控交互事件的分发，所以此线程又被称为`UI Thread`和`Main Thread`。
+`Android`中的`Thread`也即是`Java`线程，当一个App启动时，系统会为它创建一个`Linux Process`和一个`Execution Thread`。默认情况下，此App的所有组件都会运行在这个进程的单一执行线程中，包括UI上产生的各种触控交互事件的分发，所以此线程又被称为`UI Thread`和`Main Thread`。
 
 # CalledFromWrongThreadException
 
@@ -43,7 +43,7 @@ override onCreate(savedInstanceState: Bundle?) {
 
 `ANR`即`Application Not Responding`，应用程序无响应。`Android`作为手持设备，是通过UI的触摸与用户交互的，这些触控事件一旦产生，都会在主线程中进行由`Activity`到`View`的层层分发，交给对应的处理代码并在处理完成后及时刷新UI，这样用户才会感到操作流畅不卡顿。
 
-如果负责分发事件的主线程被阻塞（通常是在主线程中执行耗时操作），则用户点击屏幕后，这些触控事件迟迟不能向下传递，事件处理者就无法获取事件并给出反馈，用户看到的就是点击了屏幕但无任何反应，APP就像卡住了一样。通常，如果阻塞时间大于5秒，`Android`系统就会弹出`ANR`，提醒用户强制关闭程序。
+如果负责分发事件的主线程被阻塞（通常是在主线程中执行耗时操作），则用户点击屏幕后，这些触控事件迟迟不能向下传递，事件处理者就无法获取事件并给出反馈，用户看到的就是点击了屏幕但无任何反应，App就像卡住了一样。通常，如果阻塞时间大于5秒，`Android`系统就会弹出`ANR`，提醒用户强制关闭程序。
 
 所以在`Android`中使用线程必须遵循以下2条规则：
 

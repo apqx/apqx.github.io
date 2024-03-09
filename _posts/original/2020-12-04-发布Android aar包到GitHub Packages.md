@@ -12,7 +12,7 @@ tags: CS Android Gradle Build Maven GitHub
 
 成为一个全职`Android`开发工程师已有三年，经手的项目很多，也积累了一些自己常用的代码工具，我把它们封装到一个`Library`里在我的各个业余项目中使用。但是每次都在工程中为它单独创建一个`Module`显然太过麻烦，直接打包为`aar`又会出现一些依赖问题，因为`gradle`并不会把外部依赖直接写进`aar`中，这意味着必须在使用该`aar`的`Module`里手动引入这些依赖，否则就会因为依赖缺失而无法通过编译。
 
-那么，为什么`gradle`使用`Maven`里的类库可以不用手动引入它依赖的其它类库呢？其实，发布到`Maven`仓库的`aar`包同样不包含任何依赖，只不过发布时`Maven`插件会自动生成一个包含了所有依赖的`.pom`文件，而`gradle`在使用`Maven`里的类库会自动下载这个文件，并根据它的内容去下载指定版本的依赖包。
+那么为什么`gradle`使用`Maven`里的类库可以不用手动引入依赖呢？其实，发布到`Maven`仓库的`aar`包同样不包含任何依赖，只不过发布时`Maven`插件会自动生成一个包含所有依赖的`.pom`文件，而`gradle`在使用`Maven`里的类库时会自动下载这个文件，并根据它的内容去下载指定版本的依赖包。
 
 既然如此，是否可以把自己的包发布到`Maven`仓库呢？当然可以，很多公司都会搭建自己的`Maven`服务器来实现一些通用包的共享，在内网中获得非常快的访问速度。注意这里提到了可以自己搭建`Maven`仓库，所以`Maven`只是一种通用的远程依赖管理技术，并不特指某一个仓库，比如`Android`工程就配置了几个指向不同`URL`的`Maven`仓库。
 
@@ -43,13 +43,13 @@ allprojects {
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20201204/github_packages_token.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="github access token" }
 
-创建`token`时，如果想要向一个`Repository`中发布包，需要`write:packages`权限，如果只是读取包，只需要`read:packages`，要注意的是，必须按提示在`token`创建完成后把它记录下来，一旦离开这个页面就再也看不到它了。
+创建`token`时，如果想要向一个`Repository`中发布包，需要`write:packages`权限，如果只是读取包，只需要`read:packages`。要注意的是，必须按提示在`token`创建完成后把它记录下来，一旦离开这个页面就再也看不到它了。
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20201204/github_packages_token_create.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="github access token permission" }
 
 # gradle发布包
 
-`Maven`为`gradle`提供了`maven-publish`插件以支持在`gradle`中配置自动把包发布到指定的`Maven`仓库，同时`Android Gradle plugin 3.6.0`以上则包含了对`maven-publish`的支持，可以把`Android`工程中定义的`build variant`生成的包作为要发布到`Maven`仓库的包。
+`Maven`为`gradle`提供了`maven-publish`插件以支持在`gradle`中配置自动把包发布到指定的`Maven`仓库，同时`Android Gradle plugin 3.6.0`以上则包含了对`maven-publish`的支持，可以把`Android`工程中定义的`build variant`包发布到`Maven`仓库。
 
 ```groovy
 // project根目录的build.gradle文件
@@ -76,7 +76,7 @@ buildscript {
 
 [使用Gradle创建不同的打包类型]({% link _posts/original/2020-06-12-使用Gradle创建不同的打包类型.md %}){: target="_blank" }
 
-比如在该`Module`的`build.gradle`中定义了`mi`和`play`2个`flavor`，用于配置发布到小米商店和`Google Play`商店的渠道包，它们与`release`和`debug`2个`build type`组合就可以有4个`build variant`：
+比如在该`Module`的`build.gradle`中定义了`mi`和`play`2个`flavor`，用于配置发布到`小米商店`和`Google Play`商店的渠道包，它们与`release`和`debug`2个`build type`组合就可以有4个`build variant`：
 
 ```sh
 miRelease
@@ -123,7 +123,7 @@ android {
 
 那么`Android Gradle plugin`就会在工程编译时根据`build variant`为用于定义`Maven`发包类型的`components`对象生成对应的属性，来实现发布指定`build variant`的包。
 
-用于发包的`token`属于私密信息，如果这个工程是公开上传到`GitHub`上的，当然不希望`token`也被公开，可以在工程根目录下创建一个`github.properties`文件，存放用户名和`token`，但不要`push`到`GitHub`上。
+用于发包的`token`属于私密信息，上传到`GitHub`公开仓库的工程一般都不希望`token`被公开，可以在工程根目录下创建一个`github.properties`文件，存放用户名和`token`，但不要`push`到`GitHub`上。
 
 ```sh
 gpr.usr=user_name
@@ -287,6 +287,6 @@ dependencies {
 
 通过上面可以看到，不同于常见的`Maven`，`gradle`依赖`GitHub Packages`上的包是需要授权的，这种限制意味着它只适合应用在一些很小的圈子里，比如团队或个人的私有类库，如果在大范围内分享，这种授权限制就很不方便了。
 
-还有一点是关于删除已发布的包，`GitHub`允许删除私有仓库的包，但不允许删除公共仓库的包，因为可能已经有其它项目正在使用。如果某个版本存在问题，正确的解决方法不是删除该包而是发布一个修复了问题的新版本的包。
+还有一点是关于删除已发布的包，`GitHub`允许删除私有仓库的包，但不允许删除公共仓库的包，因为可能已经有其它项目正在使用。如果某个版本存在问题，正确的解决方法不是删除该包而是发布一个修复了问题的新版本包。
 
 更多信息可以参见`Android Developers`对[Maven Publish Gradle plugin](https://developer.android.com/studio/build/maven-publish-plugin){: target="_blank" }的描述。

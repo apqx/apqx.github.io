@@ -173,6 +173,11 @@ video {
   // border-radius: 0.3rem;
 }
 
+// img都是被包裹在<p>里所有无需设置margin
+video {
+  margin: 0.5rem 0;
+}
+
 .video-container {
   position: relative;
   // 这个百分比越小，视频越扁

@@ -1,7 +1,7 @@
 ---
 layout: post
 categories: original
-title: "Ubuntu配置JDK环境变量"
+title: "为Ubuntu配置JDK环境变量"
 author: 立泉
 mention: $PATH EXPORT
 date: 2018-04-20 +0800

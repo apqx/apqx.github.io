@@ -5,10 +5,12 @@ title: "为Ubuntu的apt配置大陆镜像源"
 author: 立泉
 mention: Linux 包管理器 阿里云
 date: 2019-10-12 +0800
-description: 基于Debian的Linux发行版中可以使用apt(Advanced Packaging Tool)高级包管理器来安装软件，其默认的源在中国大陆的访问速度非常慢，所以有必要修改到最近的镜像源，阿里云提供的镜像是一个不错的选择。
+description: 基于Debian的Linux发行版中可以使用apt高级包管理器来安装软件，其默认的源在中国大陆的访问速度非常慢，所以有必要修改到最近的镜像源，阿里云提供的镜像是一个不错的选择。
 cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20191012/ubuntu_settings_apt_thumb.webp
 tags: CS Ubuntu Linux APT 阿里云 镜像源
 ---
+
+ **本文时间久远，部分信息可能已经过时，仅供参考。**
 
 基于`Debian`的`Linux`发行版可以使用`apt(Advanced Packaging Tool)`高级包管理器来安装软件。
 
@@ -21,7 +23,7 @@ sudo apt install jekyll
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20191012/ubuntu_settings_apt_thumb.webp){: loading="lazy" class="clickable clickShowOriginalImg" alt="Ubuntu" }
 
-众所周知的网络原因，这个`Main server`在中国大陆的访问速度非常慢，有必要修改为国内的`镜像`服务器。我使用的是`Ubuntu 18.04.3 LTS`，点击`Download from`下拉列表，会发现系统已经提供了很多大陆的`源`，比如`阿里云`就是一个不错的选择。
+众所周知的网络原因，这个`Main server`在中国大陆的访问速度非常慢，有必要修改为国内的`镜像`服务器。我使用的是`Ubuntu 18.04.3 LTS`，点击`Download from`下拉列表，会发现系统已经提供了很多大陆`源`，比如`阿里云`就是一个不错的选择。
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20191012/ubuntu_settings_apt_source.webp){: loading="lazy" class="clickable clickShowOriginalImg" alt="Ubuntu" }
 
@@ -31,9 +33,9 @@ sudo apt install jekyll
 
 # 手动配置
 
-对于一些老版本的`Ubuntu`，可能就需要自己去修改`/etc/apt/sources.list`文件来配置`apt源`了，其实`Software & Update`本质上也是修改的这个文件，只是提供了一种更直观的图形界面。
+对于一些老版本的`Ubuntu`，可能需要手动修改`/etc/apt/sources.list`文件来配置`apt源`，其实`Software & Update`本质上也是修改的这个文件，只是提供了一种更直观的图形界面。
 
-默认的`/etc/apt/sources.list`文件内容是类似于如下格式的，可能服务器地址有些不同，和安装`Ubuntu`时选择的国家和地区有关。
+默认的`/etc/apt/sources.list`文件内容类似于如下格式，可能服务器地址会有些不同，和安装`Ubuntu`时选择的国家和地区有关。
 
 ```sh
 main multiverse #Added by software-properties
@@ -97,9 +99,9 @@ deb-src http://cn.archive.ubuntu.com/ubuntu/ bionic-backports main restricted un
 
 每一行都由3部分组成：
 
-* 第1部分是`deb`或`deb-src`，分别表示直接通过`.deb包`安装和通过`源代码`安装。
-* 第2部分是`源`服务器的`URL`根地址。
-* 第3部分是`源`服务器的`URL`根地址之下的具体目录结构。
+* 第1部分是`deb`或`deb-src`，分别表示直接通过`.deb包`安装和通过`源代码`安装
+* 第2部分是`源`服务器的`URL`根地址
+* 第3部分是`源`服务器的`URL`根地址之下的具体目录结构
 
 实际每一行都定义了一个`镜像`服务器的多个目录地址。
 
@@ -111,7 +113,9 @@ deb-src http://cn.archive.ubuntu.com/ubuntu/ bionic-backports main restricted un
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20191012/ubuntu_apt_cnserver_dists.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="apt" }
 
-可以看到，每一个`Ubuntu`系统代号都有5个目录，比如`18.04`代号是`bionic`，就对应`bionic/`、`bionic-backports/`、`bionic-proposed/`、`bionic-sercurity/`和`bionic-updates/`，随便进入一个目录，`/bionic/`：
+可以看到，每一个`Ubuntu`系统代号都有5个目录，比如`18.04`代号是`bionic`，对应`bionic/`、`bionic-backports/`、`bionic-proposed/`、`bionic-sercurity/`和`bionic-updates/`。
+
+随便进入一个目录，`/bionic/`：
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20191012/ubuntu_apt_cnserver_bionic.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="apt" }
 
@@ -136,7 +140,7 @@ deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe 
 deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
 ```
 
-如果要自定义`apt源`，可以直接修改`/etc/apt/sources.list`文件，用以上内容替换掉原内容。
+自定义`apt源`可以直接修改`/etc/apt/sources.list`文件，用以上内容替换原内容。
 
 ```sh
 # 修改系统文件前备份是个好习惯

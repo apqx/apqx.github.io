@@ -10,7 +10,7 @@ cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20231117/homebrew_social_c
 tags: CS Git macOS Homebrew GitHub 阿里云 清华大学 镜像源
 ---
 
-`Homebrew`之于`macOS`正如`apt`之于`Ubuntu`，且正如`apt`在大陆面临的网络问题一样，`Homebrew`也面临着相近甚至更糟的网络问题，因为它默认的`源`居然就是“剪不断、理还乱”的`GitHub`和`GitHub Packages`...后面会提到...
+`Homebrew`之于`macOS`正如`apt`之于`Ubuntu`，且正如`apt`在大陆面临的网络问题一样，`Homebrew`也面临着相近甚至更糟的网络问题，因为它默认的`源`居然就是“剪不断、理还乱”的`GitHub`和`GitHub Packages`...后面会提到。
 
 [Homebrew](https://brew.sh){: target="_blank" }是`macOS`的包管理器，但并没有被其内置，需要手动安装:
 
@@ -18,7 +18,7 @@ tags: CS Git macOS Homebrew GitHub 阿里云 清华大学 镜像源
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-从官方脚本来看其实就是把`Homebrew`的`GitHub`仓库`clone`下来，再把`brew`可执行文件映射到环境变量目录里。`clone`后所在的目录被称为`prefix`目录，在`x86`芯片的`Mac`上是`/usr/local/`，而在使用`Apple Silicon`的`Mac`上为了和`Rosetta`转译的包共存被改为`/opt/homebrew/`，其源码和可执行文件就位于`[prefix]/Homebrew/`之中，通过它安装的包都被保存在`[prefix]/Cellar/`目录里。
+从官方脚本来看其实就是把`Homebrew`的`GitHub`仓库`clone`下来，再把`brew`可执行文件映射到环境变量目录里。`clone`后所在的目录被称为`prefix`目录，在`x86`芯片的`Mac`上是`/usr/local/`，而在使用`Apple Silicon`的`Mac`上为了和`Rosetta`转译的包共存被改为`/opt/homebrew/`。其源码和可执行文件就位于`[prefix]/Homebrew/`之中，通过它安装的包都被保存在`[prefix]/Cellar/`目录里。
 
 # 术语
 
@@ -26,17 +26,21 @@ tags: CS Git macOS Homebrew GitHub 阿里云 清华大学 镜像源
 
 ## prefix
 
-前面提过是`Homebrew`的安装目录，通过`brew`安装的包都不会超出这个目录，包会被安装到`[prefix]/Cellar/`中然后通过`symlink`软链接将其可执行文件和其它必要文件映射到`[prefix]/`里，因为可执行文件所在的`[prefix]/bin/`本身是环境变量`$PATH`的一部分，所以这个包也就能被外部使用了。
+前面提过是`Homebrew`的安装目录，通过`brew`安装的包都不会超出这个目录。
+
+包会被安装到`[prefix]/Cellar/`中然后通过`symlink`软链接将其可执行文件和其它必要文件映射到`[prefix]/`里，因为可执行文件所在的`[prefix]/bin/`本身是环境变量`$PATH`的一部分，所以这个包也就能被外部使用。
 
 ## formulae
 
-直译“酿酒配方”，是安装时要从上游源码编译的包定义，现场酿酒，这些包定义是通过一个`GitHub`仓库来管理的:
+直译“酿酒配方”，是安装时要从上游源码编译的包定义，现场酿酒。
+
+这些包定义是通过一个`GitHub`仓库来管理的:
 
 ```sh
 https://github.com/homebrew/homebrew-core
 ```
 
-每个包都对应其中一个记录了其属性的`Ruby`文件，通过`brew`安装要先从此仓库`pull`下来整个包列表所以会特别慢...
+每个包都对应其中一个记录其属性的`Ruby`文件，通过`brew`安装要先从此仓库`pull`下来整个包列表所以会特别慢...
 
 即然包列表就是一个`git`仓库，那么如果要上传自己的包到`Homebrew`就只需把自定义包文件`push`到这个仓库里即可，这也是`Homebrew`和其它包管理器很不一样的地方。
 
@@ -50,7 +54,9 @@ https://github.com/homebrew/homebrew-cask.git
 
 ## bottle
 
-直译“酒瓶”，是预编译好的二进制包，酿好的酒，这些包都被托管在`GitHub Packages`上:
+直译“酒瓶”，是预编译好的二进制包，酿好的酒。
+
+这些包都被托管在`GitHub Packages`上:
 
 ```sh
 https://github.com/Homebrew/homebrew-core/packages
@@ -73,7 +79,7 @@ https://github.com/Homebrew/homebrew-core/packages
 [prefix]/Cellar/kotlin/1.9.20/
 ```
 
-使用`Homebrew`可能会经常看到`keg-only`这个词，意思是酒仅仅是被储存在酒窖里了，但并不能被外界使用，也就是说`brew`安装第二步将该包的可执行文件`symlink`软链接到`[prefix]/bin/`中并没有进行，原因可能是里面已经有同名文件。比如`macOS`自带的`git`也会软链接到这里，如果想使用`brew`安装的新版本`git`，需要按照提示执行`brew link`，但是建议在执行覆盖前先`--dry-run`检查一下可能会被影响的文件。
+使用`Homebrew`可能会经常看到`keg-only`这个词，意思是酒仅仅是被储存在酒窖里了，但并不能被外界使用，也就是说`brew`安装第二步将该包的可执行文件`symlink`软链接到`[prefix]/bin/`中并没有进行。原因可能是里面已经有同名文件，比如`macOS`自带的`git`也会软链接到这里，如果想使用`brew`安装的新版本`git`，需要按照提示执行`brew link`，但是建议在执行覆盖前先`--dry-run`检查一下可能会被影响的文件。
 
 ```sh
 # 将git链接到[prefix]的对应目录，覆盖已有文件
@@ -129,11 +135,18 @@ For compilers to find openjdk you may need to set:
 
 ## tap
 
-直译“阀门”，比如`formulae`和`bottle`的来源`https://github.com/homebrew/homebrew-core`、`https://github.com/Homebrew/homebrew-core/packages`，修改镜像源正是通过`brew tap`来实现的。
+直译“阀门”，比如`formulae`和`bottle`的来源：
+
+```sh
+https://github.com/homebrew/homebrew-core
+https://github.com/Homebrew/homebrew-core/packages
+```
+
+修改镜像源正是通过`brew tap`来实现的。
 
 # 大陆镜像
 
-现在我们知道为什么`brew install`这么慢了，不仅仅是从`GitHub`拉取代码和下载`package`，在4.0版本之后每次执行操作都会去`https://formulae.brew.sh/api/`获取完整的包信息，使用镜像源就是要将这些地址全都改为大陆链接。推荐我自用十分稳定的[清华大学](https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/){: target="_blank" }镜像站，它的文档比[阿里云](https://developer.aliyun.com/mirror/homebrew){: target="_blank" }更完整，而且我之前尝试`阿里云`的`Homebrew`源均是`404`，不知道现在是什么状态...
+现在我们知道为什么`brew install`这么慢了，不仅仅是从`GitHub`拉取代码和下载`package`，在4.0版本之后每次执行操作都会去`https://formulae.brew.sh/api/`获取完整的包信息，使用镜像源就是要将这些地址全都改为大陆链接。推荐我自用十分稳定的[清华大学](https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/){: target="_blank" }镜像站，它的文档比[阿里云](https://developer.aliyun.com/mirror/homebrew){: target="_blank" }更完整，而且很奇怪我之前尝试`阿里云`的`Homebrew`源均是`404`...不知道现在是什么状态。
 
 首先编辑`~/.zshrc`添加这些`brew`使用的环境变量:
 
@@ -166,7 +179,7 @@ brew tap --custom-remote --force-auto-update homebrew/command-not-found https://
 brew tap --custom-remote --force-auto-update homebrew/services https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-services.git
 ```
 
-试试更新，芜湖，起飞🚀。
+试试更新，芜湖起飞🚀。
 
 ```sh
 brew update
