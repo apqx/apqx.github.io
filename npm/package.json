@@ -2,9 +2,9 @@
   "name": "blog",
   "version": "2.0.0",
   "scripts": {
-    "build": "webpack --mode=development",
     "watch": "webpack watch --mode=development",
-    "release": "webpack --mode=production --node-env=production"
+    "build-dev": "webpack --mode=development",
+    "build-release": "webpack --mode=production --node-env=production"
   },
   "dependencies": {
     "@material/animation": "^14.0.0",

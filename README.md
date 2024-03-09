@@ -1,8 +1,10 @@
 # 立泉の写字板
 
-一个基于[Jekyll](https://jekyllrb.com)的[Material Design](https://material.io)开源博客，使用`Google`提供的[Material Components Web](https://github.com/material-components/material-components-web)组件库。
+[![Deploy Jekyll site to Pages](https://github.com/apqx/apqx.github.io/actions/workflows/jekyll.yml/badge.svg)](https://github.com/apqx/apqx.github.io/actions/workflows/jekyll.yml)
 
-这是我自己的博客网站，它并非通用`Jekyll`模版，而是包含了太多我个人倾向的分享空间，淡红色极简风格，文字、色彩、动画之外不添加多余元素，可以把它当作一个使用`Material Design`的个人站参考。
+基于[Jekyll](https://jekyllrb.com)并遵循[Material Design](https://material.io)的开源博客，使用`Google`提供的[Material Components Web](https://github.com/material-components/material-components-web)组件库。
+
+它并非一般通用的博客模版，而是完全以我自己的喜好量身定制的个人空间。由随笔、转载、诗文、看剧4个模块组成，整体采用淡红色极简风格，在文字、色彩和动画之外不添加任何多余元素，可以把它当作一个使用`Material Design`的个人站参考。
 
 博客链接 👉 [立泉の写字板](https://mudan.me)
 
@@ -12,27 +14,30 @@
 
 ![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/img/screenshot_index_opera.webp)
 
+# Markdown
 
-博文使用`Markdown`格式撰写，由`Jekyll`将其按指定方式转换为`HTML`网页，生成静态站点，可以托管在[GitHub Pages](https://pages.github.com)或更灵活的云服务器上。
+博文使用`Markdown`格式撰写，由`Jekyll`将其转换为`HTML`网页，生成静态站点，可以托管在[GitHub Pages](https://pages.github.com)或更灵活的云服务器上。
 
 ![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/img/screenshot_essay.webp)
 
 # 本地调试
 
-首先切换到内部`webpack`工程目录，构建所需的`js`、`css`文件：
+博客由`Jekyll`和`Webpack`组成，`Jekyll`用来将`Markdown`文章转换为`HTML`网页，`Webpack`用于生成网站所需的`Javascript`和`CSS`资源。
+
+首先切换到内部`Webpack`工程目录，编译生成`Js`、`CSS`文件：
 
 ```sh
-# 进入内部webpack工程
+# 进入内部Webpack工程
 cd npm
 # 安装所需依赖
 npm install
-# 在/npm/dist/目录下生成js和css
-npm run build
+# 在/npm/dist/目录下生成Js和CSS
+npm run build-release
 ```
 
-`_includes/head-common.html`中定义着网站使用的`js`和`css`资源，它们由内部`webpack`工程生成，为提高访问速度而被托管到阿里云`OSS`上。
+博客网站部署时为提高访问速度这些资源文件会被托管到`阿里云OSS`上，在`_includes/head-common.html`可以看到对它们的引用。
 
-使用本地/云端资源由`_includes/configure.html`中的`debug`参数控制。本地调试时，需要将其设为`true`，进入`debug`模式使用上面生成的本地资源以实时响应`webpack`工程变化。
+调试时则使用本地资源以实时响应`Webpack`工程的变化，需要将`_includes/configure.html`中的`debug`参数设为`true`，进入`debug`模式后`Js`日志也会输出到浏览器的`Console`中。
 
 ```html
 <!-- _includes/configure.html -->
@@ -44,16 +49,16 @@ npm run build
 安装[Jekyll](https://jekyllrb.com/docs/installation/macos/)，启动本地服务：
 
 ```sh
-# 安装jekyll，macOS使用Homebrew
+# 安装Jekyll，macOS使用Homebrew
 brew install jekyll
-# 安装config.yml中定义的jekyll插件
+# 安装config.yml中定义的Jekyll插件
 bundle install
-# 启动jekyll服务
-# 同时自动调用浏览器打开http://localhost:4000进入博客
+# 启动Jekyll服务，自动调用浏览器进入博客
+# http://localhost:4000
 bundle exec jekyll serve -l -o
 ```
 
-`Jekyll`会在`_site/`目录下生成一个由`HTML`页面构成的静态网站，并`serve`到本地4000端口，通过这个链接访问：
+`Jekyll`会在`_site/`目录下生成静态网站，并`serve`到本地4000端口。
 
 ```sh
 http://localhost:4000
@@ -61,9 +66,7 @@ http://localhost:4000
 
 # 部署到GitHub Pages
 
-因为[GitHub Pages](https://pages.github.com)在中国大陆受限，所以一般会把`HTML`页面里的资源托管到大陆的云平台上以提高国内访问速度，比如阿里云的`OSS`对象存储服务。如果域名已备案也可以再叠一层`CDN`加速。
-
-本地调试完成后，如果`webpack`生成了新的`js`和`css`，需要上传到`OSS`托管，然后修改`_includes/configure.html`关闭`debug`模式即可使用这些托管的资源。
+本地调试完成后，如果`Webpack`生成了新的`Js`和`CSS`文件，需要上传到`OSS`托管，然后修改`_includes/configure.html`关闭`debug`模式即可使用这些托管的资源。
 
 ```html
 <!-- _includes/configure.html -->
@@ -72,7 +75,7 @@ http://localhost:4000
 {% assign debug = false %}
 ```
 
-本地修改`commit`后`push`到自己的`GitHub repository`，`GitHub Pages`会自动执行`Jekyll`的`build`操作，就像本地调试那样把`Markdown`文章转换为`HTML`页面并`serve`到指定域名下。
+本地修改`commit`后`push`到自己的`GitHub repository`，`GitHub Pages`会自动执行`Jekyll`的`build`操作，把`Markdown`文章转换为`HTML`页面并`serve`到指定域名下。
 
 ```sh
 # 本地commit
@@ -81,6 +84,14 @@ git commit
 git push origin
 ```
 
-静候数秒或数分钟，取决于`Pages`等待执行的任务量，完成后`Pages`上的网页就会更新。
+静候数秒或数分钟，取决于`Pages`等待执行的任务量，完成后网页就会更新。
 
 ![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/img/screenshot_index_phone.webp)
+
+# 致谢
+
+感谢[Jetbrains](www.jetbrains.com)提供的[Open Source Development License](https://www.jetbrains.com/community/opensource/#support)
+
+![JetBrains Logo (Main) logo](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg)
+
+Copyright © 2000-2024 JetBrains s.r.o. JetBrains and the JetBrains logo are registered trademarks of JetBrains s.r.o.
