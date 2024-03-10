@@ -97,7 +97,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
                     <span className="mdc-notched-outline">
                       <span className="mdc-notched-outline__leading"></span>
                       <span className="mdc-notched-outline__notch">
-                        <span className="mdc-floating-label" id="search-label">Google</span>
+                        <span className="mdc-floating-label" id="search-label">Bing</span>
                       </span>
                       <span className="mdc-notched-outline__trailing"></span>
                     </span>
@@ -113,8 +113,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
                 </label>
 
                 <p id="search-dialog_tips"><b>TIPS：</b>本搜索功能由<a
-                    href="https://cse.google.com/cse/all" target="_blank">Google站内搜索</a>提供，仅在能访问<a
-                    href="https://google.com" target="_blank">Google</a>的网络环境下可用。</p>
+                    href="https://cn.bing.com/search?go=Search&q=站内搜索 site:mudan.me" target="_blank">必应站内搜索</a>提供，因索引滞后可能部分内容尚未被收录。</p>
 
                 <Progressbar loading={this.state.showLoading}/>
                 {(this.state.resultList != null && this.state.resultList.length > 0) &&
