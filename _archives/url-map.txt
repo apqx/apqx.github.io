@@ -25,6 +25,20 @@ sitemap: false
             }
         },
         {
+            "id": "share",
+            "target": {
+                "path": "/page/share.html",
+                "title": "立泉の分享"
+            }
+        },
+        {
+            "id": "print",
+            "target": {
+                "path": "/page/print.html",
+                "title": "立泉の印刷品"
+            }
+        },
+        {
             "id": "op00",
             "target": {
                 "path": "{% link _posts/opera/2021-08-08-昆曲「红梨记·亭会」折子.md %}",

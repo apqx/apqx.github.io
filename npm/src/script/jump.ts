@@ -17,7 +17,7 @@ export function checkJump() {
         pid = matches[0]
     } else {
         // https://mudan.me/index-opera
-        matches = urlPath.match(/(index-opera|index-poetry|index-repost)$/)
+        matches = urlPath.match(/(index-opera|index-poetry|index-repost|share|print)$/)
         if (matches != null && matches.length > 0) {
             // 检查是否符合格式，取出pid
             // https://mudan.me/id
