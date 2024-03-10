@@ -6,7 +6,7 @@ author: 立泉
 mention: Gradle Maven
 date: 2020-12-04 +0800
 description: 成为一个全职Android开发工程师已有三年，经手的项目很多，也积累了一些自己常用的代码工具，我把它们封装到一个Library里在我的各个业余项目中使用。但是每次都在工程中为它单独创建一个Module显然太过麻烦，直接打包为aar又会出现一些依赖问题，因为gradle并不会把外部依赖直接写进aar中，这意味着必须在使用该aar的Module里手动引入这些依赖，否则就会因为依赖缺失而无法通过编译。
-cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20201204/github_packages_jettools.jpg
+cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20201204/github_packages_jettools.jpg
 tags: CS Android Gradle Build Maven GitHub
 ---
 
@@ -33,7 +33,7 @@ allprojects {
 
 `GitHub Packages`是`GitHub`托管的`Maven`仓库，它允许将软件二进制包发布到指定的私有或公开的`Repository`中，所以相比其它仓库其优势也就在于能把源码和编译后的包放到同一个位置。
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20201204/github_packages_jettools.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="github packages" }
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20201204/github_packages_jettools.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="github packages" }
 
 左边是源码，右边是发布的包，一目了然，这也是我更喜欢使用它的原因。
 
@@ -41,11 +41,11 @@ allprojects {
 
 `GitHub Packages`只允许获得授权的用户把包发布到指定的`Repository`中，也只有获得授权的用户才可以用`gradle`引入该`Repository`的包作为项目的远程依赖，即发包和使用包都需要授权。这里的授权，指的是一个配置了指定权限的用户`access token`，在`Settings` -> `Developer settings`的`Personal access tokens`里可以创建或删除`token`。
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20201204/github_packages_token.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="github access token" }
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20201204/github_packages_token.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="github access token" }
 
 创建`token`时，如果想要向一个`Repository`中发布包，需要`write:packages`权限，如果只是读取包，只需要`read:packages`。要注意的是，必须按提示在`token`创建完成后把它记录下来，一旦离开这个页面就再也看不到它了。
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20201204/github_packages_token_create.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="github access token permission" }
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20201204/github_packages_token_create.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="github access token permission" }
 
 # gradle发布包
 
@@ -203,7 +203,7 @@ publishMyPlayReleasePublicationToGitHubPackagesRepository
 publishMyPlayReleasePublicationToMavenLocal
 ```
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20201204/gradle_task_maven.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="gradle task" }
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20201204/gradle_task_maven.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="gradle task" }
 
 执行对应的`task`即可把指定的包发布到指定的`Maven`仓库，这里的`MavenLocal`是本地仓库，位置在`$USER_HOME/.m2/repository`目录下，`aar`包中同样不包含依赖，同样也会生成包含依赖列表的`.pom`文件。
 

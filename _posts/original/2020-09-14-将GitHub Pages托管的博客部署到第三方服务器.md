@@ -6,7 +6,7 @@ author: 立泉
 mention: Jekyll HTTPS
 date: 2020-09-14 +0800
 description: 这个博客是托管在GitHub Pages上的，不是我的错觉，它在大陆的访问速度正变得越来越不稳定，一些情况下甚至需要等待5秒以上才能打开，这是我无法接受的。正如博客之名“立泉の写字板”，这里是我沉淀知识和阅历的地方，应该在互联网上触手可及，而非无意义的等待。
-cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20200914/jekyll_project.png
+cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20200914/jekyll_project.png
 tags: CS GitHub Jekyll Blog HTTPS
 ---
 
@@ -26,7 +26,7 @@ tags: CS GitHub Jekyll Blog HTTPS
 
 `GitHub Pages`的博客方案其实很简单，整个博客本身是一个`Git`仓库，按`Jekyll`工程的目录要求进行配置。
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20200914/jekyll_project.png){: loading="lazy" class="clickable clickShowOriginalImg" alt="jekyll" }
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20200914/jekyll_project.png){: loading="lazy" class="clickable clickShowOriginalImg" alt="jekyll" }
 
 其中，`_drafts`和`_posts`分别存放用`MarkDown`格式撰写的草稿和文章，`assets`存放一些媒体资源，我已经把它们迁到了阿里云的`OSS`上，所以这里是空的。而`_includs`、`_layouts`、`css`、`font`、`js`则是和网站的主题、布局、模版相关的东西，`Jekyll`需要使用它们才能将`MarkDown`文本转换为静态`HTML`网页。
 
@@ -114,8 +114,8 @@ server {
 
 访问网站，看到已经启用了`HTTPS`，证书由`Let’s Encrypt`签发，有效期90天。
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20200914/lets_encrypt.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="ssl certificate" }
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20200914/lets_encrypt.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="ssl certificate" }
 
 我使用的是`Google Cloud`在台湾数据中心的服务器，延迟60ms，比`GitHub Pages`的平均300ms好多了，但当然比不上离我最近的阿里云杭州数据中心的10ms，不过对于静态网站已经足够。
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20200914/ping_apqxme.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="ping" }
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20200914/ping_apqxme.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="ping" }

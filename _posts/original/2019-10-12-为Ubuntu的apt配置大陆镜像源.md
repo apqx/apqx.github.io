@@ -6,7 +6,7 @@ author: 立泉
 mention: Linux 包管理器 阿里云
 date: 2019-10-12 +0800
 description: 基于Debian的Linux发行版中可以使用apt高级包管理器来安装软件，其默认的源在中国大陆的访问速度非常慢，所以有必要修改到最近的镜像源，阿里云提供的镜像是一个不错的选择。
-cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20191012/ubuntu_settings_apt_thumb.webp
+cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20191012/ubuntu_settings_apt_thumb.webp
 tags: CS Ubuntu Linux APT 阿里云 镜像源
 ---
 
@@ -21,15 +21,15 @@ sudo apt install jekyll
 
 `apt`会自动从指定的`源`服务器上查找`jekyll`软件包，下载并安装，在`Software & Update`中可以看到系统当前使用的源是`Main server`。
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20191012/ubuntu_settings_apt_thumb.webp){: loading="lazy" class="clickable clickShowOriginalImg" alt="Ubuntu" }
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20191012/ubuntu_settings_apt_thumb.webp){: loading="lazy" class="clickable clickShowOriginalImg" alt="Ubuntu" }
 
 众所周知的网络原因，这个`Main server`在中国大陆的访问速度非常慢，有必要修改为国内的`镜像`服务器。我使用的是`Ubuntu 18.04.3 LTS`，点击`Download from`下拉列表，会发现系统已经提供了很多大陆`源`，比如`阿里云`就是一个不错的选择。
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20191012/ubuntu_settings_apt_source.webp){: loading="lazy" class="clickable clickShowOriginalImg" alt="Ubuntu" }
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20191012/ubuntu_settings_apt_source.webp){: loading="lazy" class="clickable clickShowOriginalImg" alt="Ubuntu" }
 
 设置好后，在`Terminal`里更新一下包索引，可以看到`apt源`已经变成阿里云的`镜像`地址了。
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20191012/ubuntu_terminal_apt_update_thumb.webp){: loading="lazy" class="clickable clickShowOriginalImg" alt="Ubuntu Terminal" }
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20191012/ubuntu_terminal_apt_update_thumb.webp){: loading="lazy" class="clickable clickShowOriginalImg" alt="Ubuntu Terminal" }
 
 # 手动配置
 
@@ -107,17 +107,17 @@ deb-src http://cn.archive.ubuntu.com/ubuntu/ bionic-backports main restricted un
 
 浏览器访问`http://cn.archive.ubuntu.com/ubuntu/`：
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20191012/ubuntu_apt_cnserver_root.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="apt" }
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20191012/ubuntu_apt_cnserver_root.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="apt" }
 
 进入`dists/`目录：
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20191012/ubuntu_apt_cnserver_dists.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="apt" }
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20191012/ubuntu_apt_cnserver_dists.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="apt" }
 
 可以看到，每一个`Ubuntu`系统代号都有5个目录，比如`18.04`代号是`bionic`，对应`bionic/`、`bionic-backports/`、`bionic-proposed/`、`bionic-sercurity/`和`bionic-updates/`。
 
 随便进入一个目录，`/bionic/`：
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20191012/ubuntu_apt_cnserver_bionic.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="apt" }
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20191012/ubuntu_apt_cnserver_bionic.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="apt" }
 
 `main/`、`universe/`、`multiverse/`、`retricted/`都是具体的目录，这样看来，就可以理解`/etc/apt/sources.list`每一行的含义了。
 

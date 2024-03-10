@@ -6,7 +6,7 @@ author: Google
 mention: 退出中国
 date: 2010-03-22 +0800
 description: 谷歌退出中国大陆，那一年我15岁，第一次离开县城去市里的高中读书，对这件事一无所知。
-cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/repost_20100322/google_quite_china.jpg
+cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/repost/20100322/google_quite_china.jpg
 tags: 转载 思维 Google 退出中国
 hideFromIndex: true
 sitemap: false
@@ -15,7 +15,7 @@ blockFromSearchEngine: true
 
 > 原文[在此](https://googleblog.blogspot.com/2010/03/new-approach-to-china-update.html){: target="_blank" }，那一年我15岁，第一次离开县城去市里的高中读书，对这件事一无所知。
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/repost_20100322/google_quite_china.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="google" }
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/repost/20100322/google_quite_china.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="google" }
 
 On January 12, we [announced on this blog](http://googleblog.blogspot.com/2010/01/new-approach-to-china.html){: target="_blank" } that Google and more than twenty other U.S. companies had been the victims of a sophisticated cyber attack originating from China, and that during our investigation into these attacks we had uncovered evidence to suggest that the Gmail accounts of dozens of human rights activists connected with China were being routinely accessed by third parties, most likely via phishing scams or malware placed on their computers. We also made clear that these attacks and the surveillance they uncovered—combined with attempts over the last year to further limit free speech on the web in China including the persistent blocking of websites such as Facebook, Twitter, YouTube, Google Docs and Blogger—had led us to conclude that we could no longer continue censoring our results on Google.cn.
 {: class="no-justify english" }

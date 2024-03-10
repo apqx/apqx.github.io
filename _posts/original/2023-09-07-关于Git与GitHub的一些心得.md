@@ -6,7 +6,7 @@ author: 立泉
 mention: SSH 版本控制
 date: 2023-09-07 +0800
 description: 软件开发者对Git不会陌生，它是现代最受欢迎的开源分布式版本控制工具，典型使用场景下，多个客户端从中央仓库pull拉取完整代码副本，各自开发commit，再push到中央仓库。“分布式”的意思即各个客户端的开发commit互相独立，分布进行，只在需要的时候与中央仓库进行同步。
-cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20230605/github_url_ssh_thumb.jpg
+cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20230605/github_url_ssh_thumb.jpg
 tags: CS Git GitHub SSH
 ---
 
@@ -34,13 +34,13 @@ git config --global credential.helper store
 
 授权`token`是在`GitHub`中配置生成的，可以指定该`token`的权限范围，包括从访问用户名下的仓库直至创建、删除仓库在内的一系列危险操作。它和用户名+密码一样通常被`IDE`使用以在本地管理远程仓库，比如`Intellj Idea`在创建工程时就可以直接从用户的`GitHub`仓库中`clone`。
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20230605/idea_github_repository.webp){: loading="lazy" class="clickable clickShowOriginalImg" alt="Intellij Idea GitHub Repository" }
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20230605/idea_github_repository.webp){: loading="lazy" class="clickable clickShowOriginalImg" alt="Intellij Idea GitHub Repository" }
 
 相比之下，基于非对称加密的[SSH key则是一种更方便的无密码验证方式]({%  link _posts/original/2019-06-11-基于非对称加密的HTTPS与SSH.md %}){: target="_blank" }。只需要用`ssh-keygen`生成一对密钥，私钥保存在本地，公钥上传至`GitHub`，鉴权时一端发送一段密文，如果另一端能够解密即验证成功。
 
 使用这种机制要求指向远程仓库的链接是符合`git@github.com:*`的`SSH`格式。
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/20230605/github_url_ssh_thumb.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="GitHub SSH URL" }
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20230605/github_url_ssh_thumb.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="GitHub SSH URL" }
 
 # 建立关联
 
