@@ -60,7 +60,7 @@ export class TagEssayListDialogPresenter {
         })
         console_debug("findTaggedEssays " + tag)
         if (postList != null) {
-            // 使用本页缓存
+            // 使用本页缓存，避免同一页面下的重复请求
             this.showTagItemList(postList, tag)
             return
         }
@@ -70,6 +70,7 @@ export class TagEssayListDialogPresenter {
         })
         this.abortController = new AbortController()
         // 异步请求
+        // fetch调用浏览器的网络请求，所以会有和浏览器一样的缓存策略
         let promise: Promise<void> = fetch(request, {signal: this.abortController.signal})
             .then((response: Response) => {
                 if (response.status === 200) {

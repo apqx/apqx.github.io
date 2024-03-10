@@ -1,6 +1,6 @@
-import {ShortLinkDialog} from "./ShortLinkJumpDialog";
-import {console_debug, console_error} from "../util/LogUtil";
-import {isDebug} from "../util/Tools";
+import { ShortLinkDialog } from "./ShortLinkJumpDialog";
+import { console_debug, console_error } from "../util/LogUtil";
+import { isDebug } from "../util/Tools";
 
 
 interface UrlMapJson {
@@ -35,7 +35,8 @@ export class ShortLinkJumpDialogPresenter {
         const request = new Request(url, {
             method: "GET"
         })
-        // 请求是异步的
+        // 异步请求
+        // fetch调用浏览器的网络请求，所以会有和浏览器一样的缓存策略
         fetch(request)
             .then(response => {
                 if (response.status === 200) {
@@ -50,7 +51,7 @@ export class ShortLinkJumpDialogPresenter {
                         console_debug("find pid " + pid + " => " + item.target.path)
                         // 跳转到目标页，不在浏览器中保留跳转记录，url可以是站内的相对path，也可以是站外http的绝对path
                         var jumpUrl = item.target.path
-                        if(!item.target.path.startsWith("http")) {
+                        if (!item.target.path.startsWith("http")) {
                             jumpUrl = window.location.origin + item.target.path
                         }
                         console_debug("jumpUrl is " + jumpUrl)
@@ -59,23 +60,23 @@ export class ShortLinkJumpDialogPresenter {
                     }
                 }
                 this.showJump(window.location.origin + "/404.html", "未找到目标页面")
-                console_debug("pid not exist, will create new")
+                console_debug("pid not exist, check url-map")
             }).catch(error => {
                 console_error(error)
                 this.showJump(window.location.origin + "/404.html", "未找到映射表")
             }
-        )
+            )
     }
 
     showJump(url: string, linkTitle: string) {
         this.component.setState({
-                title: "正在跳转",
-                content: linkTitle,
-                onClickLink: () => {
-                    // 监听点击，手动实现跳转，且不记入浏览器的跳转记录
-                    window.location.replace(url)
-                }
+            title: "正在跳转",
+            content: linkTitle,
+            onClickLink: () => {
+                // 监听点击，手动实现跳转，且不记入浏览器的跳转记录
+                window.location.replace(url)
             }
+        }
         )
 
         setTimeout(() => {
