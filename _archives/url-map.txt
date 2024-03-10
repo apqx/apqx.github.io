@@ -4,6 +4,27 @@ sitemap: false
 {
     "map": [
         {
+            "id": "index-opera",
+            "target": {
+                "path": "/section/opera.html",
+                "title": "立泉の看剧"
+            }
+        },
+        {
+            "id": "index-poetry",
+            "target": {
+                "path": "/section/poetry.html",
+                "title": "立泉の诗文"
+            }
+        },
+        {
+            "id": "index-repost",
+            "target": {
+                "path": "/section/repost.html",
+                "title": "立泉の转载"
+            }
+        },
+        {
             "id": "op00",
             "target": {
                 "path": "{% link _posts/opera/2021-08-08-昆曲「红梨记·亭会」折子.md %}",

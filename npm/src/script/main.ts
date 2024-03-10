@@ -3,7 +3,7 @@ import {MDCList} from "@material/list"
 import {MDCDataTable} from "@material/data-table"
 import hljs from "highlight.js/lib/core"
 import "highlight.js/styles/atom-one-dark.css"
-import {runOnHtmlDone} from "./util/Tools"
+import {runOnHtmlDone, runOnPageDone} from "./util/Tools"
 import {checkJump} from "./jump"
 import {
     initAboutMeDialog,
@@ -27,7 +27,6 @@ runOnHtmlDone(() => {
     initHljs()
     initViews()
     initImg()
-    checkJump()
     initTheme()
     initHandwritingFont()
     initFab()
@@ -36,6 +35,10 @@ runOnHtmlDone(() => {
     initSearchDialog()
     initAboutMeDialog()
     initTagTriggers()
+})
+
+runOnPageDone(() => {
+    checkJump()
 })
 
 function initGridIndex() {

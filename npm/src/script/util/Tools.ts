@@ -16,6 +16,21 @@ export function runOnHtmlDone(task: () => void) {
 }
 
 /**
+ * 当整个页面及资源加载完成后执行指定的任务
+ */
+export function runOnPageDone(task: () => void) {
+    // 有时候页面在设置监听器之前已经加载完成
+    if (document.readyState == "complete") {
+        task()
+    } else {
+        // 整个页面及资源都以加载完成
+        window.addEventListener("load", () => {
+            task()
+        })
+    }
+}
+
+/**
  * 为React生成可以加载的HTMl类型的数据
  */
 export function createHtmlContent(html: string) {
