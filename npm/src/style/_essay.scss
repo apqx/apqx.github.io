@@ -127,9 +127,7 @@ code.hljs {
 }
 
 /* 段落中单词高亮 */
-p code,
-li code,
-table code {
+:not(pre) code {
   @include typography.typography(body1);
   padding: 0.01rem 0.2rem 0.05rem 0.2rem;
   margin-left: 0.05rem;
@@ -142,18 +140,25 @@ table code {
 }
 
 .handwritten {
-  p code,
-  li code,
-  table code {
+  :not(pre) code {
     padding: 0rem 0.2rem 0.09rem 0.2rem;
   }
 }
 
-p em code {
+em code {
   padding-left: 0.2rem;
   padding-right: 0.3rem;
   margin-left: 0.2rem;
   margin-right: 0.2rem;
+}
+
+.surface-block code {
+  color: var(--surface-block-ink-strong);
+  font-weight: bold;
+  padding: 0;
+  margin: 0 0.1rem;
+  border: none;
+  background: none;
 }
 
 img.clickable:hover {
