@@ -18,6 +18,7 @@ import {initTagTriggers} from "./tag"
 import {initImg} from "./img"
 import {LocalRepository} from "./repository/LocalRepository"
 import Masonry from "masonry-layout";
+import { console_debug } from "./util/LogUtil"
 
 export var localRepository: LocalRepository = new LocalRepository()
 export var masonry: Masonry = null;
@@ -35,6 +36,7 @@ runOnHtmlDone(() => {
     initSearchDialog()
     initAboutMeDialog()
     initTagTriggers()
+    initPageCheck()
 })
 
 runOnPageDone(() => {
@@ -117,5 +119,17 @@ function initViews() {
     // 数据表
     for (const ele of document.querySelectorAll(".mdc-data-table")) {
         new MDCDataTable(ele)
+    }
+}
+
+/**
+ * 给所有opera文章添加opera-page类，它会影响<code>的样式
+ */
+function initPageCheck() {
+    const urlPath = window.location.pathname
+    var matches = urlPath.match(/(post\/opera).*$/)
+    if (matches != null && matches.length > 0) {
+        console_debug("add opera-page to body")
+        document.querySelector("body").classList.add("opera-page")
     }
 }

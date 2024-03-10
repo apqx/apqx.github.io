@@ -134,7 +134,6 @@ code.hljs {
   margin-right: 0.05rem;
   border-radius: 0.3rem;
 
-  // color:$code-highlight-text;
   background: var(--code-highlight-bg);
   border: 1px solid var(--code-highlight-border);
 }
@@ -152,9 +151,10 @@ em code {
   margin-right: 0.2rem;
 }
 
-.surface-block code {
+.surface-block code,
+.opera-page code {
   color: var(--surface-block-ink-strong);
-  font-weight: bold;
+  font-weight: normal;
   padding: 0;
   margin: 0 0.1rem;
   border: none;
