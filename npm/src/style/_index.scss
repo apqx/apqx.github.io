@@ -80,6 +80,7 @@
 
 .index-top-card-text {
   @include typography.typography(subtitle1);
+  font-family: blogTheme.$handwritten-font-index;
   text-align: right;
   font-size: 1.1rem;
 }
@@ -145,8 +146,8 @@
 
 /* 索引题目 */
 .index-title {
-  @include typography.typography(subtitle1);
-  @include theme.property(color, on-surface);
+  @include typography.typography(body1);
+  // @include theme.property(color, on-surface);
   margin: 0;
   text-align: left;
   /* 不换行 */
@@ -155,10 +156,6 @@
   overflow: hidden;
   /* 文字超出部分显示省略号 */
   text-overflow: ellipsis;
-}
-
-.handwritten .index-title {
-  font-size: 1.1rem;
 }
 
 /* 索引署名 */

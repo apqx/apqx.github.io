@@ -181,21 +181,13 @@ blockquote.handwritten.pre p {
 }
 
 .handwritten,
-.handwritten :not(i, pre code, pre code *) {
+.handwritten :not(i, pre code, pre code *, .index-top-card-text) {
   font-family: blogTheme.$handwritten-font;
 }
 
 .handwritten {
-  --mdc-typography-body1-font-size: 1.1rem;
-  --mdc-typography-body1-line-height: 1.9rem;
-}
-
-.handwritten .btn-tag {
-  font-size: 0.95rem;
-}
-
-.handwritten .mdc-button .mdc-button__label {
-  margin-bottom: 0.2rem;
+  // --mdc-typography-body1-font-size: 1.1rem;
+  --mdc-typography-body1-line-height: 1.8rem;
 }
 
 .handwritten .english,

@@ -143,8 +143,8 @@ pre code.hljs {
 }
 
 .handwritten {
-  code:not(pre code.hljs) {
-    padding: 0rem 0.2rem 0.09rem 0.2rem;
+  code:not(pre code.hljs, .surface-block code, .opera-page code) {
+    padding: 0.02rem 0.2rem 0.02rem 0.2rem;
   }
 }
 
