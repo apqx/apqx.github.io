@@ -18,7 +18,7 @@ tags: CS Java Ubuntu Linux JDK
 
 参考几篇文章，在`Ubuntu`中配置`环境变量`无非两种方式，直接修改`环境变量`配置文件`/etc/environment`，或者使用`export`命令将新的`环境变量`插入到系统设置中。
 
-# 安装JDK
+## 安装JDK
 
 在`Oracle`网站下载[JDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk10-downloads-4416644.html)文件，解压到`/usr/lib`中：
 
@@ -27,7 +27,7 @@ tags: CS Java Ubuntu Linux JDK
 sudo tar -xf /home/apqx/Downloads/jdk-10.0.1_linux-x64_bin.tar.gz /usr/lib
 ```
 
-# 直接修改environment文件
+## 直接修改environment文件
 
 `Ubuntu`的`环境变量`配置文件是`/etc/environment`，可以直接将`JDK`目录写到这个文件中，对所有用户生效。
 
@@ -65,7 +65,7 @@ echo $JAVA_HOME
 echo $PATH
 ```
 
-# 使用export命令
+## 使用export命令
 
 在`Terminal`中输入：
 
@@ -116,7 +116,7 @@ java --version
 
 如果看到正确输出，说明设置成功，重新登录即可全局生效。
 
-# 使用apt安装OpenJDK
+## 使用apt安装OpenJDK
 
 上面的方式是手动下载`Oracle JDK`，手动安装，然后手动配置环境变量，步骤清晰，但是有一点麻烦。如果使用`Open JDK`的话，只需要一条指令，下载、安装、环境变量的配置便会自动完成。
 

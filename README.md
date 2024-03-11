@@ -14,13 +14,13 @@
 
 ![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/img/screenshot_index_opera.webp)
 
-# Markdown
+## Markdown
 
 博文使用`Markdown`格式撰写，由`Jekyll`将其转换为`HTML`网页，生成静态站点，可以托管在[GitHub Pages](https://pages.github.com)或其它云服务器上。
 
 ![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/img/screenshot_essay.webp)
 
-# 本地调试
+## 本地调试
 
 博客由`Jekyll`和`Webpack`组成，`Jekyll`用来将`Markdown`文章转换为`HTML`网页，`Webpack`用于生成网站所需的`Javascript`和`CSS`资源。
 
@@ -64,7 +64,7 @@ bundle exec jekyll serve -l -o
 http://localhost:4000
 ```
 
-# 部署到GitHub Pages
+## 部署到GitHub Pages
 
 本地调试完成后，如果`Webpack`生成了新的`Js`和`CSS`文件，需要上传到`OSS`托管，然后修改`_includes/configure.html`关闭`debug`模式即可使用这些托管的资源。
 
@@ -87,11 +87,11 @@ git push origin
 
 ![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/img/screenshot_index_phone.webp)
 
-# 版权
+## 版权
 
 此博客工程代码以`GPL`许可开源，但对其中的文章内容仍保留著作权，尤其`看剧`模块中外链的摄影照片，可能包含剧团、演员和摄影师的版权，未经允许不可用于商业用途。
 
-# 致谢
+## 致谢
 
 感谢[Jetbrains](www.jetbrains.com)提供的[Open Source Development License](https://www.jetbrains.com/community/opensource/#support)
 

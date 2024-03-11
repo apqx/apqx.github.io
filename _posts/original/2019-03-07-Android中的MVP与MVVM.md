@@ -14,7 +14,7 @@ tags: CS Android MVP MVVM
 
 我确实喜欢`MVP`，也把它大量用在了我的工作中，之后又开始接触`Jetpack`，其`DataBinding`、`LiveData`和`ViewModel`都在向我预示着一个新的设计模式：`MVVM`。它的`View`和`Model`概念均与`MVP`中一致，不同的是`ViewModel`，把视图和数据进行了双向绑定，当数据发生变化时视图自动更新，而视图的变化也会直接作用到数据上。这种比`MVP`更简洁的结构让我很感兴趣，想要了解它，尝试使用它。
 
-# 古老的MVC
+## 古老的MVC
 
 > Model View Controller
 
@@ -26,7 +26,7 @@ tags: CS Android MVP MVVM
 
 通过一个简单的实例来理解`MVC`的结构，UI上有一个按钮，点击按钮，查询一下天气，在`TextView`中显示结果，并弹出一个`Toast`。
 
-## Model
+### Model
 
 ```kotlin
 /**
@@ -50,7 +50,7 @@ interface Callback {
 }
 ```
 
-## View
+### View
 
 ```kotlin
 /**
@@ -92,7 +92,7 @@ interface OnBtnClickListener {
 }
 ```
 
-## Controller
+### Controller
 
 ```kotlin
 /**
@@ -121,7 +121,7 @@ class WeatherActivity : Activity(), OnBtnClickListener{
 可以看到，UI层被从`Activity`中剥离，`Activity`作为`Controller`持有`View`和`Model`，`View`要实现在有事件发生时及时通知`Controller`，就必须持有`Controller`，而`Model`中又持有`View`的一个回调接口，当UI有事件发生时，`Controller`得到通知，它会调用`Model`中的方法去处理数据，完成后，`Model`调用`View`更新UI，这是一个完整的环形结构，相互之间都有依赖，并不符合低耦合高内聚的要求。
 
 
-# 进化的MVP
+## 进化的MVP
 
 > Model View Presenter
 
@@ -133,7 +133,7 @@ class WeatherActivity : Activity(), OnBtnClickListener{
 
 同样的例子，用`MVP`是这样的：
 
-## Model
+### Model
 
 ```kotlin
 /**
@@ -150,7 +150,7 @@ class WeatherModel(private val callBack: Callback) {
 }
 ```
 
-## View
+### View
 
 ```kotlin
 /**
@@ -190,7 +190,7 @@ class WeatherActivity : Activity(), IWeatherActivity {
 
 ```
 
-## Presenter
+### Presenter
 
 ```kotlin
 /**
@@ -218,7 +218,7 @@ class WeatherPresenter(private val iWeatherActivity: IWeatherActivity) : IWeathe
 
 可以看到，在`MVP`模式中`View`和`Model`是完全分离的，`Activity`就是`View`，它持有`Presenter`，`Presenter`则持有`View`和`Model`。当有事件发生时，`View`通知`Presenter`执行操作，`Presenter`调用`Model`获取数据，然后调用`View`更新UI。由于`IPresenter`接口的存在，实际上可以根据需求创建多个不同实现的`Presenter`实例，具有很高的灵活性。
 
-# 双向绑定的MVVM
+## 双向绑定的MVVM
 
 > Model View ViewModel
 
@@ -234,7 +234,7 @@ class WeatherPresenter(private val iWeatherActivity: IWeatherActivity) : IWeathe
 
 同样是上面的例子，用`MVVM`是这样的：
 
-## Model
+### Model
 
 ```kotlin
 /**
@@ -251,7 +251,7 @@ class WeatherModel() {
 }
 ```
 
-## View
+### View
 
 首先在`Layout`资源文件中定义`DataBinding`
 
@@ -316,7 +316,7 @@ class WeatherActivity : AppCompatActivity() {
 }
 ```
 
-## ViewModel
+### ViewModel
 
 ```kotlin
 /**
@@ -343,6 +343,6 @@ class WeatherViewModel : ViewModel() {
 
 可见`MVVM`与`MVP`最大的不同，当`ViewModel`处理好事件逻辑并更新数据后，UI是自动刷新的，而不是由`Presenter`主动调用`View`的更新视图方法。此外也可以使用`DataBinding`直接在视图`xml`文件里定义UI对数据的响应操作，实现了数据变化后UI去自动根据数据加载对应的逻辑内容，把数据和UI绑在一起就只需要在`ViewModel`中更新数据，而不用去管UI要怎么显示这些数据。
 
-# 结语
+## 结语
 
 我在工作和学习中大量使用过`MVP`，对`MVC`和`MVVM`只是有所耳闻，接触`Kotlin`和`Jetpack`后开始尝试在自己的练习中使用这些新东西，编程的感觉也不再是入门时枯燥的堆砌代码，而是像打造艺术品一样津津有味，这样的变化真实而有趣。

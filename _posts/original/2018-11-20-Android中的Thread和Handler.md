@@ -14,11 +14,11 @@ tags: CS Android Thread Handler
 
 之前在学习和工作中我都会将笔记写在`OneNote`上，这些文本容量目前已经达到了57MB，我觉得是时候停下来好好把它们分类整理一遍了，来更精细地填充我的技术栈。所以这篇文章只是一个开始，如果我能把一个东西写清楚，那么可以说，我才真正理解了它。
 
-# Main Thread
+## Main Thread
 
 `Android`中的`Thread`也即是`Java`线程，当一个App启动时，系统会为它创建一个`Linux Process`和一个`Execution Thread`。默认情况下，此App的所有组件都会运行在这个进程的单一执行线程中，包括UI上产生的各种触控交互事件的分发，所以此线程又被称为`UI Thread`和`Main Thread`。
 
-# CalledFromWrongThreadException
+## CalledFromWrongThreadException
 
 > Only the original thread that created a view hierarchy can touch its views
 
@@ -39,7 +39,7 @@ override onCreate(savedInstanceState: Bundle?) {
 }
 ```
 
-# ANR
+## ANR
 
 `ANR`即`Application Not Responding`，应用程序无响应。`Android`作为手持设备，是通过UI的触摸与用户交互的，这些触控事件一旦产生，都会在主线程中进行由`Activity`到`View`的层层分发，交给对应的处理代码并在处理完成后及时刷新UI，这样用户才会感到操作流畅不卡顿。
 
@@ -50,7 +50,7 @@ override onCreate(savedInstanceState: Bundle?) {
 * 必须在主线程中操作UI
 * 不能阻塞主线程
 
-# 什么是Handler
+## 什么是Handler
 
 已经知道，`Android`需要在工作线程中执行耗时操作，然后切换到主线程刷新UI，这个切换线程的动作就可以使用`Handler`实现。实际上，`Handler`可以将任意线程中的`Message`或`Runnable`发送到任意指定的线程中处理。
 
@@ -226,7 +226,7 @@ Thread {
 thread.handler.looper.quite()
 ```
 
-# 使用HandlerThread
+## 使用HandlerThread
 
 普通的线程必须手动创建`Looper`才可以使用`Handler`，`Android`提供了一个默认创建好`Looper`的线程实现`HandlerThread`，原理和上面的`CusThread`大同小异，只是多了一些细节控制，可以这样使用它：
 
@@ -246,11 +246,11 @@ Thread {
 handler.looper.quite()
 ```
 
-# 总结
+## 总结
 
 `Handler`机制简单的说，是这样：`Handler`创建时需要一个`Looper`，可以是指定的`Looper`或默认使用当前线程的`Looper`。`Handler`获取此`Looper`的`MessageQueue`，当`Handler.post(Runnable)`执行时，`Handler`把此`Runnable`封装成`Message`并携带该`Handler`实例，发送到从`Looper`那里拿到的`MessageQueue`中。`Looper`在其创建线程中不断检查`MessageQueue`是否有新的`Message`，有的话就取出，调用附带的`Handler`实例方法去处理，因为`Handler`发送事件的线程和`Looper`执行事件的线程一般都不一致，这样就实现了`切换线程`。
 
-# Main Thread的特殊性
+## Main Thread的特殊性
 
 可能已经注意到，既然创建`Handler`时要求该线程必须有`Looper`，否则直接抛出异常，那么`Android`的主线程为什么可以直接创建`Handler`呢？
 

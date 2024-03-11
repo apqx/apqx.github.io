@@ -29,7 +29,7 @@ allprojects {
 }
 ```
 
-# GitHub Packages
+## GitHub Packages
 
 `GitHub Packages`是`GitHub`托管的`Maven`仓库，它允许将软件二进制包发布到指定的私有或公开的`Repository`中，所以相比其它仓库其优势也就在于能把源码和编译后的包放到同一个位置。
 
@@ -37,7 +37,7 @@ allprojects {
 
 左边是源码，右边是发布的包，一目了然，这也是我更喜欢使用它的原因。
 
-# Access token
+## Access token
 
 `GitHub Packages`只允许获得授权的用户把包发布到指定的`Repository`中，也只有获得授权的用户才可以用`gradle`引入该`Repository`的包作为项目的远程依赖，即发包和使用包都需要授权。这里的授权，指的是一个配置了指定权限的用户`access token`，在`Settings` -> `Developer settings`的`Personal access tokens`里可以创建或删除`token`。
 
@@ -47,7 +47,7 @@ allprojects {
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20201204/github_packages_token_create.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="github access token permission" }
 
-# gradle发布包
+## gradle发布包
 
 `Maven`为`gradle`提供了`maven-publish`插件以支持在`gradle`中配置自动把包发布到指定的`Maven`仓库，同时`Android Gradle plugin 3.6.0`以上则包含了对`maven-publish`的支持，可以把`Android`工程中定义的`build variant`包发布到`Maven`仓库。
 
@@ -207,7 +207,7 @@ publishMyPlayReleasePublicationToMavenLocal
 
 执行对应的`task`即可把指定的包发布到指定的`Maven`仓库，这里的`MavenLocal`是本地仓库，位置在`$USER_HOME/.m2/repository`目录下，`aar`包中同样不包含依赖，同样也会生成包含依赖列表的`.pom`文件。
 
-# gradle依赖包
+## gradle依赖包
 
 首先，需要把该包所在的`GitHub Repository`地址，即发包时的`Maven`仓库地址，配置到工程根目录的`build.gradle`中。
 
@@ -283,7 +283,7 @@ dependencies {
 }
 ```
 
-# 一些限制
+## 一些限制
 
 通过上面可以看到，不同于常见的`Maven`，`gradle`依赖`GitHub Packages`上的包是需要授权的，这种限制意味着它只适合应用在一些很小的圈子里，比如团队或个人的私有类库，如果在大范围内分享，这种授权限制就很不方便了。
 

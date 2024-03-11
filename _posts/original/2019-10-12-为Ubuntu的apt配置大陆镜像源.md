@@ -31,7 +31,7 @@ sudo apt install jekyll
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20191012/ubuntu_terminal_apt_update_thumb.webp){: loading="lazy" class="clickable clickShowOriginalImg" alt="Ubuntu Terminal" }
 
-# 手动配置
+## 手动配置
 
 对于一些老版本的`Ubuntu`，可能需要手动修改`/etc/apt/sources.list`文件来配置`apt源`，其实`Software & Update`本质上也是修改的这个文件，只是提供了一种更直观的图形界面。
 

@@ -128,9 +128,6 @@
   @include cardElevation();
   padding: 1rem 2rem;
   margin: 0.74rem 1rem;
-  // background-color: var(--index-description-card-bg);
-  // border: 1px solid rgba(63, 185, 80, 0.4);
-  // background: rgba(46, 160, 67, 0.1);
 }
 
 .dark .index-description-card {
@@ -149,6 +146,7 @@
 /* 索引题目 */
 .index-title {
   @include typography.typography(subtitle1);
+  @include theme.property(color, on-surface);
   margin: 0;
   text-align: left;
   /* 不换行 */
@@ -250,7 +248,7 @@
 }
 
 .grid-index-text-container {
-  padding: 0.8rem 2rem 1rem 2rem;
+  padding: 0.8rem 2rem 1.5rem 2rem;
 }
 
 .grid-sizer,
@@ -265,6 +263,7 @@
 
 .grid-index-title {
   @include typography.typography(subtitle1);
+  @include theme.property(color, on-surface);
   font-size: 1.5rem;
   margin: 0.5rem 0 0.1rem 0;
   text-align: left
@@ -272,34 +271,29 @@
 
 .grid-index-date {
   @include typography.typography(body1);
-  color: var(--index-item-subtitle);
+  @include theme.property(color, text-secondary-on-background);
   font-size: 0.75rem;
   margin: 0;
 }
 
 .grid-index-author {
   @include typography.typography(body1);
-  color: grey;
+  @include theme.property(color, text-secondary-on-background);
   font-size: 0.75rem;
 }
 
 .grid-index-description {
   margin: 0;
-  color: var(--index-item-description);
 }
 
 // 手机小屏
 @media all and (max-width: blogTheme.$screen-middle-min-width) {
   .index-author {
     font-size: 0.75rem;
-    //font-weight: lighter;
-    color: var(--index-item-subtitle);
   }
 
   .index-date {
     font-size: 0.75rem;
-    //font-weight: lighter;
-    color: var(--index-item-subtitle);
   }
 
   .index-li {
@@ -343,7 +337,7 @@
   }
 
   .grid-index-text-container {
-    padding: 0.5rem 1.5rem 1rem 1.5rem;
+    padding: 0.5rem 1.5rem 1.2rem 1.5rem;
   }
 }
 
@@ -367,7 +361,7 @@
 
   // new grid index
   .grid-index-text-container {
-    padding: 0.5rem 1.8rem 1rem 1.8rem;
+    padding: 0.5rem 1.8rem 1.3rem 1.8rem;
   }
 
 }

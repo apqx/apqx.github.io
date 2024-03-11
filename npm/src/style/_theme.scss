@@ -33,6 +33,13 @@ $on-surface: (
   dark: #e6e6e6
 );
 
+$text-secondary-on-background: (
+  light: #676767,
+  dark: #969696,
+  min-screen-light: #808080,
+  min-screen-dark: #808080
+);
+
 $top-bar-elevation: (
   elevation: 4,
   shadow-light: $top-bar-color-darken,
@@ -87,11 +94,7 @@ $chip-ripple: (
   // 标题字体色
   --mdc-theme-text-primary-on-background: #191919;
   // 小标题字体色
-  --mdc-theme-text-secondary-on-background: #676767;
-  // card, dialog 圆角
-  --mdc-shape-medium: 0.3rem;
-  // 文章内元素圆角，code block和description
-  --essay-inner-shape-round: 0.3rem;
+  --mdc-theme-text-secondary-on-background: #{map.get($text-secondary-on-background, "light")};
 
   --top-app-bar-blur: #df696e;
 
@@ -131,10 +134,6 @@ $chip-ripple: (
   --surface-block-border: rgba(188, 188, 188, 0.5);
   --surface-block-bg: rgba(209, 209, 209, 0.1);
   --surface-block-ink-strong: rgba(80, 0, 0, 1);
-
-  --index-description-card-bg: #f9eacc;
-  --index-item-subtitle: #808080;
-  --index-item-description: #393939;
 }
 
 @mixin dark {
@@ -146,13 +145,13 @@ $chip-ripple: (
   --mdc-theme-surface: #{map.get($surface, "dark")};
   --mdc-theme-on-surface: #{map.get($on-surface, "dark")};
   --mdc-theme-text-primary-on-background: #f5f5f5;
-  --mdc-theme-text-secondary-on-background: #969696;
+  --mdc-theme-text-secondary-on-background: #{map.get($text-secondary-on-background, "dark")};
 
   --top-app-bar-blur: black;
 
   // Drawer
   --drawer-ink: white;
-  
+
   --button-bg: #9b27b0;
   --search-nav: rgba(228, 96, 117, 0.93);
 
@@ -185,13 +184,26 @@ $chip-ripple: (
   --surface-block-border: rgba(188, 188, 188, 0.4);
   --surface-block-bg: rgba(0, 0, 0, 0.1);
   --surface-block-ink-strong: rgba(231, 163, 163, 1);
-
-  --index-description-card-bg: #301e00;
-  --index-item-subtitle: #808080;
-  --index-item-description: #cccccc;
 }
 
 body {
+  --mdc-typography-headline1-font-size: 1.6rem;
+  --mdc-typography-headline1-font-weight: normal;
+
+  --mdc-typography-headline2-font-size: 1.6rem;
+  --mdc-typography-headline2-line-height: 2.2rem;
+  --mdc-typography-headline2-font-weight: normal;
+
+  --mdc-typography-headline3-font-size: 1.5rem;
+  --mdc-typography-headline3-line-height: 2rem;
+  --mdc-typography-headline3-font-weight: normal;
+
+  --mdc-typography-body1-font-size: 1rem;
+  --mdc-typography-body1-line-height: 1.7rem;
+  // card, dialog 圆角
+  --mdc-shape-medium: 0.3rem;
+  // 文章内元素圆角，code block和description
+  --essay-inner-shape-round: 0.3rem;
   @include light;
 }
 
@@ -201,8 +213,13 @@ body {
 
 // 小屏
 @media all and (max-width: $screen-middle-min-width) {
+  body {
+    --mdc-theme-text-secondary-on-background: #{map.get($text-secondary-on-background, "min-screen-light")};
+  }
+
   .dark {
     --mdc-theme-background: #{map.get($background, "min-screen-dark")};
     --mdc-theme-surface: #{map.get($surface, "min-screen-dark")};
+    --mdc-theme-text-secondary-on-background: #{map.get($text-secondary-on-background, "min-screen-dark")};
   }
 }

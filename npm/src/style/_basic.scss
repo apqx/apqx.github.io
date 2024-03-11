@@ -32,7 +32,6 @@
   // 段落间距
   margin: 0.5rem 0;
   // 行间距
-  line-height: 1.7rem;
 }
 
 h1,
@@ -45,21 +44,24 @@ h6 {
 }
 
 h1 {
-  @include typography.typography(headline4);
-  font-size: 1.6rem;
+  @include typography.typography(headline1);
 }
 
 h2 {
-  @include typography.typography(headline5);
-  font-size: 1.3rem;
+  @include typography.typography(headline2);
 }
 
-p {
+h3 {
+  @include typography.typography(headline3);
+  margin: 0.8rem 0;
+}
+
+p{
   @include basicText();
   text-align: justify;
 }
 
-:not(pre) code {
+code {
   line-break: normal;
 }
 
@@ -178,13 +180,14 @@ blockquote.handwritten.pre p {
   white-space: pre;
 }
 
-//.handwritten,
+.handwritten,
 .handwritten :not(i, pre code, pre code *) {
   font-family: blogTheme.$handwritten-font;
 }
 
 .handwritten {
-  --mdc-typography-body1-font-size: 1.1rem
+  --mdc-typography-body1-font-size: 1.1rem;
+  --mdc-typography-body1-line-height: 1.9rem;
 }
 
 .handwritten .btn-tag {

@@ -17,7 +17,7 @@ tags: CS Git GitHub SSH
 如何使用`GitHub`是一个很基础的问题，但就像刚接触`Vim`一样，这些`Git`相关的初始操作是一切可能性的开始，其中一些问题是值得单独拿出来记录的。
 
 
-# 你是谁
+## 你是谁
 
 `GitHub`作为远程仓库，在与本地仓库建立关联后，本地的`push`会更改它所托管的内容，所以中间的身份验证十分重要，只有被验证拥有权限的用户才能执行这些操作。
 
@@ -42,7 +42,7 @@ git config --global credential.helper store
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20230605/github_url_ssh_thumb.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="GitHub SSH URL" }
 
-# 建立关联
+## 建立关联
 
 曾经有一段时间如何正确的把本地仓库和远程仓库建立关联让我十分费解，不过现在一切都清晰明朗，我用几种典型的情况来说明。
 
@@ -169,6 +169,6 @@ git branch -d <branch-name>
 git push origin --delete <branch-name>
 ```
 
-# 尾声
+## 尾声
 
 `GitHub`在被微软并入后能感觉到其功能迭代更加活跃，已经在之前的博文中提过`Pages`，再排除今天写的部分，还有一些`GitHub`功能没有涉及到，如`Fork`和`Action`。不过应该很快也会有，计划中的一个东西涉及到这它们，等我做完同样会把相关的心得分享出来。

@@ -51,9 +51,8 @@
 
 /* 文章题目 */
 .essay-title {
-  @include typography.typography(headline4);
-  @include theme.property(color, text-primary-on-background);
   font-size: 1.8rem;
+  line-height: 2.5rem;
   margin: 2rem 2rem 1rem 2rem;
   text-align: center;
   // 引用 theme中定义的属性，这个属性可以被 修改，以实现不同的theme主题
@@ -113,21 +112,8 @@
   @include ripple.states(map.get(blogTheme.$chip-ripple, "dark"), true);
 }
 
-// 代码块
-pre code {
-  font-family: blogTheme.$code-block-font;
-  // font-size: 1.0rem;
-  line-height: 1.4;
-}
-
-code.hljs {
-  border-radius: var(--essay-inner-shape-round);
-  padding: 1rem;
-  background: var(--pre-code-bg);
-}
-
 /* 段落中单词高亮 */
-:not(pre) code {
+code:not(pre code) {
   @include typography.typography(body1);
   padding: 0.01rem 0.2rem 0.05rem 0.2rem;
   margin-left: 0.05rem;
@@ -138,17 +124,28 @@ code.hljs {
   border: 1px solid var(--code-highlight-border);
 }
 
-.handwritten {
-  :not(pre) code {
-    padding: 0rem 0.2rem 0.09rem 0.2rem;
-  }
-}
-
 em code {
   padding-left: 0.2rem;
   padding-right: 0.3rem;
   margin-left: 0.2rem;
   margin-right: 0.2rem;
+}
+
+// 代码块
+pre code.hljs {
+  @include typography.typography(body1);
+  font-family: blogTheme.$code-block-font;
+  font-size: 1.0rem;
+  line-height: 1.5rem;
+  border-radius: var(--essay-inner-shape-round);
+  padding: 1rem;
+  background: var(--pre-code-bg);
+}
+
+.handwritten {
+  code:not(pre code.hljs) {
+    padding: 0rem 0.2rem 0.09rem 0.2rem;
+  }
 }
 
 .surface-block code,

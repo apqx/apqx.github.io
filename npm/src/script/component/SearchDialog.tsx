@@ -113,7 +113,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
                 </label>
 
                 <p id="search-dialog_tips"><b>TIPS：</b>本搜索功能由<a
-                    href="https://cn.bing.com/search?go=Search&q=站内搜索 site:mudan.me" target="_blank">必应站内搜索</a>提供，因索引滞后可能部分内容尚未被收录。</p>
+                    href="https://www.bing.com/webmasters/home" target="_blank">必应站内搜索</a>提供，因索引滞后可能部分内容尚未被收录。</p>
 
                 <Progressbar loading={this.state.showLoading}/>
                 {(this.state.resultList != null && this.state.resultList.length > 0) &&
