@@ -186,6 +186,6 @@ class EssayItem extends React.Component<EssayItemProps, any> {
 
 export function showTagEssayListDialog(_tag: string) {
     console_debug("TagEssayListDialogContent showTagEssayListDialog " + _tag)
-    showDialog(<TagEssayDialog tag={_tag} fixedWidth={true} btnText={"Cancel"}
+    showDialog(<TagEssayDialog tag={_tag} fixedWidth={true} btnText={"关闭"}
                                                 btnOnClick={null} closeOnClickOutside={true} />)
 }

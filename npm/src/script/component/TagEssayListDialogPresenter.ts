@@ -1,5 +1,5 @@
-import {TagEssayDialog, EssayItemData} from "./TagEssayListDialog";
-import {console_debug, console_error} from "../util/LogUtil";
+import { TagEssayDialog, EssayItemData } from "./TagEssayListDialog";
+import { console_debug, console_error } from "../util/LogUtil";
 
 const POST_TYPE_ORIGINAL = ["original", "随笔"]
 const POST_TYPE_REPOST = ["repost", "转载"]
@@ -26,13 +26,13 @@ class PostItem {
     categories: string
 
     constructor(title: string,
-                date: string,
-                url: string,
-                author: string,
-                actor: string,
-                mention: string,
-                tag: string,
-                categories: string) {
+        date: string,
+        url: string,
+        author: string,
+        actor: string,
+        mention: string,
+        tag: string,
+        categories: string) {
         this.title = title
         this.date = date
         this.url = url
@@ -71,7 +71,7 @@ export class TagEssayListDialogPresenter {
         this.abortController = new AbortController()
         // 异步请求
         // fetch调用浏览器的网络请求，所以会有和浏览器一样的缓存策略
-        let promise: Promise<void> = fetch(request, {signal: this.abortController.signal})
+        let promise: Promise<void> = fetch(request, { signal: this.abortController.signal, cache: "no-cache" })
             .then((response: Response) => {
                 if (response.status === 200) {
                     return response.json()
@@ -83,9 +83,9 @@ export class TagEssayListDialogPresenter {
                 postList = postsJson.posts
                 this.showTagItemList(postList, tag)
             }).catch(error => {
-                    console_error(error)
-                    this.showTagItemList([], tag)
-                }
+                console_error(error)
+                this.showTagItemList([], tag)
+            }
             )
     }
 

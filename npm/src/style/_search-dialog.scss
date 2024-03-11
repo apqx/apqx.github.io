@@ -1,8 +1,11 @@
 @use "@material/button";
 @use '@material/button/mdc-button';
+@use "@material/ripple";
 @use "@material/typography";
 @use "@material/textfield";
 @use "@material/textfield/mdc-text-field";
+@use "theme" as blogTheme;
+@use "sass:map";
 
 #search-dialog_label {
   width: 94%;
@@ -27,6 +30,14 @@
   @include button.ink-color(var(--chip-ink));
   @include button.container-fill-color(var(--chip-bg));
   min-width: fit-content;
+}
+
+.btn-search .mdc-button__ripple {
+  @include ripple.states(map.get(blogTheme.$chip-ripple, "light"), true);
+}
+
+.dark .btn-search .mdc-button__ripple {
+  @include ripple.states(map.get(blogTheme.$chip-ripple, "dark"), true);
 }
 
 .search-result-nav-wrapper {

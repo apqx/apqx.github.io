@@ -37,7 +37,7 @@ export class ShortLinkJumpDialogPresenter {
         })
         // 异步请求
         // fetch调用浏览器的网络请求，所以会有和浏览器一样的缓存策略
-        fetch(request)
+        fetch(request, { cache: "no-cache" })
             .then(response => {
                 if (response.status === 200) {
                     return response.json()

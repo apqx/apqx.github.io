@@ -74,7 +74,7 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
                 // 但是Button获取焦点后颜色会变化，所以立即取消焦点
                 const btnCloseE = document.getElementById("basic-dialog_btn_close")
                 if (btnCloseE != null) {
-                    // btnCloseE.focus()
+                    btnCloseE.focus()
                     btnCloseE.blur()
                 }
                 this.onDialogOpen()
