@@ -147,7 +147,7 @@
 /* 索引题目 */
 .index-title {
   @include typography.typography(body1);
-  // @include theme.property(color, on-surface);
+  @include theme.property(color, on-surface);
   margin: 0;
   text-align: left;
   /* 不换行 */

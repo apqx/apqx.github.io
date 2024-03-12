@@ -19,11 +19,11 @@ cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg
     {%- if post.categories contains "original" and post.hideFromIndex != true %}
     <li class="index-li">
         <a class="index-a" href="{{ post.url | prepend: site.baseurl }}">
-            <div class="mdc-card index-card">
-                <p class="index-title">{{ post.title }}</p>
+            <article class="mdc-card index-card">
+                <h1 class="index-title">{{ post.title }}</h1>
                 <p class="index-author">{{ post.author }}</p>
                 <p class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</p>
-            </div>
+            </article>
         </a>
     </li>
     {% endif -%}
