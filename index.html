@@ -7,23 +7,23 @@ description: 昆虫，野生散养攻城狮，“十分”“业余”摄影Fans
 cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg
 ---
 
-<div class="mdc-card index-top-card drawer-trigger">
+<section class="mdc-card index-top-card drawer-trigger">
     <img src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/index_hangzhou_thumb.jpg"  class="index-lazy-img"
     style="object-fit: cover;"/>
     <div class="index-top-card-container">
         <p class="index-top-card-text">暖风吹得游人醉，直把杭州作汴州</p>
     </div>
-</div>
+</section>
 <ul class="index-ul">
     {% for post in site.posts %}
     {%- if post.categories contains "original" and post.hideFromIndex != true %}
     <li class="index-li">
         <a class="index-a" href="{{ post.url | prepend: site.baseurl }}">
-            <article class="mdc-card index-card">
+            <section class="mdc-card index-card">
                 <h1 class="index-title">{{ post.title }}</h1>
                 <p class="index-author">{{ post.author }}</p>
                 <p class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</p>
-            </article>
+            </section>
         </a>
     </li>
     {% endif -%}

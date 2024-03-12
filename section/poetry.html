@@ -8,23 +8,23 @@ sitemap: true
 blockFromSearchEngine: false
 ---
 
-<div class="mdc-card index-top-card drawer-trigger">
+<section class="mdc-card index-top-card drawer-trigger">
 	<img src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/index_duliniang_thumb.jpg" class="index-lazy-img"
 		style="object-fit: cover;" />
 	<div class="index-top-card-container">
 		<p class="index-top-card-text">旧时王谢堂前燕，飞入寻常百姓家</p>
 	</div>
-</div>
+</section>
 <ul class="index-ul">
 	{% for post in site.posts %}
 	{%- if post.categories contains "poetry" and post.hideFromIndex != true %}
 	<li class="index-li">
 		<a class="index-a" href="{{ post.url | prepend: site.baseurl }}">
-			<article class="mdc-card index-card">
+			<section class="mdc-card index-card">
 				<h1 class="index-title">{{ post.title }}</h1>
 				<span class="index-author">{% if post.moreDate != null %}{{ post.moreDate }}{% endif %}{{ post.author }}</span>
 				<span class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
-			</article>
+			</section>
 		</a>
 	</li>
 	{% endif -%}
