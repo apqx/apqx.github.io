@@ -46,6 +46,13 @@ sitemap: false
             }
         },
         {
+            "id": "kfc",
+            "target": {
+                "path": "/page/kfc.html",
+                "title": "9块9疯狂星期四"
+            }
+        },
+        {
             "id": "op00",
             "target": {
                 "path": "{% link _posts/opera/2021-08-08-昆曲「红梨记·亭会」折子.md %}",
