@@ -11,14 +11,21 @@ sitemap: false
             }
         },
         {
-            "id": "index-poetry",
+            "id": "opera",
+            "target": {
+                "path": "/section/opera.html",
+                "title": "立泉の看剧"
+            }
+        },
+        {
+            "id": "poetry",
             "target": {
                 "path": "/section/poetry.html",
                 "title": "立泉の诗文"
             }
         },
         {
-            "id": "index-repost",
+            "id": "repost",
             "target": {
                 "path": "/section/repost.html",
                 "title": "立泉の转载"

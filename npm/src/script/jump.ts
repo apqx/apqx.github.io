@@ -1,5 +1,6 @@
 // 处理页面跳转，短链接
 import { showShortLinkJumpDialog } from "./component/ShortLinkJumpDialog";
+import { console_debug } from "./util/LogUtil";
 
 /**
  * 进入页面，检查是否携带了跳转参数
@@ -8,7 +9,7 @@ import { showShortLinkJumpDialog } from "./component/ShortLinkJumpDialog";
 export function checkJump() {
     let pid
     const urlPath = window.location.pathname
-
+    console_debug("url path = " + urlPath)
     // https://mudan.me/op01
     var matches = urlPath.match(/(op|og|rp|pt|ot)..$/)
     if (matches != null && matches.length > 0) {
@@ -17,7 +18,7 @@ export function checkJump() {
         pid = matches[0]
     } else {
         // https://mudan.me/index-opera
-        matches = urlPath.match(/(index-opera|index-poetry|index-repost|share|print)$/)
+        matches = urlPath.match(/(index-opera|opera|repost|poetry|share|print)$/)
         if (matches != null && matches.length > 0) {
             // 检查是否符合格式，取出pid
             // https://mudan.me/id
