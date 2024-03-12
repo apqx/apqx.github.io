@@ -16,8 +16,8 @@ class CommonAlertDialog extends BasicDialog<Props, any> {
 
     dialogContent(): JSX.Element {
         return (
-            <div className="center-horizontal">
-                <h1>{this.props.title}</h1>
+            <div>
+                <p className="common-alert-dialog_title center-horizontal">{this.props.title}</p>
                 <p className="common-alert-dialog_content"
                    dangerouslySetInnerHTML={createHtmlContent(this.props.contentHTML)}/>
             </div>

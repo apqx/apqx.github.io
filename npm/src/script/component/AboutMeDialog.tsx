@@ -27,14 +27,14 @@ class AboutMeDialog extends BasicDialog<BasicDialogProps, any> {
                 <img height="100px" width="100dx" className="circle-avatar"
                      src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg"
                      alt="avatar"/>
-                <h1 className="about-me-name">立泉</h1>
-                <span className="about-me-tag-wrapper">
+                <span className="about-me-name">立泉</span>
+                <div className="about-me-tag-wrapper">
                     <SkillChip text="C++"/>
                     <SkillChip text="Java"/>
                     <SkillChip text="Kotlin"/>
                     <SkillChip text="Android"/>
                     <SkillChip text="Git"/>
-                </span>
+                </div>
                 <p className="about-me-description">九五后，旅居杭州，<a
                     href={this.getKunQvLink()}
                     target="_blank">昆虫</a>，野生散养攻城狮，“十分”“业余”摄影Fans。联系我可以通过邮件<code>Email</code>，如果有必要也可以用<a

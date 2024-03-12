@@ -1,5 +1,7 @@
 @use "@material/dialog";
 @use "@material/dialog/mdc-dialog";
+@use "@material/theme";
+@use "@material/typography";
 
 .mdc-dialog {
   // 亮色主题的divider自动生成，颜色合适，但暗色主题颜色不合适，因此需要手动指定
@@ -15,8 +17,13 @@
   width: 880px;
 }
 
+.common-alert-dialog_title {
+  @include typography.typography(headline1);
+  line-height: 3rem;
+}
+
 .common-alert-dialog_content {
-  margin: 1.6rem 1rem;
+  margin: 1.5rem 1rem 0.5rem 1rem;
 }
 
 .basic-dialog_actions {

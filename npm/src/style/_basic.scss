@@ -55,6 +55,11 @@ h2 {
   @include typography.typography(headline2);
 }
 
+h2.h2-mini {
+  @include typography.typography(headline3);
+  margin: 0.8rem 0;
+}
+
 h3 {
   @include typography.typography(headline3);
   margin: 0.8rem 0;
