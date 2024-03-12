@@ -34,6 +34,10 @@
   // 行间距
 }
 
+body * {
+  -webkit-text-size-adjust: 100%;
+}
+
 h1,
 h2,
 h3,
@@ -56,7 +60,7 @@ h3 {
   margin: 0.8rem 0;
 }
 
-p{
+p {
   @include basicText();
   text-align: justify;
 }
