@@ -33,25 +33,22 @@ body {
   //scroll-behavior: smooth;
 }
 
-// 设置.page-wrap的最小高度为页面高度，为下面预留80px的高度空间给footer
 .page-wrap {
   min-height: 100%;
-  /* equal to footer height */
-  margin-bottom: -5rem;
+  display: flex;
+  flex-direction: column;
 }
 
-// 在.page-wrap内部content的最后再添加一个空的子元素，高度为footer的高度
-// 如果其内容没有占满屏幕高度，.page-wrap高度为100%，后面添加一个伪类，则这个多余的子元素不会挤占footer的空间
-// 如果其内容已经占满屏幕高度，那这个多余的子元素空间正好提供给footer
-.page-wrap::after {
-  content: "";
-  display: block;
-  height: 5rem;
+main {
+  flex: 1;
 }
 
 footer {
+  height: 5rem;
   background-color: blogTheme.$top-bar-color-darken;
   color: blogTheme.$footer-ink-color;
+  display: flex;
+  flex-direction: column;
 }
 
 footer a {
@@ -71,17 +68,18 @@ footer a {
 
 // 内容最外层的主容器
 .main-container {
+  width: 100%;
+  max-width: blogTheme.$center-card-max-width;
   // 横向居中
   margin: 0 auto;
-  width: 100%;
-  height: 100%;
   padding: 4.5rem 0 1rem 0;
 }
 
 .foot-container {
-  margin: 0 auto;
   width: 100%;
-  height: 100%;
+  max-width: blogTheme.$center-card-max-width;;
+  margin: 0 auto;
+  flex: 1;
   padding: 0;
 }
 
@@ -123,13 +121,11 @@ footer a {
 
 // 平板中屏
 @media all and (min-width: (blogTheme.$screen-middle-min-width + 1px)) and (max-width: (blogTheme.$screen-middle-max-width - 1px)) {
-  // 默认参数
+
 }
 
 // 电脑大屏
-@media all and (min-width: 880px) {
-  .main-container, .foot-container  {
-    width: blogTheme.$center-card-max-width;
-  }
+@media all and (min-width: blogTheme.$screen-middle-max-width) {
+
 }
 

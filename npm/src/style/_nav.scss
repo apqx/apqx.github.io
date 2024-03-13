@@ -15,6 +15,7 @@
 @use "@material/drawer/dismissible/mdc-drawer-dismissible";
 @use "@material/fab";
 @use "@material/fab/mdc-fab";
+@use "@material/theme";
 @use "sass:map";
 
 // top-app-bar
@@ -66,6 +67,26 @@
   font-weight: normal
 }
 
+.mdc-drawer__content {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-list {
+  flex: 1;
+}
+
+.nav-bottom {
+  height: 3rem;
+  padding: 0 1rem 0 1rem;
+}
+
+.nav-bottom button {
+  width: 100%;
+  @include button.container-fill-color(var(--chip-bg));
+  @include button.ink-color(var(--chip-ink));
+}
+
 // fab
 .mdc-fab {
   // TODO: 使用var设置的阴影是失效的
@@ -91,10 +112,12 @@
 // 解决Safari的Ripple动画无圆角
 .mdc-button,
 .mdc-button__ripple {
-  border-radius: 1.3rem !important;
+  // border-radius: 1.3rem !important;
   -webkit-mask-image: radial-gradient(white, black);
 }
 
 .btn-common {
   @include button.container-fill-color(var(--button-bg));
+  border-radius: 1.3rem;
 }
+

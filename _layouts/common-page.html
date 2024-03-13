@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   {% include head-common.html %}
 </head>
 
 <body class="mdc-typography mdc-theme--background">
   {% include theme-script.html %}
+  {% include header.html %}
   <div class="page-wrap">
-    {% include header.html %}
     <main class="mdc-top-app-bar--fixed-adjust main-container">
-        {{ content }}
+      {{ content }}
     </main>
+    {% include footer.html %}
   </div>
-  {% include footer.html %}
 </body>
+
 </html>

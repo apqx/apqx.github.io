@@ -38,7 +38,7 @@
     <span class="mdc-drawer__subtitle mdc-theme--text-secondary-on-background">https://mudan.me</span>
   </div>
   <div class="mdc-drawer__content">
-    <nav class="mdc-deprecated-list">
+    <nav class="mdc-deprecated-list nav-list">
       <a class={% if page.categories contains "original" or page.categories contains "main" or page.categories
         contains "common-page" %}"mdc-deprecated-list-item mdc-deprecated-list-item--activated"{% else
         %}"mdc-deprecated-list-item"{% endif %} href="{% link index.html %}">
@@ -88,6 +88,13 @@
         <span class="mdc-deprecated-list-item__text mdc-typography--body2">关于我</span>
       </a>
     </nav>
+    <div class="nav-bottom">
+        <!-- <button class="mdc-button mdc-button--raised">
+          <span class="mdc-button__ripple"></span>
+          <span class="mdc-button__focus-ring"></span>
+          <span class="mdc-button__label">开源&致谢</span>
+        </button> -->
+    </div>
   </div>
 </aside>
 <div class="mdc-drawer-scrim"></div>

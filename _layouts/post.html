@@ -7,8 +7,8 @@
 
 <body class="mdc-typography mdc-theme--background">
   {% include theme-script.html %}
+  {% include header.html %}
   <div class="page-wrap">
-    {% include header.html %}
     <main class="mdc-top-app-bar--fixed-adjust main-container">
       <article class="mdc-card essay-card">
         <h1 class="essay-title">{{ page.title }}</h1>
@@ -18,18 +18,17 @@
         <!-- tags -->
         <div style="margin-top: 2rem; margin-bottom: 0.5rem;">
           {% comment %}
-            <!-- 遍历本页的tag -->
-            {% endcomment %}
-            {%- for tagInPage in page.tags -%}
-            <span class="mdc-button mdc-button--unelevated tag-dialog-trigger btn-tag"
-              id="chip_tag_{{ tagInPage }}">
-              <span class="mdc-button__ripple"></span>
-              <span class="mdc-button__label">#{{ tagInPage }}</span>
-            </span>
-            {% comment %}
-            <!-- 结束遍历本页的tag -->
-            {% endcomment %}
-            {%- endfor -%}
+          <!-- 遍历本页的tag -->
+          {% endcomment %}
+          {%- for tagInPage in page.tags -%}
+          <span class="mdc-button mdc-button--unelevated tag-dialog-trigger btn-tag" id="chip_tag_{{ tagInPage }}">
+            <span class="mdc-button__ripple"></span>
+            <span class="mdc-button__label">#{{ tagInPage }}</span>
+          </span>
+          {% comment %}
+          <!-- 结束遍历本页的tag -->
+          {% endcomment %}
+          {%- endfor -%}
         </div>
         {% if page.categories contains "opera" %}
         <blockquote>
@@ -47,8 +46,8 @@
         {{ content }}
       </article>
     </main>
+    {% include footer.html %}
   </div>
-  {% include footer.html %}
 </body>
 
 </html>

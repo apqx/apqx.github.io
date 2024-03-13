@@ -103,7 +103,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
                     </span>
                     <input type="search" className="mdc-text-field__input" aria-labelledby="search-label"
                            onChange={this.onInputChange}/>
-                    <button type="button" className="mdc-button mdc-button--unelevated btn-search center-horizontal"
+                    <button type="button" className="mdc-button mdc-button--unelevated btn-search btn-common center-horizontal"
                             onClick={this.onClickSearch}
                             ref={e => this.initBtn(e)}>
                         <span className="mdc-button__ripple"></span>
