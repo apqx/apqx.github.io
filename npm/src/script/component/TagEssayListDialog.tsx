@@ -1,12 +1,12 @@
 import * as React from "react";
-import {MDCList} from "@material/list";
-import {Progressbar} from "./Progressbar";
-import {MDCRipple} from "@material/ripple";
-import {BasicDialog, BasicDialogProps, showDialog} from "./BasicDialog";
-import {console_debug} from "../util/LogUtil";
-import {TagEssayListDialogPresenter} from "./TagEssayListDialogPresenter";
+import { MDCList } from "@material/list";
+import { Progressbar } from "./Progressbar";
+import { MDCRipple } from "@material/ripple";
+import { BasicDialog, BasicDialogProps, showDialog } from "./BasicDialog";
+import { console_debug } from "../util/LogUtil";
+import { TagEssayListDialogPresenter } from "./TagEssayListDialogPresenter";
 
-interface DialogContentProps extends BasicDialogProps{
+interface DialogContentProps extends BasicDialogProps {
     tag: string,
 }
 
@@ -90,15 +90,21 @@ export class TagEssayDialog extends BasicDialog<DialogContentProps, DialogConten
 
     dialogContent(): JSX.Element {
         console_debug("TagEssayListDialogContent render")
+        let count: JSX.Element;
+        if (this.state.essayList.length == 0) {
+            count = <></>
+        } else {
+            count = <><span>{this.state.essayList.length}</span>篇</>
+        }
         return (
             <>
                 <p className="mdc-theme--on-surface">标记
                     <code id="tag-dialog-tag-name"
-                          className="language-plaintext highlighter-rouge">{this.props.tag}</code>
-                    的<span>博文</span>
+                        className="language-plaintext highlighter-rouge">{this.props.tag}</code>
+                    的{count}博文
                 </p>
 
-                <Progressbar loading={this.state.showLoading}/>
+                <Progressbar loading={this.state.showLoading} />
 
                 {this.state.essayList != null && this.state.essayList.length != 0 &&
                     <ul className="mdc-deprecated-list mdc-deprecated-list--two-line dialog-link-list"
@@ -126,11 +132,11 @@ export class EssayItemData {
     block2Array: string[]
 
     constructor(url: string,
-                title: string,
-                date: string,
-                type: string,
-                block1Array: string[],
-                block2Array: string[]) {
+        title: string,
+        date: string,
+        type: string,
+        block1Array: string[],
+        block2Array: string[]) {
         this.url = url
         this.title = title
         this.date = date
@@ -155,8 +161,8 @@ class EssayItem extends React.Component<EssayItemProps, any> {
         return (
             <div>
                 <a className="mdc-deprecated-list-item tag-list-item mdc-ripple-upgraded"
-                   href={this.props.data.url}
-                   ref={e => this.initRipple(e)}>
+                    href={this.props.data.url}
+                    ref={e => this.initRipple(e)}>
                     <span className="mdc-deprecated-list-item__ripple"></span>
                     <span className="mdc-deprecated-list-item__text">
                         <span className="my-list-item__primary-text">{this.props.data.title}</span>
@@ -178,7 +184,7 @@ class EssayItem extends React.Component<EssayItemProps, any> {
                         </div>
                     </span>
                 </a>
-                {!this.props.isLast && <hr className="mdc-deprecated-list-divider"/>}
+                {!this.props.isLast && <hr className="mdc-deprecated-list-divider" />}
             </div>
         )
     }
@@ -187,5 +193,5 @@ class EssayItem extends React.Component<EssayItemProps, any> {
 export function showTagEssayListDialog(_tag: string) {
     console_debug("TagEssayListDialogContent showTagEssayListDialog " + _tag)
     showDialog(<TagEssayDialog tag={_tag} fixedWidth={true} btnText={"关闭"}
-                                                btnOnClick={null} closeOnClickOutside={true} />)
+        btnOnClick={null} closeOnClickOutside={true} />)
 }
