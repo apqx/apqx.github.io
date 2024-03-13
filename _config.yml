@@ -22,7 +22,6 @@ docs/, tools/, .idea/, README.md]
 # Url output
 permalink: /post/:categories/:year/:month/:day/:title:output_ext
 
-
 # Build settings
 markdown: kramdown
 
