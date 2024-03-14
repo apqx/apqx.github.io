@@ -7,11 +7,14 @@ const version = Package.version;
 const config = {
     mode: '',
     // 打包入口
-    entry: ['./src/style/main.scss', './src/script/main.ts',
-        './node_modules/long-press-event/src/long-press-event.js'],
+    entry: {
+        main: ['./src/style/main.scss', './src/script/main.ts',
+            './node_modules/long-press-event/src/long-press-event.js'],
+        font: "./src/style/font/font.scss",
+    },
     output: {
         // 指定要生成的js文件名
-        filename: `apqx-v${version}.js`,
+        filename: `blog-[name]-v${version}.js`,
     },
     resolve: {
         // 指定webpack要处理的文件类型，如果这里不指定.ts等，在打包时会找不到除入口文件之外的该类型文件
@@ -19,7 +22,7 @@ const config = {
         fallback: {"https": false}
     },
     plugins: [new MiniCssExtractPlugin({
-        filename: `apqx-v${version}.css`
+        filename: `blog-[name]-v${version}.css`
     })],
     module: {
         rules: [
