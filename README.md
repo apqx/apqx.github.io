@@ -29,9 +29,9 @@
 ```sh
 # 进入内部Webpack工程
 cd npm
-# 安装所需依赖
+# 安装Web工程所需的依赖
 npm install
-# 在/npm/dist/目录下生成Js、CSS
+# 执行编译，在/npm/dist/目录下生成Js、CSS
 npm run build-release
 ```
 
@@ -93,7 +93,7 @@ git push origin
 
 ## 致谢
 
-感谢[Jetbrains](www.jetbrains.com)提供的[Open Source Development License](https://www.jetbrains.com/community/opensource/#support)
+感谢[Jetbrains](https://www.jetbrains.com)提供的[Open Source Development License](https://www.jetbrains.com/community/opensource/#support)
 
 ![JetBrains Logo (Main) logo](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg)
 

@@ -18,7 +18,7 @@ import { darkClass, setThemeColor, showThemeDark, toggleTheme } from "./util/The
 // 初始化Chrome/Safari标题栏颜色，立即执行
 // checkThemeColor()
 
-var bodyE: HTMLBodyElement = null
+let bodyE: HTMLBodyElement = null
 export var iconToggle: MDCIconButtonToggle = null
 
 export function initTheme() {
@@ -59,7 +59,7 @@ export function initTheme() {
         }
         // 监听系统级主题变化，即系统和导航栏都可以控制主题变化，但是如果用户曾经在导航栏设置过主题，则不响应系统变化？？？
         window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
-            var newSysTheme = e.matches ? "dark" : "light";
+            let newSysTheme = e.matches ? "dark" : "light";
             console_debug("system theme change to " + newSysTheme)
             const autoThemeOn = localRepository.getTheme() === localRepository.VALUE_THEME_AUTO
             if (autoThemeOn) {
@@ -126,21 +126,19 @@ function showEncodedUrl() {
     })
 }
 
-// 依赖jQuery
 function scrollToTop() {
-    const c = document.documentElement.scrollTop || document.body.scrollTop
+    const c = window.scrollY
     if (c > 0) {
         window.requestAnimationFrame(scrollToTop)
         window.scrollTo(0, c - c / 8)
     }
 }
 
-
 /**
  * 初始化Top app bar，Drawer
  */
 export function initDrawer() {
-    let drawer
+    let drawer: MDCDrawer
     try {
         const topAppBarE = document.querySelector(".mdc-top-app-bar")
 
@@ -160,7 +158,6 @@ export function initDrawer() {
         // drawer中的list
         const listEl = document.querySelector(".mdc-drawer .mdc-deprecated-list")
         const drawerList = new MDCList(listEl)
-        const mainContentEl = document.querySelector(".main-content")
         const originalSelectedItem = drawerList.selectedIndex
         console_debug("drawer originalSelectedItem " + originalSelectedItem)
         drawerList.listen("MDCList:action", (event: MDCListActionEvent) => {

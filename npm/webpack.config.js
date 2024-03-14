@@ -1,4 +1,4 @@
-const autoprefixer = require('autoprefixer');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const isProduction = process.env.NODE_ENV === 'production';
 
 const Package = require('./package.json');
@@ -18,60 +18,26 @@ const config = {
         extensions: [".tsx", ".ts", ".js", ".json"],
         fallback: {"https": false}
     },
+    plugins: [new MiniCssExtractPlugin({
+        filename: `apqx-v${version}.css`
+    })],
     module: {
         rules: [
             // 支持ES2015、Typescript、React，扩展名.js/.jsx/.ts/.tsx
             {
                 test: /\.(js|jsx|ts|tsx)$/,
                 exclude: /node_modules/,
-                loader: 'babel-loader'
+                loader: "babel-loader"
             },
-            // 支持Css，扩展名.css
+            // 支持CSS(.css)
             {
-                test: /\.css$/i,
-                use: ["style-loader", "css-loader"],
+                test: /\.(css)$/,
+                use: [MiniCssExtractPlugin.loader, "css-loader"],
             },
-            // 支持Sass，扩展名.scss
+            // 支持Sass(.scss)
             {
-                test: /\.scss$/,
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            // 输出文件
-                            name: `apqx-v${version}.css`,
-                        },
-                    },
-                    {
-                        loader: 'extract-loader'
-                    },
-                    {
-                        loader: 'css-loader'
-                    },
-                    {
-                        loader: 'postcss-loader',
-                        options: {
-                            postcssOptions: {
-                                plugins: [
-                                    autoprefixer()
-                                ]
-                            }
-                        }
-                    },
-                    {
-                        loader: 'sass-loader',
-                        options: {
-                            // Prefer Dart Sass
-                            implementation: require('sass'),
-                            // See https://github.com/webpack-contrib/sass-loader/issues/804
-                            webpackImporter: false,
-                            sassOptions: {
-                                // 读取./node_modules目录中的组件作为sass的依赖
-                                includePaths: ['./node_modules']
-                            }
-                        },
-                    }
-                ]
+                test: /\.(s(a|c)ss)$/,
+                use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
             },
         ],
     },
