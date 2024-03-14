@@ -1,0 +1,28 @@
+@use "theme" as blogTheme;
+@use "@material/elevation";
+@use "@material/elevation/mdc-elevation";
+@use "@material/fab";
+@use "@material/fab/mdc-fab";
+@use "sass:map";
+
+// fab
+.mdc-fab {
+    // TODO: 使用var设置的阴影是失效的
+    @include elevation.elevation(map.get(blogTheme.$fab-elevation, "elevation"), map.get(blogTheme.$fab-elevation, "shadow-light"), 0);
+}
+
+.mdc-fab {
+    @include elevation.elevation(map.get(blogTheme.$fab-elevation, "elevation"), map.get(blogTheme.$fab-elevation, "shadow-dark"), 0);
+}
+
+.app-fab--absolute {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+}
+
+// 解决Safari的fab Ripple动画无圆角
+.mdc-fab__ripple {
+    border-radius: 50% !important;
+    -webkit-mask-image: radial-gradient(white, black);
+}

@@ -1,5 +1,6 @@
-@use "basic";
-@use "theme" as blogTheme;
+@use "part/theme" as blogTheme;
+@use "part/basic";
+@use "part/tag";
 @use "@material/elevation";
 @use "@material/elevation/mdc-elevation";
 @use "@material/ripple";
@@ -17,349 +18,349 @@
 // 小屏时，间距0.6rem
 
 @mixin cardElevation {
-  @include elevation.elevation(map.get(blogTheme.$index-card-elevation, "elevation"),
-    map.get(blogTheme.$index-card-elevation, "shadow-light"), 0);
+    @include elevation.elevation(map.get(blogTheme.$index-card-elevation, "elevation"),
+            map.get(blogTheme.$index-card-elevation, "shadow-light"), 0);
 }
 
 @mixin cardElevationDark {
-  @include elevation.elevation(map.get(blogTheme.$index-card-elevation, "elevation"),
-    map.get(blogTheme.$index-card-elevation, "shadow-dark"), 0);
+    @include elevation.elevation(map.get(blogTheme.$index-card-elevation, "elevation"),
+            map.get(blogTheme.$index-card-elevation, "shadow-dark"), 0);
 }
 
 @mixin cardElevationMiniScreen {
-  @include elevation.elevation(map.get(blogTheme.$index-card-elevation, "elevation"),
-    map.get(blogTheme.$index-card-elevation, "min-screen-shadow-light"), 0);
+    @include elevation.elevation(map.get(blogTheme.$index-card-elevation, "elevation"),
+            map.get(blogTheme.$index-card-elevation, "min-screen-shadow-light"), 0);
 }
 
 @mixin cardElevationMiniScreenDark {
-  @include elevation.elevation(map.get(blogTheme.$index-card-elevation, "elevation"),
-    map.get(blogTheme.$index-card-elevation, "min-screen-shadow-dark"), 0);
+    @include elevation.elevation(map.get(blogTheme.$index-card-elevation, "elevation"),
+            map.get(blogTheme.$index-card-elevation, "min-screen-shadow-dark"), 0);
 }
 
 @mixin gridCardElevation {
-  @include elevation.elevation(map.get(blogTheme.$grid-index-card-elevation, "elevation"),
-    map.get(blogTheme.$grid-index-card-elevation, "shadow-light"), 0);
+    @include elevation.elevation(map.get(blogTheme.$grid-index-card-elevation, "elevation"),
+            map.get(blogTheme.$grid-index-card-elevation, "shadow-light"), 0);
 }
 
 @mixin gridCardElevationDark {
-  @include elevation.elevation(map.get(blogTheme.$grid-index-card-elevation, "elevation"),
-    map.get(blogTheme.$grid-index-card-elevation, "shadow-dark"), 0);
+    @include elevation.elevation(map.get(blogTheme.$grid-index-card-elevation, "elevation"),
+            map.get(blogTheme.$grid-index-card-elevation, "shadow-dark"), 0);
 }
 
 @mixin cardRipple {
-  overflow: hidden;
-  @include ripple.surface;
-  @include ripple.radius-bounded(100%);
-  @include ripple.states-base-color(black);
-  @include ripple.states-opacities((hover: .0, focus: .1, press: .08));
+    overflow: hidden;
+    @include ripple.surface;
+    @include ripple.radius-bounded(100%);
+    @include ripple.states-base-color(black);
+    @include ripple.states-opacities((hover: .0, focus: .1, press: .08));
 }
 
 @mixin cardRippleDeeper {
-  @include cardRipple();
-  @include ripple.states-opacities((hover: .0, focus: .1, press: .09));
+    @include cardRipple();
+    @include ripple.states-opacities((hover: .0, focus: .1, press: .09));
 }
 
 @mixin cardRippleDark {
-  @include ripple.states-base-color(white);
-  @include ripple.states-opacities((hover: .0, focus: .1, press: .08));
+    @include ripple.states-base-color(white);
+    @include ripple.states-opacities((hover: .0, focus: .1, press: .08));
 }
 
 .index-top-card {
-  margin: 0.74rem 1rem;
-  @include cardElevation();
-  @include cardRipple();
+    margin: 0.74rem 1rem;
+    @include cardElevation();
+    @include cardRipple();
 }
 
 .dark .index-top-card {
-  @include cardElevationDark();
-  @include cardRippleDark();
+    @include cardElevationDark();
+    @include cardRippleDark();
 }
 
 .index-top-card-container {
-  padding: 0.4rem 2.3rem 0.5rem 2.3rem;
+    padding: 0.4rem 2.3rem 0.5rem 2.3rem;
 }
 
 .index-top-card-text {
-  @include typography.typography(subtitle1);
-  font-family: blogTheme.$handwritten-font-index;
-  text-align: right;
-  font-size: 1.1rem;
+    @include typography.typography(subtitle1);
+    font-family: blogTheme.$handwritten-font-index;
+    text-align: right;
+    font-size: 1.1rem;
 }
 
 .index-card {
-  padding: 1.3rem 2.3rem;
-  @include cardElevation();
-  // 添加Ripple动画
-  @include cardRipple();
+    padding: 1.3rem 2.3rem;
+    @include cardElevation();
+    // 添加Ripple动画
+    @include cardRipple();
 }
 
 .dark .index-card {
-  @include cardElevationDark();
-  @include cardRippleDark();
+    @include cardElevationDark();
+    @include cardRippleDark();
 }
 
 // 小屏
 @media all and (max-width: blogTheme.$screen-middle-max-width) {
-  .index-card {
-    @include cardElevationMiniScreen();
-  }
+    .index-card {
+        @include cardElevationMiniScreen();
+    }
 
-  .dark .index-card {
-    @include cardElevationMiniScreenDark();
-  }
+    .dark .index-card {
+        @include cardElevationMiniScreenDark();
+    }
 
-  .index-top-card {
-    @include cardElevationMiniScreen();
-  }
+    .index-top-card {
+        @include cardElevationMiniScreen();
+    }
 
-  .dark .index-top-card {
-    @include cardElevationMiniScreenDark();
-  }
+    .dark .index-top-card {
+        @include cardElevationMiniScreenDark();
+    }
 
 }
 
 .index-description {
-  border: 1px solid rgba(63, 185, 80, 0.4);
-  border-radius: var(--mdc-shape-medium);
-  background: rgba(46, 160, 67, 0.1);
-  padding: 0.6rem 1rem;
-  margin: 0.74rem 1rem;
+    border: 1px solid rgba(63, 185, 80, 0.4);
+    border-radius: var(--mdc-shape-medium);
+    background: rgba(46, 160, 67, 0.1);
+    padding: 0.6rem 1rem;
+    margin: 0.74rem 1rem;
 }
 
 .index-description-card {
-  @include cardElevation();
-  padding: 1rem 2rem;
-  margin: 0.74rem 1rem;
+    @include cardElevation();
+    padding: 1rem 2rem;
+    margin: 0.74rem 1rem;
 }
 
 .dark .index-description-card {
-  @include cardElevationDark();
+    @include cardElevationDark();
 }
 
 .index-description-card__short {
-  padding: 0.6rem 1.8rem;
+    padding: 0.6rem 1.8rem;
 }
 
 .empty-index-description {
-  margin-top: 0.74rem;
+    margin-top: 0.74rem;
 }
 
 
 /* 索引题目 */
 .index-title {
-  @include typography.typography(body1);
-  @include theme.property(color, on-surface);
-  margin: 0;
-  text-align: left;
-  /* 不换行 */
-  white-space: nowrap;
-  /* 超出部分隐藏 */
-  overflow: hidden;
-  /* 文字超出部分显示省略号 */
-  text-overflow: ellipsis;
+    @include typography.typography(body1);
+    @include theme.property(color, on-surface);
+    margin: 0;
+    text-align: left;
+    /* 不换行 */
+    white-space: nowrap;
+    /* 超出部分隐藏 */
+    overflow: hidden;
+    /* 文字超出部分显示省略号 */
+    text-overflow: ellipsis;
 }
 
 /* 索引署名 */
 .index-author {
-  @include typography.typography(body1);
-  @include theme.property(color, text-secondary-on-background);
-  font-size: 0.9rem;
-  line-height: 1.5rem;
-  text-align: right;
-  margin: 0;
+    @include typography.typography(body1);
+    @include theme.property(color, text-secondary-on-background);
+    font-size: 0.9rem;
+    line-height: 1.5rem;
+    text-align: right;
+    margin: 0;
 }
 
 /* 索引地点（看剧使用） */
 .index-location {
-  @include typography.typography(body1);
-  text-align: left;
-  margin: 0;
+    @include typography.typography(body1);
+    text-align: left;
+    margin: 0;
 }
 
 /* 索引日期 */
 .index-date {
-  @include typography.typography(body1);
-  @include theme.property(color, text-secondary-on-background);
-  font-size: 0.9rem;
-  line-height: 1.5rem;
-  text-align: right;
-  margin: 0;
+    @include typography.typography(body1);
+    @include theme.property(color, text-secondary-on-background);
+    font-size: 0.9rem;
+    line-height: 1.5rem;
+    text-align: right;
+    margin: 0;
 }
 
 // 索引列表
 .index-ul {
-  // 注意列表第一个卡片到top bar的距离要和正文卡片与之的距离一致 0.75rem，各个item之间的距离0.75rem
-  padding: 0;
-  margin: 0;
+    // 注意列表第一个卡片到top bar的距离要和正文卡片与之的距离一致 0.75rem，各个item之间的距离0.75rem
+    padding: 0;
+    margin: 0;
 }
 
 .index-li {
-  list-style-type: none;
-  margin: 0.74rem 1rem;
-  padding: 0;
+    list-style-type: none;
+    margin: 0.74rem 1rem;
+    padding: 0;
 }
 
 // 索引链接
 .index-a {
-  // 去除下划线
-  text-decoration: none;
-  // 去除点击时的默认的背景，防止干扰Ripple动画
-  background-color: transparent;
+    // 去除下划线
+    text-decoration: none;
+    // 去除点击时的默认的背景，防止干扰Ripple动画
+    background-color: transparent;
 }
 
 // new grid index
 
 .grid-index-card {
-  @include gridCardElevation();
+    @include gridCardElevation();
 }
 
 .dark .grid-index-card {
-  @include gridCardElevationDark();
+    @include gridCardElevationDark();
 }
 
 .grid-index-card_ripple {
-  @include cardRippleDeeper();
+    @include cardRippleDeeper();
 }
 
 .dark .grid-index-card_ripple {
-  @include cardRippleDark();
+    @include cardRippleDark();
 }
 
 // 索引卡片，左右离container边界1rem空白，上下item间0.74rem空白，卡片组距顶部item 0.74rem空白，表格十字线宽度0.74rem
 // 小屏时，左右离浏览器container边界0.5rem空白，上下item间0.7rem空白
 
 .grid-index-ul {
-  padding: 0;
-  padding-inline-start: 0;
-  margin: -0.37rem 0.6rem 0.37rem 0.6rem;
+    padding: 0;
+    padding-inline-start: 0;
+    margin: -0.37rem 0.6rem 0.37rem 0.6rem;
 }
 
 .grid-index-li {
-  list-style-type: none;
-  box-sizing: border-box;
-  padding: 0.37rem 0.4rem;
-  margin: 0;
+    list-style-type: none;
+    box-sizing: border-box;
+    padding: 0.37rem 0.4rem;
+    margin: 0;
 }
 
 .grid-index-item__full-width {
-  width: 100%;
+    width: 100%;
 }
 
 .grid-index-text-container {
-  padding: 0.8rem 2rem 1.5rem 2rem;
+    padding: 0.8rem 2rem 1.5rem 2rem;
 }
 
 .grid-sizer,
 .grid-item {
-  width: 50%;
+    width: 50%;
 }
 
 .index-lazy-img {
-  border-radius: var(--mdc-shape-medium);
-  aspect-ratio: 844/295 auto;
+    border-radius: var(--mdc-shape-medium);
+    aspect-ratio: 844/295 auto;
 }
 
 .grid-index-title {
-  @include typography.typography(subtitle1);
-  @include theme.property(color, on-surface);
-  font-size: 1.5rem;
-  margin: 0.5rem 0 0.1rem 0;
-  text-align: left
+    @include typography.typography(subtitle1);
+    @include theme.property(color, on-surface);
+    font-size: 1.5rem;
+    margin: 0.5rem 0 0.1rem 0;
+    text-align: left
 }
 
 .grid-index-date {
-  @include typography.typography(body1);
-  @include theme.property(color, text-secondary-on-background);
-  font-size: 0.75rem;
-  margin: 0;
+    @include typography.typography(body1);
+    @include theme.property(color, text-secondary-on-background);
+    font-size: 0.75rem;
+    margin: 0;
 }
 
 .grid-index-author {
-  @include typography.typography(body1);
-  @include theme.property(color, text-secondary-on-background);
-  font-size: 0.75rem;
+    @include typography.typography(body1);
+    @include theme.property(color, text-secondary-on-background);
+    font-size: 0.75rem;
 }
 
 .grid-index-description {
-  margin: 0;
+    margin: 0;
 }
 
 // 手机小屏
 @media all and (max-width: blogTheme.$screen-middle-min-width) {
-  .index-author {
-    font-size: 0.75rem;
-  }
+    .index-author {
+        font-size: 0.75rem;
+    }
 
-  .index-date {
-    font-size: 0.75rem;
-  }
+    .index-date {
+        font-size: 0.75rem;
+    }
 
-  .index-li {
-    margin: 0.6rem 0.5rem;
-  }
+    .index-li {
+        margin: 0.6rem 0.5rem;
+    }
 
-  .index-card {
-    padding: 1rem 1rem;
-  }
+    .index-card {
+        padding: 1rem 1rem;
+    }
 
-  .index-top-card {
-    margin: 0.74rem 0.5rem 0.6rem 0.5rem;
-  }
+    .index-top-card {
+        margin: 0.74rem 0.5rem 0.6rem 0.5rem;
+    }
 
-  .index-top-card-container {
-    padding: 0.35rem 1rem 0.5rem 1rem;
-  }
+    .index-top-card-container {
+        padding: 0.35rem 1rem 0.5rem 1rem;
+    }
 
-  // new grid index
+    // new grid index
 
-  .grid-index-ul {
-    margin: -0.35rem 0.1rem 0.25rem 0.1rem;
-  }
+    .grid-index-ul {
+        margin: -0.35rem 0.1rem 0.25rem 0.1rem;
+    }
 
-  .grid-index-li {
-    padding: 0.35rem 0.4rem;
-  }
+    .grid-index-li {
+        padding: 0.35rem 0.4rem;
+    }
 
-  .index-description-card {
-    padding: 0.7rem 1.6rem;
-    margin: 0.74rem 0.5rem;
-  }
+    .index-description-card {
+        padding: 0.7rem 1.6rem;
+        margin: 0.74rem 0.5rem;
+    }
 
-  .index-description-card__short {
-    padding: 0.5rem 1.6rem;
-  }
+    .index-description-card__short {
+        padding: 0.5rem 1.6rem;
+    }
 
-  .grid-sizer,
-  .grid-item {
-    width: 100%;
-  }
+    .grid-sizer,
+    .grid-item {
+        width: 100%;
+    }
 
-  .grid-index-text-container {
-    padding: 0.5rem 1.5rem 1.2rem 1.5rem;
-  }
+    .grid-index-text-container {
+        padding: 0.5rem 1.5rem 1.2rem 1.5rem;
+    }
 }
 
 // 平板中屏
 @media all and (min-width: (blogTheme.$screen-middle-min-width + 1px)) and (max-width: (blogTheme.$screen-middle-max-width - 1px)) {
-  .index-top-card-container {
-    padding: 0.35rem 2rem 0.5rem 2rem;
-  }
+    .index-top-card-container {
+        padding: 0.35rem 2rem 0.5rem 2rem;
+    }
 
-  .index-card {
-    padding: 1.2rem 2rem;
-  }
+    .index-card {
+        padding: 1.2rem 2rem;
+    }
 
-  .index-author {
-    font-size: 0.8rem;
-  }
+    .index-author {
+        font-size: 0.8rem;
+    }
 
-  .index-date {
-    font-size: 0.8rem;
-  }
+    .index-date {
+        font-size: 0.8rem;
+    }
 
-  // new grid index
-  .grid-index-text-container {
-    padding: 0.5rem 1.8rem 1.3rem 1.8rem;
-  }
+    // new grid index
+    .grid-index-text-container {
+        padding: 0.5rem 1.8rem 1.3rem 1.8rem;
+    }
 
 }

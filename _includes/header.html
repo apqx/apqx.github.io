@@ -28,7 +28,7 @@
 <!-- side drawer -->
 <aside class="mdc-drawer mdc-drawer--modal">
   <div class="mdc-drawer__header">
-    <a style="font-size: 2rem; text-decoration:none"
+    <a style="font-size: 2rem; text-decoration:none" id="drawer-header-hide-icon"
       href="https://github.com/material-components/material-components-web" target="_blank">🦁</a>
     <a style="font-size: 2rem; text-decoration:none" href="https://github.com/material-components/material-web"
       target="_blank">🦄️</a>
@@ -39,50 +39,42 @@
   </div>
   <div class="mdc-drawer__content">
     <nav class="mdc-deprecated-list nav-list">
-      <a class={% if page.categories contains "original" or page.categories contains "main" or page.categories
-        contains "common-page" %}"mdc-deprecated-list-item mdc-deprecated-list-item--activated"{% else
-        %}"mdc-deprecated-list-item"{% endif %} href="{% link index.html %}">
+      <a class="mdc-deprecated-list-item" href="{% link index.html %}" tabindex="1">
         <span class="mdc-deprecated-list-item__ripple"></span>
         <i class="material-icons-outlined mdc-deprecated-list-item__graphic">palette</i>
         <span class="mdc-deprecated-list-item__text mdc-typography--body2">随笔</span>
       </a>
-      <a class={% if page.categories contains "repost" %}"mdc-deprecated-list-item
-        mdc-deprecated-list-item--activated"{% else %}"mdc-deprecated-list-item"{% endif %}
-        href="{% link section/repost.html %}">
+      <a class="mdc-deprecated-list-item" href="{% link section/repost.html %}" tabindex="2">
         <span class="mdc-deprecated-list-item__ripple"></span>
         <i class="material-icons-outlined mdc-deprecated-list-item__graphic">auto_awesome</i>
         <span class="mdc-deprecated-list-item__text mdc-typography--body2">转载</span>
       </a>
-      <a class={% if page.categories contains "poetry" %}"mdc-deprecated-list-item
-        mdc-deprecated-list-item--activated"{% else %}"mdc-deprecated-list-item"{% endif %}
-        href="{% link section/poetry.html %}">
+      <a class="mdc-deprecated-list-item" href="{% link section/poetry.html %}" tabindex="3">
         <span class="mdc-deprecated-list-item__ripple"></span>
         <i class="material-icons-outlined mdc-deprecated-list-item__graphic">translate</i>
         <span class="mdc-deprecated-list-item__text mdc-typography--body2">诗文</span>
       </a>
-      <a class={% if page.categories contains "opera" %}"mdc-deprecated-list-item mdc-deprecated-list-item--activated"{%
-        else %}"mdc-deprecated-list-item"{% endif %} href="{% link section/opera.html %}">
+      <a class="mdc-deprecated-list-item" href="{% link section/opera.html %}" tabindex="4">
         <span class="mdc-deprecated-list-item__ripple"></span>
         <i class="material-icons-outlined mdc-deprecated-list-item__graphic">photo_camera</i>
         <span class="mdc-deprecated-list-item__text mdc-typography--body2">看剧</span>
       </a>
-      <a class={% if page.categories contains "tag" %}"mdc-deprecated-list-item mdc-deprecated-list-item--activated"{%
-        else %}"mdc-deprecated-list-item"{% endif %} href="{% link section/tag.html %}">
+      <a class="mdc-deprecated-list-item" href="{% link section/tag.html %}" tabindex="5">
         <span class="mdc-deprecated-list-item__ripple"></span>
         <i class="material-icons-outlined mdc-deprecated-list-item__graphic">local_offer</i>
         <span class="mdc-deprecated-list-item__text mdc-typography--body2">标签</span>
       </a>
-      <a class="mdc-deprecated-list-item" id="drawer-a-search">
+      <a class="mdc-deprecated-list-item" id="drawer-a-search"  tabindex="6">
         <span class="mdc-deprecated-list-item__ripple"></span>
         <i class="material-icons-outlined mdc-deprecated-list-item__graphic">search</i>
         <span class="mdc-deprecated-list-item__text mdc-typography--body2">搜索</span>
       </a>
-      <a class="mdc-deprecated-list-item" id="drawer-a-preference">
+      <a class="mdc-deprecated-list-item" id="drawer-a-preference" tabindex="7">
         <span class="mdc-deprecated-list-item__ripple"></span>
         <i class="material-icons-outlined mdc-deprecated-list-item__graphic">manage_accounts</i>
         <span class="mdc-deprecated-list-item__text mdc-typography--body2">偏好</span>
       </a>
-      <a class="mdc-deprecated-list-item" id="drawer-a-about-me">
+      <a class="mdc-deprecated-list-item" id="drawer-a-about-me" tabindex="8">
         <span class="mdc-deprecated-list-item__ripple"></span>
         <i class="material-icons-outlined mdc-deprecated-list-item__graphic">face</i>
         <span class="mdc-deprecated-list-item__text mdc-typography--body2">关于我</span>

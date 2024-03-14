@@ -1,0 +1,46 @@
+@use "theme" as blogTheme;
+@use "@material/theme";
+@use "@material/theme/custom-properties";
+@use "@material/typography";
+@use "@material/elevation";
+@use "@material/elevation/mdc-elevation";
+@use "@material/card";
+@use "@material/card/mdc-card";
+@use "sass:map";
+
+@mixin cardElevation {
+    // 文章卡片的阴影，z高度，阴影颜色，扩散度
+    @include elevation.elevation(map.get(blogTheme.$content-card-elevation, "elevation"),
+            map.get(blogTheme.$content-card-elevation, "shadow-light"), 0);
+}
+
+@mixin cardElevationDark {
+    @include elevation.elevation(map.get(blogTheme.$content-card-elevation, "elevation"),
+            map.get(blogTheme.$content-card-elevation, "shadow-dark"), 0);
+}
+
+.content-card {
+    padding: 1.3rem 2.5rem;
+    margin: 0.74rem 1rem;
+    // 文章卡片的阴影，z高度，阴影颜色，扩散度
+    @include cardElevation();
+}
+
+.dark .content-card {
+    @include cardElevationDark();
+}
+
+// 手机小屏
+@media all and (max-width: blogTheme.$screen-middle-min-width) {
+    .content-card {
+        padding: 1.3rem 1.3rem;
+        margin: 0.74rem 0;
+        @include elevation.elevation(map.get(blogTheme.$content-card-elevation, "elevation"),
+                map.get(blogTheme.$content-card-elevation, "min-screen-shadow-light"), 0);
+    }
+
+    .dark .content-card {
+        @include elevation.elevation(map.get(blogTheme.$content-card-elevation, "elevation"),
+                map.get(blogTheme.$content-card-elevation, "min-screen-shadow-dark"), 0);
+    }
+}

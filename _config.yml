@@ -6,20 +6,19 @@
 # 'jekyll serve'. If you change this file, please restart the server process.
 
 # Site settings
-title: mudan.me
-email: changgongapq@gmail.com
+title: 立泉の写字板
+email: safari@mudan.me
 description: > # this means to ignore newlines until "baseurl:"
   wubba lubba dub dub!
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://mudan.me" # the base hostname & protocol for your site
-twitter_username: GuodongYuan
 github_username:  apqx
 
 exclude: [npm/node_modules/, npm/src/,
 npm/package-lock.json, npm/package.json, npm/README.md, npm/webpack.config.js,
 docs/, tools/, .idea/, README.md]
 
-# Url output
+# _post目录下markdown转换后的url结构
 permalink: /post/:categories/:year/:month/:day/:title:output_ext
 
 # Build settings

@@ -1,6 +1,6 @@
 // 处理页面跳转，短链接
-import { showShortLinkJumpDialog } from "./component/ShortLinkJumpDialog";
-import { console_debug } from "./util/LogUtil";
+import { showShortLinkJumpDialog } from "../component/ShortLinkJumpDialog";
+import { console_debug } from "../util/LogUtil";
 
 /**
  * 进入页面，检查是否携带了跳转参数

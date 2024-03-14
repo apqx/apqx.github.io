@@ -1,6 +1,5 @@
 import { isDebug } from "./Tools"
 
-
 export function console_debug(str: string) {
     if (isDebug())
         console.log(str)

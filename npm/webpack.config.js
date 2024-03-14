@@ -8,9 +8,9 @@ const config = {
     mode: '',
     // 打包入口
     entry: {
+        font: "./src/style/font.scss",
         main: ['./src/style/main.scss', './src/script/main.ts',
-            './node_modules/long-press-event/src/long-press-event.js'],
-        font: "./src/style/font/font.scss",
+            './node_modules/long-press-event/src/long-press-event.js']
     },
     output: {
         // 指定要生成的js文件名

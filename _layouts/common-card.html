@@ -2,18 +2,20 @@
 <html>
 
 <head>
-  {% include head-common.html %}
+    {% include head-common.html %}
 </head>
 
 <body class="mdc-typography mdc-theme--background">
-  {% include theme-script.html %}
-  {% include header.html %}
-  <div class="page-wrap">
+{% include theme-script.html %}
+{% include header.html %}
+<div class="page-wrap">
     <main class="mdc-top-app-bar--fixed-adjust main-container">
-      {{ content }}
+        <div class="mdc-card content-card">
+            {{ content }}
+        </div>
     </main>
     {% include footer.html %}
-  </div>
+</div>
 </body>
 
 </html>

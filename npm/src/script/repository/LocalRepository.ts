@@ -1,5 +1,4 @@
 export class LocalRepository {
-
     KEY_HANDWRITTEN_FONT = "handwrittenFont"
     KEY_THEME = "theme"
 
@@ -14,11 +13,7 @@ export class LocalRepository {
     getBoolean(key: string): boolean {
         // 默认为false
         const value = this.getString(key)
-        if (value === "true") {
-            return true
-        } else {
-            return false
-        }
+        return value === "true";
     }
 
     saveString(key: string, value: string) {
@@ -48,5 +43,10 @@ export class LocalRepository {
     getAutoThemeOn(): boolean {
         return this.getTheme() === this.VALUE_THEME_AUTO
     }
+}
 
+export var localRepository: LocalRepository = null
+
+export function initLocalRepository() {
+    localRepository = new LocalRepository()
 }

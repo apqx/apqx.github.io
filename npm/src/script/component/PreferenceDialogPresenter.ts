@@ -1,8 +1,8 @@
 import {PreferenceDialog} from "./PreferenceDialog";
 import {LocalRepository} from "../repository/LocalRepository";
 import {toggleClassWithEnable} from "../util/Tools";
-import {saveTheme, toggleTheme} from "../util/ThemeUtils";
-import {masonryLayout} from "../main";
+import {masonryLayout} from "../index";
+import {saveTheme, toggleTheme} from "../part/theme";
 
 export class PreferenceDialogPresenter {
 

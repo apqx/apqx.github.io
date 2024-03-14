@@ -2,9 +2,9 @@
 
 [![Deploy Jekyll site to Pages](https://github.com/apqx/apqx.github.io/actions/workflows/jekyll.yml/badge.svg)](https://github.com/apqx/apqx.github.io/actions/workflows/jekyll.yml)
 
-基于[Jekyll](https://jekyllrb.com)并遵循[Material Design](https://material.io)的开源博客，使用`Google`提供的[Material Components Web](https://github.com/material-components/material-components-web)组件库。
+基于[Jekyll](https://jekyllrb.com)并遵循[Material Design](https://material.io)的开源博客，使用`Google`提供的[Material Components Web](https://github.com/material-components/material-components-web)组件。
 
-它并非一般通用的博客模版，而是完全以我自己的喜好量身定制的分享空间。由随笔、转载、诗文、看剧4个模块组成，整体采用淡红色极简风格，在文字、色彩和动画之外不添加任何多余元素。或可作为使用`Material Design`的个人站参考，但不建议直接套用，因为目前尚未进行普适的模版优化，灵活性不足。
+它并非一般通用的博客模版，而是完全以我自己的喜好量身定制的分享空间。由随笔、转载、诗文、看剧4个板块组成，整体采用淡红色极简风格，在文字、色彩和动画之外不添加任何多余元素。或可作为使用`Material Design`的个人站参考，但不建议直接套用，目前尚未进行普适的模版优化。
 
 博客链接 👉 [立泉の写字板](https://mudan.me)
 
@@ -66,7 +66,7 @@ http://localhost:4000
 
 ## 部署到GitHub Pages
 
-本地调试完成后，如果`Webpack`生成了新的`Js`和`CSS`文件，需要上传到`OSS`托管，然后修改`_includes/configure.html`关闭`debug`模式即可使用这些托管的资源。
+调试后，如果`Webpack`生成了新的`Js`和`CSS`文件，需要上传到`OSS`托管，然后修改`_includes/configure.html`关闭`debug`模式即可使用这些托管的资源。
 
 ```html
 <!-- _includes/configure.html -->
@@ -75,12 +75,11 @@ http://localhost:4000
 {% assign debug = false %}
 ```
 
-本地修改后`push`到自己的`repository`，`GitHub Pages`会自动执行`Jekyll`的`build`操作，生成静态网站并`serve`到指定域名下。
+`push`到自己的`repository`，`GitHub Pages`会自动执行`Jekyll`的`build`操作，生成静态网站并`serve`到指定域名下。
 
 ```sh
-git commit
 # push到自己的repository
-git push origin
+git push
 ```
 
 静候数秒或数分钟，取决于`Pages`的执行速度，完成后网页就会更新。
@@ -89,7 +88,7 @@ git push origin
 
 ## 版权
 
-此博客工程代码以`GPL`许可开源，但对其中的文章内容仍保留著作权，尤其`看剧`模块中外链的摄影照片，可能包含剧团、演员和摄影师的版权，未经允许不可用于商业用途。
+此博客工程代码以`GPL`许可开源，但对其中的文章内容仍保留著作权，尤其`看剧`板块中外链的摄影照片，可能包含剧团、演员和摄影师的版权，未经允许不可用于商业用途。
 
 ## 致谢
 
