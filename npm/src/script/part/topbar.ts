@@ -4,14 +4,17 @@ import {checkUserTheme, darkClass, toggleTheme} from "./theme";
 import {localRepository} from "../repository/LocalRepository";
 import {MDCTopAppBar} from "@material/top-app-bar";
 import {showAboutMeDialog} from "../component/AboutMeDialog";
+import { toggleClassWithEnable } from "../util/Tools";
 
 export var iconToggle: MDCIconButtonToggle = null
 export var topAppBar: MDCTopAppBar = null
+var topAppBarE: HTMLElement = null
 
 export function initTopbar() {
     const bodyE = document.querySelector("body")
     const btnThemeE = document.querySelector("#topbar_btn_theme")
-    const topAppBarE = document.querySelector(".mdc-top-app-bar")
+    topAppBarE = document.querySelector(".mdc-top-app-bar")
+    checkFixedTopbar();
     topAppBar = new MDCTopAppBar(topAppBarE)
     iconToggle = new MDCIconButtonToggle(btnThemeE)
     checkUserTheme();
@@ -38,4 +41,14 @@ export function initTopbar() {
     document.querySelector("#topbar_btn_about_me").addEventListener("click", () => {
         showAboutMeDialog()
     })
+}
+
+function checkFixedTopbar() {
+    let on = localRepository.getFixedTopbarOn()
+    setFixedTopbar(on)
+}
+
+export function setFixedTopbar(on: boolean) {
+    toggleClassWithEnable(topAppBarE, "mdc-top-app-bar--fixed", on)
+    toggleClassWithEnable(topAppBarE, "top-app-bar--blur", on)
 }

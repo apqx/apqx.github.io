@@ -1,4 +1,5 @@
 export class LocalRepository {
+    KEY_FIXED_TOPBAR = "fixedTopbar"
     KEY_HANDWRITTEN_FONT = "handwrittenFont"
     KEY_THEME = "theme"
 
@@ -22,6 +23,14 @@ export class LocalRepository {
 
     getString(key: string): string {
         return localStorage.getItem(key)
+    }
+
+    saveFixedTopbarOn(on: boolean) {
+        this.saveBoolean(this.KEY_FIXED_TOPBAR, on)
+    }
+
+    getFixedTopbarOn(): boolean {
+        return this.getBoolean(this.KEY_FIXED_TOPBAR)
     }
 
     saveHandwritingFontOn(on: boolean) {

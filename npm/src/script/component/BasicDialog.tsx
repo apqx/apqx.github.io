@@ -13,6 +13,7 @@ export interface BasicDialogProps {
 
 export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.Component<T, V> {
     mdcDialog: MDCDialog
+    btnCloseE: HTMLElement
 
     constructor(props: T) {
         super(props);
@@ -56,6 +57,7 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
         if (e == null) return
         if (this.mdcDialog == null) {
             this.mdcDialog = new MDCDialog(e)
+            this.btnCloseE = document.getElementById("basic-dialog_btn_close")
             // 缓存dialog对象供外部调用
             let rootDialog = rootDialogMap.get(currentDialogWrapperId)
             rootDialog.dialog = this.mdcDialog
@@ -64,6 +66,10 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
                 this.mdcDialog.scrimClickAction = ""
             }
             this.mdcDialog.listen("MDCDialog:opened", () => {
+                console_debug("dialog open event")
+                // 多个dialog可能都注册了监听事件，只响应打开的那个
+                // ？？？但是应该会自动检测是否是自己的事件吧，经验证确实会判断，所以这里无需如此
+                // if(!this.mdcDialog.isOpen) return
                 // 列表滚动到顶部，执行一次即可
                 document.getElementById("basic-dialog-content").scrollTo(
                     {
@@ -73,10 +79,9 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
                 )
                 // Dialog弹出时应该让Button获取焦点，避免chip出现选中阴影
                 // 但是Button获取焦点后颜色会变化，所以立即取消焦点
-                const btnCloseE = document.getElementById("basic-dialog_btn_close")
-                if (btnCloseE != null) {
-                    btnCloseE.focus()
-                    btnCloseE.blur()
+                if (this.btnCloseE != null) {
+                    this.btnCloseE.focus()
+                    this.btnCloseE.blur()
                 }
                 this.onDialogOpen()
             })
@@ -138,18 +143,21 @@ export const ABOUT_DIALOG_WRAPPER_ID = "about-dialog-wrapper"
 export const PREFERENCE_DIALOG_WRAPPER_ID = "preference-dialog-wrapper"
 
 interface RootDialog {
-    root: Root,
+    root: Root
     dialog: MDCDialog
 }
 
 // 缓存每种dialog的root和dialog实例，即使该类型dialog的内容变化，其仍是同一个dialog对象
 
-let dialogContainerE = document.querySelector("#dialog_container")
+let dialogContainerE = null
 let currentDialogWrapperId = null
 // id, {root, mdcDialog}
 let rootDialogMap = new Map<string, RootDialog>()
 
 export function showDialog(_contentElement: JSX.Element, _dialogWrapperId: string) {
+    // 如果此时html还未加载完成，确实可能出现为null的情况
+    if (document.readyState != "complete") return
+    dialogContainerE = document.querySelector("#dialog_container")
     currentDialogWrapperId = _dialogWrapperId
     let root: Root = null
     let dialog: MDCDialog = null

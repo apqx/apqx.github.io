@@ -1,5 +1,6 @@
 import * as React from "react"
 import {MDCIconButtonToggle} from "@material/icon-button";
+import { MDCRipple } from "@material/ripple";
 
 export interface ToggleButtonProps {
     on: boolean
@@ -15,6 +16,8 @@ export class ToggleButton extends React.Component<ToggleButtonProps, any> {
 
     initToggleButton(e: Element) {
         if (e == null) return
+        // ripple位置会偏移，不知道为什么
+        // new MDCRipple(e)
         const ele = e as HTMLButtonElement
         this.iconBtnToggle = new MDCIconButtonToggle(ele)
         this.iconBtnToggle.on = this.props.on

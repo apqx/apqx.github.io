@@ -49,17 +49,17 @@ export function initDrawer() {
     // drawer中的list
     const listEl: HTMLElement = document.querySelector(".mdc-drawer .mdc-deprecated-list")
     const drawerList = MDCList.attachTo(listEl)
+    drawerList.singleSelection = true;
     let currentPageIndex = getCurrentPageIndex()
     drawerList.listElements.map((listItemEl) => new MDCRipple(listItemEl))
 
     drawerList.selectedIndex = currentPageIndex
     drawerE.addEventListener('MDCDrawer:opened', () => {
-        drawerList.selectedIndex = currentPageIndex
         drawerHeaderHideIcon.focus()
         drawerHeaderHideIcon.blur()
     });
     drawerE.addEventListener('MDCDrawer:closed', () => {
-        // mainContentEl.querySelector<HTMLElement>('input, button').focus();
+        drawerList.selectedIndex = currentPageIndex
     });
 
     console_debug("drawer currentPageIndex " + currentPageIndex)

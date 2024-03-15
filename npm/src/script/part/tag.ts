@@ -1,3 +1,4 @@
+import { MDCRipple } from "@material/ripple";
 import {showTagEssayListDialog} from "../component/TagEssayListDialog";
 import {console_debug} from "../util/LogUtil";
 
@@ -26,5 +27,14 @@ function clickTag() {
     // 这里的tag可能是由&连接的多个tag
     const tag = chipId.replace("chip_tag_", "")
     showTagEssayListDialog(tag)
+}
+
+export function initTag() {
+        // 为所有的button添加ripple动画，要与 mdc-button__ripple 配合使用才会生效
+    for (const ele of document.querySelectorAll(".btn-tag")) {
+        // TODO: Tag弹出Dialog的React操作似乎被点击Tag的Ripple动画所影响，慢一拍，取消动画就好了，或者按住一会，等动画完成后再松开
+        // 浏览器似乎是单线程运行的
+        new MDCRipple(ele)
+    }
 }
 

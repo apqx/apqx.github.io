@@ -26,6 +26,7 @@
 
 .top-app-bar--blur {
     backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     background-color: rgba(226, 64, 71, 0.75);
 }
 

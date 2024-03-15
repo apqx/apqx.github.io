@@ -2,7 +2,7 @@
 <header class="mdc-top-app-bar" id="top_app_bar">
   <div class="mdc-top-app-bar__row">
     <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-      <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button">
+      <button class="mdc-top-app-bar__navigation-icon mdc-icon-button">
         <span class="mdc-icon-button__ripple"></span>
         <i class="material-icons mdc-icon-button__icon">menu</i>
       </button>
@@ -10,13 +10,13 @@
     </section>
 
     <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
-      <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Theme"
+      <button class="mdc-top-app-bar__action-item mdc-icon-button" aria-label="Theme"
         id="topbar_btn_theme" aria-pressed="false">
         <span class="mdc-icon-button__ripple"></span>
         <i class="material-icons mdc-icon-button__icon mdc-icon-button__icon--on">light_mode</i>
         <i class="material-icons mdc-icon-button__icon">dark_mode</i>
       </button>
-      <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="About me"
+      <button class="mdc-top-app-bar__action-item mdc-icon-button" aria-label="About me"
         id="topbar_btn_about_me">
         <span class="mdc-icon-button__ripple"></span>
         <i class="material-icons mdc-icon-button__icon">account_circle</i>
@@ -24,72 +24,3 @@
     </section>
   </div>
 </header>
-
-<!-- side drawer -->
-<aside class="mdc-drawer mdc-drawer--modal">
-  <div class="mdc-drawer__header">
-    <a style="font-size: 2rem; text-decoration:none" id="drawer-header-hide-icon"
-      href="https://github.com/material-components/material-components-web" target="_blank">🦁</a>
-    <a style="font-size: 2rem; text-decoration:none" href="https://github.com/material-components/material-web"
-      target="_blank">🦄️</a>
-  </div>
-  <div class="mdc-drawer__header">
-    <h1 class="mdc-drawer__title mdc-theme--text-primary-on-background">立泉の写字板</h1>
-    <span class="mdc-drawer__subtitle mdc-theme--text-secondary-on-background">https://mudan.me</span>
-  </div>
-  <div class="mdc-drawer__content">
-    <nav class="mdc-deprecated-list nav-list">
-      <a class="mdc-deprecated-list-item" href="{% link index.html %}" tabindex="1">
-        <span class="mdc-deprecated-list-item__ripple"></span>
-        <i class="material-icons-outlined mdc-deprecated-list-item__graphic">palette</i>
-        <span class="mdc-deprecated-list-item__text mdc-typography--body2">随笔</span>
-      </a>
-      <a class="mdc-deprecated-list-item" href="{% link section/repost.html %}" tabindex="2">
-        <span class="mdc-deprecated-list-item__ripple"></span>
-        <i class="material-icons-outlined mdc-deprecated-list-item__graphic">auto_awesome</i>
-        <span class="mdc-deprecated-list-item__text mdc-typography--body2">转载</span>
-      </a>
-      <a class="mdc-deprecated-list-item" href="{% link section/poetry.html %}" tabindex="3">
-        <span class="mdc-deprecated-list-item__ripple"></span>
-        <i class="material-icons-outlined mdc-deprecated-list-item__graphic">translate</i>
-        <span class="mdc-deprecated-list-item__text mdc-typography--body2">诗文</span>
-      </a>
-      <a class="mdc-deprecated-list-item" href="{% link section/opera.html %}" tabindex="4">
-        <span class="mdc-deprecated-list-item__ripple"></span>
-        <i class="material-icons-outlined mdc-deprecated-list-item__graphic">photo_camera</i>
-        <span class="mdc-deprecated-list-item__text mdc-typography--body2">看剧</span>
-      </a>
-      <a class="mdc-deprecated-list-item" href="{% link section/tag.html %}" tabindex="5">
-        <span class="mdc-deprecated-list-item__ripple"></span>
-        <i class="material-icons-outlined mdc-deprecated-list-item__graphic">local_offer</i>
-        <span class="mdc-deprecated-list-item__text mdc-typography--body2">标签</span>
-      </a>
-      <a class="mdc-deprecated-list-item" id="drawer-a-search"  tabindex="6">
-        <span class="mdc-deprecated-list-item__ripple"></span>
-        <i class="material-icons-outlined mdc-deprecated-list-item__graphic">search</i>
-        <span class="mdc-deprecated-list-item__text mdc-typography--body2">搜索</span>
-      </a>
-      <a class="mdc-deprecated-list-item" id="drawer-a-preference" tabindex="7">
-        <span class="mdc-deprecated-list-item__ripple"></span>
-        <i class="material-icons-outlined mdc-deprecated-list-item__graphic">manage_accounts</i>
-        <span class="mdc-deprecated-list-item__text mdc-typography--body2">偏好</span>
-      </a>
-      <a class="mdc-deprecated-list-item" id="drawer-a-about-me" tabindex="8">
-        <span class="mdc-deprecated-list-item__ripple"></span>
-        <i class="material-icons-outlined mdc-deprecated-list-item__graphic">face</i>
-        <span class="mdc-deprecated-list-item__text mdc-typography--body2">关于我</span>
-      </a>
-    </nav>
-    <!-- <div class="nav-bottom"> -->
-        <!-- <button class="mdc-button mdc-button--raised">
-          <span class="mdc-button__ripple"></span>
-          <span class="mdc-button__focus-ring"></span>
-          <span class="mdc-button__label">开源&致谢</span>
-        </button> -->
-    <!-- </div> -->
-  </div>
-</aside>
-<div class="mdc-drawer-scrim"></div>
-
-<div id="dialog_container">
-</div>

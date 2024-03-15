@@ -8,8 +8,9 @@
 <body class="mdc-typography mdc-theme--background">
 {% include theme-script.html %}
 {% include header.html %}
-<div class="page-wrap">
-    <main class="mdc-top-app-bar--fixed-adjust main-container">
+{% include aside.html %}
+<div class="mdc-top-app-bar--fixed-adjust page-wrap">
+    <main class="main-container">
         {{ content }}
     </main>
     {% include footer.html %}

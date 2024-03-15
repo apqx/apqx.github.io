@@ -5,7 +5,7 @@
 
 .preference-item-toggle .mdc-icon-button {
     @include icon-button.ink-color(map.get(blogTheme.$on-surface, "light"));
-    @include icon-button.size(58px);
+    @include icon-button.size(45px);
     padding: 0;
 }
 
@@ -16,7 +16,7 @@
 .preference-item-toggle .mdc-icon-button .mdc-icon-button__icon {
     font-size: 40px;
     // TODO: 不知为何，icon不居中，偏上，所以下移3px
-    margin-top: 5px;
+    margin-top: 3px;
 }
 
 .preference-item-toggle {

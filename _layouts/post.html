@@ -8,8 +8,9 @@
 <body class="mdc-typography mdc-theme--background">
 {% include theme-script.html %}
 {% include header.html %}
-<div class="page-wrap">
-    <main class="mdc-top-app-bar--fixed-adjust main-container">
+{% include aside.html %}
+<div class="mdc-top-app-bar--fixed-adjust page-wrap">
+    <main class="main-container">
         <article class="mdc-card content-card">
             <h1 class="essay-title">{{ page.title }}</h1>
             <span class="essay-author">{% if page.moreDate != null %}{{ page.moreDate }} {% endif %}{{ page.author }}</span>

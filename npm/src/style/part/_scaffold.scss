@@ -57,7 +57,7 @@ footer a {
     max-width: blogTheme.$center-card-max-width;
     // 横向居中
     margin: 0 auto;
-    padding: 4.5rem 0 1rem 0;
+    padding-bottom: 1rem;
 }
 
 .foot-container {
@@ -85,7 +85,7 @@ footer a {
     }
 }
 
-@media(min-width: 1024px) {
+@media(min-width: blogTheme.$screen-middle-min-width) {
     .app-fab--absolute {
         bottom: 1.5rem;
         right: 1.55rem;
@@ -97,10 +97,14 @@ footer a {
     text-align: center;
 }
 
+.mdc-top-app-bar--fixed-adjust {
+    padding-top: 4.5rem;
+}
+
 // 手机小屏
 @media all and (max-width: blogTheme.$screen-middle-min-width) {
-    .main-container {
-        padding: 3.8rem 0 1rem 0;
+    .mdc-top-app-bar--fixed-adjust {
+        padding-top: 3.8rem;
     }
 }
 

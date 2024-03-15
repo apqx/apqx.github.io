@@ -3,6 +3,8 @@ import {LocalRepository} from "../repository/LocalRepository";
 import {toggleClassWithEnable} from "../util/Tools";
 import {masonryLayout} from "../index";
 import {saveTheme, toggleTheme} from "../part/theme";
+import { setFixedTopbar } from "../part/topbar";
+import { setHandwrittenFont } from "../part/font";
 
 export class PreferenceDialogPresenter {
 
@@ -17,16 +19,21 @@ export class PreferenceDialogPresenter {
 
     initSettings() {
         this.component.setState({
+            fixedTopbarOn: this.localFixedTopbarOn(),
             handwrittenFontOn: this.localHandWritingFontOn(),
             autoThemeOn: this.localAutoThemeOn()
         })
     }
 
+    onClickFixedTopbarSwitch(on: boolean) {
+        this.localRepository.saveFixedTopbarOn(on)
+        setFixedTopbar(on)
+        location.reload()
+    }
+
     onClickHandwritingFontSwitch(on: boolean) {
         this.localRepository.saveHandwritingFontOn(on)
-        const bodyE = document.getElementsByTagName("body")[0]
-        toggleClassWithEnable(bodyE, this.handwrittenClass, on)
-        masonryLayout()
+        setHandwrittenFont(on)
     }
 
     onClickAutoThemeSwitch(on: boolean) {
@@ -49,6 +56,10 @@ export class PreferenceDialogPresenter {
                 saveTheme(this.localRepository.VALUE_THEME_LIGHT)
             }
         }
+    }
+
+    localFixedTopbarOn(): boolean {
+        return this.localRepository.getFixedTopbarOn()
     }
 
     localHandWritingFontOn(): boolean {

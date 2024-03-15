@@ -1,10 +1,11 @@
 import * as React from "react";
-import {PreferenceDialogPresenter} from "./PreferenceDialogPresenter";
-import {console_debug} from "../util/LogUtil";
-import {BasicDialog, BasicDialogProps, PREFERENCE_DIALOG_WRAPPER_ID, showDialog} from "./BasicDialog";
-import {SettingsToggle} from "./SettingsToggle";
+import { PreferenceDialogPresenter } from "./PreferenceDialogPresenter";
+import { console_debug } from "../util/LogUtil";
+import { BasicDialog, BasicDialogProps, PREFERENCE_DIALOG_WRAPPER_ID, showDialog } from "./BasicDialog";
+import { SettingsToggle } from "./SettingsToggle";
 
 interface DialogContentState {
+    fixedTopbarOn: boolean
     handwrittenFontOn: boolean
     autoThemeOn: boolean
 }
@@ -15,12 +16,24 @@ export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogConten
         super(props)
         console_debug("PreferenceDialogContent constructor")
         this.presenter = new PreferenceDialogPresenter(this)
+        this.onClickFixedTopbarSwitch = this.onClickFixedTopbarSwitch.bind(this)
         this.onClickHandwritingFontSwitch = this.onClickHandwritingFontSwitch.bind(this)
         this.onClickAutoThemeSwitch = this.onClickAutoThemeSwitch.bind(this)
         this.state = {
+            fixedTopbarOn: false,
             handwrittenFontOn: false,
             autoThemeOn: false
         }
+    }
+
+    onClickFixedTopbarSwitch() {
+        console_debug("PreferenceDialogContent onClickFixedTopbarSwitch")
+        const newState = !this.state.fixedTopbarOn
+        this.presenter.onClickFixedTopbarSwitch(newState)
+        // 更新state，刷新UI
+        this.setState({
+            fixedTopbarOn: newState
+        })
     }
 
     onClickHandwritingFontSwitch() {
@@ -56,14 +69,16 @@ export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogConten
     shouldComponentUpdate(nextProps: Readonly<any>, nextState: Readonly<DialogContentState>, nextContext: any): boolean {
         console_debug("PreferenceDialogContent shouldComponentUpdate")
         super.shouldComponentUpdate(nextProps, nextState, nextContext)
-        if (this.state.handwrittenFontOn != nextState.handwrittenFontOn
-            || this.state.autoThemeOn != nextState.autoThemeOn) {
+        if (this.state.fixedTopbarOn != nextState.fixedTopbarOn ||
+            this.state.handwrittenFontOn != nextState.handwrittenFontOn ||
+            this.state.autoThemeOn != nextState.autoThemeOn) {
             console_debug("state different, render")
             return true
         }
 
-        if (this.state.handwrittenFontOn != this.presenter.localHandWritingFontOn()
-            || this.state.autoThemeOn != this.presenter.localAutoThemeOn()) {
+        if (this.state.fixedTopbarOn != this.presenter.localFixedTopbarOn() ||
+            this.state.handwrittenFontOn != this.presenter.localHandWritingFontOn() ||
+            this.state.autoThemeOn != this.presenter.localAutoThemeOn()) {
             // state不是最新的，更新state，来触发UI render
             console_debug("state should update, update state, no render")
             this.presenter.initSettings()
@@ -83,19 +98,23 @@ export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogConten
                 <div className="center-horizontal">
                     <picture>
                         <source srcSet="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emoji/noto-animated-emoji/mouth-none/512.webp"
-                                type="image/webp"/>
+                            type="image/webp" />
                         <img src="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emoji/noto-animated-emoji/mouth-none/512.gif" alt="😶" width="64"
-                             height="64"/>
+                            height="64" />
                     </picture>
                 </div>
+                <SettingsToggle titleHtml="固定标题栏"
+                    on={this.state.fixedTopbarOn}
+                    onClickToggle={this.onClickFixedTopbarSwitch}
+                    floatTop={false} />
                 <SettingsToggle titleHtml={this.handwrittenFontTitle}
-                                on={this.state.handwrittenFontOn}
-                                onClickToggle={this.onClickHandwritingFontSwitch}
-                                floatTop={false}/>
+                    on={this.state.handwrittenFontOn}
+                    onClickToggle={this.onClickHandwritingFontSwitch}
+                    floatTop={false} />
                 <SettingsToggle titleHtml={this.autoThemeTitle}
-                                on={this.state.autoThemeOn}
-                                onClickToggle={this.onClickAutoThemeSwitch}
-                                floatTop={true}/>
+                    on={this.state.autoThemeOn}
+                    onClickToggle={this.onClickAutoThemeSwitch}
+                    floatTop={false} />
             </>
         );
     }
@@ -104,5 +123,5 @@ export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogConten
 export function showPreferenceDialog() {
     console_debug("PreferenceDialogContent showPreferenceDialog")
     showDialog(<PreferenceDialog fixedWidth={true} btnText={"关闭"}
-                                                  btnOnClick={null} closeOnClickOutside={true} />, PREFERENCE_DIALOG_WRAPPER_ID)
+        btnOnClick={null} closeOnClickOutside={true} />, PREFERENCE_DIALOG_WRAPPER_ID)
 }

@@ -7,7 +7,7 @@ import { console_debug } from "../util/LogUtil";
  * https://mudan.me/pid
  */
 export function checkJump() {
-    let pid
+    let pid = null
     const urlPath = window.location.pathname
     console_debug("url path = " + urlPath)
     // https://mudan.me/op01

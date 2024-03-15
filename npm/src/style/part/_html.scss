@@ -18,8 +18,6 @@
 @use "@material/typography/mdc-typography";
 @use "@material/textfield";
 @use "@material/textfield/mdc-text-field";
-@use "@material/chips";
-@use "@material/chips/styles" as chipStyles;
 @use "@material/ripple";
 
 @mixin basicText {
@@ -218,25 +216,12 @@ blockquote.handwritten.pre p {
     @include list.deprecated-divider-color(var(--divider-color));
 }
 
-// .mdc-deprecated-list-item:hover {
-//   background-color: var(--list-hover)
-// }
-
-// list的ripple和active item的背景色由__ripple定义
-// 消除list默认的ripple，似乎没有除净
-.mdc-deprecated-list-item__ripple {
-    @include ripple.surface;
-    @include ripple.radius-bounded(100%);
-    @include ripple.states-base-color(transparent);
-    @include ripple.states-opacities((hover: .0, focus: .0, press: .0));
-}
-
 // 与__ripple叠加
 .mdc-deprecated-list-item {
     @include ripple.surface;
     @include ripple.radius-bounded(100%);
-    @include ripple.states-base-color(black);
-    @include ripple.states-opacities((hover: .02, focus: .02, press: .0));
+    // @include ripple.states-base-color(black);
+    // @include ripple.states-opacities((hover: .02, focus: .02, press: .02));
 }
 
 .dark .mdc-deprecated-list-item {
@@ -254,17 +239,4 @@ blockquote.handwritten.pre p {
     @include data-table-theme.stroke-color(var(--divider-color));
     margin-top: 0.8rem;
     margin-bottom: 0.8rem;
-}
-
-// chips
-// 解决Safari的Ripple动画无圆角
-.mdc-evolution-chip,
-.mdc-evolution-chip__ripple {
-    border-radius: 1.3rem !important;
-    -webkit-mask-image: radial-gradient(white, black);
-}
-
-.mdc-evolution-chip {
-    @include chips.text-label-color(var(--chip-ink));
-    @include chips.container-color(var(--chip-bg));
 }
