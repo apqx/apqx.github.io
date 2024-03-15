@@ -1,37 +1,37 @@
 {% include configure.html -%}
 <title>{{ page.title }}</title>
-<meta charset="UTF-8" />
-<meta name="debug" content="{{ debug }}" />
+<meta charset="UTF-8"/>
+<meta name="debug" content="{{ debug }}"/>
 {%- if page.author != null %}
-<meta name="author" content="{{ page.author }}" />
+<meta name="author" content="{{ page.author }}"/>
 {%- endif %}
 {%- if page.web-seo-description != null %}
-<meta name="description" content="{{ page.web-seo-description }}" />
+<meta name="description" content="{{ page.web-seo-description }}"/>
 {%- elsif page.description != null %}
-<meta name="description" content="{{ page.description }}" />
+<meta name="description" content="{{ page.description }}"/>
 {%- endif %}
 <!-- Open Graph protocol, define rich object for share -->
-<meta property="og:url" content="{{ page.url | prepend: site.url }}" />
-<meta property="og:type" content="article" />
-<meta property="og:title" content="{{ page.title }}" />
+<meta property="og:url" content="{{ page.url | prepend: site.url }}"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="{{ page.title }}"/>
 {%- if page.description != null %}
-<meta property="og:description" content="{{ page.description }}" />
+<meta property="og:description" content="{{ page.description }}"/>
 {%- endif %}
 {%- if page.cover != null %}
-<meta property="og:image" content="{{ page.cover }}" />
+<meta property="og:image" content="{{ page.cover }}"/>
 {%- else %}
-<meta property="og:image" content="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg" />
+<meta property="og:image" content="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg"/>
 {%- endif %}
 {%- if page.blockFromSearchEngine == true %}
 <!-- Let search engine not index this page -->
 <meta name="robots" content="noindex">
 {%- endif %}
 <!-- Let browser know website is optimized for mobile -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="utf-8"/>
 
-<link rel="shortcut icon" href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/snail.png" />
-<link rel="apple-touch-icon" href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/snail_white_bg.png" />
+<link rel="shortcut icon" href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/snail.png"/>
+<link rel="apple-touch-icon" href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/snail_white_bg.png"/>
 {% comment %} js和css资源由内部webpack工程输出，debug模式下使用localhost版本，release模式下使用托管在阿里云上的版本 {% endcomment %}
 {% if debug == true %}
 {% include head-debug.html %}

@@ -5,16 +5,14 @@ import {iconToggle} from "./topbar";
 
 export const darkClass = "dark"
 
-export function checkThemeColor() {
+export function checkThemeColor(dark: boolean) {
     if (isMobileOrTablet()) {
         // 在mobile或tablet设备上添加theme-color，无论是暗色还是亮色主题，都设置浏览器标题栏theme-color主题颜色为淡红色
         // <meta name="theme-color" content="#df696e" />
+        // 暗色主题下不设置theme-color
         setThemeColor("#df696e")
     } else {
         // desktop设备上，topBar固定背景模糊
-        // const topBarE = document.getElementById("top_app_bar")
-        // topBarE.classList.add("mdc-top-app-bar--fixed")
-        // topBarE.classList.add("top-app-bar--blur")
 
         // 在desktop设备上，暗色和亮色主题下，分别设置theme-color为background，若不设置，Safari会自动使用检测到的background颜色作为theme-color
         // 但是在系统暗色主题下，设置亮色的theme-color是无效的，所以，也就没必要再区分设置了，直接由Safari自动检测就行了
@@ -27,8 +25,8 @@ export function checkThemeColor() {
 }
 
 /**
- *
- * @param {String} color
+ * 设置浏览器的theme-color属性
+ * @param {String} color 如果为null则删除属性
  */
 function setThemeColor(color: string) {
     console_debug("setThemeColor " + color)
@@ -39,14 +37,19 @@ function setThemeColor(color: string) {
             break
         }
     }
-    if (themeColorE == null) {
-        themeColorE = document.createElement("meta")
-        themeColorE.setAttribute("name", "theme-color")
-        themeColorE.setAttribute("content", color)
-        document.getElementsByTagName("head")[0].append(themeColorE)
+    if (color == null) {
+        if (themeColorE != null) {
+            themeColorE.remove()
+        }
     } else {
-        themeColorE.setAttribute("content", color)
-
+        if (themeColorE == null) {
+            themeColorE = document.createElement("meta")
+            themeColorE.setAttribute("name", "theme-color")
+            themeColorE.setAttribute("content", color)
+            document.getElementsByTagName("head")[0].append(themeColorE)
+        } else {
+            themeColorE.setAttribute("content", color)
+        }
     }
 }
 
@@ -75,6 +78,7 @@ export function showThemeDark(dark: boolean) {
     const bodyE = document.getElementsByTagName("body")[0]
     toggleClassWithEnable(bodyE, darkClass, dark)
     iconToggle.on = dark
+    checkThemeColor(dark)
     // 当切换主题的时候，检查是否需要修改theme-color
     // 目前不需要，只切换暗色、亮色主题，而设置的亮色theme-color在系统级暗色主题下无效，还不如直接交给浏览器去自动检测呢
 }

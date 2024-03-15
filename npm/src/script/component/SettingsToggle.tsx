@@ -1,12 +1,19 @@
 import * as React from "react";
 import {createHtmlContent} from "../util/Tools"
-import {ToggleButton} from "./ToggleButton";
+import {createComponent} from '@lit/react';
+import {MdSwitch} from '@material/web/switch/switch.js';
+
+// 新的@material/web必须借助lit/react来创建可以被react识别的component
+export const NewMdSwitch = createComponent({
+    tagName: 'md-switch',
+    elementClass: MdSwitch,
+    react: React,
+});
 
 export interface SettingsToggleProps {
     titleHtml: string
     on: boolean
     onClickToggle: () => void
-    floatTop: boolean
 }
 
 export class SettingsToggle extends React.Component<SettingsToggleProps, any> {
@@ -15,22 +22,13 @@ export class SettingsToggle extends React.Component<SettingsToggleProps, any> {
     }
 
     render() {
-        if (this.props.floatTop) {
-            return (
-                <div className="preference-item-toggle float-top">
+        return (
+            <div className="preference-item-toggle float-top">
                     <span className="preference-item-toggle__title"
                           dangerouslySetInnerHTML={createHtmlContent(this.props.titleHtml)}/>
-                    <ToggleButton on={this.props.on} onClickToggle={this.props.onClickToggle}/>
-                </div>
-            )
-        } else {
-            return (
-                <div className="preference-item-toggle">
-                    <span className="preference-item-toggle__title"
-                          dangerouslySetInnerHTML={createHtmlContent(this.props.titleHtml)}/>
-                    <ToggleButton on={this.props.on} onClickToggle={this.props.onClickToggle}/>
-                </div>
-            )
-        }
+                {/*会自动识别组建内定义的属性*/}
+                <NewMdSwitch selected={this.props.on} onClick={this.props.onClickToggle}/>
+            </div>
+        )
     }
 }

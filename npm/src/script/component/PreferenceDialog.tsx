@@ -1,14 +1,15 @@
 import * as React from "react";
-import { PreferenceDialogPresenter } from "./PreferenceDialogPresenter";
-import { console_debug } from "../util/LogUtil";
-import { BasicDialog, BasicDialogProps, PREFERENCE_DIALOG_WRAPPER_ID, showDialog } from "./BasicDialog";
-import { SettingsToggle } from "./SettingsToggle";
+import {PreferenceDialogPresenter} from "./PreferenceDialogPresenter";
+import {console_debug} from "../util/LogUtil";
+import {BasicDialog, BasicDialogProps, PREFERENCE_DIALOG_WRAPPER_ID, showDialog} from "./BasicDialog";
+import {SettingsToggle} from "./SettingsToggle";
 
 interface DialogContentState {
     fixedTopbarOn: boolean
     handwrittenFontOn: boolean
     autoThemeOn: boolean
 }
+
 export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogContentState> {
     presenter: PreferenceDialogPresenter
 
@@ -97,24 +98,24 @@ export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogConten
             <>
                 <div className="center-horizontal">
                     <picture>
-                        <source srcSet="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emoji/noto-animated-emoji/mouth-none/512.webp"
-                            type="image/webp" />
-                        <img src="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emoji/noto-animated-emoji/mouth-none/512.gif" alt="😶" width="64"
-                            height="64" />
+                        <source
+                            srcSet="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emoji/noto-animated-emoji/mouth-none/512.webp"
+                            type="image/webp"/>
+                        <img
+                            src="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emoji/noto-animated-emoji/mouth-none/512.gif"
+                            alt="😶" width="64"
+                            height="64"/>
                     </picture>
                 </div>
                 <SettingsToggle titleHtml="固定标题栏"
-                    on={this.state.fixedTopbarOn}
-                    onClickToggle={this.onClickFixedTopbarSwitch}
-                    floatTop={false} />
+                                on={this.state.fixedTopbarOn}
+                                onClickToggle={this.onClickFixedTopbarSwitch}/>
                 <SettingsToggle titleHtml={this.handwrittenFontTitle}
-                    on={this.state.handwrittenFontOn}
-                    onClickToggle={this.onClickHandwritingFontSwitch}
-                    floatTop={false} />
+                                on={this.state.handwrittenFontOn}
+                                onClickToggle={this.onClickHandwritingFontSwitch}/>
                 <SettingsToggle titleHtml={this.autoThemeTitle}
-                    on={this.state.autoThemeOn}
-                    onClickToggle={this.onClickAutoThemeSwitch}
-                    floatTop={false} />
+                                on={this.state.autoThemeOn}
+                                onClickToggle={this.onClickAutoThemeSwitch}/>
             </>
         );
     }
@@ -123,5 +124,5 @@ export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogConten
 export function showPreferenceDialog() {
     console_debug("PreferenceDialogContent showPreferenceDialog")
     showDialog(<PreferenceDialog fixedWidth={true} btnText={"关闭"}
-        btnOnClick={null} closeOnClickOutside={true} />, PREFERENCE_DIALOG_WRAPPER_ID)
+                                 btnOnClick={null} closeOnClickOutside={true}/>, PREFERENCE_DIALOG_WRAPPER_ID)
 }

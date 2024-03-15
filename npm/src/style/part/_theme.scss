@@ -205,6 +205,14 @@ body {
     --mdc-shape-medium: 0.3rem;
     // 文章内元素圆角，code block和description
     --essay-inner-shape-round: 0.3rem;
+
+    --md-switch-handle-width: 0.8rem;
+    --md-switch-handle-height: 0.8rem;
+    --md-switch-selected-handle-width: 0.8rem;
+    --md-switch-selected-handle-height: 0.8rem;
+    --md-switch-track-width: 3rem;
+    --md-switch-track-height: 1.5rem;
+
     @include light;
 }
 

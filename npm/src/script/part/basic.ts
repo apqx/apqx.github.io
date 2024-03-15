@@ -10,7 +10,6 @@ import { initHandwritingFont } from "./font";
 
 export function initBasic() {
     initLocalRepository()
-    checkThemeColor()
     initHandwritingFont()
     initTopbar()
     initDrawer()

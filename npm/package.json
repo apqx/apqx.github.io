@@ -7,6 +7,7 @@
     "build-release": "webpack --mode=production --node-env=production"
   },
   "dependencies": {
+    "@lit/react": "^1.0.4",
     "@material/animation": "^14.0.0",
     "@material/button": "^14.0.0",
     "@material/card": "^14.0.0",

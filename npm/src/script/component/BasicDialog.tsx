@@ -1,8 +1,8 @@
 import * as React from "react";
-import { console_debug } from "../util/LogUtil";
-import { MDCDialog } from "@material/dialog";
-import { MDCRipple } from "@material/ripple";
-import { createRoot, Root } from "react-dom/client";
+import {console_debug} from "../util/LogUtil";
+import {MDCDialog} from "@material/dialog";
+import {MDCRipple} from "@material/ripple";
+import {createRoot, Root} from "react-dom/client";
 
 export interface BasicDialogProps {
     fixedWidth: boolean,
@@ -14,6 +14,7 @@ export interface BasicDialogProps {
 export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.Component<T, V> {
     mdcDialog: MDCDialog
     btnCloseE: HTMLElement
+    inputE: HTMLElement
 
     constructor(props: T) {
         super(props);
@@ -57,7 +58,8 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
         if (e == null) return
         if (this.mdcDialog == null) {
             this.mdcDialog = new MDCDialog(e)
-            this.btnCloseE = document.getElementById("basic-dialog_btn_close")
+            this.btnCloseE = e.querySelector("#basic-dialog_btn_close")
+            this.inputE = e.querySelector("input")
             // 缓存dialog对象供外部调用
             let rootDialog = rootDialogMap.get(currentDialogWrapperId)
             rootDialog.dialog = this.mdcDialog
@@ -68,7 +70,7 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
             this.mdcDialog.listen("MDCDialog:opened", () => {
                 console_debug("dialog open event")
                 // 多个dialog可能都注册了监听事件，只响应打开的那个
-                // ？？？但是应该会自动检测是否是自己的事件吧，经验证确实会判断，所以这里无需如此
+                // 但是应该会自动检测是否是自己的事件，经验证确实会判断，所以这里无需如此
                 // if(!this.mdcDialog.isOpen) return
                 // 列表滚动到顶部，执行一次即可
                 document.getElementById("basic-dialog-content").scrollTo(
@@ -77,17 +79,29 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
                         behavior: "smooth"
                     }
                 )
-                // Dialog弹出时应该让Button获取焦点，避免chip出现选中阴影
-                // 但是Button获取焦点后颜色会变化，所以立即取消焦点
-                if (this.btnCloseE != null) {
-                    this.btnCloseE.focus()
-                    this.btnCloseE.blur()
-                }
+                this.handleFocus();
                 this.onDialogOpen()
             })
             this.mdcDialog.listen("MDCDialog:closing", () => {
                 this.onDialogClose()
             })
+        }
+    }
+
+    private handleFocus() {
+        // Dialog弹出后，如果有input，获取焦点，否则底部button获取然后立刻取消
+        if (this.inputE != null) {
+            // this.inputE.focus()
+            // 意图调起iOS safari的输入法，但结果并没有，只是获取了焦点
+            // android则正常调起输入法
+            this.inputE.click()
+        } else {
+            // Dialog弹出时应该让Button获取焦点，避免chip出现选中阴影
+            // 但是Button获取焦点后颜色会变化，所以立即取消焦点
+            if (this.btnCloseE != null) {
+                this.btnCloseE.focus()
+                this.btnCloseE.blur()
+            }
         }
     }
 
@@ -107,21 +121,21 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
                         aria-labelledby="basic-dialog-title"
                         aria-describedby="basic-dialog-content">
                         <div className="mdc-dialog__content mdc-theme--on-surface"
-                            id="basic-dialog-content">
+                             id="basic-dialog-content">
                             {this.dialogContent()}
                         </div>
                         {(this.props.btnText != null) &&
                             <div className="mdc-dialog__actions basic-dialog_actions">
                                 <button type="button"
-                                    className="mdc-button btn-common mdc-button--unelevated basic-dialog_btn_action"
-                                    data-mdc-dialog-action="cancel"
-                                    ref={e => this.initActionBtn(e)}
-                                    onClick={this.props.btnOnClick}
-                                    id="basic-dialog_btn_close"
-                                    tabIndex={0}>
+                                        className="mdc-button btn-common mdc-button--unelevated basic-dialog_btn_action"
+                                        data-mdc-dialog-action="cancel"
+                                        ref={e => this.initActionBtn(e)}
+                                        onClick={this.props.btnOnClick}
+                                        id="basic-dialog_btn_close"
+                                        tabIndex={0}>
                                     <span className="mdc-button__ripple"></span>
                                     <span className="mdc-button__label"
-                                        id="basic-dialog_btn_close_label"
+                                          id="basic-dialog_btn_close_label"
                                     >{this.props.btnText}</span>
                                 </button>
                             </div>
