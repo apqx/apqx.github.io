@@ -5,7 +5,7 @@ import {MDCTextField} from "@material/textfield";
 import {Progressbar} from "./Progressbar";
 import {MDCList} from "@material/list";
 import {createHtmlContent} from "../util/Tools";
-import {BasicDialog, BasicDialogProps, showDialog} from "./BasicDialog";
+import {BasicDialog, BasicDialogProps, SEARCH_DIALOG_WRAPPER_ID, showDialog} from "./BasicDialog";
 
 
 interface SearchDialogState {
@@ -227,5 +227,5 @@ class ResultItem extends React.Component<ResultItemProps, any> {
 
 export function showSearchDialog() {
     // 是不是每次弹出都是新的空白窗口，不是，SearchDialog组件中的数据是保留的，虽然重新render，但并没有创建新的组件对象
-    showDialog(<SearchDialog fixedWidth={true} btnText={"关闭"} btnOnClick={null} closeOnClickOutside={true} />)
+    showDialog(<SearchDialog fixedWidth={true} btnText={"关闭"} btnOnClick={null} closeOnClickOutside={true} />, SEARCH_DIALOG_WRAPPER_ID)
 }

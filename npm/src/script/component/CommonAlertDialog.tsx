@@ -1,6 +1,6 @@
 import * as React from "react"
 import {createHtmlContent} from "../util/Tools"
-import {BasicDialog, BasicDialogProps, showDialog} from "./BasicDialog"
+import {BasicDialog, BasicDialogProps, COMMON_DIALOG_WRAPPER_ID, showDialog} from "./BasicDialog"
 
 interface Props extends BasicDialogProps{
     title: string,
@@ -29,5 +29,5 @@ export function showAlertDialog(title: string, contentHTML: string, btnText: str
                                 , onClickBtn: (e: React.MouseEvent<HTMLElement>) => void) {
     showDialog(<CommonAlertDialog title={title} contentHTML={contentHTML}
                                                           fixedWidth={true} btnText={btnText} btnOnClick={onClickBtn}
-                                                          closeOnClickOutside={true} />)
+                                                          closeOnClickOutside={true} />, COMMON_DIALOG_WRAPPER_ID)
 }

@@ -2,7 +2,7 @@ import * as React from "react";
 import { MDCList } from "@material/list";
 import { Progressbar } from "./Progressbar";
 import { MDCRipple } from "@material/ripple";
-import { BasicDialog, BasicDialogProps, showDialog } from "./BasicDialog";
+import { BasicDialog, BasicDialogProps, TAG_DIALOG_WRAPPER_ID, showDialog } from "./BasicDialog";
 import { console_debug } from "../util/LogUtil";
 import { TagEssayListDialogPresenter } from "./TagEssayListDialogPresenter";
 
@@ -193,5 +193,5 @@ class EssayItem extends React.Component<EssayItemProps, any> {
 export function showTagEssayListDialog(_tag: string) {
     console_debug("TagEssayListDialogContent showTagEssayListDialog " + _tag)
     showDialog(<TagEssayDialog tag={_tag} fixedWidth={true} btnText={"关闭"}
-        btnOnClick={null} closeOnClickOutside={true} />)
+        btnOnClick={null} closeOnClickOutside={true} />, TAG_DIALOG_WRAPPER_ID)
 }

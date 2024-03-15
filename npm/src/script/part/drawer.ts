@@ -10,21 +10,21 @@ import {MDCRipple} from "@material/ripple";
 
 const INDEX = {
     // 随笔
-    "original": 0,
+    original: 0,
     // 转载
-    "repost": 1,
+    repost: 1,
     // 诗文
-    "poetry": 2,
+    poetry: 2,
     // 看剧
-    "opera": 3,
+    opera: 3,
     // 标签
-    "tag": 4,
+    tag: 4,
     // 搜索
-    "search": 5,
+    search: 5,
     // 偏好
-    "preference": 6,
+    preference: 6,
     // 关于我
-    "about": 7,
+    about: 7,
 }
 
 /**

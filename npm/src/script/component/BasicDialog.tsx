@@ -1,8 +1,8 @@
 import * as React from "react";
-import {console_debug} from "../util/LogUtil";
-import {MDCDialog} from "@material/dialog";
-import {MDCRipple} from "@material/ripple";
-import {createRoot, Root} from "react-dom/client";
+import { console_debug } from "../util/LogUtil";
+import { MDCDialog } from "@material/dialog";
+import { MDCRipple } from "@material/ripple";
+import { createRoot, Root } from "react-dom/client";
 
 export interface BasicDialogProps {
     fixedWidth: boolean,
@@ -29,7 +29,6 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
     componentWillUnmount() {
         console_debug("BasicDialog componentWillUnmount")
         this.mdcDialog = null
-        mdcDialog = null
     }
 
     shouldComponentUpdate(nextProps: Readonly<T>, nextState: Readonly<V>, nextContext: any): boolean {
@@ -57,7 +56,9 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
         if (e == null) return
         if (this.mdcDialog == null) {
             this.mdcDialog = new MDCDialog(e)
-            mdcDialog = this.mdcDialog
+            // 缓存dialog对象供外部调用
+            let rootDialog = rootDialogMap.get(currentDialogWrapperId)
+            rootDialog.dialog = this.mdcDialog
             if (!this.props.closeOnClickOutside) {
                 // 设置为空，点击Dialog外部，不取消
                 this.mdcDialog.scrimClickAction = ""
@@ -101,21 +102,21 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
                         aria-labelledby="basic-dialog-title"
                         aria-describedby="basic-dialog-content">
                         <div className="mdc-dialog__content mdc-theme--on-surface"
-                             id="basic-dialog-content">
+                            id="basic-dialog-content">
                             {this.dialogContent()}
                         </div>
                         {(this.props.btnText != null) &&
                             <div className="mdc-dialog__actions basic-dialog_actions">
                                 <button type="button"
-                                        className="mdc-button btn-common mdc-button--unelevated basic-dialog_btn_action"
-                                        data-mdc-dialog-action="cancel"
-                                        ref={e => this.initActionBtn(e)}
-                                        onClick={this.props.btnOnClick}
-                                        id="basic-dialog_btn_close"
-                                        tabIndex={0}>
+                                    className="mdc-button btn-common mdc-button--unelevated basic-dialog_btn_action"
+                                    data-mdc-dialog-action="cancel"
+                                    ref={e => this.initActionBtn(e)}
+                                    onClick={this.props.btnOnClick}
+                                    id="basic-dialog_btn_close"
+                                    tabIndex={0}>
                                     <span className="mdc-button__ripple"></span>
                                     <span className="mdc-button__label"
-                                          id="basic-dialog_btn_close_label"
+                                        id="basic-dialog_btn_close_label"
                                     >{this.props.btnText}</span>
                                 </button>
                             </div>
@@ -130,20 +131,50 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
     abstract dialogContent(): JSX.Element
 }
 
-const COMMON_DIALOG_WRAPPER_ID = "common-dialog-wrapper"
-let mdcDialog: MDCDialog = null
+export const COMMON_DIALOG_WRAPPER_ID = "common-dialog-wrapper"
+export const TAG_DIALOG_WRAPPER_ID = "tag-dialog-wrapper"
+export const SEARCH_DIALOG_WRAPPER_ID = "search-dialog-wrapper"
+export const ABOUT_DIALOG_WRAPPER_ID = "about-dialog-wrapper"
+export const PREFERENCE_DIALOG_WRAPPER_ID = "preference-dialog-wrapper"
 
-let root: Root = null
-let lastDialogType = null
-export function showDialog(_contentElement: JSX.Element) {
-    if (root == null)
-        root = createRoot(document.getElementById(COMMON_DIALOG_WRAPPER_ID))
-    root.render(_contentElement)
-    if (mdcDialog != null && lastDialogType != null && _contentElement.type == lastDialogType) {
-            // dialog的第一次加载一定会执行componentDidMount，在那里处理第一次弹出
-            // 在这里实现对于同一个dialog的多次点击弹出，即使内容不变，只要保留有上一次弹出时的mdcDialog对象即可
-            // 切换到其它dialog的时候，而且这个对象可能已经过时了，所以这种情况下不open
-            mdcDialog.open()
+interface RootDialog {
+    root: Root,
+    dialog: MDCDialog
+}
+
+// 缓存每种dialog的root和dialog实例，即使该类型dialog的内容变化，其仍是同一个dialog对象
+
+let dialogContainerE = document.querySelector("#dialog_container")
+let currentDialogWrapperId = null
+// id, {root, mdcDialog}
+let rootDialogMap = new Map<string, RootDialog>()
+
+export function showDialog(_contentElement: JSX.Element, _dialogWrapperId: string) {
+    currentDialogWrapperId = _dialogWrapperId
+    let root: Root = null
+    let dialog: MDCDialog = null
+    if (rootDialogMap.has(_dialogWrapperId)) {
+        let rootDialog = rootDialogMap.get(_dialogWrapperId)
+        root = rootDialog.root
+        dialog = rootDialog.dialog
+    } else {
+        // 创建wrapper节点
+        let rootE = document.createElement("div")
+        rootE.setAttribute("id", _dialogWrapperId)
+        dialogContainerE.appendChild(rootE)
+        root = createRoot(rootE)
+        let rootDialog = {
+            root: root,
+            dialog: null
+        }
+        // root对应的dialog会在之后创建时添加
+        rootDialogMap.set(_dialogWrapperId, rootDialog)
     }
-    lastDialogType = _contentElement.type
+    root.render(_contentElement)
+    if (dialog != null) {
+        // dialog的第一次加载一定会执行componentDidMount，在那里处理第一次弹出
+        // 在这里实现对于同一个dialog的多次点击弹出，即使内容不变，只要保留有上一次弹出时的mdcDialog对象即可
+        // 切换到其它dialog的时候，而且这个对象可能已经过时了，所以这种情况下不open
+        dialog.open()
+    }
 }

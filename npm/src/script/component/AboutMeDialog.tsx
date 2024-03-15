@@ -1,7 +1,7 @@
 import * as React from "react";
 import {MDCList} from "@material/list";
 import {MDCRipple} from "@material/ripple";
-import {BasicDialog, BasicDialogProps, showDialog} from "./BasicDialog";
+import {ABOUT_DIALOG_WRAPPER_ID, BasicDialog, BasicDialogProps, COMMON_DIALOG_WRAPPER_ID, showDialog} from "./BasicDialog";
 import {console_debug} from "../util/LogUtil";
 
 class AboutMeDialog extends BasicDialog<BasicDialogProps, any> {
@@ -102,5 +102,5 @@ class LinkItem extends React.Component<LinkItemProps, any> {
 export function showAboutMeDialog() {
     showDialog(<AboutMeDialog fixedWidth={true} btnText={"关闭"}
                                                       btnOnClick={null}
-                                                      closeOnClickOutside={true}/>)
+                                                      closeOnClickOutside={true}/>, ABOUT_DIALOG_WRAPPER_ID)
 }

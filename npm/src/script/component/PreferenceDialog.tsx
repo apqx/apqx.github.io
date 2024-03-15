@@ -1,7 +1,7 @@
 import * as React from "react";
 import {PreferenceDialogPresenter} from "./PreferenceDialogPresenter";
 import {console_debug} from "../util/LogUtil";
-import {BasicDialog, BasicDialogProps, showDialog} from "./BasicDialog";
+import {BasicDialog, BasicDialogProps, PREFERENCE_DIALOG_WRAPPER_ID, showDialog} from "./BasicDialog";
 import {SettingsToggle} from "./SettingsToggle";
 
 interface DialogContentState {
@@ -104,5 +104,5 @@ export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogConten
 export function showPreferenceDialog() {
     console_debug("PreferenceDialogContent showPreferenceDialog")
     showDialog(<PreferenceDialog fixedWidth={true} btnText={"关闭"}
-                                                  btnOnClick={null} closeOnClickOutside={true} />)
+                                                  btnOnClick={null} closeOnClickOutside={true} />, PREFERENCE_DIALOG_WRAPPER_ID)
 }
