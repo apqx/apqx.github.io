@@ -1,5 +1,6 @@
 import { TagEssayDialog, EssayItemData } from "./TagEssayListDialog";
 import { console_debug, console_error } from "../util/LogUtil";
+import { isDebug } from "../util/Tools";
 
 const POST_TYPE_ORIGINAL = ["original", "随笔"]
 const POST_TYPE_REPOST = ["repost", "转载"]
@@ -64,7 +65,13 @@ export class TagEssayListDialogPresenter {
             this.showTagItemList(postList, tag)
             return
         }
-        const url = window.location.origin + "/archives/posts.txt"
+        // TODO: 部署时应使用OSS中的资源
+        let url: string;
+        if (isDebug()) {
+            url = window.location.origin + "/archives/posts.txt"
+        } else {
+            url = "https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/archive/posts.txt"
+        }
         const request = new Request(url, {
             method: "GET"
         })

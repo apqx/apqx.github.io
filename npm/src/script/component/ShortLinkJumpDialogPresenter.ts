@@ -26,7 +26,7 @@ export class ShortLinkJumpDialogPresenter {
      * 从url映射文件中查询pid
      */
     findPage(pid: string) {
-        let url;
+        let url: string;
         if (isDebug()) {
             url = window.location.origin + "/archives/url-map.txt"
         } else {
