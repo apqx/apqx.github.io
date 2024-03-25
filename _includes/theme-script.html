@@ -1,12 +1,11 @@
 <script>
-    // 在Html还没有完全加载时检查当前的Theme设置，判断是否要给<body/>加.dark类，避免切换Tmeme时的闪烁。
+    // 在Html还没有完全加载时检查当前的Theme设置，判断是否要给<body/>加.dark类，避免切换Theme时的闪烁
     // 对切换Theme的Button图标的修改放在后面执行，不在这里
     function checkTheme() {
         const THEME_LIGHT = "light";
         const THEME_DARK = "dark";
         const THEME_AUTO = "auto";
         const KEY_THEME = "theme";
-
         const savedTheme = localStorage.getItem(KEY_THEME);
         const bodyE = document.getElementsByTagName("body")[0];
         // 默认是没有.dark的，在确定是暗黑模式时加上.dark
@@ -16,8 +15,6 @@
             bodyE.classList.add("dark")
         }
     }
-
     // 应该在body中立即执行Theme切换检查，这样每次页面加载，都会执行一次主题检查
-    // 包括修改主题后退回上一个页面的操作，上一个页面会自动更新为新的主题
     checkTheme()
 </script>

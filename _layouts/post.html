@@ -6,50 +6,47 @@
 </head>
 
 <body class="mdc-typography mdc-theme--background">
-{% include theme-script.html %}
-{% include header.html %}
-{% include aside.html %}
-<div class="page-wrap">
-    <main class="mdc-top-app-bar--fixed-adjust main-container">
-        <article class="mdc-card content-card">
-            <h1 class="essay-title">{{ page.title }}</h1>
-            <span class="essay-author">{% if page.moreDate != null %}{{ page.moreDate }} {% endif %}{{ page.author }}</span>
-            <span class="essay-date">{{ page.date | date: "%Y年%m月%d日" }}</span>
-
-            <!-- tags -->
-            <div style="margin-top: 2rem; margin-bottom: 0.5rem;">
-                {% comment %}
-                <!-- 遍历本页的tag -->
-                {% endcomment %}
-                {%- for tagInPage in page.tags -%}
-                <span class="mdc-button mdc-button--unelevated tag-dialog-trigger btn-tag"
-                      id="chip_tag_{{ tagInPage }}">
-            <span class="mdc-button__ripple"></span>
-            <span class="mdc-button__label">#{{ tagInPage }}</span>
-          </span>
-                {% comment %}
-                <!-- 结束遍历本页的tag -->
-                {% endcomment %}
-                {%- endfor -%}
-            </div>
-            {% if page.categories contains "opera" %}
-            <blockquote>
-                <p>
-                    节省数据流量，本页均为缩略图，点击可跳转到高清原图。我自己不喜欢水印，猜测大概别人也不喜欢，所以更愿意分享纯净的剧照，只是唯一注意，图片版权归属作者及剧团演员所有，未经允许不可用于商业用途🤫。
-                </p>
-            </blockquote>
-            <blockquote>
-                <p>若分享图片，请注明图源：</p>
-                <p>立泉の写字板（https://mudan.me）</p>
-                <p>或微博<a href="https://weibo.com/u/7026785047" target="_blank">@立泉·落落</a></p>
-            </blockquote>
-            {% endif %}
-            <!-- md content -->
-            {{ content }}
-        </article>
-    </main>
-    {% include footer.html %}
-</div>
+    {% include theme-script.html %}
+    {% include header.html %}
+    {% include aside.html %}
+    <div class="page-wrap">
+        <main class="mdc-top-app-bar--fixed-adjust main-container">
+            <article class="mdc-card content-card">
+                <h1 class="essay-title">{{ page.title }}</h1>
+                <span class="essay-author">{% if page.moreDate != null %}{{ page.moreDate }} {% endif %}{{ page.author
+                    }}</span>
+                <span class="essay-date">{{ page.date | date: "%Y年%m月%d日" }}</span>
+                
+                <!-- tags -->
+                <div style="margin-top: 2rem; margin-bottom: 0.5rem;">
+                    {%- comment %} 遍历本页的tag {% endcomment %}
+                    {%- for tagInPage in page.tags %}
+                    <span class="mdc-button mdc-button--unelevated tag-dialog-trigger btn-tag"
+                        id="chip_tag_{{ tagInPage }}">
+                        <span class="mdc-button__ripple"></span>
+                        <span class="mdc-button__label">#{{ tagInPage }}</span>
+                    </span>
+                    {%- endfor %}
+                </div>
+                {%- if page.categories contains "opera" %}
+                <blockquote>
+                    <p>
+                        节省数据流量，本页均为缩略图，点击可跳转到高清原图。我自己不喜欢水印，猜测大概别人也不喜欢，所以更愿意分享纯净的剧照，只是唯一注意，图片版权归属作者及剧团演员所有，未经允许不可用于商业用途🤫。
+                    </p>
+                </blockquote>
+                <blockquote>
+                    <p>若分享图片，请注明图源：</p>
+                    <p>立泉の写字板（https://mudan.me）</p>
+                    <p>或微博<a href="https://weibo.com/u/7026785047" target="_blank">@立泉·落落</a></p>
+                </blockquote>
+                {%- endif %}
+                
+                <!-- main content -->
+                {{ content }}
+            </article>
+        </main>
+        {% include footer.html %}
+    </div>
 </body>
 
 </html>
