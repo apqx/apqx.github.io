@@ -107,7 +107,7 @@ export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogConten
                             height="64"/>
                     </picture>
                 </div>
-                <SettingsToggle titleHtml="固定标题栏"
+                <SettingsToggle titleHtml="固定顶部标题栏"
                                 on={this.state.fixedTopbarOn}
                                 onClickToggle={this.onClickFixedTopbarSwitch}/>
                 <SettingsToggle titleHtml={this.handwrittenFontTitle}

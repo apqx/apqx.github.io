@@ -8,10 +8,9 @@
 # Site settings
 title: 立泉の写字板
 email: safari@mudan.me
-description: > # this means to ignore newlines until "baseurl:"
-  wubba lubba dub dub!
-baseurl: "" # the subpath of your site, e.g. /blog
+description: "昆虫，野生散养攻城狮，“十分”“业余”摄影Fans。"
 url: "https://mudan.me" # the base hostname & protocol for your site
+baseurl: "" # the subpath of your site, e.g. /blog
 github_username:  apqx
 
 exclude: [npm/node_modules/, npm/src/,
@@ -28,7 +27,7 @@ markdown: kramdown
 # 但是GitHub Pages只支持Rouge或Pygments的高亮格式，所以不能设置为none，默认是Rouge
 # highlighter: none
 kramdown: 
-  # 虽然不能设置 highlighter: none，但可以禁用rouge的输出功能，使kramdown输出标准的代码高粱html，方便highlight.js解析
+  # 虽然不能设置 highlighter: none，但可以禁用rouge的输出功能，使kramdown输出标准的代码高亮html，方便highlight.js解析
   syntax_highlighter_opts:
     disable : true
 
@@ -45,5 +44,5 @@ collections:
     # 输出目录为 `_site/archives`
     permalink: /:collection/:name
 
-# 允许内网设备通过ip访问
+# 允许内网设备通过ip访问，设置为localhost无效🙄
 host: 0.0.0.0
