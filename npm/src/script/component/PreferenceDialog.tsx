@@ -103,7 +103,7 @@ export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogConten
                             type="image/webp"/>
                         <img
                             src="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emoji/noto-animated-emoji/mouth-none/512.gif"
-                            alt="😶" width="64"
+                            alt="" width="64"
                             height="64"/>
                     </picture>
                 </div>

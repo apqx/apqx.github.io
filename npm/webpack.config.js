@@ -19,7 +19,7 @@ const config = {
     resolve: {
         // 指定webpack要处理的文件类型，如果这里不指定.ts等，在打包时会找不到除入口文件之外的该类型文件
         extensions: [".tsx", ".ts", ".js", ".json"],
-        fallback: {"https": false}
+        fallback: { "https": false }
     },
     plugins: [new MiniCssExtractPlugin({
         filename: `blog-[name]-v${version}.css`

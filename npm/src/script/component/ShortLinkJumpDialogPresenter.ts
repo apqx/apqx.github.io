@@ -37,6 +37,7 @@ export class ShortLinkJumpDialogPresenter {
         })
         // 异步请求
         // fetch调用浏览器的网络请求，所以会有和浏览器一样的缓存策略
+        let startTimeMs = Date.now()
         fetch(request, { cache: "no-cache" })
             .then(response => {
                 if (response.status === 200) {
@@ -55,33 +56,44 @@ export class ShortLinkJumpDialogPresenter {
                             jumpUrl = window.location.origin + item.target.path
                         }
                         console_debug("jumpUrl is " + jumpUrl)
-                        this.showJump(jumpUrl, item.target.title)
+                        this.showJump(startTimeMs, jumpUrl, item.target.title)
                         return
                     }
                 }
-                this.showJump(window.location.origin + "/404.html", "未找到目标页面")
+                this.showJump(startTimeMs, window.location.origin + "/404.html", "未找到目标页面")
                 console_debug("pid not exist, check url-map")
             }).catch(error => {
                 console_error(error)
-                this.showJump(window.location.origin + "/404.html", "未找到映射表")
+                this.showJump(startTimeMs, window.location.origin + "/404.html", "未找到映射表")
             }
             )
     }
 
-    showJump(url: string, linkTitle: string) {
+    showJump(startTimeMs: number, url: string, linkTitle: string) {
+        // “查询映射表”应至少显示1s，“正在跳转”应至少显示2s
+        let timeGapQueryingMs = 1000
+        let timeUsedMs = Date.now() - startTimeMs
+        if (timeUsedMs < timeGapQueryingMs) {
+            setTimeout(() => {
+                this.refreshHint(linkTitle, url);
+            }, timeGapQueryingMs - timeUsedMs)
+        } else {
+            this.refreshHint(linkTitle, url);
+        }
+    }
+
+    private refreshHint(linkTitle: string, url: string) {
         this.component.setState({
             title: "正在跳转",
             content: linkTitle,
             onClickLink: () => {
                 // 监听点击，手动实现跳转，且不记入浏览器的跳转记录
-                window.location.replace(url)
+                window.location.replace(url);
             }
-        }
-        )
-
+        });
         setTimeout(() => {
             // 延时2秒再跳转，显示动画
             window.location.replace(url)
-        }, 2500)
+        }, 2000)
     }
 }
