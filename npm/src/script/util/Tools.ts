@@ -31,6 +31,19 @@ export function runOnPageDone(task: () => void) {
 }
 
 /**
+ * 当页面从缓存中加载时执行特定的任务，比如从某页面按back键返回到当前页
+ */
+export function runOnPageBackFromCache(task: () => void) {
+    window.addEventListener("pageshow", (event) => {
+        if (event.persisted) {
+            // alert("The page was just restored from the Page Cache (eg. From the Back button.");
+            console_debug("Page back from cache")
+            task()
+        }
+    });
+}
+
+/**
  * 为React生成可以加载的HTMl类型的数据
  */
 export function createHtmlContent(html: string) {

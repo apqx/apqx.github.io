@@ -115,6 +115,7 @@ export function checkUserTheme() {
         default: {
             // 默认设置为亮色主题
             showThemeDark(false);
+            break
         }
     }
 }

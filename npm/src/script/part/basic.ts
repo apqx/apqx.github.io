@@ -1,12 +1,10 @@
 import {initLocalRepository} from "../repository/LocalRepository";
 import {initTopbar} from "./topbar";
-import {checkThemeColor} from "./theme";
 import {initFab} from "./fab";
 import {initDrawer} from "./drawer";
-import {MDCRipple} from "@material/ripple";
 import {MDCDataTable} from "@material/data-table";
 import {initTag, initTagTriggers} from "./tag";
-import { initHandwritingFont } from "./font";
+import {initHandwritingFont} from "./font";
 
 export function initBasic() {
     initLocalRepository()
