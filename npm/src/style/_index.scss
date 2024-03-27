@@ -152,12 +152,6 @@
     @include theme.property(color, on-surface);
     margin: 0;
     text-align: left;
-    /* 不换行 */
-    white-space: nowrap;
-    /* 超出部分隐藏 */
-    overflow: hidden;
-    /* 文字超出部分显示省略号 */
-    text-overflow: ellipsis;
 }
 
 /* 索引署名 */

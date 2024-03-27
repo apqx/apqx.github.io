@@ -70,7 +70,7 @@ export class ShortLinkJumpDialogPresenter {
     }
 
     showJump(startTimeMs: number, url: string, linkTitle: string) {
-        // “查询映射表”应至少显示1s，“正在跳转”应至少显示2s
+        // “查询映射表”应至少显示1s，“正在跳转”应至少显示1s
         let timeGapQueryingMs = 1000
         let timeUsedMs = Date.now() - startTimeMs
         if (timeUsedMs < timeGapQueryingMs) {
@@ -94,6 +94,6 @@ export class ShortLinkJumpDialogPresenter {
         setTimeout(() => {
             // 延时2秒再跳转，显示动画
             window.location.replace(url)
-        }, 2000)
+        }, 1000)
     }
 }

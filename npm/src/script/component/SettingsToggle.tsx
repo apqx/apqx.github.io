@@ -23,8 +23,8 @@ export class SettingsToggle extends React.Component<SettingsToggleProps, any> {
 
     render() {
         return (
-            <div className="preference-item-toggle float-top">
-                    <span className="preference-item-toggle__title"
+            <div className="preference-item-toggle">
+                    <span className="preference-item-toggle__title one-line"
                           dangerouslySetInnerHTML={createHtmlContent(this.props.titleHtml)}/>
                 {/*会自动识别组建内定义的属性*/}
                 <NewMdSwitch selected={this.props.on} onClick={this.props.onClickToggle}/>

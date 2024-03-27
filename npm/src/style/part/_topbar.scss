@@ -10,16 +10,15 @@
 
 // top-app-bar
 .mdc-top-app-bar {
-    // 使top bar的层级高于drawer
+    // 使top-bar的层级高于drawer
     z-index: 7;
     // 颜色，默认为 primary
-    // @include top-app-bar.fill-color(var(--top-app-bar));
+    @include top-app-bar.fill-color(var(--mdc-theme-primary));
     // 阴影
     @include elevation.elevation(map.get(blogTheme.$top-bar-elevation, "elevation"), map.get(blogTheme.$top-bar-elevation, "shadow-light"), 0);
 }
 
 .dark .mdc-top-app-bar {
-    // 颜色
     // 阴影
     @include elevation.elevation(map.get(blogTheme.$top-bar-elevation, "elevation"), map.get(blogTheme.$top-bar-elevation, "shadow-dark"), 0);
 }
@@ -27,11 +26,7 @@
 .top-app-bar--blur {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    background-color: rgba(226, 64, 71, 0.75);
-}
-
-.dark .top-app-bar--blur {
-    background-color: rgba(252, 105, 111, 0.75);
+    @include top-app-bar.fill-color(var(--top-bar-blur));
 }
 
 .mdc-top-app-bar .mdc-icon-button__ripple {

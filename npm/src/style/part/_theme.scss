@@ -16,6 +16,18 @@ $code-block-font: "LXGW WenKai Mono GB", "LXGW WenKai GB", "PingFang SC", Roboto
 
 $top-bar-color: #ee6e73;
 $top-bar-color-darken: #df696e;
+$top-bar-blur-color: (
+        light: rgba(226, 64, 71, 0.75),
+        dark: rgba(252, 105, 111, 0.75)
+);
+$fab-color: (
+        light: #43a047,
+        dark: #3e9442
+) ;
+$fab-blur-color: (
+        light: rgba(67, 159, 71, 0.9),
+        dark: rgba(67, 159, 71, 0.8)
+);
 $footer-ink-color: white;
 $footer-link-color: #ffe0b2;
 $background: (
@@ -86,7 +98,7 @@ $chip-ripple: (
 @mixin light {
     --mdc-theme-primary: #{$top-bar-color};
     --mdc-theme-on-primary: #f5f5f5;
-    --mdc-theme-secondary: #43a047;
+    --mdc-theme-secondary: #{map.get($fab-color, "light")};
     --mdc-theme-on-secondary: #f5f5f5;
     --mdc-theme-background: #{map.get($background, "light")};
     --mdc-theme-surface: #{map.get($surface, "light")};
@@ -97,7 +109,8 @@ $chip-ripple: (
     // 小标题字体色
     --mdc-theme-text-secondary-on-background: #{map.get($text-secondary-on-background, "light")};
 
-    --top-app-bar-blur: #df696e;
+    --top-bar-blur: #{map.get($top-bar-blur-color, "light")};
+    --fab-blur: #{map.get($fab-blur-color, "light")};
 
     // Drawer
     --drawer-ink: black;
@@ -140,7 +153,7 @@ $chip-ripple: (
 @mixin dark {
     --mdc-theme-primary: #{$top-bar-color};
     --mdc-theme-on-primary: #f5f5f5;
-    --mdc-theme-secondary: #43a047;
+    --mdc-theme-secondary: #{map.get($fab-color, "dark")};
     --mdc-theme-on-secondary: #f5f5f5;
     --mdc-theme-background: #{map.get($background, "dark")};
     --mdc-theme-surface: #{map.get($surface, "dark")};
@@ -148,7 +161,8 @@ $chip-ripple: (
     --mdc-theme-text-primary-on-background: #f5f5f5;
     --mdc-theme-text-secondary-on-background: #{map.get($text-secondary-on-background, "dark")};
 
-    --top-app-bar-blur: black;
+    --top-bar-blur: #{map.get($top-bar-blur-color, "dark")};
+    --fab-blur: #{map.get($fab-blur-color, "dark")};
 
     // Drawer
     --drawer-ink: white;
@@ -206,12 +220,13 @@ body {
     // 文章内元素圆角，code block和description
     --essay-inner-shape-round: 0.3rem;
 
-    --md-switch-handle-width: 0.8rem;
-    --md-switch-handle-height: 0.8rem;
-    --md-switch-selected-handle-width: 0.8rem;
-    --md-switch-selected-handle-height: 0.8rem;
-    --md-switch-track-width: 3rem;
-    --md-switch-track-height: 1.5rem;
+    --md-switch-state-layer-size: 0rem;
+    --md-switch-handle-width: 0.6rem;
+    --md-switch-handle-height: 0.6rem;
+    --md-switch-selected-handle-width: 0.6rem;
+    --md-switch-selected-handle-height: 0.6rem;
+    --md-switch-track-width: 2.5rem;
+    --md-switch-track-height: 1.2rem;
 
     @include light;
 }

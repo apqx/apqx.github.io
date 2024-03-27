@@ -2,15 +2,15 @@
 
 [![Deploy Jekyll site to Pages](https://github.com/apqx/apqx.github.io/actions/workflows/jekyll.yml/badge.svg)](https://github.com/apqx/apqx.github.io/actions/workflows/jekyll.yml)
 
-基于[Jekyll](https://jekyllrb.com)并遵循[Material Design](https://material.io)的开源博客，使用`Google`提供的[Material Components Web](https://github.com/material-components/material-components-web)组件。
+基于[Jekyll](https://jekyllrb.com)的[Material Design](https://material.io)静态博客示例，由`Google`提供的[Material Components Web](https://github.com/material-components/material-components-web)构建。
 
-它并非一般通用的博客模版，而是完全以我自己的喜好量身定制的分享空间。由随笔、转载、诗文、看剧4个板块组成，整体采用淡红色极简风格，在文字、色彩和动画之外不添加任何多余元素。或可作为使用`Material Design`的个人站参考，但不建议直接套用，目前尚未进行普适的模版优化。
+它并非通用博客模版，而是以我自己的喜好量身定制的分享空间。由随笔、转载、诗文、看剧4个板块组成，采用淡红色极简风格，在文字、色彩和动画之外不添加多余元素。或可作为`Material Design`个人站参考，但不建议直接套用，尚未进行普适的模版优化。
 
-博客链接 👉 [立泉の写字板](https://mudan.me)
+博客主页 👉 [立泉の写字板](https://mudan.me)
 
 ![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/img/screenshot_index.webp)
 
-看剧分享 📸
+看剧分享 👉 [立泉の看剧](https://mudan.me/opera)
 
 ![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/img/screenshot_index_opera.webp)
 
@@ -24,7 +24,7 @@
 
 博客由`Webpack`和`Jekyll`组成，`Webpack`用于生成网站所需的`Javascript`和`CSS`资源，`Jekyll`则用来将`Markdown`文章转换为`HTML`网页，生成可部署的`Web`站点。
 
-### webpack
+### Webpack
 
 首先切换到内部`Webpack`工程目录，编译生成`Js`、`CSS`：
 
@@ -98,11 +98,11 @@ git push
 
 ## 版权
 
-此博客工程代码以`GPL`许可开源，但对其中的文章内容仍保留著作权，尤其`看剧`板块中外链的摄影照片，可能包含剧团、演员和摄影师的版权，未经允许不可用于商业用途。
+此博客工程代码以`GPL`许可开源，但对其中的文章内容保留著作权，尤其`看剧`板块外链的摄影照片，包含剧团、演员和摄影师的版权，未经允许不可用于商业用途。
 
 ## 致谢
 
-感谢[Jetbrains](https://www.jetbrains.com)提供的[Open Source Development License](https://www.jetbrains.com/community/opensource/#support)
+感谢[Jetbrains](https://www.jetbrains.com)提供的[Open Source Development License](https://www.jetbrains.com/community/opensource/#support)，`Intellij IDEA`和`CLion`是我非常喜欢的开发工具。
 
 ![JetBrains Logo (Main) logo](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg)
 

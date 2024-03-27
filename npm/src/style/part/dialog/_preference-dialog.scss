@@ -3,6 +3,14 @@
 @use "sass:map";
 @use "../theme" as blogTheme;
 
+#preference-dialog__top-container {
+    margin-top: 0.5rem;
+}
+
+#preference-dialog__toggle-container {
+    margin-top: 0.5rem;
+}
+
 .preference-item-toggle .mdc-icon-button {
     @include icon-button.ink-color(map.get(blogTheme.$on-surface, "light"));
     @include icon-button.size(45px);
@@ -20,12 +28,11 @@
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     margin: 0;
-    height: 3rem;
+    height: 2.5rem;
 }
 
 .preference-item-toggle__title {
     flex: 1;
 }
 
-.preference-item-toggle__toggle {
-}
+.preference-item-toggle__toggle {}
