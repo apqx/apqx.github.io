@@ -17,7 +17,24 @@ blockFromSearchEngine: false
 </section>
 <ul class="index-ul">
     {% for post in site.posts %}
-    {%- if post.categories contains "repost" and post.hideFromIndex != true %}
+    {%- if post.categories contains "repost" and post.hideFromIndex != true and post.pin == true %}
+    <li class="index-li" style="position: relative;">
+        <img id="pin"
+            style="position: absolute; z-index: 1; top: -0.3rem; right: 0.2rem; width: 2.5rem; height: 2.5rem;"
+            src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/pushpin.png" />
+
+        <a class="index-a" href="{{ post.url | prepend: site.baseurl }}">
+            <section class="mdc-card index-card">
+                <h1 class="index-title one-line">{{ post.title }}</h1>
+                <p class="index-author">{{ post.author }}</p>
+                <p class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</p>
+            </section>
+        </a>
+    </li>
+    {% endif -%}
+    {% endfor -%}
+    {% for post in site.posts %}
+    {%- if post.categories contains "repost" and post.hideFromIndex != true and post.pin != true %}
     <li class="index-li">
         <a class="index-a" href="{{ post.url | prepend: site.baseurl }}">
             <section class="mdc-card index-card">

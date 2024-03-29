@@ -6,7 +6,11 @@
         const THEME_DARK = "dark";
         const THEME_AUTO = "auto";
         const KEY_THEME = "theme";
-        const savedTheme = localStorage.getItem(KEY_THEME);
+        let savedTheme = localStorage.getItem(KEY_THEME)
+        if (savedTheme == null) {
+            savedTheme = THEME_AUTO
+            localStorage.setItem(KEY_THEME, savedTheme)
+        }
         const bodyE = document.getElementsByTagName("body")[0];
         // 默认是没有.dark的，在确定是暗黑模式时加上.dark
         if (savedTheme === THEME_DARK
