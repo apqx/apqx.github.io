@@ -7,7 +7,7 @@ mention: 架构
 date: 2019-03-07 +0800
 description: 我在工作和学习中大量使用过MVP，对MVC和MVVM只是有所耳闻，接触Kotlin和Jetpack后，开始尝试在自己的练习中使用这些新东西，编程的感觉也不再是入门时枯燥的堆砌代码，而是像打造艺术品一样津津有味，这样的变化真实而有趣。
 cover: 
-tags: CS Android MVP MVVM
+tags: Code Android MVP MVVM
 ---
 
 我刚开始学习`Android`的时候只晓得`Activity`可以控制UI，并不懂`设计模式`，也不知道那些操作数据的逻辑代码应该如何归类，便索性把它们都堆砌在`Activity`和`Fragment`里。但随着我练习的逻辑越来越复杂，`Activity`的代码结构开始变得混乱起来，越来越臃肿，几乎无法维护，那种在一个`class`里各种方法间到处跳来跳去的感觉，岂止是酸爽。后来我看到了`MVP`，顿时豁然开朗，原来还可以这样，它将`View`和`Model`彻底分离，用`Presenter`承上启下，让代码里每一个UI驱动的逻辑都变得十分清晰。

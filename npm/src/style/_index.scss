@@ -17,34 +17,39 @@
 // 卡片间距0.74rem
 // 小屏时，间距0.6rem
 
+body {
+    --index-card-padding-top-bottom: 1.3rem;
+    --index-card-padding-left-right: 2.7rem;
+}
+
 @mixin cardElevation {
     @include elevation.elevation(map.get(blogTheme.$index-card-elevation, "elevation"),
-            map.get(blogTheme.$index-card-elevation, "shadow-light"), 0);
+        map.get(blogTheme.$index-card-elevation, "shadow-light"), 0);
 }
 
 @mixin cardElevationDark {
     @include elevation.elevation(map.get(blogTheme.$index-card-elevation, "elevation"),
-            map.get(blogTheme.$index-card-elevation, "shadow-dark"), 0);
+        map.get(blogTheme.$index-card-elevation, "shadow-dark"), 0);
 }
 
 @mixin cardElevationMiniScreen {
     @include elevation.elevation(map.get(blogTheme.$index-card-elevation, "elevation"),
-            map.get(blogTheme.$index-card-elevation, "min-screen-shadow-light"), 0);
+        map.get(blogTheme.$index-card-elevation, "min-screen-shadow-light"), 0);
 }
 
 @mixin cardElevationMiniScreenDark {
     @include elevation.elevation(map.get(blogTheme.$index-card-elevation, "elevation"),
-            map.get(blogTheme.$index-card-elevation, "min-screen-shadow-dark"), 0);
+        map.get(blogTheme.$index-card-elevation, "min-screen-shadow-dark"), 0);
 }
 
 @mixin gridCardElevation {
     @include elevation.elevation(map.get(blogTheme.$grid-index-card-elevation, "elevation"),
-            map.get(blogTheme.$grid-index-card-elevation, "shadow-light"), 0);
+        map.get(blogTheme.$grid-index-card-elevation, "shadow-light"), 0);
 }
 
 @mixin gridCardElevationDark {
     @include elevation.elevation(map.get(blogTheme.$grid-index-card-elevation, "elevation"),
-            map.get(blogTheme.$grid-index-card-elevation, "shadow-dark"), 0);
+        map.get(blogTheme.$grid-index-card-elevation, "shadow-dark"), 0);
 }
 
 @mixin cardRipple {
@@ -77,7 +82,10 @@
 }
 
 .index-top-card-container {
-    padding: 0.4rem 2.3rem 0.5rem 2.3rem;
+    padding-top: 0.4rem;
+    padding-bottom: 0.5rem;
+    padding-left: var(--index-card-padding-left-right);
+    padding-right: var(--index-card-padding-left-right);
 }
 
 .index-top-card-text {
@@ -88,7 +96,7 @@
 }
 
 .index-card {
-    padding: 1.3rem 2.3rem;
+    padding: var(--index-card-padding-top-bottom) var(--index-card-padding-left-right);
     @include cardElevation();
     // 添加Ripple动画
     @include cardRipple();
@@ -194,6 +202,18 @@
     padding: 0;
 }
 
+.index-li--pin {
+    position: relative;
+}
+
+.index-pin-icon {
+    position: absolute;
+    z-index: 1;
+    @include theme.property(color, text-secondary-on-background);
+    bottom: var(--index-card-padding-top-bottom);
+    left: calc(var(--index-card-padding-left-right) - 0.3rem);
+}
+
 // 索引链接
 .index-a {
     // 去除下划线
@@ -281,6 +301,10 @@
 
 // 手机小屏
 @media all and (max-width: blogTheme.$screen-middle-min-width) {
+    body {
+        --index-card-padding-top-bottom: 1rem;
+        --index-card-padding-left-right: 1rem;
+    }
     .index-author {
         font-size: 0.75rem;
     }
@@ -293,16 +317,12 @@
         margin: 0.6rem 0.5rem;
     }
 
-    .index-card {
-        padding: 1rem 1rem;
-    }
-
     .index-top-card {
         margin: 0.74rem 0.5rem 0.6rem 0.5rem;
     }
 
     .index-top-card-container {
-        padding: 0.35rem 1rem 0.5rem 1rem;
+        padding-top: 0.35rem;
     }
 
     // new grid index
@@ -336,13 +356,15 @@
 
 // 平板中屏
 @media all and (min-width: (blogTheme.$screen-middle-min-width + 1px)) and (max-width: (blogTheme.$screen-middle-max-width - 1px)) {
-    .index-top-card-container {
-        padding: 0.35rem 2rem 0.5rem 2rem;
+    body {
+        --index-card-padding-top-bottom: 1.2rem;
+        --index-card-padding-left-right: 2rem;
     }
 
-    .index-card {
-        padding: 1.2rem 2rem;
+    .index-top-card-container {
+        padding-top: 0.35rem;
     }
+
 
     .index-author {
         font-size: 0.8rem;

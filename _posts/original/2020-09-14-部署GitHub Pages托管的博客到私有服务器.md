@@ -7,7 +7,7 @@ mention: Jekyll HTTPS
 date: 2020-09-14 +0800
 description: 这个博客是托管在GitHub Pages上的，不是我的错觉，它在大陆的访问速度正变得越来越不稳定，一些情况下甚至需要等待5秒以上才能打开，这是我无法接受的。正如博客之名“立泉の写字板”，这里是我沉淀知识和阅历的地方，应该在互联网上触手可及，而非无意义的等待。
 cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20200914/jekyll_project.png
-tags: CS GitHub Jekyll Blog HTTPS
+tags: Code GitHub Jekyll Blog HTTPS
 ---
 
 这个博客是托管在`GitHub Pages`上的，不是我的错觉，它在大陆的访问速度正变得越来越不稳定，一些情况下甚至需要等待5秒以上才能打开，这是我无法接受的。正如博客之名“立泉の写字板”，这里是我沉淀知识和阅历的地方，应该在互联网上触手可及，而非无意义的等待。

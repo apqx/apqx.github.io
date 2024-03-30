@@ -7,7 +7,7 @@ mention: Gradle Maven
 date: 2020-12-04 +0800
 description: 成为一个全职Android开发工程师已有三年，经手的项目很多，也积累了一些自己常用的代码工具，我把它们封装到一个Library里在我的各个业余项目中使用。但是每次都在工程中为它单独创建一个Module显然太过麻烦，直接打包为aar又会出现一些依赖问题，因为gradle并不会把外部依赖直接写进aar中，这意味着必须在使用该aar的Module里手动引入这些依赖，否则就会因为依赖缺失而无法通过编译。
 cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20201204/github_packages_jettools.jpg
-tags: CS Android Gradle Build Maven GitHub
+tags: Code Android Gradle Build Maven GitHub
 ---
 
 成为一个全职`Android`开发工程师已有三年，经手的项目很多，也积累了一些自己常用的代码工具，我把它们封装到一个`Library`里在我的各个业余项目中使用。但是每次都在工程中为它单独创建一个`Module`显然太过麻烦，直接打包为`aar`又会出现一些依赖问题，因为`gradle`并不会把外部依赖直接写进`aar`中，这意味着必须在使用该`aar`的`Module`里手动引入这些依赖，否则就会因为依赖缺失而无法通过编译。

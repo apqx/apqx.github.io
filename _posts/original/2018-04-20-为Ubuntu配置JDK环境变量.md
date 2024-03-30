@@ -7,7 +7,7 @@ mention: $PATH EXPORT
 date: 2018-04-20 +0800
 description: 我经常会产生一些有意思的想法，对很多事情感到好奇，习惯了图形化交互高度成熟的Windows 10，有点想尝试一下传说中“纯手工”操作的Linux，正好手里刚组了人生的第一个台式机，Ubuntu自然就成了首选操作系统。
 cover: 
-tags: CS Java Ubuntu Linux JDK
+tags: Code Java Ubuntu Linux JDK
 ---
 
 > **本文时间久远，部分信息可能已经过时，仅供参考。**

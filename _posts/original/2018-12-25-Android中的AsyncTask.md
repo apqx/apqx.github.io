@@ -7,7 +7,7 @@ mention: 线程 异步 UI
 date: 2018-12-25 +0800
 description: 编写高性能的Android程序必须遵循2个最基本的线程规则，即只在工作线程中执行耗时任务和只在主线程中操作UI。要兼顾这两项，代码执行中切换线程就是一个频繁而必要的操作，可以通过Android提供的Handler来将Runnable发送到指定的线程中执行，而AsyncTask则是对Handler的进一步封装。
 cover: 
-tags: CS Android Thread Handler
+tags: Code Android Thread Handler
 ---
 
 编写高性能的`Android`程序必须遵循2个最基本的`线程`规则：

@@ -7,7 +7,7 @@ mention: 线程 异步
 date: 2018-11-20 +0800
 description: 其实，在很长一段时间里我并不了解Handler究竟是如何工作的。接触RxJava之前，需要切换线程时我只是简单的post(Runnable)，但随着所做项目的不断迭代优化，我需要知道自己用到的关键组件的执行原理，不然便无法为代码质量负责。
 cover: 
-tags: CS Android Thread Handler
+tags: Code Android Thread Handler
 ---
 
 其实，在很长一段时间里我并不了解`Handler`究竟是如何工作的。接触`RxJava`之前，需要切换线程时我只是简单的`post(Runnable)`，但随着所做项目的不断迭代优化，我需要知道自己用到的关键组件的执行原理，不然便无法为代码质量负责。

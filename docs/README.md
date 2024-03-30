@@ -98,7 +98,7 @@ redirect_from:
 
 * 碎碎念（旅行，摄影，戏剧，昆曲，省昆，浙昆，苏昆）
     * 如果有看剧，[剧种]，[剧团]，[剧名]，[折子（全场戏除外）]，[演员]，[剧院]
-* CS（二进制，Android，Gradle，Java，Jvm，Flutter，Git，GitHub，Jekyll，JavaScript，Google，GCE，VPS，ShadowSocks，HTTPS, SSH，RaspberryPi，Ubuntu，抓包，下载）
+* Code（二进制，Android，Gradle，Java，Jvm，Flutter，Git，GitHub，Jekyll，JavaScript，Google，GCE，VPS，ShadowSocks，HTTPS, SSH，RaspberryPi，Ubuntu，抓包，下载）
 
 以上分类中的子项并不全，可以按需求新增。
 
