@@ -4,7 +4,7 @@
 
 基于[Jekyll](https://jekyllrb.com)的[Material Design](https://material.io)静态博客示例，由`Google`提供的[Material Components Web](https://github.com/material-components/material-components-web)构建。
 
-它并非通用博客模版，而是以我自己的喜好量身定制的分享空间。由随笔、转载、诗文、看剧4个板块组成，采用淡红色极简风格，在文字、色彩和动画之外不添加多余元素。或可作为`Material Design`个人站参考，但不建议直接套用，尚未进行普适的模版优化。
+它并非通用博客模版，而是以我自己喜好量身定制的分享空间，由随笔、转载、诗文、看剧4个板块组成，采用淡红色极简风格，在文字、色彩和动画之外不添加多余元素。或可作为`Material Design`个人站参考，但不建议直接套用，尚未进行普适的模版优化。
 
 博客主页 👉 [立泉の写字板](https://mudan.me)
 
@@ -37,9 +37,9 @@ npm install
 npm run build-release
 ```
 
-博客网站部署时这些资源文件会被托管到`阿里云OSS`上以提高中国大陆的访问速度，在`_includes/head-common.html`中可以看到对它们的引用。
+网站部署时这些资源文件会被托管到`阿里云OSS`上以提高中国大陆的访问速度，在`_includes/head-common.html`中可以看到对它们的引用。
 
-调试时则使用本地资源以实时响应`Webpack`工程的变化，需要将`_includes/configure.html`中的`debug`参数设为`true`，`Jekyll`会检测此参数来更改`<header></header>`中的资源引用，而且进入`debug`模式后`Js`日志也会输出到浏览器的`Console`中。
+调试时则使用本地资源以实时响应`Webpack`工程变化，需要将`_includes/configure.html`中的`debug`参数设为`true`，`Jekyll`会检测此参数来更改`<header></header>`中引用的资源，而且进入`debug`模式后`Js`日志也会输出到浏览器的`Console`中。
 
 ```html
 <!-- _includes/configure.html -->
@@ -68,7 +68,7 @@ bundle exec jekyll serve -l -o --trace
 http://localhost:4000
 ```
 
-`jekyll serve`是以开发模式生成站点，一些插件比如`jekyll-sitemap`并不会使用`_config.yml`中配置的域名，如果要生成可以部署的站点，需要执行`jekyll build`。
+`jekyll serve`是以开发模式生成站点，一些插件比如`jekyll-sitemap`并不会使用`_config.yml`中配置的域名，如果要生成可以部署的站点，需执行`jekyll build`。
 
 ```sh
 bundle exec jekyll build --trace
@@ -76,7 +76,7 @@ bundle exec jekyll build --trace
 
 ## 部署到GitHub Pages
 
-调试后，如果`Webpack`生成了新的`Js`和`CSS`文件，需要上传到`OSS`托管，然后修改`_includes/configure.html`关闭`debug`模式即可使用这些托管的资源。
+调试后，如果`Webpack`生成了新的`Js`和`CSS`文件，需要上传到`OSS`托管，然后修改`_includes/configure.html`关闭`debug`模式即可使用这些托管的远程资源。
 
 ```html
 <!-- _includes/configure.html -->
@@ -85,7 +85,7 @@ bundle exec jekyll build --trace
 {% assign debug = false %}
 ```
 
-`push`到自己的`repository`，`GitHub Pages`会自动执行`Jekyll`的`build`操作，生成静态网站并`serve`到指定域名下。
+工程`push`到自己的`repository`，`GitHub Pages`会自动执行`Jekyll`的`build`操作，生成静态网站并`serve`到指定域名下。
 
 ```sh
 # push到自己的repository

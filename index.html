@@ -18,7 +18,7 @@ cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg
     {% for post in site.posts %}
     {%- if post.categories contains "original" and post.hideFromIndex != true and post.pin == true %}
     <li class="index-li index-li--pin">
-        <i class="material-icons index-pin-icon">attach_file</i>
+        <i class="material-symbols-rounded index-pin-icon">attach_file</i>
         <a class="index-a" href="{{ post.url | prepend: site.baseurl }}">
             <section class="mdc-card index-card">
                 <h1 class="index-title one-line">{{ post.title }}</h1>

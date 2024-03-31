@@ -19,6 +19,7 @@
 @use "@material/textfield";
 @use "@material/textfield/mdc-text-field";
 @use "@material/ripple";
+@use "sass:map";
 
 @mixin basicText {
     // 使用mdc的字体样式
@@ -209,6 +210,15 @@ blockquote.handwritten.pre p {
 
 .mdc-button {
     @include button.container-fill-color(var(--button-bg));
+    @include button.ink-color(var(--button-ink));
+}
+
+.mdc-button .mdc-button__ripple {
+    @include ripple.states(map.get(blogTheme.$button-ripple, "light"), true);
+}
+
+.dark .mdc-button .mdc-button__ripple {
+    @include ripple.states(map.get(blogTheme.$button-ripple, "dark"), true);
 }
 
 .btn-round {

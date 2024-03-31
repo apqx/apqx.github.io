@@ -92,7 +92,12 @@ $content-card-elevation: (
 
 $chip-ripple: (
         light: #a25462,
-        dark: rgb(218, 94, 115)
+        dark: rgb(211, 91, 91),
+);
+
+$button-ripple: (
+        light: #fdb1b5,
+        dark: #ba7171,
 );
 
 @mixin light {
@@ -116,7 +121,8 @@ $chip-ripple: (
     --drawer-ink: black;
 
     // Button
-    --button-bg: #9b27b0;
+    --button-bg: #8f5d5d;
+    --button-ink: white;
     --search-nav: #a25462;
 
     // Code
@@ -167,7 +173,8 @@ $chip-ripple: (
     // Drawer
     --drawer-ink: white;
 
-    --button-bg: #9b27b0;
+    --button-bg: #6c4343;
+    --button-ink: white;
     --search-nav: rgba(228, 96, 117, 0.93);
 
     // Code

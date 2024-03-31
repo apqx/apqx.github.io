@@ -91,10 +91,10 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
     private handleFocus() {
         // Dialog弹出后，如果有input，获取焦点，否则底部button获取然后立刻取消
         if (this.inputE != null) {
-            // this.inputE.focus()
             // 意图调起iOS safari的输入法，但结果并没有，只是获取了焦点
             // android则正常调起输入法
-            this.inputE.click()
+            this.inputE.focus()
+            // this.inputE.click()
         } else {
             // Dialog弹出时应该让Button获取焦点，避免chip出现选中阴影
             // 但是Button获取焦点后颜色会变化，所以立即取消焦点
