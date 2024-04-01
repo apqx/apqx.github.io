@@ -24,13 +24,13 @@ tags: Code Git macOS Homebrew GitHub 阿里云 清华大学 镜像源
 
 `Homebrew`直译为“家酿啤酒🍺”，之所以取这么泛化的名字[据说](https://docs.brew.sh/FAQ#homebrew-is-a-poor-name-its-too-generic-why-was-it-chosen){: target="_blank" }是因为当初作者根本没想到它之后会变得如此受欢迎，想要更改的时候已经来不及了...其实不仅仅这个名字，它所使用的术语也不是通用的`package`之类，而真的是一堆很形象的“酿酒”词...
 
-**prefix**
+### prefix
 
 前面提过是`Homebrew`的安装目录，通过`brew`安装的包都不会超出这个目录。
 
 包会被安装到`[prefix]/Cellar/`中然后通过`symlink`软链接将其可执行文件和其它必要文件映射到`[prefix]/`里，因为可执行文件所在的`[prefix]/bin/`本身是环境变量`$PATH`的一部分，所以这个包也就能被外部使用。
 
-**formulae**
+### formulae
 
 直译“酿酒配方”，是安装时要从上游源码编译的包定义，现场酿酒。
 
@@ -44,7 +44,7 @@ https://github.com/homebrew/homebrew-core
 
 即然包列表就是一个`git`仓库，那么如果要上传自己的包到`Homebrew`就只需把自定义包文件`push`到这个仓库里即可，这也是`Homebrew`和其它包管理器很不一样的地方。
 
-**cask**
+### cask
 
 直译“酒桶”，是`macOS`使用的原生包定义，和`formulae`一样也是通过`GitHub`仓库管理:
 
@@ -52,7 +52,7 @@ https://github.com/homebrew/homebrew-core
 https://github.com/homebrew/homebrew-cask.git
 ```
 
-**bottle**
+### bottle
 
 直译“酒瓶”，是预编译好的二进制包，酿好的酒。
 
@@ -62,7 +62,7 @@ https://github.com/homebrew/homebrew-cask.git
 https://github.com/Homebrew/homebrew-core/packages
 ```
 
-**cellar**
+### cellar
 
 直译“酒窖”，是包的安装目录，也就是藏酒的地方:
 
@@ -70,7 +70,7 @@ https://github.com/Homebrew/homebrew-core/packages
 [prefix]/Cellar/
 ```
 
-**keg**
+### keg
 
 直译“装酒的小桶”，无论是现酿的酒`formulae`还是酿好的酒`bottle`，都要被`pour`倾倒到小酒桶`keg`放入地窖`cellar`储存，其实是指定包的指定版本的目录。
 
@@ -133,7 +133,7 @@ For compilers to find openjdk you may need to set:
 [prefix]/Cellar/kotlin/1.9.21/
 ```
 
-**tap**
+### tap
 
 直译“阀门”，比如`formulae`和`bottle`的来源：
 

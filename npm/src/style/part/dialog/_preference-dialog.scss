@@ -11,16 +11,6 @@
     margin-top: 0.5rem;
 }
 
-.preference-item-toggle .mdc-icon-button {
-    @include icon-button.ink-color(map.get(blogTheme.$on-surface, "light"));
-    @include icon-button.size(45px);
-    padding: 0;
-}
-
-.dark .preference-item-toggle .mdc-icon-button {
-    @include icon-button.ink-color(map.get(blogTheme.$on-surface, "dark"));
-}
-
 .preference-item-toggle {
     display: flex;
     flex-direction: row;

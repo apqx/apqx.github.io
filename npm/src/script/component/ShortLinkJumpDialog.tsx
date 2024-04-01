@@ -20,7 +20,7 @@ export class ShortLinkDialog extends BasicDialog<DialogContentProps, DialogConte
         super(props);
         this.presenter = new ShortLinkJumpDialogPresenter(this)
         this.state = {
-            title: "查询映射表",
+            title: "查询映射",
             content: this.props.pid,
             onClickLink: null
         }

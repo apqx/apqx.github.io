@@ -81,6 +81,10 @@ pre code.hljs {
     background: var(--pre-code-bg);
 }
 
+pre {
+    overflow: scroll;
+}
+
 .handwritten {
     code:not(pre code.hljs, .surface-block code, .opera-page code) {
         padding: 0.02rem 0.2rem 0.02rem 0.2rem;

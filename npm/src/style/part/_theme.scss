@@ -96,8 +96,8 @@ $chip-ripple: (
 );
 
 $button-ripple: (
-        light: #fdb1b5,
-        dark: #ba7171,
+        light: #fdc1c1,
+        dark: #feb7b7,
 );
 
 @mixin light {
@@ -121,7 +121,7 @@ $button-ripple: (
     --drawer-ink: black;
 
     // Button
-    --button-bg: #8f5d5d;
+    --button-bg: #d75f64;
     --button-ink: white;
     --search-nav: #a25462;
 
@@ -154,6 +154,9 @@ $button-ripple: (
     --surface-block-border: rgba(188, 188, 188, 0.5);
     --surface-block-bg: rgba(209, 209, 209, 0.1);
     --surface-block-ink-strong: rgba(80, 0, 0, 1);
+
+    // Switch默认颜色为primary
+    --md-sys-color-primary: #5a5fc1;
 }
 
 @mixin dark {
@@ -173,7 +176,7 @@ $button-ripple: (
     // Drawer
     --drawer-ink: white;
 
-    --button-bg: #6c4343;
+    --button-bg: #b44c50;
     --button-ink: white;
     --search-nav: rgba(228, 96, 117, 0.93);
 
@@ -206,6 +209,8 @@ $button-ripple: (
     --surface-block-border: rgba(188, 188, 188, 0.4);
     --surface-block-bg: rgba(0, 0, 0, 0.1);
     --surface-block-ink-strong: rgba(231, 163, 163, 1);
+
+    --md-sys-color-primary: #3a78c6;
 }
 
 body {
