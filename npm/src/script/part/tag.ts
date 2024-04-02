@@ -23,7 +23,7 @@ function clickTag() {
     const chipId = this.id
     // chip_tag_随笔 dialog_tag_随笔 dialog_tag_list_随笔
     // chip_tag_碎碎念&看剧 可以指定多个tag，用 & 分隔
-    console_debug("click tag " + chipId)
+    console_debug("Click tag " + chipId)
     // 这里的tag可能是由&连接的多个tag
     const tag = chipId.replace("chip_tag_", "")
     showTagEssayListDialog(tag)

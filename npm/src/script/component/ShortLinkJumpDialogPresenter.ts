@@ -49,19 +49,19 @@ export class ShortLinkJumpDialogPresenter {
             .then((response: UrlMapJson) => {
                 for (const item of response.map) {
                     if (item.id === pid) {
-                        console_debug("find pid " + pid + " => " + item.target.path)
+                        console_debug("Find pid " + pid + " => " + item.target.path)
                         // 跳转到目标页，不在浏览器中保留跳转记录，url可以是站内的相对path，也可以是站外http的绝对path
                         var jumpUrl = item.target.path
                         if (!item.target.path.startsWith("http")) {
                             jumpUrl = window.location.origin + item.target.path
                         }
-                        console_debug("jumpUrl is " + jumpUrl)
+                        console_debug("JumpUrl is " + jumpUrl)
                         this.showJump(startTimeMs, jumpUrl, item.target.title)
                         return
                     }
                 }
                 this.showJump(startTimeMs, window.location.origin + "/404.html", "未找到目标页面")
-                console_debug("pid not exist, check url-map")
+                console_debug("Pid not exist, check url-map")
             }).catch(error => {
                 console_error(error)
                 this.showJump(startTimeMs, window.location.origin + "/404.html", "未找到映射表")

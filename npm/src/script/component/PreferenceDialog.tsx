@@ -74,7 +74,7 @@ export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogConten
         if (this.state.fixedTopbarOn != nextState.fixedTopbarOn ||
             this.state.handwrittenFontOn != nextState.handwrittenFontOn ||
             this.state.autoThemeOn != nextState.autoThemeOn) {
-            console_debug("state different, render")
+            console_debug("State different, render")
             return true
         }
 
@@ -82,11 +82,11 @@ export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogConten
             this.state.handwrittenFontOn != this.presenter.localHandWritingFontOn() ||
             this.state.autoThemeOn != this.presenter.localAutoThemeOn()) {
             // state不是最新的，更新state，来触发UI render
-            console_debug("state should update, update state, no render")
+            console_debug("State should update, update state, no render")
             this.presenter.initSettings()
             return false
         }
-        console_debug("props and state no change, no render")
+        console_debug("Props and state no change, no render")
         return false
     }
 

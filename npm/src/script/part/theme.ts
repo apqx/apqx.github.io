@@ -29,7 +29,7 @@ export function checkThemeColor(dark: boolean) {
  * @param {String} color 如果为null则删除属性
  */
 function setThemeColor(color: string) {
-    console_debug("setThemeColor " + color)
+    console_debug("SetThemeColor " + color)
     let themeColorE = null
     for (const metaE of document.getElementsByTagName("meta")) {
         if (metaE.getAttribute("name") === "theme-color") {
@@ -88,7 +88,7 @@ export function showThemeDark(dark: boolean) {
  * @param {string} theme 主题
  */
 export function saveTheme(theme: string) {
-    console_debug("save theme = " + theme)
+    console_debug("Save theme = " + theme)
     localRepository.setTheme(theme)
 }
 

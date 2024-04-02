@@ -11,7 +11,7 @@ export function initFab() {
     new MDCRipple(fabE)
     // topAppBar监听长按，把当前页编码后的URL复制到剪切板上
     fabE.addEventListener("long-press", () => {
-        console_debug("long-press fab")
+        console_debug("Long-press fab")
         showEncodedUrl()
     })
     fabE.addEventListener("click", () => {

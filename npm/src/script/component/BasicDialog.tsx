@@ -1,8 +1,9 @@
 import * as React from "react";
-import {console_debug} from "../util/LogUtil";
-import {MDCDialog} from "@material/dialog";
-import {MDCRipple} from "@material/ripple";
-import {createRoot, Root} from "react-dom/client";
+import { console_debug } from "../util/LogUtil";
+import { MDCDialog } from "@material/dialog";
+import { MDCRipple } from "@material/ripple";
+import { createRoot, Root } from "react-dom/client";
+import ReactDOM from "react-dom";
 
 export interface BasicDialogProps {
     fixedWidth: boolean,
@@ -13,8 +14,8 @@ export interface BasicDialogProps {
 
 export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.Component<T, V> {
     mdcDialog: MDCDialog
+    rootE: Element
     btnCloseE: HTMLElement
-    inputE: HTMLElement
 
     constructor(props: T) {
         super(props);
@@ -24,8 +25,9 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
 
     componentDidMount() {
         console_debug("BasicDialog componentDidMount")
-        if (this.mdcDialog != null && !this.mdcDialog.isOpen)
-            this.mdcDialog.open()
+        this.rootE = ReactDOM.findDOMNode(this) as Element
+        this.initDialog()
+        this.mdcDialog.open()
     }
 
     componentWillUnmount() {
@@ -34,10 +36,7 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
     }
 
     shouldComponentUpdate(nextProps: Readonly<T>, nextState: Readonly<V>, nextContext: any): boolean {
-        // 在这里可以确保每一次数据变化都会检查dialog是否打开了
-        // 但是在tagDialog如果加载失败而用户关闭了dialog，则自己又会弹出来
-        // if (this.mdcDialog != null && !this.mdcDialog.isOpen)
-        //     this.mdcDialog.open()
+        // 由子类覆写
         return true;
     }
 
@@ -53,67 +52,54 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
         console_debug("BasicDialog onDialogClose")
     }
 
-    initDialog(e: Element) {
-        console_debug("BasicDialog initDialog " + e)
-        if (e == null) return
-        if (this.mdcDialog == null) {
-            this.mdcDialog = new MDCDialog(e)
-            this.btnCloseE = e.querySelector("#basic-dialog_btn_close")
-            this.inputE = e.querySelector("input")
-            // 缓存dialog对象供外部调用
-            let rootDialog = rootDialogMap.get(currentDialogWrapperId)
-            rootDialog.dialog = this.mdcDialog
-            if (!this.props.closeOnClickOutside) {
-                // 设置为空，点击Dialog外部，不取消
-                this.mdcDialog.scrimClickAction = ""
-            }
-            this.mdcDialog.listen("MDCDialog:opened", () => {
-                console_debug("dialog open event")
-                // 多个dialog可能都注册了监听事件，只响应打开的那个
-                // 但是应该会自动检测是否是自己的事件，经验证确实会判断，所以这里无需如此
-                // if(!this.mdcDialog.isOpen) return
-                // 列表滚动到顶部，执行一次即可
-                document.getElementById("basic-dialog-content").scrollTo(
-                    {
-                        top: 0,
-                        behavior: "smooth"
-                    }
-                )
-                this.handleFocus();
-                this.onDialogOpen()
-            })
-            this.mdcDialog.listen("MDCDialog:closing", () => {
-                this.onDialogClose()
-            })
+    initDialog() {
+        console_debug("BasicDialog initDialog " + this.rootE)
+        if (this.rootE == null) return
+        this.mdcDialog = new MDCDialog(this.rootE)
+        if(this.props.btnText != null) {
+            this.btnCloseE = this.rootE.querySelector("#basic-dialog_btn_close")
+            new MDCRipple(this.btnCloseE)
         }
+        // 缓存dialog对象供外部调用
+        let rootDialog = rootDialogMap.get(currentDialogWrapperId)
+        rootDialog.dialog = this.mdcDialog
+        if (!this.props.closeOnClickOutside) {
+            // 设置为空，点击Dialog外部，不取消
+            this.mdcDialog.scrimClickAction = ""
+        }
+        this.mdcDialog.listen("MDCDialog:opened", () => {
+            console_debug("Dialog open event")
+            // 多个dialog可能都注册了监听事件，只响应打开的那个
+            // 但是应该会自动检测是否是自己的事件，经验证确实会判断，所以这里无需如此
+            // if(!this.mdcDialog.isOpen) return
+            // 列表滚动到顶部，执行一次即可
+            document.getElementById("basic-dialog-content").scrollTo(
+                {
+                    top: 0,
+                    behavior: "smooth"
+                }
+            )
+            this.handleFocus();
+            this.onDialogOpen()
+        })
+        this.mdcDialog.listen("MDCDialog:closing", () => {
+            this.onDialogClose()
+        })
     }
 
-    private handleFocus() {
-        // Dialog弹出后，如果有input，获取焦点，否则底部button获取然后立刻取消
-        if (this.inputE != null) {
-            // 意图调起iOS safari的输入法，但结果并没有，只是获取了焦点
-            // android则正常调起输入法
-            this.inputE.focus()
-            // this.inputE.click()
-        } else {
-            // Dialog弹出时应该让Button获取焦点，避免chip出现选中阴影
-            // 但是Button获取焦点后颜色会变化，所以立即取消焦点
-            if (this.btnCloseE != null) {
-                this.btnCloseE.focus()
-                this.btnCloseE.blur()
-            }
-        }
-    }
-
-    initActionBtn(e: Element) {
-        if (e == null) return
-        new MDCRipple(e)
+    handleFocus() {
+        if (this.btnCloseE == null) return
+        console_debug("BasicDialog handleFocus")
+        // Dialog弹出时应该让Button获取焦点，避免chip出现选中阴影
+        // 但是Button获取焦点后颜色会变化，所以立即取消焦点
+        this.btnCloseE.focus()
+        this.btnCloseE.blur()
     }
 
     render() {
         console_debug("BasicDialog render")
         return (
-            <div className="mdc-dialog" ref={e => this.initDialog(e)}>
+            <div className="mdc-dialog">
                 <div className="mdc-dialog__container">
                     <div
                         className={this.props.fixedWidth ? "mdc-dialog__surface common-dialog-container" : "mdc-dialog__surface"}
@@ -121,21 +107,20 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
                         aria-labelledby="basic-dialog-title"
                         aria-describedby="basic-dialog-content">
                         <div className="mdc-dialog__content mdc-theme--on-surface"
-                             id="basic-dialog-content">
+                            id="basic-dialog-content">
                             {this.dialogContent()}
                         </div>
                         {(this.props.btnText != null) &&
                             <div className="mdc-dialog__actions basic-dialog_actions">
                                 <button type="button"
-                                        className="mdc-button btn-round mdc-button--unelevated basic-dialog_btn_action"
-                                        data-mdc-dialog-action="cancel"
-                                        ref={e => this.initActionBtn(e)}
-                                        onClick={this.props.btnOnClick}
-                                        id="basic-dialog_btn_close"
-                                        tabIndex={0}>
+                                    className="mdc-button btn-round mdc-button--unelevated basic-dialog_btn_action"
+                                    data-mdc-dialog-action="cancel"
+                                    onClick={this.props.btnOnClick}
+                                    id="basic-dialog_btn_close"
+                                    tabIndex={0}>
                                     <span className="mdc-button__ripple"></span>
                                     <span className="mdc-button__label"
-                                          id="basic-dialog_btn_close_label"
+                                        id="basic-dialog_btn_close_label"
                                     >{this.props.btnText}</span>
                                 </button>
                             </div>
@@ -196,7 +181,6 @@ export function showDialog(_contentElement: JSX.Element, _dialogWrapperId: strin
     if (dialog != null) {
         // dialog的第一次加载一定会执行componentDidMount，在那里处理第一次弹出
         // 在这里实现对于同一个dialog的多次点击弹出，即使内容不变，只要保留有上一次弹出时的mdcDialog对象即可
-        // 切换到其它dialog的时候，而且这个对象可能已经过时了，所以这种情况下不open
         dialog.open()
     }
 }

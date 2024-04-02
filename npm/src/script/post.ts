@@ -49,7 +49,7 @@ function initPageCheck() {
     const urlPath = window.location.pathname
     var matches = urlPath.match(/(post\/opera).*$/)
     if (matches != null && matches.length > 0) {
-        console_debug("add opera-page to body")
+        console_debug("Add opera-page to body")
         document.querySelector("body").classList.add("opera-page")
     }
 }
@@ -64,7 +64,7 @@ export function initImgJump() {
             const hasCopyright = img.classList.contains("operaCopyright")
             // 所有的图片，缩略图都加了_thumb后缀，删除后即为原图
             url = img.getAttribute("src").replace("_thumb", "")
-            console_debug("click show original img, copyright = " + hasCopyright + ", => " + url)
+            console_debug("Click show original img, copyright = " + hasCopyright + ", => " + url)
             if (hasCopyright && firstClick) {
                 showAlertDialog("版权声明", "点击“OK”将跳转到大尺寸无水印原图，欢迎下载分享，只是唯一注意，图片版权归属作者及剧团演员所有，未经允许不可用于商业用途🤫。",
                     "OK", () => {

@@ -9,7 +9,7 @@ import { console_debug } from "../util/LogUtil";
 export function checkJump() {
     let pid = null
     const urlPath = window.location.pathname
-    console_debug("url path = " + urlPath)
+    console_debug("Url path = " + urlPath)
     // https://mudan.me/op01
     var matches = urlPath.match(/(op|og|rp|pt|ot)..$/)
     if (matches != null && matches.length > 0) {

@@ -62,10 +62,10 @@ export function initDrawer() {
         drawerList.selectedIndex = currentPageIndex
     });
 
-    console_debug("drawer currentPageIndex " + currentPageIndex)
+    console_debug("Drawer currentPageIndex " + currentPageIndex)
     drawerList.listen("MDCList:action", (event: MDCListActionEvent) => {
         // 获取点击的item索引
-        console_debug("click drawer list item " + event.detail.index)
+        console_debug("Click drawer list item " + event.detail.index)
         if (event.detail.index > INDEX.tag) {
             // 点击了除 索引组 之外的item，关闭drawer
             drawer.open = false

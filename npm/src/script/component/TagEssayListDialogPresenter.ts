@@ -59,7 +59,7 @@ export class TagEssayListDialogPresenter {
             showLoading: true,
             // essayList: []
         })
-        console_debug("findTaggedEssays " + tag)
+        console_debug("FindTaggedEssays " + tag)
         if (postList != null) {
             // 使用本页缓存，避免同一页面下的重复请求
             this.showTagItemList(postList, tag)
@@ -75,10 +75,14 @@ export class TagEssayListDialogPresenter {
         const request = new Request(url, {
             method: "GET"
         })
+        if(this.abortController != null) {
+            // 终止之前的任务
+            this.abortController.abort()
+        }
         this.abortController = new AbortController()
-        // 异步请求
+        // 异步请求，TODO: 请求应该是可以中断的，只在dialog显示的情况下更新UI
         // fetch调用浏览器的网络请求，所以会有和浏览器一样的缓存策略
-        let promise: Promise<void> = fetch(request, { signal: this.abortController.signal, cache: "no-cache" })
+        fetch(request, { signal: this.abortController.signal, cache: "no-cache" })
             .then((response: Response) => {
                 if (response.status === 200) {
                     return response.json()
@@ -97,8 +101,12 @@ export class TagEssayListDialogPresenter {
     }
 
     showTagItemList(postList: PostItem[], tag: string) {
+        if(!this.component.mdcDialog.isOpen) {
+            console_debug("ShowTagItemList, but dialog is closed, no refresh")
+            return
+        }
         const posts = this.findPost(tag, postList)
-        console_debug("showTagItemList count = " + posts.length)
+        console_debug("ShowTagItemList count = " + posts.length)
         const essayListForShow: EssayItemData[] = []
         for (const post of posts) {
             const postType = this.getPostType(post.categories)
@@ -162,12 +170,12 @@ export class TagEssayListDialogPresenter {
                 resultArray.push(post)
             }
         }
-        console_debug("find post with tag " + tagArray + ", result size is " + resultArray.length)
+        console_debug("Find post with tag " + tagArray + ", result size is " + resultArray.length)
         return resultArray
     }
 
     abortFetch() {
         if (this.abortController != null)
-            this.abortController.abort("Abort fetch by user")
+            this.abortController.abort()
     }
 }

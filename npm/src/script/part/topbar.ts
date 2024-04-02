@@ -34,7 +34,7 @@ export function initTopbar() {
     // 监听系统级主题变化，即系统和导航栏都可以控制主题变化，但是如果用户曾经在导航栏设置过主题，则不响应系统变化？？？
     window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
         let newSysTheme = e.matches ? "dark" : "light";
-        console_debug("system theme change to " + newSysTheme)
+        console_debug("System theme change to " + newSysTheme)
         const autoThemeOn = localRepository.getTheme() === localRepository.VALUE_THEME_AUTO
         if (autoThemeOn) {
             const newSysThemeDark = newSysTheme === "dark"

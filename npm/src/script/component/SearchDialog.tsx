@@ -6,7 +6,8 @@ import {Progressbar} from "./Progressbar";
 import {MDCList} from "@material/list";
 import {createHtmlContent} from "../util/Tools";
 import {BasicDialog, BasicDialogProps, SEARCH_DIALOG_WRAPPER_ID, showDialog} from "./BasicDialog";
-
+import ReactDOM from "react-dom";
+import { console_debug } from "../util/LogUtil";
 
 interface SearchDialogState {
     showLoading: boolean
@@ -31,6 +32,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
 
     presenter: SearchDialogPresenter = null
     input: string = ""
+    inputE = null
 
     constructor(props: any) {
         super(props);
@@ -42,7 +44,6 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
     }
 
     onClickSearch() {
-        // this.presenter.search(this.input, 1)
         this.presenter.searchJumpGoogle(this.input)
     }
 
@@ -60,18 +61,32 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
         this.input = e.target.value
     }
 
-    componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<SearchDialogState>, snapshot?: any) {
-        // DOM更新后，滚动到顶部
-        // 只有在搜索结果发生变化时，才滚动
-        if (prevState != null && prevState.resultList != this.state.resultList) {
-            document.getElementById("basic-dialog-content").scrollTo(
-                {
-                    top: 0,
-                    behavior: "smooth"
-                }
-            )
+    componentDidMount(): void {
+        super.componentDidMount()
+        const e = ReactDOM.findDOMNode(this) as Element
+        this.initBtn(e.querySelector("#btn-search"))
+        this.initTextField(e.querySelector("#search-dialog_label"))
+    }
 
-        }
+    // componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<SearchDialogState>, snapshot?: any) {
+    //     // DOM更新后，滚动到顶部
+    //     // 只有在搜索结果发生变化时，才滚动
+    //     if (prevState != null && prevState.resultList != this.state.resultList) {
+    //         document.getElementById("basic-dialog-content").scrollTo(
+    //             {
+    //                 top: 0,
+    //                 behavior: "smooth"
+    //             }
+    //         )
+    //     }
+    // 
+
+    handleFocus(): void {
+        // 这里可以让input获取焦点，自动弹出键盘，但是有时候输入框又会自动失去焦点
+        // 可能是获取焦点的顺序🤔，暂时先不获取，交给父级的焦点处理
+        super.handleFocus()
+        // console_debug("SearchDialog handleFocus")
+        // this.inputE.focus()
     }
 
     initBtn(e: Element) {
@@ -81,8 +96,8 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
 
     initTextField(e: Element) {
         if (e == null) return
+        this.inputE = e.querySelector("input")
         new MDCTextField(e)
-        // TODO: 点击enter搜索
         e.addEventListener("keyup", (event: KeyboardEvent) => {
             if (event.key === "Enter")
                 this.onClickSearch()
@@ -92,8 +107,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
     dialogContent(): JSX.Element {
         return (
             <div className="center-horizontal">
-                <label className="mdc-text-field mdc-text-field--outlined" id="search-dialog_label"
-                       ref={e => this.initTextField(e)}>
+                <label className="mdc-text-field mdc-text-field--outlined" id="search-dialog_label">
                     <span className="mdc-notched-outline">
                       <span className="mdc-notched-outline__leading"></span>
                       <span className="mdc-notched-outline__notch">
@@ -103,9 +117,8 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
                     </span>
                     <input type="search" className="mdc-text-field__input" aria-labelledby="search-label"
                            onChange={this.onInputChange}/>
-                    <button type="button" className="mdc-button mdc-button--unelevated btn-search btn-round center-horizontal"
-                            onClick={this.onClickSearch}
-                            ref={e => this.initBtn(e)}>
+                    <button id="btn-search" type="button" className="mdc-button mdc-button--unelevated btn-search btn-round center-horizontal"
+                            onClick={this.onClickSearch}>
                         <span className="mdc-button__ripple"></span>
                         <i className="material-icons mdc-button__icon" aria-hidden="true">search</i>
                         <span className="mdc-button__label">SEARCH</span>
@@ -137,22 +150,30 @@ interface SearchResultProps {
 }
 
 class SearchResult extends React.Component<SearchResultProps, any> {
+
+    componentDidMount(): void {
+        const rootE = ReactDOM.findDOMNode(this) as Element
+        this.initList(rootE.querySelector(".dialog-link-list"))
+        this.initRipple(rootE.querySelectorAll(".mdc-ripple-surface"))
+    }
+
     initList(e: Element) {
         if (e == null) return
         new MDCList(e)
     }
 
-    initRipple(e: Element) {
-        if (e == null) return
-        new MDCRipple(e)
+    initRipple(list: NodeListOf<Element>) {
+        if (list == null) return
+        list.forEach(e => {
+            new MDCRipple(e)
+        })
     }
 
     render() {
         if (this.props.list.length <= 0) return false
         return (
             <div>
-                <ul className="mdc-deprecated-list dialog-link-list"
-                    ref={e => this.initList(e)}>
+                <ul className="mdc-deprecated-list dialog-link-list">
                     {this.props.list.map((item) =>
                         <ResultItem key={item.url}
                                     data={new ResultItemData(item.title, item.description, item.url)}
@@ -161,7 +182,6 @@ class SearchResult extends React.Component<SearchResultProps, any> {
                 </ul>
                 <div className="search-result-nav-wrapper">
                     <button className="mdc-button btn-search-result-nav mdc-ripple-upgraded mdc-button--outlined"
-                            ref={e => this.initRipple(e)}
                             onClick={this.props.onClickLeft}>
                         <span className="mdc-button__ripple"></span>
                         <i className="material-icons mdc-button__icon" aria-hidden="true">chevron_left</i>
@@ -169,7 +189,6 @@ class SearchResult extends React.Component<SearchResultProps, any> {
                     </button>
                     <span className="search-result-index">{this.props.currentPage + "/" + this.props.totalPage}</span>
                     <button className="mdc-button btn-search-result-nav mdc-ripple-upgraded mdc-button--outlined"
-                            ref={e => this.initRipple(e)}
                             onClick={this.props.onClickRight}>
                         <span className="mdc-button__ripple"></span>
                         <span className="mdc-button__label">下一页</span>
@@ -199,6 +218,11 @@ export class ResultItemData {
 }
 
 class ResultItem extends React.Component<ResultItemProps, any> {
+
+    componentDidMount(): void {
+        this.initRipple(ReactDOM.findDOMNode(this) as Element)
+    }
+
     initRipple(e: Element) {
         if (e == null) return
         new MDCRipple(e)
@@ -209,8 +233,7 @@ class ResultItem extends React.Component<ResultItemProps, any> {
             <div>
                 <a className="mdc-deprecated-list-item search-result-item mdc-ripple-upgraded"
                    href={this.props.data.url}
-                   target="_blank"
-                   ref={e => this.initRipple(e)}>
+                   target="_blank">
                     <span className="mdc-deprecated-list-item__ripple"></span>
                     <div>
                         <p className="search-result-item-title"

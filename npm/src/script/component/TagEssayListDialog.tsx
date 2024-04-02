@@ -5,6 +5,7 @@ import { MDCRipple } from "@material/ripple";
 import { BasicDialog, BasicDialogProps, TAG_DIALOG_WRAPPER_ID, showDialog } from "./BasicDialog";
 import { console_debug } from "../util/LogUtil";
 import { TagEssayListDialogPresenter } from "./TagEssayListDialogPresenter";
+import ReactDOM from "react-dom";
 
 interface DialogContentProps extends BasicDialogProps {
     tag: string,
@@ -17,6 +18,7 @@ interface DialogContentState {
 
 export class TagEssayDialog extends BasicDialog<DialogContentProps, DialogContentState> {
     presenter: TagEssayListDialogPresenter = null
+    mdcList: MDCList = null
 
     constructor(props) {
         super(props)
@@ -26,11 +28,6 @@ export class TagEssayDialog extends BasicDialog<DialogContentProps, DialogConten
             showLoading: true,
             essayList: []
         }
-    }
-
-    initList(e: Element) {
-        if (e == null) return
-        new MDCList(e)
     }
 
     onDialogOpen() {
@@ -43,7 +40,7 @@ export class TagEssayDialog extends BasicDialog<DialogContentProps, DialogConten
 
     onDialogClose() {
         super.onDialogClose();
-        // this.presenter.abortFetch()
+        this.presenter.abortFetch()
     }
 
     componentDidMount() {
@@ -53,6 +50,13 @@ export class TagEssayDialog extends BasicDialog<DialogContentProps, DialogConten
 
     componentDidUpdate(prevProps: Readonly<DialogContentProps>, prevState: Readonly<DialogContentState>, snapshot?: any) {
         console_debug("TagEssayListDialogContent componentDidUpdate")
+        // 检查是否有list
+        if (this.state.essayList != null && this.state.essayList.length > 0 && this.mdcList == null) {
+            let listE = this.rootE.querySelector(".dialog-link-list")
+            this.mdcList = new MDCList(listE)
+        } else {
+            this.mdcList = null
+        }
     }
 
     shouldComponentUpdate(nextProps: Readonly<DialogContentProps>, nextState: Readonly<DialogContentState>, nextContext: any): boolean {
@@ -65,18 +69,16 @@ export class TagEssayDialog extends BasicDialog<DialogContentProps, DialogConten
         if (this.props.tag != nextProps.tag) {
             // props变化，render，要先更新props对应的UI
             // 同时触发获取对应的数据，当数据获取完成后，会自动setState触发state变化，再render
-            // TODO: 当props没有变化，但是上次请求失败，不render，重新获取数据
-            // TODO: 中途关掉Dialog，应终止presenter可能存在的异步任务
-            console_debug("tag different, render")
+            console_debug("Tag different, render")
             this.presenter.findTaggedEssays(nextProps.tag)
             return true
         }
         if (this.state.showLoading != nextState.showLoading ||
             !this.isEssayListSame(this.state.essayList, nextState.essayList)) {
-            console_debug("state different, render")
+            console_debug("State different, render")
             return true
         }
-        console_debug("props and state no change, no render")
+        console_debug("Props and state no change, no render")
         return false
     }
 
@@ -107,8 +109,7 @@ export class TagEssayDialog extends BasicDialog<DialogContentProps, DialogConten
                 <Progressbar loading={this.state.showLoading} />
 
                 {this.state.essayList != null && this.state.essayList.length != 0 &&
-                    <ul className="mdc-deprecated-list mdc-deprecated-list--two-line dialog-link-list"
-                        ref={e => this.initList(e)}>
+                    <ul className="mdc-deprecated-list mdc-deprecated-list--two-line dialog-link-list">
                         {this.state.essayList.map(item =>
                             <EssayItem
                                 key={item.title + item.date}
@@ -152,17 +153,16 @@ interface EssayItemProps {
 }
 
 class EssayItem extends React.Component<EssayItemProps, any> {
-    public initRipple(e) {
-        if (e == null) return
-        new MDCRipple(e)
+
+    componentDidMount(): void {
+        new MDCRipple((ReactDOM.findDOMNode(this) as Element).querySelector(".mdc-deprecated-list-item"))
     }
 
     render() {
         return (
             <div>
                 <a className="mdc-deprecated-list-item tag-list-item mdc-ripple-upgraded"
-                    href={this.props.data.url}
-                    ref={e => this.initRipple(e)}>
+                    href={this.props.data.url}>
                     <span className="mdc-deprecated-list-item__ripple"></span>
                     <span className="mdc-deprecated-list-item__text">
                         <span className="my-list-item__primary-text">{this.props.data.title}</span>

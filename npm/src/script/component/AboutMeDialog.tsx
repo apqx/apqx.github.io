@@ -3,12 +3,18 @@ import {MDCList} from "@material/list";
 import {MDCRipple} from "@material/ripple";
 import {ABOUT_DIALOG_WRAPPER_ID, BasicDialog, BasicDialogProps, COMMON_DIALOG_WRAPPER_ID, showDialog} from "./BasicDialog";
 import {console_debug} from "../util/LogUtil";
+import ReactDOM from "react-dom";
 
 class AboutMeDialog extends BasicDialog<BasicDialogProps, any> {
 
-    initList(e: Element) {
-        if (e == null) return
-        new MDCList(e)
+    componentDidMount(): void {
+        super.componentDidMount()
+        this.initList()
+    }
+
+    initList() {
+        if (this.rootE == null) return
+        new MDCList(this.rootE.querySelector("#about-me-dialog_link_list"))
     }
 
     getKunQvLink(): string {
@@ -39,8 +45,7 @@ class AboutMeDialog extends BasicDialog<BasicDialogProps, any> {
                     href={this.getKunQvLink()}
                     target="_blank">昆虫</a>，野生散养攻城狮，“十分”“业余”摄影Fans。联系我可以通过邮件<code>Email</code>，如果有必要也可以用<a
                     href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/wechat.jpg" target="_blank">微信</a>。</p>
-                <ul className="mdc-deprecated-list dialog-link-list" id="about-me-dialog_link_list"
-                    ref={e => this.initList(e)}>
+                <ul className="mdc-deprecated-list dialog-link-list" id="about-me-dialog_link_list">
                     <LinkItem link="https://github.com/apqx" title="GitHub"/>
                     <hr className="mdc-deprecated-list-divider"/>
                     <LinkItem link="https://www.youtube.com/channel/UCF3Qv9tpULGL-CabxSEaCaQ" title="YouTube"/>
@@ -61,6 +66,11 @@ interface SkillChipProps {
 }
 
 class SkillChip extends React.Component<SkillChipProps, any> {
+
+    componentDidMount(): void {
+        this.initButton(ReactDOM.findDOMNode(this) as Element)
+    }
+
     initButton(e: Element) {
         if (e == null) return
         new MDCRipple(e)
@@ -68,8 +78,7 @@ class SkillChip extends React.Component<SkillChipProps, any> {
 
     render() {
         return (
-            <span className="mdc-button mdc-button--unelevated btn-tag"
-                  ref={e => this.initButton(e)}>
+            <span className="mdc-button mdc-button--unelevated btn-tag">
                 <span className="mdc-button__ripple"></span>
                 <span className="mdc-button__label">{this.props.text}</span>
             </span>
@@ -83,6 +92,10 @@ interface LinkItemProps {
 }
 
 class LinkItem extends React.Component<LinkItemProps, any> {
+    componentDidMount(): void {
+        this.initRipple(ReactDOM.findDOMNode(this) as Element)
+    }
+
     initRipple(e: Element) {
         if (e == null) return
         new MDCRipple(e)
@@ -90,8 +103,7 @@ class LinkItem extends React.Component<LinkItemProps, any> {
 
     render() {
         return (
-            <a className="mdc-deprecated-list-item" href={this.props.link} target="_blank"
-               ref={e => this.initRipple(e)}>
+            <a className="mdc-deprecated-list-item" href={this.props.link} target="_blank">
                 <span className="mdc-deprecated-list-item__ripple"></span>
                 <span className="mdc-deprecated-list-item__text">{this.props.title}</span>
             </a>
