@@ -10,17 +10,17 @@ This is not a general blog template, but a sharing space tailored to my own pref
 
 Home page 👉 [https://mudan.me](https://mudan.me)
 
-![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/img/screenshot_index.webp)
+![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/screenshots/index.webp)
 
 Drama share 👉 [https://mudan.me/opera](https://mudan.me/opera)
 
-![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/img/screenshot_index_opera.webp)
+![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/screenshots/index_opera.webp)
 
 ## Markdown
 
 Blog posts are written in `Markdown` format, converted to `HTML` web pages by `Jekyll`, and generated into static sites that can be hosted on [GitHub Pages](https://pages.github.com) or other cloud servers.
 
-![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/img/screenshot_essay.webp)
+![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/screenshots/essay.webp)
 
 ## Debug
 
@@ -95,7 +95,7 @@ git push
 
 Wait for a few seconds or minutes, depending on the execution speed of `Pages`, and the web page will be updated after completion.
 
-![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/img/screenshot_index_phone.webp)
+![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/screenshots/index_phone.webp)
 
 ## Copyright
 

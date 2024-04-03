@@ -100,10 +100,10 @@ export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogConten
                 <div className="center-horizontal" id="preference-dialog__top-container">
                     <picture>
                         <source
-                            srcSet="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emoji/noto-animated-emoji/mouth-none/512.webp"
+                            srcSet="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/noto-animated-emoji/mouth-none/512.webp"
                             type="image/webp" />
                         <img
-                            src="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emoji/noto-animated-emoji/mouth-none/512.gif"
+                            src="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/noto-animated-emoji/mouth-none/512.gif"
                             alt="" width="64"
                             height="64" />
                     </picture>

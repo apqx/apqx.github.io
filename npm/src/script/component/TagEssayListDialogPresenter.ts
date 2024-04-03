@@ -70,7 +70,7 @@ export class TagEssayListDialogPresenter {
         if (isDebug()) {
             url = window.location.origin + "/archives/posts.txt"
         } else {
-            url = "https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/archive/posts.txt"
+            url = "https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/archives/posts.txt"
         }
         const request = new Request(url, {
             method: "GET"

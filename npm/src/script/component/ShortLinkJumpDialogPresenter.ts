@@ -30,7 +30,7 @@ export class ShortLinkJumpDialogPresenter {
         if (isDebug()) {
             url = window.location.origin + "/archives/url-map.txt"
         } else {
-            url = "https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/archive/url-map.txt"
+            url = "https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/archives/url-map.txt"
         }
         const request = new Request(url, {
             method: "GET"

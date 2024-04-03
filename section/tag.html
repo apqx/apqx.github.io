@@ -11,8 +11,8 @@ blockFromSearchEngine: true
 <div class="mdc-card content-card">
     <div class="center-horizontal" style="margin: 1rem 0;">
         <picture>
-            <source srcset="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emoji/noto-animated-emoji/cooking/512.webp" type="image/webp">
-            <img src="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emoji/noto-animated-emoji/cooking/512.gif" alt="" width="100" height="100">
+            <source srcset="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/noto-animated-emoji/cooking/512.webp" type="image/webp">
+            <img src="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/noto-animated-emoji/cooking/512.gif" alt="" width="100" height="100">
           </picture>
     </div>
 
@@ -21,10 +21,8 @@ blockFromSearchEngine: true
         <!-- 遍历所有的tag -->
         {% endcomment %}
         {%- for tag in site.tags -%}
-        <span class="mdc-button mdc-button--unelevated tag-dialog-trigger btn-tag" id="chip_tag_{{ tag[0] }}">
-            <span class="mdc-button__ripple"></span>
-            <span class="mdc-button__label">#{{ tag[0] }}</span>
-        </span>
+        <!-- 标签太多，如果style太复杂，性能会很差，所以不能用chip -->
+        <a id="chip_tag_{{ tag[0] }}" class="tag-dialog-trigger clickable-empty-link tag-link" style="margin: 0.3rem">{{ tag[0] }}</a>
         {% comment %}
         <!-- 结束遍历本页的tag -->
         {% endcomment %}

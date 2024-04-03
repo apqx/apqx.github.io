@@ -1,13 +1,12 @@
 @use "theme" as blogTheme;
-@use "@material/typography" with ( // Noto Sans是思源黑体的拉丁文字体，Noto Sans SC是其简体中文字体，因为SC的引号是全角字符，特别别扭，所以在前面用拉丁文字体先处理这些标点符号和字母
-    // SC还有一个问题是，如果前面用的是Roboto等非思源字体处理符号和字母，可能会出现用style绘制背景的时候，上下padding尺寸不一致，必须收到增加上padding才行
-    // 所以，在同一个设备上，应该使用同一套字体
+@use "@material/typography" with ( 
     $font-family: blogTheme.$text-font);
+@use "@material/typography/mdc-typography";
 @use "@material/theme";
 @use "@material/theme/mdc-theme";
 @use "@material/theme/custom-properties";
-@use '@material/theme/color-palette';
-@use '@material/theme/shadow-dom';
+@use "@material/theme/color-palette";
+@use "@material/theme/shadow-dom";
 @use "@material/button";
 @use "@material/button/mdc-button";
 @use "@material/list";
@@ -15,7 +14,6 @@
 @use "@material/data-table/data-table";
 @use "@material/data-table/data-table-theme";
 @use "@material/data-table/mdc-data-table";
-@use "@material/typography/mdc-typography";
 @use "@material/textfield";
 @use "@material/textfield/mdc-text-field";
 @use "@material/ripple";
@@ -171,9 +169,8 @@ audio {
     width: auto;
 }
 
-// 手写诗文
-.handwritten {
-    display: block;
+// 横向滑动，不换行
+blockquote.pre {
     overflow-x: auto;
 }
 
@@ -186,7 +183,7 @@ audio {
 // <blockquote>
 // <p>文本</p>
 // </blockquote>
-blockquote.handwritten.pre p {
+blockquote.pre * {
     white-space: pre;
 }
 

@@ -18,11 +18,11 @@ tags: Code Android Thread Handler
 
 `Android`中的`Thread`也即是`Java`线程，当一个App启动时，系统会为它创建一个`Linux Process`和一个`Execution Thread`。默认情况下，此App的所有组件都会运行在这个进程的单一执行线程中，包括UI上产生的各种触控交互事件的分发，所以此线程又被称为`UI Thread`和`Main Thread`。
 
-## CalledFromWrongThreadException
+## Call from wrong thread
 
 > Only the original thread that created a view hierarchy can touch its views
 
-`Android`的UI操作是线程不安全的，这意味着多线程操作UI时可能会出现状态不一致的情况，所以`Android`强制要求必须在主线程中操作UI，否则就会抛出一个名为`CalledFromWrongThreadException`的异常。
+`Android`的UI操作是线程不安全的，这意味着多线程操作UI时可能会出现状态不一致的情况，所以`Android`强制要求必须在主线程中操作UI，否则就会抛出`CalledFromWrongThreadException`异常。
 
 ```kotlin
 override onCreate(savedInstanceState: Bundle?) {

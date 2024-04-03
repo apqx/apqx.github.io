@@ -102,7 +102,7 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
             <div className="mdc-dialog">
                 <div className="mdc-dialog__container">
                     <div
-                        className={this.props.fixedWidth ? "mdc-dialog__surface common-dialog-container" : "mdc-dialog__surface"}
+                        className={this.props.fixedWidth ? "mdc-dialog__surface mdc-dialog__fixed-width" : "mdc-dialog__surface"}
                         role="alertdialog" aria-modal="true"
                         aria-labelledby="basic-dialog-title"
                         aria-describedby="basic-dialog-content">

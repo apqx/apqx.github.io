@@ -8,17 +8,17 @@
 
 博客主页 👉 [立泉の写字板](https://mudan.me)
 
-![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/img/screenshot_index.webp)
+![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/screenshots/index.webp)
 
 看剧分享 👉 [立泉の看剧](https://mudan.me/opera)
 
-![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/img/screenshot_index_opera.webp)
+![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/screenshots/index_opera.webp)
 
 ## Markdown
 
 博文使用`Markdown`格式撰写，由`Jekyll`将其转换为`HTML`网页，生成静态站点，可以托管在[GitHub Pages](https://pages.github.com)或其它云服务器上。
 
-![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/img/screenshot_essay.webp)
+![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/screenshots/essay.webp)
 
 ## 本地调试
 
@@ -94,7 +94,7 @@ git push
 
 静候数秒或数分钟，取决于`Pages`的执行速度，完成后网页就会更新。
 
-![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/img/screenshot_index_phone.webp)
+![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/screenshots/index_phone.webp)
 
 ## 版权
 
