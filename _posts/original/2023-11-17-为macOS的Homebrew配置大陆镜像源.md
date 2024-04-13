@@ -3,11 +3,11 @@ layout: post
 categories: original
 title: "为macOS的Homebrew配置大陆镜像源"
 author: 立泉
-mention: 包管理器 阿里云 清华大学
+mention: 包管理器 阿里云
 date: 2023-11-17 +0800
 description: Homebrew之于macOS正如apt之于Ubuntu，且正如apt在大陆面临的网络问题一样，Homebrew也面临着相近甚至更糟的网络问题，因为它默认的源居然就是“剪不断、理还乱”的GitHub和GitHub Packages...
 cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20231117/homebrew_social_cardcard_thumb.jpg
-tags: Code Git macOS Homebrew GitHub 阿里云 清华大学 镜像源
+tags: Code Git macOS Homebrew GitHub 阿里云 镜像源
 ---
 
 `Homebrew`之于`macOS`正如`apt`之于`Ubuntu`，且正如`apt`在大陆面临的网络问题一样，`Homebrew`也面临着相近甚至更糟的网络问题，因为它默认的`源`居然就是“剪不断、理还乱”的`GitHub`和`GitHub Packages`...后面会提到。

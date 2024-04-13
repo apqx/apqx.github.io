@@ -28,6 +28,8 @@
 
 .tag-essay-item-tags-container {
     overflow-x: auto;
+    padding-left: 0.1rem;
+    padding-right: 0.1rem;
 }
 
 // 移动端Chrome的scrollBar一直显示，需要消除，其它浏览器scrollBar都会自动隐藏
@@ -41,7 +43,8 @@
     font-size: 0.8rem;
     padding: 0.04rem 0.4rem;
     border-radius: 0.5rem;
-    margin-left: 0.2rem;
+    margin-left: 0.1rem;
+    margin-right: 0.1rem;
 }
 
 .tag-essay-item-post-type {

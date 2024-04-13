@@ -1,7 +1,6 @@
 @use "theme" as blogTheme;
 @use "@material/typography";
-
-
+@use "@material/animation";
 
 // 通过js给body添加dark class，可以实现对mac-theme的参数更改
 // 大部分组件都会正确相应颜色变化，但是list和chip却无效
@@ -67,7 +66,7 @@ footer a {
     padding: 0;
 }
 
-// .mdc-dialog__content {
+// .mdc-card {
 //   // 淡入动画
 //   animation: animation.enter($name: fade-in, $duration: 600ms);
 // }

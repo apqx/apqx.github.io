@@ -91,7 +91,7 @@ export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogConten
     }
 
     handwrittenFontTitle = "使用<a href=\"https://www.17font.com/font/detail/960a115089a711ee98da67ad58e0ec00.html\" target=\"_blank\">兰亭国风行楷</a>字体"
-    autoThemeTitle = "跟随系统自动切换<a href=\"/post/original/2021/08/03/%E4%B8%BA%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0%E7%AB%99%E5%86%85%E6%90%9C%E7%B4%A2%E5%92%8C%E6%9A%97%E9%BB%91%E6%A8%A1%E5%BC%8F\" target=\"_blank\">暗色主题</a>"
+    autoThemeTitle = "跟随系统自动切换<a href=\"/post/original/2021/08/03/%E4%B8%BA%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0%E7%AB%99%E5%86%85%E6%90%9C%E7%B4%A2%E5%92%8C%E6%9A%97%E9%BB%91%E6%A8%A1%E5%BC%8F\" target=\"_blank\">主题配色</a>"
 
     dialogContent(): JSX.Element {
         console_debug("PreferenceDialogContent render")

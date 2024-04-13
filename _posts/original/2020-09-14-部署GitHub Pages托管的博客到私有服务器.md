@@ -28,7 +28,7 @@ tags: Code GitHub Jekyll Blog HTTPS
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20200914/jekyll_project.png){: loading="lazy" class="clickable clickShowOriginalImg" alt="jekyll" }
 
-其中，`_drafts`和`_posts`分别存放用`MarkDown`格式撰写的草稿和文章，`assets`存放一些媒体资源，我已经把它们迁到了阿里云的`OSS`上，所以这里是空的。而`_includs`、`_layouts`、`css`、`font`、`js`则是和网站的主题、布局、模版相关的东西，`Jekyll`需要使用它们才能将`MarkDown`文本转换为静态`HTML`网页。
+其中，`_drafts`和`_posts`分别存放用`Markdown`格式撰写的草稿和文章，`assets`存放一些媒体资源，我已经把它们迁到了阿里云的`OSS`上，所以这里是空的。而`_includs`、`_layouts`、`css`、`font`、`js`则是和网站的主题、布局、模版相关的东西，`Jekyll`需要使用它们才能将`Markdown`文本转换为静态`HTML`网页。
 
 内容更改后，只需执行`git push origin`把内容推到`GitHub`上，`Pages`会自动用`Jekyll`生成静态网页，然后`Serve`，这样就可以访问到博客了。而创建博客镜像，要做的就是把一份同样的代码`push`到自己的`服务器`上，手动用`Jekyll`在`_site`目录下生成静态网页，再配置`Nginx`进行`Serve`即可。而且`jekyll serve`启动后会监听文件变化，每次修改只要`push`，就会像`Pages`一样自动生成更新后的网页，非常方便。
 
