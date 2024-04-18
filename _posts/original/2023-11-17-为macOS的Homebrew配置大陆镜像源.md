@@ -22,7 +22,7 @@ tags: Code Git macOS Homebrew GitHub 阿里云 镜像源
 
 ## 术语
 
-`Homebrew`直译为“家酿啤酒🍺”，之所以取这么泛化的名字[据说](https://docs.brew.sh/FAQ#homebrew-is-a-poor-name-its-too-generic-why-was-it-chosen){: target="_blank" }是因为当初作者根本没想到它之后会变得如此受欢迎，想要更改的时候已经来不及了...其实不仅仅这个名字，它所使用的术语也不是通用的`package`之类，而真的是一堆很形象的“酿酒”词...
+`Homebrew`直译为“家酿啤酒🍺”，之所以取这么泛化的名字[据说](https://docs.brew.sh/FAQ#homebrew-is-a-poor-name-its-too-generic-why-was-it-chosen){: target="_blank" }是因为当初作者根本没想到它之后会变得如此受欢迎，想要更改的时候已经来不及了。其实不仅仅这个名字，它所使用的术语也不是通用的`package`之类，而真的是一堆很形象的“酿酒”词...
 
 ### prefix
 

@@ -15,7 +15,7 @@ github_username:  apqx
 
 exclude: [npm/node_modules/, npm/src/,
 npm/package-lock.json, npm/package.json, npm/README.md, npm/webpack.config.js,
-npm/babel.config.json, docs/, tools/, .idea/, README.md]
+npm/babel.config.json, docs/, README.md, README_CN.md]
 
 # _post目录下markdown转换后的url结构
 permalink: /post/:categories/:year/:month/:day/:title:output_ext
