@@ -168,6 +168,27 @@ sitemap: false
             }
         },
         {
+            "id": "op17",
+            "target": {
+                "path": "{% link _posts/opera/2023-11-04-昆曲「玉簪记·偷诗」折子.md %}",
+                "title": "昆曲「玉簪记·偷诗」折子"
+            }
+        },
+        {
+            "id": "op18",
+            "target": {
+                "path": "{% link _posts/opera/2023-08-12-昆曲「红梨记·亭会」折子.md %}",
+                "title": "昆曲「红梨记·亭会」折子"
+            }
+        },
+        {
+            "id": "op19",
+            "target": {
+                "path": "{% link _posts/opera/2022-11-06-昆曲「水浒记·借茶」折子.md %}",
+                "title": "昆曲「水浒记·借茶」折子"
+            }
+        },
+        {
             "id": "og00",
             "target": {
                 "path": "{% link _posts/original/2021-06-10-旅行志03：兰苑狮吼.md %}",
@@ -199,28 +220,77 @@ sitemap: false
             "id": "ot00",
             "target": {
                 "path": "https://www.bilibili.com/video/BV1Ch411v7PY",
-                "title": "【倪润志】昆曲-扈家庄（水仙子）"
+                "title": "【倪润志】扈家庄（水仙子）"
             }
         },
         {
             "id": "ot01",
             "target": {
                 "path": "https://www.bilibili.com/video/BV16f4y187jB",
-                "title": "【倪润志&张唐逍】昆曲-雷峰塔·水斗（水仙子）"
+                "title": "【倪润志&张唐逍】雷峰塔·水斗（水仙子）"
             }
         },
         {
             "id": "ot02",
             "target": {
                 "path": "https://www.bilibili.com/video/BV1sN4y1P7RM",
-                "title": "【倪润志】昆曲-青冢记·昭君出塞"
+                "title": "【倪润志】青冢记·昭君出塞"
             }
         },
         {
             "id": "ot03",
             "target": {
                 "path": "https://www.bilibili.com/video/BV1Nf4y1h7ce",
-                "title": "【倪润志&王恒涛】昆曲-雷峰塔·断桥（金络索）"
+                "title": "【倪润志&王恒涛】雷峰塔·断桥（金络索）"
+            }
+        },
+        {
+            "id": "ot04",
+            "target": {
+                "path": "https://www.bilibili.com/video/BV1Mz4y1P7Gv",
+                "title": "【吴心怡】玉簪记·偷诗（绣带儿）"
+            }
+        },
+        {
+            "id": "ot05",
+            "target": {
+                "path": "https://www.bilibili.com/video/BV1qN4y1S76c",
+                "title": "【王恒涛&吴心怡】玉簪记·偷诗（滴溜子、鲍老催）"
+            }
+        },
+        {
+            "id": "ot06",
+            "target": {
+                "path": "https://www.bilibili.com/video/BV1Vf4y1V7Tb",
+                "title": "【王文惠&王恒涛】红梨记·亭会（五供养）"
+            }
+        },
+        {
+            "id": "ot07",
+            "target": {
+                "path": "https://www.bilibili.com/video/BV1hN411z7Vn",
+                "title": "【王文惠&席秉琪】红梨记·亭会（五供养）"
+            }
+        },
+        {
+            "id": "ot08",
+            "target": {
+                "path": "https://www.bilibili.com/video/BV1tz4y1g7V6",
+                "title": "【席秉琪】红梨记·亭会（桂枝香）"
+            }
+        },
+        {
+            "id": "ot09",
+            "target": {
+                "path": "https://www.bilibili.com/video/BV1x14y1p7CD",
+                "title": "【高璟玟&杜鸿泽】水浒记·借茶（一封书）"
+            }
+        },
+        {
+            "id": "ot10",
+            "target": {
+                "path": "https://www.bilibili.com/video/BV17G411w7uv",
+                "title": "【杜鸿泽】水浒记·借茶（醉罗歌）"
             }
         }
     ]
