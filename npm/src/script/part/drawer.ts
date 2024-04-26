@@ -1,31 +1,20 @@
-import {MDCDrawer} from "@material/drawer";
-import {MDCList} from "@material/list";
-import {MDCListActionEvent} from "@material/list/types";
-import {console_debug} from "../util/LogUtil";
-import {topAppBar} from "./topbar";
-import {showAboutMeDialog} from "../component/AboutMeDialog";
-import {showPreferenceDialog} from "../component/PreferenceDialog";
-import {showSearchDialog} from "../component/SearchDialog";
-import {MDCRipple} from "@material/ripple";
+import { MDCDrawer } from "@material/drawer";
+import { MDCList } from "@material/list";
+import { console_debug } from "../util/LogUtil";
+import { topAppBar } from "./topbar";
+import { showAboutMeDialog } from "../component/AboutMeDialog";
+import { showPreferenceDialog } from "../component/PreferenceDialog";
+import { showSearchDialog } from "../component/SearchDialog";
+import { MDCRipple } from "@material/ripple";
 
-const INDEX = {
-    // 随笔
-    original: 0,
-    // 转载
-    repost: 1,
-    // 诗文
-    poetry: 2,
-    // 看剧
-    opera: 3,
-    // 标签
-    tag: 4,
-    // 搜索
-    search: 5,
-    // 偏好
-    preference: 6,
-    // 关于我
-    about: 7,
-}
+const DRAWER_ITEM_ORIGINAL_ID = "drawer-a-original"
+const DRAWER_ITEM_REPOST_ID = "drawer-a-repost"
+const DRAWER_ITEM_POETRY_ID = "drawer-a-poetry"
+const DRAWER_ITEM_OPERA_ID = "drawer-a-opera"
+const DRAWER_ITEM_TAG_ID = "drawer-a-tag"
+const DRAWER_ITEM_SEARCH_ID = "drawer-a-search"
+const DRAWER_ITEM_PREFERENCE_ID = "drawer-a-preference"
+const DRAWER_ITEM_ABOUT_ME_ID = "drawer-a-about-me"
 
 /**
  * 初始化Top app bar，Drawer
@@ -47,58 +36,70 @@ export function initDrawer() {
     let drawerHeaderHideIcon: HTMLElement = document.querySelector("#drawer-header-hide-icon")
 
     // drawer中的list
-    const listEl: HTMLElement = document.querySelector(".mdc-drawer .mdc-deprecated-list")
-    const drawerList = MDCList.attachTo(listEl)
+    const listE: HTMLElement = document.querySelector(".mdc-drawer .mdc-deprecated-list")
+    const aEList = listE.querySelectorAll("a.mdc-deprecated-list-item")
+    const drawerList = MDCList.attachTo(listE)
     drawerList.singleSelection = true;
-    let currentPageIndex = getCurrentPageIndex()
+    const currentPageIndex = getCurrentPageIndex(aEList)
     drawerList.listElements.map((listItemEl) => new MDCRipple(listItemEl))
 
     drawerList.selectedIndex = currentPageIndex
-    drawerE.addEventListener('MDCDrawer:opened', () => {
+    drawerE.addEventListener("MDCDrawer:opened", () => {
         drawerHeaderHideIcon.focus()
         drawerHeaderHideIcon.blur()
     });
-    drawerE.addEventListener('MDCDrawer:closed', () => {
-        drawerList.selectedIndex = currentPageIndex
+    drawerE.addEventListener("MDCDrawer:closed", () => {
+        // 恢复选中
+        // drawerList.selectedIndex = currentPageIndex
     });
 
     console_debug("Drawer currentPageIndex " + currentPageIndex)
-    drawerList.listen("MDCList:action", (event: MDCListActionEvent) => {
-        // 获取点击的item索引
-        console_debug("Click drawer list item " + event.detail.index)
-        if (event.detail.index > INDEX.tag) {
-            // 点击了除 索引组 之外的item，关闭drawer
-            drawer.open = false
-        } else {
-            // 点击了 索引组 的item，不要关闭Drawer，可能会因为页面跳转Drawer的状态无法还原成close，导致再退回到跳转前的页面时
-            // drawer状态不对，无法打开drawer
-        }
-    })
-    document.querySelector("#drawer-a-search").addEventListener("click", () => {
+    listE.addEventListener("click", () => {
+        // 恢复选中
+        drawerList.selectedIndex = currentPageIndex
+        drawerHeaderHideIcon.focus()
+        drawerHeaderHideIcon.blur()
+    });
+
+    listE.querySelector("#" + DRAWER_ITEM_SEARCH_ID).addEventListener("click", () => {
+        console_debug("Click drawer list item " + DRAWER_ITEM_SEARCH_ID)
         showSearchDialog()
+        drawer.open = false;
     })
-    document.querySelector("#drawer-a-preference").addEventListener("click", () => {
+    listE.querySelector("#" + DRAWER_ITEM_PREFERENCE_ID).addEventListener("click", () => {
+        console_debug("Click drawer list item " + DRAWER_ITEM_PREFERENCE_ID)
         showPreferenceDialog()
+        drawer.open = false;
     })
-    document.querySelector("#drawer-a-about-me").addEventListener("click", () => {
+    listE.querySelector("#" + DRAWER_ITEM_ABOUT_ME_ID).addEventListener("click", () => {
+        console_debug("Click drawer list item " + DRAWER_ITEM_ABOUT_ME_ID)
         showAboutMeDialog()
+        drawer.open = false;
     })
 }
 
-function getCurrentPageIndex() {
+function getCurrentPageIndex(aEList: NodeListOf<Element>) {
     let path = window.location.pathname
     if (path.match("/section/repost.*") || path.match("/post/repost/.*")) {
-        return INDEX.repost
+        return findIndexById(aEList, DRAWER_ITEM_REPOST_ID)
     } else if (path.match("/section/poetry.*") || path.match("/post/poetry/.*")) {
-        return INDEX.poetry
+        return findIndexById(aEList, DRAWER_ITEM_POETRY_ID)
     } else if (path.match("/section/opera.*") || path.match("/post/opera/.*")) {
-        return INDEX.opera
+        return findIndexById(aEList, DRAWER_ITEM_OPERA_ID)
     } else if (path.match("/section/tag.*")) {
-        return INDEX.tag
+        return findIndexById(aEList, DRAWER_ITEM_TAG_ID)
     } else {
         // 其余所有页面都显示随笔板块
-        return INDEX.original
+        return findIndexById(aEList, DRAWER_ITEM_ORIGINAL_ID)
     }
 }
 
-
+function findIndexById(aEList: NodeListOf<Element>, id: string) {
+    for (let i = 0; i < aEList.length; i++) {
+        const aE = aEList[i]
+        if (aE.getAttribute("id") == id) {
+            return i
+        }
+    }
+    return -1
+}
