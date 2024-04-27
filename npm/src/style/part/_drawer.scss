@@ -13,6 +13,7 @@
 @use "sass:map";
 
 .mdc-drawer {
+    z-index: 3;
     @include elevation.elevation(map.get(blogTheme.$drawer-elevation, "elevation"), map.get(blogTheme.$drawer-elevation, "shadow-light"), 0);
     @include drawer.item-text-ink-color(var(--drawer-ink));
     @include drawer.item-icon-ink-color(var(--drawer-ink));
@@ -22,6 +23,11 @@
 
 .dark .mdc-drawer {
     @include elevation.elevation(map.get(blogTheme.$drawer-elevation, "elevation"), map.get(blogTheme.$drawer-elevation, "shadow-dark"), 0);
+}
+
+.mdc-drawer--modal + .mdc-drawer-scrim {
+    z-index: 2;
+    background-color: var(--drawer-scrim-bg);
 }
 
 .mdc-drawer__title {

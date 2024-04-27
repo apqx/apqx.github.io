@@ -10,8 +10,6 @@
 
 // top-app-bar
 .mdc-top-app-bar {
-    // 使top-bar的层级高于drawer
-    z-index: 7;
     // 颜色，默认为 primary
     @include top-app-bar.fill-color(var(--mdc-theme-primary));
     // 阴影

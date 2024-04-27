@@ -22,6 +22,10 @@
     width: 560px;
 }
 
+.mdc-dialog .mdc-dialog__scrim {
+    background-color: var(--dialog-scrim-bg);
+}
+
 .common-alert-dialog_title {
     @include typography.typography(headline1);
     line-height: 3rem;

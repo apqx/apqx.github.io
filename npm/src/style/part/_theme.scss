@@ -54,18 +54,18 @@ $text-secondary-on-background: (
 );
 
 $top-bar-elevation: (
-        elevation: 4,
+        elevation: 3,
         shadow-light: $top-bar-color-darken,
         shadow-dark: #202020
 );
 $drawer-elevation: (
-        elevation: 3,
-        shadow-light: #2a2a2a,
-        shadow-dark: black
+        elevation: 2,
+        shadow-light: #d5d5d5,
+        shadow-dark: #101010
 );
 $fab-elevation: (
         elevation: 3,
-        shadow-light: #202020,
+        shadow-light: #878787,
         shadow-dark: #202020
 );
 $index-card-elevation: (
@@ -119,6 +119,10 @@ $button-ripple: (
 
     // Drawer
     --drawer-ink: black;
+    --drawer-scrim-bg: rgba(0, 0, 0, 0.1);
+
+    // Dialog
+    --dialog-scrim-bg: rgba(0, 0, 0, 0.1);
 
     // Button
     --button-bg: #d75f64;
@@ -175,6 +179,10 @@ $button-ripple: (
 
     // Drawer
     --drawer-ink: white;
+    --drawer-scrim-bg: rgba(0, 0, 0, 0.1);
+
+    // Dialog
+    --dialog-scrim-bg: rgba(0, 0, 0, 0.1);
 
     --button-bg: #b44c50;
     --button-ink: white;

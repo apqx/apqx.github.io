@@ -33,7 +33,6 @@ export function initDrawer() {
             drawer.open = !drawer.open
         })
     }
-    let drawerHeaderHideIcon: HTMLElement = document.querySelector("#drawer-header-hide-icon")
 
     // drawer中的list
     const listE: HTMLElement = document.querySelector(".mdc-drawer .mdc-deprecated-list")
@@ -41,12 +40,12 @@ export function initDrawer() {
     const drawerList = MDCList.attachTo(listE)
     drawerList.singleSelection = true;
     const currentPageIndex = getCurrentPageIndex(aEList)
+    const currentSelectedAE = aEList[currentPageIndex] as HTMLElement
     drawerList.listElements.map((listItemEl) => new MDCRipple(listItemEl))
-
     drawerList.selectedIndex = currentPageIndex
     drawerE.addEventListener("MDCDrawer:opened", () => {
-        drawerHeaderHideIcon.focus()
-        drawerHeaderHideIcon.blur()
+        currentSelectedAE.focus()
+        currentSelectedAE.blur()
     });
     drawerE.addEventListener("MDCDrawer:closed", () => {
         // 恢复选中
@@ -57,8 +56,8 @@ export function initDrawer() {
     listE.addEventListener("click", () => {
         // 恢复选中
         drawerList.selectedIndex = currentPageIndex
-        drawerHeaderHideIcon.focus()
-        drawerHeaderHideIcon.blur()
+        currentSelectedAE.focus()
+        currentSelectedAE.blur()
     });
 
     listE.querySelector("#" + DRAWER_ITEM_SEARCH_ID).addEventListener("click", () => {
