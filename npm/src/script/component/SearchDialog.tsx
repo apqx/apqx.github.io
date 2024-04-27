@@ -83,7 +83,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
 
     handleFocus(): void {
         // 这里可以让input获取焦点，自动弹出键盘，但是有时候输入框又会自动失去焦点
-        // 可能是获取焦点的顺序🤔，暂时先不获取，交给父级的焦点处理
+        // 可能是获取焦点的顺序🤔，所以暂时先不获取，应用默认行为
         super.handleFocus()
         // console_debug("SearchDialog handleFocus")
         // this.inputE.focus()

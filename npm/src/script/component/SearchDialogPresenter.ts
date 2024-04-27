@@ -92,7 +92,7 @@ export class SearchDialogPresenter {
     searchJumpGoogle(input: string) {
         if (input !== "") {
             // window.open("https://www.google.com/search?q=" + input + "+site:mudan.me", "_blank")
-            window.open("https://cn.bing.com/search?go=Search&q=" + input + "+site:mudan.me", "_blank")
+            window.open("https://cn.bing.com/search?go=Search&q=site:mudan.me+" + input, "_blank")
         }
     }
 }
