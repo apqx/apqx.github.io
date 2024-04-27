@@ -40,6 +40,11 @@
                     <p>或微博<a href="https://weibo.com/u/7026785047" target="_blank">@立泉·落落</a></p>
                 </blockquote>
                 {%- endif %}
+                {%- if page.overtime == true %}
+                <blockquote>
+                    <p><strong>本文时间久远，部分内容可能过时，仅供参考。</strong></p>
+                </blockquote>
+                {%- endif %}
                 
                 <!-- main content -->
                 {{ content }}
