@@ -100,5 +100,5 @@ function findIndexById(aEList: NodeListOf<Element>, id: string) {
             return i
         }
     }
-    return -1
+    return 0
 }

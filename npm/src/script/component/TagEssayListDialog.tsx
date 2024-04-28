@@ -161,7 +161,7 @@ class EssayItem extends React.Component<EssayItemProps, any> {
     render() {
         return (
             <div>
-                <a className="mdc-deprecated-list-item tag-list-item mdc-ripple-upgraded"
+                <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken tag-list-item mdc-ripple-upgraded"
                     href={this.props.data.url}>
                     <span className="mdc-deprecated-list-item__ripple"></span>
                     <span className="mdc-deprecated-list-item__text">
