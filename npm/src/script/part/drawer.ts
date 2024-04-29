@@ -60,10 +60,14 @@ export function initDrawer() {
         currentSelectedAE.blur()
     });
 
-    listE.querySelector("#" + DRAWER_ITEM_SEARCH_ID).addEventListener("click", () => {
-        console_debug("Click drawer list item " + DRAWER_ITEM_SEARCH_ID)
-        showSearchDialog()
-        drawer.open = false;
+    const searchE = listE.querySelector("#" + DRAWER_ITEM_SEARCH_ID)
+    const searchEHref = searchE.getAttribute("href")
+    searchE.addEventListener("click", () => {
+        if (searchEHref == null || searchEHref == "") {
+            console_debug("Click drawer list item " + DRAWER_ITEM_SEARCH_ID)
+            showSearchDialog()
+            drawer.open = false;
+        }
     })
     listE.querySelector("#" + DRAWER_ITEM_PREFERENCE_ID).addEventListener("click", () => {
         console_debug("Click drawer list item " + DRAWER_ITEM_PREFERENCE_ID)

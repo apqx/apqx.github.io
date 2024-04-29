@@ -5,11 +5,13 @@ import { checkJump } from "./part/jump";
 import { initIndex } from "./index";
 import { loadGoogleAnalytics } from "./gtag";
 import { checkUserTheme } from "./part/theme";
+import { initSearch } from "./search";
 
 runOnHtmlDone(() => {
     initBasic()
     initIndex()
     initPost()
+    initSearch()
 })
 
 runOnPageDone(() => {

@@ -101,169 +101,182 @@ $button-ripple: (
 );
 
 @mixin light {
-    --mdc-theme-primary: #{$top-bar-color};
-    --mdc-theme-on-primary: #f5f5f5;
-    --mdc-theme-secondary: #{map.get($fab-color, "light")};
-    --mdc-theme-on-secondary: #f5f5f5;
-    --mdc-theme-background: #{map.get($background, "light")};
-    --mdc-theme-surface: #{map.get($surface, "light")};
-    // 默认字体颜色，段落p
-    --mdc-theme-on-surface: #{map.get($on-surface, "light")};
-    // 标题字体色
-    --mdc-theme-text-primary-on-background: #191919;
-    // 小标题字体色
-    --mdc-theme-text-secondary-on-background: #{map.get($text-secondary-on-background, "light")};
+        --mdc-theme-primary: #{$top-bar-color};
+        --mdc-theme-on-primary: #f5f5f5;
+        --mdc-theme-secondary: #{map.get($fab-color, "light")};
+        --mdc-theme-on-secondary: #f5f5f5;
+        --mdc-theme-background: #{map.get($background, "light")};
+        --mdc-theme-surface: #{map.get($surface, "light")};
+        // 默认字体颜色，段落p
+        --mdc-theme-on-surface: #{map.get($on-surface, "light")};
+        // 标题字体色
+        --mdc-theme-text-primary-on-background: #191919;
+        // 小标题字体色
+        --mdc-theme-text-secondary-on-background: #{map.get($text-secondary-on-background, "light")};
 
-    --top-bar-blur: #{map.get($top-bar-blur-color, "light")};
-    --fab-blur: #{map.get($fab-blur-color, "light")};
+        --top-bar-blur: #{map.get($top-bar-blur-color, "light")};
+        --fab-blur: #{map.get($fab-blur-color, "light")};
 
-    // Drawer
-    --drawer-ink: black;
-    --drawer-scrim-bg: rgba(0, 0, 0, 0.1);
+        // Drawer
+        --drawer-ink: black;
+        --drawer-scrim-bg: rgba(0, 0, 0, 0.1);
 
-    // Dialog
-    --dialog-scrim-bg: rgba(0, 0, 0, 0.1);
+        // Dialog
+        --dialog-scrim-bg: rgba(0, 0, 0, 0.1);
 
-    // Button
-    --button-bg: #d75f64;
-    --button-ink: white;
-    --search-nav: #a25462;
+        // Button
+        --button-bg: #d75f64;
+        --button-ink: white;
+        --search-nav: #a25462;
 
-    // Code
-    --code-highlight-bg: #f8f9fa;
-    --code-highlight-border: #e8eaed;
-    --pre-code-bg: #15171a;
+        // Code
+        --code-highlight-bg: #f8f9fa;
+        --code-highlight-border: #e8eaed;
+        --pre-code-bg: #15171a;
 
-    // Chip
-    --chip-bg: #ffeae3;
-    --chip-ink: #84565e;
-    --list-chip-1-bg: rgba(211, 196, 249, 0.48);
-    --list-chip-1-ink: #8167c1;
-    --list-chip-1-border: rgba(211, 196, 249, 0.91);
-    --list-chip-2-bg: rgba(255, 224, 221, 0.5);
-    --list-chip-2-ink: #f77575;
-    --list-chip-2-border: rgba(252, 155, 157, 0.55);
-    --list-chip-3-bg: rgba(254, 242, 192, 0.58);
-    --list-chip-3-ink: #9a6000;
-    --list-chip-3-border: rgba(255, 224, 101, 1);
+        // Chip
+        --chip-bg: #ffeae3;
+        --chip-ink: #84565e;
+        --list-chip-1-bg: rgba(211, 196, 249, 0.48);
+        --list-chip-1-ink: #8167c1;
+        --list-chip-1-border: rgba(211, 196, 249, 0.91);
+        --list-chip-2-bg: rgba(255, 224, 221, 0.5);
+        --list-chip-2-ink: #f77575;
+        --list-chip-2-border: rgba(252, 155, 157, 0.55);
+        --list-chip-3-bg: rgba(254, 242, 192, 0.58);
+        --list-chip-3-ink: #9a6000;
+        --list-chip-3-border: rgba(255, 224, 101, 1);
 
-    --list-hover: #f5f5f5;
+        --list-hover: #f5f5f5;
 
-    --link-color: #2b00fe;
-    --em-color: #535c68;
-    --strong-color: rgba(0, 0, 0, 0.90);
-    --strong-underline-color: rgba(255, 0, 0, 0.12);
-    --divider-color: rgba(0, 0, 0, 0.12);
+        --link-color: #2b00fe;
+        --em-color: #535c68;
+        --strong-color: rgba(0, 0, 0, 0.90);
+        --strong-underline-color: rgba(255, 0, 0, 0.12);
+        --divider-color: rgba(0, 0, 0, 0.12);
 
-    --surface-block-border: rgba(188, 188, 188, 0.5);
-    --surface-block-bg: white;
-    --surface-block-ink-strong: rgba(107, 0, 0, 1);
+        --surface-block-border: rgba(188, 188, 188, 0.5);
+        --surface-block-bg: white;
+        --surface-block-ink-strong: rgba(107, 0, 0, 1);
 
-    // Switch默认颜色为primary
-    --md-sys-color-primary: #5a5fc1;
+        // Switch默认颜色为primary
+        --md-sys-color-primary: #5a5fc1;
+
+        --pagefind-ui-primary: var(--mdc-theme-on-surface);
+        --pagefind-ui-text: var(--mdc-theme-on-surface);
+        --pagefind-ui-background: var(--mdc-theme-surface);
+        --pagefind-ui-border: var(--divider-color);
+        --pagefind-ui-tag: var(--code-highlight-bg);
+        --pagefind-ui-border-width: 2px;
+        --pagefind-ui-border-radius: 8px;
+        --pagefind-ui-image-border-radius: 8px;
+        --pagefind-ui-image-box-ratio: 3 / 2;
+        --pagefind-ui-font: $text-font;
 }
 
 @mixin dark {
-    --mdc-theme-primary: #{$top-bar-color};
-    --mdc-theme-on-primary: #f5f5f5;
-    --mdc-theme-secondary: #{map.get($fab-color, "dark")};
-    --mdc-theme-on-secondary: #f5f5f5;
-    --mdc-theme-background: #{map.get($background, "dark")};
-    --mdc-theme-surface: #{map.get($surface, "dark")};
-    --mdc-theme-on-surface: #{map.get($on-surface, "dark")};
-    --mdc-theme-text-primary-on-background: #f5f5f5;
-    --mdc-theme-text-secondary-on-background: #{map.get($text-secondary-on-background, "dark")};
+        --mdc-theme-primary: #{$top-bar-color};
+        --mdc-theme-on-primary: #f5f5f5;
+        --mdc-theme-secondary: #{map.get($fab-color, "dark")};
+        --mdc-theme-on-secondary: #f5f5f5;
+        --mdc-theme-background: #{map.get($background, "dark")};
+        --mdc-theme-surface: #{map.get($surface, "dark")};
+        --mdc-theme-on-surface: #{map.get($on-surface, "dark")};
+        --mdc-theme-text-primary-on-background: #f5f5f5;
+        --mdc-theme-text-secondary-on-background: #{map.get($text-secondary-on-background, "dark")};
 
-    --top-bar-blur: #{map.get($top-bar-blur-color, "dark")};
-    --fab-blur: #{map.get($fab-blur-color, "dark")};
+        --top-bar-blur: #{map.get($top-bar-blur-color, "dark")};
+        --fab-blur: #{map.get($fab-blur-color, "dark")};
 
-    // Drawer
-    --drawer-ink: white;
-    --drawer-scrim-bg: rgba(0, 0, 0, 0.1);
+        // Drawer
+        --drawer-ink: white;
+        --drawer-scrim-bg: rgba(0, 0, 0, 0.1);
 
-    // Dialog
-    --dialog-scrim-bg: rgba(0, 0, 0, 0.1);
+        // Dialog
+        --dialog-scrim-bg: rgba(0, 0, 0, 0.1);
 
-    --button-bg: #b44c50;
-    --button-ink: white;
-    --search-nav: rgba(228, 96, 117, 0.93);
+        --button-bg: #b44c50;
+        --button-ink: white;
+        --search-nav: rgba(228, 96, 117, 0.93);
 
-    // Code
-    --code-highlight-bg: rgba(55, 55, 55, 0.18);
-    --code-highlight-border: rgba(69, 69, 69, 0.74);
-    --pre-code-bg: #0f0f0f;
+        // Code
+        --code-highlight-bg: rgba(55, 55, 55, 0.18);
+        --code-highlight-border: rgba(69, 69, 69, 0.74);
+        --pre-code-bg: #0f0f0f;
 
-    // Chip
-    --chip-bg: rgba(134, 83, 81, 0.2);
-    --chip-ink: #c67c3b;
-    --list-chip-1-bg: rgba(212, 197, 249, 0.18);
-    --list-chip-1-ink: rgb(210, 195, 249);
-    --list-chip-1-border: rgba(210, 195, 249, 0.3);
-    --list-chip-2-bg: rgba(182, 2, 5, 0.18);
-    --list-chip-2-ink: rgb(253, 155, 157);
-    --list-chip-2-border: rgba(253, 155, 157, 0.3);
-    --list-chip-3-bg: rgba(254, 242, 192, 0.18);
-    --list-chip-3-ink: rgb(254, 241, 190);
-    --list-chip-3-border: rgba(254, 241, 190, 0.3);
+        // Chip
+        --chip-bg: rgba(134, 83, 81, 0.2);
+        --chip-ink: #c67c3b;
+        --list-chip-1-bg: rgba(212, 197, 249, 0.18);
+        --list-chip-1-ink: rgb(210, 195, 249);
+        --list-chip-1-border: rgba(210, 195, 249, 0.3);
+        --list-chip-2-bg: rgba(182, 2, 5, 0.18);
+        --list-chip-2-ink: rgb(253, 155, 157);
+        --list-chip-2-border: rgba(253, 155, 157, 0.3);
+        --list-chip-3-bg: rgba(254, 242, 192, 0.18);
+        --list-chip-3-ink: rgb(254, 241, 190);
+        --list-chip-3-border: rgba(254, 241, 190, 0.3);
 
-    --list-hover: #252525;
+        --list-hover: #252525;
 
-    --link-color: #54a0ff;
-    --em-color: rgba(255, 255, 255, 0.65);
-    --strong-color: rgba(255, 255, 255, 0.95);
-    --strong-underline-color: rgba(254, 96, 96, 0.3);
-    --divider-color: #2a2a2a;
+        --link-color: #54a0ff;
+        --em-color: rgba(255, 255, 255, 0.65);
+        --strong-color: rgba(255, 255, 255, 0.95);
+        --strong-underline-color: rgba(254, 96, 96, 0.3);
+        --divider-color: #2a2a2a;
 
-    --surface-block-border: rgba(188, 188, 188, 0.4);
-    --surface-block-bg: rgba(0, 0, 0, 0.1);
-    --surface-block-ink-strong: rgba(231, 163, 163, 1);
+        --surface-block-border: rgba(188, 188, 188, 0.4);
+        --surface-block-bg: rgba(0, 0, 0, 0.1);
+        --surface-block-ink-strong: rgba(231, 163, 163, 1);
 
-    --md-sys-color-primary: #3a78c6;
+        --md-sys-color-primary: #3a78c6;
 }
 
 body {
-    --mdc-typography-headline1-font-size: 1.6rem;
-    --mdc-typography-headline1-font-weight: normal;
+        --mdc-typography-headline1-font-size: 1.6rem;
+        --mdc-typography-headline1-font-weight: normal;
 
-    --mdc-typography-headline2-font-size: 1.6rem;
-    --mdc-typography-headline2-line-height: 2.2rem;
-    --mdc-typography-headline2-font-weight: normal;
+        --mdc-typography-headline2-font-size: 1.6rem;
+        --mdc-typography-headline2-line-height: 2.2rem;
+        --mdc-typography-headline2-font-weight: normal;
 
-    --mdc-typography-headline3-font-size: 1.5rem;
-    --mdc-typography-headline3-line-height: 2rem;
-    --mdc-typography-headline3-font-weight: normal;
+        --mdc-typography-headline3-font-size: 1.5rem;
+        --mdc-typography-headline3-line-height: 2rem;
+        --mdc-typography-headline3-font-weight: normal;
 
-    --mdc-typography-body1-font-size: 1rem;
-    --mdc-typography-body1-line-height: 1.7rem;
-    // card, dialog 圆角
-    --mdc-shape-medium: 0.3rem;
-    // 文章内元素圆角，code block和description
-    --essay-inner-shape-round: 0.3rem;
+        --mdc-typography-body1-font-size: 1rem;
+        --mdc-typography-body1-line-height: 1.7rem;
+        // card, dialog 圆角
+        --mdc-shape-medium: 0.3rem;
+        // 文章内元素圆角，code block和description
+        --essay-inner-shape-round: 0.3rem;
 
-    --md-switch-state-layer-size: 0rem;
-    --md-switch-handle-width: 0.6rem;
-    --md-switch-handle-height: 0.6rem;
-    --md-switch-selected-handle-width: 0.6rem;
-    --md-switch-selected-handle-height: 0.6rem;
-    --md-switch-track-width: 2.5rem;
-    --md-switch-track-height: 1.2rem;
+        --md-switch-state-layer-size: 0rem;
+        --md-switch-handle-width: 0.6rem;
+        --md-switch-handle-height: 0.6rem;
+        --md-switch-selected-handle-width: 0.6rem;
+        --md-switch-selected-handle-height: 0.6rem;
+        --md-switch-track-width: 2.5rem;
+        --md-switch-track-height: 1.2rem;
 
-    @include light;
+        --top-card-to-container-top: 0.74rem;
+
+        @include light;
 }
 
 .dark {
-    @include dark;
+        @include dark;
 }
 
 // 小屏
 @media all and (max-width: $screen-middle-min-width) {
-    body {
-        --mdc-theme-text-secondary-on-background: #{map.get($text-secondary-on-background, "min-screen-light")};
-    }
+        body {
+                --mdc-theme-text-secondary-on-background: #{map.get($text-secondary-on-background, "min-screen-light")};
+        }
 
-    .dark {
-        --mdc-theme-background: #{map.get($background, "min-screen-dark")};
-        --mdc-theme-surface: #{map.get($surface, "min-screen-dark")};
-        --mdc-theme-text-secondary-on-background: #{map.get($text-secondary-on-background, "min-screen-dark")};
-    }
+        .dark {
+                --mdc-theme-background: #{map.get($background, "min-screen-dark")};
+                --mdc-theme-surface: #{map.get($surface, "min-screen-dark")};
+                --mdc-theme-text-secondary-on-background: #{map.get($text-secondary-on-background, "min-screen-dark")};
+        }
 }

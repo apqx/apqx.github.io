@@ -1,0 +1,35 @@
+---
+layout: common-card
+categories: search
+title: 立泉の写字板
+description: 昆虫，野生散养攻城狮，“十分”“业余”摄影Fans。
+cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg
+sitemap: false
+blockFromSearchEngine: true
+---
+
+<!-- <label class="mdc-text-field mdc-text-field--outlined" id="search-page_label">
+    <span class="mdc-notched-outline">
+      <span class="mdc-notched-outline__leading"></span>
+      <span class="mdc-notched-outline__notch">
+        <span class="mdc-floating-label" id="search-label">搜索</span>
+      </span>
+      <span class="mdc-notched-outline__trailing"></span>
+    </span>
+    <input type="search" class="mdc-text-field__input" aria-labelledby="search-label" />
+    <button id="btn-search" type="button" class="mdc-button mdc-button--unelevated btn-search btn-round center-horizontal">
+        <span class="mdc-button__ripple"></span>
+        <i class="material-icons mdc-button__icon" aria-hidden="true">search</i>
+        <span class="mdc-button__label">SEARCH</span>
+    </button>
+</label> -->
+
+<P style="margin: 1rem 1rem"><b>TIPS：</b>站内搜索<a href="https://pagefind.app"
+        target="_blank">PageFind</a>对中文分词支持尚不完善，只能识别常用词组，搜索中文时在每个字之间加空格可能会有更好匹配。比如独特的名字<code>施夏明</code>改为<code>施 夏 明</code>。
+</P>
+<div id="search"></div>
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        new PagefindUI({ element: "#search", showSubResults: true, excerptLength: 20 });
+    });
+</script>

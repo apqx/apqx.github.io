@@ -246,7 +246,7 @@ blockquote.pre * {
 }
 
 .dark .mdc-deprecated-list-item__darken {
-    background-color: color.adjust(map.get(blogTheme.$surface, "dark"), $lightness: -1.6%);
+    background-color: color.adjust(map.get(blogTheme.$surface, "dark"), $lightness: -1.2%);
 }
 
 .mdc-data-table {

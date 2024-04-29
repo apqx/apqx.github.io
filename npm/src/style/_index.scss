@@ -11,15 +11,13 @@
 @use "@material/animation";
 @use "sass:map";
 
-// 页面主体内容，距离main-container上下边界0.74rem
-// 小屏时，下边界0.6rem
-
-// 卡片间距0.74rem
-// 小屏时，间距0.6rem
-
 body {
-    --index-card-padding-top-bottom: 1.3rem;
-    --index-card-padding-left-right: 2.7rem;
+    --index-card-padding-vertical: 1.3rem;
+    --index-card-padding-horizontal: 2.7rem;
+    
+    --index-card-to-container-border-horizontal: 1rem;
+    --index-card-gap: 0.74rem;
+    --grid-index-card-gap: 0.74rem;
 }
 
 @mixin cardElevation {
@@ -71,7 +69,10 @@ body {
 }
 
 .index-top-card {
-    margin: 0.74rem 1rem;
+    margin-top: var(--top-card-to-container-top);
+    margin-bottom: var(--index-card-gap);
+    margin-left: var(--index-card-to-container-border-horizontal);
+    margin-right: var(--index-card-to-container-border-horizontal);
     @include cardElevation();
     @include cardRipple();
 }
@@ -84,8 +85,8 @@ body {
 .index-top-card-container {
     padding-top: 0.4rem;
     padding-bottom: 0.5rem;
-    padding-left: var(--index-card-padding-left-right);
-    padding-right: var(--index-card-padding-left-right);
+    padding-left: var(--index-card-padding-horizontal);
+    padding-right: var(--index-card-padding-horizontal);
 }
 
 .index-top-card-text {
@@ -96,7 +97,7 @@ body {
 }
 
 .index-card {
-    padding: var(--index-card-padding-top-bottom) var(--index-card-padding-left-right);
+    padding: var(--index-card-padding-vertical) var(--index-card-padding-horizontal);
     @include cardElevation();
     // 添加Ripple动画
     @include cardRipple();
@@ -135,25 +136,6 @@ body {
     margin: 0.74rem 1rem;
 }
 
-.index-description-card {
-    @include cardElevation();
-    padding: 1rem 2rem;
-    margin: 0.74rem 1rem;
-}
-
-.dark .index-description-card {
-    @include cardElevationDark();
-}
-
-.index-description-card__short {
-    padding: 0.6rem 1.8rem;
-}
-
-.empty-index-description {
-    margin-top: 0.74rem;
-}
-
-
 /* 索引题目 */
 .index-title {
     @include typography.typography(body1);
@@ -191,14 +173,13 @@ body {
 
 // 索引列表
 .index-ul {
-    // 注意列表第一个卡片到top bar的距离要和正文卡片与之的距离一致 0.75rem，各个item之间的距离0.75rem
     padding: 0;
     margin: 0;
 }
 
 .index-li {
     list-style-type: none;
-    margin: 0.74rem 1rem;
+    margin: var(--index-card-gap) var(--index-card-to-container-border-horizontal);
     padding: 0;
 }
 
@@ -210,8 +191,8 @@ body {
     position: absolute;
     z-index: 1;
     @include theme.property(color, text-secondary-on-background);
-    bottom: var(--index-card-padding-top-bottom);
-    left: calc(var(--index-card-padding-left-right) - 0.3rem);
+    bottom: var(--index-card-padding-vertical);
+    left: calc(var(--index-card-padding-horizontal) - 0.3rem);
 }
 
 // 索引链接
@@ -221,8 +202,6 @@ body {
     // 去除点击时的默认的背景，防止干扰Ripple动画
     background-color: transparent;
 }
-
-// new grid index
 
 .grid-index-card {
     @include gridCardElevation();
@@ -240,19 +219,16 @@ body {
     @include cardRippleDark();
 }
 
-// 索引卡片，左右离container边界1rem空白，上下item间0.74rem空白，卡片组距顶部item 0.74rem空白，表格十字线宽度0.74rem
-// 小屏时，左右离浏览器container边界0.5rem空白，上下item间0.7rem空白
-
 .grid-index-ul {
     padding: 0;
     padding-inline-start: 0;
-    margin: -0.37rem 0.6rem 0.37rem 0.6rem;
+    margin: calc(var(--top-card-to-container-top) - calc(var(--grid-index-card-gap) / 2)) calc(var(--index-card-to-container-border-horizontal) - calc(var(--grid-index-card-gap) / 2));
 }
 
 .grid-index-li {
     list-style-type: none;
     box-sizing: border-box;
-    padding: 0.37rem 0.4rem;
+    padding: calc(var(--grid-index-card-gap) / 2) calc(var(--grid-index-card-gap) / 2);
     margin: 0;
 }
 
@@ -302,9 +278,13 @@ body {
 // 手机小屏
 @media all and (max-width: blogTheme.$screen-middle-min-width) {
     body {
-        --index-card-padding-top-bottom: 1rem;
-        --index-card-padding-left-right: 1rem;
+        --index-card-padding-vertical: 1rem;
+        --index-card-padding-horizontal: 1rem;
+        --index-card-to-container-border-horizontal: 0.5rem;
+        --index-card-gap: 0.6rem;
+        --grid-index-card-gap: 0.7rem;
     }
+
     .index-author {
         font-size: 0.75rem;
     }
@@ -313,35 +293,8 @@ body {
         font-size: 0.75rem;
     }
 
-    .index-li {
-        margin: 0.6rem 0.5rem;
-    }
-
-    .index-top-card {
-        margin: 0.74rem 0.5rem 0.6rem 0.5rem;
-    }
-
     .index-top-card-container {
         padding-top: 0.35rem;
-    }
-
-    // new grid index
-
-    .grid-index-ul {
-        margin: -0.35rem 0.1rem 0.25rem 0.1rem;
-    }
-
-    .grid-index-li {
-        padding: 0.35rem 0.4rem;
-    }
-
-    .index-description-card {
-        padding: 0.7rem 1.6rem;
-        margin: 0.74rem 0.5rem;
-    }
-
-    .index-description-card__short {
-        padding: 0.5rem 1.6rem;
     }
 
     .grid-sizer,
@@ -357,14 +310,13 @@ body {
 // 平板中屏
 @media all and (min-width: (blogTheme.$screen-middle-min-width + 1px)) and (max-width: (blogTheme.$screen-middle-max-width - 1px)) {
     body {
-        --index-card-padding-top-bottom: 1.2rem;
-        --index-card-padding-left-right: 2rem;
+        --index-card-padding-vertical: 1.2rem;
+        --index-card-padding-horizontal: 2rem;
     }
 
     .index-top-card-container {
         padding-top: 0.35rem;
     }
-
 
     .index-author {
         font-size: 0.8rem;
@@ -374,9 +326,7 @@ body {
         font-size: 0.8rem;
     }
 
-    // new grid index
     .grid-index-text-container {
         padding: 0.5rem 1.8rem 1.3rem 1.8rem;
     }
-
 }

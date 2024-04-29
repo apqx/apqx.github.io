@@ -2,3 +2,7 @@
 <script async type="text/javascript" src="/npm/dist/blog-main-v{{ version }}.js"></script>
 <link rel="stylesheet" href="/npm/dist/blog-main-v{{ version }}.css"/>
 <link rel="stylesheet" href="/npm/dist/blog-font-v{{ version }}.css"/>
+{% if page.categories contains "search" -%}
+<link href="../pagefind/pagefind-ui.css" rel="stylesheet">
+<script src="../pagefind/pagefind-ui.js"></script>
+{% endif -%}

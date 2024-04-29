@@ -18,9 +18,9 @@
 <meta property="og:description" content="{{ page.description }}"/>
 {% endif -%}
 {% if page.cover != null -%}
-<meta property="og:image" content="{{ page.cover }}"/>
+<meta data-pagefind-default-meta="image[content]" property="og:image" content="{{ page.cover }}"/>
 {% else -%}
-<meta property="og:image" content="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg"/>
+<meta data-pagefind-default-meta="image[content]" property="og:image" content="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg"/>
 {% endif -%}
 {% if page.blockFromSearchEngine == true -%}
 <!-- Let search engine not index this page -->

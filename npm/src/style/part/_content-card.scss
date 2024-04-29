@@ -8,6 +8,10 @@
 @use "@material/card/mdc-card";
 @use "sass:map";
 
+body {
+    --content-card-to-container-border-horizontal: 1rem;
+}
+
 @mixin cardElevation {
     // 文章卡片的阴影，z高度，阴影颜色，扩散度
     @include elevation.elevation(map.get(blogTheme.$content-card-elevation, "elevation"),
@@ -21,7 +25,7 @@
 
 .content-card {
     padding: 1.3rem 2.5rem;
-    margin: 0.74rem 1rem;
+    margin: var(--top-card-to-container-top) var(--content-card-to-container-border-horizontal);
     // 文章卡片的阴影，z高度，阴影颜色，扩散度
     @include cardElevation();
 }
@@ -32,9 +36,11 @@
 
 // 手机小屏
 @media all and (max-width: blogTheme.$screen-middle-min-width) {
+    body {
+        --content-card-to-container-border-horizontal: 0;
+    }
     .content-card {
         padding: 1.3rem 1.3rem;
-        margin: 0.74rem 0;
         @include elevation.elevation(map.get(blogTheme.$content-card-elevation, "elevation"),
                 map.get(blogTheme.$content-card-elevation, "min-screen-shadow-light"), 0);
     }
