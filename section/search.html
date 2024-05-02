@@ -24,12 +24,19 @@ blockFromSearchEngine: true
     </button>
 </label> -->
 
+<div id="search" style="margin-top: 1rem;"></div>
 <P style="margin: 1rem 1rem"><b>TIPS：</b>站内搜索<a href="https://pagefind.app"
         target="_blank">PageFind</a>对中文分词支持尚不完善，只能识别常用词组，搜索中文时在每个字之间加空格可能会有更好匹配。比如独特的名字<code>施夏明</code>改为<code>施 夏 明</code>。
 </P>
-<div id="search"></div>
+<div id="results"></div>
 <script>
     window.addEventListener('DOMContentLoaded', (event) => {
-        new PagefindUI({ element: "#search", showSubResults: true, excerptLength: 20 });
+        const instance = new PagefindModularUI.Instance();
+        instance.add(new PagefindModularUI.Input({
+            containerElement: "#search"
+        }));
+        instance.add(new PagefindModularUI.ResultList({
+            containerElement: "#results"
+        }));
     });
 </script>

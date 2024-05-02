@@ -81,14 +81,6 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
     //     }
     // 
 
-    handleFocus(): void {
-        // 这里可以让input获取焦点，自动弹出键盘，但是有时候输入框又会自动失去焦点
-        // 可能是获取焦点的顺序🤔，所以暂时先不获取，应用默认行为
-        super.handleFocus()
-        // console_debug("SearchDialog handleFocus")
-        // this.inputE.focus()
-    }
-
     initBtn(e: Element) {
         if (e == null) return
         new MDCRipple(e)
@@ -116,16 +108,16 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
                       <span className="mdc-notched-outline__trailing"></span>
                     </span>
                     <input type="search" className="mdc-text-field__input" aria-labelledby="search-label"
-                           onChange={this.onInputChange}/>
+                           tabIndex={-1}  onChange={this.onInputChange}/>
                     <button id="btn-search" type="button" className="mdc-button mdc-button--unelevated btn-search btn-round center-horizontal"
-                            onClick={this.onClickSearch}>
+                            tabIndex={-1} onClick={this.onClickSearch}>
                         <span className="mdc-button__ripple"></span>
                         <i className="material-icons mdc-button__icon" aria-hidden="true">search</i>
                         <span className="mdc-button__label">SEARCH</span>
                     </button>
                 </label>
 
-                <p id="search-dialog_tips"><b>TIPS：</b>本搜索功能由<a
+                <p id="search-dialog_tips"><b>TIPS：</b>搜索功能由<a
                     href="https://www.bing.com/webmasters/home" target="_blank">必应站内搜索</a>提供，部分内容可能会因索引滞后尚未被收录。</p>
 
                 <Progressbar loading={this.state.showLoading}/>
@@ -249,6 +241,5 @@ class ResultItem extends React.Component<ResultItemProps, any> {
 }
 
 export function showSearchDialog() {
-    // 是不是每次弹出都是新的空白窗口，不是，SearchDialog组件中的数据是保留的，虽然重新render，但并没有创建新的组件对象
     showDialog(<SearchDialog fixedWidth={true} btnText={"关闭"} btnOnClick={null} closeOnClickOutside={true} />, SEARCH_DIALOG_WRAPPER_ID)
 }

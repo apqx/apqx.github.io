@@ -1,6 +1,6 @@
 import {MDCRipple} from "@material/ripple";
 import {MDCTextField} from "@material/textfield";
-import {Progressbar} from "./component/Progressbar";
+import {Progressbar} from "../component/Progressbar";
 import {MDCList} from "@material/list";
 
 export function initSearch() {
