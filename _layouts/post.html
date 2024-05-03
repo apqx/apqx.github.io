@@ -13,12 +13,15 @@
         <main class="mdc-top-app-bar--fixed-adjust main-container">
             <article data-pagefind-body class="mdc-card content-card">
                 <h1 data-pagefind-meta="title" class="essay-title">{{ page.title }}</h1>
-                <span class="essay-author">{% if page.moreDate != null %}{{ page.moreDate }} {% endif %}{{ page.author
-                    }}</span>
-                <span data-pagefind-meta="date" class="essay-date">{{ page.date | date: "%Y年%m月%d日" }}</span>
+                <address class="essay-author">
+                    {% if page.moreDate != null %}{{ page.moreDate }} {% endif %}{{ page.author}}
+                </address>
+                <time data-pagefind-meta="date" class="essay-date" datetime="{{ page.date | date: "%Y-%m-%d" }}">
+                    {{ page.date | date: "%Y年%m月%d日" }}
+                </time>
                 
                 <!-- tags -->
-                <div data-pagefind-ignore="all" style="margin-top: 2rem; margin-bottom: 0.5rem;">
+                <section data-pagefind-ignore="all" style="margin-top: 2rem; margin-bottom: 0.5rem;">
                     {%- comment %} 遍历本页的tag {% endcomment %}
                     {%- for tagInPage in page.tags %}
                     <span class="mdc-button mdc-button--unelevated tag-dialog-trigger btn-tag"
@@ -27,11 +30,11 @@
                         <span class="mdc-button__label">#{{ tagInPage }}</span>
                     </span>
                     {%- endfor %}
-                </div>
+                </section>
                 {%- if page.categories contains "opera" %}
                 <blockquote data-pagefind-ignore="all">
                     <p>
-                        节省数据流量，本页均为缩略图，点击可跳转到高清原图。我自己不喜欢水印，猜测大概别人也不喜欢，所以更愿意分享纯净的剧照，只是唯一注意，图片版权归属作者及剧团演员所有，未经允许不可用于商业用途🤫。
+                        节省数据流量，本页均为缩略图，点击可跳转到高清原图。我自己不喜欢水印，猜测大概别人也不喜欢，所以更愿意分享纯净剧照，只是注意，图片版权归属作者及剧团演员所有，未经允许不可用于商业用途🤫。
                     </p>
                 </blockquote>
                 <blockquote data-pagefind-ignore="all">

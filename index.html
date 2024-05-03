@@ -9,7 +9,7 @@ cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg
 
 <section class="mdc-card index-top-card drawer-trigger">
     <img src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/index_original_thumb.jpg" class="index-lazy-img"
-        style="object-fit: cover;" alt="杭州"/>
+        style="object-fit: cover;" alt="杭州" />
     <div class="index-top-card-container">
         <p class="index-top-card-text">暖风吹得游人醉，直把杭州作汴州</p>
     </div>
@@ -22,8 +22,8 @@ cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg
         <a class="index-a" href="{{ post.url | prepend: site.baseurl }}">
             <section class="mdc-card index-card">
                 <h1 class="index-title one-line">{{ post.title }}</h1>
-                <p class="index-author">{{ post.author }}</p>
-                <p class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</p>
+                <span class="index-author">{{ post.author }}</span>
+                <span class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
             </section>
         </a>
     </li>
@@ -35,8 +35,8 @@ cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg
         <a class="index-a" href="{{ post.url | prepend: site.baseurl }}">
             <section class="mdc-card index-card">
                 <h1 class="index-title one-line">{{ post.title }}</h1>
-                <p class="index-author">{{ post.author }}</p>
-                <p class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</p>
+                <span class="index-author">{{ post.author }}</span>
+                <span class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
             </section>
         </a>
     </li>

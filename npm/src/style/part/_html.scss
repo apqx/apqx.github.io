@@ -100,6 +100,14 @@ strong {
     font-weight: 700;
 }
 
+.no-shadow {
+    box-shadow: none;
+}
+
+.em-color {
+    color: var(--em-color);
+}
+
 .handwritten strong {
     font-weight: normal;
 }
@@ -143,6 +151,10 @@ ol {
     margin-bottom: 0.5rem;
     /* 数字 */
     list-style-type: decimal;
+}
+
+address {
+    font-style: normal;
 }
 
 // 引用段落

@@ -10,33 +10,37 @@ blockFromSearchEngine: false
 
 <section class="mdc-card index-top-card drawer-trigger">
 	<img src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/index_poetry_thumb.jpg" class="index-lazy-img"
-		style="object-fit: cover;" alt="昆曲 牡丹亭 张雯 单雯"/>
+		style="object-fit: cover;" alt="昆曲 牡丹亭 张雯 单雯" />
 	<div class="index-top-card-container">
 		<p class="index-top-card-text">旧时王谢堂前燕，飞入寻常百姓家</p>
 	</div>
 </section>
 <ul class="index-ul">
 	{% for post in site.posts %}
-    {%- if post.categories contains "poetry" and post.hideFromIndex != true and post.pin == true %}
-    <li class="index-li index-li--pin">
-        <i class="material-symbols-rounded index-pin-icon">attach_file</i>
-        <a class="index-a" href="{{ post.url | prepend: site.baseurl }}">
-            <section class="mdc-card index-card">
-                <h1 class="index-title one-line">{{ post.title }}</h1>
-                <p class="index-author">{{ post.author }}</p>
-                <p class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</p>
-            </section>
-        </a>
-    </li>
-    {% endif -%}
-    {% endfor -%}
+	{%- if post.categories contains "poetry" and post.hideFromIndex != true and post.pin == true %}
+	<li class="index-li index-li--pin">
+		<i class="material-symbols-rounded index-pin-icon">attach_file</i>
+		<a class="index-a" href="{{ post.url | prepend: site.baseurl }}">
+			<section class="mdc-card index-card">
+				<h1 class="index-title one-line">{{ post.title }}</h1>
+				<span class="index-author">
+					{% if post.moreDate != null %}{{ post.moreDate }}{% endif %} {{ post.author }}
+				</span>
+				<span class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
+			</section>
+		</a>
+	</li>
+	{% endif -%}
+	{% endfor -%}
 	{% for post in site.posts %}
 	{%- if post.categories contains "poetry" and post.hideFromIndex != true and post.pin != true %}
 	<li class="index-li">
 		<a class="index-a" href="{{ post.url | prepend: site.baseurl }}">
 			<section class="mdc-card index-card">
 				<h1 class="index-title one-line">{{ post.title }}</h1>
-				<span class="index-author">{% if post.moreDate != null %}{{ post.moreDate }}{% endif %} {{ post.author }}</span>
+				<span class="index-author">
+					{% if post.moreDate != null %}{{ post.moreDate }}{% endif %} {{ post.author }}
+				</span>
 				<span class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
 			</section>
 		</a>

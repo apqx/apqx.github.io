@@ -23,8 +23,8 @@ blockFromSearchEngine: false
         <a class="index-a" href="{{ post.url | prepend: site.baseurl }}">
             <section class="mdc-card index-card">
                 <h1 class="index-title one-line">{{ post.title }}</h1>
-                <p class="index-author">{{ post.author }}</p>
-                <p class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</p>
+                <span class="index-author">{{ post.author }}</span>
+                <span class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
             </section>
         </a>
     </li>

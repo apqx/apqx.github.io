@@ -263,12 +263,14 @@ body {
     @include theme.property(color, text-secondary-on-background);
     font-size: 0.75rem;
     margin: 0;
+    display: inline;
 }
 
 .grid-index-author {
     @include typography.typography(body1);
     @include theme.property(color, text-secondary-on-background);
     font-size: 0.75rem;
+    display: inline;
 }
 
 .grid-index-description {
