@@ -81,3 +81,11 @@ export function isDebug(): boolean {
     debugMode = JSON.parse(debugStr)
     return debugMode
 }
+
+export function getHostWithHttp(): string {
+    if (isDebug()) {
+        return "http://localhost:4000"
+    } else {
+        return "https://mudan.me"
+    }
+}

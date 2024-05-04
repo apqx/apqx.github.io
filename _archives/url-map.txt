@@ -212,7 +212,7 @@ sitemap: false
         {
             "id": "rp01",
             "target": {
-                "path": "{% link _posts/repost/2006-06-29-昆曲「新星」成长记｜江苏戏曲教育个案透视.md %}",
+                "path": "{% link _posts/repost/2006-06-29-昆曲新星成长记｜江苏戏曲教育个案透视.md %}",
                 "title": "昆曲「新星」成长记"
             }
         },
