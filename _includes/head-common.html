@@ -5,16 +5,16 @@
 {% if page.author != null -%}
 <meta name="author" content="{{ page.author }}"/>
 {% endif -%}
-{% if page.web-seo-description != null -%}
-<meta name="description" content="{{ page.web-seo-description }}"/>
-{% elsif page.description != null -%}
+{% if page.description != null -%}
 <meta name="description" content="{{ page.description }}"/>
 {% endif -%}
 <!-- Open Graph protocol, define rich object for share -->
 <meta property="og:url" content="{{ page.url | prepend: site.url }}"/>
 <meta property="og:type" content="article"/>
 <meta property="og:title" content="{{ page.title }}"/>
-{% if page.description != null -%}
+{% if page.share-description != null -%}
+<meta property="og:description" content="{{ page.share-description }}"/>
+{% elsif page.description != null -%}
 <meta property="og:description" content="{{ page.description }}"/>
 {% endif -%}
 {% if page.cover != null -%}

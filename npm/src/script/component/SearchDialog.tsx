@@ -33,6 +33,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
     presenter: SearchDialogPresenter = null
     input: string = ""
     inputE = null
+    btnSearchE: HTMLElement = null
 
     constructor(props: any) {
         super(props);
@@ -44,6 +45,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
     }
 
     onClickSearch() {
+        if (this.btnSearchE != null) this.btnSearchE.blur()
         this.presenter.searchJumpGoogle(this.input)
     }
 
@@ -64,7 +66,8 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
     componentDidMount(): void {
         super.componentDidMount()
         const e = ReactDOM.findDOMNode(this) as Element
-        this.initBtn(e.querySelector("#btn-search"))
+        this.btnSearchE = e.querySelector("#btn-search")
+        this.initBtn(this.btnSearchE)
         this.initTextField(e.querySelector("#search-dialog_label"))
     }
 
@@ -117,8 +120,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
                     </button>
                 </label>
 
-                <p id="search-dialog_tips"><b>TIPS：</b>搜索功能由<a
-                    href="https://www.bing.com/webmasters/home" target="_blank">必应站内搜索</a>提供，部分内容可能会因索引滞后尚未被收录。</p>
+                <p id="search-dialog_tips"><b>TIPS：</b>搜索功能由「必应中国版」提供，部分内容可能会因索引滞后尚未被收录，如果网络允许更推荐使用<a href="https://cse.google.com/cse?cx=757420b6b2f3d47d2" target="_blank">Google</a>搜索。</p>
 
                 <Progressbar loading={this.state.showLoading}/>
                 {(this.state.resultList != null && this.state.resultList.length > 0) &&
