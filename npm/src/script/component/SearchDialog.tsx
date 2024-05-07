@@ -120,7 +120,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
                     </button>
                 </label>
 
-                <p id="search-dialog_tips"><b>TIPS：</b>搜索功能由「必应中国版」提供，部分内容可能会因索引滞后尚未被收录，如果网络允许更推荐使用<a href="https://cse.google.com/cse?cx=757420b6b2f3d47d2" target="_blank">Google</a>搜索。</p>
+                <p id="search-dialog_tips"><b>TIPS：</b>搜索功能由「必应中国版」提供，部分内容可能会因索引滞后尚未被收录，如果网络通畅更推荐使用<a href="https://cse.google.com/cse?cx=757420b6b2f3d47d2" target="_blank">Google</a>搜索。</p>
 
                 <Progressbar loading={this.state.showLoading}/>
                 {(this.state.resultList != null && this.state.resultList.length > 0) &&
