@@ -11,21 +11,14 @@ export function checkJump() {
     const urlPath = window.location.pathname
     console_debug("Url path = " + urlPath)
     // https://mudan.me/op01
-    var matches = urlPath.match(/(op|og|rp|pt|ot)..$/)
+    // https://mudan.me/opera
+    var matches = urlPath.match(RegExp("^/((op|og|rp|pt|ot)..|index-opera|opera|repost|poetry|share|print|kfc)$"))
+    console_debug("Url matches = " + matches)
     if (matches != null && matches.length > 0) {
         // 检查是否符合格式，取出pid
         // https://mudan.me/id
-        pid = matches[0]
-    } else {
-        // https://mudan.me/index-opera
-        matches = urlPath.match(/(index-opera|opera|repost|poetry|share|print|kfc)$/)
-        if (matches != null && matches.length > 0) {
-            // 检查是否符合格式，取出pid
-            // https://mudan.me/id
-            pid = matches[0]
-        }
-    }
-
+        pid = matches[1]
+    } 
     if (pid == null) {
         // 不是短链跳转，如果处于404页，显示404提示（默认是不显示的）
         const e404 = document.getElementById("card_404_content")
