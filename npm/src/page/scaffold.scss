@@ -1,0 +1,126 @@
+@use "../base/theme" as blogTheme;
+@use "../component/text";
+@use "../component/topbar";
+@use "../component/drawer";
+@use "../component/fab";
+@use "../component/tag";
+@use "../component/button";
+@use "../component/table";
+@use "../component/list";
+@use "../component/dialog/BasicDialog";
+@use "../component/dialog/AboutMeDialog";
+@use "../component/dialog/PreferenceDialog";
+@use "../component/dialog/SearchDialog";
+
+@use "../component/dialog/TagEssayListDialog";
+@use "@material/animation";
+
+// 通过js给body添加dark class，可以实现对mac-theme的参数更改
+// 大部分组件都会正确相应颜色变化，但是list和chip却无效
+// 且theme.$property引用的值也没有动态变化
+body {
+    // 消除top app bar左侧的margin
+    margin: 0;
+}
+
+// footer吸附在页面底部
+
+html,
+body {
+    height: 100%;
+}
+
+.page-wrap {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+footer {
+    background-color: blogTheme.$top-bar-color-darken;
+    display: flex;
+    flex-direction: column;
+}
+
+footer * {
+    color: blogTheme.$footer-ink-color;
+}
+
+footer a {
+    color: blogTheme.$footer-link-color;
+    text-decoration: none;
+}
+
+.foot-header {
+    height: 1.5rem;
+    background-color: rgba(51, 51, 51, 0.08);
+}
+
+.copyright {
+    padding: 1rem;
+}
+
+// 内容最外层的主容器
+.main-container {
+    width: 100%;
+    max-width: blogTheme.$center-card-max-width;
+    // 横向居中
+    margin: 0 auto;
+    padding-bottom: 1rem;
+}
+
+.foot-container {
+    width: 100%;
+    max-width: blogTheme.$center-card-max-width;;
+    margin: 0 auto;
+    flex: 1;
+    padding: 0;
+}
+
+// .mdc-card {
+//   // 淡入动画
+//   animation: animation.enter($name: fade-in, $duration: 600ms);
+// }
+
+@keyframes fade-in {
+    from {
+        transform: translateY(20rem);
+        opacity: 0.5;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.center-horizontal {
+    margin: auto;
+    text-align: center;
+}
+
+.mdc-top-app-bar--fixed-adjust {
+    padding-top: 4.5rem;
+}
+
+// 手机小屏
+@media all and (max-width: blogTheme.$screen-middle-min-width) {
+    .mdc-top-app-bar--fixed-adjust {
+        padding-top: 3.8rem;
+    }
+}
+
+// 平板中屏
+@media all and (min-width: (blogTheme.$screen-middle-min-width + 1px)) and (max-width: (blogTheme.$screen-middle-max-width - 1px)) {
+
+}
+
+// 电脑大屏
+@media all and (min-width: blogTheme.$screen-middle-max-width) {
+
+}
+

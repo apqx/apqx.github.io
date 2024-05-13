@@ -4,7 +4,7 @@
   "scripts": {
     "watch": "webpack watch --mode=development",
     "build-dev": "webpack --mode=development",
-    "build-release": "webpack --mode=production --node-env=production"
+    "build-release": "webpack --mode=production"
   },
   "dependencies": {
     "@lit/react": "^1.0.4",

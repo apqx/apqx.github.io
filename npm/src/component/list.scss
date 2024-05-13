@@ -1,0 +1,27 @@
+@use "../base/theme" as blogTheme;
+@use "@material/list";
+@use "@material/list/mdc-list";
+@use "@material/ripple";
+@use "sass:map";
+@use "sass:color";
+
+.mdc-deprecated-list {
+    @include list.deprecated-divider-color(var(--divider-color));
+}
+
+// 与__ripple叠加
+.mdc-deprecated-list-item {
+    @include ripple.surface;
+    @include ripple.radius-bounded(100%);
+    // @include ripple.states-base-color(black);
+    // @include ripple.states-opacities((hover: .02, focus: .02, press: .02));
+}
+
+.dark .mdc-deprecated-list-item {
+    @include ripple.states-base-color(white);
+    @include ripple.states-opacities((hover: .05, focus: .05, press: .08));
+}
+
+.dark .mdc-deprecated-list-item__darken {
+    background-color: color.adjust(map.get(blogTheme.$surface, "dark"), $lightness: -1.2%);
+}

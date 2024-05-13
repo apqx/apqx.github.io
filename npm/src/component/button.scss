@@ -1,0 +1,29 @@
+@use "../base/theme" as blogTheme;
+@use "@material/button";
+@use "@material/button/mdc-button";
+@use "@material/ripple";
+@use "sass:map";
+
+// 解决Safari的Ripple动画无圆角
+.mdc-button,
+.mdc-button__ripple {
+    // border-radius: 1.3rem !important;
+    -webkit-mask-image: radial-gradient(white, black);
+}
+
+.mdc-button {
+    @include button.container-fill-color(var(--button-bg));
+    @include button.ink-color(var(--button-ink));
+}
+
+.mdc-button .mdc-button__ripple {
+    @include ripple.states(map.get(blogTheme.$button-ripple, "light"), true);
+}
+
+.dark .mdc-button .mdc-button__ripple {
+    @include ripple.states(map.get(blogTheme.$button-ripple, "dark"), true);
+}
+
+.btn-round {
+    border-radius: 1.3rem;
+}

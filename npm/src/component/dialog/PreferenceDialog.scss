@@ -1,0 +1,29 @@
+@use "@material/icon-button";
+@use "@material/icon-button/styles" as iconBtnStyles;
+@use "sass:map";
+@use "../../base/theme" as blogTheme;
+
+#preference-dialog__top-container {
+    margin-top: 0.5rem;
+}
+
+#preference-dialog__toggle-container {
+    margin-top: 0.5rem;
+}
+
+.preference-item-toggle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    margin: 0;
+    height: 2.5rem;
+}
+
+.preference-item-toggle__title {
+    flex: 1;
+}
+
+.preference-item-toggle__toggle {
+}

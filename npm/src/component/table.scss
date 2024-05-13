@@ -1,0 +1,22 @@
+@use "text";
+@use "@material/data-table/data-table";
+@use "@material/data-table/data-table-theme";
+@use "@material/data-table/mdc-data-table";
+
+th,
+.mdc-data-table__cell,
+.mdc-data-table__header-cell {
+    @include text.basicText();
+}
+
+.mdc-data-table {
+    @include data-table-theme.shape-radius(0.3rem);
+    // 设置标题背景为透明色，防止横向滚动时遮挡边框角
+    @include data-table-theme.header-row-fill-color(#00000000);
+    @include data-table-theme.header-row-text-color(var(--mdc-theme-text-primary-on-background));
+    @include data-table-theme.row-text-color(var(--mdc-theme-on-surface));
+    @include data-table-theme.divider-color(var(--divider-color));
+    @include data-table-theme.stroke-color(var(--divider-color));
+    margin-top: 0.8rem;
+    margin-bottom: 0.8rem;
+}

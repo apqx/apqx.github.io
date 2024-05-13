@@ -1,0 +1,222 @@
+@use "../base/theme" as blogTheme;
+@use "@material/typography";
+@use "@material/typography/mdc-typography";
+@use "@material/theme";
+@use "@material/theme/mdc-theme";
+
+@mixin basicText {
+    // 使用mdc的字体样式
+    @include typography.typography(body1);
+    color: var(--mdc-theme-on-surface);
+    // 段落间距
+    margin: 0.5rem 0;
+}
+
+body * {
+    -webkit-text-size-adjust: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    @include theme.property(color, text-primary-on-background);
+}
+
+h1 {
+    @include typography.typography(headline1);
+}
+
+h2 {
+    @include typography.typography(headline2);
+}
+
+h2.h2-mini {
+    @include typography.typography(headline3);
+    margin: 0.8rem 0;
+}
+
+h3 {
+    @include typography.typography(body1);
+    margin: 0.8rem 0;
+    display: inline;
+    color: var(--strong-color);
+    box-shadow: inset 0 -8px 0 0 var(--strong-underline-color);
+    font-size: 1.4rem;
+    width: fit-content;
+}
+
+p {
+    @include basicText();
+    text-align: justify;
+}
+
+/* 段落中单词高亮 */
+code:not(pre code) {
+    @include typography.typography(body1);
+    padding: 0.01rem 0.2rem 0.05rem 0.2rem;
+    margin-left: 0.05rem;
+    margin-right: 0.05rem;
+    border-radius: 0.3rem;
+    line-break: anywhere;
+
+    background: var(--code-highlight-bg);
+    border: 1px solid var(--code-highlight-border);
+}
+
+em code {
+    padding-left: 0.2rem;
+    padding-right: 0.3rem;
+    margin-left: 0.2rem;
+    margin-right: 0.2rem;
+}
+
+pre {
+    overflow: scroll;
+}
+
+p.no-justify {
+    text-align: left;
+}
+
+li {
+    @include basicText();
+    // item间距
+    margin: 0.1rem 0;
+}
+
+// 斜体，一般用于图片说明
+em {
+    color: var(--em-color);
+}
+
+b {
+    font-weight: bold;
+}
+
+// 加粗强调，一般用于句子
+strong {
+    color: var(--strong-color);
+    box-shadow: inset 0 -8px 0 0 var(--strong-underline-color);
+    font-weight: bold;
+}
+
+.no-shadow {
+    box-shadow: none;
+}
+
+.em-color {
+    color: var(--em-color);
+}
+
+.handwritten strong {
+    font-weight: normal;
+}
+
+a {
+    // <a>不会单独出现，只会在<p>中，所以字体应继承<p>的属性，不要单独定义，否则更改<p>不会更改其中的<a>
+    // @include basicText();
+    // 去除移动版Chrome点击时默认的蓝色背景
+    -webkit-tap-highlight-color: transparent;
+    // 链接加下划线，可能受mdc class的影响，有些地方下划线被取消了
+    text-decoration: underline;
+    // 下划线与文字的间距
+    text-underline-offset: 0.25rem;
+    color: var(--link-color);
+}
+
+a.clickable-empty-link {
+    // url为空的<a>
+    cursor: pointer;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+/* 无序列表 */
+ul {
+    padding-left: 2rem;
+    padding-right: 0;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    /* 实心圆 */
+    list-style-type: disc;
+}
+
+/* 有序列表 */
+ol {
+    padding-left: 2rem;
+    padding-right: 0;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    /* 数字 */
+    list-style-type: decimal;
+}
+
+address {
+    font-style: normal;
+}
+
+// 引用段落
+blockquote {
+    margin: 0.65rem 0;
+    padding: 0 0 0 1rem;
+    border-left: 0.3rem solid #ee6e73;
+    // border-right: 5px solid #ee6e73;
+    // background: $code-highlight-bg;
+    // border-radius: 0.2rem;
+}
+
+// 引用段落中的<p>
+blockquote p {
+    margin: 0;
+}
+
+audio {
+    width: auto;
+}
+
+// 横向滑动，不换行
+blockquote.pre {
+    overflow-x: auto;
+}
+
+// 手写诗文，保持原有排版，横向滚动
+// 此时，如果是blockquote，注意不要行尾加双空格，jekyll会处理成以下格式，导致行1和行2之间多了一行
+// <p>行1
+// <br/>
+// 行2</p>
+// jekyll会把 > 转换为以下格式，这里只给p加white-space: pre，如果blockquote加了，则上下会多一行
+// <blockquote>
+// <p>文本</p>
+// </blockquote>
+blockquote.pre * {
+    white-space: pre;
+}
+
+.handwritten,
+.handwritten :not(i, pre code, pre code *, .index-top-card-text) {
+    font-family: blogTheme.$handwritten-font;
+}
+
+.handwritten {
+    // --mdc-typography-body1-font-size: 1.1rem;
+    --mdc-typography-body1-line-height: 1.8rem;
+}
+
+.handwritten .english,
+.handwritten .english * {
+    font-size: 1.3rem;
+}
+
+.one-line {
+    /* 不换行 */
+    white-space: nowrap;
+    /* 超出部分隐藏 */
+    overflow: hidden;
+    /* 文字超出部分显示省略号 */
+    text-overflow: ellipsis;
+}
