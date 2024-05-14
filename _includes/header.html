@@ -3,24 +3,24 @@
     <div class="mdc-top-app-bar__row">
         <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
             <!-- 用span不同button是因为button会在其触发的dialog消失后重新获得焦点 -->
-            <span class="mdc-top-app-bar__navigation-icon mdc-icon-button">
+            <!-- 但是用span会导致js更换icon明显变慢 -->
+            <button class="mdc-top-app-bar__navigation-icon mdc-icon-button"  id="topbar_btn_menu">
                 <span class="mdc-icon-button__ripple"></span>
                 <i class="material-symbols-rounded mdc-icon-button__icon">menu</i>
-            </span>
+            </button>
             <!-- <span class="mdc-top-app-bar__title">{{ page.title }}</span> -->
         </section>
         <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
-            <span class="mdc-top-app-bar__action-item mdc-icon-button" aria-label="Theme"
-                    id="topbar_btn_theme" aria-pressed="false">
+            <button class="mdc-top-app-bar__action-item mdc-icon-button" aria-label="Theme" id="topbar_btn_theme"
+                aria-pressed="false">
                 <span class="mdc-icon-button__ripple"></span>
                 <i class="material-icons mdc-icon-button__icon mdc-icon-button__icon--on">light_mode</i>
                 <i class="material-icons mdc-icon-button__icon">dark_mode</i>
-            </span>
-            <span class="mdc-top-app-bar__action-item mdc-icon-button" aria-label="About me"
-                    id="topbar_btn_about_me">
+            </button>
+            <button class="mdc-top-app-bar__action-item mdc-icon-button" aria-label="About me" id="topbar_btn_about_me">
                 <span class="mdc-icon-button__ripple"></span>
                 <i class="material-icons mdc-icon-button__icon">account_circle</i>
-            <span/>
+            </button>
         </section>
     </div>
 </header>

@@ -45,7 +45,6 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
     }
 
     onClickSearch() {
-        if (this.btnSearchE != null) this.btnSearchE.blur()
         this.presenter.searchJumpGoogle(this.input)
     }
 
@@ -84,9 +83,12 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
     //     }
     //
 
-    initBtn(e: Element) {
+    initBtn(e: HTMLElement) {
         if (e == null) return
         new MDCRipple(e)
+        e.addEventListener("focus", () => {
+            e.blur()
+        })
     }
 
     initTextField(e: Element) {

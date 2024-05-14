@@ -164,10 +164,7 @@ address {
 blockquote {
     margin: 0.65rem 0;
     padding: 0 0 0 1rem;
-    border-left: 0.3rem solid #ee6e73;
-    // border-right: 5px solid #ee6e73;
-    // background: $code-highlight-bg;
-    // border-radius: 0.2rem;
+    border-left: 0.3rem solid blogTheme.$top-bar-color;
 }
 
 // 引用段落中的<p>

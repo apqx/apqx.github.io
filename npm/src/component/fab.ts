@@ -14,10 +14,12 @@ export function initFab() {
     })
     fabE.addEventListener("click", () => {
         scrollToTop()
-        // TODO: 在手机上，并不能消除焦点
-        // fabE.blur()
         // window.location.replace("#top")
     })
+    // 在触控模式下无法让fab自动失去焦点
+    // fabE.addEventListener("hover", () => {
+    //     fabE.blur()
+    // })
 }
 
 function showEncodedUrl() {

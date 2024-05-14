@@ -1,9 +1,27 @@
-import {isMobileOrTablet, toggleClassWithEnable} from "../util/tools";
-import {consoleDebug} from "../util/log";
-import {localRepository} from "../repository/LocalRepository";
-import {iconToggle} from "./topbar";
+import { isMobileOrTablet, toggleClassWithEnable } from "../util/tools";
+import { consoleDebug } from "../util/log";
+import { localRepository } from "../repository/LocalRepository";
+import { iconToggleTheme } from "./topbar";
 
 export const darkClass = "dark"
+
+export function initTheme() {
+    checkUserTheme()
+    // 监听系统级主题变化，即系统和导航栏都可以控制主题变化
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
+        let newSysTheme = e.matches ? "dark" : "light";
+        consoleDebug("System theme change to " + newSysTheme)
+        const autoThemeOn = localRepository.getTheme() === localRepository.VALUE_THEME_AUTO
+        if (autoThemeOn) {
+            const newSysThemeDark = newSysTheme === "dark"
+            const currentThemeDark = document.querySelector("body").classList.contains(darkClass)
+            if (currentThemeDark != newSysThemeDark) {
+                // 响应系统的主题修改，即变化主题
+                toggleTheme(false)
+            }
+        }
+    });
+}
 
 function checkMetaThemeColor(dark: boolean) {
     if (isMobileOrTablet()) {
@@ -77,7 +95,7 @@ export function toggleTheme(saveUserSetting: boolean) {
 export function showThemeDark(dark: boolean) {
     const bodyE = document.getElementsByTagName("body")[0]
     toggleClassWithEnable(bodyE, darkClass, dark)
-    iconToggle.on = dark
+    iconToggleTheme.on = dark
     checkMetaThemeColor(dark)
     // 当切换主题的时候，检查是否需要修改theme-color
     // 目前不需要，只切换暗色、亮色主题，而设置的亮色theme-color在系统级暗色主题下无效，还不如直接交给浏览器去自动检测呢

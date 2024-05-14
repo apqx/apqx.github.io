@@ -2,7 +2,7 @@
 import {runOnHtmlDone, runOnPageBackFromCache, runOnPageDone} from "../util/tools"
 import {initTopbar} from "../component/topbar"
 import {initDrawer} from "../component/drawer"
-import {checkUserTheme} from "../component/theme"
+import {checkUserTheme, initTheme} from "../component/theme"
 import {initLocalRepository} from "../repository/LocalRepository"
 import {initHandwritingFont} from "../component/font/font"
 import {initFab} from "../component/fab"
@@ -18,7 +18,7 @@ runOnHtmlDone(() => {
     initLocalRepository()
     initHandwritingFont()
     initTopbar()
-    checkUserTheme();
+    initTheme()
     initDrawer()
     initFab()
     // TODO:可选项，懒加载

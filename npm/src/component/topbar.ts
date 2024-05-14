@@ -1,12 +1,13 @@
 import {MDCIconButtonToggle} from "@material/icon-button";
 import {consoleDebug, consoleError} from "../util/log";
-import {checkUserTheme, darkClass, toggleTheme} from "./theme";
+import {toggleTheme} from "./theme";
 import {localRepository} from "../repository/LocalRepository";
 import {MDCTopAppBar} from "@material/top-app-bar";
 import {isMobileOrTablet, toggleClassWithEnable} from "../util/tools";
+import {showAboutMeDialog} from "./dialog/AboutMeDialog";
 // import "./topbar.scss"
 
-export var iconToggle: MDCIconButtonToggle = null
+export var iconToggleTheme: MDCIconButtonToggle = null
 export var topAppBar: MDCTopAppBar = null
 export var topAppBarE: HTMLElement = null
 
@@ -19,38 +20,31 @@ export function refreshTopbar() {
 }
 
 export function initTopbar() {
-    const bodyE = document.querySelector("body")
-    const btnThemeE = document.querySelector("#topbar_btn_theme")
+    const btnMenuE = document.querySelector("#topbar_btn_menu") as HTMLElement
+    const btnThemeE = document.querySelector("#topbar_btn_theme") as HTMLElement
+    const btnAboutMeE = document.querySelector("#topbar_btn_about_me") as HTMLElement
     topAppBarE = document.querySelector(".mdc-top-app-bar")
     checkFixedTopbar();
     topAppBar = new MDCTopAppBar(topAppBarE)
-    iconToggle = new MDCIconButtonToggle(btnThemeE)
+    iconToggleTheme = new MDCIconButtonToggle(btnThemeE)
+
     // 监听topbar的主题切换按钮
     btnThemeE.addEventListener("click", () => {
         // toggleButton会自动toggle图标
         toggleTheme(true)
     });
-    // 监听系统级主题变化，即系统和导航栏都可以控制主题变化，但是如果用户曾经在导航栏设置过主题，则不响应系统变化？？？
-    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
-        let newSysTheme = e.matches ? "dark" : "light";
-        consoleDebug("System theme change to " + newSysTheme)
-        const autoThemeOn = localRepository.getTheme() === localRepository.VALUE_THEME_AUTO
-        if (autoThemeOn) {
-            const newSysThemeDark = newSysTheme === "dark"
-            const currentThemeDark = bodyE.classList.contains(darkClass)
-            if (currentThemeDark != newSysThemeDark) {
-                // 响应系统的主题修改，即变化主题
-                toggleTheme(false)
-            }
-        }
+    btnAboutMeE.addEventListener("click", () => {
+        showAboutMeDialog()
 
-    });
-    document.querySelector("#topbar_btn_about_me").addEventListener("click", () => {
-        import("./dialog/AboutMeDialog").then((dialog) => {
-            dialog.showAboutMeDialog()
-        }).catch((e) => {
-            consoleError(e)
-        })
+    })
+    btnMenuE.addEventListener("focus", () => {
+        btnMenuE.blur()
+    })
+    btnThemeE.addEventListener("focus", () => {
+        btnThemeE.blur()
+    })
+    btnAboutMeE.addEventListener("focus", () => {
+        btnAboutMeE.blur()
     })
 }
 

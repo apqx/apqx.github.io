@@ -33,11 +33,11 @@ function clickTag(event: Event) {
 }
 
 export function initTag() {
-    // 为所有的button添加ripple动画
     for (const ele of document.querySelectorAll(".mdc-button.btn-tag")) {
-        // TODO: Tag弹出Dialog的React操作似乎被点击Tag的Ripple动画所影响，慢一拍，取消动画就好了，或者按住一会，等动画完成后再松开
-        // 浏览器是单线程运行的
         new MDCRipple(ele)
+        ele.addEventListener("focus", () => {
+            (ele as HTMLElement).blur()
+        })
     }
 }
 

@@ -31,7 +31,7 @@ function checkJump() {
     }
     if (pid == null) {
         // 不是短链跳转，如果处于404页，显示404提示（默认是不显示的）
-        const e404 = document.getElementById("card_404_content")
+        const e404 = document.querySelector(".content-card") as HTMLElement;
         if (e404 != null) {
             e404.style.display = "block"
         }
