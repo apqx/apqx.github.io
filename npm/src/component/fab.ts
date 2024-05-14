@@ -1,11 +1,11 @@
 import {MDCRipple} from "@material/ripple";
-import {consoleDebug} from "../util/log";
+import {consoleDebug, consoleError} from "../util/log";
 import {showAlertDialog} from "./dialog/CommonAlertDialog";
 // import "./fab.scss"
 
 export function initFab() {
     // 为fab添加ripple动画
-    const fabE = document.querySelector(".mdc-fab")
+    const fabE: HTMLElement = document.querySelector(".mdc-fab")
     new MDCRipple(fabE)
     // topAppBar监听长按，把当前页编码后的URL复制到剪切板上
     fabE.addEventListener("long-press", () => {
@@ -14,6 +14,8 @@ export function initFab() {
     })
     fabE.addEventListener("click", () => {
         scrollToTop()
+        // TODO: 在手机上，并不能消除焦点
+        // fabE.blur()
         // window.location.replace("#top")
     })
 }

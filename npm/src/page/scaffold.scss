@@ -1,4 +1,4 @@
-@use "../base/theme" as blogTheme;
+@use "../component/theme" as blogTheme;
 @use "../component/text";
 @use "../component/topbar";
 @use "../component/drawer";
@@ -11,7 +11,6 @@
 @use "../component/dialog/AboutMeDialog";
 @use "../component/dialog/PreferenceDialog";
 @use "../component/dialog/SearchDialog";
-
 @use "../component/dialog/TagEssayListDialog";
 @use "@material/animation";
 

@@ -7,7 +7,6 @@ import {MDCList} from "@material/list"
 import {createHtmlContent} from "../../util/tools"
 import {BasicDialog, BasicDialogProps, SEARCH_DIALOG_WRAPPER_ID, showDialog} from "./BasicDialog"
 import ReactDOM from "react-dom"
-
 // import "./SearchDialog.scss"
 
 interface SearchDialogState {

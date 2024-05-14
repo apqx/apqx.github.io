@@ -11,6 +11,7 @@ import {initButton} from "../component/button"
 import {initTable} from "../component/table";
 import {initList} from "../component/list";
 import {initText} from "../component/text";
+import {consoleDebug} from "../util/log";
 import {loadGoogleAnalytics} from "../util/gtag";
 
 runOnHtmlDone(() => {
@@ -20,6 +21,7 @@ runOnHtmlDone(() => {
     checkUserTheme();
     initDrawer()
     initFab()
+    // TODO:可选项，懒加载
     initTag()
     initButton()
     initTable()
@@ -29,7 +31,7 @@ runOnHtmlDone(() => {
 })
 
 runOnPageDone(() => {
-    loadGoogleAnalytics()
+        loadGoogleAnalytics()
 })
 
 runOnPageBackFromCache(() => {

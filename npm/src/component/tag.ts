@@ -1,6 +1,6 @@
 import {MDCRipple} from "@material/ripple";
-import {showTagEssayListDialog} from "./dialog/TagEssayListDialog";
 import {consoleDebug} from "../util/log";
+import {showTagEssayListDialog} from "./dialog/TagEssayListDialog";
 // import "./tag.scss"
 
 /**
@@ -11,7 +11,7 @@ export function initTagTriggers() {
     // 获取每一个标记了tag-dialog-trigger的element，查找这个trigger对应的dialog，监听点击事件，弹出dialog
     // 所有tag共用一个dialog
     const dialogsTriggers = document.querySelectorAll(".tag-dialog-trigger")
-    // 为每一个tag添加点击监听\
+    // 为每一个tag添加点击监听
     dialogsTriggers.forEach((trigger) => {
         // 获取每一个trigger的id，找到它对应的dialogId，和dialog里的listId
         consoleDebug(trigger.id)
@@ -20,7 +20,9 @@ export function initTagTriggers() {
     })
 }
 
-function clickTag() {
+function clickTag(event: Event) {
+    // TODO: 如果tag是button，弹出的dialog消失后会重新获取焦点
+    // (event.target as HTMLElement).blur()
     const chipId = this.id
     // chip_tag_随笔 dialog_tag_随笔 dialog_tag_list_随笔
     // chip_tag_碎碎念&看剧 可以指定多个tag，用 & 分隔

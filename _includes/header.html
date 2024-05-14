@@ -2,24 +2,25 @@
 <header class="mdc-top-app-bar" id="top_app_bar">
     <div class="mdc-top-app-bar__row">
         <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-            <button class="mdc-top-app-bar__navigation-icon mdc-icon-button">
+            <!-- 用span不同button是因为button会在其触发的dialog消失后重新获得焦点 -->
+            <span class="mdc-top-app-bar__navigation-icon mdc-icon-button">
                 <span class="mdc-icon-button__ripple"></span>
                 <i class="material-symbols-rounded mdc-icon-button__icon">menu</i>
-            </button>
+            </span>
             <!-- <span class="mdc-top-app-bar__title">{{ page.title }}</span> -->
         </section>
         <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
-            <button class="mdc-top-app-bar__action-item mdc-icon-button" aria-label="Theme"
+            <span class="mdc-top-app-bar__action-item mdc-icon-button" aria-label="Theme"
                     id="topbar_btn_theme" aria-pressed="false">
                 <span class="mdc-icon-button__ripple"></span>
                 <i class="material-icons mdc-icon-button__icon mdc-icon-button__icon--on">light_mode</i>
                 <i class="material-icons mdc-icon-button__icon">dark_mode</i>
-            </button>
-            <button class="mdc-top-app-bar__action-item mdc-icon-button" aria-label="About me"
+            </span>
+            <span class="mdc-top-app-bar__action-item mdc-icon-button" aria-label="About me"
                     id="topbar_btn_about_me">
                 <span class="mdc-icon-button__ripple"></span>
                 <i class="material-icons mdc-icon-button__icon">account_circle</i>
-            </button>
+            <span/>
         </section>
     </div>
 </header>

@@ -1,4 +1,4 @@
-@use "../base/theme" as blogTheme;
+@use "theme" as blogTheme;
 @use "@material/button";
 @use "@material/button/mdc-button";
 @use "@material/ripple";
@@ -24,6 +24,6 @@
     @include ripple.states(map.get(blogTheme.$button-ripple, "dark"), true);
 }
 
-.btn-round {
+.mdc-button.btn-round {
     border-radius: 1.3rem;
 }

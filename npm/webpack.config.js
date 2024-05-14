@@ -32,13 +32,13 @@ const config = {
         // splitChunks: {
         //     chunks: "all",
         // },
-        // 验证是否还需要设置这个，应该需要？？？？
         runtimeChunk: "single",
     },
     output: {
         // 指定要生成的js文件名
         filename: `blog-[name]-v${version}.js`,
         path: path.resolve(__dirname, "dist"),
+        clean: true
     },
     resolve: {
         // 指定webpack要处理的文件类型，如果这里不指定.ts等，在打包时会找不到除入口文件之外的该类型文件

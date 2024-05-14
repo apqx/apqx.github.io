@@ -24,11 +24,10 @@
                 <section data-pagefind-ignore="all" style="margin-top: 2rem; margin-bottom: 0.5rem;">
                     {%- comment %} 遍历本页的tag {% endcomment %}
                     {%- for tagInPage in page.tags %}
-                    <button type="button" class="mdc-button mdc-button--unelevated tag-dialog-trigger btn-tag"
-                        id="chip_tag_{{ tagInPage }}">
+                    <span type="button" class="mdc-button mdc-button--unelevated tag-dialog-trigger btn-tag" id="chip_tag_{{ tagInPage }}">
                         <span class="mdc-button__ripple"></span>
                         <span class="mdc-button__label">#{{ tagInPage }}</span>
-                    </button>
+                    </span>
                     {%- endfor %}
                 </section>
                 {%- if page.categories contains "opera" %}

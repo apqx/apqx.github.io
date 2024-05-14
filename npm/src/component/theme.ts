@@ -5,12 +5,12 @@ import {iconToggle} from "./topbar";
 
 export const darkClass = "dark"
 
-function checkThemeColor(dark: boolean) {
+function checkMetaThemeColor(dark: boolean) {
     if (isMobileOrTablet()) {
         // 在mobile或tablet设备上添加theme-color，无论是暗色还是亮色主题，都设置浏览器标题栏theme-color主题颜色为淡红色
         // <meta name="theme-color" content="#df696e" />
         // 暗色主题下不设置theme-color
-        setThemeColor("#df696e")
+        setMetaThemeColor("#df696e")
     } else {
         // desktop设备上，topBar固定背景模糊
 
@@ -28,7 +28,7 @@ function checkThemeColor(dark: boolean) {
  * 设置浏览器的theme-color属性
  * @param {String} color 如果为null则删除属性
  */
-function setThemeColor(color: string) {
+function setMetaThemeColor(color: string) {
     consoleDebug("SetThemeColor " + color)
     let themeColorE = null
     for (const metaE of document.getElementsByTagName("meta")) {
@@ -72,13 +72,13 @@ export function toggleTheme(saveUserSetting: boolean) {
 }
 
 /**
- * 设置主题，更改ThemeButton显示的图标，是否显示暗黑页面对应的要切换到亮色主题的图标
+ * 设置主题，更改ThemeButton显示的图标
  */
 export function showThemeDark(dark: boolean) {
     const bodyE = document.getElementsByTagName("body")[0]
     toggleClassWithEnable(bodyE, darkClass, dark)
     iconToggle.on = dark
-    checkThemeColor(dark)
+    checkMetaThemeColor(dark)
     // 当切换主题的时候，检查是否需要修改theme-color
     // 目前不需要，只切换暗色、亮色主题，而设置的亮色theme-color在系统级暗色主题下无效，还不如直接交给浏览器去自动检测呢
 }

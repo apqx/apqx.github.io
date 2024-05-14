@@ -1,4 +1,4 @@
-@use "../../base/theme" as blogTheme;
+@use "../theme" as blogTheme;
 @use "@material/dialog";
 @use "@material/dialog/mdc-dialog";
 @use "@material/theme";
@@ -54,7 +54,7 @@
     width: 100%;
 }
 
-.dialog-link-list {
+ul.dialog-link-list {
     border: 1px solid;
     border-color: var(--divider-color);
     border-radius: 3px;

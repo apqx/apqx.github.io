@@ -1,9 +1,8 @@
 import {MDCIconButtonToggle} from "@material/icon-button";
-import {consoleDebug} from "../util/log";
+import {consoleDebug, consoleError} from "../util/log";
 import {checkUserTheme, darkClass, toggleTheme} from "./theme";
 import {localRepository} from "../repository/LocalRepository";
 import {MDCTopAppBar} from "@material/top-app-bar";
-import {showAboutMeDialog} from "./dialog/AboutMeDialog";
 import {isMobileOrTablet, toggleClassWithEnable} from "../util/tools";
 // import "./topbar.scss"
 
@@ -47,7 +46,11 @@ export function initTopbar() {
 
     });
     document.querySelector("#topbar_btn_about_me").addEventListener("click", () => {
-        showAboutMeDialog()
+        import("./dialog/AboutMeDialog").then((dialog) => {
+            dialog.showAboutMeDialog()
+        }).catch((e) => {
+            consoleError(e)
+        })
     })
 }
 

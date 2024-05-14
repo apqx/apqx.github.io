@@ -1,7 +1,12 @@
 // import "./404.scss"
 import {showShortLinkJumpDialog} from "../component/dialog/ShortLinkJumpDialog";
 import {consoleDebug} from "../util/log";
-import {runOnPageDone} from "../util/tools";
+import {runOnHtmlDone, runOnPageDone} from "../util/tools";
+import {initContentCard} from "../component/contentCard";
+
+runOnHtmlDone(() => {
+    initContentCard()
+})
 
 runOnPageDone(() => {
     checkJump()

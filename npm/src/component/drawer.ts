@@ -1,11 +1,11 @@
-import { MDCDrawer } from "@material/drawer";
-import { MDCList } from "@material/list";
-import { consoleDebug } from "../util/log";
-import { topAppBar } from "./topbar";
-import { showAboutMeDialog } from "./dialog/AboutMeDialog";
-import { showPreferenceDialog } from "./dialog/PreferenceDialog";
-import { showSearchDialog } from "./dialog/SearchDialog";
-import { MDCRipple } from "@material/ripple";
+import {MDCDrawer} from "@material/drawer";
+import {MDCList} from "@material/list";
+import {consoleDebug, consoleError} from "../util/log";
+import {topAppBar} from "./topbar";
+import {MDCRipple} from "@material/ripple";
+import {showAboutMeDialog} from "./dialog/AboutMeDialog";
+import {showPreferenceDialog} from "./dialog/PreferenceDialog";
+import {showSearchDialog} from "./dialog/SearchDialog";
 // import "./drawer.scss"
 
 const DRAWER_ITEM_ORIGINAL_ID = "drawer-a-original"

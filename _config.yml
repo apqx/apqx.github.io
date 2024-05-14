@@ -13,7 +13,7 @@ url: "https://mudan.me" # the base hostname & protocol for your site
 baseurl: "" # the subpath of your site, e.g. /blog
 github_username:  apqx
 
-exclude: [npm/node_modules/, npm/src/,
+exclude: [.idea/, npm/node_modules/, npm/src/,
 npm/package-lock.json, npm/package.json, npm/README.md, npm/webpack.config.js,
 npm/babel.config.json, docs/, README.md, README_CN.md]
 
@@ -26,7 +26,7 @@ markdown: kramdown
 # 设置highlighter为none才会从```中生成标准的代码高亮html，能被highlight.js解析
 # 但是GitHub Pages只支持Rouge或Pygments的高亮格式，所以不能设置为none，默认是Rouge
 # highlighter: none
-kramdown: 
+kramdown:
   # 虽然不能设置 highlighter: none，但可以禁用rouge的输出功能，使kramdown输出标准的代码高亮html，方便highlight.js解析
   syntax_highlighter_opts:
     disable : true

@@ -4,15 +4,14 @@
 // @use "_HYXuJingXingKaiW";
 // 汉仪许静行楷W，仅索引所需的部分
 @use "HYXuJingXingKaiWIndex";
-// 兰亭题序 国风行楷
-@use "LTTXGuoFengXingKai";
-// JetBrainsMono代码字体
-@use "JetBrainsMono";
 // 苹方的 Horizontal Ellipsis 字符，即…省略号，因为霞鹜文楷的省略号竖向居中，不合适，用苹方的替代
 @use "PingFangSCEllipsis";
+// JetBrainsMono代码字体
+@use "JetBrainsMono";
 // 霞鹜文楷
 @use "LXGWWenKaiGBBold";
 @use "LXGWWenKaiGBRegular";
+// 霞鹭文楷等宽
 @use "LXGWWenKaiMonoGBRegular";
 // Material Icons
 @use "MaterialIcons";

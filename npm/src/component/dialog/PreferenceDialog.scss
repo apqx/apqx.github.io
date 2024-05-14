@@ -1,7 +1,7 @@
+@use "../theme" as blogTheme;
 @use "@material/icon-button";
 @use "@material/icon-button/styles" as iconBtnStyles;
 @use "sass:map";
-@use "../../base/theme" as blogTheme;
 
 #preference-dialog__top-container {
     margin-top: 0.5rem;
