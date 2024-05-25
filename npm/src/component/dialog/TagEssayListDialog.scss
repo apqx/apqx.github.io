@@ -1,31 +1,15 @@
-@use "@material/typography";
 @use "../react/ProgressLinear.scss";
 
 // 使用此class的标签，可以通过id chip_tag_随笔 弹出对应 dialog_随笔 的dialog
 .tag-dialog-trigger {
 }
 
-.tag-list-item.mdc-deprecated-list-item {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    height: fit-content;
+.tag-essay-item-secondary-container {
     display: flex;
+    white-space: nowrap;
 }
 
-.my-list-item__primary-text {
-    @include typography.typography(body1);
-}
-
-.my-list-item__secondary-text {
-    color: var(--mdc-theme-text-secondary-on-background);
-    font-size: 0.9rem;
-    display: flex;
-    // margin-top: -0.25rem;
-    // margin-bottom: -0.75rem;
-    height: fit-content;
-}
-
-.tag-essay-item-tags-container {
+.tag-essay-item-block-container {
     overflow-x: auto;
     padding-left: 0.1rem;
     padding-right: 0.1rem;
@@ -33,7 +17,7 @@
 
 // 移动端Chrome的scrollBar一直显示，需要消除，其它浏览器scrollBar都会自动隐藏
 // 在保留滚动效果的同时，消除Safari，Chrome的scrollBar
-.tag-essay-item-tags-container::-webkit-scrollbar {
+.tag-essay-item-block-container::-webkit-scrollbar {
     // 消除scrollBar
     display: none;
 }
@@ -42,8 +26,7 @@
     font-size: 0.8rem;
     padding: 0.04rem 0.4rem;
     border-radius: 0.5rem;
-    margin-left: 0.1rem;
-    margin-right: 0.1rem;
+    margin-right: 0.2rem;
 }
 
 .tag-essay-item-post-type {

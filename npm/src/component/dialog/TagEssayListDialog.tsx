@@ -110,7 +110,7 @@ export class TagEssayDialog extends BasicDialog<DialogContentProps, DialogConten
                 <ProgressLinear loading={this.state.showLoading}/>
 
                 {this.state.essayList != null && this.state.essayList.length != 0 &&
-                    <ul className="mdc-deprecated-list mdc-deprecated-list--two-line dialog-link-list">
+                    <ul className="mdc-deprecated-list dialog-link-list">
                         {this.state.essayList.map(item =>
                             <EssayItem
                                 key={item.title + item.date}
@@ -166,10 +166,10 @@ class EssayItem extends React.Component<EssayItemProps, any> {
                    href={this.props.data.url}>
                     <span className="mdc-deprecated-list-item__ripple"></span>
                     <span className="mdc-deprecated-list-item__text">
-                        <span className="my-list-item__primary-text">{this.props.data.title}</span>
-                        <div className="my-list-item__secondary-text">
+                        <span className="list-item__primary-text">{this.props.data.title}</span>
+                        <div className="list-item__secondary-text tag-essay-item-secondary-container">
                             <span>{this.props.data.date}</span>
-                            <span className="tag-essay-item-tags-container">
+                            <span className="tag-essay-item-block-container">
                                 <span className="tag-essay-item-post-type">{this.props.data.type}</span>
                                 {this.props.data.block1Array.map(block =>
                                     <span

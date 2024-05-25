@@ -2,6 +2,7 @@
 @use "@material/list";
 @use "@material/list/mdc-list";
 @use "@material/ripple";
+@use "@material/typography";
 @use "sass:map";
 @use "sass:color";
 
@@ -15,6 +16,17 @@
     @include ripple.radius-bounded(100%);
     // @include ripple.states-base-color(black);
     // @include ripple.states-opacities((hover: .02, focus: .02, press: .02));
+    padding: 0.5rem 1rem;
+    height: fit-content;
+}
+
+.mdc-deprecated-list--one-line .mdc-deprecated-list-item {
+    padding: 0.75rem 1rem;
+    height: fit-content;
+}
+
+.mdc-deprecated-list--two-line .mdc-deprecated-list-item {
+    height: fit-content;
 }
 
 .dark .mdc-deprecated-list-item {
@@ -24,4 +36,21 @@
 
 .dark .mdc-deprecated-list-item__darken {
     background-color: color.adjust(map.get(blogTheme.$surface, "dark"), $lightness: -1.2%);
+}
+
+.mdc-deprecated-list-item__text {
+    text-align: left;
+    white-space: normal;
+}
+
+.list-item__primary-text {
+    @include typography.typography(body1);
+    text-align: left;
+}
+
+.list-item__secondary-text {
+    @include typography.typography(body1);
+    color: var(--list-secondary-ink);
+    font-size: 0.9rem;
+    text-align: left;
 }

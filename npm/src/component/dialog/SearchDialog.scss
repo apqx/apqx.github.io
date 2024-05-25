@@ -16,6 +16,7 @@
 
 #search-dialog_tips {
     margin: 1.6rem 1rem 1.2rem 1rem;
+    color: var(--list-secondary-ink)
 }
 
 .mdc-text-field {
@@ -51,24 +52,8 @@
     @include button.container-fill-color(transparent);
 }
 
-.search-result-item {
-    height: max-content;
-    padding-top: 0.8rem;
-    padding-bottom: 0.8rem;
-}
-
-.search-result-item-title {
-    @include typography.typography(subtitle1);
-    margin: 0;
-    text-align: left;
-}
-
-.search-result-item-content {
-    text-align: left;
-}
-
 .search-result-item-type {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     padding: 0.04rem 0.4rem;
     border-radius: 0.5rem;
     margin-right: 0.2rem;
@@ -78,18 +63,11 @@
 }
 
 .search-result-item-snippet {
-    @include typography.typography(body1);
-    // color: var(--mdc-theme-text-secondary-on-background);
-    margin: 0;
     text-align: justify;
-    height: max-content;
-
+    line-break: anywhere;
+    line-height: 1rem;
     mark {
         background-color: transparent;
-        color: var(--search-nav);
-    }
-
-    b {
         color: var(--search-nav);
     }
 }

@@ -1,5 +1,5 @@
 import { ResultItemData, SearchDialog } from "./SearchDialog"
-import { consoleDebug, consoleError } from "../../util/log"
+import { consoleDebug, consoleError, consoleObjDebug } from "../../util/log"
 import { isDebug } from "../../util/tools"
 import { Item, Result } from "./bean/search/PagefindResult"
 import { getPostDate, getPostType } from "../../base/post"
@@ -8,8 +8,6 @@ const PAGE_SIZE: number = 10
 
 export class SearchDialogPresenter {
     component: SearchDialog = null
-
-    key: string = null
     pagefindResult: Result = null
     searching: boolean = false
 
@@ -22,9 +20,13 @@ export class SearchDialogPresenter {
      * @param key 搜索关键字
      */
     async search(key: string) {
-        if (key == null || key == "") return
+        if (key == null || key == "") {
+            this.clearResult()
+            return
+        }
         // 同一个key，正在执行｜已有结果，return
-        if (this.key == key && (this.searching || this.pagefindResult != null)) return
+        // if (this.key == key && (this.searching || this.pagefindResult != null)) return
+        if (this.searching) return
         this.searching = true
         this.component.setState({
             showLoading: true,
@@ -41,23 +43,21 @@ export class SearchDialogPresenter {
             pagefind.init()
             this.pagefindResult = await pagefind.search(key)
             const resultSize = this.pagefindResult.results.length
-            console.log(this.pagefindResult)
+            consoleObjDebug("Pagefind result => ", this.pagefindResult)
             const firstPageSize = resultSize < PAGE_SIZE ? resultSize : PAGE_SIZE
-            // const item = await this.pagefindResult.results[0].data()
-            // console.log(item)
+
             if (firstPageSize == 0) {
-                this.showSearchResult([])
+                this.clearResult()
                 return
             }
             const itemList: Array<Item> = await Promise.all(this.pagefindResult.results.slice(0, firstPageSize).map(it => it.data()))
-
             this.showSearchResult(itemList, true)
         } catch (e) {
             consoleError(e)
             this.component.setState({
                 showLoading: false,
                 loadHint: null
-             })
+            })
         }
         this.searching = false
     }
@@ -88,7 +88,7 @@ export class SearchDialogPresenter {
         this.searching = false
     }
 
-    showSearchResult(itemList: Array<Item>, clear: boolean = false) {
+    showSearchResult(itemList: Array<Item>, clear: boolean) {
         const resultSize = this.pagefindResult.results.length
         let results: ResultItemData[] = itemList.map(it =>
             new ResultItemData(it.meta.title, it.excerpt, getPostDate(it.raw_url), it.raw_url, getPostType(it.raw_url))
@@ -104,9 +104,9 @@ export class SearchDialogPresenter {
             results = tempResult
         }
         let loadHint: string = null
-        console.log(results)
+        consoleObjDebug("showSearchResult => ", results)
         if (results.length < resultSize) {
-            loadHint = results.length + "/" + resultSize + " 加载更多"
+            loadHint = results.length + "/" + resultSize + " MORE"
         }
         this.component.setState({
             showLoading: false,

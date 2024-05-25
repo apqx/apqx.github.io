@@ -85,7 +85,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
                     <span className="mdc-notched-outline">
                         <span className="mdc-notched-outline__leading"></span>
                         <span className="mdc-notched-outline__notch">
-                            <span className="mdc-floating-label" id="search-label"></span>
+                            <span className="mdc-floating-label" id="search-label">Words</span>
                         </span>
                         <span className="mdc-notched-outline__trailing"></span>
                     </span>
@@ -100,7 +100,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
                     </button>
                 </label>
 
-                <p id="search-dialog_tips"><b>TIPS：</b>中文低频词组用空格分割会有更好匹配，比如名字「施夏明」改为「施 夏 明」。如果网络通畅也可使用<a
+                <p id="search-dialog_tips"><b>TIPS：</b>中文低频词组用空格分割会有更好匹配，比如输入名字「施夏明」改为「施 夏 明」。如果网络通畅也可使用<a
                     href="https://cse.google.com/cse?cx=757420b6b2f3d47d2" target="_blank">Google站内搜索</a>。</p>
 
                 {(this.state.results != null && this.state.results.length > 0) &&
@@ -191,20 +191,17 @@ class ResultItem extends React.Component<ResultItemProps, any> {
     render() {
         return (
             <div>
-                <a className="mdc-deprecated-list-item search-result-item mdc-ripple-upgraded"
-                    href={this.props.data.url}
-                    target="_blank">
+                <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken mdc-ripple-upgraded"
+                    href={this.props.data.url}>
                     <span className="mdc-deprecated-list-item__ripple"></span>
-                    <div>
-                        <p className="search-result-item-title"
-                            dangerouslySetInnerHTML={createHtmlContent(this.props.data.title)} />
-                        <div className="search-result-item-content">
-                            <span className="search-result-item-type">{this.props.data.type}｜{this.props.data.date}</span>
-                            {/* <span className="search-result-item-type">{this.props.data.date}</span> */}
+                    <span className="mdc-deprecated-list-item__text">
+                        <span className="list-item__primary-text">{this.props.data.title}</span>
+                        <div className="list-item__secondary-text">
+                            <span className="search-result-item-type">{this.props.data.date}｜{this.props.data.type}</span>
                             <span className="search-result-item-snippet"
                                 dangerouslySetInnerHTML={createHtmlContent(this.props.data.description)} />
                         </div>
-                    </div>
+                    </span>
                 </a>
                 {!this.props.isLast && <hr className="mdc-deprecated-list-divider" />}
             </div>
