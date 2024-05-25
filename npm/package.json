@@ -3,14 +3,14 @@
   "version": "2.0.0",
   "scripts": {
     "watch": "webpack watch --mode=development",
-    "build-dev": "webpack --mode=development",
-    "build-release": "webpack --mode=production"
+    "build": "webpack --mode=production"
   },
   "dependencies": {
     "@lit/react": "^1.0.4",
     "@material/animation": "^14.0.0",
     "@material/button": "^14.0.0",
     "@material/card": "^14.0.0",
+    "@material/circular-progress": "^14.0.0",
     "@material/data-table": "^14.0.0",
     "@material/dialog": "^14.0.0",
     "@material/drawer": "^14.0.0",

@@ -1,4 +1,6 @@
 @use "../theme" as blogTheme;
+@use "../react/ProgressCircular.scss";
+@use "../react/Button.scss";
 @use "@material/button";
 @use '@material/button/mdc-button';
 @use "@material/ripple";
@@ -13,7 +15,7 @@
 }
 
 #search-dialog_tips {
-    margin: 1.6rem 1rem 0.5rem 1rem;
+    margin: 1.6rem 1rem 1.2rem 1rem;
 }
 
 .mdc-text-field {
@@ -41,39 +43,53 @@
 }
 
 .search-result-nav-wrapper {
-    margin-top: 10px;
+    padding: 1rem
 }
 
-.btn-search-result-nav {
+.search-result-hint-btn {
     @include button.ink-color(var(--search-nav));
-    @include button.outline-color(var(--divider-color));
-    margin-left: 1rem;
-    margin-right: 1rem;
-}
-
-.search-result-index {
-    color: var(--search-nav);
+    @include button.container-fill-color(transparent);
 }
 
 .search-result-item {
     height: max-content;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
 }
 
 .search-result-item-title {
     @include typography.typography(subtitle1);
-    color: var(--link-color);
     margin: 0;
     text-align: left;
 }
 
+.search-result-item-content {
+    text-align: left;
+}
+
+.search-result-item-type {
+    font-size: 0.9rem;
+    padding: 0.04rem 0.4rem;
+    border-radius: 0.5rem;
+    margin-right: 0.2rem;
+    color: var(--list-chip-1-ink);
+    background: var(--list-chip-1-bg);
+    border: 1px solid var(--list-chip-1-border);
+}
+
 .search-result-item-snippet {
     @include typography.typography(body1);
-    color: var(--mdc-theme-on-surface);
+    // color: var(--mdc-theme-text-secondary-on-background);
     margin: 0;
     text-align: justify;
     height: max-content;
-}
 
-p.search-result-item-snippet b {
-    color: var(--search-nav);
+    mark {
+        background-color: transparent;
+        color: var(--search-nav);
+    }
+
+    b {
+        color: var(--search-nav);
+    }
 }

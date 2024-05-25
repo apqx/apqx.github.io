@@ -127,5 +127,5 @@ export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogConten
 export function showPreferenceDialog() {
     consoleDebug("PreferenceDialogContent showPreferenceDialog")
     showDialog(<PreferenceDialog fixedWidth={true} btnText={"关闭"}
-                                 btnOnClick={null} closeOnClickOutside={true}/>, PREFERENCE_DIALOG_WRAPPER_ID)
+                                 OnClickBtn={null} closeOnClickOutside={true}/>, PREFERENCE_DIALOG_WRAPPER_ID)
 }

@@ -9,7 +9,7 @@ import ReactDOM from "react-dom"
 export interface BasicDialogProps {
     fixedWidth: boolean,
     btnText: string,
-    btnOnClick: (e: React.MouseEvent<HTMLElement>) => void,
+    OnClickBtn: (e: React.MouseEvent<HTMLElement>) => void,
     closeOnClickOutside: boolean
 }
 
@@ -116,7 +116,7 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
                                 <button type="button"
                                         className="mdc-button btn-round mdc-button--unelevated basic-dialog_btn_action"
                                         data-mdc-dialog-action="cancel"
-                                        onClick={this.props.btnOnClick}
+                                        onClick={this.props.OnClickBtn}
                                         id="basic-dialog_btn_close"
                                         tabIndex={0}>
                                     <span className="mdc-button__ripple"></span>

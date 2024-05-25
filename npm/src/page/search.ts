@@ -1,6 +1,6 @@
 import {MDCRipple} from "@material/ripple";
 import {MDCTextField} from "@material/textfield";
-import {Progressbar} from "../component/dialog/Progressbar";
+import {ProgressLinear} from "../component/react/ProgressLinear";
 import {MDCList} from "@material/list";
 import "./search.scss"
 

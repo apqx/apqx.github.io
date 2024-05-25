@@ -1,11 +1,7 @@
 import { TagEssayDialog, EssayItemData } from "./TagEssayListDialog"
 import { consoleDebug, consoleError } from "../../util/log"
 import { isDebug } from "../../util/tools"
-
-const POST_TYPE_ORIGINAL = ["original", "随笔"]
-const POST_TYPE_REPOST = ["repost", "转载"]
-const POST_TYPE_POETRY = ["poetry", "诗文"]
-const POST_TYPE_OPERA = ["opera", "看剧"]
+import { POST_TYPE_OPERA, POST_TYPE_ORIGINAL, POST_TYPE_POETRY, POST_TYPE_REPOST, PostType } from "../../base/constant"
 
 /**
  * 在archives/posts.txt保存着所有文章及对应tag的列表，只请求一次
@@ -111,7 +107,7 @@ export class TagEssayListDialogPresenter {
         for (const post of posts) {
             const postType = this.getPostType(post.categories)
             const blocks = this.getPostBlocks(post.author, post.actor, post.mention, postType)
-            const essayForShow = new EssayItemData(post.url, post.title, post.date, postType[1],
+            const essayForShow = new EssayItemData(post.url, post.title, post.date, postType.name,
                 blocks[0], blocks[1])
             essayListForShow.push(essayForShow)
         }
@@ -121,17 +117,20 @@ export class TagEssayListDialogPresenter {
         })
     }
 
-    getPostType(categories: string): string[] {
-        if (categories.includes(POST_TYPE_ORIGINAL[0])) {
+    getPostType(categories: string): PostType {
+        if (categories.includes(POST_TYPE_ORIGINAL.identifier)) {
             return POST_TYPE_ORIGINAL
-        } else if (categories.includes(POST_TYPE_REPOST[0])) {
+        } else if (categories.includes(POST_TYPE_REPOST.identifier)) {
             return POST_TYPE_REPOST
-        } else if (categories.includes(POST_TYPE_POETRY[0])) {
+        } else if (categories.includes(POST_TYPE_POETRY.identifier)) {
             return POST_TYPE_POETRY
-        } else if (categories.includes(POST_TYPE_OPERA[0])) {
+        } else if (categories.includes(POST_TYPE_OPERA.identifier)) {
             return POST_TYPE_OPERA
         } else {
-            return ["", "未知"]
+            return {
+                identifier: "",
+                name: "未知"
+            }
         }
     }
 
@@ -139,13 +138,13 @@ export class TagEssayListDialogPresenter {
      * 获取一个文章要显示的块，包括author作者、actor演员、mention提到
      * 显示，一共就2个block，用不同的颜色区分
      */
-    getPostBlocks(author: string, actor: string, mention: string, postType: string[]): [string[], string[]] {
+    getPostBlocks(author: string, actor: string, mention: string, postType: PostType): [string[], string[]] {
         const actorArray = actor === "" ? [] : actor.split(" ")
         const mentionArray = mention === "" ? [] : mention.split(" ")
-        if (postType[0] === POST_TYPE_ORIGINAL[0]) {
+        if (postType.identifier === POST_TYPE_ORIGINAL.identifier) {
             // 随笔，不显示author，显示actor和mention
             return [actorArray, mentionArray]
-        } else if (postType[0] === POST_TYPE_OPERA[0]) {
+        } else if (postType.identifier === POST_TYPE_OPERA.identifier) {
             // 看剧，显示actor和mention
             return [actorArray, mentionArray]
         } else {

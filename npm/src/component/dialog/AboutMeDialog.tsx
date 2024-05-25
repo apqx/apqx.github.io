@@ -4,6 +4,7 @@ import { MDCRipple } from "@material/ripple"
 import { ABOUT_DIALOG_WRAPPER_ID, BasicDialog, BasicDialogProps, showDialog } from "./BasicDialog"
 import { consoleDebug } from "../../util/log"
 import ReactDOM from "react-dom"
+import { Button } from "../react/Button"
 // import "./AboutMeDialog.scss"
 
 class AboutMeDialog extends BasicDialog<BasicDialogProps, any> {
@@ -29,6 +30,7 @@ class AboutMeDialog extends BasicDialog<BasicDialogProps, any> {
 
     dialogContent(): JSX.Element {
         consoleDebug("AboutMeDialog render")
+        const chipClass = ["btn-tag"]
         return (
             <div className="center-horizontal">
                 <img height="100px" width="100dx" className="circle-avatar"
@@ -36,11 +38,11 @@ class AboutMeDialog extends BasicDialog<BasicDialogProps, any> {
                     alt="avatar" />
                 <span className="about-me-name">立泉</span>
                 <section className="about-me-tag-wrapper">
-                    <SkillChip text="C++" />
-                    <SkillChip text="Java" />
-                    <SkillChip text="Kotlin" />
-                    <SkillChip text="Android" />
-                    <SkillChip text="Git" />
+                    <Button text="C++"  onClick={null} classList={chipClass} />
+                    <Button text="Java"  onClick={null} classList={chipClass} />
+                    <Button text="Kotlin"  onClick={null} classList={chipClass} />
+                    <Button text="Android"  onClick={null} classList={chipClass} />
+                    <Button text="Git"  onClick={null} classList={chipClass} />
                 </section>
                 <p className="about-me-description">九五后，旅居杭州，<a
                     href={this.getKunQvLink()}>昆虫</a>，野生散养攻城狮，“十分”“业余”摄影Fans。联系我可以通过电子邮件，如果有必要也可以用<a
@@ -57,34 +59,6 @@ class AboutMeDialog extends BasicDialog<BasicDialogProps, any> {
                     <LinkItem link="mailto:safari@mudan.me" title="Email" />
                 </ul>
             </div>
-        )
-    }
-}
-
-interface SkillChipProps {
-    text: string
-}
-
-class SkillChip extends React.Component<SkillChipProps, any> {
-
-    componentDidMount(): void {
-        this.initButton(ReactDOM.findDOMNode(this) as HTMLElement)
-    }
-
-    initButton(e: HTMLElement) {
-        if (e == null) return
-        new MDCRipple(e)
-        e.addEventListener("click", () => {
-            e.blur()
-        })
-    }
-
-    render() {
-        return (
-            <button type="button" className="mdc-button mdc-button--unelevated btn-tag">
-                <span className="mdc-button__ripple"></span>
-                <span className="mdc-button__label">{this.props.text}</span>
-            </button>
         )
     }
 }
@@ -116,6 +90,6 @@ class LinkItem extends React.Component<LinkItemProps, any> {
 
 export function showAboutMeDialog() {
     showDialog(<AboutMeDialog fixedWidth={true} btnText={"关闭"}
-        btnOnClick={null}
+        OnClickBtn={null}
         closeOnClickOutside={true} />, ABOUT_DIALOG_WRAPPER_ID)
 }

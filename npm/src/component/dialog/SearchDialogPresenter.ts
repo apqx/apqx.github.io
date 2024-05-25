@@ -1,12 +1,17 @@
-import {ResultItemData, SearchDialog} from "./SearchDialog"
-import {consoleError} from "../../util/log"
+import { ResultItemData, SearchDialog } from "./SearchDialog"
+import { consoleDebug, consoleError } from "../../util/log"
+import { isDebug } from "../../util/tools"
+import { Item, Result } from "./bean/search/PagefindResult"
+import { getPostDate, getPostType } from "../../base/post"
+
+const PAGE_SIZE: number = 10
 
 export class SearchDialogPresenter {
     component: SearchDialog = null
-    // Google programmable search engine id
-    searchEngineId: string = ""
-    // Google cloud platform project key
-    gcpKey: string = ""
+
+    key: string = null
+    pagefindResult: Result = null
+    searching: boolean = false
 
     constructor(component: SearchDialog) {
         this.component = component
@@ -15,74 +20,108 @@ export class SearchDialogPresenter {
     /**
      * 搜索
      * @param key 搜索关键字
-     * @param startIndex 每页10个，本次请求的起始索引，从1开始
      */
-    search(key: string, startIndex: number) {
+    async search(key: string) {
         if (key == null || key == "") return
-        const request = new Request("https://customsearch.googleapis.com/customsearch/v1?" +
-            "cx=" + this.searchEngineId +
-            "&exactTerms=" + key +
-            "&key=" + this.gcpKey +
-            "&start=" + startIndex, {method: "GET"}
-        )
+        // 同一个key，正在执行｜已有结果，return
+        if (this.key == key && (this.searching || this.pagefindResult != null)) return
+        this.searching = true
         this.component.setState({
-            showLoading: true
+            showLoading: true,
+            loadHint: null
         })
-        fetch(request)
-            .then(response => {
-                if (response.status === 200) {
-                    return response.json()
-                } else {
-                    throw new Error("Something went wrong on api server!")
-                }
-            })
-            .then((response: SearchResponse) => {
-                this.showSearchResult(response)
-            }).catch(error => {
-                consoleError(error)
-                this.removeSearchResult()
+        try {
+            let pagefindUrl: string = isDebug() ? "/npm/pagefind/pagefind.js" : "https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/pagefind/pagefind.js"
+            // webpack会对所有import进行打包、拆分，对于src中不存在而在网站中存在的js，打包时会因为找不到而异常
+            // 添加注释可以避免webpack对这里的import打包，而在运行时引入
+            const pagefind = await import(/*webpackIgnore: true*/ pagefindUrl)
+            // await pagefind.options({
+            //     bundlePath: "/npm/dist/pagefind/"
+            // })
+            pagefind.init()
+            this.pagefindResult = await pagefind.search(key)
+            const resultSize = this.pagefindResult.results.length
+            console.log(this.pagefindResult)
+            const firstPageSize = resultSize < PAGE_SIZE ? resultSize : PAGE_SIZE
+            // const item = await this.pagefindResult.results[0].data()
+            // console.log(item)
+            if (firstPageSize == 0) {
+                this.showSearchResult([])
+                return
             }
-        )
+            const itemList: Array<Item> = await Promise.all(this.pagefindResult.results.slice(0, firstPageSize).map(it => it.data()))
+
+            this.showSearchResult(itemList, true)
+        } catch (e) {
+            consoleError(e)
+            this.component.setState({
+                showLoading: false,
+                loadHint: null
+             })
+        }
+        this.searching = false
     }
 
     /**
-     * @param response
-     */
-    showSearchResult(response: SearchResponse) {
-        if (response.searchInformation.totalResults === "0") {
-            this.removeSearchResult()
-            return
-        }
-        // 搜索结果索引，每页10个
-        const totalPage = Math.ceil(Number(response.searchInformation.totalResults) / 10)
-        const currentPage = Math.ceil(response.queries.request[0].startIndex / 10)
-        const list = response.items.map((item) => {
-            return new ResultItemData(item.htmlTitle, item.htmlSnippet, item.link)
+     * 加载更多
+    */
+    async loadMore() {
+        if (this.searching) return
+        this.searching = true
+        this.component.setState({
+            showLoading: true,
+            loadHint: null
         })
-        const previousPageStartIndex = (response.queries.previousPage != null && response.queries.previousPage.length !== 0)
-            ? response.queries.previousPage[0].startIndex : -1
-        const nextPageStartIndex = (response.queries.nextPage != null && response.queries.nextPage.length !== 0)
-            ? response.queries.nextPage[0].startIndex : -1
+        try {
+            const remainingCount = this.pagefindResult.results.length - this.component.state.results.length
+            const loadCount = remainingCount < PAGE_SIZE ? remainingCount : PAGE_SIZE
+            const startIndex = this.component.state.results.length
+            const itemList: Array<Item> = await Promise.all(this.pagefindResult.results.slice(startIndex, startIndex + loadCount).map(it => it.data()))
+            this.showSearchResult(itemList, false)
+        } catch (e) {
+            consoleError(e)
+            this.component.setState({
+                showLoading: false,
+                loadHint: "加载错误，点击重试"
+            })
+        }
+        this.searching = false
+    }
+
+    showSearchResult(itemList: Array<Item>, clear: boolean = false) {
+        const resultSize = this.pagefindResult.results.length
+        let results: ResultItemData[] = itemList.map(it =>
+            new ResultItemData(it.meta.title, it.excerpt, getPostDate(it.raw_url), it.raw_url, getPostType(it.raw_url))
+        )
+        if (!clear) {
+            const tempResult = new Array<ResultItemData>()
+            this.component.state.results.forEach(it => {
+                tempResult.push(it)
+            })
+            results.forEach(it => {
+                tempResult.push(it)
+            })
+            results = tempResult
+        }
+        let loadHint: string = null
+        console.log(results)
+        if (results.length < resultSize) {
+            loadHint = results.length + "/" + resultSize + " 加载更多"
+        }
         this.component.setState({
             showLoading: false,
-            resultList: list,
-            totalPage: totalPage,
-            currentPage: currentPage,
-            previousPageStartIndex: previousPageStartIndex,
-            nextPageStartIndex: nextPageStartIndex,
-            searchText: response.queries.request[0].exactTerms
+            loadHint: loadHint,
+            results: results,
+            resultSize: resultSize
         })
     }
 
-    removeSearchResult() {
+    clearResult() {
         this.component.setState({
             showLoading: false,
-            resultList: [],
-            totalPage: -1,
-            currentPage: -1,
-            previousPageStartIndex: -1,
-            nextPageStartIndex: -1,
-            searchText: ""
+            loadHint: null,
+            results: [],
+            resultSize: 0,
         })
     }
 
@@ -96,35 +135,3 @@ export class SearchDialogPresenter {
         }
     }
 }
-
-interface SearchResponse {
-    queries: {
-        previousPage: SearchResponseQueryItem[],
-        request: SearchResponseQueryItem[],
-        nextPage: SearchResponseQueryItem[],
-    }
-    searchInformation: {
-        searchTime: number,
-        formattedSearchTime: string,
-        totalResults: string,
-        formattedTotalResults: string
-    }
-    items: SearchResponseItem[]
-}
-
-interface SearchResponseQueryItem {
-    totalResults: string
-    count: number
-    startIndex: number
-    exactTerms: string
-}
-
-interface SearchResponseItem {
-    title: string,
-    htmlTitle: string,
-    link: string,
-    displayLink: string,
-    htmlSnippet: string,
-}
-
-

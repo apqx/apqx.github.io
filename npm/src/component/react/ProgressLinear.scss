@@ -1,0 +1,6 @@
+@use "@material/linear-progress";
+@use "@material/linear-progress/mdc-linear-progress";
+
+.mdc-linear-progress {
+    @include linear-progress.buffer-color(var(--mdc-theme-background))
+}

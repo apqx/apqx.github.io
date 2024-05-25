@@ -1,5 +1,5 @@
 import * as React from "react"
-import {Progressbar} from "./Progressbar"
+import {ProgressLinear} from "../react/ProgressLinear"
 import {BasicDialog, BasicDialogProps, COMMON_DIALOG_WRAPPER_ID, showDialog} from "./BasicDialog"
 import {ShortLinkJumpDialogPresenter} from "./ShortLinkJumpDialogPresenter"
 // import "./ShortLinkJumpDialog.scss"
@@ -45,7 +45,7 @@ export class ShortLinkDialog extends BasicDialog<DialogContentProps, DialogConte
                     <a className="clickable-empty-link" onClick={this.state.onClickLink}>{this.state.content}</a>
                 </p>
 
-                <Progressbar loading={true}/>
+                <ProgressLinear loading={true}/>
             </div>
         )
     }
@@ -53,5 +53,5 @@ export class ShortLinkDialog extends BasicDialog<DialogContentProps, DialogConte
 
 export function showShortLinkJumpDialog(_pid: string) {
     showDialog(<ShortLinkDialog pid={_pid} fixedWidth={false} btnText={null}
-                                                 btnOnClick={null} closeOnClickOutside={false} />, COMMON_DIALOG_WRAPPER_ID)
+                                                 OnClickBtn={null} closeOnClickOutside={false} />, COMMON_DIALOG_WRAPPER_ID)
 }

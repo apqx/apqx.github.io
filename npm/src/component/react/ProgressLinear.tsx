@@ -1,20 +1,19 @@
-import * as React from "react"
+import React from "react"
 import {MDCLinearProgress} from "@material/linear-progress"
 import ReactDOM from "react-dom";
-import {consoleDebug} from "../../util/log";
 
 interface Props {
     loading: boolean
 }
 
-export class Progressbar extends React.Component<Props, any> {
-    progressbar: MDCLinearProgress = null
+export class ProgressLinear extends React.Component<Props, any> {
+    progressLinear: MDCLinearProgress = null
 
     init(e: Element) {
         if (e == null) return
-        if (this.progressbar == null) {
-            this.progressbar = new MDCLinearProgress(e)
-            this.progressbar.determinate = false
+        if (this.progressLinear == null) {
+            this.progressLinear = new MDCLinearProgress(e)
+            this.progressLinear.determinate = false
         }
         this.showLoading(this.props.loading)
     }
@@ -30,15 +29,15 @@ export class Progressbar extends React.Component<Props, any> {
 
     private showLoading(show: boolean) {
         if (show) {
-            this.progressbar.open()
+            this.progressLinear.open()
         } else {
-            this.progressbar.close()
+            this.progressLinear.close()
         }
     }
 
     render() {
         return (
-            <div role="progressbar" className="mdc-linear-progress" aria-label="Example Progress Bar">
+            <div role="progressbar" className="mdc-linear-progress">
                 <div className="mdc-linear-progress__buffer">
                     <div className="mdc-linear-progress__buffer-bar"></div>
                     <div className="mdc-linear-progress__buffer-dots"></div>

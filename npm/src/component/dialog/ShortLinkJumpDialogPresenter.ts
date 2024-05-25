@@ -1,6 +1,6 @@
-import {ShortLinkDialog} from "./ShortLinkJumpDialog"
-import {consoleDebug, consoleError} from "../../util/log"
-import {isDebug} from "../../util/tools"
+import { ShortLinkDialog } from "./ShortLinkJumpDialog"
+import { consoleDebug, consoleError } from "../../util/log"
+import { isDebug } from "../../util/tools"
 
 interface UrlMapJson {
     map: UrlMapItem[]
@@ -34,7 +34,6 @@ export class ShortLinkJumpDialogPresenter {
         const request = new Request(url, {
             method: "GET"
         })
-        // 异步请求
         // fetch调用浏览器的网络请求，所以会有和浏览器一样的缓存策略
         let startTimeMs = Date.now()
         fetch(request, {cache: "no-cache"})

@@ -34,10 +34,10 @@ cd npm
 # 安装所需的依赖
 npm install
 # 执行编译，在`npm/dist/`目录下生成Js、CSS
-npm run build-release
+npm run build
 ```
 
-网站部署时这些资源文件会被托管到`阿里云OSS`上以提高中国大陆的访问速度，在`_includes/head-common.html`中可以看到对它们的引用。
+网站部署时这些资源文件会被托管到`阿里云OSS`上以提高中国大陆的访问速度，在`_includes/head.html`中可以看到对它们的引用。
 
 调试时则使用本地资源以实时响应`Webpack`工程变化，需要将`_includes/configure.html`中的`debug`参数设为`true`，`Jekyll`会检测此参数来更改`<header></header>`中引用的资源，而且进入`debug`模式后`Js`日志也会输出到浏览器的`Console`中。
 

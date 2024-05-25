@@ -1,6 +1,6 @@
 import * as React from "react"
 import {MDCList} from "@material/list"
-import {Progressbar} from "./Progressbar"
+import {ProgressLinear} from "../react/ProgressLinear"
 import {MDCRipple} from "@material/ripple"
 import {BasicDialog, BasicDialogProps, TAG_DIALOG_WRAPPER_ID, showDialog} from "./BasicDialog"
 import {consoleDebug} from "../../util/log"
@@ -107,7 +107,7 @@ export class TagEssayDialog extends BasicDialog<DialogContentProps, DialogConten
                     的{count}博文
                 </p>
 
-                <Progressbar loading={this.state.showLoading}/>
+                <ProgressLinear loading={this.state.showLoading}/>
 
                 {this.state.essayList != null && this.state.essayList.length != 0 &&
                     <ul className="mdc-deprecated-list mdc-deprecated-list--two-line dialog-link-list">
@@ -194,5 +194,5 @@ class EssayItem extends React.Component<EssayItemProps, any> {
 export function showTagEssayListDialog(_tag: string) {
     consoleDebug("TagEssayListDialogContent showTagEssayListDialog " + _tag)
     showDialog(<TagEssayDialog tag={_tag} fixedWidth={true} btnText={"关闭"}
-                               btnOnClick={null} closeOnClickOutside={true}/>, TAG_DIALOG_WRAPPER_ID)
+                               OnClickBtn={null} closeOnClickOutside={true}/>, TAG_DIALOG_WRAPPER_ID)
 }
