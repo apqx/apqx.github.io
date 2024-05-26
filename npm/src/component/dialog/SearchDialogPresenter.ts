@@ -48,6 +48,7 @@ export class SearchDialogPresenter {
 
             if (firstPageSize == 0) {
                 this.clearResult()
+                this.searching = false
                 return
             }
             const itemList: Array<Item> = await Promise.all(this.pagefindResult.results.slice(0, firstPageSize).map(it => it.data()))

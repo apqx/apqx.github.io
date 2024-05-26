@@ -97,7 +97,7 @@ export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogConten
         consoleDebug("PreferenceDialogContent render")
         return (
             <>
-                <div className="center-horizontal" id="preference-dialog__top-container">
+                <div className="center" id="preference-dialog__top-container">
                     <picture>
                         <source
                             srcSet="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/noto-animated-emoji/mouth-none/512.webp"

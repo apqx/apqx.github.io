@@ -11,7 +11,7 @@
 @use "../component/dialog/AboutMeDialog";
 @use "../component/dialog/PreferenceDialog";
 @use "../component/dialog/SearchDialog";
-@use "../component/dialog/TagEssayListDialog";
+@use "../component/dialog/TagDialog";
 @use "@material/animation";
 
 // 通过js给body添加dark class，可以实现对mac-theme的参数更改
@@ -97,7 +97,7 @@ footer a {
     }
 }
 
-.center-horizontal {
+.center {
     margin: auto;
     text-align: center;
 }

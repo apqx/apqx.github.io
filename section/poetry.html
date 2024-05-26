@@ -19,7 +19,6 @@ blockFromSearchEngine: false
 	{% for post in site.posts %}
 	{%- if post.categories contains "poetry" and post.hideFromIndex != true and post.pin == true %}
 	<li class="index-li index-li--pin">
-		<i class="material-symbols-rounded index-pin-icon">attach_file</i>
 		<a class="index-a" href="{{ post.url | prepend: site.baseurl }}">
 			<section class="mdc-card index-card">
 				<h1 class="index-title one-line">{{ post.title }}</h1>
@@ -27,6 +26,7 @@ blockFromSearchEngine: false
 					{% if post.moreDate != null %}{{ post.moreDate }}{% endif %} {{ post.author }}
 				</span>
 				<span class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
+				<i class="material-symbols-rounded index-pin-icon">attach_file</i>
 			</section>
 		</a>
 	</li>

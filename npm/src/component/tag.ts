@@ -1,6 +1,6 @@
 import {MDCRipple} from "@material/ripple";
 import {consoleDebug} from "../util/log";
-import {showTagEssayListDialog} from "./dialog/TagEssayListDialog";
+import {showTagDialog} from "./dialog/TagDialog";
 // import "./tag.scss"
 
 /**
@@ -29,7 +29,7 @@ function clickTag(event: Event) {
     consoleDebug("Click tag " + chipId)
     // 这里的tag可能是由&连接的多个tag
     const tag = chipId.replace("chip_tag_", "")
-    showTagEssayListDialog(tag)
+    showTagDialog(tag)
 }
 
 export function initTag() {

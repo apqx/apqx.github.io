@@ -4,12 +4,12 @@
 .tag-dialog-trigger {
 }
 
-.tag-essay-item-secondary-container {
+.tag-list-item__secondary-container {
     display: flex;
     white-space: nowrap;
 }
 
-.tag-essay-item-block-container {
+.tag-list-item__block-container {
     overflow-x: auto;
     padding-left: 0.1rem;
     padding-right: 0.1rem;
@@ -17,7 +17,7 @@
 
 // 移动端Chrome的scrollBar一直显示，需要消除，其它浏览器scrollBar都会自动隐藏
 // 在保留滚动效果的同时，消除Safari，Chrome的scrollBar
-.tag-essay-item-block-container::-webkit-scrollbar {
+.tag-list-item__block-container::-webkit-scrollbar {
     // 消除scrollBar
     display: none;
 }
@@ -29,21 +29,21 @@
     margin-right: 0.2rem;
 }
 
-.tag-essay-item-post-type {
+.tag-list-item__post-type {
     @include block();
     color: var(--list-chip-1-ink);
     background: var(--list-chip-1-bg);
     border: 1px solid var(--list-chip-1-border);
 }
 
-.tag-essay-item-post-block1 {
+.tag-list-item__post-block1 {
     @include block();
     color: var(--list-chip-3-ink);
     background: var(--list-chip-3-bg);
     border: 1px solid var(--list-chip-3-border);
 }
 
-.tag-essay-item-post-block2 {
+.tag-list-item__post-block2 {
     @include block();
     color: var(--list-chip-2-ink);
     background: var(--list-chip-2-bg);
@@ -51,9 +51,9 @@
 }
 
 .handwritten {
-    .tag-essay-item-post-type,
-    .tag-essay-item-post-block1,
-    .tag-essay-item-post-block2 {
+    .tag-list-item__post-type,
+    .tag-list-item__post-block1,
+    .tag-list-item__post-block2 {
         padding: 0.14rem 0.4rem 0.08rem 0.4rem;
     }
 }

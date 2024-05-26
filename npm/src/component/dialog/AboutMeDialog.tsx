@@ -32,7 +32,7 @@ class AboutMeDialog extends BasicDialog<BasicDialogProps, any> {
         consoleDebug("AboutMeDialog render")
         const chipClass = ["btn-tag"]
         return (
-            <div className="center-horizontal">
+            <div className="center">
                 <img height="100px" width="100dx" className="circle-avatar"
                     src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg"
                     alt="avatar" />

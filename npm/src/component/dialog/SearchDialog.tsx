@@ -2,7 +2,6 @@ import * as React from "react"
 import { SearchDialogPresenter } from "./SearchDialogPresenter"
 import { MDCRipple } from "@material/ripple"
 import { MDCTextField } from "@material/textfield"
-import { ProgressLinear } from "../react/ProgressLinear"
 import { MDCList } from "@material/list"
 import { createHtmlContent } from "../../util/tools"
 import { BasicDialog, BasicDialogProps, SEARCH_DIALOG_WRAPPER_ID, showDialog } from "./BasicDialog"
@@ -80,7 +79,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
     dialogContent(): JSX.Element {
         const hintBtnClassList = ["search-result-hint-btn"]
         return (
-            <div className="center-horizontal">
+            <div className="center">
                 <label className="mdc-text-field mdc-text-field--outlined" id="search-dialog_label">
                     <span className="mdc-notched-outline">
                         <span className="mdc-notched-outline__leading"></span>
@@ -92,7 +91,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
                     <input type="search" className="mdc-text-field__input" aria-labelledby="search-label"
                         tabIndex={-1} onChange={this.onInputChange} />
                     <button id="btn-search" type="button"
-                        className="mdc-button mdc-button--unelevated btn-search btn-round center-horizontal"
+                        className="mdc-button mdc-button--unelevated btn-search btn-round center"
                         tabIndex={-1} onClick={this.onClickSearch}>
                         <span className="mdc-button__ripple"></span>
                         <i className="material-icons mdc-button__icon" aria-hidden="true">search</i>
@@ -100,7 +99,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
                     </button>
                 </label>
 
-                <p id="search-dialog_tips"><b>TIPS：</b>中文低频词组用空格分割会有更好匹配，比如输入名字「施夏明」改为「施 夏 明」。如果网络通畅也可使用<a
+                <p id="search-dialog_tips"><b>TIPS：</b>中文低频词组用空格分隔会有更好匹配，比如输入名字「施夏明」改为「施 夏 明」。如果网络通畅也可使用<a
                     href="https://cse.google.com/cse?cx=757420b6b2f3d47d2" target="_blank">Google站内搜索</a>。</p>
 
                 {(this.state.results != null && this.state.results.length > 0) &&
@@ -195,7 +194,7 @@ class ResultItem extends React.Component<ResultItemProps, any> {
                     href={this.props.data.url}>
                     <span className="mdc-deprecated-list-item__ripple"></span>
                     <span className="mdc-deprecated-list-item__text">
-                        <span className="list-item__primary-text">{this.props.data.title}</span>
+                        <span className="list-item__primary-text one-line">{this.props.data.title}</span>
                         <div className="list-item__secondary-text">
                             <span className="search-result-item-type">{this.props.data.date}｜{this.props.data.type}</span>
                             <span className="search-result-item-snippet"

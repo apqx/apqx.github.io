@@ -4,7 +4,7 @@ import {ProgressLinear} from "../react/ProgressLinear"
 import {MDCRipple} from "@material/ripple"
 import {BasicDialog, BasicDialogProps, TAG_DIALOG_WRAPPER_ID, showDialog} from "./BasicDialog"
 import {consoleDebug} from "../../util/log"
-import {TagEssayListDialogPresenter} from "./TagEssayListDialogPresenter"
+import {TagDialogPresenter} from "./TagDialogPresenter"
 import ReactDOM from "react-dom"
 // import "./TagEssayListDialog.scss"
 
@@ -13,28 +13,28 @@ interface DialogContentProps extends BasicDialogProps {
 }
 
 interface DialogContentState {
-    showLoading: boolean,
-    essayList: EssayItemData[]
+    loading: boolean,
+    postList: PostItemData[]
 }
 
-export class TagEssayDialog extends BasicDialog<DialogContentProps, DialogContentState> {
-    presenter: TagEssayListDialogPresenter = null
+export class TagDialog extends BasicDialog<DialogContentProps, DialogContentState> {
+    presenter: TagDialogPresenter = null
     mdcList: MDCList = null
 
     constructor(props) {
         super(props)
-        consoleDebug("TagEssayListDialogContent constructor")
-        this.presenter = new TagEssayListDialogPresenter(this)
+        consoleDebug("TagDialogContent constructor")
+        this.presenter = new TagDialogPresenter(this)
         this.state = {
-            showLoading: true,
-            essayList: []
+            loading: true,
+            postList: []
         }
     }
 
     onDialogOpen() {
         super.onDialogOpen()
         // 检查是否应该触发fetch数据
-        if (this.state.essayList.length == 0) {
+        if (this.state.postList.length == 0) {
             this.presenter.findTaggedEssays(this.props.tag)
         }
     }
@@ -46,13 +46,13 @@ export class TagEssayDialog extends BasicDialog<DialogContentProps, DialogConten
 
     componentDidMount() {
         super.componentDidMount()
-        consoleDebug("TagEssayListDialogContent componentDidMount")
+        consoleDebug("TagDialogContent componentDidMount")
     }
 
     componentDidUpdate(prevProps: Readonly<DialogContentProps>, prevState: Readonly<DialogContentState>, snapshot?: any) {
-        consoleDebug("TagEssayListDialogContent componentDidUpdate")
+        consoleDebug("TagDialogContent componentDidUpdate")
         // 检查是否有list
-        if (this.state.essayList != null && this.state.essayList.length > 0 && this.mdcList == null) {
+        if (this.state.postList != null && this.state.postList.length > 0 && this.mdcList == null) {
             let listE = this.rootE.querySelector(".dialog-link-list")
             this.mdcList = new MDCList(listE)
         } else {
@@ -64,9 +64,9 @@ export class TagEssayDialog extends BasicDialog<DialogContentProps, DialogConten
         super.shouldComponentUpdate(nextProps, nextState, nextContext)
         // 当外部以<Tag />的形式重新传入props时，或内部state变化时，这里执行，判断是否要render
         // props是UI的数据id，state则是要展示的UI状态，更新props，会触发重新获取要展示的UI对应的数据，调用setState触发state变化，引起UI变化
-        consoleDebug("TagEssayListDialogContent shouldComponentUpdate" +
+        consoleDebug("TagDialogContent shouldComponentUpdate" +
             " props: " + this.props.tag + " -> " + nextProps.tag +
-            " state: " + this.state.showLoading + " " + this.state.essayList.length + " -> " + nextState.showLoading + " " + nextState.essayList.length)
+            " state: " + this.state.loading + " " + this.state.postList.length + " -> " + nextState.loading + " " + nextState.postList.length)
         if (this.props.tag != nextProps.tag) {
             // props变化，render，要先更新props对应的UI
             // 同时触发获取对应的数据，当数据获取完成后，会自动setState触发state变化，再render
@@ -74,8 +74,8 @@ export class TagEssayDialog extends BasicDialog<DialogContentProps, DialogConten
             this.presenter.findTaggedEssays(nextProps.tag)
             return true
         }
-        if (this.state.showLoading != nextState.showLoading ||
-            !this.isEssayListSame(this.state.essayList, nextState.essayList)) {
+        if (this.state.loading != nextState.loading ||
+            !this.isEssayListSame(this.state.postList, nextState.postList)) {
             consoleDebug("State different, render")
             return true
         }
@@ -83,7 +83,7 @@ export class TagEssayDialog extends BasicDialog<DialogContentProps, DialogConten
         return false
     }
 
-    private isEssayListSame(list1: EssayItemData[], list2: EssayItemData[]) {
+    private isEssayListSame(list1: PostItemData[], list2: PostItemData[]) {
         if (list1.length != list2.length) return false
         for (let i = 0; i < list1.length; i++) {
             if (list1[i].url != list2[i].url) return false
@@ -92,12 +92,12 @@ export class TagEssayDialog extends BasicDialog<DialogContentProps, DialogConten
     }
 
     dialogContent(): JSX.Element {
-        consoleDebug("TagEssayListDialogContent render")
+        consoleDebug("TagDialogContent render")
         let count: JSX.Element
-        if (this.state.essayList.length == 0) {
+        if (this.state.postList.length == 0) {
             count = <></>
         } else {
-            count = <><span>{this.state.essayList.length}</span>篇</>
+            count = <><span>{this.state.postList.length}</span>篇</>
         }
         return (
             <>
@@ -107,15 +107,15 @@ export class TagEssayDialog extends BasicDialog<DialogContentProps, DialogConten
                     的{count}博文
                 </p>
 
-                <ProgressLinear loading={this.state.showLoading}/>
+                <ProgressLinear loading={this.state.loading}/>
 
-                {this.state.essayList != null && this.state.essayList.length != 0 &&
+                {this.state.postList != null && this.state.postList.length != 0 &&
                     <ul className="mdc-deprecated-list dialog-link-list">
-                        {this.state.essayList.map(item =>
-                            <EssayItem
+                        {this.state.postList.map(item =>
+                            <PostItem
                                 key={item.title + item.date}
-                                data={new EssayItemData(item.url, item.title, item.date, item.type, item.block1Array, item.block2Array)}
-                                isLast={this.state.essayList.indexOf(item) === (this.state.essayList.length - 1)}
+                                data={new PostItemData(item.url, item.title, item.date, item.type, item.block1Array, item.block2Array)}
+                                isLast={this.state.postList.indexOf(item) === (this.state.postList.length - 1)}
                             />
                         )}
                     </ul>
@@ -125,7 +125,7 @@ export class TagEssayDialog extends BasicDialog<DialogContentProps, DialogConten
     }
 }
 
-export class EssayItemData {
+export class PostItemData {
     url: string
     title: string
     date: string
@@ -148,12 +148,12 @@ export class EssayItemData {
     }
 }
 
-interface EssayItemProps {
-    data: EssayItemData
+interface PostItemProps {
+    data: PostItemData
     isLast: boolean
 }
 
-class EssayItem extends React.Component<EssayItemProps, any> {
+class PostItem extends React.Component<PostItemProps, any> {
 
     componentDidMount(): void {
         new MDCRipple((ReactDOM.findDOMNode(this) as Element).querySelector(".mdc-deprecated-list-item"))
@@ -166,20 +166,20 @@ class EssayItem extends React.Component<EssayItemProps, any> {
                    href={this.props.data.url}>
                     <span className="mdc-deprecated-list-item__ripple"></span>
                     <span className="mdc-deprecated-list-item__text">
-                        <span className="list-item__primary-text">{this.props.data.title}</span>
-                        <div className="list-item__secondary-text tag-essay-item-secondary-container">
+                        <span className="list-item__primary-text one-line">{this.props.data.title}</span>
+                        <div className="list-item__secondary-text tag-list-item__secondary-container">
                             <span>{this.props.data.date}</span>
-                            <span className="tag-essay-item-block-container">
-                                <span className="tag-essay-item-post-type">{this.props.data.type}</span>
+                            <span className="tag-list-item__block-container">
+                                <span className="tag-list-item__post-type">{this.props.data.type}</span>
                                 {this.props.data.block1Array.map(block =>
                                     <span
                                         key={block}
-                                        className="tag-essay-item-post-block1">{block}</span>
+                                        className="tag-list-item__post-block1">{block}</span>
                                 )}
                                 {this.props.data.block2Array.map(block =>
                                     <span
                                         key={block}
-                                        className="tag-essay-item-post-block2">{block}</span>
+                                        className="tag-list-item__post-block2">{block}</span>
                                 )}
                             </span>
                         </div>
@@ -191,8 +191,8 @@ class EssayItem extends React.Component<EssayItemProps, any> {
     }
 }
 
-export function showTagEssayListDialog(_tag: string) {
-    consoleDebug("TagEssayListDialogContent showTagEssayListDialog " + _tag)
-    showDialog(<TagEssayDialog tag={_tag} fixedWidth={true} btnText={"关闭"}
+export function showTagDialog(_tag: string) {
+    consoleDebug("TagDialogContent showTagEssayListDialog " + _tag)
+    showDialog(<TagDialog tag={_tag} fixedWidth={true} btnText={"关闭"}
                                OnClickBtn={null} closeOnClickOutside={true}/>, TAG_DIALOG_WRAPPER_ID)
 }

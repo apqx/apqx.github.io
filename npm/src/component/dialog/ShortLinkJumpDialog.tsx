@@ -34,14 +34,14 @@ export class ShortLinkDialog extends BasicDialog<DialogContentProps, DialogConte
 
     dialogContent(): JSX.Element {
         return (
-            <div className="center-horizontal">
+            <div className="center">
                 <picture>
                     <source srcSet="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/noto-animated-emoji/peacock/512.webp" type="image/webp"/>
                     <img src="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/noto-animated-emoji/peacock/512.gif" alt="" width="164"
                          height="164"/>
                 </picture>
                 <p id="short-link-jump-dialog_title">{this.state.title}</p>
-                <p id="short-link-jump-dialog_link" className="center-horizontal">
+                <p id="short-link-jump-dialog_link" className="center">
                     <a className="clickable-empty-link" onClick={this.state.onClickLink}>{this.state.content}</a>
                 </p>
 

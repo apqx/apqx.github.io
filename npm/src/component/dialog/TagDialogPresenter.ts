@@ -1,4 +1,4 @@
-import { TagEssayDialog, EssayItemData } from "./TagEssayListDialog"
+import { TagDialog, PostItemData } from "./TagDialog"
 import { consoleDebug, consoleError } from "../../util/log"
 import { isDebug } from "../../util/tools"
 import { POST_TYPE_OPERA, POST_TYPE_ORIGINAL, POST_TYPE_POETRY, POST_TYPE_REPOST, PostType } from "../../base/constant"
@@ -41,18 +41,18 @@ class PostItem {
     }
 }
 
-export class TagEssayListDialogPresenter {
+export class TagDialogPresenter {
 
-    component: TagEssayDialog = null
+    component: TagDialog = null
     abortController: AbortController = null
 
-    constructor(component: TagEssayDialog) {
+    constructor(component: TagDialog) {
         this.component = component
     }
 
     findTaggedEssays(tag: string) {
         this.component.setState({
-            showLoading: true,
+            loading: true,
             // essayList: []
         })
         consoleDebug("FindTaggedEssays " + tag)
@@ -61,7 +61,6 @@ export class TagEssayListDialogPresenter {
             this.showTagItemList(postList, tag)
             return
         }
-        // TODO: 部署时应使用OSS中的资源
         let url: string
         if (isDebug()) {
             url = window.location.origin + "/archives/posts.txt"
@@ -76,8 +75,8 @@ export class TagEssayListDialogPresenter {
             this.abortController.abort()
         }
         this.abortController = new AbortController()
-        // 异步请求，TODO: 请求应该是可以中断的，只在dialog显示的情况下更新UI
-        // fetch调用浏览器的网络请求，所以会有和浏览器一样的缓存策略
+        // 异步请求
+        // fetch调用浏览器的网络请求，所以会有和浏览器一样的缓存策略，no-cache会联网检查缓存是否过时，过时则更新缓存，否则使用缓存
         fetch(request, { signal: this.abortController.signal, cache: "no-cache" })
             .then((response: Response) => {
                 if (response.status === 200) {
@@ -103,17 +102,17 @@ export class TagEssayListDialogPresenter {
         }
         const posts = this.findPost(tag, postList)
         consoleDebug("ShowTagItemList count = " + posts.length)
-        const essayListForShow: EssayItemData[] = []
+        const postListForShow: PostItemData[] = []
         for (const post of posts) {
             const postType = this.getPostType(post.categories)
             const blocks = this.getPostBlocks(post.author, post.actor, post.mention, postType)
-            const essayForShow = new EssayItemData(post.url, post.title, post.date, postType.name,
+            const essayForShow = new PostItemData(post.url, post.title, post.date, postType.name,
                 blocks[0], blocks[1])
-            essayListForShow.push(essayForShow)
+            postListForShow.push(essayForShow)
         }
         this.component.setState({
-            showLoading: false,
-            essayList: essayListForShow
+            loading: false,
+            postList: postListForShow
         })
     }
 
