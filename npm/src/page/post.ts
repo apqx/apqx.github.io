@@ -20,7 +20,6 @@ function initCodeHighlight() {
     })
 }
 
-
 /**
  * 给所有opera文章添加opera-page类，它会影响<code>的样式
  */

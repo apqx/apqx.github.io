@@ -5,6 +5,7 @@ import { ABOUT_DIALOG_WRAPPER_ID, BasicDialog, BasicDialogProps, showDialog } fr
 import { consoleDebug } from "../../util/log"
 import ReactDOM from "react-dom"
 import { Button } from "../react/Button"
+import { initListItem } from "../list"
 // import "./AboutMeDialog.scss"
 
 class AboutMeDialog extends BasicDialog<BasicDialogProps, any> {
@@ -38,25 +39,21 @@ class AboutMeDialog extends BasicDialog<BasicDialogProps, any> {
                     alt="avatar" />
                 <span className="about-me-name">立泉</span>
                 <section className="about-me-tag-wrapper">
-                    <Button text="C++"  onClick={null} classList={chipClass} />
-                    <Button text="Java"  onClick={null} classList={chipClass} />
-                    <Button text="Kotlin"  onClick={null} classList={chipClass} />
-                    <Button text="Android"  onClick={null} classList={chipClass} />
-                    <Button text="Git"  onClick={null} classList={chipClass} />
+                    <Button text="C++" onClick={null} classList={chipClass} />
+                    <Button text="Java" onClick={null} classList={chipClass} />
+                    <Button text="Kotlin" onClick={null} classList={chipClass} />
+                    <Button text="Android" onClick={null} classList={chipClass} />
+                    <Button text="Git" onClick={null} classList={chipClass} />
                 </section>
                 <p className="about-me-description">九五后，旅居杭州，<a
                     href={this.getKunQvLink()}>昆虫</a>，野生散养攻城狮，“十分”“业余”摄影Fans。联系我可以通过电子邮件，如果有必要也可以用<a
                         href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/wechat.jpg">微信</a>。</p>
                 <ul className="mdc-deprecated-list mdc-deprecated-list--one-line dialog-link-list" id="about-me-dialog_link_list">
-                    <LinkItem link="https://github.com/apqx" title="GitHub" />
-                    <hr className="mdc-deprecated-list-divider" />
-                    <LinkItem link="https://www.youtube.com/channel/UCF3Qv9tpULGL-CabxSEaCaQ" title="YouTube" />
-                    <hr className="mdc-deprecated-list-divider" />
-                    <LinkItem link="https://space.bilibili.com/11037907" title="Bilibili" />
-                    <hr className="mdc-deprecated-list-divider" />
-                    <LinkItem link="https://weibo.com/u/7026785047" title="Weibo" />
-                    <hr className="mdc-deprecated-list-divider" />
-                    <LinkItem link="mailto:safari@mudan.me" title="Email" />
+                    <LinkItem link="https://github.com/apqx" title="GitHub" first={true} last={false} />
+                    <LinkItem link="https://www.youtube.com/channel/UCF3Qv9tpULGL-CabxSEaCaQ" title="YouTube" first={false} last={false} />
+                    <LinkItem link="https://space.bilibili.com/11037907" title="Bilibili" first={false} last={false} />
+                    <LinkItem link="https://weibo.com/u/7026785047" title="Weibo" first={false} last={false} />
+                    <LinkItem link="mailto:safari@mudan.me" title="Email" first={false} last={true} />
                 </ul>
             </div>
         )
@@ -66,24 +63,31 @@ class AboutMeDialog extends BasicDialog<BasicDialogProps, any> {
 interface LinkItemProps {
     title: string
     link: string
+    first: boolean
+    last: boolean
 }
 
 class LinkItem extends React.Component<LinkItemProps, any> {
     componentDidMount(): void {
-        this.initRipple(ReactDOM.findDOMNode(this) as Element)
+        const rootE = ReactDOM.findDOMNode(this) as Element
+        this.initRipple(rootE.querySelector(".mdc-deprecated-list-item"))
     }
 
-    initRipple(e: Element) {
+    initRipple(e: HTMLElement) {
         if (e == null) return
         new MDCRipple(e)
+        initListItem(e, this.props.first, this.props.last)
     }
 
     render() {
         return (
-            <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken" href={this.props.link} target="_blank">
-                <span className="mdc-deprecated-list-item__ripple"></span>
-                <span className="mdc-deprecated-list-item__text">{this.props.title}</span>
-            </a>
+            <div>
+                <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken" href={this.props.link} target="_blank">
+                    <span className="mdc-deprecated-list-item__ripple"></span>
+                    <span className="mdc-deprecated-list-item__text">{this.props.title}</span>
+                </a>
+                {!this.props.last && <hr className="mdc-deprecated-list-divider" />}
+            </div>
         )
     }
 }

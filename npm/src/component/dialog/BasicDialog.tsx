@@ -1,8 +1,8 @@
 import * as React from "react"
-import {consoleDebug} from "../../util/log"
-import {MDCDialog} from "@material/dialog"
-import {MDCRipple} from "@material/ripple"
-import {createRoot, Root} from "react-dom/client"
+import { consoleDebug } from "../../util/log"
+import { MDCDialog } from "@material/dialog"
+import { MDCRipple } from "@material/ripple"
+import { createRoot, Root } from "react-dom/client"
 import ReactDOM from "react-dom"
 // import "./BasicDialog.scss"
 
@@ -108,20 +108,20 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
                         aria-labelledby="basic-dialog-title"
                         aria-describedby="basic-dialog-content">
                         <div className="mdc-dialog__content mdc-theme--on-surface"
-                             id="basic-dialog-content">
+                            id="basic-dialog-content">
                             {this.dialogContent()}
                         </div>
                         {(this.props.btnText != null) &&
                             <div className="mdc-dialog__actions basic-dialog_actions">
                                 <button type="button"
-                                        className="mdc-button btn-round mdc-button--unelevated basic-dialog_btn_action"
-                                        data-mdc-dialog-action="cancel"
-                                        onClick={this.props.OnClickBtn}
-                                        id="basic-dialog_btn_close"
-                                        tabIndex={0}>
+                                    className="mdc-button btn-round mdc-button--unelevated basic-dialog_btn_action"
+                                    data-mdc-dialog-action="cancel"
+                                    onClick={this.props.OnClickBtn}
+                                    id="basic-dialog_btn_close"
+                                    tabIndex={0}>
                                     <span className="mdc-button__ripple"></span>
                                     <span className="mdc-button__label"
-                                          id="basic-dialog_btn_close_label"
+                                        id="basic-dialog_btn_close_label"
                                     >{this.props.btnText}</span>
                                 </button>
                             </div>

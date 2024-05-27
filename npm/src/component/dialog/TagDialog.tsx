@@ -1,11 +1,12 @@
 import * as React from "react"
-import {MDCList} from "@material/list"
-import {ProgressLinear} from "../react/ProgressLinear"
-import {MDCRipple} from "@material/ripple"
-import {BasicDialog, BasicDialogProps, TAG_DIALOG_WRAPPER_ID, showDialog} from "./BasicDialog"
-import {consoleDebug} from "../../util/log"
-import {TagDialogPresenter} from "./TagDialogPresenter"
+import { MDCList } from "@material/list"
+import { ProgressLinear } from "../react/ProgressLinear"
+import { MDCRipple } from "@material/ripple"
+import { BasicDialog, BasicDialogProps, TAG_DIALOG_WRAPPER_ID, showDialog } from "./BasicDialog"
+import { consoleDebug } from "../../util/log"
+import { TagDialogPresenter } from "./TagDialogPresenter"
 import ReactDOM from "react-dom"
+import { initListItem } from "../list"
 // import "./TagEssayListDialog.scss"
 
 interface DialogContentProps extends BasicDialogProps {
@@ -53,7 +54,7 @@ export class TagDialog extends BasicDialog<DialogContentProps, DialogContentStat
         consoleDebug("TagDialogContent componentDidUpdate")
         // 检查是否有list
         if (this.state.postList != null && this.state.postList.length > 0 && this.mdcList == null) {
-            let listE = this.rootE.querySelector(".dialog-link-list")
+            let listE = this.rootE.querySelector(".mdc-deprecated-list")
             this.mdcList = new MDCList(listE)
         } else {
             this.mdcList = null
@@ -103,19 +104,20 @@ export class TagDialog extends BasicDialog<DialogContentProps, DialogContentStat
             <>
                 <p className="mdc-theme--on-surface">标记
                     <code id="tag-dialog-tag-name"
-                          className="language-plaintext highlighter-rouge">{this.props.tag}</code>
+                        className="language-plaintext highlighter-rouge">{this.props.tag}</code>
                     的{count}博文
                 </p>
 
-                <ProgressLinear loading={this.state.loading}/>
+                <ProgressLinear loading={this.state.loading} />
 
                 {this.state.postList != null && this.state.postList.length != 0 &&
-                    <ul className="mdc-deprecated-list dialog-link-list">
+                    <ul className="mdc-deprecated-list">
                         {this.state.postList.map(item =>
                             <PostItem
                                 key={item.title + item.date}
                                 data={new PostItemData(item.url, item.title, item.date, item.type, item.block1Array, item.block2Array)}
-                                isLast={this.state.postList.indexOf(item) === (this.state.postList.length - 1)}
+                                first={this.state.postList.indexOf(item) === 0}
+                                last={this.state.postList.indexOf(item) === (this.state.postList.length - 1)}
                             />
                         )}
                     </ul>
@@ -134,11 +136,11 @@ export class PostItemData {
     block2Array: string[]
 
     constructor(url: string,
-                title: string,
-                date: string,
-                type: string,
-                block1Array: string[],
-                block2Array: string[]) {
+        title: string,
+        date: string,
+        type: string,
+        block1Array: string[],
+        block2Array: string[]) {
         this.url = url
         this.title = title
         this.date = date
@@ -150,20 +152,28 @@ export class PostItemData {
 
 interface PostItemProps {
     data: PostItemData
-    isLast: boolean
+    first: boolean
+    last: boolean
 }
 
 class PostItem extends React.Component<PostItemProps, any> {
 
     componentDidMount(): void {
-        new MDCRipple((ReactDOM.findDOMNode(this) as Element).querySelector(".mdc-deprecated-list-item"))
+        const rootE = ReactDOM.findDOMNode(this) as Element
+        this.initRipple(rootE.querySelector(".mdc-deprecated-list-item"))
+    }
+
+    initRipple(e: HTMLElement) {
+        if (e == null) return
+        new MDCRipple(e)
+        initListItem(e, this.props.first, this.props.last)
     }
 
     render() {
         return (
             <div>
                 <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken tag-list-item mdc-ripple-upgraded"
-                   href={this.props.data.url}>
+                    href={this.props.data.url}>
                     <span className="mdc-deprecated-list-item__ripple"></span>
                     <span className="mdc-deprecated-list-item__text">
                         <span className="list-item__primary-text one-line">{this.props.data.title}</span>
@@ -185,7 +195,7 @@ class PostItem extends React.Component<PostItemProps, any> {
                         </div>
                     </span>
                 </a>
-                {!this.props.isLast && <hr className="mdc-deprecated-list-divider"/>}
+                {!this.props.last && <hr className="mdc-deprecated-list-divider" />}
             </div>
         )
     }
@@ -194,5 +204,5 @@ class PostItem extends React.Component<PostItemProps, any> {
 export function showTagDialog(_tag: string) {
     consoleDebug("TagDialogContent showTagEssayListDialog " + _tag)
     showDialog(<TagDialog tag={_tag} fixedWidth={true} btnText={"关闭"}
-                               OnClickBtn={null} closeOnClickOutside={true}/>, TAG_DIALOG_WRAPPER_ID)
+        OnClickBtn={null} closeOnClickOutside={true} />, TAG_DIALOG_WRAPPER_ID)
 }

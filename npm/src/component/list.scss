@@ -6,11 +6,14 @@
 @use "sass:map";
 @use "sass:color";
 
-.mdc-deprecated-list {
+.mdc-deprecated-list:not(.nav-list) {
     @include list.deprecated-divider-color(var(--divider-color));
+    border: 1px solid;
+    border-color: var(--divider-color);
+    border-radius: var(--table-list-border-radius);
 }
 
-// 与__ripple叠加
+// 效果似乎是与原有__ripple叠加🤔
 .mdc-deprecated-list-item {
     @include ripple.surface;
     @include ripple.radius-bounded(100%);
@@ -18,6 +21,16 @@
     // @include ripple.states-opacities((hover: .02, focus: .02, press: .02));
     padding: 0.5rem 1rem;
     height: fit-content;
+}
+
+.mdc-deprecated-list-item__first {
+    border-top-left-radius: calc(var(--table-list-border-radius) - 1px);
+    border-top-right-radius: calc(var(--table-list-border-radius) - 1px);
+}
+
+.mdc-deprecated-list-item__last {
+    border-bottom-left-radius: calc(var(--table-list-border-radius) - 1px);
+    border-bottom-right-radius: calc(var(--table-list-border-radius) - 1px);
 }
 
 .mdc-deprecated-list--one-line .mdc-deprecated-list-item {

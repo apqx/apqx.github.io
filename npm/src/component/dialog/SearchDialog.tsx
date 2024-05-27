@@ -8,6 +8,7 @@ import { BasicDialog, BasicDialogProps, SEARCH_DIALOG_WRAPPER_ID, showDialog } f
 import ReactDOM from "react-dom"
 import { ProgressCircular } from "../react/ProgressCircular"
 import { Button } from "../react/Button"
+import { initListItem } from "../list"
 // import "./SearchDialog.scss"
 
 interface SearchDialogState {
@@ -129,7 +130,7 @@ class SearchResult extends React.Component<SearchResultProps, any> {
 
     componentDidMount(): void {
         const rootE = ReactDOM.findDOMNode(this) as Element
-        this.initList(rootE.querySelector(".dialog-link-list"))
+        this.initList(rootE.querySelector(".mdc-deprecated-list"))
     }
 
     initList(e: Element) {
@@ -141,11 +142,12 @@ class SearchResult extends React.Component<SearchResultProps, any> {
         if (this.props.list.length <= 0) return false
         return (
             <div>
-                <ul className="mdc-deprecated-list dialog-link-list">
+                <ul className="mdc-deprecated-list">
                     {this.props.list.map((item) =>
                         <ResultItem key={item.url}
                             data={item}
-                            isLast={this.props.list.indexOf(item) === this.props.list.length - 1} />
+                            first={this.props.list.indexOf(item) === 0}
+                            last={this.props.list.indexOf(item) === this.props.list.length - 1} />
                     )}
                 </ul>
 
@@ -156,7 +158,8 @@ class SearchResult extends React.Component<SearchResultProps, any> {
 
 interface ResultItemProps {
     data: ResultItemData
-    isLast: boolean
+    first: boolean
+    last: boolean
 }
 
 export class ResultItemData {
@@ -182,9 +185,10 @@ class ResultItem extends React.Component<ResultItemProps, any> {
         this.initRipple(rootE.querySelector(".mdc-deprecated-list-item"))
     }
 
-    initRipple(e: Element) {
+    initRipple(e: HTMLElement) {
         if (e == null) return
         new MDCRipple(e)
+        initListItem(e, this.props.first, this.props.last)
     }
 
     render() {
@@ -202,7 +206,7 @@ class ResultItem extends React.Component<ResultItemProps, any> {
                         </div>
                     </span>
                 </a>
-                {!this.props.isLast && <hr className="mdc-deprecated-list-divider" />}
+                {!this.props.last && <hr className="mdc-deprecated-list-divider" />}
             </div>
         )
     }

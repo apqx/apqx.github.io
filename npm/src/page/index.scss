@@ -126,6 +126,20 @@ body {
 
 }
 
+.index-top-cover {
+    border-radius: var(--mdc-shape-medium);
+    object-fit: cover;
+    // 封面宽高比例，在不设置动画时使用，JS动画用它计算高度
+    aspect-ratio: 844/295 auto;
+}
+
+.height-animation {
+    aspect-ratio: auto;
+    // 动画起始尺寸必须确定？？？TODO: 待验证
+    height: 0px;
+    transition: height 0.3s;
+}
+
 .index-description {
     border: 1px solid rgba(63, 185, 80, 0.4);
     border-radius: var(--mdc-shape-medium);
@@ -209,11 +223,11 @@ body {
     @include gridCardElevationDark();
 }
 
-.grid-index-card_ripple {
+.grid-index-card__ripple {
     @include cardRippleDeeper();
 }
 
-.dark .grid-index-card_ripple {
+.dark .grid-index-card__ripple {
     @include cardRippleDark();
 }
 
@@ -243,9 +257,9 @@ body {
     width: 50%;
 }
 
-.index-lazy-img {
+.grid-index-cover {
     border-radius: var(--mdc-shape-medium);
-    aspect-ratio: 844/295 auto;
+    aspect-ratio: 16/9 auto;
 }
 
 .grid-index-title {
