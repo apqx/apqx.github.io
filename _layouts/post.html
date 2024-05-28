@@ -16,7 +16,7 @@
                 <address class="essay-author">
                     {% if page.moreDate != null %}{{ page.moreDate }} {% endif %}{{ page.author}}
                 </address>
-                <time data-pagefind-meta="date" class="essay-date" datetime="{{ page.date | date: "%Y-%m-%d" }}">
+                <time data-pagefind-meta="date" class="essay-date" datetime="{{ page.date | date: " %Y-%m-%d" }}">
                     {{ page.date | date: "%Y年%m月%d日" }}
                 </time>
 
@@ -24,7 +24,8 @@
                 <section data-pagefind-ignore="all" style="margin-top: 2rem; margin-bottom: 0.5rem;">
                     {%- for tagInPage in page.tags %}
                     <!-- 如果用span创建mdc-button，则点击动画结束后才会触发点击事件，感觉明显会很慢 -->
-                    <button type="button" class="mdc-button mdc-button--unelevated tag-dialog-trigger btn-tag" id="chip_tag_{{ tagInPage }}">
+                    <button type="button" class="mdc-button mdc-button--unelevated tag-dialog-trigger btn-tag"
+                        id="chip_tag_{{ tagInPage }}">
                         <span class="mdc-button__ripple"></span>
                         <span class="mdc-button__label">#{{ tagInPage }}</span>
                     </button>

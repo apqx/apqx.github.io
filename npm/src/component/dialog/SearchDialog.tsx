@@ -9,10 +9,11 @@ import ReactDOM from "react-dom"
 import { ProgressCircular } from "../react/ProgressCircular"
 import { Button } from "../react/Button"
 import { initListItem } from "../list"
+import { consoleDebug } from "../../util/log"
 // import "./SearchDialog.scss"
 
 interface SearchDialogState {
-    showLoading: boolean
+    loading: boolean
     loadHint: string
     results: ResultItemData[]
     resultSize: number
@@ -20,7 +21,7 @@ interface SearchDialogState {
 
 export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogState> {
     state: SearchDialogState = {
-        showLoading: false,
+        loading: false,
         loadHint: null,
         results: null,
         resultSize: 0
@@ -102,19 +103,19 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
 
                 <p id="search-dialog_tips"><b>TIPS：</b>中文低频词组用空格分隔会有更好匹配，比如输入名字「施夏明」改为「施 夏 明」。如果网络通畅也可使用<a
                     href="https://cse.google.com/cse?cx=757420b6b2f3d47d2" target="_blank">Google站内搜索</a>。</p>
-
-                {(this.state.results != null && this.state.results.length > 0) &&
-                    <SearchResult list={this.state.results}
-                        resultSize={this.state.resultSize} />
-                }
-                {(this.state.showLoading || this.state.loadHint != null) &&
-                    <div className="search-result-nav-wrapper">
-                        {this.state.showLoading && <ProgressCircular loading={true} />}
-                        {this.state.loadHint != null &&
-                            <Button text={this.state.loadHint} onClick={this.onClickLoadMore} classList={hintBtnClassList} />
-                        }
-                    </div>
-                }
+                <div className="height-animation-container">
+                    {(this.state.results != null && this.state.results.length > 0) &&
+                        <SearchResult list={this.state.results} />
+                    }
+                    {(this.state.loading || this.state.loadHint != null) &&
+                        <div className="search-result-nav-wrapper">
+                            {this.state.loading && <ProgressCircular loading={true} />}
+                            {this.state.loadHint != null &&
+                                <Button text={this.state.loadHint} onClick={this.onClickLoadMore} classList={hintBtnClassList} />
+                            }
+                        </div>
+                    }
+                </div>
 
             </div>
         )
@@ -123,14 +124,13 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
 
 interface SearchResultProps {
     list: ResultItemData[]
-    resultSize: number
 }
 
 class SearchResult extends React.Component<SearchResultProps, any> {
 
     componentDidMount(): void {
         const rootE = ReactDOM.findDOMNode(this) as Element
-        this.initList(rootE.querySelector(".mdc-deprecated-list"))
+        this.initList(rootE)
     }
 
     initList(e: Element) {
@@ -139,19 +139,15 @@ class SearchResult extends React.Component<SearchResultProps, any> {
     }
 
     render() {
-        if (this.props.list.length <= 0) return false
         return (
-            <div>
-                <ul className="mdc-deprecated-list">
-                    {this.props.list.map((item) =>
-                        <ResultItem key={item.url}
-                            data={item}
-                            first={this.props.list.indexOf(item) === 0}
-                            last={this.props.list.indexOf(item) === this.props.list.length - 1} />
-                    )}
-                </ul>
-
-            </div>
+            <ul className="mdc-deprecated-list">
+                {this.props.list.map((item) =>
+                    <ResultItem key={item.url}
+                        data={item}
+                        first={this.props.list.indexOf(item) === 0}
+                        last={this.props.list.indexOf(item) === this.props.list.length - 1} />
+                )}
+            </ul>
         )
     }
 }

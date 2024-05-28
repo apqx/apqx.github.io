@@ -1,8 +1,8 @@
 // import "./post.scss"
-import {consoleDebug, consoleError} from "../util/log";
-import {runOnHtmlDone} from "../util/tools";
-import {initContentCard} from "../component/contentCard";
-import {showAlertDialog} from "../component/dialog/CommonAlertDialog";
+import { consoleDebug, consoleError } from "../util/log";
+import { runOnHtmlDone, runOnPageDone } from "../util/tools";
+import { initContentCard } from "../component/contentCard";
+import { showAlertDialog } from "../component/dialog/CommonAlertDialog";
 
 runOnHtmlDone(() => {
     initContentCard()

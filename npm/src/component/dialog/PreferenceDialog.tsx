@@ -1,8 +1,8 @@
 import * as React from "react"
-import {PreferenceDialogPresenter} from "./PreferenceDialogPresenter"
-import {consoleDebug} from "../../util/log"
-import {BasicDialog, BasicDialogProps, PREFERENCE_DIALOG_WRAPPER_ID, showDialog} from "./BasicDialog"
-import {SettingsToggle} from "./SettingsToggle"
+import { PreferenceDialogPresenter } from "./PreferenceDialogPresenter"
+import { consoleDebug } from "../../util/log"
+import { BasicDialog, BasicDialogProps, PREFERENCE_DIALOG_WRAPPER_ID, showDialog } from "./BasicDialog"
+import { SettingsToggle } from "./SettingsToggle"
 // import "./PreferenceDialog.scss"
 
 interface DialogContentState {
@@ -101,23 +101,23 @@ export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogConten
                     <picture>
                         <source
                             srcSet="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/noto-animated-emoji/mouth-none/512.webp"
-                            type="image/webp"/>
+                            type="image/webp" />
                         <img
                             src="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/noto-animated-emoji/mouth-none/512.gif"
                             alt="" width="64"
-                            height="64"/>
+                            height="64" />
                     </picture>
                 </div>
                 <div id="preference-dialog__toggle-container">
                     <SettingsToggle titleHtml="固定顶部标题栏"
-                                    on={this.state.fixedTopbarOn}
-                                    onClickToggle={this.onClickFixedTopbarSwitch}/>
+                        on={this.state.fixedTopbarOn}
+                        onClickToggle={this.onClickFixedTopbarSwitch} />
                     <SettingsToggle titleHtml={this.handwrittenFontTitle}
-                                    on={this.state.handwrittenFontOn}
-                                    onClickToggle={this.onClickHandwritingFontSwitch}/>
+                        on={this.state.handwrittenFontOn}
+                        onClickToggle={this.onClickHandwritingFontSwitch} />
                     <SettingsToggle titleHtml={this.autoThemeTitle}
-                                    on={this.state.autoThemeOn}
-                                    onClickToggle={this.onClickAutoThemeSwitch}/>
+                        on={this.state.autoThemeOn}
+                        onClickToggle={this.onClickAutoThemeSwitch} />
                 </div>
             </>
         )
@@ -127,5 +127,5 @@ export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogConten
 export function showPreferenceDialog() {
     consoleDebug("PreferenceDialogContent showPreferenceDialog")
     showDialog(<PreferenceDialog fixedWidth={true} btnText={"关闭"}
-                                 OnClickBtn={null} closeOnClickOutside={true}/>, PREFERENCE_DIALOG_WRAPPER_ID)
+        OnClickBtn={null} closeOnClickOutside={true} />, PREFERENCE_DIALOG_WRAPPER_ID)
 }

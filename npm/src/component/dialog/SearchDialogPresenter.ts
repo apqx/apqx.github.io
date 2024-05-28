@@ -29,7 +29,7 @@ export class SearchDialogPresenter {
         if (this.searching) return
         this.searching = true
         this.component.setState({
-            showLoading: true,
+            loading: true,
             loadHint: null
         })
         try {
@@ -56,7 +56,7 @@ export class SearchDialogPresenter {
         } catch (e) {
             consoleError(e)
             this.component.setState({
-                showLoading: false,
+                loading: false,
                 loadHint: null
             })
         }
@@ -70,7 +70,7 @@ export class SearchDialogPresenter {
         if (this.searching) return
         this.searching = true
         this.component.setState({
-            showLoading: true,
+            loading: true,
             loadHint: null
         })
         try {
@@ -82,7 +82,7 @@ export class SearchDialogPresenter {
         } catch (e) {
             consoleError(e)
             this.component.setState({
-                showLoading: false,
+                loading: false,
                 loadHint: "加载错误，点击重试"
             })
         }
@@ -110,7 +110,7 @@ export class SearchDialogPresenter {
             loadHint = results.length + "/" + resultSize + " MORE"
         }
         this.component.setState({
-            showLoading: false,
+            loading: false,
             loadHint: loadHint,
             results: results,
             resultSize: resultSize
@@ -119,7 +119,7 @@ export class SearchDialogPresenter {
 
     clearResult() {
         this.component.setState({
-            showLoading: false,
+            loading: false,
             loadHint: null,
             results: [],
             resultSize: 0,

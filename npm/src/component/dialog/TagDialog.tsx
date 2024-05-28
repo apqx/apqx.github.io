@@ -1,12 +1,12 @@
 import * as React from "react"
 import { MDCList } from "@material/list"
-import { ProgressLinear } from "../react/ProgressLinear"
 import { MDCRipple } from "@material/ripple"
 import { BasicDialog, BasicDialogProps, TAG_DIALOG_WRAPPER_ID, showDialog } from "./BasicDialog"
 import { consoleDebug } from "../../util/log"
 import { TagDialogPresenter } from "./TagDialogPresenter"
 import ReactDOM from "react-dom"
 import { initListItem } from "../list"
+import { ProgressCircular } from "../react/ProgressCircular"
 // import "./TagEssayListDialog.scss"
 
 interface DialogContentProps extends BasicDialogProps {
@@ -20,11 +20,11 @@ interface DialogContentState {
 
 export class TagDialog extends BasicDialog<DialogContentProps, DialogContentState> {
     presenter: TagDialogPresenter = null
-    mdcList: MDCList = null
 
     constructor(props) {
         super(props)
         consoleDebug("TagDialogContent constructor")
+        // this.scrollToTopOnDialogOpen = false
         this.presenter = new TagDialogPresenter(this)
         this.state = {
             loading: true,
@@ -42,23 +42,16 @@ export class TagDialog extends BasicDialog<DialogContentProps, DialogContentStat
 
     onDialogClose() {
         super.onDialogClose()
+        // super.scrollToTop(false)
         this.presenter.abortFetch()
+        this.setState ({
+            postList: []
+        })
     }
 
     componentDidMount() {
         super.componentDidMount()
         consoleDebug("TagDialogContent componentDidMount")
-    }
-
-    componentDidUpdate(prevProps: Readonly<DialogContentProps>, prevState: Readonly<DialogContentState>, snapshot?: any) {
-        consoleDebug("TagDialogContent componentDidUpdate")
-        // 检查是否有list
-        if (this.state.postList != null && this.state.postList.length > 0 && this.mdcList == null) {
-            let listE = this.rootE.querySelector(".mdc-deprecated-list")
-            this.mdcList = new MDCList(listE)
-        } else {
-            this.mdcList = null
-        }
     }
 
     shouldComponentUpdate(nextProps: Readonly<DialogContentProps>, nextState: Readonly<DialogContentState>, nextContext: any): boolean {
@@ -76,7 +69,7 @@ export class TagDialog extends BasicDialog<DialogContentProps, DialogContentStat
             return true
         }
         if (this.state.loading != nextState.loading ||
-            !this.isEssayListSame(this.state.postList, nextState.postList)) {
+            !this.isPostListSame(this.state.postList, nextState.postList)) {
             consoleDebug("State different, render")
             return true
         }
@@ -84,7 +77,7 @@ export class TagDialog extends BasicDialog<DialogContentProps, DialogContentStat
         return false
     }
 
-    private isEssayListSame(list1: PostItemData[], list2: PostItemData[]) {
+    private isPostListSame(list1: PostItemData[], list2: PostItemData[]) {
         if (list1.length != list2.length) return false
         for (let i = 0; i < list1.length; i++) {
             if (list1[i].url != list2[i].url) return false
@@ -108,24 +101,51 @@ export class TagDialog extends BasicDialog<DialogContentProps, DialogContentStat
                     的{count}博文
                 </p>
 
-                <ProgressLinear loading={this.state.loading} />
-
-                {this.state.postList != null && this.state.postList.length != 0 &&
-                    <ul className="mdc-deprecated-list">
-                        {this.state.postList.map(item =>
-                            <PostItem
-                                key={item.title + item.date}
-                                data={new PostItemData(item.url, item.title, item.date, item.type, item.block1Array, item.block2Array)}
-                                first={this.state.postList.indexOf(item) === 0}
-                                last={this.state.postList.indexOf(item) === (this.state.postList.length - 1)}
-                            />
-                        )}
-                    </ul>
-                }
+                {/* <ProgressLinear loading={this.state.loading} /> */}
+                <div className="height-animation-container center">
+                    {this.state.postList != null && this.state.postList.length != 0 &&
+                        <PostResult list={this.state.postList} />
+                    }
+                    {this.state.loading && <ProgressCircular loading={true} />}
+                </div>
             </>
         )
     }
 }
+
+
+interface PostResultProps {
+    list: PostItemData[]
+}
+
+class PostResult extends React.Component<PostResultProps, any> {
+
+    componentDidMount(): void {
+        const rootE = ReactDOM.findDOMNode(this) as Element
+        this.initList(rootE)
+    }
+
+    initList(e: Element) {
+        if (e == null) return
+        new MDCList(e)
+    }
+
+    render() {
+        return (
+            <ul className="mdc-deprecated-list">
+                {this.props.list.map((item) =>
+                    <PostItem
+                        key={item.title + item.date}
+                        data={new PostItemData(item.url, item.title, item.date, item.type, item.block1Array, item.block2Array)}
+                        first={this.props.list.indexOf(item) === 0}
+                        last={this.props.list.indexOf(item) === (this.props.list.length - 1)}
+                    />
+                )}
+            </ul>
+        )
+    }
+}
+
 
 export class PostItemData {
     url: string
@@ -204,5 +224,6 @@ class PostItem extends React.Component<PostItemProps, any> {
 export function showTagDialog(_tag: string) {
     consoleDebug("TagDialogContent showTagEssayListDialog " + _tag)
     showDialog(<TagDialog tag={_tag} fixedWidth={true} btnText={"关闭"}
+        // OnClickBtn={null} closeOnClickOutside={true} />, TAG_DIALOG_WRAPPER_ID + "-" + _tag)
         OnClickBtn={null} closeOnClickOutside={true} />, TAG_DIALOG_WRAPPER_ID)
 }

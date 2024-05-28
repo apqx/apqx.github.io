@@ -4,6 +4,7 @@ import { MDCDialog } from "@material/dialog"
 import { MDCRipple } from "@material/ripple"
 import { createRoot, Root } from "react-dom/client"
 import ReactDOM from "react-dom"
+import { HeightAnimationContainer } from "../animation/HeightAnimationContainer"
 // import "./BasicDialog.scss"
 
 export interface BasicDialogProps {
@@ -17,6 +18,9 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
     mdcDialog: MDCDialog
     rootE: Element
     btnCloseE: HTMLElement
+    dialogContentE: HTMLElement
+    heightAnimationContainer: HeightAnimationContainer = null
+    scrollToTopOnDialogOpen: boolean = true
 
     constructor(props: T) {
         super(props)
@@ -29,6 +33,7 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
         this.rootE = ReactDOM.findDOMNode(this) as Element
         this.initDialog()
         this.mdcDialog.open()
+        this.heightAnimationContainer.update()
     }
 
     componentWillUnmount() {
@@ -43,6 +48,8 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
 
     componentDidUpdate(prevProps: Readonly<BasicDialogProps>, prevState: Readonly<any>, snapshot?: any) {
         consoleDebug("BasicDialog componentDidUpdate")
+        // 检查搜索结果的尺寸，设置container尺寸，触发动画
+        this.heightAnimationContainer.update()
     }
 
     onDialogOpen(): void {
@@ -56,6 +63,7 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
     initDialog() {
         consoleDebug("BasicDialog initDialog " + this.rootE)
         if (this.rootE == null) return
+        this.heightAnimationContainer = new HeightAnimationContainer(this.rootE)
         this.mdcDialog = new MDCDialog(this.rootE)
         if (this.props.btnText != null) {
             this.btnCloseE = this.rootE.querySelector("#basic-dialog_btn_close")
@@ -74,18 +82,36 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
             // 但是应该会自动检测是否是自己的事件，经验证确实会判断，所以这里无需如此
             // if(!this.mdcDialog.isOpen) return
             // 列表滚动到顶部，执行一次即可
-            document.getElementById("basic-dialog-content").scrollTo(
-                {
-                    top: 0,
-                    behavior: "smooth"
-                }
-            )
+            if (this.scrollToTopOnDialogOpen) {
+                this.scrollToTop()
+            }
             this.handleFocus()
             this.onDialogOpen()
         })
         this.mdcDialog.listen("MDCDialog:closing", () => {
             this.onDialogClose()
         })
+    }
+
+    scrollToTop(smooth: boolean = true) {
+        if (this.dialogContentE == null) {
+            this.dialogContentE = this.rootE.querySelector("#basic-dialog-content")
+        }
+        if (smooth) {
+            this.dialogContentE.scrollTo(
+                {
+                    top: 0,
+                    behavior: "smooth"
+                }
+            )
+        } else {
+            this.dialogContentE.scrollTo(
+                {
+                    top: 0,
+                    behavior: "instant"
+                }
+            )
+        }
     }
 
     handleFocus() {
@@ -148,7 +174,7 @@ interface RootDialog {
 }
 
 // 缓存每种dialog的root和dialog实例，即使该类型dialog的内容变化，其仍是同一个dialog对象
-
+// 每个tag都使用自己单独的Dialog
 let dialogContainerE = null
 let currentDialogWrapperId = null
 // id, {root, mdcDialog}

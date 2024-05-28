@@ -53,7 +53,7 @@ export class TagDialogPresenter {
     findTaggedEssays(tag: string) {
         this.component.setState({
             loading: true,
-            // essayList: []
+            // postList: []
         })
         consoleDebug("FindTaggedEssays " + tag)
         if (postList != null) {
