@@ -10,42 +10,62 @@ runOnPageDone(() => {
     initGridIndex()
 })
 
+const INDEX_TOP_COVER_RATIO = 844 / 295
+
 function initIndex() {
     for (const ele of document.querySelectorAll(".index-top-cover.height-animation")) {
         const imgE = ele as HTMLImageElement
-        consoleDebug("Find cover " + imgE.width + " : " + imgE.height)
         // 图片有可能已经加载、显示完成
         if (imgE.complete) {
-            setCoverHeight(imgE)
+            consoleDebug("Cover complete " + getImgAlt(imgE) + ", " +
+                imgE.width + " : " + imgE.height + ", " + imgE.naturalWidth + " : " + imgE.naturalHeight)
+            setCoverHeight(imgE, INDEX_TOP_COVER_RATIO)
         } else {
+            // 如何获取图片的原始尺寸
             // 懒加载完成监听
             imgE.onload = (event) => {
+                consoleDebug("Cover onload " + getImgAlt(imgE) + ", " +
+                    imgE.width + " : " + imgE.height + ", " + imgE.naturalWidth + " : " + imgE.naturalHeight)
                 // 浏览器下载完成，尚未显示出来，尺寸height已经计算出来了
-                setCoverHeight(imgE)
+                setCoverHeight(imgE, INDEX_TOP_COVER_RATIO)
             }
             imgE.onerror = (event) => {
-                setCoverHeight(imgE)
+                setCoverHeight(imgE, INDEX_TOP_COVER_RATIO)
             }
         }
         let lastWidth = imgE.width
         // 监听宽度变化，实时设置高度
         const resizeObserver = new ResizeObserver((entries) => {
-            consoleArrayDebug("Cover size changed ", entries)
             const entry = entries.pop()
+            consoleDebug("Cover size changed " + entry.contentRect.width + " : " + entry.contentRect.height)
             if (entry.contentRect.width == lastWidth) {
                 // 宽度没有变化
+                consoleDebug("Cover width not change")
                 return
             }
             lastWidth = entry.contentRect.width
-            setCoverHeight(entry.target as HTMLImageElement)
+            postSetCoverHeight(entry.target as HTMLImageElement, INDEX_TOP_COVER_RATIO)
         })
         resizeObserver.observe(imgE)
     }
 }
 
-function setCoverHeight(imgE: HTMLImageElement) {
-    const wh = 844 / 295
-    const height = imgE.width / wh
+function getImgAlt(ele: HTMLElement): string {
+    return ele.attributes.getNamedItem("alt").value
+}
+
+let lastPostSetHeightId = null
+function postSetCoverHeight(imgE: HTMLImageElement, ratio: number) {
+    if (lastPostSetHeightId != null) {
+        clearTimeout(lastPostSetHeightId)
+    }
+    lastPostSetHeightId = setTimeout(() => {
+        setCoverHeight(imgE, ratio)
+    }, 100)
+}
+
+function setCoverHeight(imgE: HTMLImageElement, ratio: number) {
+    const height = imgE.width / ratio
     consoleDebug("SetCoverHeight = " + height)
     imgE.style.height = height + "px"
 }
@@ -60,22 +80,50 @@ function initGridIndex() {
             columnWidth: ".grid-sizer",
         })
     }
-
-    masonryLayout()
-    for (const ele of document.querySelectorAll(".grid-index-cover")) {
+    // masonryLayout()
+    for (const ele of document.querySelectorAll(".grid-index-cover.height-animation")) {
         const imgE = ele as HTMLImageElement
-        imgE.onload = (event) => {
-            consoleDebug("Cover loaded, height = " + imgE.height)
-            masonryLayout()
+        // 监听下载完成事件，获取图片尺寸，设置高度，触发动画
+        // 动画完成后设置高度为auto，通知Masonry重新layout
+        // 不必监听宽度变化，实时设置高度，Masonry自己会监听宽度变化重新layout
+        imgE.addEventListener("transitionend", (event) => {
+            consoleDebug("Cover transitionend " + getImgAlt(imgE))
+            // 动画完成后，设置高度为auto，通知Masonry重新layout
+            imgE.classList.remove("height-animation")
+            imgE.style.height = "auto"
+            postMasonryLayout()
+        })
+        if (imgE.complete) {
+            consoleDebug("Cover complete " + getImgAlt(imgE) + ", " +
+                imgE.width + " : " + imgE.height + ", " + imgE.naturalWidth + " : " + imgE.naturalHeight)
+            setCoverHeight(imgE, imgE.naturalWidth / imgE.naturalHeight)
+        } else {
+            imgE.onload = (event) => {
+                consoleDebug("Cover onload " + getImgAlt(imgE) + ", " +
+                    imgE.width + " : " + imgE.height + ", " + imgE.naturalWidth + " : " + imgE.naturalHeight)
+                setCoverHeight(imgE, imgE.naturalWidth / imgE.naturalHeight)
+            }
+            imgE.onerror = (event) => {
+                // setCoverHeight(imgE)
+            }
         }
+
     }
-    // 动画可以使用第三方懒加载库，监听下载完成事件，获取图片尺寸，设置高度
-    // 监听宽度变化，实时设置高度
-    // 监听动画完成，刷新layout
+}
+
+let lastPostMasonryLayoutId = null
+function postMasonryLayout() {
+    if (lastPostMasonryLayoutId != null) {
+        clearTimeout(lastPostMasonryLayoutId)
+    }
+    lastPostMasonryLayoutId = setTimeout(() => {
+        masonryLayout()
+    }, 20)
 }
 
 export function masonryLayout() {
     if (masonry == null) return
+    consoleDebug("Masonry layout")
     masonry.layout()
 }
 

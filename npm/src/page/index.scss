@@ -137,7 +137,7 @@ body {
     aspect-ratio: auto;
     // 动画起始尺寸必须确定？？？TODO: 待验证
     height: 0px;
-    transition: height 0.3s;
+    transition: height 0.5s ease;
 }
 
 .index-description {

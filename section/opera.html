@@ -41,9 +41,9 @@ blockFromSearchEngine: false
         <a class="index-a" href="{{ post.url | prepend: site.baseurl }}">
             <section class="mdc-card grid-index-card grid-index-card_ripple">
                 {%- if post.index-cover != null %}
-                <img class="grid-index-cover" loading="lazy" src="{{ post.index-cover }}" alt="{{ post.cover_alt }}" />
+                <img class="grid-index-cover height-animation" loading="lazy" src="{{ post.index-cover }}" alt="{{ post.cover_alt }}" />
                 {% elsif post.cover != null %}
-                <img class="grid-index-cover" loading="lazy" src="{{ post.cover }}" alt="{{ post.cover_alt }}" />
+                <img class="grid-index-cover height-animation" loading="lazy" src="{{ post.cover }}" alt="{{ post.cover_alt }}" />
                 {% else %}
                 <div style="height: 0.5rem;"></div>
                 {%- endif %}
