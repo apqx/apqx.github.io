@@ -1,5 +1,5 @@
 import * as React from "react"
-import { consoleDebug } from "../../util/log"
+import { consoleDebug, consoleObjDebug } from "../../util/log"
 import { MDCDialog } from "@material/dialog"
 import { MDCRipple } from "@material/ripple"
 import { createRoot, Root } from "react-dom/client"
@@ -21,6 +21,7 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
     dialogContentE: HTMLElement
     heightAnimationContainer: HeightAnimationContainer = null
     scrollToTopOnDialogOpen: boolean = true
+    listenScroll: boolean = false
 
     constructor(props: T) {
         super(props)
@@ -64,9 +65,12 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
         consoleDebug("BasicDialog initDialog " + this.rootE)
         if (this.rootE == null) return
         this.heightAnimationContainer = new HeightAnimationContainer(this.rootE)
+        this.dialogContentE = this.rootE.querySelector("#basic-dialog-content")
+        this.initScrollListener()
         this.mdcDialog = new MDCDialog(this.rootE)
         if (this.props.btnText != null) {
             this.btnCloseE = this.rootE.querySelector("#basic-dialog_btn_close")
+            this.btnCloseE.scroll
             new MDCRipple(this.btnCloseE)
         }
         // 缓存dialog对象供外部调用
@@ -94,9 +98,6 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
     }
 
     scrollToTop(smooth: boolean = true) {
-        if (this.dialogContentE == null) {
-            this.dialogContentE = this.rootE.querySelector("#basic-dialog-content")
-        }
         if (smooth) {
             this.dialogContentE.scrollTo(
                 {
@@ -114,9 +115,39 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
         }
     }
 
+    initScrollListener() {
+        if (!this.listenScroll) return
+        let lastScrollTop = -1
+        let lastFireTime = 0
+        this.dialogContentE.addEventListener("scroll", () => {
+            // consoleDebug("BasicDialog scrollHeight = " + this.dialogContentE.scrollHeight + ", clientHeight = " + this.dialogContentE.clientHeight +
+            //     ", scrollTop = " + this.dialogContentE.scrollTop
+            // )
+            if (!this.mdcDialog.isOpen) return
+            if (this.dialogContentE.clientHeight == 0) return
+            const newScrollTop = this.dialogContentE.scrollTop
+            if (lastScrollTop == -1) {
+                lastScrollTop = newScrollTop
+                return
+            }
+            // 向上滚动不触发
+            // consoleDebug("BasicDialog scroll newScrollTop = " + newScrollTop + ", lastScrollTop = " + lastScrollTop)
+            const upScroll = newScrollTop <= lastScrollTop
+            lastScrollTop = newScrollTop
+            if (upScroll) return
+            if (this.dialogContentE.scrollHeight - this.dialogContentE.clientHeight - this.dialogContentE.scrollTop < 100) {
+                if (Date.now() - lastFireTime < 300) return
+                consoleDebug("BasicDialog scroll near to bottom, should fire load more")
+                this.scrollNearToBottom()
+                lastFireTime = Date.now()
+            }
+        })
+    }
+
+    scrollNearToBottom() { }
+
     handleFocus() {
         if (this.btnCloseE == null) return
-        consoleDebug("BasicDialog handleFocus")
         // Dialog弹出时应该让Button获取焦点，避免chip出现选中阴影
         // 但是Button获取焦点后颜色会变化，所以立即取消焦点
         this.btnCloseE.focus()

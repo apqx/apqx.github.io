@@ -1,9 +1,9 @@
 import { ResultItemData, SearchDialog } from "./SearchDialog"
 import { consoleDebug, consoleError, consoleObjDebug } from "../../util/log"
-import { isDebug } from "../../util/tools"
+import { isDebug, runAfterMinimalTime } from "../../util/tools"
 import { Item, Result } from "./bean/search/PagefindResult"
 import { getPostDate, getPostType } from "../../base/post"
-import { ERROR_HINT, getLoadHint, runAfterMinimalTime } from "../react/LoadingHint"
+import { ERROR_HINT, getLoadHint } from "../react/LoadingHint"
 
 const PAGE_SIZE: number = 10
 

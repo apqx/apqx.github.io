@@ -24,11 +24,6 @@ class AboutMeDialog extends BasicDialog<BasicDialogProps, any> {
         return window.location.origin + "/post/original/2019/05/18/槐安国内春生酒.html"
     }
 
-    shouldComponentUpdate(nextProps: Readonly<BasicDialogProps>, nextState: Readonly<any>, nextContext: any): boolean {
-        super.shouldComponentUpdate(nextProps, nextState, nextContext)
-        return false
-    }
-
     dialogContent(): JSX.Element {
         consoleDebug("AboutMeDialog render")
         return (

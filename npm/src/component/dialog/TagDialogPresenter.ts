@@ -1,8 +1,8 @@
 import { TagDialog, PostItemData } from "./TagDialog"
 import { consoleDebug, consoleError } from "../../util/log"
-import { isDebug } from "../../util/tools"
+import { isDebug, runAfterMinimalTime } from "../../util/tools"
 import { POST_TYPE_OPERA, POST_TYPE_ORIGINAL, POST_TYPE_POETRY, POST_TYPE_REPOST, PostType } from "../../base/constant"
-import { ERROR_HINT, getLoadHint, runAfterMinimalTime } from "../react/LoadingHint"
+import { ERROR_HINT, getLoadHint } from "../react/LoadingHint"
 
 /**
  * 在archives/posts.txt保存着所有文章及对应tag的列表，只请求一次
@@ -53,13 +53,13 @@ export class TagDialogPresenter {
     }
 
     findTaggedPosts(tag: string) {
+        consoleDebug("FindTaggedPosts " + tag)
         const startTime = Date.now()
         // loading应至少持续一段时间
         this.component.setState({
             loading: true,
             loadHint: null
         })
-        consoleDebug("FindTaggedPosts " + tag)
         if (cachedPosts != null) {
             // 使用本页缓存，避免同一页面下的重复请求
             this.showTagItemList(cachedPosts, tag, startTime)
@@ -162,14 +162,15 @@ export class TagDialogPresenter {
             this.findTaggedPosts(this.component.props.tag)
             return
         }
+        const currentSize = this.component.state.postList.length
+        const cachedPosts = cachedTagPostsMap.get(this.component.props.tag)
+        const totalSize = cachedPosts.length
+        if (currentSize >= totalSize) return
         const startTime = Date.now()
         this.component.setState({
             loading: true,
             loadHint: null
         })
-        const currentSize = this.component.state.postList.length
-        const cachedPosts = cachedTagPostsMap.get(this.component.props.tag)
-        const totalSize = cachedPosts.length
         const loadSize = Math.min(totalSize - currentSize, PAGE_SIZE)
         const newPostsForShow = this.generatePostsForShow(cachedPosts, currentSize, loadSize)
         const postsForShow = this.component.state.postList.concat(newPostsForShow)
@@ -190,8 +191,11 @@ export class TagDialogPresenter {
         if (loadSize > PAGE_SIZE) {
             const array = this.component.state.postList.slice(0, PAGE_SIZE)
             this.component.setState({
+                loading: false,
                 postList: array,
                 loadHint: getLoadHint(PAGE_SIZE, totalSize)
+                // dialog弹出时向上滚动，有提示不好看
+                // loadHint: null
             })
         }
     }

@@ -6,7 +6,7 @@ import { consoleDebug } from "../../util/log"
 import { TagDialogPresenter } from "./TagDialogPresenter"
 import ReactDOM from "react-dom"
 import { initListItem } from "../list"
-import { LoadingHint } from "../react/LoadingHint"
+import { ERROR_HINT, LoadingHint } from "../react/LoadingHint"
 // import "./TagEssayListDialog.scss"
 
 interface DialogContentProps extends BasicDialogProps {
@@ -28,6 +28,7 @@ export class TagDialog extends BasicDialog<DialogContentProps, DialogContentStat
         consoleDebug("TagDialogContent constructor")
         this.onClickLoadMore = this.onClickLoadMore.bind(this)
         // this.scrollToTopOnDialogOpen = false
+        this.listenScroll = true
         this.presenter = new TagDialogPresenter(this)
         this.state = {
             loading: true,
@@ -47,12 +48,17 @@ export class TagDialog extends BasicDialog<DialogContentProps, DialogContentStat
 
     onDialogClose() {
         super.onDialogClose()
-        // super.scrollToTop(false)
+        // super.scrollToTop()
         this.presenter.abortFetch()
         this.presenter.reduceResult()
     }
 
     onClickLoadMore() {
+        this.presenter.loadMore()
+    }
+
+    scrollNearToBottom(): void {
+        if (this.state.loadHint == ERROR_HINT) return
         this.presenter.loadMore()
     }
 
@@ -116,7 +122,7 @@ export class TagDialog extends BasicDialog<DialogContentProps, DialogContentStat
                             <PostResult list={this.state.postList} />
                         }
                         {(this.state.loading || this.state.loadHint != null) &&
-                            <LoadingHint loading={this.state.loading} loadHint={this.state.loadHint} onClickHint={this.onClickLoadMore}/>
+                            <LoadingHint loading={this.state.loading} loadHint={this.state.loadHint} onClickHint={this.onClickLoadMore} />
                         }
                     </div>
                 </div>

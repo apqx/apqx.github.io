@@ -92,9 +92,23 @@ export function getHostWithHttp(): string {
 
 export function getElementSize(e: HTMLElement, property: string): number {
     // 获得的值可能是auto或非数字
-    const value = e.computedStyleMap().get(property)?.toString()
+    // computedStyleMap目前不支持Firefox
+    // const value = e.computedStyleMap().get(property)?.toString()
+    const value = window.getComputedStyle(e).getPropertyValue(property)
     consoleDebug("GetElementSize " + property + " = " + value)
     const result = parseFloat(value.slice(0, -2))
     consoleDebug("GetElementSize result " + " = " + result)
     return Number.isNaN(result) ? 0 : result
+}
+
+export const MINIMAL_LOADING_TIME_MS = 200
+export const MINIMAL_LOADING_TIME_MS_SHORT = 100
+export function runAfterMinimalTime(startTime: number, func: () => void, _minimalTimeMs: number = -1) {
+    const minimalTimeMs = _minimalTimeMs == -1 ? MINIMAL_LOADING_TIME_MS : _minimalTimeMs
+    const usedTime = Date.now() - startTime
+    if (usedTime < minimalTimeMs) {
+        setTimeout(func, minimalTimeMs - usedTime)
+    } else {
+        func()
+    }
 }

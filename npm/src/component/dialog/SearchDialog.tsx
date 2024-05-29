@@ -7,7 +7,7 @@ import { createHtmlContent } from "../../util/tools"
 import { BasicDialog, BasicDialogProps, SEARCH_DIALOG_WRAPPER_ID, showDialog } from "./BasicDialog"
 import ReactDOM from "react-dom"
 import { initListItem } from "../list"
-import { LoadingHint } from "../react/LoadingHint"
+import { ERROR_HINT, LoadingHint } from "../react/LoadingHint"
 // import "./SearchDialog.scss"
 
 interface SearchDialogState {
@@ -28,6 +28,8 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
 
     constructor(props: any) {
         super(props)
+        // 需要显示搜素结果数目，节约带宽，不要滚动加载
+        this.listenScroll = false
         this.presenter = new SearchDialogPresenter(this)
         this.onClickSearch = this.onClickSearch.bind(this)
         this.onInputChange = this.onInputChange.bind(this)
@@ -43,6 +45,11 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
     }
 
     onClickLoadMore() {
+        this.presenter.loadMore()
+    }
+
+    scrollNearToBottom(): void {
+        if (this.state.loadHint == ERROR_HINT) return
         this.presenter.loadMore()
     }
 
