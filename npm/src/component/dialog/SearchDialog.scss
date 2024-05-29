@@ -1,5 +1,5 @@
 @use "../theme" as blogTheme;
-@use "../react/ProgressCircular.scss";
+@use "../react/LoadingHint.scss";
 @use "../react/Button.scss";
 @use "@material/button";
 @use '@material/button/mdc-button';
@@ -45,15 +45,6 @@ input {
 
 .dark .mdc-button.btn-search .mdc-button__ripple {
     @include ripple.states(map.get(blogTheme.$chip-ripple, "dark"), false);
-}
-
-.search-result-nav-wrapper {
-    padding: 1rem
-}
-
-.search-result-hint-btn {
-    @include button.ink-color(var(--search-nav));
-    @include button.container-fill-color(transparent);
 }
 
 .search-result-item-type {

@@ -3,13 +3,14 @@ import { consoleDebug, consoleError, consoleObjDebug } from "../../util/log"
 import { isDebug } from "../../util/tools"
 import { Item, Result } from "./bean/search/PagefindResult"
 import { getPostDate, getPostType } from "../../base/post"
+import { ERROR_HINT, getLoadHint, runAfterMinimalTime } from "../react/LoadingHint"
 
 const PAGE_SIZE: number = 10
 
 export class SearchDialogPresenter {
     component: SearchDialog = null
     pagefindResult: Result = null
-    searching: boolean = false
+    key: string = null
 
     constructor(component: SearchDialog) {
         this.component = component
@@ -24,10 +25,9 @@ export class SearchDialogPresenter {
             this.clearResult()
             return
         }
-        // 同一个key，正在执行｜已有结果，return
-        // if (this.key == key && (this.searching || this.pagefindResult != null)) return
-        if (this.searching) return
-        this.searching = true
+        if (this.component.state.loading) return
+        this.key = key
+        const startTime = Date.now()
         this.component.setState({
             loading: true,
             loadHint: null
@@ -47,28 +47,34 @@ export class SearchDialogPresenter {
             const firstPageSize = resultSize < PAGE_SIZE ? resultSize : PAGE_SIZE
 
             if (firstPageSize == 0) {
-                this.clearResult()
-                this.searching = false
+                runAfterMinimalTime(startTime, () => {
+                    this.clearResult()
+                })
                 return
             }
             const itemList: Array<Item> = await Promise.all(this.pagefindResult.results.slice(0, firstPageSize).map(it => it.data()))
-            this.showSearchResult(itemList, true)
+            this.showSearchResult(itemList, true, startTime)
         } catch (e) {
             consoleError(e)
-            this.component.setState({
-                loading: false,
-                loadHint: null
+            runAfterMinimalTime(startTime, () => {
+                this.component.setState({
+                    loading: false,
+                    loadHint: ERROR_HINT
+                })
             })
         }
-        this.searching = false
     }
 
     /**
      * 加载更多
     */
     async loadMore() {
-        if (this.searching) return
-        this.searching = true
+        if (this.component.state.loading) return
+        if (this.component.state.loadHint == ERROR_HINT) {
+            this.search(this.key)
+            return
+        }
+        const startTime = Date.now()
         this.component.setState({
             loading: true,
             loadHint: null
@@ -78,18 +84,31 @@ export class SearchDialogPresenter {
             const loadCount = remainingCount < PAGE_SIZE ? remainingCount : PAGE_SIZE
             const startIndex = this.component.state.results.length
             const itemList: Array<Item> = await Promise.all(this.pagefindResult.results.slice(startIndex, startIndex + loadCount).map(it => it.data()))
-            this.showSearchResult(itemList, false)
+            this.showSearchResult(itemList, false, startTime)
         } catch (e) {
             consoleError(e)
-            this.component.setState({
-                loading: false,
-                loadHint: "加载错误，点击重试"
+            runAfterMinimalTime(startTime, () => {
+                this.component.setState({
+                    loading: false,
+                    loadHint: "加载错误，点击重试"
+                })
             })
         }
-        this.searching = false
     }
 
-    showSearchResult(itemList: Array<Item>, clear: boolean) {
+    reduceResult() {
+        const resultSize = this.pagefindResult.results.length
+        const loadSize = this.component.state.results.length
+        if (loadSize > PAGE_SIZE) {
+            const array = this.component.state.results.slice(0, PAGE_SIZE)
+            this.component.setState({
+                results: array,
+                loadHint: getLoadHint(PAGE_SIZE, resultSize)
+            })
+        }
+    }
+
+    showSearchResult(itemList: Array<Item>, clear: boolean, startTime: number) {
         const resultSize = this.pagefindResult.results.length
         let results: ResultItemData[] = itemList.map(it =>
             new ResultItemData(it.meta.title, it.excerpt, getPostDate(it.raw_url), it.raw_url, getPostType(it.raw_url))
@@ -104,16 +123,14 @@ export class SearchDialogPresenter {
             })
             results = tempResult
         }
-        let loadHint: string = null
+        let loadHint = getLoadHint(results.length, resultSize)
         consoleObjDebug("showSearchResult => ", results)
-        if (results.length < resultSize) {
-            loadHint = results.length + "/" + resultSize + " MORE"
-        }
-        this.component.setState({
-            loading: false,
-            loadHint: loadHint,
-            results: results,
-            resultSize: resultSize
+        runAfterMinimalTime(startTime, () => {
+            this.component.setState({
+                loading: false,
+                loadHint: loadHint,
+                results: results,
+            })
         })
     }
 
@@ -122,7 +139,6 @@ export class SearchDialogPresenter {
             loading: false,
             loadHint: null,
             results: [],
-            resultSize: 0,
         })
     }
 

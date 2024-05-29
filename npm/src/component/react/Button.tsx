@@ -5,16 +5,23 @@ import ReactDOM from "react-dom";
 export interface Props {
     text: string;
     onClick: () => void;
-    classList: string[];
+    className: string;
+    // classList: string[];
 }
 
 export class Button extends React.Component<Props, any> {
 
     init(e: HTMLElement) {
         new MDCRipple(e)
-        if (this.props.classList != null) {
-            this.props.classList.forEach((className) => {
-                e.classList.add(className)
+        // if (this.props.classList != null) {
+        //     this.props.classList.forEach((className) => {
+        //         e.classList.add(className)
+        //     })
+        // }
+        if (this.props.className != null && this.props.className.length > 0) {
+            const classes = this.props.className.split(" ")
+            classes.forEach((c) => {
+                e.classList.add(c)
             })
         }
         if (this.props.onClick != null) {

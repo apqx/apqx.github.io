@@ -6,17 +6,14 @@ import { MDCList } from "@material/list"
 import { createHtmlContent } from "../../util/tools"
 import { BasicDialog, BasicDialogProps, SEARCH_DIALOG_WRAPPER_ID, showDialog } from "./BasicDialog"
 import ReactDOM from "react-dom"
-import { ProgressCircular } from "../react/ProgressCircular"
-import { Button } from "../react/Button"
 import { initListItem } from "../list"
-import { consoleDebug } from "../../util/log"
+import { LoadingHint } from "../react/LoadingHint"
 // import "./SearchDialog.scss"
 
 interface SearchDialogState {
     loading: boolean
     loadHint: string
     results: ResultItemData[]
-    resultSize: number
 }
 
 export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogState> {
@@ -24,7 +21,6 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
         loading: false,
         loadHint: null,
         results: null,
-        resultSize: 0
     }
 
     presenter: SearchDialogPresenter = null
@@ -51,7 +47,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
     }
 
     onDialogClose(): void {
-        // this.presenter.clearResult()
+        this.presenter.reduceResult()
     }
 
     componentDidMount(): void {
@@ -79,7 +75,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
     }
 
     dialogContent(): JSX.Element {
-        const hintBtnClassList = ["search-result-hint-btn"]
+        const hintBtnClassList = ["loading-hint-btn"]
         return (
             <div className="center">
                 <label className="mdc-text-field mdc-text-field--outlined" id="search-dialog_label">
@@ -108,12 +104,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
                         <SearchResult list={this.state.results} />
                     }
                     {(this.state.loading || this.state.loadHint != null) &&
-                        <div className="search-result-nav-wrapper">
-                            {this.state.loading && <ProgressCircular loading={true} />}
-                            {this.state.loadHint != null &&
-                                <Button text={this.state.loadHint} onClick={this.onClickLoadMore} classList={hintBtnClassList} />
-                            }
-                        </div>
+                        <LoadingHint loading={this.state.loading} loadHint={this.state.loadHint} onClickHint={this.onClickLoadMore} />
                     }
                 </div>
 

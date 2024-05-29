@@ -89,3 +89,12 @@ export function getHostWithHttp(): string {
         return "https://mudan.me"
     }
 }
+
+export function getElementSize(e: HTMLElement, property: string): number {
+    // 获得的值可能是auto或非数字
+    const value = e.computedStyleMap().get(property)?.toString()
+    consoleDebug("GetElementSize " + property + " = " + value)
+    const result = parseFloat(value.slice(0, -2))
+    consoleDebug("GetElementSize result " + " = " + result)
+    return Number.isNaN(result) ? 0 : result
+}

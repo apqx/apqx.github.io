@@ -6,7 +6,7 @@ import { consoleDebug } from "../../util/log"
 import { TagDialogPresenter } from "./TagDialogPresenter"
 import ReactDOM from "react-dom"
 import { initListItem } from "../list"
-import { ProgressCircular } from "../react/ProgressCircular"
+import { LoadingHint } from "../react/LoadingHint"
 // import "./TagEssayListDialog.scss"
 
 interface DialogContentProps extends BasicDialogProps {
@@ -15,7 +15,9 @@ interface DialogContentProps extends BasicDialogProps {
 
 interface DialogContentState {
     loading: boolean,
+    resultSize: number,
     postList: PostItemData[]
+    loadHint: string
 }
 
 export class TagDialog extends BasicDialog<DialogContentProps, DialogContentState> {
@@ -24,11 +26,14 @@ export class TagDialog extends BasicDialog<DialogContentProps, DialogContentStat
     constructor(props) {
         super(props)
         consoleDebug("TagDialogContent constructor")
+        this.onClickLoadMore = this.onClickLoadMore.bind(this)
         // this.scrollToTopOnDialogOpen = false
         this.presenter = new TagDialogPresenter(this)
         this.state = {
             loading: true,
-            postList: []
+            resultSize: 0,
+            postList: [],
+            loadHint: null
         }
     }
 
@@ -36,7 +41,7 @@ export class TagDialog extends BasicDialog<DialogContentProps, DialogContentStat
         super.onDialogOpen()
         // 检查是否应该触发fetch数据
         if (this.state.postList.length == 0) {
-            this.presenter.findTaggedEssays(this.props.tag)
+            this.presenter.findTaggedPosts(this.props.tag)
         }
     }
 
@@ -44,9 +49,11 @@ export class TagDialog extends BasicDialog<DialogContentProps, DialogContentStat
         super.onDialogClose()
         // super.scrollToTop(false)
         this.presenter.abortFetch()
-        this.setState ({
-            postList: []
-        })
+        this.presenter.reduceResult()
+    }
+
+    onClickLoadMore() {
+        this.presenter.loadMore()
     }
 
     componentDidMount() {
@@ -62,10 +69,11 @@ export class TagDialog extends BasicDialog<DialogContentProps, DialogContentStat
             " props: " + this.props.tag + " -> " + nextProps.tag +
             " state: " + this.state.loading + " " + this.state.postList.length + " -> " + nextState.loading + " " + nextState.postList.length)
         if (this.props.tag != nextProps.tag) {
-            // props变化，render，要先更新props对应的UI
-            // 同时触发获取对应的数据，当数据获取完成后，会自动setState触发state变化，再render
+            // props变化，render
             consoleDebug("Tag different, render")
-            this.presenter.findTaggedEssays(nextProps.tag)
+            // 不同的tag，清空列表，在onDialogOpen中触发获取新数据
+            // this.presenter.findTaggedPosts(nextProps.tag)
+            this.presenter.clearPostList()
             return true
         }
         if (this.state.loading != nextState.loading ||
@@ -91,7 +99,7 @@ export class TagDialog extends BasicDialog<DialogContentProps, DialogContentStat
         if (this.state.postList.length == 0) {
             count = <></>
         } else {
-            count = <><span>{this.state.postList.length}</span>篇</>
+            count = <><span>{this.state.resultSize}</span>篇</>
         }
         return (
             <>
@@ -103,10 +111,14 @@ export class TagDialog extends BasicDialog<DialogContentProps, DialogContentStat
 
                 {/* <ProgressLinear loading={this.state.loading} /> */}
                 <div className="height-animation-container center">
-                    {this.state.postList != null && this.state.postList.length != 0 &&
-                        <PostResult list={this.state.postList} />
-                    }
-                    {this.state.loading && <ProgressCircular loading={true} />}
+                    <div className="center">
+                        {this.state.postList != null && this.state.postList.length != 0 &&
+                            <PostResult list={this.state.postList} />
+                        }
+                        {(this.state.loading || this.state.loadHint != null) &&
+                            <LoadingHint loading={this.state.loading} loadHint={this.state.loadHint} onClickHint={this.onClickLoadMore}/>
+                        }
+                    </div>
                 </div>
             </>
         )
@@ -224,6 +236,6 @@ class PostItem extends React.Component<PostItemProps, any> {
 export function showTagDialog(_tag: string) {
     consoleDebug("TagDialogContent showTagEssayListDialog " + _tag)
     showDialog(<TagDialog tag={_tag} fixedWidth={true} btnText={"关闭"}
-        // OnClickBtn={null} closeOnClickOutside={true} />, TAG_DIALOG_WRAPPER_ID + "-" + _tag)
-        OnClickBtn={null} closeOnClickOutside={true} />, TAG_DIALOG_WRAPPER_ID)
+        OnClickBtn={null} closeOnClickOutside={true} />, TAG_DIALOG_WRAPPER_ID + "-" + _tag)
+    // OnClickBtn={null} closeOnClickOutside={true} />, TAG_DIALOG_WRAPPER_ID)
 }

@@ -1,0 +1,13 @@
+@use "../react/ProgressCircular.scss";
+@use "../react/Button.scss";
+@use "@material/button";
+@use '@material/button/mdc-button';
+
+.loading-hint-wrapper {
+    padding: 1rem;
+}
+
+.loading-hint-btn {
+    @include button.ink-color(var(--search-nav));
+    @include button.container-fill-color(transparent);
+}

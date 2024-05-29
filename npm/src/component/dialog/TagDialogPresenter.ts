@@ -2,11 +2,14 @@ import { TagDialog, PostItemData } from "./TagDialog"
 import { consoleDebug, consoleError } from "../../util/log"
 import { isDebug } from "../../util/tools"
 import { POST_TYPE_OPERA, POST_TYPE_ORIGINAL, POST_TYPE_POETRY, POST_TYPE_REPOST, PostType } from "../../base/constant"
+import { ERROR_HINT, getLoadHint, runAfterMinimalTime } from "../react/LoadingHint"
 
 /**
  * 在archives/posts.txt保存着所有文章及对应tag的列表，只请求一次
  */
-let postList: PostItem[] = null
+let cachedPosts: PostItem[] = null
+let cachedTagPostsMap: Map<string, PostItem[]> = null
+const PAGE_SIZE: number = 10
 
 interface PostsJson {
     posts: PostItem[]
@@ -42,7 +45,6 @@ class PostItem {
 }
 
 export class TagDialogPresenter {
-
     component: TagDialog = null
     abortController: AbortController = null
 
@@ -50,15 +52,17 @@ export class TagDialogPresenter {
         this.component = component
     }
 
-    findTaggedEssays(tag: string) {
+    findTaggedPosts(tag: string) {
+        const startTime = Date.now()
+        // loading应至少持续一段时间
         this.component.setState({
             loading: true,
-            // postList: []
+            loadHint: null
         })
-        consoleDebug("FindTaggedEssays " + tag)
-        if (postList != null) {
+        consoleDebug("FindTaggedPosts " + tag)
+        if (cachedPosts != null) {
             // 使用本页缓存，避免同一页面下的重复请求
-            this.showTagItemList(postList, tag)
+            this.showTagItemList(cachedPosts, tag, startTime)
             return
         }
         let url: string
@@ -70,7 +74,7 @@ export class TagDialogPresenter {
         const request = new Request(url, {
             method: "GET"
         })
-        if(this.abortController != null) {
+        if (this.abortController != null) {
             // 终止之前的任务
             this.abortController.abort()
         }
@@ -86,34 +90,110 @@ export class TagDialogPresenter {
                 }
             })
             .then((postsJson: PostsJson) => {
-                postList = postsJson.posts
-                this.showTagItemList(postList, tag)
+                cachedPosts = postsJson.posts
+                this.showTagItemList(cachedPosts, tag, startTime)
             }).catch(error => {
                 consoleError(error)
-                this.showTagItemList([], tag)
+                runAfterMinimalTime(startTime, () => {
+                    this.component.setState({
+                        loading: false,
+                        loadHint: ERROR_HINT
+                    })
+                })
             }
             )
     }
 
-    showTagItemList(postList: PostItem[], tag: string) {
-        if(!this.component.mdcDialog.isOpen) {
+    clearPostList() {
+        this.component.setState({
+            loading: false,
+            loadHint: null,
+            postList: []
+        })
+    }
+
+    showTagItemList(postList: PostItem[], tag: string, startTime: number) {
+        if (!this.component.mdcDialog.isOpen) {
             consoleDebug("ShowTagItemList, but dialog is closed, no refresh")
             return
         }
         const posts = this.findPost(tag, postList)
+        if (cachedTagPostsMap == null) {
+            cachedTagPostsMap = new Map()
+        }
+        if (cachedTagPostsMap.get(this.component.props.tag) == null && posts.length > 0) {
+            cachedTagPostsMap.set(this.component.props.tag, posts)
+        }
+        const totalSize = posts.length
         consoleDebug("ShowTagItemList count = " + posts.length)
-        const postListForShow: PostItemData[] = []
-        for (const post of posts) {
+        const postsForShow = this.generatePostsForShow(posts, 0, Math.min(totalSize, PAGE_SIZE))
+        const loadHint = getLoadHint(postsForShow.length, totalSize)
+        runAfterMinimalTime(startTime, () => {
+            this.component.setState({
+                loading: false,
+                resultSize: totalSize,
+                postList: postsForShow,
+                loadHint: loadHint
+            })
+        })
+    }
+
+    generatePostsForShow(posts: PostItem[], startIndex: number, size: number): PostItemData[] {
+        const postsForShow: PostItemData[] = []
+        let count = 0
+        for (let i = startIndex; i < posts.length; i++) {
+            const post = posts[i]
+            if (count >= size) {
+                break
+            }
             const postType = this.getPostType(post.categories)
             const blocks = this.getPostBlocks(post.author, post.actor, post.mention, postType)
-            const essayForShow = new PostItemData(post.url, post.title, post.date, postType.name,
+            const postForShow = new PostItemData(post.url, post.title, post.date, postType.name,
                 blocks[0], blocks[1])
-            postListForShow.push(essayForShow)
+            postsForShow.push(postForShow)
+            count++
         }
+        return postsForShow
+    }
+
+    loadMore() {
+        if (this.component.state.loading) return
+        if (this.component.state.loadHint == ERROR_HINT) {
+            this.findTaggedPosts(this.component.props.tag)
+            return
+        }
+        const startTime = Date.now()
         this.component.setState({
-            loading: false,
-            postList: postListForShow
+            loading: true,
+            loadHint: null
         })
+        const currentSize = this.component.state.postList.length
+        const cachedPosts = cachedTagPostsMap.get(this.component.props.tag)
+        const totalSize = cachedPosts.length
+        const loadSize = Math.min(totalSize - currentSize, PAGE_SIZE)
+        const newPostsForShow = this.generatePostsForShow(cachedPosts, currentSize, loadSize)
+        const postsForShow = this.component.state.postList.concat(newPostsForShow)
+        const loadHint = getLoadHint(postsForShow.length, totalSize)
+        runAfterMinimalTime(startTime, () => {
+            this.component.setState({
+                loading: false,
+                resultSize: totalSize,
+                postList: postsForShow,
+                loadHint: loadHint
+            })
+        })
+    }
+
+    reduceResult() {
+        const totalSize = cachedTagPostsMap.get(this.component.props.tag).length
+        const loadSize = this.component.state.postList.length
+        if (loadSize > PAGE_SIZE) {
+            const array = this.component.state.postList.slice(0, PAGE_SIZE)
+            this.component.setState({
+                postList: array,
+                loadHint: getLoadHint(PAGE_SIZE, totalSize)
+            })
+        }
     }
 
     getPostType(categories: string): PostType {
