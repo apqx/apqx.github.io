@@ -6,12 +6,13 @@
 </head>
 
 <body class="mdc-typography mdc-theme--background">
-    {% include script.html %}
+    {% include script-theme.html %}
     {% include header.html %}
     {% include aside.html %}
     <div class="page-wrap">
         <main class="mdc-top-app-bar--fixed-adjust main-container">
             <div class="mdc-card content-card">
+                {% include script-content-card.html %}
                 {{ content }}
             </div>
         </main>

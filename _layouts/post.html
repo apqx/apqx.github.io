@@ -6,12 +6,13 @@
 </head>
 
 <body class="mdc-typography mdc-theme--background">
-    {% include script.html %}
+    {% include script-theme.html %}
     {% include header.html %}
     {% include aside.html %}
     <div class="page-wrap">
         <main class="mdc-top-app-bar--fixed-adjust main-container">
             <article data-pagefind-body class="mdc-card content-card">
+                {% include script-content-card.html %}
                 <h1 data-pagefind-meta="title" class="essay-title">{{ page.title }}</h1>
                 <address class="essay-author">
                     {% if page.moreDate != null %}{{ page.moreDate }} {% endif %}{{ page.author}}

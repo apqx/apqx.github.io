@@ -5,6 +5,7 @@ import { MDCRipple } from "@material/ripple"
 import { createRoot, Root } from "react-dom/client"
 import ReactDOM from "react-dom"
 import { HeightAnimationContainer } from "../animation/HeightAnimationContainer"
+import { toggleClassWithEnable } from "../../util/tools"
 // import "./BasicDialog.scss"
 
 export interface BasicDialogProps {
@@ -80,19 +81,31 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
             // 设置为空，点击Dialog外部，不取消
             this.mdcDialog.scrimClickAction = ""
         }
+        // 启动open动画
+        this.mdcDialog.listen("MDCDialog:opening", () => {
+            consoleDebug("Dialog opening")
+            // 启动自定义open动画
+            toggleClassWithEnable(this.rootE, "basic-dialog--open", true)
+            this.onDialogOpen()
+        })
+        // open动画结束
         this.mdcDialog.listen("MDCDialog:opened", () => {
-            consoleDebug("Dialog open event")
-            // 多个dialog可能都注册了监听事件，只响应打开的那个
-            // 但是应该会自动检测是否是自己的事件，经验证确实会判断，所以这里无需如此
-            // if(!this.mdcDialog.isOpen) return
-            // 列表滚动到顶部，执行一次即可
+            consoleDebug("Dialog opened")
+            this.handleFocus()
             if (this.scrollToTopOnDialogOpen) {
                 this.scrollToTop()
             }
-            this.handleFocus()
-            this.onDialogOpen()
         })
+        // 启动close动画
         this.mdcDialog.listen("MDCDialog:closing", () => {
+            consoleDebug("Dialog closing")
+            // 启动自定义close动画
+            toggleClassWithEnable(this.rootE, "basic-dialog--open", false)
+        })
+        // close动画结束
+        this.mdcDialog.listen("MDCDialog:closed", () => {
+            consoleDebug("Dialog closed")
+            // dialog关闭之后，display会被设置为none，此时测量尺寸结果会是0
             this.onDialogClose()
         })
     }
@@ -135,8 +148,8 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
             const upScroll = newScrollTop <= lastScrollTop
             lastScrollTop = newScrollTop
             if (upScroll) return
-            if (this.dialogContentE.scrollHeight - this.dialogContentE.clientHeight - this.dialogContentE.scrollTop < 100) {
-                if (Date.now() - lastFireTime < 300) return
+            if (this.dialogContentE.scrollHeight - this.dialogContentE.clientHeight - this.dialogContentE.scrollTop < 300) {
+                if (Date.now() - lastFireTime < 100) return
                 consoleDebug("BasicDialog scroll near to bottom, should fire load more")
                 this.scrollNearToBottom()
                 lastFireTime = Date.now()

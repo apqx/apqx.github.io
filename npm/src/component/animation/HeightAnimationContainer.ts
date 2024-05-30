@@ -75,7 +75,7 @@ export class HeightAnimationContainer {
             duration = _duration
             consoleDebug("HeightAnimationContainer use given duration + " + duration + "s")
         } else {
-            duration = animationSize * 0.2 / 850
+            duration = animationSize * 0.2 / 500
             consoleDebug("HeightAnimationContainer child total height = " + height + ", lastHeight = " + lastHeight +
                 ", animationSize = " + animationSize + ", duration = " + duration + "s")
             if (duration < 0.1) {

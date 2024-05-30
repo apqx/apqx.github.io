@@ -1,11 +1,11 @@
 // import "./404.scss"
-import {showShortLinkJumpDialog} from "../component/dialog/ShortLinkJumpDialog";
-import {consoleDebug} from "../util/log";
-import {runOnHtmlDone, runOnPageDone} from "../util/tools";
-import {initContentCard} from "../component/contentCard";
+import { showShortLinkJumpDialog } from "../component/dialog/ShortLinkJumpDialog";
+import { consoleDebug } from "../util/log";
+import { runOnHtmlDone, runOnPageDone } from "../util/tools";
+import { initContentCard, startContentCardAnimation } from "../component/contentCard";
 
 runOnHtmlDone(() => {
-    initContentCard()
+    initContentCard(false)
 })
 
 runOnPageDone(() => {

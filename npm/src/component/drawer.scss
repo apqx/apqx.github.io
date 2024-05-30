@@ -18,6 +18,7 @@
     @include drawer.item-icon-ink-color(var(--drawer-ink));
     @include drawer.item-activated-text-ink-color(var(--drawer-ink));
     @include drawer.item-activated-icon-ink-color(var(--drawer-ink));
+    // transition: transform 0.2s ease-out !important;
 }
 
 .dark .mdc-drawer {
@@ -27,6 +28,7 @@
 .mdc-drawer--modal + .mdc-drawer-scrim {
     z-index: 2;
     background-color: var(--drawer-scrim-bg);
+    // transition: opacity 0.2s ease !important;
 }
 
 .mdc-drawer__title {

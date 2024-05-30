@@ -54,6 +54,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
     }
 
     onDialogClose(): void {
+        super.onDialogClose()
         this.presenter.reduceResult()
     }
 

@@ -5,7 +5,7 @@ import { initContentCard } from "../component/contentCard";
 import { showAlertDialog } from "../component/dialog/CommonAlertDialog";
 
 runOnHtmlDone(() => {
-    initContentCard()
+    initContentCard(true)
     initCodeHighlight()
     initPageCheck()
     initImgJump()

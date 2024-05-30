@@ -11,6 +11,9 @@ blockFromSearchEngine: true
 <script>
     const cardE = document.querySelector(".content-card");
     cardE.style.display = "none";
+    if (cardE.classList.contains("fade-in-animation")) {
+        cardE.classList.remove("fade-in-animation");
+    }
 </script>
 <section style="text-align: center;">
     <h1 style="font-size: 4.6rem;

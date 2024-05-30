@@ -104,14 +104,6 @@ export class TagDialogPresenter {
             )
     }
 
-    clearPostList() {
-        this.component.setState({
-            loading: false,
-            loadHint: null,
-            postList: []
-        })
-    }
-
     showTagItemList(postList: PostItem[], tag: string, startTime: number) {
         if (!this.component.mdcDialog.isOpen) {
             consoleDebug("ShowTagItemList, but dialog is closed, no refresh")
@@ -135,7 +127,7 @@ export class TagDialogPresenter {
                 postList: postsForShow,
                 loadHint: loadHint
             })
-        })
+        }, 300)
     }
 
     generatePostsForShow(posts: PostItem[], startIndex: number, size: number): PostItemData[] {
@@ -175,14 +167,14 @@ export class TagDialogPresenter {
         const newPostsForShow = this.generatePostsForShow(cachedPosts, currentSize, loadSize)
         const postsForShow = this.component.state.postList.concat(newPostsForShow)
         const loadHint = getLoadHint(postsForShow.length, totalSize)
-        runAfterMinimalTime(startTime, () => {
-            this.component.setState({
-                loading: false,
-                resultSize: totalSize,
-                postList: postsForShow,
-                loadHint: loadHint
-            })
+        // runAfterMinimalTime(startTime, () => {
+        this.component.setState({
+            loading: false,
+            resultSize: totalSize,
+            postList: postsForShow,
+            loadHint: loadHint
         })
+        // })
     }
 
     reduceResult() {

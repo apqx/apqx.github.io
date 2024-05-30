@@ -2,10 +2,10 @@
     // 在Html还没有完全加载时检查当前的Theme设置，判断是否要给<body/>加.dark类，避免切换Theme时的闪烁
     // 对切换Theme的Button图标的修改放在后面执行，不在这里
     function checkTheme() {
-        const THEME_LIGHT = "light";
-        const THEME_DARK = "dark";
-        const THEME_AUTO = "auto";
-        const KEY_THEME = "theme";
+        const THEME_LIGHT = "light"
+        const THEME_DARK = "dark"
+        const THEME_AUTO = "auto"
+        const KEY_THEME = "theme"
         let savedTheme = localStorage.getItem(KEY_THEME)
         if (savedTheme == null) {
             savedTheme = THEME_AUTO

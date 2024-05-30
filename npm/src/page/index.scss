@@ -136,7 +136,7 @@ body {
 .height-animation {
     aspect-ratio: auto;
     height: 0px;
-    transition: height 0.5s ease;
+    transition: height var(--cover-animation-duration) ease;
 }
 
 .index-description {

@@ -7,6 +7,42 @@
 @use "sass:color";
 @use "../animation/HeightAnimationContainer.scss";
 
+.mdc-dialog__container {
+    transform: translateY(10rem);
+    opacity: 0;
+    transition: transform 0.4s ease,
+        opacity 0.2s ease !important;
+}
+
+// opening -> open
+// opening只是设置dialog的显示属性，动画是由open触发的
+// js控制先添加opening，再立即添加open，启动动画
+// .mdc-dialog--opening .mdc-dialog__container {
+//     transform: translateY(5rem);
+//     opacity: 1;
+// }
+
+.mdc-dialog--open .mdc-dialog__container {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+// closing -> null
+.mdc-dialog--closing .mdc-dialog__container {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.mdc-dialog .mdc-dialog__scrim {
+    background-color: var(--dialog-scrim-bg);
+    opacity: 0 !important;
+    transition: opacity 0.4s ease !important;
+}
+
+.mdc-dialog--open .mdc-dialog__scrim {
+    opacity: 1 !important;
+}
+
 .mdc-dialog {
     // 亮色主题的divider自动生成，颜色合适，但暗色主题颜色不合适，因此需要手动指定
     // 这里会自动根据颜色计算出divider颜色，但是把同样的颜色用var引用却不可以，奇怪
@@ -35,9 +71,7 @@
     width: 560px;
 }
 
-.mdc-dialog .mdc-dialog__scrim {
-    background-color: var(--dialog-scrim-bg);
-}
+
 
 .common-alert-dialog_title {
     @include typography.typography(headline1);

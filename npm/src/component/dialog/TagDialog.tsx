@@ -68,34 +68,10 @@ export class TagDialog extends BasicDialog<DialogContentProps, DialogContentStat
     }
 
     shouldComponentUpdate(nextProps: Readonly<DialogContentProps>, nextState: Readonly<DialogContentState>, nextContext: any): boolean {
-        super.shouldComponentUpdate(nextProps, nextState, nextContext)
-        // 当外部以<Tag />的形式重新传入props时，或内部state变化时，这里执行，判断是否要render
-        // props是UI的数据id，state则是要展示的UI状态，更新props，会触发重新获取要展示的UI对应的数据，调用setState触发state变化，引起UI变化
-        consoleDebug("TagDialogContent shouldComponentUpdate" +
-            " props: " + this.props.tag + " -> " + nextProps.tag +
-            " state: " + this.state.loading + " " + this.state.postList.length + " -> " + nextState.loading + " " + nextState.postList.length)
-        if (this.props.tag != nextProps.tag) {
-            // props变化，render
-            consoleDebug("Tag different, render")
-            // 不同的tag，清空列表，在onDialogOpen中触发获取新数据
-            // this.presenter.findTaggedPosts(nextProps.tag)
-            this.presenter.clearPostList()
-            return true
-        }
-        if (this.state.loading != nextState.loading ||
-            !this.isPostListSame(this.state.postList, nextState.postList)) {
-            consoleDebug("State different, render")
-            return true
-        }
-        consoleDebug("Props and state no change, no render")
-        return false
-    }
-
-    private isPostListSame(list1: PostItemData[], list2: PostItemData[]) {
-        if (list1.length != list2.length) return false
-        for (let i = 0; i < list1.length; i++) {
-            if (list1[i].url != list2[i].url) return false
-        }
+        // 当props或state变化时，判断是否render
+        // state变化由内部触发，应该render
+        // props变化由外部通过<Dialog>触发，会复用本ReactElement实例，不论props是否变化，都应该render一下，来同步内容和显示
+        // 有时候在Element的display为none之后更新render了组件，实际有些尺寸可能是错误的，如果不同步render的话，可能会不一致
         return true
     }
 

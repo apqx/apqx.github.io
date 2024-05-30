@@ -29,10 +29,19 @@ function showEncodedUrl() {
     })
 }
 
+let lastScrollY = -1
+
 function scrollToTop() {
-    const c = window.scrollY
-    if (c > 0) {
-        window.requestAnimationFrame(scrollToTop)
-        window.scrollTo(0, c - c / 8)
+    const scrollY = window.scrollY
+    if( lastScrollY != -1 && scrollY > lastScrollY ){
+        // 用户中断
+        lastScrollY = -1
+        return
     }
+    if (scrollY > 0) {
+        window.requestAnimationFrame(scrollToTop)
+        window.scrollTo(0, scrollY - scrollY / 20)
+    }
+    lastScrollY = scrollY
+    if (lastScrollY <= 0) lastScrollY = -1
 }
