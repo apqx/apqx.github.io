@@ -84,8 +84,6 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
         // 启动open动画
         this.mdcDialog.listen("MDCDialog:opening", () => {
             consoleDebug("Dialog opening")
-            // 启动自定义open动画
-            toggleClassWithEnable(this.rootE, "basic-dialog--open", true)
             this.onDialogOpen()
         })
         // open动画结束
@@ -99,14 +97,12 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
         // 启动close动画
         this.mdcDialog.listen("MDCDialog:closing", () => {
             consoleDebug("Dialog closing")
-            // 启动自定义close动画
-            toggleClassWithEnable(this.rootE, "basic-dialog--open", false)
+            this.onDialogClose()
         })
         // close动画结束
         this.mdcDialog.listen("MDCDialog:closed", () => {
             consoleDebug("Dialog closed")
             // dialog关闭之后，display会被设置为none，此时测量尺寸结果会是0
-            this.onDialogClose()
         })
     }
 

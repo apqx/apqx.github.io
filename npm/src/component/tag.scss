@@ -32,9 +32,10 @@ a.tag-link {
     box-shadow: inset 0 -8px 0 0 var(--strong-underline-color);
     text-decoration: none;
     white-space: pre;
+    transition: box-shadow 0.2s ease;
 }
 
 a.tag-link:hover {
-    box-shadow: none;
+    box-shadow: inset 0 0 0 0 var(--strong-underline-color);
     text-decoration: none;
 }

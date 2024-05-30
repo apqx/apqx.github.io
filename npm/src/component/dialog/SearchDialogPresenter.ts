@@ -9,8 +9,10 @@ const PAGE_SIZE: number = 10
 
 export class SearchDialogPresenter {
     component: SearchDialog = null
+    pagefind: any = null
     pagefindResult: Result = null
     key: string = null
+    abortController: AbortController = null
 
     constructor(component: SearchDialog) {
         this.component = component
@@ -18,45 +20,64 @@ export class SearchDialogPresenter {
 
     /**
      * 搜索
-     * @param key 搜索关键字
+     * @param _key 搜索关键字
      */
-    async search(key: string) {
-        if (key == null || key == "") {
+    search(_key: string) {
+        if (_key == null || _key == "") {
             this.clearResult()
             return
         }
-        if (this.component.state.loading) return
-        this.key = key
+        if (this.key == _key && this.component.state.loading) return
+        this.key = _key
+        if (this.abortController != null) this.abortController.abort()
+        this.abortController = new AbortController()
+        this.searchByPagefind(_key, this.abortController.signal)
+    }
+
+    private async searchByPagefind(key: string, signal: AbortSignal) {
         const startTime = Date.now()
         this.component.setState({
             loading: true,
-            loadHint: null
         })
         try {
-            let pagefindUrl: string = isDebug() ? "/npm/pagefind/pagefind.js" : "https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/pagefind/pagefind.js"
-            // webpack会对所有import进行打包、拆分，对于src中不存在而在网站中存在的js，打包时会因为找不到而异常
-            // 添加注释可以避免webpack对这里的import打包，而在运行时引入
-            const pagefind = await import(/*webpackIgnore: true*/ pagefindUrl)
-            // await pagefind.options({
-            //     bundlePath: "/npm/dist/pagefind/"
-            // })
-            pagefind.init()
-            this.pagefindResult = await pagefind.search(key)
+            if (this.pagefind == null) {
+                await this.initPagefind()
+                if (signal.aborted) {
+                    consoleDebug("SearchByPagefind aborted")
+                    return
+                }
+            }
+            this.pagefindResult = await this.pagefind.search(key)
+            if (signal.aborted) {
+                consoleDebug("SearchByPagefind aborted")
+                return
+            }
             const resultSize = this.pagefindResult.results.length
             consoleObjDebug("Pagefind result => ", this.pagefindResult)
-            const firstPageSize = resultSize < PAGE_SIZE ? resultSize : PAGE_SIZE
-
+            const firstPageSize = Math.min(resultSize, PAGE_SIZE)
             if (firstPageSize == 0) {
                 runAfterMinimalTime(startTime, () => {
+                    if (signal.aborted) {
+                        consoleDebug("SearchByPagefind aborted")
+                        return
+                    }
                     this.clearResult()
                 })
                 return
             }
             const itemList: Array<Item> = await Promise.all(this.pagefindResult.results.slice(0, firstPageSize).map(it => it.data()))
+            if (signal.aborted) {
+                consoleDebug("SearchByPagefind aborted")
+                return
+            }
             this.showSearchResult(itemList, true, startTime)
         } catch (e) {
             consoleError(e)
             runAfterMinimalTime(startTime, () => {
+                if (signal.aborted) {
+                    consoleDebug("SearchByPagefind aborted")
+                    return
+                }
                 this.component.setState({
                     loading: false,
                     loadHint: ERROR_HINT
@@ -65,39 +86,63 @@ export class SearchDialogPresenter {
         }
     }
 
+    async initPagefind() {
+        let pagefindUrl: string = isDebug() ? "/npm/pagefind/pagefind.js" : "https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/pagefind/pagefind.js"
+        // webpack会对所有import进行打包、拆分，对于src中不存在而在网站中存在的js，打包时会因为找不到而异常
+        // 添加注释可以避免webpack对这里的import打包，而在运行时引入
+        this.pagefind = await import(/*webpackIgnore: true*/ pagefindUrl)
+        // await pagefind.options({
+        //     bundlePath: "/npm/dist/pagefind/"
+        // })
+        this.pagefind.init()
+    }
+
     /**
      * 加载更多
     */
-    async loadMore() {
+    loadMore() {
         if (this.component.state.loading) return
         if (this.component.state.loadHint == ERROR_HINT) {
             this.search(this.key)
             return
         }
+        if (this.abortController != null) this.abortController.abort()
+        this.abortController = new AbortController()
+        this.loadMoreByPagefind(this.abortController.signal)
+    }
+
+    private async loadMoreByPagefind(signal: AbortSignal) {
         const startTime = Date.now()
         this.component.setState({
             loading: true,
-            loadHint: null
         })
         try {
             const remainingCount = this.pagefindResult.results.length - this.component.state.results.length
             const loadCount = remainingCount < PAGE_SIZE ? remainingCount : PAGE_SIZE
             const startIndex = this.component.state.results.length
             const itemList: Array<Item> = await Promise.all(this.pagefindResult.results.slice(startIndex, startIndex + loadCount).map(it => it.data()))
+            if (signal.aborted) {
+                consoleDebug("LoadMoreByPagefind aborted")
+                return
+            }
             this.showSearchResult(itemList, false, startTime)
         } catch (e) {
             consoleError(e)
             runAfterMinimalTime(startTime, () => {
+                if (signal.aborted) {
+                    consoleDebug("LoadMoreByPagefind aborted")
+                    return
+                }
                 this.component.setState({
                     loading: false,
-                    loadHint: "加载错误，点击重试"
+                    loadHint: ERROR_HINT
                 })
             })
         }
     }
 
     reduceResult() {
-        const resultSize = this.pagefindResult.results.length
+        const resultSize = this.getTotalResultSize()
         const loadSize = this.component.state.results.length
         if (loadSize > PAGE_SIZE) {
             const array = this.component.state.results.slice(0, PAGE_SIZE)
@@ -106,6 +151,10 @@ export class SearchDialogPresenter {
                 loadHint: getLoadHint(PAGE_SIZE, resultSize)
             })
         }
+    }
+
+    private getTotalResultSize(): number {
+        return this.pagefindResult == null || this.pagefindResult.results == null ? 0 : this.pagefindResult.results.length
     }
 
     showSearchResult(itemList: Array<Item>, clear: boolean, startTime: number) {
@@ -139,6 +188,13 @@ export class SearchDialogPresenter {
             loading: false,
             loadHint: null,
             results: [],
+        })
+    }
+
+    abortSearch() {
+        if (this.abortController != null) this.abortController.abort()
+        this.component.setState({
+            loading: false,
         })
     }
 

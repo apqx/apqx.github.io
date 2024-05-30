@@ -20,7 +20,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
     state: SearchDialogState = {
         loading: false,
         loadHint: null,
-        results: null,
+        results: [],
     }
 
     presenter: SearchDialogPresenter = null
@@ -56,6 +56,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
     onDialogClose(): void {
         super.onDialogClose()
         this.presenter.reduceResult()
+        this.presenter.abortSearch()
     }
 
     componentDidMount(): void {
@@ -83,7 +84,6 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
     }
 
     dialogContent(): JSX.Element {
-        const hintBtnClassList = ["loading-hint-btn"]
         return (
             <div className="center">
                 <label className="mdc-text-field mdc-text-field--outlined" id="search-dialog_label">

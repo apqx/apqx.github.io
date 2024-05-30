@@ -58,7 +58,6 @@ export class TagDialogPresenter {
         // loading应至少持续一段时间
         this.component.setState({
             loading: true,
-            loadHint: null
         })
         if (cachedPosts != null) {
             // 使用本页缓存，避免同一页面下的重复请求
@@ -105,10 +104,6 @@ export class TagDialogPresenter {
     }
 
     showTagItemList(postList: PostItem[], tag: string, startTime: number) {
-        if (!this.component.mdcDialog.isOpen) {
-            consoleDebug("ShowTagItemList, but dialog is closed, no refresh")
-            return
-        }
         const posts = this.findPost(tag, postList)
         if (cachedTagPostsMap == null) {
             cachedTagPostsMap = new Map()
@@ -161,7 +156,6 @@ export class TagDialogPresenter {
         const startTime = Date.now()
         this.component.setState({
             loading: true,
-            loadHint: null
         })
         const loadSize = Math.min(totalSize - currentSize, PAGE_SIZE)
         const newPostsForShow = this.generatePostsForShow(cachedPosts, currentSize, loadSize)
@@ -178,7 +172,7 @@ export class TagDialogPresenter {
     }
 
     reduceResult() {
-        const totalSize = cachedTagPostsMap.get(this.component.props.tag).length
+        const totalSize = this.getTotalResultSize(this.component.props.tag)
         const loadSize = this.component.state.postList.length
         if (loadSize > PAGE_SIZE) {
             const array = this.component.state.postList.slice(0, PAGE_SIZE)
@@ -190,6 +184,11 @@ export class TagDialogPresenter {
                 // loadHint: null
             })
         }
+    }
+
+    private getTotalResultSize(tag: string): number {
+        if (cachedTagPostsMap == null || cachedTagPostsMap[tag] == null) return 0
+        return cachedTagPostsMap[tag].length
     }
 
     getPostType(categories: string): PostType {
@@ -249,7 +248,9 @@ export class TagDialogPresenter {
     }
 
     abortFetch() {
-        if (this.abortController != null)
-            this.abortController.abort()
+        if (this.abortController != null) this.abortController.abort()
+        this.component.setState({
+            loading: false
+        })
     }
 }

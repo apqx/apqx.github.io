@@ -48,7 +48,6 @@ export class TagDialog extends BasicDialog<DialogContentProps, DialogContentStat
 
     onDialogClose() {
         super.onDialogClose()
-        // super.scrollToTop()
         this.presenter.abortFetch()
         this.presenter.reduceResult()
     }
