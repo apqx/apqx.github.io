@@ -3,7 +3,7 @@ import { SearchDialogPresenter } from "./SearchDialogPresenter"
 import { MDCRipple } from "@material/ripple"
 import { MDCTextField } from "@material/textfield"
 import { MDCList } from "@material/list"
-import { createHtmlContent } from "../../util/tools"
+import { clearFocusListener, createHtmlContent } from "../../util/tools"
 import { BasicDialog, BasicDialogProps, SEARCH_DIALOG_WRAPPER_ID, showDialog } from "./BasicDialog"
 import ReactDOM from "react-dom"
 import { initListItem } from "../list"
@@ -55,8 +55,8 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
 
     onDialogClose(): void {
         super.onDialogClose()
-        this.presenter.reduceResult()
         this.presenter.abortSearch()
+        this.presenter.reduceResult()
     }
 
     componentDidMount(): void {
@@ -69,9 +69,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
     initBtn(e: HTMLElement) {
         if (e == null) return
         new MDCRipple(e)
-        e.addEventListener("focus", () => {
-            e.blur()
-        })
+        e.addEventListener("focus", clearFocusListener)
     }
 
     initTextField(e: Element) {
@@ -95,7 +93,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
                         <span className="mdc-notched-outline__trailing"></span>
                     </span>
                     <input type="search" className="mdc-text-field__input" aria-labelledby="search-label"
-                        tabIndex={-1} onChange={this.onInputChange} />
+                        name="search-dialog_input" tabIndex={-1} onChange={this.onInputChange} />
                     <button id="btn-search" type="button"
                         className="mdc-button mdc-button--unelevated btn-search btn-round center"
                         tabIndex={-1} onClick={this.onClickSearch}>

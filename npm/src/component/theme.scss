@@ -266,7 +266,12 @@ body {
         --md-switch-track-height: 1.2rem;
 
         --top-card-to-container-top: 0.74rem;
+
+        --dialog-animation-duration: 0.4s;
+        --dialog-animation-translate-y: 10rem;
         --cover-animation-duration: 0.8s;
+        --card-animation-duration: 0.8s;
+        --card-animation-translate-y: 15rem;
 
         @include light;
 }
@@ -281,6 +286,7 @@ body {
                 --mdc-theme-text-secondary-on-background: #{map.get($text-secondary-on-background, "min-screen-light")};
 
                 --cover-animation-duration: 0.6s;
+                --card-animation-translate-y: 15rem;
         }
 
         .dark {
@@ -294,5 +300,6 @@ body {
 @media all and (min-width: ($screen-middle-min-width + 1px)) and (max-width: ($screen-middle-max-width - 1px)) {
         body {
                 --cover-animation-duration: 0.6s;
+                --card-animation-translate-y: 15rem;
         }
 }

@@ -29,3 +29,10 @@
 .mdc-top-app-bar .mdc-icon-button__ripple {
     @include ripple.states(white, true);
 }
+
+// 默认固定，需要时监测滚动启动隐藏、展示动画
+// 动态获取topbar高度，设置滚动值
+.mdc-top-app-bar--fixed {
+    transform: translateY(0);
+    transition: all 0.4s ease;
+}

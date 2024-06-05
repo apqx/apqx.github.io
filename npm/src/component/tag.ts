@@ -1,6 +1,7 @@
 import {MDCRipple} from "@material/ripple";
 import {consoleDebug} from "../util/log";
 import {showTagDialog} from "./dialog/TagDialog";
+import { clearFocusListener } from "../util/tools";
 // import "./tag.scss"
 
 /**
@@ -35,9 +36,7 @@ function clickTag(event: Event) {
 export function initTag() {
     for (const ele of document.querySelectorAll(".mdc-button.btn-tag")) {
         new MDCRipple(ele)
-        ele.addEventListener("focus", () => {
-            (ele as HTMLElement).blur()
-        })
+        ele.addEventListener("focus", clearFocusListener)
     }
 }
 

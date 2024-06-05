@@ -40,7 +40,7 @@ function scrollToTop() {
     }
     if (scrollY > 0) {
         window.requestAnimationFrame(scrollToTop)
-        window.scrollTo(0, scrollY - scrollY / 20)
+        window.scrollTo(0, scrollY - scrollY / 15)
     }
     lastScrollY = scrollY
     if (lastScrollY <= 0) lastScrollY = -1

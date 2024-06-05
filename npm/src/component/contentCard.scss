@@ -32,15 +32,16 @@ body {
 }
 
 .fade-in-animation {
-    transform: translateY(10rem);
+    transform: translateY(var(--card-animation-translate-y));
     opacity: 0;
-    transition: transform var(--cover-animation-duration) ease,
-        opacity calc(var(--cover-animation-duration) / 2) ease;
+    // 透明度动画部分页面在safari上会显示泛白，所以尽量缩短时间
+    transition: transform var(--card-animation-duration) ease,
+        opacity calc(var(--card-animation-duration) / 2) ease;
 }
 
 .fade-in-animation.fade-in-animation--start {
     transform: translateY(0);
-    opacity: 100;
+    opacity: 1;
 }
 
 // 手机小屏
@@ -58,15 +59,5 @@ body {
     .dark .content-card {
         @include elevation.elevation(map.get(blogTheme.$content-card-elevation, "elevation"),
             map.get(blogTheme.$content-card-elevation, "min-screen-shadow-dark"), 0);
-    }
-
-    .fade-in-animation {
-        transform: translateY(8rem);
-    }
-}
-
-@media all and (min-width: (blogTheme.$screen-middle-min-width + 1px)) and (max-width: (blogTheme.$screen-middle-max-width - 1px)) {
-    .fade-in-animation {
-        transform: translateY(8rem);
     }
 }

@@ -112,3 +112,8 @@ export function runAfterMinimalTime(startTime: number, func: () => void, _minima
         func()
     }
 }
+
+export const clearFocusListener: (e: Event) => void = (e) => {
+    const target = e.target as HTMLElement
+    target.blur()
+}

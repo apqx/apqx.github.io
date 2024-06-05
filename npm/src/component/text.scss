@@ -177,7 +177,7 @@ audio {
 }
 
 // 横向滑动，不换行
-blockquote.pre {
+.pre {
     overflow-x: auto;
 }
 
@@ -190,7 +190,7 @@ blockquote.pre {
 // <blockquote>
 // <p>文本</p>
 // </blockquote>
-blockquote.pre * {
+.pre * {
     white-space: pre;
 }
 

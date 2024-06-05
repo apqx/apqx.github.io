@@ -12,6 +12,8 @@ runOnPageDone(() => {
 
 const INDEX_TOP_COVER_RATIO = 844 / 295
 
+export let coverHeight = 0
+
 function initIndex() {
     for (const ele of document.querySelectorAll(".index-top-cover.height-animation")) {
         const imgE = ele as HTMLImageElement
@@ -37,10 +39,10 @@ function initIndex() {
         // 监听宽度变化，实时设置高度
         const resizeObserver = new ResizeObserver((entries) => {
             const entry = entries.pop()
-            consoleDebug("Cover size changed " + entry.contentRect.width + " : " + entry.contentRect.height)
+            // consoleDebug("Cover size changed " + entry.contentRect.width + " : " + entry.contentRect.height)
             if (entry.contentRect.width == lastWidth) {
                 // 宽度没有变化
-                consoleDebug("Cover width not change")
+                // consoleDebug("Cover width not change")
                 return
             }
             lastWidth = entry.contentRect.width
@@ -65,9 +67,9 @@ function postSetCoverHeight(imgE: HTMLImageElement, ratio: number) {
 }
 
 function setCoverHeight(imgE: HTMLImageElement, ratio: number) {
-    const height = imgE.width / ratio
-    consoleDebug("SetCoverHeight = " + height)
-    imgE.style.height = height + "px"
+    coverHeight = imgE.width / ratio
+    consoleDebug("SetCoverHeight = " + coverHeight)
+    imgE.style.height = coverHeight + "px"
 }
 
 let masonry: Masonry = null

@@ -8,10 +8,10 @@
 @use "../animation/HeightAnimationContainer.scss";
 
 .mdc-dialog__container {
-    transform: translateY(10rem);
+    transform: translateY(var(--dialog-animation-translate-y));
     opacity: 0;
-    transition: transform 0.4s ease,
-        opacity 0.2s ease !important;
+    transition: transform var(--dialog-animation-duration) ease,
+        opacity calc(var(--dialog-animation-duration) / 2) ease !important;
 }
 
 // opening -> open
@@ -36,7 +36,7 @@
 .mdc-dialog .mdc-dialog__scrim {
     background-color: var(--dialog-scrim-bg);
     opacity: 0 !important;
-    transition: opacity 0.4s ease !important;
+    transition: opacity var(--dialog-animation-duration) ease !important;
 }
 
 .mdc-dialog--open .mdc-dialog__scrim {
@@ -70,8 +70,6 @@
 .mdc-dialog__fixed-width {
     width: 560px;
 }
-
-
 
 .common-alert-dialog_title {
     @include typography.typography(headline1);

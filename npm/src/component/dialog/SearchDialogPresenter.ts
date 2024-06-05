@@ -193,9 +193,10 @@ export class SearchDialogPresenter {
 
     abortSearch() {
         if (this.abortController != null) this.abortController.abort()
-        this.component.setState({
-            loading: false,
-        })
+        if (this.component.state.loading)
+            this.component.setState({
+                loading: false,
+            })
     }
 
     /**

@@ -28,7 +28,7 @@
 .mdc-drawer--modal + .mdc-drawer-scrim {
     z-index: 2;
     background-color: var(--drawer-scrim-bg);
-    // transition: opacity 0.2s ease !important;
+    transition: opacity var(--dialog-animation-duration) ease !important;
 }
 
 .mdc-drawer__title {

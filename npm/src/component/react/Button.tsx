@@ -2,6 +2,7 @@ import { MDCRipple } from "@material/ripple";
 import React from "react";
 import ReactDOM from "react-dom";
 import { consoleDebug, consoleObjDebug } from "../../util/log";
+import { clearFocusListener } from "../../util/tools";
 
 export interface Props {
     text: string;
@@ -23,11 +24,7 @@ export class Button extends React.Component<Props, any> {
         if (this.props.onClick != null) {
             e.addEventListener("click", this.props.onClick)
         }
-        e.addEventListener("focus", (event) => {
-            consoleObjDebug("Button focus ", event.target)
-            const ele = event.target as HTMLElement
-            ele.blur()
-        })
+        e.addEventListener("focus", clearFocusListener)
     }
 
     componentDidMount() {

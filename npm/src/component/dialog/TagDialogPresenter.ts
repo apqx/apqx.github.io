@@ -187,8 +187,8 @@ export class TagDialogPresenter {
     }
 
     private getTotalResultSize(tag: string): number {
-        if (cachedTagPostsMap == null || cachedTagPostsMap[tag] == null) return 0
-        return cachedTagPostsMap[tag].length
+        if (cachedTagPostsMap == null || cachedTagPostsMap.get(tag) == null) return 0
+        return cachedTagPostsMap.get(tag).length
     }
 
     getPostType(categories: string): PostType {
@@ -249,8 +249,9 @@ export class TagDialogPresenter {
 
     abortFetch() {
         if (this.abortController != null) this.abortController.abort()
-        this.component.setState({
-            loading: false
-        })
+        if (this.component.state.loading)
+            this.component.setState({
+                loading: false
+            })
     }
 }
