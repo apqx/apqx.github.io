@@ -2,63 +2,72 @@ import { consoleDebug, consoleObjDebug } from "../../util/log"
 import { getElementSize } from "../../util/tools"
 
 export class HeightAnimationContainer {
-    containers: Array<HTMLElement>
-    lastHeightMap: Map<HTMLElement, number>
-    constructor(rootE: Element) {
-        this.containers = Array.from(rootE.querySelectorAll(".height-animation-container"))
-        this.lastHeightMap = new Map()
+    containerE: HTMLElement
+    lastHeight: number
+    constructor(animationContainerE: HTMLElement) {
+        this.containerE = animationContainerE
+        this.lastHeight = -1
+        // 这里可以先计算一次高度
+        this.update(false)
+        // 监听尺寸变化
+        this.containerE.addEventListener("resize", () => {
+            this.update(false)
+        })
     }
 
     update(_animation: boolean = true, _targetHeight: number = -1, _duration: number = -1) {
-        this.containers.forEach(e => {
-            let targetHeight = 0
-            // 根据尺寸变化定义先定义不同的动画时间，记录上一次的尺寸，进行对比
-            // 检查尺寸变化比较小的情况，赋予一个短动画时间，线性变化，参考tag
-            // 10篇博文，0.2s，高度750px
-            if (_targetHeight >= 0) {
-                targetHeight = _targetHeight
-                consoleDebug("HeightAnimationContainer use given height + " + targetHeight)
+        let targetHeight = 0
+        // 根据尺寸变化定义先定义不同的动画时间，记录上一次的尺寸，进行对比
+        // 检查尺寸变化比较小的情况，赋予一个短动画时间，线性变化，参考tag
+        // 10篇博文，0.2s，高度750px
+        if (_targetHeight >= 0) {
+            targetHeight = _targetHeight
+            consoleDebug("HeightAnimationContainer use given height + " + targetHeight)
+        } else {
+            targetHeight = this.calcHeight(this.containerE)
+        }
+        if (_animation) {
+            this.containerE.style.transitionProperty = "height"
+        } else {
+            this.containerE.style.transitionProperty = "none"
+        }
+        if (this.lastHeight == -1) {
+            this.lastHeight = 0
+        }
+        let duration = this.calcDuration(targetHeight, this.lastHeight, _duration)
+        this.containerE.style.transitionDuration = duration + "s"
+        this.containerE.style.height = targetHeight + "px"
+        this.lastHeight = targetHeight
+    }
+
+    private calcHeight(containerE: HTMLElement): number {
+        let height = 0
+        for (let i = 0; i < containerE.children.length; i++) {
+            const childE = containerE.children[i] as HTMLElement
+            height += childE.offsetHeight
+            consoleDebug("HeightAnimationContainer + child height = " + childE.offsetHeight)
+            const first = i == 0
+            const last = i == containerE.childElementCount - 1
+            if (first) {
+                const marginTop = getElementSize(childE, "margin-top")
+                height += marginTop
+                consoleDebug("HeightAnimationContainer + child marginTop = " + marginTop)
+            }
+            const marginBottom = getElementSize(childE, "margin-bottom")
+            if (last) {
+                height += marginBottom
+                consoleDebug("HeightAnimationContainer + child marginBottom = " + marginBottom)
             } else {
-                for (let i = 0; i < e.children.length; i++) {
-                    const childE = e.children[i] as HTMLElement
-                    targetHeight += childE.offsetHeight
-                    consoleDebug("HeightAnimationContainer + child height = " + childE.offsetHeight)
-                    const first = i == 0
-                    const last = i == e.childElementCount - 1
-                    if (first) {
-                        const marginTop = getElementSize(childE, "margin-top")
-                        targetHeight += marginTop
-                        consoleDebug("HeightAnimationContainer + child marginTop = " + marginTop)
-                    }
-                    const marginBottom = getElementSize(childE, "margin-bottom")
-                    if (last) {
-                        targetHeight += marginBottom
-                        consoleDebug("HeightAnimationContainer + child marginBottom = " + marginBottom)
-                    } else {
-                        const nextMarginTop = getElementSize(e.children[i + 1] as HTMLElement, "margin-top")
-                        const margin = Math.max(marginBottom, nextMarginTop)
-                        targetHeight += margin
-                        consoleDebug("HeightAnimationContainer + child margin = " + margin)
-                    }
-                }
-                // 实际尺寸差几个像素，overflow设为hidden，导致border被挡住一部分
-                if (e.childElementCount > 0)
-                    targetHeight += 2
+                const nextMarginTop = getElementSize(containerE.children[i + 1] as HTMLElement, "margin-top")
+                const margin = Math.max(marginBottom, nextMarginTop)
+                height += margin
+                consoleDebug("HeightAnimationContainer + child margin = " + margin)
             }
-            if (_animation) {
-                e.style.transitionProperty = "height"
-            } else {
-                e.style.transitionProperty = "none"
-            }
-            let lastHeight = this.lastHeightMap.get(e)
-            if (lastHeight == null) {
-                lastHeight = 0
-            }
-            let duration = this.calcDuration(targetHeight, lastHeight, _duration)
-            e.style.transitionDuration = duration + "s"
-            e.style.height = targetHeight + "px"
-            this.lastHeightMap.set(e, targetHeight)
-        })
+        }
+        // 实际尺寸差几个像素，overflow设为hidden，导致border被挡住一部分
+        if (containerE.childElementCount > 0)
+            height += 2
+        return height
     }
 
     /**

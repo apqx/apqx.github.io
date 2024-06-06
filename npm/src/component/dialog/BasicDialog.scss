@@ -5,13 +5,13 @@
 @use "@material/typography";
 @use "sass:map";
 @use "sass:color";
-@use "../animation/HeightAnimationContainer.scss";
 
 .mdc-dialog__container {
     transform: translateY(var(--dialog-animation-translate-y));
     opacity: 0;
     transition: transform var(--dialog-animation-duration) ease,
         opacity calc(var(--dialog-animation-duration) / 2) ease !important;
+    // will-change: transform, opacity;
 }
 
 // opening -> open

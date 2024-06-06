@@ -16,7 +16,7 @@ const config = {
                 "./node_modules/long-press-event/src/long-press-event.js"]
         },
         index: {
-            import: ["./src/page/index.ts", "./src/page/index.scss"],
+            import: ["./src/page/index.tsx", "./src/page/index.scss"],
             dependOn: "scaffold"
         },
         post: {

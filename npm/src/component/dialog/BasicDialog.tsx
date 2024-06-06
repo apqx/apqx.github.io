@@ -4,8 +4,6 @@ import { MDCDialog } from "@material/dialog"
 import { MDCRipple } from "@material/ripple"
 import { createRoot, Root } from "react-dom/client"
 import ReactDOM from "react-dom"
-import { HeightAnimationContainer } from "../animation/HeightAnimationContainer"
-import { toggleClassWithEnable } from "../../util/tools"
 // import "./BasicDialog.scss"
 
 export interface BasicDialogProps {
@@ -20,7 +18,6 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
     rootE: Element
     btnCloseE: HTMLElement
     dialogContentE: HTMLElement
-    heightAnimationContainer: HeightAnimationContainer = null
     scrollToTopOnDialogOpen: boolean = true
     listenScroll: boolean = false
 
@@ -35,7 +32,6 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
         this.rootE = ReactDOM.findDOMNode(this) as Element
         this.initDialog()
         this.mdcDialog.open()
-        this.heightAnimationContainer.update()
     }
 
     componentWillUnmount() {
@@ -51,7 +47,6 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
     componentDidUpdate(prevProps: Readonly<BasicDialogProps>, prevState: Readonly<any>, snapshot?: any) {
         consoleDebug("BasicDialog componentDidUpdate")
         // 检查搜索结果的尺寸，设置container尺寸，触发动画
-        this.heightAnimationContainer.update()
     }
 
     onDialogOpen(): void {
@@ -65,7 +60,6 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
     initDialog() {
         consoleDebug("BasicDialog initDialog " + this.rootE)
         if (this.rootE == null) return
-        this.heightAnimationContainer = new HeightAnimationContainer(this.rootE)
         this.dialogContentE = this.rootE.querySelector("#basic-dialog-content")
         this.initScrollListener()
         this.mdcDialog = new MDCDialog(this.rootE)

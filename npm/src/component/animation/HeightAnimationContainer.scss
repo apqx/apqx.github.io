@@ -1,5 +1,7 @@
 .height-animation-container {
-    height: 0px;
+    // 初始化时会计算高度
+    // height: 0px;
     overflow: hidden;
-    transition: height 0.2s ease,
+    transition: height 0.2s ease;
+    // will-change: contents;
 }

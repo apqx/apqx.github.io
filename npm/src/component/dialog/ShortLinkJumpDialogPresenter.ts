@@ -25,13 +25,13 @@ export class ShortLinkJumpDialogPresenter {
      * 从url映射文件中查询pid
      */
     findPage(pid: string) {
-        let url: string
+        let urlPrefix: string
         if (isDebug()) {
-            url = window.location.origin + "/archives/url-map.txt"
+            urlPrefix = window.location.origin
         } else {
-            url = "https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/archives/url-map.txt"
+            urlPrefix = "https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog"
         }
-        const request = new Request(url, {
+        const request = new Request(urlPrefix + "/api/url-map.json", {
             method: "GET"
         })
         // fetch调用浏览器的网络请求，所以会有和浏览器一样的缓存策略

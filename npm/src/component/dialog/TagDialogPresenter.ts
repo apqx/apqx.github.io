@@ -5,7 +5,7 @@ import { POST_TYPE_OPERA, POST_TYPE_ORIGINAL, POST_TYPE_POETRY, POST_TYPE_REPOST
 import { ERROR_HINT, getLoadHint } from "../react/LoadingHint"
 
 /**
- * 在archives/posts.txt保存着所有文章及对应tag的列表，只请求一次
+ * api/posts.json
  */
 let cachedPosts: PostItem[] = null
 let cachedTagPostsMap: Map<string, PostItem[]> = null
@@ -22,7 +22,7 @@ class PostItem {
     author: string
     actor: string
     mention: string
-    tag: string
+    tags: Array<string>
     categories: string
 
     constructor(title: string,
@@ -31,7 +31,7 @@ class PostItem {
         author: string,
         actor: string,
         mention: string,
-        tag: string,
+        tags: Array<string>,
         categories: string) {
         this.title = title
         this.date = date
@@ -39,7 +39,7 @@ class PostItem {
         this.author = author
         this.actor = actor
         this.mention = mention
-        this.tag = tag
+        this.tags = tags
         this.categories = categories
     }
 }
@@ -64,13 +64,13 @@ export class TagDialogPresenter {
             this.showTagItemList(cachedPosts, tag, startTime)
             return
         }
-        let url: string
+        let urlPrefix: string
         if (isDebug()) {
-            url = window.location.origin + "/archives/posts.txt"
+            urlPrefix = window.location.origin
         } else {
-            url = "https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/archives/posts.txt"
+            urlPrefix = "https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog"
         }
-        const request = new Request(url, {
+        const request = new Request(urlPrefix + "/api/posts.json", {
             method: "GET"
         })
         if (this.abortController != null) {
@@ -231,7 +231,7 @@ export class TagDialogPresenter {
         const tagArray = tags.split("&")
         const resultArray = []
         for (const post of postList) {
-            const postTags = post.tag.split(",")
+            const postTags = post.tags
             let hasBothTag = true
             for (const tag of tagArray) {
                 if (!postTags.includes(tag)) {

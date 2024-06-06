@@ -1,6 +1,9 @@
 ---
+layout: none
+permalink: /:path/:basename.json
 sitemap: false
 ---
+
 {
     "map": [
         {

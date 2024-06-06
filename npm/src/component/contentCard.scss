@@ -34,9 +34,11 @@ body {
 .fade-in-animation {
     transform: translateY(var(--card-animation-translate-y));
     opacity: 0;
-    // 透明度动画部分页面在safari上会显示泛白，所以尽量缩短时间
+    // TODO: 透明度动画部分页面在safari上会显示泛白，所以尽量缩短时间
+    // 但是打开开发者模式又是正常的...
     transition: transform var(--card-animation-duration) ease,
         opacity calc(var(--card-animation-duration) / 2) ease;
+    // will-change: transform, opacity;
 }
 
 .fade-in-animation.fade-in-animation--start {

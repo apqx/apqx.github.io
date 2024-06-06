@@ -1,0 +1,38 @@
+<section id="index-list-wrapper" class="height-animation-container">
+    <ul class="index-ul">
+        {% for post in site.posts %}
+        {%- if post.categories contains index-category and post.hideFromIndex != true and post.pin == true %}
+        <li class="index-li index-li--pin">
+            <a class="index-a" href="{{ post.url | prepend: site.baseurl }}">
+                <section class="mdc-card index-card">
+                    <h1 class="index-title one-line">{{ post.title }}</h1>
+                    <span class="index-author">{{ post.author }}</span>
+                    <span class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
+                    <i class="material-symbols-rounded index-pin-icon">attach_file</i>
+                </section>
+            </a>
+            <div class="index-li-divider" />
+        </li>
+        {% endif -%}
+        {% endfor -%}
+        {%- assign count = 0 -%}
+        {%- for post in site.posts %}
+            {%- if count == 10 %}
+                {%- break %}
+            {% endif -%}
+            {%- if post.categories contains index-category and post.hideFromIndex != true -%}
+            <li class="index-li">
+                <a class="index-a" href="{{ post.url | prepend: site.baseurl }}">
+                    <section class="mdc-card index-card">
+                        <h1 class="index-title one-line">{{ post.title }}</h1>
+                        <span class="index-author">{{ post.author }}</span>
+                        <span class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
+                    </section>
+                </a>
+                <div class="index-li-divider" />
+            </li>
+            {%- assign count = count | plus: 1 %}
+            {% endif -%}
+        {% endfor -%}
+    </ul>
+</section>

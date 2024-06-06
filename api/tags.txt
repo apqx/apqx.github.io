@@ -1,6 +1,9 @@
 ---
+layout: none
+permalink: /:path/:basename.json
 sitemap: false
 ---
+
 {% comment %}
 // 生成tag列表和每一个tag对应的文章列表
 {

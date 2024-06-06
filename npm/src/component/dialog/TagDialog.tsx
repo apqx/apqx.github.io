@@ -7,6 +7,7 @@ import { TagDialogPresenter } from "./TagDialogPresenter"
 import ReactDOM from "react-dom"
 import { initListItem } from "../list"
 import { ERROR_HINT, LoadingHint } from "../react/LoadingHint"
+import { HeightAnimationContainer } from "../animation/HeightAnimationContainer"
 // import "./TagEssayListDialog.scss"
 
 interface DialogContentProps extends BasicDialogProps {
@@ -22,6 +23,7 @@ interface DialogContentState {
 
 export class TagDialog extends BasicDialog<DialogContentProps, DialogContentState> {
     presenter: TagDialogPresenter = null
+    heightAnimationContainer: HeightAnimationContainer = null
 
     constructor(props) {
         super(props)
@@ -64,6 +66,12 @@ export class TagDialog extends BasicDialog<DialogContentProps, DialogContentStat
     componentDidMount() {
         super.componentDidMount()
         consoleDebug("TagDialogContent componentDidMount")
+        this.heightAnimationContainer = new HeightAnimationContainer(this.rootE.querySelector(".height-animation-container"))
+    }
+
+    componentDidUpdate(prevProps: Readonly<BasicDialogProps>, prevState: Readonly<any>, snapshot?: any): void {
+        super.componentDidUpdate(prevProps, prevState, snapshot)
+        this.heightAnimationContainer.update()
     }
 
     shouldComponentUpdate(nextProps: Readonly<DialogContentProps>, nextState: Readonly<DialogContentState>, nextContext: any): boolean {

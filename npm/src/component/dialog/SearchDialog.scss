@@ -8,6 +8,7 @@
 @use "@material/textfield";
 @use "@material/textfield/mdc-text-field";
 @use "sass:map";
+@use "../animation/HeightAnimationContainer.scss";
 
 #search-dialog_label {
     width: 94%;

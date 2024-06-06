@@ -1,0 +1,13 @@
+---
+layout: null
+sitemap: false
+permalink: /api/paginate/categories/original
+pagination:
+    permalink: ""
+    enabled: true
+    category: "original"
+    extension: .json
+    indexpage: 'page-:num'
+---
+
+{% include paginate-posts-json.html %}

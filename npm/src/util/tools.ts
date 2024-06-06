@@ -50,10 +50,6 @@ export function createHtmlContent(html: string) {
     return {__html: html}
 }
 
-export function toggleClass(e: Element, className: string) {
-
-}
-
 export function toggleClassWithEnable(e: Element, className: string, enable: boolean) {
     if (enable && !e.classList.contains(className)) {
         e.classList.add(className)
@@ -99,6 +95,10 @@ export function getElementSize(e: HTMLElement, property: string): number {
     const result = parseFloat(value.slice(0, -2))
     consoleDebug("GetElementSize result " + " = " + result)
     return Number.isNaN(result) ? 0 : result
+}
+
+export function getElementAttribute(e: HTMLElement, property: string) {
+    return e.getAttribute(property)
 }
 
 export const MINIMAL_LOADING_TIME_MS = 200

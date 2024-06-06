@@ -15,6 +15,11 @@ export const POST_TYPE_OPERA: PostType = {
     name: "看剧"
 }
 
+export const POST_TYPE_OTHER: PostType = {
+    identifier: "other",
+    name: "其它"
+}
+
 export type PostType = {
     identifier: string,
     name: string

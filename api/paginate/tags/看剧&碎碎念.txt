@@ -1,0 +1,13 @@
+---
+layout: null
+sitemap: false
+permalink: /api/paginate/tags/看剧&碎碎念
+pagination:
+    permalink: ""
+    enabled: true
+    tag: "看剧,碎碎念"
+    extension: .json
+    indexpage: 'page-:num'
+---
+
+{% include paginate-posts-json.html %}

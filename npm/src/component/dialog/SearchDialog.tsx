@@ -8,6 +8,7 @@ import { BasicDialog, BasicDialogProps, SEARCH_DIALOG_WRAPPER_ID, showDialog } f
 import ReactDOM from "react-dom"
 import { initListItem } from "../list"
 import { ERROR_HINT, LoadingHint } from "../react/LoadingHint"
+import { HeightAnimationContainer } from "../animation/HeightAnimationContainer"
 // import "./SearchDialog.scss"
 
 interface SearchDialogState {
@@ -23,6 +24,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
         results: [],
     }
 
+    heightAnimationContainer: HeightAnimationContainer = null
     presenter: SearchDialogPresenter = null
     input: string = ""
 
@@ -61,9 +63,14 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
 
     componentDidMount(): void {
         super.componentDidMount()
-        const e = ReactDOM.findDOMNode(this) as Element
-        this.initBtn(e.querySelector("#btn-search"))
-        this.initTextField(e.querySelector("#search-dialog_label"))
+        this.heightAnimationContainer = new HeightAnimationContainer(this.rootE.querySelector(".height-animation-container"))
+        this.initBtn(this.rootE.querySelector("#btn-search"))
+        this.initTextField(this.rootE.querySelector("#search-dialog_label"))
+    }
+
+    componentDidUpdate(prevProps: Readonly<BasicDialogProps>, prevState: Readonly<any>, snapshot?: any): void {
+        super.componentDidUpdate(prevProps, prevState, snapshot)
+        this.heightAnimationContainer.update()
     }
 
     initBtn(e: HTMLElement) {

@@ -15,32 +15,5 @@ blockFromSearchEngine: false
         <p class="index-top-card-text">一个收藏夹，慢慢鼓起来</p>
     </div>
 </section>
-<ul class="index-ul">
-    {% for post in site.posts %}
-    {%- if post.categories contains "repost" and post.hideFromIndex != true and post.pin == true %}
-    <li class="index-li index-li--pin">
-        <a class="index-a" href="{{ post.url | prepend: site.baseurl }}">
-            <section class="mdc-card index-card">
-                <h1 class="index-title one-line">{{ post.title }}</h1>
-                <span class="index-author">{{ post.author }}</span>
-                <span class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
-                <i class="material-symbols-rounded index-pin-icon">attach_file</i>
-            </section>
-        </a>
-    </li>
-    {% endif -%}
-    {% endfor -%}
-    {% for post in site.posts %}
-    {%- if post.categories contains "repost" and post.hideFromIndex != true and post.pin != true %}
-    <li class="index-li">
-        <a class="index-a" href="{{ post.url | prepend: site.baseurl }}">
-            <section class="mdc-card index-card">
-                <h1 class="index-title one-line">{{ post.title }}</h1>
-                <span class="index-author">{{ post.author }}</span>
-                <span class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
-            </section>
-        </a>
-    </li>
-    {% endif -%}
-    {% endfor %}
-</ul>
+{%- assign index-category = "repost" %}
+{%- include index-posts.html %}

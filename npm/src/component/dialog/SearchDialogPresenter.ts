@@ -160,7 +160,7 @@ export class SearchDialogPresenter {
     showSearchResult(itemList: Array<Item>, clear: boolean, startTime: number) {
         const resultSize = this.pagefindResult.results.length
         let results: ResultItemData[] = itemList.map(it =>
-            new ResultItemData(it.meta.title, it.excerpt, getPostDate(it.raw_url), it.raw_url, getPostType(it.raw_url))
+            new ResultItemData(it.meta.title, it.excerpt, getPostDate(it.raw_url), it.raw_url, getPostType(it.raw_url).name)
         )
         if (!clear) {
             const tempResult = new Array<ResultItemData>()
