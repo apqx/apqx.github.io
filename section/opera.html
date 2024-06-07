@@ -34,7 +34,7 @@ blockFromSearchEngine: false
         </li>
         {%- assign count = 0 -%}
         {% for post in site.posts %}
-        {%- if count == 5 %}
+        {%- if count == 10 %}
         {%- break %}
         {% endif -%}
         {%- if post.categories contains "opera" and post.hideFromIndex != true %}
