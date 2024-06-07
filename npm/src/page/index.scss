@@ -10,6 +10,19 @@
 @use "@material/animation";
 @use "sass:map";
 
+.my-masonry-grid {
+    display: -webkit-box;
+    /* Not needed if autoprefixing */
+    display: -ms-flexbox;
+    /* Not needed if autoprefixing */
+    display: flex;
+    width: auto;
+}
+
+.my-masonry-grid_column {
+    background-clip: padding-box;
+}
+
 body {
     --index-card-padding-vertical: 1.3rem;
     --index-card-padding-horizontal: 2.7rem;
@@ -21,32 +34,32 @@ body {
 
 @mixin cardElevation {
     @include elevation.elevation(map.get(blogTheme.$index-card-elevation, "elevation"),
-            map.get(blogTheme.$index-card-elevation, "shadow-light"), 0);
+        map.get(blogTheme.$index-card-elevation, "shadow-light"), 0);
 }
 
 @mixin cardElevationDark {
     @include elevation.elevation(map.get(blogTheme.$index-card-elevation, "elevation"),
-            map.get(blogTheme.$index-card-elevation, "shadow-dark"), 0);
+        map.get(blogTheme.$index-card-elevation, "shadow-dark"), 0);
 }
 
 @mixin cardElevationMiniScreen {
     @include elevation.elevation(map.get(blogTheme.$index-card-elevation, "elevation"),
-            map.get(blogTheme.$index-card-elevation, "min-screen-shadow-light"), 0);
+        map.get(blogTheme.$index-card-elevation, "min-screen-shadow-light"), 0);
 }
 
 @mixin cardElevationMiniScreenDark {
     @include elevation.elevation(map.get(blogTheme.$index-card-elevation, "elevation"),
-            map.get(blogTheme.$index-card-elevation, "min-screen-shadow-dark"), 0);
+        map.get(blogTheme.$index-card-elevation, "min-screen-shadow-dark"), 0);
 }
 
 @mixin gridCardElevation {
     @include elevation.elevation(map.get(blogTheme.$grid-index-card-elevation, "elevation"),
-            map.get(blogTheme.$grid-index-card-elevation, "shadow-light"), 0);
+        map.get(blogTheme.$grid-index-card-elevation, "shadow-light"), 0);
 }
 
 @mixin gridCardElevationDark {
     @include elevation.elevation(map.get(blogTheme.$grid-index-card-elevation, "elevation"),
-            map.get(blogTheme.$grid-index-card-elevation, "shadow-dark"), 0);
+        map.get(blogTheme.$grid-index-card-elevation, "shadow-dark"), 0);
 }
 
 @mixin cardRipple {
@@ -248,22 +261,18 @@ body {
     margin: 0;
 }
 
-.grid-index-item__full-width {
-    width: 100%;
+.grid-index-li--not-react {
+    width: 50%;
 }
 
 .grid-index-text-container {
+    margin-top: 0.5rem;
     padding: 0.8rem 2rem 1.5rem 2rem;
-}
-
-.grid-sizer,
-.grid-item {
-    width: 50%;
 }
 
 .grid-index-cover {
     border-radius: var(--mdc-shape-medium);
-    aspect-ratio: 16/9 auto;
+    aspect-ratio: auto;
 }
 
 .grid-index-title {
@@ -293,6 +302,16 @@ body {
     margin: 0;
 }
 
+.grid-index-description-tag {
+    margin-right: 0.2rem;
+}
+
+
+.grid-sizer,
+.grid-item {
+    width: 50%;
+}
+
 // 手机小屏
 @media all and (max-width: blogTheme.$screen-middle-min-width) {
     body {
@@ -313,6 +332,10 @@ body {
 
     .index-top-card-container {
         padding-top: 0.35rem;
+    }
+
+    .grid-index-li--not-react {
+        width: 100%;
     }
 
     .grid-sizer,

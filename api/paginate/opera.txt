@@ -3,6 +3,7 @@ layout: null
 sitemap: false
 permalink: /api/paginate/categories/opera
 pagination:
+    per_page: 5
     permalink: ""
     enabled: true
     category: "opera"

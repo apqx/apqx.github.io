@@ -1,10 +1,8 @@
-import {PreferenceDialog} from "./PreferenceDialog"
-import {LocalRepository} from "../../repository/LocalRepository"
-import {masonryLayout} from "../../page/index"
-import {saveTheme, toggleTheme} from "../theme"
-import {refreshTopbar, setFixedTopbar, topAppBar, topAppBarE} from "../topbar"
-import {setHandwrittenFont} from "../font/font"
-import {MDCTopAppBar} from "@material/top-app-bar"
+import { PreferenceDialog } from "./PreferenceDialog"
+import { LocalRepository } from "../../repository/LocalRepository"
+import { saveTheme, toggleTheme } from "../theme"
+import { refreshTopbar, setFixedTopbar } from "../topbar"
+import { setHandwrittenFont } from "../font/font"
 
 export class PreferenceDialogPresenter {
 
@@ -35,7 +33,6 @@ export class PreferenceDialogPresenter {
     onClickHandwritingFontSwitch(on: boolean) {
         this.localRepository.saveHandwritingFontOn(on)
         setHandwrittenFont(on)
-        masonryLayout()
     }
 
     onClickAutoThemeSwitch(on: boolean) {

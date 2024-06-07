@@ -1,20 +1,23 @@
-import { POST_TYPE_POETRY } from "../../base/constant";
-import { PaginatePage } from "../../repository/service/bean/PaginatePage";
-import { consoleError, consoleObjDebug } from "../../util/log";
-import { isDebug, runAfterMinimalTime } from "../../util/tools";
-import { IndexList, Post } from "./IndexList";
-import { ERROR_HINT, getLoadHint } from "./LoadingHint";
+import { POST_TYPE_POETRY } from "../../../base/constant";
+import { PaginatePage } from "../../../repository/service/bean/PaginatePage";
+import { consoleError, consoleObjDebug } from "../../../util/log";
+import { isDebug, runAfterMinimalTime } from "../../../util/tools";
+import { BasePostPaginateShow, Post } from "./BasePostPaginateShow";
+import { IPostPaginateShowPresenter } from "./IPostPaginateShowPresenter";
+import { ERROR_HINT, getLoadHint } from "../LoadingHint";
 
-export class IndexListPresenter {
-
-    component: IndexList
+export class PostPaginateShowPresenter implements IPostPaginateShowPresenter {
+    component: BasePostPaginateShow<any>;
     urlPrefix: string
     cachedPage: PaginatePage[] = null
 
     minimalLoadTime = 500
 
-    constructor(component: IndexList) {
+    constructor(component: BasePostPaginateShow<any>) {
         this.component = component
+    }
+    destroy() {
+
     }
 
     init() {
@@ -28,7 +31,14 @@ export class IndexListPresenter {
         } else {
             this.urlPrefix = "https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog"
         }
-        const request = new Request(this.urlPrefix + "/api/paginate/categories/" + this.component.props.category + "/page-1.json", {
+        let url = ""
+        if (this.component.props.tag.length > 0) {
+            url = this.urlPrefix + "/api/paginate/tags/" + this.component.props.tag + "/page-1.json"
+        } else {
+            url = this.urlPrefix + "/api/paginate/categories/" + this.component.props.category + "/page-1.json"
+        }
+
+        const request = new Request(url, {
             method: "GET"
         })
 
@@ -46,12 +56,12 @@ export class IndexListPresenter {
                 this.showPosts(page, false, startTime)
             }).catch(error => {
                 consoleError(error)
-                // runAfterMinimalTime(startTime, () => {
-                this.component.setState({
-                    loading: false,
-                    loadHint: ERROR_HINT
-                })
-                // }, this.minimalLoadTime)
+                runAfterMinimalTime(startTime, () => {
+                    this.component.setState({
+                        loading: false,
+                        loadHint: ERROR_HINT
+                    })
+                }, this.minimalLoadTime)
             }
             )
     }
@@ -60,23 +70,25 @@ export class IndexListPresenter {
         if (add) {
             // 新页数据，直接加到已有数据末尾，保留已有数据
             posts.push(...this.component.state.posts)
-        } else {
-            // 首页数据，本地已有预加载数据，删除本地非pin置顶数据，即数据以云端为优先，更新本地
-            // 只保留pin置顶数据
-            posts.push(...this.component.state.posts.filter((post) => {
-                return post.pin
-            }))
         }
         for (const item of page.posts) {
             let author = item.author
             if (this.component.props.category == POST_TYPE_POETRY.identifier && item.moreDate.length > 0) {
                 author = item.moreDate + " " + item.author
             }
+            let cover = item.cover
+            if (item["index-cover"].length > 0) {
+                cover = item["index-cover"]
+            }
             posts.push({
                 title: item.title,
                 author: author,
+                actor: item.actor,
                 date: item.date,
                 path: item.path,
+                description: item.description,
+                cover: cover,
+                coverAlt: item["cover-alt"],
                 pin: item.pin == "true",
                 hide: item.hide == "true"
             })
@@ -126,10 +138,12 @@ export class IndexListPresenter {
                 this.showPosts(page, true, startTime)
             }).catch(error => {
                 consoleError(error)
-                this.component.setState({
-                    loading: false,
-                    loadHint: ERROR_HINT
-                })
+                runAfterMinimalTime(startTime, () => {
+                    this.component.setState({
+                        loading: false,
+                        loadHint: ERROR_HINT
+                    })
+                }, this.minimalLoadTime)
             }
             )
     }

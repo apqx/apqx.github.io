@@ -9,55 +9,59 @@ sitemap: true
 blockFromSearchEngine: false
 ---
 
-<ul class="grid grid-index-ul">
-    <div class="grid-sizer"></div>
-    <li class="grid-item grid-index-li">
-        <section class="mdc-card grid-index-card">
-            <div style="height: 0.5rem;"></div>
-            <div class="grid-index-text-container">
-                <p>2021年08月08日，我在博客里开辟这个分区来承载曾经在剧场看过的剧和拍过的剧照，以昆曲为主，使用<a
-                        href="{% link _posts/original/2021-09-01-基于Jekyll的博客文章「标签化」.md %}">标签</a>把每一场演出按剧种、剧团、剧目、演员、剧场分类归档。这里的每一篇文章既是记录也是分享，亲手按下快门捕捉到的舞台瞬间，如此美丽的戏妆油彩，不应该只我一人看到。
-                </p>
-                <p>关于我与戏剧的渊源以及为什么会喜欢昆曲，参见之前的自述<a
-                        href="{% link _posts/original/2019-05-18-槐安国内春生酒.md %}">《槐安国内春生酒》</a>，还有一些由看剧衍生的<a
-                        id="chip_tag_看剧&碎碎念" class="tag-dialog-trigger clickable-empty-link">碎碎念</a>。</p>
-                <p><em>只是时常偷懒，更新的剧目还不多，我会慢慢整理上传的。</em></p>
-                <div style="margin-bottom: 0.2rem;">
-                    <a id="chip_tag_看剧&杭州" class="tag-dialog-trigger clickable-empty-link tag-link"
-                        style="margin-right: 0.3rem">@杭州</a>
-                    <a id="chip_tag_看剧&南京" class="tag-dialog-trigger clickable-empty-link tag-link"
-                        style="margin-right: 0.3rem">@南京</a>
-                    <a id="chip_tag_看剧&上海" class="tag-dialog-trigger clickable-empty-link tag-link"
-                        style="margin-right: 0.3rem">@上海</a>
-                    <a class="tag-link" href="https://space.bilibili.com/11037907" target="_blank"
-                        style="margin-right: 0.3rem">@哔哩</a>
-                </div>
-            </div>
-        </section>
-    </li>
-    {% for post in site.posts %}
-    {%- if post.categories contains "opera" and post.hideFromIndex != true %}
-    <li class="grid-item grid-index-li">
-        <a class="index-a" href="{{ post.url | prepend: site.baseurl }}">
-            <section class="mdc-card grid-index-card grid-index-card__ripple">
-                {%- if post.index-cover != null %}
-                <img class="grid-index-cover height-animation" loading="lazy" src="{{ post.index-cover }}" alt="{{ post.cover-alt }}" />
-                {% elsif post.cover != null %}
-                <img class="grid-index-cover height-animation" loading="lazy" src="{{ post.cover }}" alt="{{ post.cover-alt }}" />
-                {% else %}
-                <div style="height: 0.5rem;"></div>
-                {%- endif %}
+<section id="index-list-wrapper" class="height-animation-container">
+<!-- <section id="index-list-wrapper"> -->
+    <ul class="grid grid-index-ul">
+        <div class="grid-sizer"></div>
+        <li class="grid-item grid-index-li grid-index-li--description">
+            <section class="mdc-card grid-index-card">
                 <div class="grid-index-text-container">
-                    <h1 class="grid-index-title">{{ post.title }}</h1>
-                    <div>
-                        <span class="grid-index-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
-                        <span class="grid-index-author">{{ post.actor }}</span>
+                    <p>2021年08月08日，我在博客里开辟这个分区来承载曾经在剧场看过的剧和拍过的剧照，以昆曲为主，使用<a
+                        href="{% link _posts/original/2021-09-01-基于Jekyll的博客文章「标签化」.md %}">标签</a>把每一场演出按剧种、剧团、剧目、演员、剧场分类归档。这里的每一篇文章既是记录也是分享，亲手按下快门捕捉到的舞台瞬间，如此美丽的戏妆油彩，不应该只我一人看到。
+                    </p>
+                    <p>关于我与戏剧的渊源以及为什么会喜欢昆曲，参见之前的自述<a
+                        href="{% link _posts/original/2019-05-18-槐安国内春生酒.md %}">《槐安国内春生酒》</a>，还有一些由看剧衍生的<a
+                            id="chip_tag_看剧&碎碎念" class="tag-dialog-trigger clickable-empty-link">碎碎念</a>。</p>
+                    <p><em>只是时常偷懒，更新的剧目还不多，我会慢慢整理上传的。</em></p>
+                    <div style="margin-bottom: 0.2rem">
+                        <a id="chip_tag_看剧&杭州" class="tag-dialog-trigger clickable-empty-link tag-link grid-index-description-tag">@杭州</a>
+                        <a id="chip_tag_看剧&南京" class="tag-dialog-trigger clickable-empty-link tag-link grid-index-description-tag">@南京</a>
+                        <a id="chip_tag_看剧&上海" class="tag-dialog-trigger clickable-empty-link tag-link grid-index-description-tag">@上海</a>
+                        <a class="tag-link grid-index-description-tag" href="https://space.bilibili.com/11037907" target="_blank">@哔哩</a>
                     </div>
-                    <p class="grid-index-description">{{ post.description }}</p>
                 </div>
             </section>
-        </a>
-    </li>
-    {% endif -%}
-    {% endfor %}
-</ul>
+        </li>
+        {%- assign count = 0 -%}
+        {% for post in site.posts %}
+        {%- if count == 5 %}
+        {%- break %}
+        {% endif -%}
+        {%- if post.categories contains "opera" and post.hideFromIndex != true %}
+        <li class="grid-item grid-index-li grid-index-li--not-react">
+            <a class="index-a" href="{{ post.url | prepend: site.baseurl }}">
+                <section class="mdc-card grid-index-card grid-index-card__ripple">
+                    {%- if post.index-cover != null %}
+                    <img class="grid-index-cover height-animation" loading="lazy" src="{{ post.index-cover }}"
+                        alt="{{ post.cover-alt }}" />
+                    {% elsif post.cover != null %}
+                    <img class="grid-index-cover height-animation" loading="lazy" src="{{ post.cover }}"
+                        alt="{{ post.cover-alt }}" />
+                    {% else %}
+                    <div style="height: 0.5rem;"></div>
+                    {%- endif %}
+                    <div class="grid-index-text-container">
+                        <h1 class="grid-index-title">{{ post.title }}</h1>
+                        <div>
+                            <span class="grid-index-date">{{ post.date | date: "%Y年%m月%d日" }} {{ post.actor }}</span>
+                        </div>
+                        <p class="grid-index-description">{{ post.description }}</p>
+                    </div>
+                </section>
+            </a>
+        </li>
+        {%- assign count = count | plus: 1 %}
+        {% endif -%}
+        {% endfor %}
+    </ul>
+</section>

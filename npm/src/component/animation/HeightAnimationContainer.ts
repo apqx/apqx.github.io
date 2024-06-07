@@ -98,4 +98,8 @@ export class HeightAnimationContainer {
         }
         return duration
     }
+
+    setHeightAuto() {
+        this.containerE.style.height = "auto"
+    }
 }

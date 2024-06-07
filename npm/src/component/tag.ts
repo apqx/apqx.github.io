@@ -7,11 +7,13 @@ import { clearFocusListener } from "../util/tools";
 /**
  * 初始化tag的点击事件
  */
-export function initTagTriggers() {
+export function initTagTriggers(containerE: HTMLElement) {
     // tag对应的Dialog
     // 获取每一个标记了tag-dialog-trigger的element，查找这个trigger对应的dialog，监听点击事件，弹出dialog
     // 所有tag共用一个dialog
-    const dialogsTriggers = document.querySelectorAll(".tag-dialog-trigger")
+    if (containerE == null)
+        containerE = document.body;
+    const dialogsTriggers = containerE.querySelectorAll(".tag-dialog-trigger:not(#index-list-wrapper .tag-dialog-trigger)")
     // 为每一个tag添加点击监听
     dialogsTriggers.forEach((trigger) => {
         // 获取每一个trigger的id，找到它对应的dialogId，和dialog里的listId
@@ -21,7 +23,7 @@ export function initTagTriggers() {
     })
 }
 
-function clickTag(event: Event) {
+export function clickTag(event: Event) {
     // TODO: 如果tag是button，弹出的dialog消失后会重新获取焦点
     // (event.target as HTMLElement).blur()
     const chipId = this.id

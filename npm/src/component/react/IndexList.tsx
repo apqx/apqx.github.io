@@ -2,50 +2,26 @@ import { MDCRipple } from "@material/ripple";
 import React from "react";
 import ReactDOM from "react-dom";
 import { ERROR_HINT, LoadingHint } from "./LoadingHint";
-import { IndexListPresenter } from "./IndexListPresenter";
 import { consoleDebug } from "../../util/log";
 import { ScrollLoader } from "../../base/ScrollLoader";
+import { BasePostPaginateShow, BasePostPaginateShowProps, BasePostPaginateShowState } from "./post/BasePostPaginateShow";
+import { PostPaginateShowPresenter } from "./post/PostPaginateShowPresenter";
+import { IPostPaginateShowPresenter } from "./post/IPostPaginateShowPresenter";
 
-export type Post = {
-    title: string,
-    author: string,
-    date: string,
-    path: string,
-    pin: boolean,
-    hide: boolean
-}
+export class IndexList extends BasePostPaginateShow<BasePostPaginateShowProps> {
 
-interface Props {
-    category: string,
-    pinedPosts: Array<Post>,
-    loadedPosts: Array<Post>,
-    onUpdate: () => void
-}
-
-interface State {
-    loading: boolean,
-    loadHint: string,
-    posts: Array<Post>
-}
-
-export class IndexList extends React.Component<Props, State> {
-    presenter: IndexListPresenter
-
-    constructor(props: Props) {
-        super(props);
-        this.state = {
-            loading: true,
-            loadHint: null,
-            posts: this.props.loadedPosts
-        }
-        this.presenter = new IndexListPresenter(this)
-        this.onClickLoadMore = this.onClickLoadMore.bind(this)
-        consoleDebug("Index scroll " + window.innerHeight + " : " + document.body.clientHeight)
+    createPresenter(): IPostPaginateShowPresenter {
+        return new PostPaginateShowPresenter(this)
     }
 
     componentDidMount(): void {
-        this.presenter.init()
+        super.componentDidMount()
+        if (this.props.onUpdate != null) this.props.onUpdate()
         this.initScroll()
+    }
+
+    loadFirstPage() {
+        this.presenter.init()
     }
 
     initScroll() {
@@ -59,31 +35,35 @@ export class IndexList extends React.Component<Props, State> {
         })
     }
 
-    componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>, snapshot?: any): void {
-        this.props.onUpdate()
+    componentDidUpdate(prevProps: Readonly<BasePostPaginateShowProps>, prevState: Readonly<BasePostPaginateShowState>, snapshot?: any): void {
+        if (this.props.onUpdate != null) this.props.onUpdate()
     }
 
-    onClickLoadMore() {
+    loadMore() {
         this.presenter.loadMore()
+    }
+
+    destroy() {
+        this.presenter.destroy()
     }
 
     render() {
         return (
             <ul className="index-ul">
                 {this.props.pinedPosts.map((post) =>
-                    <IndexItem key={post.title + post.date}
+                    <IndexItem key={post.path}
                         title={post.title} author={post.author} date={post.date} path={post.path} pin={post.pin} 
                         last={false} />
                 )}
-                {this.state.posts.map((post, index) =>
+                {this.state.posts.map((item, index) =>
                     // 隐藏部分post
-                    !post.pin && !post.hide && <IndexItem key={post.title + post.date}
-                        title={post.title} author={post.author} date={post.date} path={post.path} pin={post.pin}
+                    !item.pin && !item.hide && <IndexItem key={item.path}
+                        title={item.title} author={item.author} date={item.date} path={item.path} pin={item.pin}
                         last={index == this.state.posts.length - 1} />
                 )}
                 {(this.state.loading || this.state.loadHint != null) &&
                     <div className="center">
-                        <LoadingHint loading={this.state.loading} loadHint={this.state.loadHint} onClickHint={this.onClickLoadMore} />
+                        <LoadingHint loading={this.state.loading} loadHint={this.state.loadHint} onClickHint={this.loadMore} />
                     </div>
                 }
             </ul>

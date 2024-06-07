@@ -1,22 +1,21 @@
 // import "./index.scss"
 import Masonry from "masonry-layout"
-import { MDCRipple } from "@material/ripple"
 import { runOnHtmlDone, runOnPageDone } from "../util/tools"
 import { consoleArrayDebug, consoleDebug, consoleError, consoleObjDebug } from "../util/log"
 import * as React from "react"
 import { createRoot } from "react-dom/client"
-import { IndexList, Post } from "../component/react/IndexList"
+import { IndexList } from "../component/react/IndexList"
 import { getIndexType } from "../base"
-import { POST_TYPE_OTHER } from "../base/constant"
+import { POST_TYPE_ORIGINAL, POST_TYPE_OTHER, POST_TYPE_POETRY, POST_TYPE_REPOST } from "../base/constant"
 import { HeightAnimationContainer } from "../component/animation/HeightAnimationContainer"
 import { WidthResizeObserver } from "../base/WidthResizeObserver"
 import { ImageLoadAnimator } from "../component/animation/ImageLoadAnimator"
+import { Post } from "../component/react/post/BasePostPaginateShow"
+import { GridIndexList } from "../component/react/GridIndexList"
 
 runOnPageDone(() => {
-    initCardRipple()
     initIndexTopCover()
     initIndexList()
-    initGridIndex()
 })
 
 function initIndexList() {
@@ -24,27 +23,56 @@ function initIndexList() {
     if (wrapperE == null) {
         return
     }
-    // 获取已有的post，包括置顶和非置顶
-    const loadedPosts = getLoadedPosts(wrapperE)
+
     const root = createRoot(wrapperE)
     const category = getIndexType(window.location.pathname).identifier
     consoleDebug("Index category = " + category + ", path = " + window.location.pathname)
-    consoleObjDebug("Index loaded posts", loadedPosts)
     if (category == POST_TYPE_OTHER.identifier) return
 
+    // TODO:延迟到react中创建
     const heightAnimationContainerE = document.querySelector("#index-list-wrapper.height-animation-container") as HTMLElement
-    const heightAnimationContainer = new HeightAnimationContainer(heightAnimationContainerE)
+    let heightAnimationContainer: HeightAnimationContainer = null
+    if (heightAnimationContainerE != null) {
+        heightAnimationContainer = new HeightAnimationContainer(heightAnimationContainerE)
+    }
     const onUpdate = () => {
         // 当react更新时，动画更新wrapper高度
-        heightAnimationContainer.update()
+        destroyMasonry()
+        if (heightAnimationContainer != null) {
+            heightAnimationContainer.update()
+        }
     }
-    new WidthResizeObserver(wrapperE, () => {
-        heightAnimationContainer.update()
-    })
-    root.render(<IndexList category={category} pinedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]} onUpdate={onUpdate} />)
+    if (category == POST_TYPE_ORIGINAL.identifier ||
+        category == POST_TYPE_POETRY.identifier ||
+        category == POST_TYPE_REPOST.identifier) {
+
+        // 随笔、诗词、转载
+        new WidthResizeObserver(wrapperE, () => {
+            if (heightAnimationContainer != null) {
+                heightAnimationContainer.update()
+            }
+        })
+        // 获取已有的post，包括置顶和非置顶
+        const loadedPosts = getLinearLoadedPosts(wrapperE)
+        consoleObjDebug("Index loaded posts", loadedPosts)
+        root.render(<IndexList tag={""} category={category} pinedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
+            onUpdate={onUpdate} />)
+    } else {
+        // 看剧
+        // 显示Jekyll预加载数据，然后React去更新它，会更顺滑
+        initMasonry()
+        const descriptionE = document.querySelector(".grid-index-li--description")
+        let descriptionHtml = ""
+        if (descriptionE != null)
+            descriptionHtml = descriptionE.innerHTML
+        const loadedPosts = getGridLoadedPosts(wrapperE)
+        consoleObjDebug("Index loaded posts", loadedPosts)
+        root.render(<GridIndexList tag={""} category={category} pinedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
+            onUpdate={onUpdate} pageDescriptionHtml={descriptionHtml} />)
+    }
 }
 
-function getLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
+function getLinearLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
     const pinedPosts: Array<Post> = []
     const otherPosts: Array<Post> = []
     for (const liE of wrapperE.querySelectorAll(".index-li")) {
@@ -53,24 +81,63 @@ function getLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
         const date = (liE.querySelector(".index-date") as HTMLElement).innerText
         const path = (liE.querySelector(".index-a") as HTMLAnchorElement).href
         const pin = liE.classList.contains("index-li--pin")
+        const post = {
+            title: title,
+            author: author,
+            actor: "",
+            date: date,
+            path: path,
+            description: "",
+            cover: "",
+            coverAlt: "",
+            pin: pin,
+            hide: false
+        }
         if (pin) {
-            pinedPosts.push({
-                title: title,
-                author: author,
-                date: date,
-                path: path,
-                pin: pin,
-                hide: false
-            })
+            pinedPosts.push(post)
         } else {
-            otherPosts.push({
-                title: title,
-                author: author,
-                date: date,
-                path: path,
-                pin: pin,
-                hide: false
-            })
+            otherPosts.push(post)
+        }
+    }
+    const array = new Array<Array<Post>>()
+    array.push(pinedPosts)
+    array.push(otherPosts)
+    return array
+}
+
+
+function getGridLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
+    const pinedPosts: Array<Post> = []
+    const otherPosts: Array<Post> = []
+    for (const liE of wrapperE.querySelectorAll(".grid-index-li:not(.grid-index-li--description)")) {
+        const title = (liE.querySelector(".grid-index-title") as HTMLElement).innerText
+        // actor和date放在一起了，因为两个span之间的距离，在原生和react中不一样
+        // const author = (liE.querySelector(".grid-index-author") as HTMLElement).innerText
+        const author = ""
+        const date = (liE.querySelector(".grid-index-date") as HTMLElement).innerText
+        const path = (liE.querySelector(".index-a") as HTMLAnchorElement).href
+        const description = (liE.querySelector(".grid-index-description") as HTMLElement).innerText
+        const coverE = liE.querySelector(".grid-index-cover") as HTMLImageElement
+        const cover = coverE.src
+        const coverAlt = coverE.alt
+
+        const pin = liE.classList.contains("grid-index-li--pin")
+        const post = {
+            title: title,
+            author: author,
+            actor: "",
+            date: date,
+            path: path,
+            description: description,
+            cover: cover,
+            coverAlt: coverAlt,
+            pin: pin,
+            hide: false
+        }
+        if (pin) {
+            pinedPosts.push(post)
+        } else {
+            otherPosts.push(post)
         }
     }
     const array = new Array<Array<Post>>()
@@ -90,41 +157,19 @@ function initIndexTopCover() {
 
 let masonry: Masonry = null
 
-function initGridIndex() {
-    for (const ele of document.querySelectorAll(".grid")) {
-        masonry = new Masonry(ele, {
-            percentPosition: true,
-            itemSelector: ".grid-item",
-            columnWidth: ".grid-sizer",
-        })
-    }
-    // masonryLayout()
-    for (const ele of document.querySelectorAll(".grid-index-cover.height-animation")) {
-        const imgE = ele as HTMLImageElement
-        const imageLoadAnimator = new ImageLoadAnimator(imgE, -1, false, () => {
-            postMasonryLayout()
-        })
-    }
+function initMasonry() {
+    const gridE = document.querySelector(".grid")
+    if (gridE == null) return
+    masonry = new Masonry(gridE, {
+        percentPosition: true,
+        itemSelector: ".grid-item",
+        columnWidth: ".grid-sizer",
+    })
 }
 
-let lastTimeout: NodeJS.Timeout = null
-function postMasonryLayout() {
-    if (lastTimeout != null) clearTimeout(lastTimeout)
-    lastTimeout = setTimeout(() => {
-        masonryLayout()
-    }, 20)
-}
-
-export function masonryLayout() {
-    if (masonry == null) return
-    consoleDebug("Masonry layout")
-    masonry.layout()
-}
-
-function initCardRipple() {
-    for (const ele of document.querySelectorAll(".index-top-card,.grid-index-card__ripple")) {
-        new MDCRipple(ele)
+function destroyMasonry() {
+    if (masonry != null) {
+        masonry.destroy()
+        masonry = null
     }
 }
-
-
