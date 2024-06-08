@@ -52,3 +52,9 @@
 <link href="{{ pagefindUrlPrefix }}pagefind/pagefind-modular-ui.css" rel="stylesheet">
 <script src="{{ pagefindUrlPrefix }}pagefind/pagefind-modular-ui.js"></script>
 {% endif -%}
+{% if page.preloadImageWebp != null -%}
+<link rel="preload" href="{{ page.preloadImageWebp }}" as="image" type="image/webp" />
+{% endif -%}
+{% if page.preloadImageJpg != null -%}
+<link rel="preload" href="{{ page.preloadImageJpg }}" as="image" type="image/jpeg" />
+{% endif -%}

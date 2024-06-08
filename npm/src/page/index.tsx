@@ -12,6 +12,7 @@ import { WidthResizeObserver } from "../base/WidthResizeObserver"
 import { ImageLoadAnimator } from "../component/animation/ImageLoadAnimator"
 import { Post } from "../component/react/post/BasePostPaginateShow"
 import { GridIndexList } from "../component/react/GridIndexList"
+import { MDCRipple } from "@material/ripple"
 
 runOnPageDone(() => {
     initIndexTopCover()
@@ -151,6 +152,9 @@ function initIndexTopCover() {
     for (const ele of document.querySelectorAll(".index-top-cover.height-animation")) {
         const imgE = ele as HTMLImageElement
         const imageLoadAnimator = new ImageLoadAnimator(imgE, INDEX_TOP_COVER_RATIO, true, null)
+    }
+    for (const ele of document.querySelectorAll(".index-top-card,.grid-index-card__ripple")) {
+        new MDCRipple(ele)
     }
 }
 
