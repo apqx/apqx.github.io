@@ -79,7 +79,7 @@ function getLinearLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
         const title = (liE.querySelector(".index-title") as HTMLElement).innerText
         const author = (liE.querySelector(".index-author") as HTMLElement).innerText
         const date = (liE.querySelector(".index-date") as HTMLElement).innerText
-        const path = (liE.querySelector(".index-a") as HTMLAnchorElement).href
+        const path = (liE.querySelector(".index-a") as HTMLAnchorElement).pathname
         const pin = liE.classList.contains("index-li--pin")
         const post = {
             title: title,
@@ -105,7 +105,6 @@ function getLinearLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
     return array
 }
 
-
 function getGridLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
     const pinedPosts: Array<Post> = []
     const otherPosts: Array<Post> = []
@@ -115,7 +114,7 @@ function getGridLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
         // const author = (liE.querySelector(".grid-index-author") as HTMLElement).innerText
         const author = ""
         const date = (liE.querySelector(".grid-index-date") as HTMLElement).innerText
-        const path = (liE.querySelector(".index-a") as HTMLAnchorElement).href
+        const path = (liE.querySelector(".index-a") as HTMLAnchorElement).pathname
         const description = (liE.querySelector(".grid-index-description") as HTMLElement).innerText
         const coverE = liE.querySelector(".grid-index-cover") as HTMLImageElement
         const cover = coverE.src

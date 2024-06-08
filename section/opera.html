@@ -38,8 +38,8 @@ blockFromSearchEngine: false
         {%- break %}
         {% endif -%}
         {%- if post.categories contains "opera" and post.hideFromIndex != true %}
-        <li class="grid-item grid-index-li grid-index-li--not-react">
-            <a class="index-a" href="{{ post.url | prepend: site.baseurl }}">
+        <li class="grid-item grid-index-li">
+            <a class="index-a" href="{{ post.url }}">
                 <section class="mdc-card grid-index-card grid-index-card__ripple">
                     {%- if post.index-cover != null %}
                     <img class="grid-index-cover height-animation" loading="lazy" src="{{ post.index-cover }}"

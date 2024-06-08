@@ -1,4 +1,4 @@
-import { consoleDebug } from "./log"
+import { consoleDebug, consoleObjDebug } from "./log"
 
 /**
  * 当HTML元素加载完成后执行指定的任务

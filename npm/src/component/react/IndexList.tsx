@@ -57,6 +57,7 @@ export class IndexList extends BasePostPaginateShow<BasePostPaginateShowProps> {
                 )}
                 {this.state.posts.map((item, index) =>
                     // 隐藏部分post
+                    // 有时候jekyll生成的path和paginate生成的path不一样，导致item重新加载
                     !item.pin && !item.hide && <IndexItem key={item.path}
                         title={item.title} author={item.author} date={item.date} path={item.path} pin={item.pin}
                         last={index == this.state.posts.length - 1} />
@@ -86,11 +87,16 @@ class IndexItem extends React.Component<IndexItemProps, any> {
     }
 
     componentDidMount(): void {
+        consoleDebug("IndexItem componentDidMount " + this.props.title)
         const rootE = ReactDOM.findDOMNode(this) as HTMLElement;
         if (this.props.pin) {
             rootE.classList.add("index-li--pin")
         }
         new MDCRipple(rootE.querySelector(".index-card"))
+    }
+
+    componentWillUnmount(): void {
+        consoleDebug("IndexItem componentWillUnmount " + this.props.title)
     }
 
     render() {

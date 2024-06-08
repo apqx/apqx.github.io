@@ -5,6 +5,7 @@ import { isDebug, runAfterMinimalTime } from "../../../util/tools";
 import { BasePostPaginateShow, Post } from "./BasePostPaginateShow";
 import { IPostPaginateShowPresenter } from "./IPostPaginateShowPresenter";
 import { ERROR_HINT, getLoadHint } from "../LoadingHint";
+import { ApiPost } from "../../../repository/service/bean/Post";
 
 export class PostPaginateShowPresenter implements IPostPaginateShowPresenter {
     component: BasePostPaginateShow<any>;
@@ -51,7 +52,7 @@ export class PostPaginateShowPresenter implements IPostPaginateShowPresenter {
                 }
             })
             .then((page: PaginatePage) => {
-                consoleObjDebug("Index first page", page)
+                consoleObjDebug("Index api first page", page)
                 this.cachedPage.push(page)
                 this.showPosts(page, false, startTime)
             }).catch(error => {
@@ -68,30 +69,12 @@ export class PostPaginateShowPresenter implements IPostPaginateShowPresenter {
     showPosts(page: PaginatePage, add: boolean, startTime: number) {
         const posts = new Array<Post>()
         if (add) {
-            // 新页数据，直接加到已有数据末尾，保留已有数据
+            // 新加载的一页数据，直接加到已有数据末尾，保留已有数据
             posts.push(...this.component.state.posts)
         }
         for (const item of page.posts) {
-            let author = item.author
-            if (this.component.props.category == POST_TYPE_POETRY.identifier && item.moreDate.length > 0) {
-                author = item.moreDate + " " + item.author
-            }
-            let cover = item.cover
-            if (item["index-cover"].length > 0) {
-                cover = item["index-cover"]
-            }
-            posts.push({
-                title: item.title,
-                author: author,
-                actor: item.actor,
-                date: item.date,
-                path: item.path,
-                description: item.description,
-                cover: cover,
-                coverAlt: item["cover-alt"],
-                pin: item.pin == "true",
-                hide: item.hide == "true"
-            })
+            let post = this.getPostForShow(item);
+            posts.push(post)
         }
         const updateState = () => {
             this.component.setState({
@@ -100,8 +83,33 @@ export class PostPaginateShowPresenter implements IPostPaginateShowPresenter {
                 posts: posts
             })
         }
+        consoleObjDebug("Index update", posts)
         updateState()
     }
+    private getPostForShow(item: ApiPost) {
+        let author = item.author;
+        if (this.component.props.category == POST_TYPE_POETRY.identifier && item.moreDate.length > 0) {
+            author = item.moreDate + " " + item.author;
+        }
+        let cover = item.cover;
+        if (item["index-cover"].length > 0) {
+            cover = item["index-cover"];
+        }
+        const post = {
+            title: item.title,
+            author: author,
+            actor: item.actor,
+            date: item.date,
+            path: item.path,
+            description: item.description,
+            cover: cover,
+            coverAlt: item["cover-alt"],
+            pin: item.pin == "true",
+            hide: item.hide == "true"
+        };
+        return post;
+    }
+
     loadMore() {
         if (this.component.state.loading) return
         if (this.component.state.loadHint == ERROR_HINT && this.cachedPage.length == 0) {

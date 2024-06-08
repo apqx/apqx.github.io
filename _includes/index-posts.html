@@ -22,7 +22,7 @@
             {% endif -%}
             {%- if post.categories contains index-category and post.hideFromIndex != true -%}
             <li class="index-li">
-                <a class="index-a" href="{{ post.url | prepend: site.baseurl }}">
+                <a class="index-a" href="{{ post.url }}">
                     <section class="mdc-card index-card">
                         <h1 class="index-title one-line">{{ post.title }}</h1>
                         <span class="index-author">{% if post.moreDate != null %}{{ post.moreDate }}{% endif %} {{ post.author }}</span>

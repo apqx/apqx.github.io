@@ -75,6 +75,7 @@ export class GridIndexList extends BasePostPaginateShow<Props> {
                     columnClassName="my-masonry-grid_column">
                     <IndexDescriptionItem innerHtml={this.props.pageDescriptionHtml} />
                     {this.state.posts.map((item: Post) =>
+                        // TODO: 有时候jekyll生成的path和paginate生成的path不一样，导致item重新加载，这种情况并不多
                         !item.pin && !item.hide && <IndexItem key={item.path}
                             title={item.title}
                             author={item.author}

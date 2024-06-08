@@ -1,4 +1,4 @@
-import { Post } from "./Post"
+import { ApiPost } from "./Post"
 
 export type PaginatePage = {
     "data": {
@@ -9,5 +9,5 @@ export type PaginatePage = {
         "previousPagePath": string,
         "nextPagePath": string
     },
-    "posts": Array<Post>
+    "posts": Array<ApiPost>
 }

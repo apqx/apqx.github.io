@@ -1,4 +1,4 @@
-export type Post = {
+export type ApiPost = {
     "title": string,
     "date": string,
     "moreDate": string,
