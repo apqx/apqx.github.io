@@ -142,6 +142,7 @@ body {
 .index-top-cover {
     border-radius: var(--mdc-shape-medium);
     object-fit: cover;
+    width: 100%;
     // 封面宽高比例，在不设置动画时使用，JS动画用它计算高度
     aspect-ratio: 844/295 auto;
 }
@@ -177,6 +178,7 @@ body {
     line-height: 1.5rem;
     text-align: right;
     margin: 0;
+    display: block
 }
 
 /* 索引地点（看剧使用） */
@@ -194,12 +196,13 @@ body {
     line-height: 1.5rem;
     text-align: right;
     margin: 0;
+    display: block;
 }
 
 // 索引列表
 .index-ul {
     padding: 0;
-    margin-top: var(--index-card-to-container-border-horizontal);
+    margin-top: var(--index-card-gap);
 }
 
 .index-li {
@@ -229,7 +232,7 @@ body {
     // 去除下划线
     text-decoration: none;
     // 去除点击时的默认的背景，防止干扰Ripple动画
-    background-color: transparent;
+    // background-color: transparent;
 }
 
 .grid-index-card {
@@ -269,6 +272,7 @@ body {
 .grid-index-cover {
     border-radius: var(--mdc-shape-medium);
     aspect-ratio: auto;
+    width: 100%;
 }
 
 .grid-index-title {

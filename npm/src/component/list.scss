@@ -11,6 +11,10 @@
     border: 1px solid;
     border-color: var(--divider-color);
     border-radius: var(--table-list-border-radius);
+
+    li {
+        margin: 0;
+    }
 }
 
 // 效果似乎是与原有__ripple叠加🤔

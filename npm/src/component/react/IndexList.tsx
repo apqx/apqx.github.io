@@ -52,7 +52,7 @@ export class IndexList extends BasePostPaginateShow<BasePostPaginateShowProps> {
             <ul className="index-ul">
                 {this.props.pinedPosts.map((post) =>
                     <IndexItem key={post.path}
-                        title={post.title} author={post.author} date={post.date} path={post.path} pin={post.pin} 
+                        title={post.title} author={post.author} date={post.date} path={post.path} pin={post.pin}
                         last={false} />
                 )}
                 {this.state.posts.map((item, index) =>
@@ -102,8 +102,8 @@ class IndexItem extends React.Component<IndexItemProps, any> {
     render() {
         return (
             <li className="index-li">
-                <a className="index-a" href={this.props.path}>
-                    <section className="mdc-card index-card">
+                <a className="index-a mdc-card index-card" href={this.props.path}>
+                    <section>
                         <h1 className="index-title one-line">{this.props.title}</h1>
                         <span className="index-author">{this.props.author}</span>
                         <span className="index-date">{this.props.date}</span>

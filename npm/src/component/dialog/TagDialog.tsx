@@ -192,7 +192,7 @@ class PostItem extends React.Component<PostItemProps, any> {
 
     render() {
         return (
-            <div>
+            <li>
                 <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken tag-list-item mdc-ripple-upgraded"
                     href={this.props.data.url}>
                     <span className="mdc-deprecated-list-item__ripple"></span>
@@ -217,7 +217,7 @@ class PostItem extends React.Component<PostItemProps, any> {
                     </span>
                 </a>
                 {!this.props.last && <hr className="mdc-deprecated-list-divider" />}
-            </div>
+            </li>
         )
     }
 }

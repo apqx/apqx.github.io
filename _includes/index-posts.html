@@ -3,8 +3,8 @@
         {% for post in site.posts %}
         {%- if post.categories contains index-category and post.hideFromIndex != true and post.pin == true %}
         <li class="index-li index-li--pin">
-            <a class="index-a" href="{{ post.url | prepend: site.baseurl }}">
-                <section class="mdc-card index-card">
+            <a class="index-a mdc-card index-card" href="{{ post.url }}">
+                <section>
                     <h1 class="index-title one-line">{{ post.title }}</h1>
                     <span class="index-author">{% if post.moreDate != null %}{{ post.moreDate }}{% endif %} {{ post.author }}</span>
                     <span class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
@@ -22,8 +22,8 @@
             {% endif -%}
             {%- if post.categories contains index-category and post.hideFromIndex != true -%}
             <li class="index-li">
-                <a class="index-a" href="{{ post.url }}">
-                    <section class="mdc-card index-card">
+                <a class="index-a mdc-card index-card" href="{{ post.url }}">
+                    <section>
                         <h1 class="index-title one-line">{{ post.title }}</h1>
                         <span class="index-author">{% if post.moreDate != null %}{{ post.moreDate }}{% endif %} {{ post.author }}</span>
                         <span class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</span>

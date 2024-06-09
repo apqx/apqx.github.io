@@ -137,8 +137,8 @@ class IndexItem extends React.Component<IndexItemProps, any> {
     render(): ReactNode {
         return (
             <li className="grid-index-li">
-                <a className="index-a" href={this.props.path}>
-                    <section className="mdc-card grid-index-card grid-index-card__ripple">
+                <a className="index-a mdc-card grid-index-card grid-index-card__ripple" href={this.props.path}>
+                    <section>
                         {this.props.cover.length > 0 &&
                             <img className="grid-index-cover height-animation" loading="lazy" src={this.props.cover} alt={this.props.coverAlt} />
                         }
