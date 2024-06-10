@@ -7,8 +7,6 @@ import { createRoot } from "react-dom/client"
 import { IndexList } from "../component/react/IndexList"
 import { getIndexType } from "../base"
 import { POST_TYPE_ORIGINAL, POST_TYPE_OTHER, POST_TYPE_POETRY, POST_TYPE_REPOST } from "../base/constant"
-import { HeightAnimationContainer } from "../component/animation/HeightAnimationContainer"
-import { WidthResizeObserver } from "../base/WidthResizeObserver"
 import { ImageLoadAnimator } from "../component/animation/ImageLoadAnimator"
 import { Post } from "../component/react/post/BasePostPaginateShow"
 import { GridIndexList } from "../component/react/GridIndexList"
@@ -30,29 +28,15 @@ function initIndexList() {
     consoleDebug("Index category = " + category + ", path = " + window.location.pathname)
     if (category == POST_TYPE_OTHER.identifier) return
 
-    // TODO:延迟到react中创建
-    const heightAnimationContainerE = document.querySelector("#index-list-wrapper.height-animation-container") as HTMLElement
-    let heightAnimationContainer: HeightAnimationContainer = null
-    if (heightAnimationContainerE != null) {
-        heightAnimationContainer = new HeightAnimationContainer(heightAnimationContainerE)
-    }
     const onUpdate = () => {
         // 当react更新时，动画更新wrapper高度
         destroyMasonry()
-        if (heightAnimationContainer != null) {
-            heightAnimationContainer.update()
-        }
     }
     if (category == POST_TYPE_ORIGINAL.identifier ||
         category == POST_TYPE_POETRY.identifier ||
         category == POST_TYPE_REPOST.identifier) {
 
         // 随笔、诗词、转载
-        new WidthResizeObserver(wrapperE, () => {
-            if (heightAnimationContainer != null) {
-                heightAnimationContainer.update()
-            }
-        })
         // 获取已有的post，包括置顶和非置顶
         const loadedPosts = getLinearLoadedPosts(wrapperE)
         consoleObjDebug("Index loaded posts", loadedPosts)
@@ -112,9 +96,11 @@ function getGridLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
     for (const liE of wrapperE.querySelectorAll(".grid-index-li:not(.grid-index-li--description)")) {
         const title = (liE.querySelector(".grid-index-title") as HTMLElement).innerText
         // actor和date放在一起了，因为两个span之间的距离，在原生和react中不一样
-        // const author = (liE.querySelector(".grid-index-author") as HTMLElement).innerText
-        const author = ""
-        const date = (liE.querySelector(".grid-index-date") as HTMLElement).innerText
+        // const actor = (liE.querySelector(".grid-index-author") as HTMLElement).innerText
+        // const date = (liE.querySelector(".grid-index-date") as HTMLElement).innerText
+        const dateAndActor = (liE.querySelector(".grid-index-date") as HTMLElement).innerText.match("(\\d{4}年\\d{2}月\\d{2}日) (.*)")
+        let actor = dateAndActor[2]
+        let date = dateAndActor[1]
         const path = (liE.querySelector(".index-a") as HTMLAnchorElement).pathname
         const description = (liE.querySelector(".grid-index-description") as HTMLElement).innerText
         const coverE = liE.querySelector(".grid-index-cover") as HTMLImageElement
@@ -124,8 +110,8 @@ function getGridLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
         const pin = liE.classList.contains("grid-index-li--pin")
         const post = {
             title: title,
-            author: author,
-            actor: "",
+            author: "",
+            actor: actor,
             date: date,
             path: path,
             description: description,

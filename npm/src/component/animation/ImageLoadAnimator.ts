@@ -1,4 +1,4 @@
-import { WidthResizeObserver } from "../../base/WidthResizeObserver"
+import { ResizeWidthObserver } from "../../base/ResizeWidthObserver"
 import { consoleDebug } from "../../util/log"
 import { getElementAttribute } from "../../util/tools"
 
@@ -8,7 +8,7 @@ import { getElementAttribute } from "../../util/tools"
 export class ImageLoadAnimator {
     imgE: HTMLImageElement
     id: string
-    widthResizeObserver: WidthResizeObserver
+    widthResizeObserver: ResizeWidthObserver
 
     /**
      * 
@@ -46,7 +46,7 @@ export class ImageLoadAnimator {
             }
         }
         if (monitorResize) {
-            this.widthResizeObserver = new WidthResizeObserver(imgE, (width) => {
+            this.widthResizeObserver = new ResizeWidthObserver(imgE, (width) => {
                 consoleDebug("Image widthResizeObserver " + this.id + ", width = " + width)
                 if (ratio == -1) {
                     ratio = imgE.naturalWidth / imgE.naturalHeight
@@ -56,13 +56,22 @@ export class ImageLoadAnimator {
         }
         imgE.addEventListener("transitionend", () => {
             consoleDebug("Image transitionend " + this.id)
-            // 动画完成后，设置高度为auto，通知Masonry重新layout
-            if (!monitorResize) {
-                imgE.classList.remove("height-animation")
-                imgE.style.height = "auto"
-            }
-            if (animationEndCallback != null) animationEndCallback()
+            // 动画完成后，设置高度为auto
+            this.animationDone(monitorResize, imgE, animationEndCallback)
         })
+        // 监听动画失败
+        imgE.addEventListener("animationcancel", () => {
+            consoleDebug("Image animationcancel " + this.id)
+            this.animationDone(monitorResize, imgE, animationEndCallback)
+        })
+    }
+
+    private animationDone(monitorResize: boolean, imgE: HTMLImageElement, animationEndCallback: () => void) {
+        if (!monitorResize) {
+            imgE.classList.remove("height-animation")
+            imgE.style.height = "auto"
+        }
+        if (animationEndCallback != null) animationEndCallback()
     }
 
     setImageHeight(imgE: HTMLImageElement, ratio: number) {

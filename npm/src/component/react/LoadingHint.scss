@@ -4,7 +4,9 @@
 @use '@material/button/mdc-button';
 
 .loading-hint-wrapper {
-    padding: 1rem;
+    display: grid;
+    place-items: center;
+    height: 5rem;
 }
 
 .loading-hint-btn {

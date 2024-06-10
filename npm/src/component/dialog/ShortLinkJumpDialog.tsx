@@ -1,7 +1,7 @@
 import * as React from "react"
-import {ProgressLinear} from "../react/ProgressLinear"
-import {BasicDialog, BasicDialogProps, COMMON_DIALOG_WRAPPER_ID, showDialog} from "./BasicDialog"
-import {ShortLinkJumpDialogPresenter} from "./ShortLinkJumpDialogPresenter"
+import { ProgressLinear } from "../react/ProgressLinear"
+import { BasicDialog, BasicDialogProps, COMMON_DIALOG_WRAPPER_ID, showDialog } from "./BasicDialog"
+import { ShortLinkJumpDialogPresenter } from "./ShortLinkJumpDialogPresenter"
 // import "./ShortLinkJumpDialog.scss"
 
 interface DialogContentState {
@@ -10,7 +10,7 @@ interface DialogContentState {
     onClickLink: (e: React.MouseEvent<HTMLElement>) => void
 }
 
-interface DialogContentProps extends BasicDialogProps{
+interface DialogContentProps extends BasicDialogProps {
     pid: string
 }
 
@@ -36,16 +36,17 @@ export class ShortLinkDialog extends BasicDialog<DialogContentProps, DialogConte
         return (
             <div className="center">
                 <picture>
-                    <source srcSet="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/noto-animated-emoji/peacock/512.webp" type="image/webp"/>
-                    <img src="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/noto-animated-emoji/peacock/512.gif" alt="" width="164"
-                         height="164"/>
+                    <source srcSet="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/noto-animated-emoji/peacock/512.webp"
+                        type="image/webp" />
+                    <img width="164px" height="164px" className="inline-for-center" alt=""
+                        src="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/noto-animated-emoji/peacock/512.gif" />
                 </picture>
                 <p id="short-link-jump-dialog_title">{this.state.title}</p>
                 <p id="short-link-jump-dialog_link" className="center">
                     <a className="clickable-empty-link" onClick={this.state.onClickLink}>{this.state.content}</a>
                 </p>
 
-                <ProgressLinear loading={true}/>
+                <ProgressLinear loading={true} />
             </div>
         )
     }
@@ -53,5 +54,5 @@ export class ShortLinkDialog extends BasicDialog<DialogContentProps, DialogConte
 
 export function showShortLinkJumpDialog(_pid: string) {
     showDialog(<ShortLinkDialog pid={_pid} fixedWidth={false} btnText={null}
-                                                 OnClickBtn={null} closeOnClickOutside={false} />, COMMON_DIALOG_WRAPPER_ID)
+        OnClickBtn={null} closeOnClickOutside={false} />, COMMON_DIALOG_WRAPPER_ID)
 }

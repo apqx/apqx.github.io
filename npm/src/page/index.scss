@@ -148,7 +148,6 @@ body {
 }
 
 .height-animation {
-    aspect-ratio: auto;
     height: 0px;
     transition: height var(--cover-animation-duration) ease;
     // will-change: contents;
@@ -265,13 +264,12 @@ body {
 }
 
 .grid-index-text-container {
-    margin-top: 0.5rem;
+    margin-top: 0.8rem;
     padding: 0.8rem 2rem 1.5rem 2rem;
 }
 
 .grid-index-cover {
     border-radius: var(--mdc-shape-medium);
-    aspect-ratio: auto;
     width: 100%;
 }
 
@@ -279,7 +277,7 @@ body {
     @include typography.typography(subtitle1);
     @include theme.property(color, on-surface);
     font-size: 1.5rem;
-    margin: 0.5rem 0 0.1rem 0;
+    margin: 0 0 0.1rem 0;
     text-align: left
 }
 

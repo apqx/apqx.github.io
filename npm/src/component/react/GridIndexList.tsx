@@ -11,13 +11,14 @@ import { PostPaginateShowPresenter } from "./post/PostPaginateShowPresenter";
 import { clickTag } from "../tag";
 import { ScrollLoader } from "../../base/ScrollLoader";
 import Masonry from 'react-masonry-css'
+import { HeightAnimationContainer } from "../animation/HeightAnimationContainer";
 
 interface Props extends BasePostPaginateShowProps {
     pageDescriptionHtml: string
 }
 
 export class GridIndexList extends BasePostPaginateShow<Props> {
-    lastTimeout: NodeJS.Timeout
+    heightAnimationContainer: HeightAnimationContainer
 
     constructor(props: Props) {
         super(props);
@@ -53,12 +54,19 @@ export class GridIndexList extends BasePostPaginateShow<Props> {
     componentDidMount(): void {
         super.componentDidMount()
         consoleDebug("GridIndex componentDidMount")
+        const rootE = ReactDOM.findDOMNode(this) as HTMLElement
+        // this.heightAnimationContainer = new HeightAnimationContainer(rootE)
         if (this.props.onUpdate != null) this.props.onUpdate()
         this.initScroll()
     }
 
+    componentWillUnmount(): void {
+        // this.heightAnimationContainer.destroy()
+    }
+
     componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<BasePostPaginateShowState>, snapshot?: any): void {
         consoleDebug("GridIndex componentDidUpdate")
+        // this.heightAnimationContainer.update()
         if (this.props.onUpdate != null) this.props.onUpdate()
     }
 
@@ -68,15 +76,17 @@ export class GridIndexList extends BasePostPaginateShow<Props> {
             600: 1
         };
         return (
+            // <div className="height-animation-container">
             <ul className="grid-index-ul">
                 <Masonry
                     breakpointCols={breakpointColumnsObj}
                     className="my-masonry-grid"
                     columnClassName="my-masonry-grid_column">
                     <IndexDescriptionItem innerHtml={this.props.pageDescriptionHtml} />
-                    {this.state.posts.map((item: Post) =>
+                    {this.state.posts.map((item: Post, index: number) =>
                         // TODO: 有时候jekyll生成的path和paginate生成的path不一样，导致item重新加载，这种情况并不多
                         !item.pin && !item.hide && <IndexItem key={item.path}
+                            index={index}
                             title={item.title}
                             author={item.author}
                             actor={item.actor}
@@ -87,17 +97,19 @@ export class GridIndexList extends BasePostPaginateShow<Props> {
                             coverAlt={item.coverAlt} />
                     )}
                     {(this.state.loading || this.state.loadHint != null) &&
-                        <li className="grid-index-li center">
+                        <li className="grid-index-li">
                             <LoadingHint loading={this.state.loading} loadHint={this.state.loadHint} onClickHint={this.loadMore} />
                         </li>
                     }
                 </Masonry>
             </ul>
+            // </div>
         )
     }
 }
 
 type IndexItemProps = {
+    index: number,
     title: string,
     author: string,
     actor: string,
@@ -119,15 +131,17 @@ class IndexItem extends React.Component<IndexItemProps, any> {
         consoleDebug("IndexItem componentDidMount " + this.props.title)
         const rootE = ReactDOM.findDOMNode(this) as HTMLElement
         new MDCRipple(rootE.querySelector(".grid-index-card__ripple"))
-        const imgE = rootE.querySelector(".grid-index-cover.height-animation")
+        const imgE = rootE.querySelector(".grid-index-cover")
+        // 只有前10个有动画🤔
+        // if (imgE != null && this.props.index < 10) {
         if (imgE != null) {
+            imgE.classList.add("height-animation")
             this.imageLoadAnimator = new ImageLoadAnimator(imgE as HTMLImageElement, -1, false, () => {
             })
         }
     }
 
     componentWillUnmount(): void {
-        // Masonry的布局似乎会重新加载一些item，所以这里要做好清理
         consoleDebug("IndexItem componentWillUnmount " + this.props.title)
         if (this.imageLoadAnimator != null) {
             this.imageLoadAnimator.destroy()
@@ -140,7 +154,7 @@ class IndexItem extends React.Component<IndexItemProps, any> {
                 <a className="index-a mdc-card grid-index-card grid-index-card__ripple" href={this.props.path}>
                     <section>
                         {this.props.cover.length > 0 &&
-                            <img className="grid-index-cover height-animation" loading="lazy" src={this.props.cover} alt={this.props.coverAlt} />
+                            <img className="grid-index-cover" loading="lazy" src={this.props.cover} alt={this.props.coverAlt} />
                         }
                         {this.props.cover.length == 0 &&
                             <div style={{ height: "0.5rem" }}></div>

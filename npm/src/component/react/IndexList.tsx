@@ -7,8 +7,10 @@ import { ScrollLoader } from "../../base/ScrollLoader";
 import { BasePostPaginateShow, BasePostPaginateShowProps, BasePostPaginateShowState } from "./post/BasePostPaginateShow";
 import { PostPaginateShowPresenter } from "./post/PostPaginateShowPresenter";
 import { IPostPaginateShowPresenter } from "./post/IPostPaginateShowPresenter";
+import { HeightAnimationContainer } from "../animation/HeightAnimationContainer";
 
 export class IndexList extends BasePostPaginateShow<BasePostPaginateShowProps> {
+    heightAnimationContainer: HeightAnimationContainer
 
     createPresenter(): IPostPaginateShowPresenter {
         return new PostPaginateShowPresenter(this)
@@ -16,8 +18,14 @@ export class IndexList extends BasePostPaginateShow<BasePostPaginateShowProps> {
 
     componentDidMount(): void {
         super.componentDidMount()
+        const rootE = ReactDOM.findDOMNode(this) as HTMLElement
+        // this.heightAnimationContainer = new HeightAnimationContainer(rootE)
         if (this.props.onUpdate != null) this.props.onUpdate()
         this.initScroll()
+    }
+
+    componentWillUnmount(): void {
+        // this.heightAnimationContainer.destroy()
     }
 
     loadFirstPage() {
@@ -36,6 +44,7 @@ export class IndexList extends BasePostPaginateShow<BasePostPaginateShowProps> {
     }
 
     componentDidUpdate(prevProps: Readonly<BasePostPaginateShowProps>, prevState: Readonly<BasePostPaginateShowState>, snapshot?: any): void {
+        // this.heightAnimationContainer.update()
         if (this.props.onUpdate != null) this.props.onUpdate()
     }
 
@@ -49,25 +58,25 @@ export class IndexList extends BasePostPaginateShow<BasePostPaginateShowProps> {
 
     render() {
         return (
-            <ul className="index-ul">
-                {this.props.pinedPosts.map((post) =>
-                    <IndexItem key={post.path}
-                        title={post.title} author={post.author} date={post.date} path={post.path} pin={post.pin}
-                        last={false} />
-                )}
-                {this.state.posts.map((item, index) =>
-                    // 隐藏部分post
-                    // 有时候jekyll生成的path和paginate生成的path不一样，导致item重新加载
-                    !item.pin && !item.hide && <IndexItem key={item.path}
-                        title={item.title} author={item.author} date={item.date} path={item.path} pin={item.pin}
-                        last={index == this.state.posts.length - 1} />
-                )}
-                {(this.state.loading || this.state.loadHint != null) &&
-                    <div className="center">
+            // <div className="height-animation-container">
+                <ul className="index-ul">
+                    {this.props.pinedPosts.map((post) =>
+                        <IndexItem key={post.path}
+                            title={post.title} author={post.author} date={post.date} path={post.path} pin={post.pin}
+                            last={false} />
+                    )}
+                    {this.state.posts.map((item, index) =>
+                        // 隐藏部分post
+                        // 有时候jekyll生成的path和paginate生成的path不一样，导致item重新加载
+                        !item.pin && !item.hide && <IndexItem key={item.path}
+                            title={item.title} author={item.author} date={item.date} path={item.path} pin={item.pin}
+                            last={index == this.state.posts.length - 1} />
+                    )}
+                    {(this.state.loading || this.state.loadHint != null) &&
                         <LoadingHint loading={this.state.loading} loadHint={this.state.loadHint} onClickHint={this.loadMore} />
-                    </div>
-                }
-            </ul>
+                    }
+                </ul>
+            // </div>
         )
     }
 }

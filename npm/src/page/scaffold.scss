@@ -106,6 +106,14 @@ footer a {
     padding-top: 4.5rem;
 }
 
+img {
+    display: block;
+}
+
+img.inline-for-center {
+    display: inline;
+}
+
 // 手机小屏
 @media all and (max-width: blogTheme.$screen-middle-min-width) {
     .mdc-top-app-bar--fixed-adjust {

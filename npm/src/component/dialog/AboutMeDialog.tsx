@@ -28,9 +28,8 @@ class AboutMeDialog extends BasicDialog<BasicDialogProps, any> {
         consoleDebug("AboutMeDialog render")
         return (
             <div className="center">
-                <img height="100px" width="100dx" className="circle-avatar"
-                    src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg"
-                    alt="avatar" />
+                <img height="100px" width="100dx" className="circle-avatar inline-for-center" alt="avatar"
+                    src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg" />
                 <span className="about-me-name">立泉</span>
                 <section className="about-me-tag-wrapper">
                     <Button text="C++" onClick={null} className="btn-tag" />

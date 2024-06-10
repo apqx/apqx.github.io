@@ -1,18 +1,34 @@
+import { ResizeHeightObserver } from "../../base/ResizeHeightObserver"
+import { ResizeWidthObserver } from "../../base/ResizeWidthObserver"
 import { consoleDebug, consoleObjDebug } from "../../util/log"
 import { getElementSize } from "../../util/tools"
 
+/**
+ * 为容器添加高度动画，必须只有一个子元素
+ */
 export class HeightAnimationContainer {
     containerE: HTMLElement
+    contentE: HTMLElement
     lastHeight: number
+    resizeWidthObserver: ResizeWidthObserver
+
     constructor(animationContainerE: HTMLElement) {
         this.containerE = animationContainerE
         this.lastHeight = -1
         // 这里可以先计算一次高度
         this.update(false)
-        // 监听尺寸变化
-        this.containerE.addEventListener("resize", () => {
-            this.update(false)
-        })
+        // 监听子元素尺寸变化
+        this.contentE = this.containerE.firstChild as HTMLElement
+        if (this.contentE != null) {
+            // 监听子元素宽度变化，计算高度，启动动画过渡
+            this.resizeWidthObserver = new ResizeWidthObserver(this.contentE, (width: number) => {
+                this.update()
+            })
+        }
+    }
+
+    destroy() {
+        if (this.resizeWidthObserver != null) this.resizeWidthObserver.destroy()
     }
 
     update(_animation: boolean = true, _targetHeight: number = -1, _duration: number = -1) {
@@ -23,6 +39,12 @@ export class HeightAnimationContainer {
         if (_targetHeight >= 0) {
             targetHeight = _targetHeight
             consoleDebug("HeightAnimationContainer use given height + " + targetHeight)
+            const marginTop = getElementSize(this.contentE, "margin-top")
+            targetHeight += marginTop
+            consoleDebug("HeightAnimationContainer + child marginTop " + marginTop + " = " + targetHeight)
+            const marginBottom = getElementSize(this.contentE, "margin-bottom")
+            targetHeight += marginBottom
+            consoleDebug("HeightAnimationContainer + child marginBottom " + marginBottom + " = " + targetHeight)
         } else {
             targetHeight = this.calcHeight(this.containerE)
         }

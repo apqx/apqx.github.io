@@ -73,6 +73,10 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
         this.heightAnimationContainer.update()
     }
 
+    componentWillUnmount(): void {
+        if (this.heightAnimationContainer != null) this.heightAnimationContainer.destroy()
+    }
+
     initBtn(e: HTMLElement) {
         if (e == null) return
         new MDCRipple(e)
@@ -113,12 +117,14 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
                 <p id="search-dialog_tips"><b>TIPS：</b>中文低频词组用空格分隔会有更好匹配，比如输入名字「施夏明」改为「施 夏 明」。如果网络通畅也可使用<a
                     href="https://cse.google.com/cse?cx=757420b6b2f3d47d2" target="_blank">Google站内搜索</a>。</p>
                 <div className="height-animation-container">
-                    {(this.state.results != null && this.state.results.length > 0) &&
-                        <SearchResult list={this.state.results} />
-                    }
-                    {(this.state.loading || this.state.loadHint != null) &&
-                        <LoadingHint loading={this.state.loading} loadHint={this.state.loadHint} onClickHint={this.onClickLoadMore} />
-                    }
+                    <div>
+                        {(this.state.results != null && this.state.results.length > 0) &&
+                            <SearchResult list={this.state.results} />
+                        }
+                        {(this.state.loading || this.state.loadHint != null) &&
+                            <LoadingHint loading={this.state.loading} loadHint={this.state.loadHint} onClickHint={this.onClickLoadMore} />
+                        }
+                    </div>
                 </div>
 
             </div>

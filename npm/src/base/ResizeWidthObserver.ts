@@ -1,6 +1,6 @@
 import { consoleDebug } from "../util/log"
 
-export class WidthResizeObserver {
+export class ResizeWidthObserver {
     callback: (width: number) => void
     lastTimeout: NodeJS.Timeout = null
     lastWidth = -1
@@ -8,7 +8,6 @@ export class WidthResizeObserver {
         const entry = entries.pop()
         if (entry.contentRect.width == this.lastWidth) {
             // 宽度没有变化
-            // consoleDebug("Cover width not change")
             return
         }
         this.lastWidth = entry.contentRect.width
@@ -16,9 +15,9 @@ export class WidthResizeObserver {
             clearTimeout(this.lastTimeout)
         }
         this.lastTimeout = setTimeout(() => {
-            consoleDebug("WidthResizeObserver width changed after delay " + entry.contentRect.width)
+            consoleDebug("ResizeWidthObserver width changed after delay " + entry.contentRect.width)
             this.callback(entry.contentRect.width)
-        }, 100)
+        }, 200)
     })
     constructor(e: HTMLElement, callback: (width: number) => void) {
         this.lastWidth = e.clientWidth

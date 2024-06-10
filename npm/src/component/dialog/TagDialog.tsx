@@ -74,6 +74,10 @@ export class TagDialog extends BasicDialog<DialogContentProps, DialogContentStat
         this.heightAnimationContainer.update()
     }
 
+    componentWillUnmount(): void {
+        if (this.heightAnimationContainer != null) this.heightAnimationContainer.destroy()
+    }
+
     shouldComponentUpdate(nextProps: Readonly<DialogContentProps>, nextState: Readonly<DialogContentState>, nextContext: any): boolean {
         // 当props或state变化时，判断是否render
         // state变化由内部触发，应该render
@@ -99,8 +103,8 @@ export class TagDialog extends BasicDialog<DialogContentProps, DialogContentStat
                 </p>
 
                 {/* <ProgressLinear loading={this.state.loading} /> */}
-                <div className="height-animation-container center">
-                    <div className="center">
+                <div className="height-animation-container">
+                    <div>
                         {this.state.postList != null && this.state.postList.length != 0 &&
                             <PostResult list={this.state.postList} />
                         }
