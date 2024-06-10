@@ -32,7 +32,7 @@
 
 .surface-block {
     border: 1px dashed var(--surface-block-border);
-    border-radius: var(--essay-inner-shape-round);
+    border-radius: var(--post-inner-shape-round);
     background: var(--surface-block-bg);
     padding: 1rem;
 }
@@ -55,7 +55,7 @@ pre code.hljs {
     font-family: blogTheme.$code-block-font;
     font-size: 1.0rem;
     line-height: 1.5rem;
-    border-radius: var(--essay-inner-shape-round);
+    border-radius: var(--post-inner-shape-round);
     padding: 1rem;
     background: var(--pre-code-bg);
 }

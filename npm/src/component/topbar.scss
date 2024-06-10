@@ -8,6 +8,10 @@
 @use "@material/ripple";
 @use "sass:map";
 
+body {
+    --top-bar-slid-translateY : calc(0px - var(--top-bar-height) - 10px)
+}
+
 .mdc-top-app-bar {
     // 颜色，默认为 primary
     @include top-app-bar.fill-color(var(--mdc-theme-primary));
@@ -30,9 +34,51 @@
     @include ripple.states(white, true);
 }
 
+.mdc-top-app-bar__row {
+    height: var(--top-bar-height);
+}
+
 // 默认固定，需要时监测滚动启动隐藏、展示动画
 // 动态获取topbar高度，设置滚动值
 .mdc-top-app-bar--fixed {
-    transform: translateY(0);
+    transform: translateY(0px);
+    opacity: 1;
     transition: all 0.4s ease;
+}
+
+.top-app-bar--move-up {
+    transform: translateY(0px);
+    opacity: 1;
+    // 应保证移动动画时间0.4s
+    animation: moveUp 0.8s ease forwards;
+}
+
+.top-app-bar--move-down {
+    transform: translateY(var(--top-bar-slid-translateY));
+    opacity: 0;
+    // 应保证移动动画时间0.4s
+    animation: moveDown 0.5s ease forwards;
+}
+
+@keyframes moveUp {
+    50% {
+        opacity: 1;
+        transform: translateY(var(--top-bar-slid-translateY));
+    }
+
+    100% {
+        transform: translateY(var(--top-bar-slid-translateY));
+        opacity: 0;
+    }
+}
+
+@keyframes moveDown {
+    30% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(0px);
+        opacity: 1;
+    }
 }

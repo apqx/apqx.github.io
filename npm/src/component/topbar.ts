@@ -51,6 +51,8 @@ export function setFixedTopbar(on: boolean) {
     if (on) {
         toggleShowTopbar(true)
         window.removeEventListener("scroll", scrollListener)
+        toggleClassWithEnable(topAppBarE, "top-app-bar--move-down", false)
+        toggleClassWithEnable(topAppBarE, "top-app-bar--move-up", false)
     } else {
         // 非固定topbar监听滚动
         // 多次添加同一个监听器是无效的
@@ -132,18 +134,16 @@ const scrollListener = () => {
 
 function toggleShowTopbar(show: boolean) {
     consoleDebug("ToggleShowTopbar " + show)
+    // topbar默认不包含up-class和down-class
     if (show) {
-        if (topAppBarE.style.transform.length > 0) {
-            consoleDebug("ToggleShowTopbar setTransform null")
-            topAppBarE.style.transform = ""
+        if (topAppBarE.classList.contains("top-app-bar--move-up") && !topAppBarE.classList.contains("top-app-bar--move-down")) {
+            toggleClassWithEnable(topAppBarE, "top-app-bar--move-down", true)
+            toggleClassWithEnable(topAppBarE, "top-app-bar--move-up", false)
         }
     } else {
-        if (topAppBarE.style.transform.length == 0) {
-            const topbarHeight = topAppBarE.clientHeight
-            const topbarTranslateY = -(topbarHeight + 50)
-            const transformStr = "translateY(" + topbarTranslateY + "px)"
-            consoleDebug("ToggleShowTopbar setTransform " + transformStr)
-            topAppBarE.style.transform = transformStr
+        if (!topAppBarE.classList.contains("top-app-bar--move-up")) {
+            toggleClassWithEnable(topAppBarE, "top-app-bar--move-up", true)
+            toggleClassWithEnable(topAppBarE, "top-app-bar--move-down", false)
         }
     }
 }
