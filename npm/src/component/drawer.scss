@@ -5,11 +5,13 @@
 @use "@material/drawer/dismissible/mdc-drawer-dismissible";
 @use "@material/elevation";
 @use "@material/elevation/mdc-elevation";
+@use "@material/ripple";
 @use "@material/button";
 @use "@material/button/mdc-button";
 @use "@material/list";
 @use "@material/list/mdc-list";
 @use "sass:map";
+@use "sass:color";
 
 .mdc-drawer {
     z-index: 3;
@@ -46,6 +48,24 @@
 
 .nav-list {
     flex: 1;
+}
+
+.nav-list .mdc-deprecated-list-item.mdc-deprecated-list-item--selected {
+    background-color: color.adjust(blogTheme.$top-bar-color, $alpha: -0.9);;
+}
+
+.nav-list {
+    .mdc-deprecated-list-item {
+        @include ripple.surface;
+        @include ripple.radius-bounded(100%);
+        @include ripple.states-base-color(rgb(60, 60, 60));
+        @include ripple.states-opacities((hover: .05, focus: .05, press: .05));
+    }
+}
+
+.dark .nav-list .mdc-deprecated-list-item {
+    @include ripple.states-base-color(rgb(152, 152, 152));
+    @include ripple.states-opacities((hover: .05, focus: .05, press: .05));
 }
 
 .nav-bottom {

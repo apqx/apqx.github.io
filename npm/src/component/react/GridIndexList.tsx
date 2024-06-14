@@ -55,18 +55,18 @@ export class GridIndexList extends BasePostPaginateShow<Props> {
         super.componentDidMount()
         consoleDebug("GridIndex componentDidMount")
         const rootE = ReactDOM.findDOMNode(this) as HTMLElement
-        // this.heightAnimationContainer = new HeightAnimationContainer(rootE)
+        this.heightAnimationContainer = new HeightAnimationContainer(rootE)
         if (this.props.onUpdate != null) this.props.onUpdate()
         this.initScroll()
     }
 
     componentWillUnmount(): void {
-        // this.heightAnimationContainer.destroy()
+        this.heightAnimationContainer.destroy()
     }
 
     componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<BasePostPaginateShowState>, snapshot?: any): void {
         consoleDebug("GridIndex componentDidUpdate")
-        // this.heightAnimationContainer.update()
+        this.heightAnimationContainer.update()
         if (this.props.onUpdate != null) this.props.onUpdate()
     }
 
@@ -76,34 +76,34 @@ export class GridIndexList extends BasePostPaginateShow<Props> {
             600: 1
         };
         return (
-            // <div className="height-animation-container">
-            <ul className="grid-index-ul">
-                <Masonry
-                    breakpointCols={breakpointColumnsObj}
-                    className="my-masonry-grid"
-                    columnClassName="my-masonry-grid_column">
-                    <IndexDescriptionItem innerHtml={this.props.pageDescriptionHtml} />
-                    {this.state.posts.map((item: Post, index: number) =>
-                        // TODO: 有时候jekyll生成的path和paginate生成的path不一样，导致item重新加载，这种情况并不多
-                        !item.pin && !item.hide && <IndexItem key={item.path}
-                            index={index}
-                            title={item.title}
-                            author={item.author}
-                            actor={item.actor}
-                            date={item.date}
-                            path={item.path}
-                            description={item.description}
-                            cover={item.cover}
-                            coverAlt={item.coverAlt} />
-                    )}
-                    {(this.state.loading || this.state.loadHint != null) &&
-                        <li className="grid-index-li">
-                            <LoadingHint loading={this.state.loading} loadHint={this.state.loadHint} onClickHint={this.loadMore} />
-                        </li>
-                    }
-                </Masonry>
-            </ul>
-            // </div>
+            <div className="height-animation-container">
+                <ul className="grid-index-ul">
+                    <Masonry
+                        breakpointCols={breakpointColumnsObj}
+                        className="my-masonry-grid"
+                        columnClassName="my-masonry-grid_column">
+                        <IndexDescriptionItem innerHtml={this.props.pageDescriptionHtml} />
+                        {this.state.posts.map((item: Post, index: number) =>
+                            // TODO: 有时候jekyll生成的path和paginate生成的path不一样，导致item重新加载，这种情况并不多
+                            !item.pin && !item.hide && <IndexItem key={item.path}
+                                index={index}
+                                title={item.title}
+                                author={item.author}
+                                actor={item.actor}
+                                date={item.date}
+                                path={item.path}
+                                description={item.description}
+                                cover={item.cover}
+                                coverAlt={item.coverAlt} />
+                        )}
+                        {(this.state.loading || this.state.loadHint != null) &&
+                            <li className="grid-index-li">
+                                <LoadingHint loading={this.state.loading} loadHint={this.state.loadHint} onClickHint={this.loadMore} />
+                            </li>
+                        }
+                    </Masonry>
+                </ul>
+            </div>
         )
     }
 }

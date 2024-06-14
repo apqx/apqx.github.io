@@ -66,18 +66,20 @@ body {
     overflow: hidden;
     @include ripple.surface;
     @include ripple.radius-bounded(100%);
-    @include ripple.states-base-color(black);
-    @include ripple.states-opacities((hover: .0, focus: .1, press: .08));
+    @include ripple.states-base-color(rgb(0, 0, 0));
+    @include ripple.states-opacities((hover: .0, focus: .0, press: .08));
 }
 
 @mixin cardRippleDeeper {
     @include cardRipple();
-    @include ripple.states-opacities((hover: .0, focus: .1, press: .09));
+    @include ripple.states-opacities((hover: .0, focus: .0, press: .1));
 }
 
 @mixin cardRippleDark {
-    @include ripple.states-base-color(white);
-    @include ripple.states-opacities((hover: .0, focus: .1, press: .08));
+    // @include ripple.states-base-color(rgb(0, 0, 0));
+    // @include ripple.states-opacities((hover: .0, focus: .0, press: 0.25));
+    @include ripple.states-base-color(rgb(255, 255, 255));
+    @include ripple.states-opacities((hover: .0, focus: .0, press: 0.05));
 }
 
 .index-top-card {

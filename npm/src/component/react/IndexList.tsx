@@ -19,13 +19,13 @@ export class IndexList extends BasePostPaginateShow<BasePostPaginateShowProps> {
     componentDidMount(): void {
         super.componentDidMount()
         const rootE = ReactDOM.findDOMNode(this) as HTMLElement
-        // this.heightAnimationContainer = new HeightAnimationContainer(rootE)
+        this.heightAnimationContainer = new HeightAnimationContainer(rootE)
         if (this.props.onUpdate != null) this.props.onUpdate()
         this.initScroll()
     }
 
     componentWillUnmount(): void {
-        // this.heightAnimationContainer.destroy()
+        this.heightAnimationContainer.destroy()
     }
 
     loadFirstPage() {
@@ -44,7 +44,7 @@ export class IndexList extends BasePostPaginateShow<BasePostPaginateShowProps> {
     }
 
     componentDidUpdate(prevProps: Readonly<BasePostPaginateShowProps>, prevState: Readonly<BasePostPaginateShowState>, snapshot?: any): void {
-        // this.heightAnimationContainer.update()
+        this.heightAnimationContainer.update()
         if (this.props.onUpdate != null) this.props.onUpdate()
     }
 
@@ -58,7 +58,7 @@ export class IndexList extends BasePostPaginateShow<BasePostPaginateShowProps> {
 
     render() {
         return (
-            // <div className="height-animation-container">
+            <div className="height-animation-container">
                 <ul className="index-ul">
                     {this.props.pinedPosts.map((post) =>
                         <IndexItem key={post.path}
@@ -76,7 +76,7 @@ export class IndexList extends BasePostPaginateShow<BasePostPaginateShowProps> {
                         <LoadingHint loading={this.state.loading} loadHint={this.state.loadHint} onClickHint={this.loadMore} />
                     }
                 </ul>
-            // </div>
+            </div>
         )
     }
 }

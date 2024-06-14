@@ -1,3 +1,5 @@
+import { consoleDebug } from "../util/log"
+
 export class ScrollLoader {
     timeMsIgnore: number
     shouldLoad: () => void
@@ -8,6 +10,7 @@ export class ScrollLoader {
     }
 
     onScroll(clientHeight: number, scrollY: number, scrollHeight: number) {
+        // consoleDebug("onScroll " + scrollY)
         if (scrollHeight - scrollY - clientHeight < clientHeight) {
             if (Date.now() - this.lastLoadTime < this.timeMsIgnore) return
             this.shouldLoad()

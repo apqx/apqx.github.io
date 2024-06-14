@@ -46,21 +46,33 @@ body {
     transition: all 0.4s ease;
 }
 
-.top-app-bar--move-up {
-    transform: translateY(0px);
-    opacity: 1;
-    // 应保证移动动画时间0.4s
-    animation: moveUp 0.8s ease forwards;
-}
-
-.top-app-bar--move-down {
+.top-app-bar--up {
     transform: translateY(var(--top-bar-slid-translateY));
     opacity: 0;
+}
+
+.top-app-bar--down {
+    transform: translateY(0px);
+    opacity: 1;
+}
+
+.top-app-bar--moving-up {
+    // 应保证移动动画时间0.4s
+    animation: moveUp 0.8s ease forwards;
+    animation-play-state: initial;
+}
+
+.top-app-bar--moving-down {
     // 应保证移动动画时间0.4s
     animation: moveDown 0.5s ease forwards;
+    animation-play-state: initial;
 }
 
 @keyframes moveUp {
+    0% {
+        transform: translateY(0px);
+        opacity: 1;
+    }
     50% {
         opacity: 1;
         transform: translateY(var(--top-bar-slid-translateY));
@@ -73,6 +85,10 @@ body {
 }
 
 @keyframes moveDown {
+    0% {
+        transform: translateY(var(--top-bar-slid-translateY));
+        opacity: 0;
+    }
     30% {
         opacity: 1;
     }

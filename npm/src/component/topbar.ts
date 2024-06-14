@@ -48,15 +48,22 @@ export function initTopbar() {
 
 
 export function setFixedTopbar(on: boolean) {
+    consoleDebug("setFixedTopbar " + on)
     if (on) {
         toggleShowTopbar(true)
         window.removeEventListener("scroll", scrollListener)
-        toggleClassWithEnable(topAppBarE, "top-app-bar--move-down", false)
-        toggleClassWithEnable(topAppBarE, "top-app-bar--move-up", false)
+        window.removeEventListener("animationend", animationDoneListener)
+        // window.removeEventListener("animationcancel", animationDoneListener)
+        toggleClassWithEnable(topAppBarE, "top-app-bar--moving-down", false)
+        toggleClassWithEnable(topAppBarE, "top-app-bar--down", false)
+        toggleClassWithEnable(topAppBarE, "top-app-bar--moving-up", false)
+        toggleClassWithEnable(topAppBarE, "top-app-bar--up", false)
     } else {
         // 非固定topbar监听滚动
         // 多次添加同一个监听器是无效的
         window.addEventListener("scroll", scrollListener)
+        window.addEventListener("animationend", animationDoneListener)
+        // window.addEventListener("animationcancel", animationDoneListener)
     }
     // 只有桌面浏览器才设置毛玻璃，和theme-color的判断条件一致，毛玻璃和theme-color难以搭配，索性不搭
     if (isMobileOrTablet()) {
@@ -64,6 +71,18 @@ export function setFixedTopbar(on: boolean) {
     } else {
         // 桌面设备不设置theme-color，启用毛玻璃
         toggleClassWithEnable(topAppBarE, "top-app-bar--blur", on)
+    }
+}
+
+const animationDoneListener = () => {
+    consoleDebug("Topbar animation done")
+    // topAppBarE.style.animationPlayState = "initial"
+    if (topAppBarE.classList.contains("top-app-bar--moving-up")) {
+        toggleClassWithEnable(topAppBarE, "top-app-bar--moving-up", false)
+        toggleClassWithEnable(topAppBarE, "top-app-bar--up", true)
+    } else if (topAppBarE.classList.contains("top-app-bar--moving-down")) {
+        toggleClassWithEnable(topAppBarE, "top-app-bar--moving-down", false)
+        toggleClassWithEnable(topAppBarE, "top-app-bar--down", true)
     }
 }
 
@@ -133,17 +152,28 @@ const scrollListener = () => {
 }
 
 function toggleShowTopbar(show: boolean) {
-    consoleDebug("ToggleShowTopbar " + show)
     // topbar默认不包含up-class和down-class
     if (show) {
-        if (topAppBarE.classList.contains("top-app-bar--move-up") && !topAppBarE.classList.contains("top-app-bar--move-down")) {
-            toggleClassWithEnable(topAppBarE, "top-app-bar--move-down", true)
-            toggleClassWithEnable(topAppBarE, "top-app-bar--move-up", false)
+        if (!topAppBarE.classList.contains("top-app-bar--up") && !topAppBarE.classList.contains("top-app-bar--moving-up")) {
+            // topbar处于默认的显示状态，不必启动动画
+            return
+        }
+        // 展示，向下移动
+        if (!topAppBarE.classList.contains("top-app-bar--down") && !topAppBarE.classList.contains("top-app-bar--moving-down")) {
+            consoleDebug("ToggleShowTopbar " + show)
+            // topAppBarE.style.animationPlayState = "running"
+            toggleClassWithEnable(topAppBarE, "top-app-bar--moving-down", true)
+            toggleClassWithEnable(topAppBarE, "top-app-bar--moving-up", false)
+            toggleClassWithEnable(topAppBarE, "top-app-bar--up", false)
         }
     } else {
-        if (!topAppBarE.classList.contains("top-app-bar--move-up")) {
-            toggleClassWithEnable(topAppBarE, "top-app-bar--move-up", true)
-            toggleClassWithEnable(topAppBarE, "top-app-bar--move-down", false)
+        // 隐藏，向上移动
+        if (!topAppBarE.classList.contains("top-app-bar--up") && !topAppBarE.classList.contains("top-app-bar--moving-up")) {
+            consoleDebug("ToggleShowTopbar " + show)
+            // topAppBarE.style.animationPlayState = "running"
+            toggleClassWithEnable(topAppBarE, "top-app-bar--moving-up", true)
+            toggleClassWithEnable(topAppBarE, "top-app-bar--moving-down", false)
+            toggleClassWithEnable(topAppBarE, "top-app-bar--down", false)
         }
     }
 }

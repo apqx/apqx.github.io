@@ -10,6 +10,10 @@ export class ResizeWidthObserver {
             // 宽度没有变化
             return
         }
+        if (entry.contentRect.width == 0) {
+            // 宽度变为0是什么情况🙄
+            return
+        }
         this.lastWidth = entry.contentRect.width
         if (this.lastTimeout != null) {
             clearTimeout(this.lastTimeout)

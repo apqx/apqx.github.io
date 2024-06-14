@@ -6,10 +6,12 @@ import { consoleDebug, consoleObjDebug } from "./log"
 export function runOnHtmlDone(task: () => void) {
     // 监听HTML元素加载完成的DOMContentLoaded事件，但是有时候该事件会在设置监听器之前完成，所以这里检查一下是否已经完成了
     if (document.readyState !== "loading") {
+        consoleDebug("Document readyState: loading done")
         task()
     } else {
         // HTML元素加载完成，但是CSS等资源还未加载
         document.addEventListener("DOMContentLoaded", () => {
+            consoleDebug("Document event: DOMContentLoaded")
             task()
         })
     }
@@ -21,10 +23,12 @@ export function runOnHtmlDone(task: () => void) {
 export function runOnPageDone(task: () => void) {
     // 有时候页面在设置监听器之前已经加载完成
     if (document.readyState == "complete") {
+        consoleDebug("Document readState: complete")
         task()
     } else {
         // 整个页面及资源都以加载完成
         window.addEventListener("load", () => {
+            consoleDebug("Window event: load")
             task()
         })
     }
@@ -36,7 +40,6 @@ export function runOnPageDone(task: () => void) {
 export function runOnPageBackFromCache(task: () => void) {
     window.addEventListener("pageshow", (event) => {
         if (event.persisted) {
-            // alert("The page was just restored from the Page Cache (eg. From the Back button.");
             consoleDebug("Page back from cache")
             task()
         }
