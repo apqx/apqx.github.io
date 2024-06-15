@@ -60,7 +60,7 @@ code:not(pre code) {
     margin-left: 0.05rem;
     margin-right: 0.05rem;
     border-radius: 0.3rem;
-    line-break: anywhere;
+    line-break: loose;
 
     background: var(--code-highlight-bg);
     border: 1px solid var(--code-highlight-border);

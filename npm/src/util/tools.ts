@@ -72,6 +72,7 @@ export function isMobileOrTablet(): boolean {
 }
 
 var debugMode:boolean = undefined
+var writingMode:boolean = undefined
 
 export function isDebug(): boolean {
     if(debugMode != undefined) return debugMode
@@ -79,6 +80,14 @@ export function isDebug(): boolean {
     const debugStr: string = document.querySelector("meta[name=debug]").getAttribute("content")
     debugMode = JSON.parse(debugStr)
     return debugMode
+}
+
+export function isWriting(): boolean {
+    if(writingMode != undefined) return writingMode
+    // 读取head里的writing标志
+    const writingStr: string = document.querySelector("meta[name=writing]").getAttribute("content")
+    writingMode = JSON.parse(writingStr)
+    return writingMode
 }
 
 export function getHostWithHttp(): string {
