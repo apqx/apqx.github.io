@@ -220,6 +220,13 @@ sitemap: false
             }
         },
         {
+            "id": "rp02",
+            "target": {
+                "path": "{% link _posts/repost/2012-01-27-单雯｜美国之行.md %}",
+                "title": "单雯｜美国之行"
+            }
+        },
+        {
             "id": "ot00",
             "target": {
                 "path": "https://www.bilibili.com/video/BV1Ch411v7PY",
