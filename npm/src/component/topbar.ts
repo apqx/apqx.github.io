@@ -88,7 +88,7 @@ const animationDoneListener = () => {
 
 
 // 忽略滚动的范围，此范围内不触发topbar状态变化
-const topbarDisplayTriggerIgnoreScrollY = 500;
+const topbarDisplayTriggerIgnoreScrollY = 200;
 // 触发topbar状态变化的距离阈值
 // TODO: 监测索引页的cover动画，卡片页的移动动画，阈值应大于它们
 // 索引页cover最大300px，卡片页移动动画最大240px

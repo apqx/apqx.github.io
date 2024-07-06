@@ -302,6 +302,13 @@ sitemap: false
                 "path": "https://www.bilibili.com/video/BV17G411w7uv",
                 "title": "【杜鸿泽】水浒记·借茶（醉罗歌）"
             }
+        },
+        {
+            "id": "ot11",
+            "target": {
+                "path": "https://www.bilibili.com/video/BV18G411H7Eu",
+                "title": "【张唐逍】孽海记·思凡（哭皇天、香雪灯）"
+            }
         }
     ]
 }
