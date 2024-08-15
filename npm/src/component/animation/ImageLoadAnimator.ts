@@ -11,7 +11,7 @@ export class ImageLoadAnimator {
     widthResizeObserver: ResizeWidthObserver
 
     /**
-     * 
+     * 为图片加载添加高度变化动画
      * @param imgE 目标图片元素
      * @param ratio 图片宽高比
      * @param monitorResize 是否监听宽度变化，动画调整高度，false会在加载完成后设置高度为auto，之后不会再有动画

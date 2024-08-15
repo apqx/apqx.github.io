@@ -134,6 +134,9 @@ function getGridLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
 
 const INDEX_TOP_COVER_RATIO = 844 / 295
 
+/**
+ * 初始化首页封面，监听下载状态，启动高度变化动画
+ */
 function initIndexTopCover() {
     for (const ele of document.querySelectorAll(".index-top-cover.height-animation")) {
         const imgE = ele as HTMLImageElement
