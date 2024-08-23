@@ -16,8 +16,8 @@
 }
 
 .fab--blur {
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
     @include fab.container-color(var(--fab-blur));
 }
 
