@@ -6,7 +6,7 @@ import {showAlertDialog} from "./dialog/CommonAlertDialog";
 export function initFab() {
     // 为fab添加ripple动画
     const fabE: HTMLElement = document.querySelector(".mdc-fab")
-    new MDCRipple(fabE)
+    // new MDCRipple(fabE)
     // topAppBar监听长按，把当前页编码后的URL复制到剪切板上
     fabE.addEventListener("long-press", () => {
         consoleDebug("Long-press fab")

@@ -30,8 +30,12 @@ body {
     @include top-app-bar.fill-color(var(--top-bar-blur));
 }
 
-.mdc-top-app-bar .mdc-icon-button__ripple {
-    @include ripple.states(white, true);
+.mdc-top-app-bar__action-item.mdc-icon-button,
+.mdc-top-app-bar__navigation-icon.mdc-icon-button {
+    @include ripple.surface;
+    @include ripple.radius-unbounded(100%);
+    @include ripple.states-base-color(white);
+    @include ripple.states-opacities((hover: .0, focus: .0, press: .1));
 }
 
 .mdc-top-app-bar__row {

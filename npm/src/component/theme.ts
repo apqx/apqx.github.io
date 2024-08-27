@@ -1,4 +1,4 @@
-import { isMobileOrTablet, toggleClassWithEnable } from "../util/tools";
+import { isChrome, isMobileOrTablet, isSafari, toggleClassWithEnable } from "../util/tools";
 import { consoleDebug } from "../util/log";
 import { localRepository } from "../repository/LocalRepository";
 import { iconToggleTheme } from "./topbar";
@@ -28,7 +28,12 @@ function checkMetaThemeColor(dark: boolean) {
         // 在mobile或tablet设备上添加theme-color，无论是暗色还是亮色主题，都设置浏览器标题栏theme-color主题颜色为淡红色
         // <meta name="theme-color" content="#df696e" />
         // 暗色主题下不设置theme-color
-        setMetaThemeColor("#df696e")
+        if (isSafari()) {
+            setMetaThemeColor("#ee6e73")
+        } else {
+            // 使用更暗的主题色，避免标题栏的字体为黑色
+            setMetaThemeColor("#df696e")
+        }
     } else {
         // desktop设备上，topBar固定背景模糊
 

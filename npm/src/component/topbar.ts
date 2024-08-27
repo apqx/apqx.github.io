@@ -29,6 +29,10 @@ export function initTopbar() {
 
     topAppBar = new MDCTopAppBar(topAppBarE)
     iconToggleTheme = new MDCIconButtonToggle(btnThemeE)
+    // 桌面浏览器启用毛玻璃
+    // if (!isMobileOrTablet()) {
+        // toggleTopbarGlass(true)
+    // }
 
     // 监听topbar的主题切换按钮
     btnThemeE.addEventListener("click", () => {
@@ -70,8 +74,12 @@ export function setFixedTopbar(on: boolean) {
         // 移动设备会设置theme-color，不启用毛玻璃
     } else {
         // 桌面设备不设置theme-color，启用毛玻璃
-        toggleClassWithEnable(topAppBarE, "top-app-bar--blur", on)
+        toggleTopbarGlass(on)
     }
+}
+
+export function toggleTopbarGlass(on: boolean) {
+    toggleClassWithEnable(topAppBarE, "top-app-bar--blur", on)
 }
 
 const animationDoneListener = () => {

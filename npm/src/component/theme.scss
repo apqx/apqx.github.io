@@ -94,13 +94,13 @@ $content-card-elevation: (
 );
 
 $chip-ripple: (
-        light: #e99684,
+        light: #f08b74,
         dark: rgb(148, 88, 88),
 );
 
 $button-ripple: (
-        light: #fdc1c1,
-        dark: #feb7b7,
+        light: white,
+        dark: white,
 );
 
 @mixin light {
@@ -122,10 +122,10 @@ $button-ripple: (
 
         // Drawer
         --drawer-ink: black;
-        --drawer-scrim-bg: rgba(0, 0, 0, 0.1);
+        --drawer-scrim-bg: rgba(0, 0, 0, 0);
 
         // Dialog
-        --dialog-scrim-bg: rgba(0, 0, 0, 0.1);
+        --dialog-scrim-bg: rgba(0, 0, 0, 0);
 
         // Button
         --button-bg: #d75f64;
@@ -155,8 +155,9 @@ $button-ripple: (
 
         --link-color: #2b00fe;
         --em-color: #535c68;
-        --strong-color: rgba(0, 0, 0, 0.90);
-        --strong-underline-color: rgba(255, 0, 0, 0.12);
+        --strong-color: rgba(0, 0, 0, 0.9);
+        --strong-underline-color: rgba(255, 0, 0, 0.1);
+        --tag-underline-color: rgba(255, 0, 0, 0.1);
         --divider-color: rgba(0, 0, 0, 0.12);
         --table-list-border-radius: 0.3rem;
 
@@ -195,10 +196,10 @@ $button-ripple: (
 
         // Drawer
         --drawer-ink: white;
-        --drawer-scrim-bg: rgba(0, 0, 0, 0.1);
+        --drawer-scrim-bg: rgba(0, 0, 0, 0);
 
         // Dialog
-        --dialog-scrim-bg: rgba(0, 0, 0, 0.1);
+        --dialog-scrim-bg: rgba(0, 0, 0, 0);
 
         --button-bg: #b44c50;
         --button-ink: white;
@@ -228,7 +229,8 @@ $button-ripple: (
         --link-color: #54a0ff;
         --em-color: rgba(255, 255, 255, 0.65);
         --strong-color: rgba(255, 255, 255, 0.95);
-        --strong-underline-color: rgba(254, 96, 96, 0.3);
+        --strong-underline-color: rgba(255, 96, 96, 0.3);
+        --tag-underline-color: rgba(255, 96, 96, 0.3);
         --divider-color: #2a2a2a;
 
         --surface-block-border: rgba(188, 188, 188, 0.4);
@@ -267,7 +269,7 @@ body {
 
         --top-card-to-container-top: 0.74rem;
 
-        --dialog-animation-duration: 0.4s;
+        --dialog-animation-duration: 0.3s;
         --dialog-animation-translate-y: 10rem;
         --cover-animation-duration: 0.8s;
         --card-animation-duration: 0.8s;

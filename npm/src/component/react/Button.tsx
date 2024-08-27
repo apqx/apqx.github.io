@@ -33,8 +33,7 @@ export class Button extends React.Component<Props, any> {
 
     render() {
         return (
-            <button type="button" className="mdc-button mdc-button--unelevated" tabIndex={-1}>
-                <span className="mdc-button__ripple"></span>
+            <button type="button" className="mdc-button" tabIndex={-1}>
                 <span className="mdc-button__label">{this.props.text}</span>
             </button>
         )

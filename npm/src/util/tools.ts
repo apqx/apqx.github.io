@@ -71,6 +71,26 @@ export function isMobileOrTablet(): boolean {
     return check
 }
 
+export function isChrome(): boolean {
+    let check = false
+    let agent = navigator.userAgent || navigator.vendor
+    if (/Chrome/.test(agent)) {
+        check = true
+    }
+    consoleDebug("IsChrome = " + check)
+    return check
+}
+
+export function isSafari(): boolean {
+    let check = false
+    let agent = navigator.userAgent || navigator.vendor
+    if (/Safari/.test(agent) && !/Chrome/.test(agent) && !/Android/.test(agent) && !/Firefox/.test(agent)) {
+        check = true
+    }
+    consoleDebug("IsSafari = " + check)
+    return check
+}
+
 var debugMode:boolean = undefined
 var writingMode:boolean = undefined
 

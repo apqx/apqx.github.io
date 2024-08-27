@@ -14,14 +14,17 @@
 .mdc-button {
     @include button.container-fill-color(var(--button-bg));
     @include button.ink-color(var(--button-ink));
+
+    @include ripple.surface;
+    // 如果为bounded则宽度可能有问题，导致横向溢出，滚动🤔
+    @include ripple.radius-unbounded(100%);
+    @include ripple.states-base-color(map.get(blogTheme.$button-ripple, "light"));
+    @include ripple.states-opacities((hover: .0, focus: .0, press: .1));
 }
 
-.mdc-button .mdc-button__ripple {
-    @include ripple.states(map.get(blogTheme.$button-ripple, "light"), true);
-}
-
-.dark .mdc-button .mdc-button__ripple {
-    @include ripple.states(map.get(blogTheme.$button-ripple, "dark"), true);
+.dark .mdc-button {
+    @include ripple.states-base-color(map.get(blogTheme.$button-ripple, "dark"));
+    @include ripple.states-opacities((hover: .0, focus: .0, press: .1));
 }
 
 .mdc-button.btn-round {

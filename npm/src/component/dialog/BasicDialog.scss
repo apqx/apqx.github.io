@@ -37,6 +37,8 @@
     background-color: var(--dialog-scrim-bg);
     opacity: 0 !important;
     transition: opacity var(--dialog-animation-duration) ease !important;
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
 }
 
 .mdc-dialog--open .mdc-dialog__scrim {

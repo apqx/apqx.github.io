@@ -1,4 +1,5 @@
 @use "../theme" as blogTheme;
+@use "../tag.scss";
 @use "../react/LoadingHint.scss";
 @use "../react/Button.scss";
 @use "@material/button";
@@ -38,14 +39,14 @@ input {
     @include button.ink-color(var(--chip-ink));
     @include button.container-fill-color(var(--chip-bg));
     min-width: fit-content;
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+
+    @include tag.btnChipRipple();
 }
 
-.mdc-button.btn-search .mdc-button__ripple {
-    @include ripple.states(map.get(blogTheme.$chip-ripple, "light"), false);
-}
-
-.dark .mdc-button.btn-search .mdc-button__ripple {
-    @include ripple.states(map.get(blogTheme.$chip-ripple, "dark"), false);
+.dark .mdc-button.btn-search {
+    @include tag.btnChipRippleDark();
 }
 
 .search-result-item-type {

@@ -31,6 +31,8 @@
     z-index: 2;
     background-color: var(--drawer-scrim-bg);
     transition: opacity var(--dialog-animation-duration) ease !important;
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
 }
 
 .mdc-drawer__title {
@@ -51,7 +53,12 @@
 }
 
 .nav-list .mdc-deprecated-list-item.mdc-deprecated-list-item--selected {
-    background-color: color.adjust(blogTheme.$top-bar-color, $alpha: -0.9);;
+    // background-color: color.adjust(blogTheme.$top-bar-color, $alpha: -0.9);
+    background-color: rgba(60, 60, 60, .05);
+}
+
+.dark .nav-list .mdc-deprecated-list-item.mdc-deprecated-list-item--selected {
+    background-color: rgba(152, 152, 152, .05);
 }
 
 .nav-list {
