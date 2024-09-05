@@ -12,13 +12,17 @@ $code-block-font: "LXGW WenKai Mono GB", "LXGW WenKai GB", "PingFang SC", Roboto
 @use "@material/typography" with ($font-family: $text-font);
 @use "@material/typography/mdc-typography";
 @use "sass:map";
+@use "sass:color";
 
 $screen-middle-min-width: 600px;
 $screen-middle-max-width: 880px;
 $center-card-max-width: 880px;
 
 $top-bar-color: #ee6e73;
-$top-bar-color-darken: #df696e;
+$top-bar-color-darken: (light: #df696e, dark: #b44c50);
+
+// $top-bar-color: #b58373;
+// $top-bar-color-darken: (light: #895e50, dark: #71493c);
 $top-bar-blur-color: (
         light: rgba(226, 64, 71, 0.75),
         dark: rgba(252, 105, 111, 0.75)
@@ -58,7 +62,7 @@ $text-secondary-on-background: (
 
 $top-bar-elevation: (
         elevation: 3,
-        shadow-light: $top-bar-color-darken,
+        shadow-light: map.get($top-bar-color-darken, "light"),
         shadow-dark: #202020
 );
 $drawer-elevation: (
@@ -128,7 +132,7 @@ $button-ripple: (
         --dialog-scrim-bg: rgba(0, 0, 0, 0);
 
         // Button
-        --button-bg: #d75f64;
+        --button-bg: #{map.get($top-bar-color-darken, "light")};
         --button-ink: white;
         --search-nav: #a25462;
 
@@ -138,7 +142,7 @@ $button-ripple: (
         --pre-code-bg: #15171a;
 
         // Chip
-        --chip-bg: #ffeae3;
+        --chip-bg: #fff3ee;
         --chip-ink: #84565e;
         --list-chip-1-bg: rgba(211, 196, 249, 0.48);
         --list-chip-1-ink: #8167c1;
@@ -156,9 +160,10 @@ $button-ripple: (
         --link-color: #2b00fe;
         --em-color: #535c68;
         --strong-color: rgba(0, 0, 0, 0.9);
-        --strong-underline-color: rgba(255, 0, 0, 0.1);
-        --tag-underline-color: rgba(255, 0, 0, 0.1);
+        --strong-underline-color: rgba(255, 119, 74, 0.15);
+        --tag-underline-color: rgba(255, 119, 74, 0.15);
         --divider-color: rgba(0, 0, 0, 0.12);
+        --blockquote-border: #e2a08a;
         --table-list-border-radius: 0.3rem;
 
         --surface-block-border: rgba(188, 188, 188, 0.5);
@@ -201,7 +206,7 @@ $button-ripple: (
         // Dialog
         --dialog-scrim-bg: rgba(0, 0, 0, 0);
 
-        --button-bg: #b44c50;
+        --button-bg: #{map.get($top-bar-color-darken, "dark")};
         --button-ink: white;
         --search-nav: rgba(228, 96, 117, 0.93);
 
@@ -211,8 +216,8 @@ $button-ripple: (
         --pre-code-bg: #0f0f0f;
 
         // Chip
-        --chip-bg: rgba(134, 83, 81, 0.2);
-        --chip-ink: #c67c3b;
+        --chip-bg: rgba(78, 63, 63, 0.2);
+        --chip-ink: #aa7241;
         --list-chip-1-bg: rgba(212, 197, 249, 0.18);
         --list-chip-1-ink: rgb(210, 195, 249);
         --list-chip-1-border: rgba(210, 195, 249, 0.3);
@@ -229,9 +234,10 @@ $button-ripple: (
         --link-color: #54a0ff;
         --em-color: rgba(255, 255, 255, 0.65);
         --strong-color: rgba(255, 255, 255, 0.95);
-        --strong-underline-color: rgba(255, 96, 96, 0.3);
-        --tag-underline-color: rgba(255, 96, 96, 0.3);
+        --strong-underline-color: rgba(255, 128, 85, 0.3);
+        --tag-underline-color: rgba(255, 128, 85, 0.3);
         --divider-color: #2a2a2a;
+        --blockquote-border: #9c6d5e;
 
         --surface-block-border: rgba(188, 188, 188, 0.4);
         --surface-block-bg: rgba(0, 0, 0, 0.1);

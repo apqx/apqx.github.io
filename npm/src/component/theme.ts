@@ -24,6 +24,10 @@ export function initTheme() {
 }
 
 function checkMetaThemeColor(dark: boolean) {
+    // 淡褐色主题
+    // setMetaThemeColor("#b58373")
+
+    // 淡红色主题
     if (isMobileOrTablet()) {
         // 在mobile或tablet设备上添加theme-color，无论是暗色还是亮色主题，都设置浏览器标题栏theme-color主题颜色为淡红色
         // <meta name="theme-color" content="#df696e" />

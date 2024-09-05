@@ -5,14 +5,14 @@ title: "Android中的MVP与MVVM"
 author: 立泉
 mention: 架构
 date: 2019-03-07 +0800
-description: 我在工作和学习中大量使用过MVP，对MVC和MVVM只是有所耳闻，接触Kotlin和Jetpack后，开始尝试在自己的练习中使用这些新东西，编程的感觉也不再是入门时枯燥的堆砌代码，而是像打造艺术品一样津津有味，这样的变化真实而有趣。
+description: 我在工作和学习中大量使用过MVP，对MVC和MVVM只是有所耳闻，后来接触Kotlin和Jetpack，开始尝试更现代的新东西。编程感觉也不再是入门时枯燥的堆砌代码，而是像打造艺术品一样津津有味，这样的变化真实而有趣。
 cover: 
 tags: Code Android MVP MVVM
 ---
 
-我刚开始学习`Android`的时候只晓得`Activity`可以控制UI，并不懂`设计模式`，也不知道那些操作数据的逻辑代码应该如何归类，便索性把它们都堆砌在`Activity`和`Fragment`里。但随着我练习的逻辑越来越复杂，`Activity`的代码结构开始变得混乱起来，越来越臃肿，几乎无法维护，那种在一个`class`里各种方法间到处跳来跳去的感觉，岂止是酸爽。后来我看到了`MVP`，顿时豁然开朗，原来还可以这样，它将`View`和`Model`彻底分离，用`Presenter`承上启下，让代码里每一个UI驱动的逻辑都变得十分清晰。
+初学`Android`只晓得`Activity`可以控制UI，并不懂`设计模式`，也不知道那些操作数据的逻辑代码应该如何归类，索性都堆砌在`Activity`和`Fragment`里。但随着练习的逻辑越来越复杂，`Activity`的代码结构开始变得混乱起来，越来越臃肿，几乎无法维护，那种在一个`class`里各种方法间到处跳来跳去的感觉，岂止酸爽。后来看到`MVP`，顿时豁然开朗，原来还可以这样，它将`View`和`Model`彻底分离，用`Presenter`承上启下，让代码里每一个UI驱动的逻辑都十分清晰。
 
-我确实喜欢`MVP`，也把它大量用在了我的工作中，之后又开始接触`Jetpack`，其`DataBinding`、`LiveData`和`ViewModel`都在向我预示着一个新的设计模式：`MVVM`。它的`View`和`Model`概念均与`MVP`中一致，不同的是`ViewModel`，把视图和数据进行了双向绑定，当数据发生变化时视图自动更新，而视图的变化也会直接作用到数据上。这种比`MVP`更简洁的结构让我很感兴趣，想要了解它，尝试使用它。
+我确实喜欢`MVP`，也在工作中大量使用，之后又接触到`Jetpack`，其`DataBinding`、`LiveData`和`ViewModel`都在向我预示着一个新的设计模式：`MVVM`。它的`View`和`Model`概念与`MVP`中一致，不同的是`ViewModel`，把视图和数据进行双向绑定，当数据发生变化时视图自动更新，而视图的变化也会直接作用到数据上。这种比`MVP`更简洁的结构让我很感兴趣。
 
 ## 古老的MVC
 
