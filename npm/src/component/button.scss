@@ -17,6 +17,7 @@
 
     @include ripple.surface;
     // 如果为bounded则宽度可能有问题，导致横向溢出，滚动🤔
+    // Dialog的surface的尺寸异常导致滚动，已设置设置其overflow为clip
     @include ripple.radius-unbounded(100%);
     @include ripple.states-base-color(map.get(blogTheme.$button-ripple, "light"));
     @include ripple.states-opacities((hover: .0, focus: .0, press: .1));

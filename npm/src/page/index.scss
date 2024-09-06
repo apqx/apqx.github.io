@@ -104,9 +104,12 @@ body {
 
 .index-top-card-text {
     @include typography.typography(subtitle1);
-    font-family: blogTheme.$handwritten-font-index;
     text-align: right;
     font-size: 1.1rem;
+}
+
+.handwritten-index {
+    font-family: blogTheme.$handwritten-font-index;
 }
 
 .index-card {

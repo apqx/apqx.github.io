@@ -12,6 +12,7 @@
 .about-me-description {
     // @include typography.typography(body1);
     margin: 1.6rem 1rem;
+    line-break: loose;
 }
 
 .circle-avatar {

@@ -3,7 +3,7 @@ $text-font: unquote("PingFangSCEllipsis, LXGW WenKai GB, PingFang SC, Roboto, sa
 // 兰亭题序国风行楷
 $handwritten-font: "AaLTTXGFXK", "LXGW WenKai GB", "PingFang SC", Roboto, sans-serif, "Apple Color Emoji", "Noto Color Emoji";
 // 索引页的许静行楷
-$handwritten-font-index: "HYXuJingXingKaiWIndex", "LXGW WenKai GB", "PingFang SC", Roboto, sans-serif, "Apple Color Emoji", "Noto Color Emoji";
+$handwritten-font-index: "HYXuJingXingKaiW", "LXGW WenKai GB", "PingFang SC", Roboto, sans-serif, "Apple Color Emoji", "Noto Color Emoji";
 $code-block-font: "LXGW WenKai Mono GB", "LXGW WenKai GB", "PingFang SC", Roboto, sans-serif, "Apple Color Emoji", "Noto Color Emoji";
 
 // 先引入mdc的theme，然后用自定义变量覆盖其原有配置

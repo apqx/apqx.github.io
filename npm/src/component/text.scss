@@ -126,6 +126,7 @@ a {
     // 下划线与文字的间距
     text-underline-offset: 0.25rem;
     color: unset;
+    line-break: loose;
 }
 
 a.clickable-empty-link {
