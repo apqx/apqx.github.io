@@ -51,7 +51,7 @@ h3 {
 p {
     @include basicText();
     text-align: justify;
-    line-break: anywhere;
+    line-break: loose;
 }
 
 /* 段落中单词高亮 */
@@ -117,16 +117,30 @@ strong {
 }
 
 a {
+    // 以::after伪元素方式实现下划线
+    position: relative;
+    text-decoration: none;
     // <a>不会单独出现，只会在<p>中，所以字体应继承<p>的属性，不要单独定义，否则更改<p>不会更改其中的<a>
     // @include basicText();
     // 去除移动版Chrome点击时默认的蓝色背景
     -webkit-tap-highlight-color: transparent;
-    // 链接加下划线，可能受mdc class的影响，有些地方下划线被取消了
-    text-decoration: underline;
     // 下划线与文字的间距
     text-underline-offset: 0.25rem;
     color: unset;
     line-break: loose;
+}
+
+a::after {
+    content: "";
+    position: absolute;
+    /* 下划线距离文本底部2px */
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    /* 下划线高度 */
+    height: 1px;
+    /* 下划线样式 */
+    border-bottom: 1px solid;
 }
 
 a.clickable-empty-link {
