@@ -70,12 +70,12 @@ export function setFixedTopbar(on: boolean) {
         // window.addEventListener("animationcancel", animationDoneListener)
     }
     // 只有桌面浏览器才设置毛玻璃，和theme-color的判断条件一致，毛玻璃和theme-color难以搭配，索性不搭
-    if (isMobileOrTablet()) {
-        // 移动设备会设置theme-color，不启用毛玻璃
-    } else {
-        // 桌面设备不设置theme-color，启用毛玻璃
-        toggleTopbarGlass(on)
-    }
+    // if (isMobileOrTablet()) {
+    //     // 移动设备会设置theme-color，不启用毛玻璃
+    // } else {
+    //     // 桌面设备不设置theme-color，启用毛玻璃
+    //     toggleTopbarGlass(on)
+    // }
 }
 
 export function toggleTopbarGlass(on: boolean) {

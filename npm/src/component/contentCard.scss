@@ -11,13 +11,13 @@ body {
 
 @mixin cardElevation {
     // 文章卡片的阴影，z高度，阴影颜色，扩散度
-    @include elevation.elevation(map.get(blogTheme.$content-card-elevation, "elevation"),
-        map.get(blogTheme.$content-card-elevation, "shadow-light"), 0);
+    @include elevation.elevation(map.get(blogTheme.$card-elevation, "elevation"),
+        map.get(blogTheme.$card-elevation, "shadow-light"), 0);
 }
 
 @mixin cardElevationDark {
-    @include elevation.elevation(map.get(blogTheme.$content-card-elevation, "elevation"),
-        map.get(blogTheme.$content-card-elevation, "shadow-dark"), 0);
+    @include elevation.elevation(map.get(blogTheme.$card-elevation, "elevation"),
+        map.get(blogTheme.$card-elevation, "shadow-dark"), 0);
 }
 
 .content-card {
@@ -54,12 +54,12 @@ body {
 
     .content-card {
         padding: 1.3rem 1.3rem;
-        @include elevation.elevation(map.get(blogTheme.$content-card-elevation, "elevation"),
-            map.get(blogTheme.$content-card-elevation, "min-screen-shadow-light"), 0);
+        @include elevation.elevation(map.get(blogTheme.$card-elevation, "elevation"),
+            map.get(blogTheme.$card-elevation, "min-screen-shadow-light"), 0);
     }
 
     .dark .content-card {
-        @include elevation.elevation(map.get(blogTheme.$content-card-elevation, "elevation"),
-            map.get(blogTheme.$content-card-elevation, "min-screen-shadow-dark"), 0);
+        @include elevation.elevation(map.get(blogTheme.$card-elevation, "elevation"),
+            map.get(blogTheme.$card-elevation, "min-screen-shadow-dark"), 0);
     }
 }

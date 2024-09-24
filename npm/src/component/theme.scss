@@ -18,11 +18,13 @@ $screen-middle-min-width: 600px;
 $screen-middle-max-width: 880px;
 $center-card-max-width: 880px;
 
-$top-bar-color: #ee6e73;
-$top-bar-color-darken: (light: #df696e, dark: #b44c50);
+// $top-bar-color: #ee6e73;
+// $top-bar-color-darken: (light: #df696e, dark: #b44c50);
+// $top-bar-elevation-color-light: #df696e;
 
-// $top-bar-color: #b58373;
-// $top-bar-color-darken: (light: #895e50, dark: #71493c);
+$top-bar-color: #b58373;
+$top-bar-color-darken: (light: #9a6a5a, dark: #71493c);
+$top-bar-elevation-color-light: #96776d;
 $top-bar-blur-color: (
         light: rgba(226, 64, 71, 0.75),
         dark: rgba(252, 105, 111, 0.75)
@@ -38,7 +40,7 @@ $fab-blur-color: (
 $footer-ink-color: white;
 $footer-link-color: #ffe0b2;
 $background: (
-        light: #f7f7f7,
+        light: #fafafa,
         dark: #111111,
         min-screen-dark: #111111
 );
@@ -62,41 +64,26 @@ $text-secondary-on-background: (
 
 $top-bar-elevation: (
         elevation: 3,
-        shadow-light: map.get($top-bar-color-darken, "light"),
+        shadow-light: $top-bar-elevation-color-light,
         shadow-dark: #202020
-);
-$drawer-elevation: (
-        elevation: 2,
-        shadow-light: #d5d5d5,
-        shadow-dark: #101010
 );
 $fab-elevation: (
         elevation: 3,
         shadow-light: #101010,
         shadow-dark: #101010
 );
-$index-card-elevation: (
+$drawer-elevation: (
         elevation: 2,
         shadow-light: #d5d5d5,
-        min-screen-shadow-light: #e3e3e3,
-        shadow-dark: #101010,
-        min-screen-shadow-dark: #0a0a0a,
+        shadow-dark: #0a0a0a
 );
-$grid-index-card-elevation: (
+$card-elevation: (
         elevation: 2,
-        shadow-light: #c8c8c8,
+        shadow-light: #d5d5d5,
         min-screen-shadow-light: #e3e3e3,
         shadow-dark: #0a0a0a,
         min-screen-shadow-dark: #0a0a0a,
 );
-$content-card-elevation: (
-        elevation: 2,
-        shadow-light: #c8c8c8,
-        min-screen-shadow-light: #e3e3e3,
-        shadow-dark: black,
-        min-screen-shadow-dark: #0a0a0a,
-);
-
 $chip-ripple: (
         light: #f08b74,
         dark: rgb(148, 88, 88),
@@ -162,7 +149,7 @@ $button-ripple: (
         --strong-color: rgba(0, 0, 0, 0.9);
         --strong-underline-color: rgba(255, 119, 74, 0.15);
         --tag-underline-color: rgba(255, 119, 74, 0.15);
-        --divider-color: rgba(0, 0, 0, 0.12);
+        --divider-color: rgba(0, 0, 0, 0.1);
         --blockquote-border: #e2a08a;
         --table-list-border-radius: 0.3rem;
 

@@ -21,6 +21,7 @@
     @include drawer.item-activated-text-ink-color(var(--drawer-ink));
     @include drawer.item-activated-icon-ink-color(var(--drawer-ink));
     // transition: transform 0.2s ease-out !important;
+    border: none;
 }
 
 .dark .mdc-drawer {

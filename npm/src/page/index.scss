@@ -33,33 +33,23 @@ body {
 }
 
 @mixin cardElevation {
-    @include elevation.elevation(map.get(blogTheme.$index-card-elevation, "elevation"),
-        map.get(blogTheme.$index-card-elevation, "shadow-light"), 0);
+    @include elevation.elevation(map.get(blogTheme.$card-elevation, "elevation"),
+        map.get(blogTheme.$card-elevation, "shadow-light"), 0);
 }
 
 @mixin cardElevationDark {
-    @include elevation.elevation(map.get(blogTheme.$index-card-elevation, "elevation"),
-        map.get(blogTheme.$index-card-elevation, "shadow-dark"), 0);
+    @include elevation.elevation(map.get(blogTheme.$card-elevation, "elevation"),
+        map.get(blogTheme.$card-elevation, "shadow-dark"), 0);
 }
 
 @mixin cardElevationMiniScreen {
-    @include elevation.elevation(map.get(blogTheme.$index-card-elevation, "elevation"),
-        map.get(blogTheme.$index-card-elevation, "min-screen-shadow-light"), 0);
+    @include elevation.elevation(map.get(blogTheme.$card-elevation, "elevation"),
+        map.get(blogTheme.$card-elevation, "min-screen-shadow-light"), 0);
 }
 
 @mixin cardElevationMiniScreenDark {
-    @include elevation.elevation(map.get(blogTheme.$index-card-elevation, "elevation"),
-        map.get(blogTheme.$index-card-elevation, "min-screen-shadow-dark"), 0);
-}
-
-@mixin gridCardElevation {
-    @include elevation.elevation(map.get(blogTheme.$grid-index-card-elevation, "elevation"),
-        map.get(blogTheme.$grid-index-card-elevation, "shadow-light"), 0);
-}
-
-@mixin gridCardElevationDark {
-    @include elevation.elevation(map.get(blogTheme.$grid-index-card-elevation, "elevation"),
-        map.get(blogTheme.$grid-index-card-elevation, "shadow-dark"), 0);
+    @include elevation.elevation(map.get(blogTheme.$card-elevation, "elevation"),
+        map.get(blogTheme.$card-elevation, "min-screen-shadow-dark"), 0);
 }
 
 @mixin cardRipple {
@@ -67,19 +57,12 @@ body {
     @include ripple.surface;
     @include ripple.radius-bounded(100%);
     @include ripple.states-base-color(rgb(0, 0, 0));
-    @include ripple.states-opacities((hover: .0, focus: .0, press: .08));
-}
-
-@mixin cardRippleDeeper {
-    @include cardRipple();
-    @include ripple.states-opacities((hover: .0, focus: .0, press: .1));
+    @include ripple.states-opacities((hover: .0, focus: .0, press: .04));
 }
 
 @mixin cardRippleDark {
-    // @include ripple.states-base-color(rgb(0, 0, 0));
-    // @include ripple.states-opacities((hover: .0, focus: .0, press: 0.25));
     @include ripple.states-base-color(rgb(255, 255, 255));
-    @include ripple.states-opacities((hover: .0, focus: .0, press: 0.05));
+    @include ripple.states-opacities((hover: .0, focus: .0, press: .05));
 }
 
 .index-top-card {
@@ -126,22 +109,15 @@ body {
 
 // 小屏
 @media all and (max-width: blogTheme.$screen-middle-max-width) {
-    .index-card {
+    .index-top-card, .index-card {
         @include cardElevationMiniScreen();
     }
 
-    .dark .index-card {
-        @include cardElevationMiniScreenDark();
+    .dark {
+        .index-top-card, .index-card {
+            @include cardElevationMiniScreenDark();
+        }
     }
-
-    .index-top-card {
-        @include cardElevationMiniScreen();
-    }
-
-    .dark .index-top-card {
-        @include cardElevationMiniScreenDark();
-    }
-
 }
 
 .index-top-cover {
@@ -241,15 +217,15 @@ body {
 }
 
 .grid-index-card {
-    @include gridCardElevation();
+    @include cardElevation();
 }
 
 .dark .grid-index-card {
-    @include gridCardElevationDark();
+    @include cardElevationDark();
 }
 
 .grid-index-card__ripple {
-    @include cardRippleDeeper();
+    @include cardRipple();
 }
 
 .dark .grid-index-card__ripple {
@@ -324,6 +300,14 @@ body {
         --index-card-to-container-border-horizontal: 0.5rem;
         --index-card-gap: 0.6rem;
         --grid-index-card-gap: 0.7rem;
+    }
+
+    .grid-index-card {
+        @include cardElevationMiniScreen();
+    }
+    
+    .dark .grid-index-card {
+        @include cardElevationMiniScreenDark();
     }
 
     .index-author {
