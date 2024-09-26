@@ -57,7 +57,7 @@ body {
     @include ripple.surface;
     @include ripple.radius-bounded(100%);
     @include ripple.states-base-color(rgb(0, 0, 0));
-    @include ripple.states-opacities((hover: .0, focus: .0, press: .04));
+    @include ripple.states-opacities((hover: .0, focus: .0, press: .05));
 }
 
 @mixin cardRippleDark {

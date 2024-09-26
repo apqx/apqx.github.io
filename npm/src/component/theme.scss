@@ -20,27 +20,45 @@ $center-card-max-width: 880px;
 
 // $top-bar-color: #ee6e73;
 // $top-bar-color-darken: (light: #df696e, dark: #b44c50);
-// $top-bar-elevation-color-light: #df696e;
+// $top-bar-elevation-color: #df696e;
 
-$top-bar-color: #b58373;
-$top-bar-color-darken: (light: #9a6a5a, dark: #71493c);
-$top-bar-elevation-color-light: #96776d;
-$top-bar-blur-color: (
-        light: rgba(226, 64, 71, 0.75),
-        dark: rgba(252, 105, 111, 0.75)
+// darken用作button颜色
+// blur是待透明度的相同颜色
+// elevation是阴影颜色
+$top-bar-color: (
+        light: #c77d70,
+        light-blur: rgba(163, 37, 12, 0.6),
+        light-darken: #c1786b,
+        light-elevation: #a46053,
+        dark: #9f5d50,
+        dark-blur: rgba(255, 145, 122, 0.6),
+        dark-darken: #8a4f43,
+        dark-elevation: #a46053,
 );
+
+// 黑白配色
+// $top-bar-color: (
+//         light: #fefefe,
+//         light-blur: rgba(255, 255, 255, 0.8),
+//         light-darken: #c1786b,
+//         light-elevation: #e3e3e3,
+//         dark: #181818,
+//         dark-blur: rgba(25, 25, 25, 0.8),
+//         dark-darken: #8a4f43,
+//         dark-elevation: #0a0a0a,
+// );
+
 $fab-color: (
         light: #353535,
-        dark: #303030
+        light-blur: rgba(0, 0, 0, 0.6),
+        dark: #303030,
+        dark-blur: rgba(58, 58, 58, 0.5)
 );
-$fab-blur-color: (
-        light: rgba(0, 0, 0, 0.6),
-        dark: rgba(58, 58, 58, 0.5)
-);
+
 $footer-ink-color: white;
 $footer-link-color: #ffe0b2;
 $background: (
-        light: #fafafa,
+        light: #f9f9f9,
         dark: #111111,
         min-screen-dark: #111111
 );
@@ -63,14 +81,14 @@ $text-secondary-on-background: (
 );
 
 $top-bar-elevation: (
-        elevation: 3,
-        shadow-light: $top-bar-elevation-color-light,
-        shadow-dark: #202020
+        elevation: 2,
+        shadow-light: map.get($top-bar-color, "light-elevation"),
+        shadow-dark: map.get($top-bar-color, "dark-elevation"),
 );
 $fab-elevation: (
-        elevation: 3,
-        shadow-light: #101010,
-        shadow-dark: #101010
+        elevation: 2,
+        shadow-light: #2a2a2a,
+        shadow-dark: #1a1a1a
 );
 $drawer-elevation: (
         elevation: 2,
@@ -95,7 +113,7 @@ $button-ripple: (
 );
 
 @mixin light {
-        --mdc-theme-primary: #{$top-bar-color};
+        --mdc-theme-primary: #{map.get($top-bar-color, "light")};
         --mdc-theme-on-primary: #f5f5f5;
         --mdc-theme-secondary: #{map.get($fab-color, "light")};
         --mdc-theme-on-secondary: #f5f5f5;
@@ -108,8 +126,8 @@ $button-ripple: (
         // 小标题字体色
         --mdc-theme-text-secondary-on-background: #{map.get($text-secondary-on-background, "light")};
 
-        --top-bar-blur: #{map.get($top-bar-blur-color, "light")};
-        --fab-blur: #{map.get($fab-blur-color, "light")};
+        --top-bar-blur: #{map.get($top-bar-color, "light-blur")};
+        --fab-blur: #{map.get($fab-color, "light-blur")};
 
         // Drawer
         --drawer-ink: black;
@@ -119,13 +137,13 @@ $button-ripple: (
         --dialog-scrim-bg: rgba(0, 0, 0, 0);
 
         // Button
-        --button-bg: #{map.get($top-bar-color-darken, "light")};
+        --button-bg: #{map.get($top-bar-color, "light-darken")};
         --button-ink: white;
         --search-nav: #a25462;
 
         // Code
-        --code-highlight-bg: #f8f9fa;
-        --code-highlight-border: #e8eaed;
+        --code-highlight-bg: #fbfbfb;
+        --code-highlight-border: #e8e8e8;
         --pre-code-bg: #15171a;
 
         // Chip
@@ -173,7 +191,7 @@ $button-ripple: (
 }
 
 @mixin dark {
-        --mdc-theme-primary: #{$top-bar-color};
+        --mdc-theme-primary: #{map.get($top-bar-color, "dark")};
         --mdc-theme-on-primary: #f5f5f5;
         --mdc-theme-secondary: #{map.get($fab-color, "dark")};
         --mdc-theme-on-secondary: #f5f5f5;
@@ -183,8 +201,8 @@ $button-ripple: (
         --mdc-theme-text-primary-on-background: #f5f5f5;
         --mdc-theme-text-secondary-on-background: #{map.get($text-secondary-on-background, "dark")};
 
-        --top-bar-blur: #{map.get($top-bar-blur-color, "dark")};
-        --fab-blur: #{map.get($fab-blur-color, "dark")};
+        --top-bar-blur: #{map.get($top-bar-color, "dark-blur")};
+        --fab-blur: #{map.get($fab-color, "dark-blur")};
 
         // Drawer
         --drawer-ink: white;
@@ -193,7 +211,7 @@ $button-ripple: (
         // Dialog
         --dialog-scrim-bg: rgba(0, 0, 0, 0);
 
-        --button-bg: #{map.get($top-bar-color-darken, "dark")};
+        --button-bg: #{map.get($top-bar-color, "dark-darken")};
         --button-ink: white;
         --search-nav: rgba(228, 96, 117, 0.93);
 

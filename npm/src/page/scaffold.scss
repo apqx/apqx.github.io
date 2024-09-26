@@ -40,7 +40,7 @@ main {
 }
 
 footer {
-    background-color: blogTheme.$top-bar-color;
+    background-color: var(--mdc-theme-primary);
     display: flex;
     flex-direction: column;
 }
@@ -56,7 +56,7 @@ footer a {
 
 .foot-header {
     height: 1.5rem;
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: rgba(0, 0, 0, 0.04);
 }
 
 .copyright {

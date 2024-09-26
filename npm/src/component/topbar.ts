@@ -76,6 +76,8 @@ export function setFixedTopbar(on: boolean) {
     //     // 桌面设备不设置theme-color，启用毛玻璃
     //     toggleTopbarGlass(on)
     // }
+
+    // toggleTopbarGlass(true)
 }
 
 export function toggleTopbarGlass(on: boolean) {

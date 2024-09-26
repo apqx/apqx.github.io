@@ -1,7 +1,7 @@
 import { isChrome, isMobileOrTablet, isSafari, toggleClassWithEnable } from "../util/tools";
 import { consoleDebug } from "../util/log";
 import { localRepository } from "../repository/LocalRepository";
-import { iconToggleTheme } from "./topbar";
+import { iconToggleTheme, toggleTopbarGlass } from "./topbar";
 
 export const darkClass = "dark"
 
@@ -24,31 +24,23 @@ export function initTheme() {
 }
 
 function checkMetaThemeColor(dark: boolean) {
-    // 淡褐色主题
-    // setMetaThemeColor("#b58373")
-
-    // 淡红色主题
-    // if (isMobileOrTablet()) {
-    //     // 在mobile或tablet设备上添加theme-color，无论是暗色还是亮色主题，都设置浏览器标题栏theme-color主题颜色为淡红色
-    //     // <meta name="theme-color" content="#df696e" />
-    //     // 暗色主题下不设置theme-color
-    //     if (isSafari()) {
-    //         setMetaThemeColor("#ee6e73")
-    //     } else {
-    //         // 使用更暗的主题色，避免标题栏的字体为黑色
-    //         setMetaThemeColor("#df696e")
-    //     }
-    // } else {
-    //     // desktop设备上，topBar固定背景模糊
-
-    //     // 在desktop设备上，暗色和亮色主题下，分别设置theme-color为background，若不设置，Safari会自动使用检测到的background颜色作为theme-color
-    //     // 但是在系统暗色主题下，设置亮色的theme-color是无效的，所以，也就没必要再区分设置了，直接由Safari自动检测就行了
-    //     // if (showThemeDark) {
-    //     //     setThemeColor("rgb(32, 33, 36)")
-    //     // } else {
-    //     //     setThemeColor("#f7f7f7")
-    //     // }
-    // }
+    // 主题色，只有桌面端Safari不设置主题色
+    // 毛玻璃
+    if (isMobileOrTablet()) {
+        // mobile或tablet设置主题色theme-color
+        // <meta name="theme-color" content="#df696e" />
+        if (dark) {
+            setMetaThemeColor("#9f5d50")
+        } else {
+            setMetaThemeColor("#c77d70")
+        }
+        toggleTopbarGlass(false)
+    } else {
+        // desktop不设置主题色，Safari会自动使用检测到的background颜色作为theme-color
+        // 启用毛玻璃
+        // 暗色主题下，设置亮色的theme-color是无效的
+        toggleTopbarGlass(true)
+    }
 }
 
 /**

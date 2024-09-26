@@ -17,6 +17,9 @@ body {
     @include top-app-bar.fill-color(var(--mdc-theme-primary));
     // 阴影
     @include elevation.elevation(map.get(blogTheme.$top-bar-elevation, "elevation"), map.get(blogTheme.$top-bar-elevation, "shadow-light"), 0);
+    // i {
+    //     color: var(--mdc-theme-on-surface);
+    // }
 }
 
 .dark .mdc-top-app-bar {
@@ -25,8 +28,8 @@ body {
 }
 
 .top-app-bar--blur {
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
     @include top-app-bar.fill-color(var(--top-bar-blur));
 }
 
