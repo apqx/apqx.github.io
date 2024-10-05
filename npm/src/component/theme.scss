@@ -18,10 +18,6 @@ $screen-middle-min-width: 600px;
 $screen-middle-max-width: 880px;
 $center-card-max-width: 880px;
 
-// $top-bar-color: #ee6e73;
-// $top-bar-color-darken: (light: #df696e, dark: #b44c50);
-// $top-bar-elevation-color: #df696e;
-
 // darken用作button颜色
 // blur是待透明度的相同颜色
 // elevation是阴影颜色
@@ -102,9 +98,23 @@ $card-elevation: (
         shadow-dark: #0a0a0a,
         min-screen-shadow-dark: #0a0a0a,
 );
-$chip-ripple: (
-        light: #f08b74,
-        dark: rgb(148, 88, 88),
+// 红色
+// $chip: (
+//         bg-light: rgba(255, 235, 228, 0.5),
+//         ink-light: #964e47,
+//         ripple-light: #bdbdbd,
+//         bg-dark: rgba(39, 39, 39, 0.5),
+//         ink-dark: #aa7241,
+//         ripple-dark: rgb(112, 112, 112),
+// );
+// 白色
+$chip: (
+        bg-light: rgba(240, 240, 240, 0.5),
+        ink-light: #575757,
+        ripple-light: #bdbdbd,
+        bg-dark: rgba(39, 39, 39, 0.5),
+        ink-dark: #aaaaaa,
+        ripple-dark: rgb(112, 112, 112),
 );
 
 $button-ripple: (
@@ -139,7 +149,7 @@ $button-ripple: (
         // Button
         --button-bg: #{map.get($top-bar-color, "light-darken")};
         --button-ink: white;
-        --search-nav: #a25462;
+        --navigation: #d7667a;
 
         // Code
         --code-highlight-bg: #fbfbfb;
@@ -147,17 +157,23 @@ $button-ripple: (
         --pre-code-bg: #15171a;
 
         // Chip
-        --chip-bg: #fff3ee;
-        --chip-ink: #84565e;
-        --list-chip-1-bg: rgba(211, 196, 249, 0.48);
+        --chip-bg: #{map.get($chip, "bg-light")};
+        --chip-ink: #{map.get($chip, "ink-light")};
+        --list-chip-1-bg: rgba(224, 213, 255, 0.5);
         --list-chip-1-ink: #8167c1;
-        --list-chip-1-border: rgba(211, 196, 249, 0.91);
+        --list-chip-1-border: transparent;
         --list-chip-2-bg: rgba(255, 224, 221, 0.5);
         --list-chip-2-ink: #f77575;
-        --list-chip-2-border: rgba(252, 155, 157, 0.55);
-        --list-chip-3-bg: rgba(254, 242, 192, 0.58);
+        --list-chip-2-border: transparent;
+        --list-chip-3-bg: rgba(254, 242, 192, 0.5);
         --list-chip-3-ink: #9a6000;
-        --list-chip-3-border: rgba(255, 224, 101, 1);
+        --list-chip-3-border: transparent;
+        --list-chip-4-bg: rgba(255, 212, 212, 0.5);
+        --list-chip-4-ink: #883232;
+        --list-chip-4-border: transparent;
+        --list-chip-5-bg: rgba(235, 235, 235, 0.5);
+        --list-chip-5-ink: #{map.get($on-surface, "light")};
+        --list-chip-5-border: transparent;
         --list-secondary-ink: #555555;
 
         --list-hover: #f5f5f5;
@@ -213,7 +229,7 @@ $button-ripple: (
 
         --button-bg: #{map.get($top-bar-color, "dark-darken")};
         --button-ink: white;
-        --search-nav: rgba(228, 96, 117, 0.93);
+        --navigation: rgb(216, 91, 112);
 
         // Code
         --code-highlight-bg: rgba(55, 55, 55, 0.18);
@@ -221,17 +237,23 @@ $button-ripple: (
         --pre-code-bg: #0f0f0f;
 
         // Chip
-        --chip-bg: rgba(78, 63, 63, 0.2);
-        --chip-ink: #aa7241;
-        --list-chip-1-bg: rgba(212, 197, 249, 0.18);
+        --chip-bg: #{map.get($chip, "bg-dark")};
+        --chip-ink: #{map.get($chip, "ink-dark")};
+        --list-chip-1-bg: rgba(54, 47, 70, 0.5);
         --list-chip-1-ink: rgb(210, 195, 249);
-        --list-chip-1-border: rgba(210, 195, 249, 0.3);
-        --list-chip-2-bg: rgba(182, 2, 5, 0.18);
+        --list-chip-1-border: transparent;
+        --list-chip-2-bg: rgba(55, 33, 34, 0.5);
         --list-chip-2-ink: rgb(253, 155, 157);
-        --list-chip-2-border: rgba(253, 155, 157, 0.3);
-        --list-chip-3-bg: rgba(254, 242, 192, 0.18);
+        --list-chip-2-border: transparent;
+        --list-chip-3-bg: rgba(52, 46, 23, 0.5);
         --list-chip-3-ink: rgb(254, 241, 190);
-        --list-chip-3-border: rgba(254, 241, 190, 0.3);
+        --list-chip-3-border: transparent;
+        --list-chip-4-bg: rgba(92, 45, 45, 0.5);
+        --list-chip-4-ink: #ec9797;
+        --list-chip-4-border: transparent;
+        --list-chip-5-bg: rgba(50, 50, 50, 0.5);
+        --list-chip-5-ink: #{map.get($on-surface, "dark")};
+        --list-chip-5-border: transparent;
         --list-secondary-ink: #c3c3c3;
 
         --list-hover: #252525;

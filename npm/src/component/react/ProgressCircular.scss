@@ -1,2 +1,6 @@
 @use "@material/circular-progress";
 @use "@material/circular-progress/mdc-circular-progress";
+
+.mdc-circular-progress {
+    @include circular-progress.color(var(--navigation));
+}

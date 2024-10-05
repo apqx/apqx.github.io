@@ -24,6 +24,14 @@ export function initTheme() {
 }
 
 function checkMetaThemeColor(dark: boolean) {
+    // 黑白配色
+    // if (dark) {
+    //     setMetaThemeColor("#181818")
+    // } else {
+    //     setMetaThemeColor("#fefefe")
+    // }
+    // toggleTopbarGlass(true)
+
     // 主题色，只有桌面端Safari不设置主题色
     // 毛玻璃
     if (isMobileOrTablet()) {

@@ -9,24 +9,25 @@
 @mixin btnChipRipple {
     @include ripple.surface;
     @include ripple.radius-unbounded(100%);
-    @include ripple.states-base-color(map.get(blogTheme.$chip-ripple, "light"));
+    @include ripple.states-base-color(map.get(blogTheme.$chip, "ripple-light"));
     @include ripple.states-opacities((hover: .0, focus: .0, press: .1));
 }
 
 @mixin btnChipRippleDark {
-    @include ripple.states-base-color(map.get(blogTheme.$chip-ripple, "dark"));
+    @include ripple.states-base-color(map.get(blogTheme.$chip, "ripple-dark"));
     @include ripple.states-opacities((hover: .0, focus: .0, press: .1));
 }
 
 .mdc-button.btn-tag {
     @include button.ink-color(var(--chip-ink));
     @include button.container-fill-color(var(--chip-bg));
-    @include button.horizontal-padding(0.7rem);
-    @include button.height(2rem);
+    @include button.horizontal-padding(0.8rem);
     text-transform: none;
     font-size: 0.9rem;
     font-weight: normal;
-    margin-top: 0.5rem;
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
+    @include button.height(2rem);
     border-radius: 1rem;
 
     @include btnChipRipple();

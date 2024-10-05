@@ -2,6 +2,7 @@
 @use "../react/Button.scss";
 @use "@material/button";
 @use '@material/button/mdc-button';
+@use "@material/ripple";
 
 .loading-hint-wrapper {
     display: grid;
@@ -10,6 +11,12 @@
 }
 
 .loading-hint-btn {
-    @include button.ink-color(var(--search-nav));
+    @include button.ink-color(var(--navigation));
     @include button.container-fill-color(transparent);
+    @include ripple.states-base-color(transparent);
+}
+
+.dark .loading-hint-btn {
+    @include button.container-fill-color(transparent);
+    @include ripple.states-base-color(transparent);
 }

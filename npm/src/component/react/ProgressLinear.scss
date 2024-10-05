@@ -2,5 +2,6 @@
 @use "@material/linear-progress/mdc-linear-progress";
 
 .mdc-linear-progress {
-    @include linear-progress.buffer-color(var(--mdc-theme-background))
+    @include linear-progress.bar-color(var(--navigation));
+    @include linear-progress.buffer-color(var(--mdc-theme-background));
 }
