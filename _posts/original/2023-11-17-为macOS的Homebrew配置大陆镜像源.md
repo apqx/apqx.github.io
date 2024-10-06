@@ -5,24 +5,24 @@ title: "为macOS的Homebrew配置大陆镜像源"
 author: 立泉
 mention: 包管理器 阿里云
 date: 2023-11-17 +0800
-description: Homebrew之于macOS正如apt之于Ubuntu，且正如apt在大陆面临的网络问题一样，Homebrew也面临着相近甚至更糟的网络问题，因为它默认的源居然就是“剪不断、理还乱”的GitHub和GitHub Packages。
+description: Homebrew之于macOS正如apt之于Ubuntu，且如apt在大陆面临的网络问题一样，Homebrew也面临着相近甚至更糟的网络问题，因为它默认的源居然就是“剪不断、理还乱”的GitHub和GitHub Packages。
 cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20231117/homebrew_social_cardcard_thumb.jpg
 tags: Code Git macOS Homebrew GitHub 阿里云 镜像源
 ---
 
-`Homebrew`之于`macOS`正如`apt`之于`Ubuntu`，且正如`apt`在大陆面临的网络问题一样，`Homebrew`也面临着相近甚至更糟的网络问题，因为它默认的`源`居然就是“剪不断、理还乱”的`GitHub`和`GitHub Packages`...后面会提到。
+`Homebrew`之于`macOS`正如`apt`之于`Ubuntu`，且如`apt`在大陆面临的网络问题一样，`Homebrew`也面临着相近甚至更糟的网络问题，因为它默认的`源`居然就是“剪不断、理还乱”的`GitHub`和`GitHub Packages`，后面会提到。
 
-[Homebrew](https://brew.sh){: target="_blank" }是`macOS`的包管理器，但并没有被其内置，需要手动安装:
+[Homebrew](https://brew.sh){: target="_blank" }是`macOS`的包管理器，但并没有被内置，需要手动安装:
 
 ```sh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-从官方脚本来看其实就是把`Homebrew`的`GitHub`仓库`clone`下来，再把`brew`可执行文件映射到环境变量目录里。`clone`后所在的目录被称为`prefix`目录，在`x86`芯片的`Mac`上是`/usr/local/`，而在使用`Apple Silicon`的`Mac`上为了和`Rosetta`转译的包共存被改为`/opt/homebrew/`。其源码和可执行文件就位于`[prefix]/Homebrew/`之中，通过它安装的包都被保存在`[prefix]/Cellar/`目录里。
+从官方脚本看其实是把`Homebrew`的`GitHub`仓库`clone`下来，再把`brew`可执行文件映射到环境变量目录里。`clone`后所在目录被称为`prefix`目录，在`x86`芯片的`Mac`上是`/usr/local/`，而在搭载`Apple Silicon`的`Mac`上为和`Rosetta`转译的包共存被改为`/opt/homebrew/`。其源码和可执行文件位于`[prefix]/Homebrew/`之中，通过它安装的包都被保存在`[prefix]/Cellar/`目录里。
 
 ## 术语
 
-`Homebrew`直译为“家酿啤酒🍺”，之所以取这么泛化的名字[据说](https://docs.brew.sh/FAQ#homebrew-is-a-poor-name-its-too-generic-why-was-it-chosen){: target="_blank" }是因为当初作者根本没想到它之后会变得如此受欢迎，想要更改的时候已经来不及了。其实不仅仅这个名字，它所使用的术语也不是通用的`package`之类，而真的是一堆很形象的“酿酒”词。
+`Homebrew`直译“家酿啤酒🍺”，之所以取这么“个性化”的名字[据说](https://docs.brew.sh/FAQ#homebrew-is-a-poor-name-its-too-generic-why-was-it-chosen){: target="_blank" }是因为当初作者根本没预料到它之后会变得如此受欢迎，想要更改的时候已经来不及。其实不仅名字，它使用的术语也不是常见的`package`之类，而真的是一堆很形象的“酿酒”词。
 
 ### prefix
 
@@ -146,9 +146,9 @@ https://github.com/Homebrew/homebrew-core/packages
 
 ## 大陆镜像
 
-现在我们知道为什么`brew install`这么慢了，不仅仅是从`GitHub`拉取代码和下载`package`，在4.0版本之后每次执行操作都会去`https://formulae.brew.sh/api/`获取完整的包信息，使用镜像源就是要将这些地址全都改为大陆链接。推荐我自用十分稳定的[清华大学](https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/){: target="_blank" }镜像站，它的文档比[阿里云](https://developer.aliyun.com/mirror/homebrew){: target="_blank" }更完整，而且很奇怪我之前尝试`阿里云`的`Homebrew`源均是`404`...不知道现在是什么状态。
+现在我们知道为什么`brew install`这么慢了，不仅是从`GitHub`拉取代码和下载`package`，在4.0版本之后每次执行操作都会去`https://formulae.brew.sh/api/`获取完整的包信息，使用镜像源就是要将这些地址全都改为大陆链接。推荐我自用十分稳定的[清华大学](https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/){: target="_blank" }镜像站，文档比[阿里云](https://developer.aliyun.com/mirror/homebrew){: target="_blank" }更完整，而且很奇怪之前尝试`阿里云`的源均是`404`，不知道现在是什么状态。
 
-首先编辑`~/.zshrc`添加这些`brew`使用的环境变量:
+参考文档，首先编辑`~/.zshrc`添加这些`brew`使用的环境变量:
 
 ```sh
 export HOMEBREW_API_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api"

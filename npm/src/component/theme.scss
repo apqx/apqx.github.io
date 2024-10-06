@@ -66,7 +66,7 @@ $surface: (
 
 $on-surface: (
         light: #323232,
-        dark: #e6e6e6
+        dark: #e3e3e3
 );
 
 $text-secondary-on-background: (
@@ -110,11 +110,11 @@ $card-elevation: (
 // 白色
 $chip: (
         bg-light: rgba(240, 240, 240, 0.5),
-        ink-light: #575757,
-        ripple-light: #bdbdbd,
-        bg-dark: rgba(39, 39, 39, 0.5),
+        ink-light: #656565,
+        ripple-light: rgb(180, 180, 180),
+        bg-dark: rgba(36, 36, 36, 0.5),
         ink-dark: #aaaaaa,
-        ripple-dark: rgb(112, 112, 112),
+        ripple-dark: rgb(96, 96, 96),
 );
 
 $button-ripple: (
