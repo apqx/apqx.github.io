@@ -18,37 +18,50 @@ $screen-middle-min-width: 600px;
 $screen-middle-max-width: 880px;
 $center-card-max-width: 880px;
 
-// darken用作button颜色
+// 主色，top-bar背景色
 // blur是待透明度的相同颜色
-// elevation是阴影颜色
-$top-bar-color: (
-        light: #c77d70,
-        light-blur: rgba(163, 37, 12, 0.6),
-        light-darken: #c1786b,
-        light-elevation: #a46053,
-        dark: #9f5d50,
-        dark-blur: rgba(255, 145, 122, 0.6),
-        dark-darken: #8a4f43,
-        dark-elevation: #a46053,
+// shadow是阴影颜色
+$top-bar: (
+        bg-light: #c77d70,
+        bg-blur-light: rgba(163, 37, 12, 0.6),
+        bg-shadow-light: #a46053,
+        bg-dark: #9f5d50,
+        bg-blur-dark: rgba(255, 145, 122, 0.6),
+        bg-shadow-dark: #a46053,
+);
+
+$button: (
+        bg-light: #555555,
+        bg-ripple-light: rgb(186, 186, 186),
+        bg-dark: #212121,
+        bg-ripple-dark: rgb(105, 105, 105),
 );
 
 // 黑白配色
-// $top-bar-color: (
-//         light: #fefefe,
-//         light-blur: rgba(255, 255, 255, 0.8),
-//         light-darken: #c1786b,
-//         light-elevation: #e3e3e3,
-//         dark: #181818,
-//         dark-blur: rgba(25, 25, 25, 0.8),
-//         dark-darken: #8a4f43,
-//         dark-elevation: #0a0a0a,
+// $top-bar: (
+//         bg-light: #fefefe,
+//         bg-blur-light: rgba(255, 255, 255, 0.8),
+//         bg-shadow-light: #e3e3e3,
+//         bg-dark: #181818,
+//         bg-blur-dark: rgba(25, 25, 25, 0.8),
+//         bg-shadow-dark: #0a0a0a,
 // );
 
-$fab-color: (
-        light: #353535,
-        light-blur: rgba(0, 0, 0, 0.6),
-        dark: #303030,
-        dark-blur: rgba(58, 58, 58, 0.5)
+// 黑配色
+// $top-bar: (
+//         bg-light: #464646,
+//         bg-blur-light: rgba(25, 25, 25, 0.8),
+//         bg-shadow-light: #0a0a0a,
+//         bg-dark: #181818,
+//         bg-blur-dark: rgba(25, 25, 25, 0.8),
+//         bg-shadow-dark: #0a0a0a,
+// );
+
+$fab: (
+        bg-light: #353535,
+        bg-blur-light: rgba(0, 0, 0, 0.6),
+        bg-dark: #303030,
+        bg-blur-dark: rgba(48, 48, 48, 0.5)
 );
 
 $footer-ink-color: white;
@@ -56,12 +69,10 @@ $footer-link-color: #ffe0b2;
 $background: (
         light: #f9f9f9,
         dark: #111111,
-        min-screen-dark: #111111
 );
 $surface: (
         light: white,
         dark: #161616,
-        min-screen-dark: #161616
 );
 
 $on-surface: (
@@ -70,16 +81,14 @@ $on-surface: (
 );
 
 $text-secondary-on-background: (
-        light: #676767,
-        dark: #969696,
-        min-screen-light: #808080,
-        min-screen-dark: #808080
+        light: #757575,
+        dark: #959595,
 );
 
 $top-bar-elevation: (
         elevation: 2,
-        shadow-light: map.get($top-bar-color, "light-elevation"),
-        shadow-dark: map.get($top-bar-color, "dark-elevation"),
+        shadow-light: map.get($top-bar, "bg-shadow-light"),
+        shadow-dark: map.get($top-bar, "bg-shadow-dark"),
 );
 $fab-elevation: (
         elevation: 2,
@@ -98,16 +107,7 @@ $card-elevation: (
         shadow-dark: #0a0a0a,
         min-screen-shadow-dark: #0a0a0a,
 );
-// 红色
-// $chip: (
-//         bg-light: rgba(255, 235, 228, 0.5),
-//         ink-light: #964e47,
-//         ripple-light: #bdbdbd,
-//         bg-dark: rgba(39, 39, 39, 0.5),
-//         ink-dark: #aa7241,
-//         ripple-dark: rgb(112, 112, 112),
-// );
-// 白色
+
 $chip: (
         bg-light: rgba(240, 240, 240, 0.5),
         ink-light: #656565,
@@ -117,15 +117,20 @@ $chip: (
         ripple-dark: rgb(96, 96, 96),
 );
 
-$button-ripple: (
-        light: white,
-        dark: white,
+$surface-block: (
+        bg-light: white,
+        border-light: rgba(188, 188, 188, 0.5),
+        ink-strong-light: #80290d,
+        bg-dark: rgba(0, 0, 0, 0.1),
+        border-dark: rgba(188, 188, 188, 0.4),
+        ink-strong-dark: #cc826a,
 );
 
+
 @mixin light {
-        --mdc-theme-primary: #{map.get($top-bar-color, "light")};
+        --mdc-theme-primary: #{map.get($top-bar, "bg-light")};
         --mdc-theme-on-primary: #f5f5f5;
-        --mdc-theme-secondary: #{map.get($fab-color, "light")};
+        --mdc-theme-secondary: #{map.get($fab, "bg-light")};
         --mdc-theme-on-secondary: #f5f5f5;
         --mdc-theme-background: #{map.get($background, "light")};
         --mdc-theme-surface: #{map.get($surface, "light")};
@@ -136,8 +141,8 @@ $button-ripple: (
         // 小标题字体色
         --mdc-theme-text-secondary-on-background: #{map.get($text-secondary-on-background, "light")};
 
-        --top-bar-blur: #{map.get($top-bar-color, "light-blur")};
-        --fab-blur: #{map.get($fab-color, "light-blur")};
+        --top-bar-blur: #{map.get($top-bar, "bg-blur-light")};
+        --fab-blur: #{map.get($fab, "bg-blur-light")};
 
         // Drawer
         --drawer-ink: black;
@@ -147,9 +152,9 @@ $button-ripple: (
         --dialog-scrim-bg: rgba(0, 0, 0, 0);
 
         // Button
-        --button-bg: #{map.get($top-bar-color, "light-darken")};
+        --button-bg: #{map.get($button, "bg-light")};
         --button-ink: white;
-        --navigation: #d7667a;
+        --navigation: #{map.get($text-secondary-on-background, "light")};
 
         // Code
         --code-highlight-bg: #fbfbfb;
@@ -182,14 +187,15 @@ $button-ripple: (
         --em-color: #535c68;
         --strong-color: rgba(0, 0, 0, 0.9);
         --strong-underline-color: rgba(255, 119, 74, 0.15);
-        --tag-underline-color: rgba(255, 119, 74, 0.15);
-        --divider-color: rgba(0, 0, 0, 0.1);
+        --tag-underline-color: rgba(100, 100, 100, 0.15);
+        --divider-color: #ededed;
+        --divider-dashed-color: #d5d5d5;
         --blockquote-border: #e2a08a;
         --table-list-border-radius: 0.3rem;
 
-        --surface-block-border: rgba(188, 188, 188, 0.5);
-        --surface-block-bg: white;
-        --surface-block-ink-strong: rgba(107, 0, 0, 1);
+        --surface-block-border: #{map.get($surface-block, "border-light")};
+        --surface-block-bg: #{map.get($surface-block, "bg-light")};
+        --surface-block-ink-strong: #{map.get($surface-block, "ink-strong-light")};
 
         // Switch默认颜色为primary
         --md-sys-color-primary: #5a5fc1;
@@ -207,9 +213,9 @@ $button-ripple: (
 }
 
 @mixin dark {
-        --mdc-theme-primary: #{map.get($top-bar-color, "dark")};
+        --mdc-theme-primary: #{map.get($top-bar, "bg-dark")};
         --mdc-theme-on-primary: #f5f5f5;
-        --mdc-theme-secondary: #{map.get($fab-color, "dark")};
+        --mdc-theme-secondary: #{map.get($fab, "bg-dark")};
         --mdc-theme-on-secondary: #f5f5f5;
         --mdc-theme-background: #{map.get($background, "dark")};
         --mdc-theme-surface: #{map.get($surface, "dark")};
@@ -217,8 +223,8 @@ $button-ripple: (
         --mdc-theme-text-primary-on-background: #f5f5f5;
         --mdc-theme-text-secondary-on-background: #{map.get($text-secondary-on-background, "dark")};
 
-        --top-bar-blur: #{map.get($top-bar-color, "dark-blur")};
-        --fab-blur: #{map.get($fab-color, "dark-blur")};
+        --top-bar-blur: #{map.get($top-bar, "bg-blur-dark")};
+        --fab-blur: #{map.get($fab, "bg-blur-dark")};
 
         // Drawer
         --drawer-ink: white;
@@ -227,9 +233,9 @@ $button-ripple: (
         // Dialog
         --dialog-scrim-bg: rgba(0, 0, 0, 0);
 
-        --button-bg: #{map.get($top-bar-color, "dark-darken")};
+        --button-bg: #{map.get($button, "bg-dark")};
         --button-ink: white;
-        --navigation: rgb(216, 91, 112);
+        --navigation: #{map.get($text-secondary-on-background, "dark")};
 
         // Code
         --code-highlight-bg: rgba(55, 55, 55, 0.18);
@@ -262,13 +268,14 @@ $button-ripple: (
         --em-color: rgba(255, 255, 255, 0.65);
         --strong-color: rgba(255, 255, 255, 0.95);
         --strong-underline-color: rgba(255, 128, 85, 0.3);
-        --tag-underline-color: rgba(255, 128, 85, 0.3);
+        --tag-underline-color: rgba(120, 120, 120, 0.3);
         --divider-color: #2a2a2a;
+        --divider-dashed-color: #3e3e3e;
         --blockquote-border: #9c6d5e;
 
-        --surface-block-border: rgba(188, 188, 188, 0.4);
-        --surface-block-bg: rgba(0, 0, 0, 0.1);
-        --surface-block-ink-strong: rgba(231, 163, 163, 1);
+        --surface-block-border: #{map.get($surface-block, "border-dark")};
+        --surface-block-bg: #{map.get($surface-block, "bg-dark")};
+        --surface-block-ink-strong: #{map.get($surface-block, "ink-strong-dark")};
 
         --md-sys-color-primary: #3a78c6;
 }
@@ -320,18 +327,10 @@ body {
 // 小屏
 @media all and (max-width: $screen-middle-min-width) {
         body {
-                --mdc-theme-text-secondary-on-background: #{map.get($text-secondary-on-background, "min-screen-light")};
-
                 --cover-animation-duration: 0.6s;
                 --card-animation-translate-y: 15rem;
 
                 --top-bar-height: 56px;
-        }
-
-        .dark {
-                --mdc-theme-background: #{map.get($background, "min-screen-dark")};
-                --mdc-theme-surface: #{map.get($surface, "min-screen-dark")};
-                --mdc-theme-text-secondary-on-background: #{map.get($text-secondary-on-background, "min-screen-dark")};
         }
 }
 

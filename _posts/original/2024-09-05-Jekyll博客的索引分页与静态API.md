@@ -3,7 +3,7 @@ layout: post
 categories: original
 title: "Jekyll博客的索引分页与静态API"
 author: 立泉
-mention: Jekyll Pagination Scroll
+mention: Pagination Scroll
 date: 2024-09-05 +0800
 description: 
 cover: 

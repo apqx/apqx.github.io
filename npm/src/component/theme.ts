@@ -26,11 +26,26 @@ export function initTheme() {
 function checkMetaThemeColor(dark: boolean) {
     // 黑白配色
     // if (dark) {
-    //     setMetaThemeColor("#181818")
+    //     setMetaThemeColor("#9f5d50")
     // } else {
-    //     setMetaThemeColor("#fefefe")
+    //     setMetaThemeColor("#c77d70")
     // }
     // toggleTopbarGlass(true)
+
+    // 黑配色
+    // if (dark) {
+    //     setMetaThemeColor("#181818")
+    // } else {
+    //     setMetaThemeColor("#464646")
+    // }
+    // if (isMobileOrTablet()) {
+    //     toggleTopbarGlass(false)
+    // } else {
+    //     // desktop不设置主题色，Safari会自动使用检测到的background颜色作为theme-color
+    //     // 启用毛玻璃
+    //     // 暗色主题下，设置亮色的theme-color是无效的
+    //     toggleTopbarGlass(true)
+    // }
 
     // 主题色，只有桌面端Safari不设置主题色
     // 毛玻璃

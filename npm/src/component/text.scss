@@ -223,6 +223,10 @@ audio {
     font-size: 1.3rem;
 }
 
+.handwritten .material-symbols-rounded-thin:not(.index-pin-icon) {
+    font-weight: 400;
+}
+
 .one-line {
     /* 不换行 */
     white-space: nowrap;

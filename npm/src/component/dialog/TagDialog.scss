@@ -25,7 +25,7 @@
 
 @mixin block {
     font-size: 0.8rem;
-    padding: 0.04rem 0.4rem;
+    padding: 0.06rem 0.5rem;
     border-radius: 0.5rem;
     margin-right: 0.2rem;
 }
@@ -34,21 +34,18 @@
     @include block();
     color: var(--list-chip-1-ink);
     background: var(--list-chip-1-bg);
-    border: 1px solid var(--list-chip-1-border);
 }
 
 .tag-list-item__post-block1 {
     @include block();
     color: var(--list-chip-3-ink);
     background: var(--list-chip-3-bg);
-    border: 1px solid var(--list-chip-3-border);
 }
 
 .tag-list-item__post-block2 {
     @include block();
     color: var(--list-chip-2-ink);
     background: var(--list-chip-2-bg);
-    border: 1px solid var(--list-chip-2-border);
 }
 
 .handwritten {

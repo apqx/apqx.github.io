@@ -117,7 +117,7 @@ class IndexItem extends React.Component<IndexItemProps, any> {
                         <span className="index-author">{this.props.author}</span>
                         <span className="index-date">{this.props.date}</span>
                         {this.props.pin &&
-                            <i className="material-symbols-rounded index-pin-icon">attach_file</i>
+                            <i className="material-symbols-rounded-thin index-pin-icon">keep</i>
                         }
                     </section>
                 </a>

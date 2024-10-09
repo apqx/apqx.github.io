@@ -5,12 +5,24 @@
     font-family: 'Material Symbols Rounded';
     font-style: normal;
     font-weight: 400;
-    src: url(https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/MaterialSymbolsRounded/v168/syl0-zNym6YjUruM-QrEh7-nyTnjDwKNJ_190FjpZIvDmUSVOK7BDB_Qb9vUSzq3wzLK-P0J-V_Zs-QtQth3-jOcbTCVpeRL2w5rwZu2rIelXxGJKJBiCa8.woff) format('woff2');
+    src: url(https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/MaterialSymbolsRounded/v210/400.woff) format('woff2');
 }
 
-.material-symbols-rounded {
+@font-face {
     font-family: 'Material Symbols Rounded';
-    font-weight: normal;
+    font-style: normal;
+    font-weight: 300;
+    src: url(https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/MaterialSymbolsRounded/v209/300.woff) format('woff2');
+}
+
+@font-face {
+    font-family: 'Material Symbols Rounded Fill';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/MaterialSymbolsRounded/v209/fill_400.woff) format('woff2');
+}
+
+@mixin font() {
     font-style: normal;
     font-size: 24px;
     line-height: 1;
@@ -27,4 +39,22 @@
     // firefox
     -moz-font-feature-settings: 'liga';
     -moz-osx-font-smoothing: grayscale;
+}
+
+.material-symbols-rounded {
+    font-family: 'Material Symbols Rounded';
+    font-weight: 400;
+    @include font;
+}
+
+.material-symbols-rounded-fill {
+    font-family: 'Material Symbols Rounded Fill';
+    font-weight: 400;
+    @include font;
+}
+
+.material-symbols-rounded-thin {
+    font-family: 'Material Symbols Rounded';
+    font-weight: 300;
+    @include font;
 }

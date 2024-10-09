@@ -246,8 +246,7 @@ body {
 }
 
 .grid-index-text-container {
-    margin-top: 0.5rem;
-    padding: 0.8rem 2rem 1.5rem 2rem;
+    padding: 1.3rem 2rem 1.5rem 2rem;
 }
 
 .grid-index-cover {
@@ -258,8 +257,8 @@ body {
 .grid-index-title {
     @include typography.typography(subtitle1);
     @include theme.property(color, on-surface);
-    font-size: 1.5rem;
-    margin: 0 0 0.1rem 0;
+    font-size: 1.2rem;
+    margin: 0;
     text-align: left
 }
 
@@ -328,7 +327,7 @@ body {
     }
 
     .grid-index-text-container {
-        padding: 0.5rem 1.5rem 1.2rem 1.5rem;
+        padding: 1rem 1.5rem 1.2rem 1.5rem;
     }
 }
 
@@ -352,6 +351,6 @@ body {
     }
 
     .grid-index-text-container {
-        padding: 0.5rem 1.8rem 1.3rem 1.8rem;
+        padding: 1rem 1.8rem 1.3rem 1.8rem;
     }
 }
