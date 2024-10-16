@@ -92,14 +92,11 @@ export class TagDialog extends BasicDialog<DialogContentProps, DialogContentStat
         if (this.state.postList.length == 0) {
             count = <></>
         } else {
-            count = <><span>{this.state.resultSize}</span>篇</>
+            count = <><span>{this.state.resultSize}</span></>
         }
         return (
             <>
-                <p className="mdc-theme--on-surface">标记
-                    <code id="tag-dialog-tag-name"
-                        className="language-plaintext highlighter-rouge">{this.props.tag}</code>
-                    的{count}博文
+                <p className="mdc-theme--on-surface">标记 {this.props.tag} 的{count}篇博文
                 </p>
 
                 {/* <ProgressLinear loading={this.state.loading} /> */}

@@ -22,7 +22,7 @@ tags: Code Git macOS Homebrew GitHub 阿里云 镜像源
 
 ## 术语
 
-`Homebrew`直译“家酿啤酒🍺”，之所以取这么“个性化”的名字[据说](https://docs.brew.sh/FAQ#homebrew-is-a-poor-name-its-too-generic-why-was-it-chosen){: target="_blank" }是因为当初作者根本没预料到它之后会变得如此受欢迎，想要更改的时候已经来不及。其实不仅名字，它使用的术语也不是常见的`package`之类，而真的是一堆很形象的“酿酒”词。
+`Homebrew`直译“家酿啤酒🍺”，之所以取这么“个性化”的名字[据说](https://docs.brew.sh/FAQ#homebrew-is-a-poor-name-its-too-generic-why-was-it-chosen){: target="_blank" }是因为当初作者并没有预料到它之后会如此流行，想要更改的时候已经来不及。不仅名字，它使用的术语也不是常见的`package`之类，而真的是一堆很形象的“酿酒”词。
 
 ### prefix
 
@@ -40,7 +40,7 @@ tags: Code Git macOS Homebrew GitHub 阿里云 镜像源
 https://github.com/homebrew/homebrew-core
 ```
 
-每个包都对应其中一个记录其属性的`Ruby`文件，通过`brew`安装要先从此仓库`pull`下来整个包列表所以会特别慢...
+每个包都对应其中一个记录其属性的`Ruby`文件，通过`brew`安装要先从此仓库`pull`下来整个包列表所以会特别慢。
 
 即然包列表就是一个`git`仓库，那么如果要上传自己的包到`Homebrew`就只需把自定义包文件`push`到这个仓库里即可，这也是`Homebrew`和其它包管理器很不一样的地方。
 
@@ -79,13 +79,13 @@ https://github.com/Homebrew/homebrew-core/packages
 [prefix]/Cellar/kotlin/1.9.20/
 ```
 
-使用`Homebrew`可能会经常看到`keg-only`这个词，意思是酒仅仅是被储存在酒窖里了，但并不能被外界使用，也就是说`brew`安装第二步将该包的可执行文件`symlink`软链接到`[prefix]/bin/`中并没有进行。原因可能是里面已经有同名文件，比如`macOS`自带的`git`也会软链接到这里，如果想使用`brew`安装的新版本`git`，需要按照提示执行`brew link`，但是建议在执行覆盖前先`--dry-run`检查一下可能会被影响的文件。
+使用`Homebrew`可能会经常看到`keg-only`这个词，意思是酒仅仅是被储存在酒窖里，并不能被外界使用，`brew`安装的第二步将其可执行文件`symlink`软链接到`[prefix]/bin/`中并没有进行。原因是里面已经有同名文件，比如`macOS`自带的`git`也会软链接到这里。如果想使用`brew`安装的新版本`git`，需要按照提示执行`brew link`，但是建议在执行覆盖前先`--dry-run`检查一下可能会被影响的文件。
 
 ```sh
-# 将git链接到[prefix]的对应目录，覆盖已有文件
-brew link --overwrite git
 # 检查并输出会被影响的文件
 brew link --overwrite --dry-run git
+# 将git链接到[prefix]的对应目录，覆盖已有文件
+brew link --overwrite git
 ```
 
 对于一些不能使用软链接覆盖的包比如`openjdk`，可以通过手动将其路径添加进环境变量的方式解决。
@@ -121,7 +121,7 @@ For compilers to find openjdk you may need to set:
   export CPPFLAGS="-I/usr/local/opt/openjdk/include"
 ```
 
-**rack**
+### rack
 
 直译“装着很多小酒桶的支架”，其实是指定包的目录，它会包含很多版本`keg`。
 
@@ -146,7 +146,7 @@ https://github.com/Homebrew/homebrew-core/packages
 
 ## 大陆镜像
 
-现在我们知道为什么`brew install`这么慢了，不仅是从`GitHub`拉取代码和下载`package`，在4.0版本之后每次执行操作都会去`https://formulae.brew.sh/api/`获取完整的包信息，使用镜像源就是要将这些地址全都改为大陆链接。推荐我自用十分稳定的[清华大学](https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/){: target="_blank" }镜像站，文档比[阿里云](https://developer.aliyun.com/mirror/homebrew){: target="_blank" }更完整，而且很奇怪之前尝试`阿里云`的源均是`404`，不知道现在是什么状态。
+现在知道为什么`brew install`这么慢了，不仅是从`GitHub`拉取代码和下载`package`，在4.0版本之后每次执行操作都会去`https://formulae.brew.sh/api/`获取完整的包信息，使用镜像源就是要将这些地址全都改为大陆链接。推荐我自用十分稳定的[清华大学](https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/){: target="_blank" }镜像站，文档比[阿里云](https://developer.aliyun.com/mirror/homebrew){: target="_blank" }更完整，而且很奇怪之前尝试`阿里云`的源均是`404`，不知道现在是什么状态。
 
 参考文档，首先编辑`~/.zshrc`添加这些`brew`使用的环境变量:
 

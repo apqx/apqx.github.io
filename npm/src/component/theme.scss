@@ -33,8 +33,10 @@ $top-bar: (
 $button: (
         bg-light: #555555,
         bg-ripple-light: rgb(186, 186, 186),
+        ink-light: #f5f5f5,
         bg-dark: #212121,
         bg-ripple-dark: rgb(105, 105, 105),
+        ink-dark: #e0e0e0,
 );
 
 // 黑白配色
@@ -153,7 +155,7 @@ $surface-block: (
 
         // Button
         --button-bg: #{map.get($button, "bg-light")};
-        --button-ink: white;
+        --button-ink: #{map.get($button, "ink-light")};
         --navigation: #{map.get($text-secondary-on-background, "light")};
 
         // Code
@@ -234,7 +236,7 @@ $surface-block: (
         --dialog-scrim-bg: rgba(0, 0, 0, 0);
 
         --button-bg: #{map.get($button, "bg-dark")};
-        --button-ink: white;
+        --button-ink: #{map.get($button, "ink-dark")};
         --navigation: #{map.get($text-secondary-on-background, "dark")};
 
         // Code

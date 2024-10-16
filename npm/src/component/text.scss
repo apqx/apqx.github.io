@@ -33,12 +33,17 @@ h2 {
     @include typography.typography(headline2);
 }
 
+// h2::before {
+//     content: "# "
+// }
+
 h2.h2-mini {
     @include typography.typography(headline3);
     margin: 0.8rem 0;
 }
 
 h3 {
+    // @include typography.typography(headline3);
     @include typography.typography(body1);
     margin: 0.8rem 0;
     display: inline;
@@ -47,6 +52,10 @@ h3 {
     font-size: 1.4rem;
     width: fit-content;
 }
+
+// h3::before {
+//     content: "## "
+// }
 
 p {
     @include basicText();
