@@ -29,10 +29,6 @@ export function initTopbar() {
 
     topAppBar = new MDCTopAppBar(topAppBarE)
     iconToggleTheme = new MDCIconButtonToggle(btnThemeE)
-    // 桌面浏览器启用毛玻璃
-    // if (!isMobileOrTablet()) {
-        // toggleTopbarGlass(true)
-    // }
 
     // 监听topbar的主题切换按钮
     btnThemeE.addEventListener("click", () => {
@@ -88,11 +84,11 @@ const animationDoneListener = () => {
     consoleDebug("Topbar animation done")
     // topAppBarE.style.animationPlayState = "initial"
     if (topAppBarE.classList.contains("top-app-bar--moving-up")) {
-        toggleClassWithEnable(topAppBarE, "top-app-bar--moving-up", false)
         toggleClassWithEnable(topAppBarE, "top-app-bar--up", true)
+        // toggleClassWithEnable(topAppBarE, "top-app-bar--moving-up", false)
     } else if (topAppBarE.classList.contains("top-app-bar--moving-down")) {
-        toggleClassWithEnable(topAppBarE, "top-app-bar--moving-down", false)
         toggleClassWithEnable(topAppBarE, "top-app-bar--down", true)
+        // toggleClassWithEnable(topAppBarE, "top-app-bar--moving-down", false)
     }
 }
 
@@ -131,7 +127,7 @@ const scrollListener = () => {
     }
     const scrollDown = window.scrollY > lastScrollY;
     if (scrollDown) {
-        // 向下滚动
+        // 控制条向下滚动
         if (Math.abs(window.scrollY - lastScrollChange.scrollY) > topbarDisplayTriggerScrollY) {
             toggleShowTopbar(false);
             // 触发变化，记录变化的点
@@ -141,9 +137,9 @@ const scrollListener = () => {
             };
         }
     } else {
-        // 向上滚动
+        // 控制条向上滚动
         if (Math.abs(window.scrollY - lastScrollChange.scrollY) > topbarDisplayTriggerScrollY) {
-            toggleShowTopbar(true);
+            // toggleShowTopbar(true);
             // 触发变化，记录变化的点
             lastScrollChange = {
                 scrollDown: scrollDown,
@@ -164,14 +160,14 @@ const scrollListener = () => {
 function toggleShowTopbar(show: boolean) {
     // topbar默认不包含up-class和down-class
     if (show) {
-        if (!topAppBarE.classList.contains("top-app-bar--up") && !topAppBarE.classList.contains("top-app-bar--moving-up")) {
-            // topbar处于默认的显示状态，不必启动动画
-            return
-        }
         // 展示，向下移动
-        if (!topAppBarE.classList.contains("top-app-bar--down") && !topAppBarE.classList.contains("top-app-bar--moving-down")) {
+        if (!topAppBarE.classList.contains("top-app-bar--moving-down") && !topAppBarE.classList.contains("top-app-bar--down")) {
+            if (!topAppBarE.classList.contains("top-app-bar--moving-up") && !topAppBarE.classList.contains("top-app-bar--up")) {
+                // topbar处于默认的显示状态，不必启动动画
+                return
+            }
             consoleDebug("ToggleShowTopbar " + show)
-            // topAppBarE.style.animationPlayState = "running"
+            blockTopbarKeyFrameAnimation(false)
             toggleClassWithEnable(topAppBarE, "top-app-bar--moving-down", true)
             toggleClassWithEnable(topAppBarE, "top-app-bar--moving-up", false)
             toggleClassWithEnable(topAppBarE, "top-app-bar--up", false)
@@ -180,10 +176,20 @@ function toggleShowTopbar(show: boolean) {
         // 隐藏，向上移动
         if (!topAppBarE.classList.contains("top-app-bar--up") && !topAppBarE.classList.contains("top-app-bar--moving-up")) {
             consoleDebug("ToggleShowTopbar " + show)
-            // topAppBarE.style.animationPlayState = "running"
+            blockTopbarKeyFrameAnimation(false)
             toggleClassWithEnable(topAppBarE, "top-app-bar--moving-up", true)
             toggleClassWithEnable(topAppBarE, "top-app-bar--moving-down", false)
             toggleClassWithEnable(topAppBarE, "top-app-bar--down", false)
         }
+    }
+}
+
+export function blockTopbarKeyFrameAnimation(block: boolean) {
+    if (block) {
+        topAppBarE.style.animation = "none"
+        // topAppBarE.style.animationPlayState = "paused"
+    } else {
+        topAppBarE.style.animation = null;
+        // topAppBarE.style.animationPlayState = "running"
     }
 }

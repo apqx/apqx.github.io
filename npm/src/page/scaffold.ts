@@ -1,6 +1,6 @@
 // import "./scaffold.scss"
 import { isDebug, isWriting, runOnHtmlDone, runOnPageBackFromCache, runOnPageDone } from "../util/tools"
-import { initTopbar } from "../component/topbar"
+import { blockTopbarKeyFrameAnimation, initTopbar } from "../component/topbar"
 import { initDrawer } from "../component/drawer"
 import { checkUserTheme, initTheme } from "../component/theme"
 import { initLocalRepository } from "../repository/LocalRepository"
@@ -35,6 +35,7 @@ runOnPageDone(() => {
 })
 
 runOnPageBackFromCache(() => {
+    blockTopbarKeyFrameAnimation(true)
     checkUserTheme()
 })
 

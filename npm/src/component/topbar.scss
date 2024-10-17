@@ -53,6 +53,8 @@ body {
     transition: all 0.4s ease;
 }
 
+// 执行中的CSS动画可以被新动画打断，会从当前状态开始过渡，而非从原始状态
+
 .top-app-bar--up {
     transform: translateY(var(--top-bar-slid-translateY));
     opacity: 0;
