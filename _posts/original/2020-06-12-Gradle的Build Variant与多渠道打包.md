@@ -1,35 +1,35 @@
 ---
 layout: post
 categories: original
-title: "使用Gradle创建不同的打包类型"
+title: "Gradle的Build Variant与多渠道打包"
 author: 立泉
 mention: 应用分发 Build Flavor
 date: 2020-06-12 +0800
-description: 一个现实中很常见的需求，同时也是我对国内混乱的Android生态最无语的需求，也就是iOS开发中不存在的“多渠道打包”，不过不喜欢归不喜欢，解决方案还是有的。
+description: 一个现实中的常见需求，同时也是我对国内混乱的Android生态最无语的需求，也就是iOS开发中不存在的“多渠道打包”，不过不喜欢归不喜欢，解决方案是有的。
 cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20200612/module_build_variant.png
 tags: Code Android Gradle Build
 ---
 
-一个现实中很常见的需求，同时也是我对国内混乱的`Android`生态最无语的需求：
+一个现实中的常见需求，同时也是我对国内混乱的`Android`生态最无语的需求：
 
-* 为不同应用商店生成同一版本号的不同渠道包，该包中需带有对应商店的标识符，用于统计不同渠道的分发数据。
-* 不同应用商店的审核策略不同，App应根据渠道调整部分功能的状态以满足合规要求。
+* 为不同应用商店生成同一版本号的不同渠道包，包中需带有对应商店的标识符，以统计渠道分发数据。
+* 不同应用商店的审核策略不同，App应根据渠道调整部分功能状态以满足合规要求。
 
-也就是`iOS`开发中不存在的`多渠道打包`，不过不喜欢归不喜欢，解决方案还是有的，就是`gradle`的`build variant`，可以用`Groovy`语言在`Module`的`build.gradle`中配置不同打包类型的特有逻辑，以实现用同一份代码打出符合要求的不同包。
+即`iOS`开发中不存在的`多渠道打包`，解决方案是`gradle`的`build variant`，可以用`Groovy`语言在`Module`的`build.gradle`中配置不同打包类型的特有逻辑，以实现用同一份代码打出符合要求的不同包。
 
 ## buildType与flavor
 
-一个新创建的`Module`有2个默认的`buildType`，即`release`和`debug`，可以在`build.gradle`中为它们配置不同的`签名`、`applicationId`、`应用名`和其它诸如是否开启混淆、定义不同的`Manifest`占位符等。
+新建`Module`有`release`和`debug`2个默认`buildType`，可以在`build.gradle`中为它们配置不同的`签名`、`applicationId`、`应用名`和其它诸如是否开启混淆、定义不同`Manifest`占位符等。
 
-* `debug`即测试，如果未指定签名配置，默认使用`SDK`自带的`debug`签名文件进行签名。可以`adb`安装，但不能在应用商店中发布。
-* `release`即发布，没有默认签名配置。如果未指定签名，打包后就是未签名`unsign`状态，不可以被安装。
+* `debug`测试，如果未指定签名配置，默认使用`SDK`自带的`debug`签名文件。可以`adb`安装，但不能在应用商店中发布。
+* `release`发布，没有默认签名配置。如果未指定签名，打包后就是未签名`unsign`状态，不可以被安装。
 
 ```groovy
 // Module的build.gradle
 
 android {
     signingConfigs {
-        // 定义一个签名配置，不同的buildType可以使用不同的签名
+        // 定义一个签名配置，不同buildType可以使用不同签名
         mySign {
             storeFile file("../apqx.jks")
             storePassword "123456"
@@ -64,7 +64,7 @@ android {
     }
 ```
 
-`sync`之后，在工程根目录执行`./gradlew tasks`，可以看到自动生成的`Build tasks`里只有一个`assemble`打包`task`：
+`sync`之后在工程根目录执行`./gradlew tasks`，列表里只有一个`assemble`打包`task`：
 
 ```sh
 ./gradlew tasks
@@ -74,13 +74,13 @@ Build tasks
 assemble - Assemble main outputs for all the variants.
 ```
 
-执行`./gradlew assemble`，`gradle`会打包所有的3个`buildType`，默认输出路径为：
+执行`./gradlew assemble`，`gradle`会逐个打包3个`buildType`，默认输出路径为：
 
 ```sh
 {project}/{module}/build/outputs/apk/{buildType}/{module}-{buildType}.apk
 ```
 
-但其实`gradle`为每个`buildType`（准确的说是每一个`build variant`，后面会讲到）都生成了单独的打包`task`，可以单独执行以单独打包指定的`buildType`：
+但其实`gradle`为每个`buildType`（准确的说是每一个`build variant`，后面会提到）都生成了单独的打包`task`：
 
 ```sh
 ./gradlew assembleRelease
@@ -90,7 +90,7 @@ assemble - Assemble main outputs for all the variants.
 
 `buildType`更多的是面向`release`和`debug`这2个维度，`buildType`中再细分打包类型，就是`flavor`，准确的说，每一个`flavor`都具有所有定义的`buildType`。
 
-这里以发布到小米应用商店的`mi`和发布到`Google Play`的`play`为例，它们是2个`flavor`，每个`flavor`都有`release`, `debug`和`share`3种`buildType`，其中发布到小米应用商店的App名为`Mi`，发布到`Google Play`的App名为`Play`：
+这里以发布到小米应用商店的`mi`和发布到`Google Play`的`play`为例，它们是2个`flavor`，每个`flavor`都有`release`、`debug`和`share`3种`buildType`，其中发布到小米应用商店的App名为`Mi`，发布到`Google Play`的App名为`Play`：
 
 ```groovy
 // Module的build.gradle
@@ -170,7 +170,7 @@ android {
     }
 ```
 
-在`AndroidManifest`文件中使用`flavor`定义的`Manifest`占位符，以实现不同的`flavor`定义不同的App名：
+在`AndroidManifest`文件中使用`flavor`定义的`Manifest`占位符，以实现不同`flavor`定义不同App名：
 
 ```xml
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
@@ -271,6 +271,6 @@ android {
 
 如果主`Module`依赖一个或多个`Library`，主`Module`有多个`build variant`，`Library`也有多个`build variant`，那么当执行主`Module`的某个`variant`的`assemble`打包指令时，编译器会尝试从它所依赖的`Library`中寻找同样的`flavor`和`buildType`组成的`variant`。如果没有找到，则使用`Library`默认的`variant`。
 
-在`Android Studio`的`Build Variants`视图中，可以修改每一个`Module`的默认`build variant`。
+在`Android Studio`的`Build Variants`视图中，可以修改每一个`Module`的默认`build variant`：
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20200612/module_build_variant.png){: loading="lazy" class="clickable clickShowOriginalImg" alt="build variant" }

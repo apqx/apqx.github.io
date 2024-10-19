@@ -26,20 +26,20 @@
 
 ### Webpack
 
-首先切换到内部`Webpack`工程目录，编译生成`Js`、`CSS`：
+首先切换到内部`Webpack`工程目录，编译生成`JS`、`CSS`：
 
 ```sh
 # 进入内部Webpack工程
 cd npm
 # 安装所需的依赖
 npm install
-# 执行编译，在`npm/dist/`目录下生成Js、CSS
+# 执行编译，在`npm/dist/`目录下生成JS、CSS
 npm run build
 ```
 
 网站部署时这些资源文件被托管在`阿里云OSS`上以提高中国大陆的访问速度，在`_includes/head.html`中可以看到对它们的引用。
 
-调试时则使用本地资源以响应`Webpack`工程变化，需要将`_includes/configure.html`中的`debug`参数设为`true`，`Jekyll`会检测此参数来更改`<header></header>`中引用的资源，而且进入`debug`模式后`Js`日志也会输出到浏览器`Console`中。
+调试时则使用本地资源以响应`Webpack`工程变化，需要将`_includes/configure.html`中的`debug`参数设为`true`，`Jekyll`会检测此参数来更改`<header></header>`中引用的资源，而且进入`debug`模式后`JS`日志也会输出到浏览器`Console`中。
 
 ```html
 <!-- _includes/configure.html -->
@@ -77,7 +77,7 @@ bundle exec jekyll build --trace
 
 ## 部署到GitHub Pages
 
-调试后，如果`Webpack`生成了新`Js`和`CSS`文件，需要更新`OSS`中托管的版本，然后在`_includes/configure.html`中关闭`debug`模式即可使用这些远程资源。
+调试后，如果`Webpack`生成了新`JS`和`CSS`文件，需要更新`OSS`中托管的版本，然后在`_includes/configure.html`中关闭`debug`模式即可使用这些远程资源。
 
 ```html
 <!-- _includes/configure.html -->

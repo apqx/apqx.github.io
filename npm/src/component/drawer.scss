@@ -32,8 +32,8 @@
     z-index: 2;
     background-color: var(--drawer-scrim-bg);
     transition: opacity var(--dialog-animation-duration) ease !important;
-    -webkit-backdrop-filter: blur(5px);
-    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(map.get(blogTheme.$scrim, "backdrop-blur"));
+    backdrop-filter: blur(map.get(blogTheme.$scrim, "backdrop-blur"));
 }
 
 .mdc-drawer__title {

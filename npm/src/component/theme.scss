@@ -1,5 +1,6 @@
 // 霞鹜文楷GB
 $text-font: unquote("PingFangSCEllipsis, LXGW WenKai GB, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
+// $text-font: unquote("PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
 // 兰亭题序国风行楷
 $handwritten-font: "AaLTTXGFXK", "LXGW WenKai GB", "PingFang SC", Roboto, sans-serif, "Apple Color Emoji", "Noto Color Emoji";
 // 索引页的许静行楷
@@ -68,13 +69,16 @@ $fab: (
 
 $footer-ink-color: white;
 $footer-link-color: #ffe0b2;
-$background: (
-        light: #f9f9f9,
-        dark: #111111,
-);
 $surface: (
         light: white,
         dark: #161616,
+);
+
+$background: (
+        light: color.adjust(map.get($surface, "light"), $lightness: -2.5%),
+        light-mini-screen: color.adjust(map.get($surface, "light"), $lightness: -3%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: -2.5%),
+        dark-mini-screen: color.adjust(map.get($surface, "dark"), $lightness: -3%),
 );
 
 $on-surface: (
@@ -87,27 +91,40 @@ $text-secondary-on-background: (
         dark: #959595,
 );
 
+$scrim:(
+       color: rgba(0, 0, 0, 0.01),
+       backdrop-blur: 10px,
+);
+
 $top-bar-elevation: (
-        elevation: 2,
+        elevation: 0,
         shadow-light: map.get($top-bar, "bg-shadow-light"),
         shadow-dark: map.get($top-bar, "bg-shadow-dark"),
 );
 $fab-elevation: (
-        elevation: 2,
+        elevation: 0,
         shadow-light: #2a2a2a,
         shadow-dark: #1a1a1a
 );
 $drawer-elevation: (
-        elevation: 2,
+        elevation: 0,
         shadow-light: #d5d5d5,
         shadow-dark: #0a0a0a
 );
 $card-elevation: (
-        elevation: 2,
+        elevation: 0,
         shadow-light: #d5d5d5,
         min-screen-shadow-light: #e3e3e3,
         shadow-dark: #0a0a0a,
         min-screen-shadow-dark: #0a0a0a,
+);
+
+$dialog: (
+        elevation: 0,
+        border-light: color.adjust(map.get($surface, "light"), $lightness: -3%),
+        shadow-light: #a1a1a1,
+        border-dark: color.adjust(map.get($surface, "dark"), $lightness: +3%),
+        shadow-dark: #000000,
 );
 
 $chip: (
@@ -148,10 +165,10 @@ $surface-block: (
 
         // Drawer
         --drawer-ink: black;
-        --drawer-scrim-bg: rgba(0, 0, 0, 0);
+        --drawer-scrim-bg: #{map.get($scrim, "color")};
 
         // Dialog
-        --dialog-scrim-bg: rgba(0, 0, 0, 0);
+        --dialog-scrim-bg: #{map.get($scrim, "color")};
 
         // Button
         --button-bg: #{map.get($button, "bg-light")};
@@ -159,8 +176,8 @@ $surface-block: (
         --navigation: #{map.get($text-secondary-on-background, "light")};
 
         // Code
-        --code-highlight-bg: #fbfbfb;
-        --code-highlight-border: #e8e8e8;
+        --code-highlight-bg: #f9f9f9;
+        --code-highlight-border: #ebebeb;
         --pre-code-bg: #15171a;
 
         // Chip
@@ -230,10 +247,6 @@ $surface-block: (
 
         // Drawer
         --drawer-ink: white;
-        --drawer-scrim-bg: rgba(0, 0, 0, 0);
-
-        // Dialog
-        --dialog-scrim-bg: rgba(0, 0, 0, 0);
 
         --button-bg: #{map.get($button, "bg-dark")};
         --button-ink: #{map.get($button, "ink-dark")};
@@ -241,7 +254,7 @@ $surface-block: (
 
         // Code
         --code-highlight-bg: rgba(55, 55, 55, 0.18);
-        --code-highlight-border: rgba(69, 69, 69, 0.74);
+        --code-highlight-border: rgba(69, 69, 69, 0.6);
         --pre-code-bg: #0f0f0f;
 
         // Chip
@@ -329,10 +342,15 @@ body {
 // 小屏
 @media all and (max-width: $screen-middle-min-width) {
         body {
+                --mdc-theme-background: #{map.get($background, "light-mini-screen")};
                 --cover-animation-duration: 0.6s;
                 --card-animation-translate-y: 15rem;
 
                 --top-bar-height: 56px;
+        }
+
+        .dark {
+                --mdc-theme-background: #{map.get($background, "dark-mini-screen")};
         }
 }
 
