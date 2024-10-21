@@ -17,10 +17,9 @@
     }
 }
 
-.fab--blur {
+.mdc-fab {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    @include fab.container-color(var(--fab-blur));
 }
 
 .app-fab--absolute {

@@ -5,9 +5,9 @@ title: "Jekyll博客的索引分页与静态API"
 author: 立泉
 mention: Pagination Scroll
 date: 2024-09-05 +0800
-description: 
+description: 博客首页一般是文章索引，当文章数量很多时为优化加载速度和页面性能不应该一次加载整个列表，而是先加载一段，再按需逐段加载剩余内容，即Pagination分页。
 cover: 
-tags: Code Blog Jekyll 分页 Scroll
+tags: Code Blog Jekyll Pagination Scroll
 ---
 
 `Jekyll`是一个从格式化文本生成静态站点的工具，所谓“静态”是指所有`HTML`页面都是在编译时创建，部署后不能动态生成新页面。由`HTML`组成的静态网站可以不需要传统后端服务，直接托管到免费的`Github Pages`、`Cloudflare Pages`上，非常适合博客之类的轻量用途。
@@ -16,11 +16,11 @@ tags: Code Blog Jekyll 分页 Scroll
 
 ## 索引分页
 
-博客首页一般是文章索引，当文章数量很多时为优化加载速度和页面性能不应该一次加载整个列表，而是先加载一段，再按需逐段加载剩余内容，即`Pagination`“分页”。
+博客首页一般是文章索引，当文章数量很多时为优化加载速度和页面性能不应该一次加载整个列表，而是先加载一段，再按需逐段加载剩余内容，即`Pagination`分页。
 
-常见的分页有2种，一种是“静态”，`Jekyll`编译时生成多个页面，每个页面只显示一部分，并在页面底部设置索引导航。这种方式非常简单，应用也最广泛，但我更倾向首页的文章列表是一条完整时间线，不应该拆分到多个页面，会破坏连续性。所以选择第二种“动态”，即监测用户滚动，用`JS`分段加载文章列表填充到页面显示出来，就像普通App那样。
+分页有2种，一种是“静态”，`Jekyll`编译时生成多个页面，每个页面只显示一部分，并在页面底部设置索引导航。这种方式非常简单，应用也最广泛，但我更倾向首页文章列表是一条完整时间线，拆分到多个页面会破坏连续性。所以选择第二种“动态”，即监测用户滚动，用`JS`分段加载文章列表填充到页面，就像普通App那样。
 
-如此一来需要让`Jekyll`在编译时生成分段的文章列表，每段都保存在单独的`Json`文件中，这些文件可以被`JS`下载解析，即是所谓的“静态API”。
+如此一来需要让`Jekyll`在编译时生成分段的文章列表，每段都保存在单独的`JSON`文件中，这些文件可以被`JS`下载解析，即是所谓的“静态API”。
 
 ## 静态API
 
@@ -60,24 +60,24 @@ autopages:
   # 启用Tag自动分页
   tags:
     enabled: true
-    # 每页的布局文件，定义生成什么样的Json
+    # 每页的布局文件，定义生成什么样的JSON
     # 指定为`_layouts/paginate-tag.html`
     layouts:
       - paginate-tag.html
-    # 指定输出的Json文件路径
+    # 指定输出的JSON文件路径
     permalink: "/api/paginate/tags/:tag"
     slugify:
       mode: "default"
       case: false
 ```
 
-因为我博客里所有文章都是按`Tag`分类，所以只需配置`Tag`分页，不同的索引页再去加载对应`Tag`的`Json`。
+因为我博客里所有文章都是按`Tag`分类，所以只需配置`Tag`分页，不同的索引页再去加载对应`Tag`的`JSON`。
 
-在`_layouts/paginate-tag.html`里定义生成的`Json`格式，`Jekyll`会自动把每一页的文章列表填充到`Liquid`模版语言的`paginator`变量里，遍历`paginator.posts`生成的就是当页文章列表。
+在`_layouts/paginate-tag.html`里定义生成的`JSON`格式，`Jekyll`会自动把每一页的文章列表填充到`Liquid`模版语言的`paginator`变量里，遍历`paginator.posts`生成的就是当页文章列表。
 
 ```json
 // _layouts/paginate-tag.html
-// 用Liquid模版语言定义Json格式
+// 用Liquid模版语言定义JSON格式
 {%- raw %}
 {
     "data": {
@@ -116,7 +116,7 @@ autopages:
         |-page-3.json
 ```
 
-`JS`下载这些分页的`Json`文件，即可按需分段加载文章列表。
+`JS`下载这些分页的`JSON`文件，即可按需分段加载文章列表。
 
 ## 加载时机
 

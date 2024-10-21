@@ -1,11 +1,10 @@
 // 霞鹜文楷GB
 $text-font: unquote("PingFangSCEllipsis, LXGW WenKai GB, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
-// $text-font: unquote("PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
 // 兰亭题序国风行楷
-$handwritten-font: "AaLTTXGFXK", "LXGW WenKai GB", "PingFang SC", Roboto, sans-serif, "Apple Color Emoji", "Noto Color Emoji";
+$handwritten-font: unquote("AaLTTXGFXK, LXGW WenKai GB, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
 // 索引页的许静行楷
-$handwritten-font-index: "HYXuJingXingKaiW", "LXGW WenKai GB", "PingFang SC", Roboto, sans-serif, "Apple Color Emoji", "Noto Color Emoji";
-$code-block-font: "LXGW WenKai Mono GB", "LXGW WenKai GB", "PingFang SC", Roboto, sans-serif, "Apple Color Emoji", "Noto Color Emoji";
+$handwritten-font-index: unquote("HYXuJingXingKaiW, LXGW WenKai GB, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
+$code-block-font: unquote("LXGW WenKai Mono GB, LXGW WenKai GB, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
 
 // 先引入mdc的theme，然后用自定义变量覆盖其原有配置
 @use "@material/theme";
@@ -26,10 +25,23 @@ $top-bar: (
         bg-light: #c77d70,
         bg-blur-light: rgba(163, 37, 12, 0.6),
         bg-shadow-light: #a46053,
+        ink-light: #f5f5f5,
         bg-dark: #9f5d50,
         bg-blur-dark: rgba(255, 145, 122, 0.6),
         bg-shadow-dark: #a46053,
+        ink-dark: #f5f5f5,
 );
+
+// $top-bar: (
+//         bg-light: white,
+//         bg-blur-light: rgba(255, 255, 255, 0.9),
+//         bg-shadow-light: #a46053,
+//         ink-light: #323232,
+//         bg-dark: #161616,
+//         bg-blur-dark: rgba(22, 22, 22, 0.9),
+//         bg-shadow-dark: #a46053,
+//         ink-dark: e3e3e3,
+// );
 
 $button: (
         bg-light: #555555,
@@ -40,31 +52,13 @@ $button: (
         ink-dark: #e0e0e0,
 );
 
-// 黑白配色
-// $top-bar: (
-//         bg-light: #fefefe,
-//         bg-blur-light: rgba(255, 255, 255, 0.8),
-//         bg-shadow-light: #e3e3e3,
-//         bg-dark: #181818,
-//         bg-blur-dark: rgba(25, 25, 25, 0.8),
-//         bg-shadow-dark: #0a0a0a,
-// );
-
-// 黑配色
-// $top-bar: (
-//         bg-light: #464646,
-//         bg-blur-light: rgba(25, 25, 25, 0.8),
-//         bg-shadow-light: #0a0a0a,
-//         bg-dark: #181818,
-//         bg-blur-dark: rgba(25, 25, 25, 0.8),
-//         bg-shadow-dark: #0a0a0a,
-// );
-
 $fab: (
-        bg-light: #353535,
-        bg-blur-light: rgba(0, 0, 0, 0.6),
-        bg-dark: #303030,
-        bg-blur-dark: rgba(48, 48, 48, 0.5)
+        bg-light: rgba(0, 0, 0, 0.6),
+        bg-light-middle-mini-screen: rgba(0, 0, 0, 0.6),
+        ink-light: #f5f5f5,
+        bg-dark: rgba(48, 48, 48, 0.5),
+        bg-dark-middle-mini-screen: rgba(48, 48, 48, 0.5),
+        ink-dark: #f5f5f5,
 );
 
 $footer-ink-color: white;
@@ -91,9 +85,9 @@ $text-secondary-on-background: (
         dark: #959595,
 );
 
-$scrim:(
-       color: rgba(0, 0, 0, 0.01),
-       backdrop-blur: 10px,
+$scrim: (
+        color: rgba(0, 0, 0, 0.01),
+        backdrop-blur: 10px,
 );
 
 $top-bar-elevation: (
@@ -122,8 +116,10 @@ $card-elevation: (
 $dialog: (
         elevation: 0,
         border-light: color.adjust(map.get($surface, "light"), $lightness: -3%),
+        // border-light: transparent,
         shadow-light: #a1a1a1,
         border-dark: color.adjust(map.get($surface, "dark"), $lightness: +3%),
+        // border-dark: transparent,
         shadow-dark: #000000,
 );
 
@@ -148,9 +144,9 @@ $surface-block: (
 
 @mixin light {
         --mdc-theme-primary: #{map.get($top-bar, "bg-light")};
-        --mdc-theme-on-primary: #f5f5f5;
+        --mdc-theme-on-primary: #{map.get($top-bar, "ink-light")};
         --mdc-theme-secondary: #{map.get($fab, "bg-light")};
-        --mdc-theme-on-secondary: #f5f5f5;
+        --mdc-theme-on-secondary: #{map.get($fab, "ink-light")};
         --mdc-theme-background: #{map.get($background, "light")};
         --mdc-theme-surface: #{map.get($surface, "light")};
         // 默认字体颜色，段落p
@@ -161,7 +157,6 @@ $surface-block: (
         --mdc-theme-text-secondary-on-background: #{map.get($text-secondary-on-background, "light")};
 
         --top-bar-blur: #{map.get($top-bar, "bg-blur-light")};
-        --fab-blur: #{map.get($fab, "bg-blur-light")};
 
         // Drawer
         --drawer-ink: black;
@@ -177,7 +172,7 @@ $surface-block: (
 
         // Code
         --code-highlight-bg: #f9f9f9;
-        --code-highlight-border: #ebebeb;
+        --code-highlight-border: #f0f0f0;
         --pre-code-bg: #15171a;
 
         // Chip
@@ -233,9 +228,9 @@ $surface-block: (
 
 @mixin dark {
         --mdc-theme-primary: #{map.get($top-bar, "bg-dark")};
-        --mdc-theme-on-primary: #f5f5f5;
+        --mdc-theme-on-primary: #{map.get($top-bar, "ink-dark")};
         --mdc-theme-secondary: #{map.get($fab, "bg-dark")};
-        --mdc-theme-on-secondary: #f5f5f5;
+        --mdc-theme-on-secondary: #{map.get($fab, "ink-dark")};
         --mdc-theme-background: #{map.get($background, "dark")};
         --mdc-theme-surface: #{map.get($surface, "dark")};
         --mdc-theme-on-surface: #{map.get($on-surface, "dark")};
@@ -243,7 +238,6 @@ $surface-block: (
         --mdc-theme-text-secondary-on-background: #{map.get($text-secondary-on-background, "dark")};
 
         --top-bar-blur: #{map.get($top-bar, "bg-blur-dark")};
-        --fab-blur: #{map.get($fab, "bg-blur-dark")};
 
         // Drawer
         --drawer-ink: white;
@@ -253,8 +247,8 @@ $surface-block: (
         --navigation: #{map.get($text-secondary-on-background, "dark")};
 
         // Code
-        --code-highlight-bg: rgba(55, 55, 55, 0.18);
-        --code-highlight-border: rgba(69, 69, 69, 0.6);
+        --code-highlight-bg: rgba(55, 55, 55, 0.2);
+        --code-highlight-border: rgba(45, 45, 45, 0.6);
         --pre-code-bg: #0f0f0f;
 
         // Chip
@@ -343,6 +337,7 @@ body {
 @media all and (max-width: $screen-middle-min-width) {
         body {
                 --mdc-theme-background: #{map.get($background, "light-mini-screen")};
+                --mdc-theme-secondary: #{map.get($fab, "bg-light-middle-mini-screen")};
                 --cover-animation-duration: 0.6s;
                 --card-animation-translate-y: 15rem;
 
@@ -351,13 +346,19 @@ body {
 
         .dark {
                 --mdc-theme-background: #{map.get($background, "dark-mini-screen")};
+                --mdc-theme-secondary: #{map.get($fab, "bg-dark-middle-mini-screen")};
         }
 }
 
 // 平板中屏
 @media all and (min-width: ($screen-middle-min-width + 1px)) and (max-width: ($screen-middle-max-width - 1px)) {
         body {
+                --mdc-theme-secondary: #{map.get($fab, "bg-light-middle-mini-screen")};
                 --cover-animation-duration: 0.6s;
                 --card-animation-translate-y: 15rem;
+        }
+
+        .dark {
+                --mdc-theme-secondary: #{map.get($fab, "bg-light-middle-mini-screen")};
         }
 }

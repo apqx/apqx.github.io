@@ -21,7 +21,7 @@ body {
 }
 
 .content-card {
-    padding: 1.3rem 2.5rem;
+    padding: 2.5rem;
     margin: var(--top-card-to-container-top) var(--content-card-to-container-border-horizontal);
     // 文章卡片的阴影，z高度，阴影颜色，扩散度
     @include cardElevation();
@@ -53,7 +53,7 @@ body {
     }
 
     .content-card {
-        padding: 1.3rem 1.3rem;
+        padding: 2rem 1.3rem;
         @include elevation.elevation(map.get(blogTheme.$card-elevation, "elevation"),
             map.get(blogTheme.$card-elevation, "min-screen-shadow-light"), 0);
     }

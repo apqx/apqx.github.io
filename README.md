@@ -4,7 +4,7 @@
 
 基于[Jekyll](https://jekyllrb.com)构建的[Material Design](https://material.io)静态博客，使用`Google`提供的[Material Components Web](https://github.com/material-components/material-components-web)框架。
 
-它并非通用博客模版，而是以我自己喜好量身定制的分享空间，由随笔、转载、诗文、看剧4个板块组成，采用淡色极简风格，在文字、色彩和动画之外不添加多余元素。或可作为`Material Design`个人站参考，但不建议直接套用，尚未进行模版优化。
+它并非通用博客模版，以我自己的喜好量身定制，由随笔、转载、诗文、看剧4个板块组成，采用淡色极简风格，在文字、色彩和动画之外不添加多余元素。或可作为`Material Design`个人站参考，但不建议直接套用，尚未进行模版优化。
 
 主页：[立泉の写字板](https://mudan.me)
 

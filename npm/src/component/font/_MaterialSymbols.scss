@@ -5,21 +5,28 @@
     font-family: 'Material Symbols Rounded';
     font-style: normal;
     font-weight: 400;
-    src: url(https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/MaterialSymbolsRounded/v210/400.woff) format('woff2');
+    src: url(https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/MaterialSymbolsRounded/v210/400.woff) format('woff');
 }
 
 @font-face {
     font-family: 'Material Symbols Rounded';
     font-style: normal;
     font-weight: 300;
-    src: url(https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/MaterialSymbolsRounded/v209/300.woff) format('woff2');
+    src: url(https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/MaterialSymbolsRounded/v209/300.woff) format('woff');
 }
 
 @font-face {
     font-family: 'Material Symbols Rounded Fill';
     font-style: normal;
     font-weight: 400;
-    src: url(https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/MaterialSymbolsRounded/v209/fill_400.woff) format('woff2');
+    src: url(https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/MaterialSymbolsRounded/v209/fill_400.woff) format('woff');
+}
+
+@font-face {
+    font-family: 'Material Symbols Rounded Fill';
+    font-style: normal;
+    font-weight: 300;
+    src: url(https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/MaterialSymbolsRounded/v212/fill_300.woff) format('woff');
 }
 
 @mixin font() {
@@ -47,14 +54,20 @@
     @include font;
 }
 
+.material-symbols-rounded-thin {
+    font-family: 'Material Symbols Rounded';
+    font-weight: 300;
+    @include font;
+}
+
 .material-symbols-rounded-fill {
     font-family: 'Material Symbols Rounded Fill';
     font-weight: 400;
     @include font;
 }
 
-.material-symbols-rounded-thin {
-    font-family: 'Material Symbols Rounded';
+.material-symbols-rounded-fill-thin {
+    font-family: 'Material Symbols Rounded Fill';
     font-weight: 300;
     @include font;
 }

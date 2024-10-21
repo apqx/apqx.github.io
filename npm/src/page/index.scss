@@ -285,7 +285,7 @@ body {
     margin-right: 0.2rem;
 }
 
-
+// 在JS执行之前设定item宽度，应与JS执行的layout一致
 .grid-sizer,
 .grid-item {
     width: 50%;

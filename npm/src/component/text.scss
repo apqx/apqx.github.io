@@ -102,15 +102,15 @@ em {
     color: var(--em-color);
 }
 
-b {
-    font-weight: bold;
+strong, b {
+    // 霞鹜文楷粗体只提供medium
+    font-weight: 500;
 }
 
 // 加粗强调，一般用于句子
 strong {
     color: var(--strong-color);
     box-shadow: inset 0 -8px 0 0 var(--strong-underline-color);
-    font-weight: bold;
 }
 
 .no-shadow {
