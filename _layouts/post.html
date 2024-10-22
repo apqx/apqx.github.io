@@ -25,8 +25,7 @@
                 <section data-pagefind-ignore="all" style="margin-top: 3rem; margin-bottom: 0.3rem;">
                     <!-- 如果用span创建mdc-button，则点击动画结束后才会触发点击事件，感觉明显会很慢 -->
                     {%- for tagInPage in page.tags %}
-                    <button type="button" class="mdc-button tag-dialog-trigger btn-tag"
-                        id="chip_tag_{{ tagInPage }}">
+                    <button type="button" class="mdc-button tag-dialog-trigger btn-tag" id="chip_tag_{{ tagInPage }}">
                         <span class="mdc-button__label">#{{ tagInPage }}</span>
                     </button>
                     {%- endfor %}
@@ -38,9 +37,8 @@
                     </p>
                 </blockquote>
                 <blockquote class="pre" data-pagefind-ignore="all">
-                    <p>若分享图片，请注明图源：</p>
-                    <p>立泉落落（https://mudan.me）</p>
-                    <p>或微博<a href="https://weibo.com/u/7026785047" target="_blank">@立泉·落落</a></p>
+                    <p>若分享图片，请注明图源：<br />立泉落落（https://mudan.me）<br />或微博<a href="https://weibo.com/u/7026785047"
+                            target="_blank">@立泉·落落</a></p>
                 </blockquote>
                 {%- endif %}
                 {%- if page.outdated == true %}

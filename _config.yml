@@ -27,6 +27,8 @@ markdown: kramdown
 # 但是GitHub Pages只支持Rouge或Pygments的高亮格式，所以不能设置为none，默认是Rouge
 # highlighter: none
 kramdown:
+  # 关闭智能引号转换 
+  smart_quotes: ["apos", "apos", "quot", "quot"]
   # 虽然不能设置 highlighter: none，但可以禁用rouge的输出功能，使kramdown输出标准的代码高亮html，方便highlight.js解析
   syntax_highlighter_opts:
     disable : true
