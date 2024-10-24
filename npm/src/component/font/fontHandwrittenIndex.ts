@@ -1,0 +1,1 @@
+import "./fontHandwrittenIndex.scss"
