@@ -4,7 +4,7 @@ import { blockTopbarKeyFrameAnimation, initTopbar } from "../component/topbar"
 import { initDrawer } from "../component/drawer"
 import { checkUserTheme, initTheme } from "../component/theme"
 import { initLocalRepository } from "../repository/LocalRepository"
-import { checkCodeFont, checkHandwrittenIndexFont, initHandwritingFont } from "../component/font/font"
+import { initFont } from "../component/font/font"
 import { initFab } from "../component/fab"
 import { initTag, initTagTriggers } from "../component/tag"
 import { initButton } from "../component/button"
@@ -16,9 +16,7 @@ import { loadGoogleAnalytics } from "../util/gtag";
 
 runOnHtmlDone(() => {
     initLocalRepository()
-    initHandwritingFont()
-    checkHandwrittenIndexFont()
-    checkCodeFont()
+    initFont()
     initTopbar()
     initTheme()
     initDrawer()

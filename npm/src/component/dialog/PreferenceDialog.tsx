@@ -8,6 +8,7 @@ import { SettingsToggle } from "./SettingsToggle"
 interface DialogContentState {
     fixedTopbarOn: boolean
     handwrittenFontOn: boolean
+    notoSerifSCFontOn: boolean
     autoThemeOn: boolean
 }
 
@@ -20,10 +21,12 @@ export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogConten
         this.presenter = new PreferenceDialogPresenter(this)
         this.onClickFixedTopbarSwitch = this.onClickFixedTopbarSwitch.bind(this)
         this.onClickHandwritingFontSwitch = this.onClickHandwritingFontSwitch.bind(this)
+        this.onClickNotoSerifSCFontSwitch = this.onClickNotoSerifSCFontSwitch.bind(this)
         this.onClickAutoThemeSwitch = this.onClickAutoThemeSwitch.bind(this)
         this.state = {
             fixedTopbarOn: false,
             handwrittenFontOn: false,
+            notoSerifSCFontOn: false,
             autoThemeOn: false
         }
     }
@@ -45,6 +48,16 @@ export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogConten
         // 更新state，刷新UI
         this.setState({
             handwrittenFontOn: newState
+        })
+    }
+
+    onClickNotoSerifSCFontSwitch() {
+        consoleDebug("PreferenceDialogContent onClickNotoSerifSwitch")
+        const newState = !this.state.notoSerifSCFontOn
+        this.presenter.onClickNotoSerifSCFontSwitch(newState)
+        // 更新state，刷新UI
+        this.setState({
+            notoSerifSCFontOn: newState
         })
     }
 
@@ -91,6 +104,7 @@ export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogConten
     }
 
     handwrittenFontTitle = "使用<a href=\"https://www.17font.com/font/detail/960a115089a711ee98da67ad58e0ec00.html\" target=\"_blank\">兰亭国风行楷</a>字体"
+    notoSerifSCFontTitle = "使用<a href=\"https://source.typekit.com/source-han-serif/cn/\" target=\"_blank\">思源宋体</a>字体"
     autoThemeTitle = "跟随系统自动切换<a href=\"/post/original/2021/08/03/为博客添加站内搜索和暗黑模式.html\">主题配色</a>"
 
     dialogContent(): JSX.Element {
@@ -112,6 +126,9 @@ export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogConten
                     <SettingsToggle titleHtml={this.handwrittenFontTitle}
                         on={this.state.handwrittenFontOn}
                         onClickToggle={this.onClickHandwritingFontSwitch} />
+                     {/* <SettingsToggle titleHtml={this.notoSerifSCFontTitle}
+                        on={this.state.notoSerifSCFontOn}
+                        onClickToggle={this.onClickNotoSerifSCFontSwitch} /> */}
                     <SettingsToggle titleHtml={this.autoThemeTitle}
                         on={this.state.autoThemeOn}
                         onClickToggle={this.onClickAutoThemeSwitch} />

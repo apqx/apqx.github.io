@@ -1,5 +1,6 @@
 // 霞鹜文楷GB
-$text-font: unquote("PingFangSCEllipsis, LXGW WenKai GB, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
+$text-font-xlwk: unquote("PingFangSCEllipsis, LXGW WenKai GB, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
+$text-font-noto-serif: unquote("Noto Serif SC, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
 // 兰亭题序国风行楷
 $handwritten-font: unquote("AaLTTXGFXK, LXGW WenKai GB, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
 // 索引页的许静行楷
@@ -9,7 +10,7 @@ $code-block-font: unquote("LXGW WenKai Mono GB, LXGW WenKai GB, PingFang SC, Rob
 // 先引入mdc的theme，然后用自定义变量覆盖其原有配置
 @use "@material/theme";
 @use "@material/theme/mdc-theme";
-@use "@material/typography" with ($font-family: $text-font);
+@use "@material/typography" with ($font-family: $text-font-xlwk);
 @use "@material/typography/mdc-typography";
 @use "sass:map";
 @use "sass:color";
@@ -223,7 +224,7 @@ $surface-block: (
         --pagefind-ui-border-radius: 8px;
         --pagefind-ui-image-border-radius: 8px;
         --pagefind-ui-image-box-ratio: 3 / 2;
-        --pagefind-ui-font: $text-font;
+        --pagefind-ui-font: $text-font-xlwk;
 }
 
 @mixin dark {

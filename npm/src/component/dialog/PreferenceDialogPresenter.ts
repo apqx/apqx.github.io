@@ -2,7 +2,7 @@ import { PreferenceDialog } from "./PreferenceDialog"
 import { LocalRepository } from "../../repository/LocalRepository"
 import { saveTheme, toggleTheme } from "../theme"
 import { refreshTopbar, setFixedTopbar } from "../topbar"
-import { setHandwrittenFont } from "../font/font"
+import { setHandwrittenFont, setNotoSerifSCFont } from "../font/font"
 
 export class PreferenceDialogPresenter {
 
@@ -18,10 +18,10 @@ export class PreferenceDialogPresenter {
         this.component.setState({
             fixedTopbarOn: this.localFixedTopbarOn(),
             handwrittenFontOn: this.localHandWritingFontOn(),
+            notoSerifSCFontOn: this.localNotoSerifSCFontOn(),
             autoThemeOn: this.localAutoThemeOn()
         })
     }
-
     onClickFixedTopbarSwitch(on: boolean) {
         this.localRepository.saveFixedTopbarOn(on)
         setFixedTopbar(on)
@@ -33,6 +33,11 @@ export class PreferenceDialogPresenter {
     onClickHandwritingFontSwitch(on: boolean) {
         this.localRepository.saveHandwritingFontOn(on)
         setHandwrittenFont(on)
+    }
+
+    onClickNotoSerifSCFontSwitch(on: boolean) {
+        this.localRepository.saveNotoSerifSCFontOn(on)
+        setNotoSerifSCFont(on)
     }
 
     onClickAutoThemeSwitch(on: boolean) {
@@ -63,6 +68,10 @@ export class PreferenceDialogPresenter {
 
     localHandWritingFontOn(): boolean {
         return this.localRepository.getHandWritingFontOn()
+    }
+
+    localNotoSerifSCFontOn(): boolean {
+        return this.localRepository.getNotoSerifSCFontOn()
     }
 
     localAutoThemeOn(): boolean {

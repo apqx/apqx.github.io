@@ -76,6 +76,10 @@ code:not(pre code) {
     border: 1px solid var(--code-highlight-border);
 }
 
+.font-noto-serif-sc code:not(pre code) {
+    padding: 0rem .2rem .05rem .2rem;
+}
+
 em code {
     padding-left: 0.2rem;
     padding-right: 0.3rem;
@@ -102,7 +106,8 @@ em {
     color: var(--em-color);
 }
 
-strong, b {
+strong,
+b {
     // 霞鹜文楷粗体只提供medium
     font-weight: 500;
 }
@@ -121,7 +126,7 @@ strong {
     color: var(--em-color);
 }
 
-.handwritten strong {
+.font-handwritten strong {
     font-weight: normal;
 }
 
@@ -135,6 +140,10 @@ a {
     -webkit-tap-highlight-color: transparent;
     color: unset;
     line-break: loose;
+}
+
+.font-noto-serif-sc a {
+    text-underline-offset: 0.3rem;
 }
 
 // a::after {
@@ -217,23 +226,34 @@ audio {
     white-space: pre;
 }
 
-.handwritten,
-.handwritten :not(i, pre code, pre code *, .index-top-card-text) {
+.font-handwritten,
+.font-handwritten :not(i, pre code, pre code *, .font-handwritten-index) {
     font-family: blogTheme.$handwritten-font;
 }
 
-.handwritten {
+.font-handwritten {
     // --mdc-typography-body1-font-size: 1.1rem;
     --mdc-typography-body1-line-height: 1.8rem;
 }
 
-.handwritten .english,
-.handwritten .english * {
+.font-handwritten .english,
+.font-handwritten .english * {
     font-size: 1.3rem;
 }
 
-.handwritten .material-symbols-rounded-thin:not(.index-pin-icon) {
+.font-handwritten .material-symbols-rounded-thin:not(.index-pin-icon) {
     font-weight: 400;
+}
+
+.font-noto-serif-sc,
+.font-noto-serif-sc :not(i, pre code, pre code *, .font-handwritten-index, .font-handwritten, .font-handwritten *) {
+    font-family: blogTheme.$text-font-noto-serif;
+    --mdc-typography-body1-line-height: 1.8rem;
+}
+
+.font-xlwk,
+.font-xlwk :not(i, pre code, pre code *, .font-handwritten-index, .font-handwritten, .font-handwritten *) {
+    font-family: blogTheme.$text-font-xlwk;
 }
 
 .one-line {
