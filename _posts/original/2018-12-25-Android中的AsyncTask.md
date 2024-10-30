@@ -5,17 +5,17 @@ title: "Android中的AsyncTask"
 author: 立泉
 mention: 线程 异步 UI
 date: 2018-12-25 +0800
-description: 编写高性能的Android程序必须遵循2个最基本的线程规则，即只在工作线程中执行耗时任务和只在主线程中操作UI。要兼顾这两项，代码执行中切换线程就是一个频繁而必要的操作，可以通过Android提供的Handler来将Runnable发送到指定的线程中执行，而AsyncTask则是对Handler的进一步封装。
+description: 编写Android程序需要遵循2个基本线程规则，即只在工作线程执行耗时任务和只在主线程操作UI。要兼顾它们，代码执行中切换线程是一个必要而频繁的操作，可以通过Android提供的Handler将Runnable发送到指定线程中执行，而AsyncTask则是对Handler的进一步封装。
 cover: 
 tags: Code Android Thread Handler
 ---
 
-编写高性能的`Android`程序必须遵循2个最基本的`线程`规则：
+编写`Android`程序需要遵循2个基本`线程`规则：
 
-* 只在`工作线程`中执行耗时任务
-* 只在`主线程`中操作UI
+* 只在`工作线程`执行耗时任务。
+* 只在`主线程`操作UI。
 
-要兼顾这两项，代码执行中`切换线程`就是一个频繁而必要的操作，可以通过`Android`提供的`Handler`来将`Message`和`Runnable`发送到指定的`线程`中执行：
+要兼顾它们，代码执行中`切换线程`是一个必要而频繁的操作，可以通过`Android`提供的`Handler`将`Message`和`Runnable`发送到指定`线程`中执行：
 
 ```kotlin
 override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,7 +45,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
 }
 ```
 
-虽然有很多层嵌套，但看起来似乎还不错，而这只是`Kotlin`，如果用`Java`就是下面的这个样子：
+虽然多层嵌套，看起来似乎还不错，而这只是`Kotlin`，如果用`Java`就是下面这样：
 
 ```java
 @Override
@@ -88,12 +88,12 @@ public void onCreate(Bundle savedInstanceState) {
 }
 ```
 
-使用`Java 8`的`Lambda`表达式可能会好一些，但还是不够精炼。
+使用`Java 8`的`Lambda`表达式会好一些，但依然不够精炼。
 
-所以`Android`有了`AsyncTask`，一个对`Handler`进行多层封装后专门用来执行`短期耗时操作`并不断根据进度信息更新UI的工具。
+所以`AsyncTask`应运而生，一个对`Handler`封装后专门执行`短期耗时操作`并根据进度信息更新UI的工具。
 
 ```kotlin
-// 这里用对象表达式创建继承自AsyncTask的匿名类实例，定义一个AsyncTask任务
+// 对象表达式创建继承自AsyncTask的匿名类实例，定义一个AsyncTask任务
 val cusAsyncTask = object : AsyncTask<String, Int, String>() {
 
             /**
@@ -161,7 +161,7 @@ val cusAsyncTask = object : AsyncTask<String, Int, String>() {
 cusAsyncTask.execute("will do")
 ```
 
-可以发现，无论是`耗时操作`还是`更新UI`，所有的逻辑都写在它应该在的函数中，通过函数调用来传递`进度信息`和`执行结果`，十分规整。但我今天想介绍的是`AsyncTask`的实现原理，基于这种实现，它有什么特点和限制，这个才是最有意思的。
+`耗时操作`和`更新UI`的逻辑都写在指定函数中，通过函数调用来传递`进度信息`和`执行结果`，十分规整。不妨深入看一下`AsyncTask`的实现原理，以及基于这种实现有什么特点和限制。
 
 ## 窥探源码
 
@@ -209,7 +209,7 @@ public final AsyncTask<Params, Progress, Result> executeOnExecutor(Executor exec
 }
 ```
 
-可以看到，同一个`AsyncTask`实例只能执行一次，且可以让任务在指定的`线程池`中执行，否则即运行在默认的`线程池`中，这个默认的`Executor`是这样的：
+可以看到，同一个`AsyncTask`实例只能执行一次，任务可以在指定`线程池`中执行，否则会运行在默认`线程池`，这个默认`Executor`是这样的：
 
 ```java
 private static class SerialExecutor implements Executor {
@@ -239,7 +239,7 @@ private static class SerialExecutor implements Executor {
         }
     }
 }
-// 线程池的定义
+// 线程池定义
 private static final int CPU_COUNT = Runtime.getRuntime().availableProcessors();
 // We want at least 2 threads and at most 4 threads in the core pool,
 // preferring to have 1 less than the CPU count to avoid saturating
@@ -254,9 +254,9 @@ threadPoolExecutor.allowCoreThreadTimeOut(true);
 THREAD_POOL_EXECUTOR = threadPoolExecutor;
 ```
 
-因为默认的`Executor`是`静态`的，且它只会`串行`的执行任务，所以虽然同一个`AsyncTask`可以创建很多个实例，可以同时调用这些实例的`execute()`开始任务，但它们在默认情况下使用的是同一个`Executor`，所以这些后台任务执行时是`串行`而不是`并行`。
+因为默认`Executor`是`静态`的，且只会`串行`执行任务，所以虽然同一个`AsyncTask`可以创建多个实例同时调用`execute()`开始任务，但它们在默认情况下使用的是同一个`Executor`，后台任务执行时是`串行`而非`并行`。
 
-`mFuture`应该就是实际执行的后台任务，它是在`构造器`中定义的：
+`mFuture`应该就是实际执行的后台任务，它在`构造器`中定义：
 
 ```java
 public AsyncTask(@Nullable Looper callbackLooper) {
@@ -362,10 +362,10 @@ private void finish(Result result) {
 
 可以看到，如果`AsyncTask`任务被取消，则会调用`onCanceled()`而不是`onPostExecute()`来传递结果。
 
-基于上面的源码分析，可以看出`AsyncTask`的几个鲜明特点：
+基于以上源码，`AsyncTask`有几个鲜明特点：
 
 * 一个`AsyncTask`实例只能执行一次。
-* 同一个`AsyncTask`的不同实例默认是串行执行的，但可以传入自己的`Executor`来改变其行为，比如变为并行。
-* `AsyncTask`是可以被中断的，中断后将调用`onCanceled()`返回结果而不是`onPostExecute()`。
+* 同一个`AsyncTask`的不同实例默认串行执行，但可以传入自己的`Executor`来改变其行为，变为并行。
+* `AsyncTask`可以被中断，中断后将调用`onCanceled()`返回结果而不是`onPostExecute()`。
 
-最近有点越来越喜欢通过阅读源码来分析某些组件的行为，之前只是知道使用`AsyncTask`必须这样做，看了源码才知道为什么必须这样做，知其然也知其所以然。
+最近很喜欢通过阅读源码分析某些组件的行为，之前只知道使用`AsyncTask`必须这样做，看过源码才知道为什么必须这样做，知其然知其所以然。

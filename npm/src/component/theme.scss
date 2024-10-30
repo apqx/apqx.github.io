@@ -54,9 +54,9 @@ $button: (
 );
 
 $fab: (
-        bg-light: rgba(0, 0, 0, 0.6),
+        bg-light: rgba(235, 235, 235, 0.5),
         bg-light-middle-mini-screen: rgba(0, 0, 0, 0.6),
-        ink-light: #f5f5f5,
+        ink-light: #323232,
         bg-dark: rgba(48, 48, 48, 0.5),
         bg-dark-middle-mini-screen: rgba(48, 48, 48, 0.5),
         ink-dark: #f5f5f5,
@@ -125,10 +125,10 @@ $dialog: (
 );
 
 $chip: (
-        bg-light: rgba(240, 240, 240, 0.5),
+        bg-light: rgba(242, 242, 242, 0.5),
         ink-light: #656565,
         ripple-light: rgb(180, 180, 180),
-        bg-dark: rgba(36, 36, 36, 0.5),
+        bg-dark: rgba(35, 35, 35, 0.5),
         ink-dark: #aaaaaa,
         ripple-dark: rgb(96, 96, 96),
 );
@@ -325,7 +325,7 @@ body {
         --card-animation-duration: 0.8s;
         --card-animation-translate-y: 15rem;
 
-        --top-bar-height: 64px;
+        --top-bar-height: 56px;
 
         @include light;
 }
@@ -338,7 +338,6 @@ body {
 @media all and (max-width: $screen-middle-min-width) {
         body {
                 --mdc-theme-background: #{map.get($background, "light-mini-screen")};
-                --mdc-theme-secondary: #{map.get($fab, "bg-light-middle-mini-screen")};
                 --cover-animation-duration: 0.6s;
                 --card-animation-translate-y: 15rem;
 
@@ -347,19 +346,14 @@ body {
 
         .dark {
                 --mdc-theme-background: #{map.get($background, "dark-mini-screen")};
-                --mdc-theme-secondary: #{map.get($fab, "bg-dark-middle-mini-screen")};
         }
 }
 
 // 平板中屏
 @media all and (min-width: ($screen-middle-min-width + 1px)) and (max-width: ($screen-middle-max-width - 1px)) {
         body {
-                --mdc-theme-secondary: #{map.get($fab, "bg-light-middle-mini-screen")};
                 --cover-animation-duration: 0.6s;
                 --card-animation-translate-y: 15rem;
         }
 
-        .dark {
-                --mdc-theme-secondary: #{map.get($fab, "bg-light-middle-mini-screen")};
-        }
 }

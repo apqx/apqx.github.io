@@ -103,7 +103,7 @@ footer a {
 }
 
 .mdc-top-app-bar--fixed-adjust {
-    padding-top: 4.5rem;
+    padding-top: calc(var(--top-bar-height) + 0.6rem);
 }
 
 img {
@@ -117,7 +117,7 @@ img.inline-for-center {
 // 手机小屏
 @media all and (max-width: blogTheme.$screen-middle-min-width) {
     .mdc-top-app-bar--fixed-adjust {
-        padding-top: 3.8rem;
+        padding-top: calc(var(--top-bar-height) + 0.4rem);
     }
 }
 
