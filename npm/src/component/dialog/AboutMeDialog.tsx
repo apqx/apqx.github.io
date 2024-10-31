@@ -76,7 +76,7 @@ class LinkItem extends React.Component<LinkItemProps, any> {
         return (
             <li>
                 <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken" href={this.props.link} target="_blank">
-                    <span className="mdc-deprecated-list-item__text">{this.props.title}</span>
+                    <span className="mdc-deprecated-list-item__text link-item">{this.props.title}</span>
                 </a>
                 {!this.props.last && <hr className="mdc-deprecated-list-divider" />}
             </li>

@@ -1,7 +1,10 @@
+@use "theme" as blogTheme;
 @use "text";
 @use "@material/data-table/data-table";
 @use "@material/data-table/data-table-theme";
 @use "@material/data-table/mdc-data-table";
+@use "sass:map";
+@use "sass:color";
 
 th,
 .mdc-data-table__cell,
@@ -19,4 +22,12 @@ th,
     @include data-table-theme.stroke-color(var(--divider-color));
     margin-top: 0.8rem;
     margin-bottom: 0.8rem;
+}
+
+.mdc-data-table__row:not(.mdc-data-table__row--selected):hover {
+    background-color: rgba($color: map.get(blogTheme.$drawer-nav-ripple, "light"), $alpha: 0.1);
+}
+
+.dark .mdc-data-table__row:not(.mdc-data-table__row--selected):hover {
+    background-color: rgba($color: map.get(blogTheme.$drawer-nav-ripple, "dark"), $alpha: 0.1);
 }

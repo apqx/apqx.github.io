@@ -9,6 +9,7 @@
 @use "@material/card/mdc-card";
 @use "@material/animation";
 @use "sass:map";
+@use "sass:color";
 
 .my-masonry-grid {
     display: -webkit-box;
@@ -56,13 +57,13 @@ body {
     overflow: hidden;
     @include ripple.surface;
     @include ripple.radius-bounded(100%);
-    @include ripple.states-base-color(rgb(0, 0, 0));
-    @include ripple.states-opacities((hover: .0, focus: .0, press: .07));
+    @include ripple.states-base-color(color.adjust(map.get(blogTheme.$surface, "light"), $lightness: - blogTheme.$ripple-gap-percent));
+    @include ripple.states-opacities((hover: .0, focus: .0, press: .2));
 }
 
 @mixin cardRippleDark {
-    @include ripple.states-base-color(rgb(255, 255, 255));
-    @include ripple.states-opacities((hover: .0, focus: .0, press: .05));
+    @include ripple.states-base-color(color.adjust(map.get(blogTheme.$surface, "dark"), $lightness: + blogTheme.$ripple-gap-percent));
+    @include ripple.states-opacities((hover: .0, focus: .0, press: .2));
 }
 
 .index-top-card {
@@ -132,14 +133,6 @@ body {
     height: 0px;
     transition: height var(--cover-animation-duration) ease;
     // will-change: contents;
-}
-
-.index-description {
-    border: 1px solid rgba(63, 185, 80, 0.4);
-    border-radius: var(--mdc-shape-medium);
-    background: rgba(46, 160, 67, 0.1);
-    padding: 0.6rem 1rem;
-    margin: 0.74rem 1rem;
 }
 
 /* 索引题目 */

@@ -19,6 +19,8 @@ $screen-middle-min-width: 600px;
 $screen-middle-max-width: 880px;
 $center-card-max-width: 880px;
 
+$ripple-gap-percent: 25%;
+
 // 主色，top-bar背景色
 // blur是待透明度的相同颜色
 // shadow是阴影颜色
@@ -44,29 +46,19 @@ $top-bar: (
 //         ink-dark: e3e3e3,
 // );
 
-$button: (
-        bg-light: #555555,
-        bg-ripple-light: rgb(186, 186, 186),
-        ink-light: #f5f5f5,
-        bg-dark: #212121,
-        bg-ripple-dark: rgb(105, 105, 105),
-        ink-dark: #e0e0e0,
-);
-
 $fab: (
         bg-light: rgba(235, 235, 235, 0.5),
-        bg-light-middle-mini-screen: rgba(0, 0, 0, 0.6),
         ink-light: #323232,
         bg-dark: rgba(48, 48, 48, 0.5),
-        bg-dark-middle-mini-screen: rgba(48, 48, 48, 0.5),
         ink-dark: #f5f5f5,
 );
 
 $footer-ink-color: white;
 $footer-link-color: #ffe0b2;
+
 $surface: (
         light: white,
-        dark: #161616,
+        dark: #101010,
 );
 
 $background: (
@@ -76,18 +68,33 @@ $background: (
         dark-mini-screen: color.adjust(map.get($surface, "dark"), $lightness: -3%),
 );
 
-$on-surface: (
-        light: #323232,
-        dark: #e3e3e3
+$text-title: (
+        light: color.adjust(map.get($surface, "light"), $lightness: -90%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: +90%),
 );
 
-$text-secondary-on-background: (
-        light: #757575,
-        dark: #959595,
+$text-subtitle: (
+        light: color.adjust(map.get($text-title, "light"), $lightness: +35%),
+        dark: color.adjust(map.get($text-title, "dark"), $lightness: -35%),
+);
+
+$text-content: (
+        light: color.adjust(map.get($text-title, "light"), $lightness: +10%),
+        dark: color.adjust(map.get($text-title, "dark"), $lightness: -10%),
+);
+
+$text-content-secondary: (
+        light: color.adjust(map.get($text-content, "light"), $lightness: +5%),
+        dark: color.adjust(map.get($text-content, "dark"), $lightness: -5%),
+);
+
+$drawer-nav-ripple: (
+        light: color.adjust(map.get($surface, "light"), $lightness: - $ripple-gap-percent),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: + $ripple-gap-percent),
 );
 
 $scrim: (
-        color: rgba(0, 0, 0, 0.01),
+        color: rgba(0, 0, 0, 0.05),
         backdrop-blur: 10px,
 );
 
@@ -124,22 +131,65 @@ $dialog: (
         shadow-dark: #000000,
 );
 
-$chip: (
-        bg-light: rgba(242, 242, 242, 0.5),
-        ink-light: #656565,
-        ripple-light: rgb(180, 180, 180),
-        bg-dark: rgba(35, 35, 35, 0.5),
-        ink-dark: #aaaaaa,
-        ripple-dark: rgb(96, 96, 96),
+$button-bg: (
+        light: color.adjust(map.get($surface, "light"), $lightness: -70%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: +5%),
+);
+$button-ink: (
+        light: color.adjust(map.get($button-bg, "light"), $lightness: +65%),
+        dark: color.adjust(map.get($button-bg, "dark"), $lightness: +65%),
+);
+$button-ripple: (
+        light: color.adjust(map.get($button-bg, "light"), $lightness: + $ripple-gap-percent),
+        dark: color.adjust(map.get($button-bg, "dark"), $lightness: + $ripple-gap-percent),
 );
 
-$surface-block: (
-        bg-light: white,
-        border-light: rgba(188, 188, 188, 0.5),
-        ink-strong-light: #80290d,
-        bg-dark: rgba(0, 0, 0, 0.1),
-        border-dark: rgba(188, 188, 188, 0.4),
-        ink-strong-dark: #cc826a,
+$chip-bg: (
+        light: color.adjust(map.get($surface, "light"), $lightness: -3%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: +3%),
+);
+$chip-ink: (
+        light: color.adjust(map.get($chip-bg, "light"), $lightness: -60%),
+        dark: color.adjust(map.get($chip-bg, "dark"), $lightness: +60%),
+);
+$chip-ripple: (
+        light: color.adjust(map.get($chip-bg, "light"), $lightness: -$ripple-gap-percent),
+        dark: color.adjust(map.get($chip-bg, "dark"), $lightness: +$ripple-gap-percent),
+);
+
+$code-highlight-bg: (
+        light: color.adjust(map.get($surface, "light"), $lightness: -2%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: +2%),
+);
+
+$code-highlight-border: (
+        light: color.adjust(map.get($code-highlight-bg, "light"), $lightness: -3%),
+        dark: color.adjust(map.get($code-highlight-bg, "dark"), $lightness: +3%),
+);
+
+$surface-block-bg: (
+        light: color.adjust(map.get($surface, "light"), $lightness: - 0.5%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: - 1.2%),
+);
+
+$surface-block-ripple: (
+        light: color.adjust(map.get($surface-block-bg, "light"), $lightness: - $ripple-gap-percent),
+        dark: color.adjust(map.get($surface-block-bg, "dark"), $lightness: + $ripple-gap-percent),
+);
+
+$surface-block-ink-strong: (
+        light: #80290d,
+        dark: #cc826a,
+);
+
+$surface-block-border-dashed: (
+        light: color.adjust(map.get($surface-block-bg, "light"), $lightness: -20%),
+        dark: color.adjust(map.get($surface-block-bg, "dark"), $lightness: +20%),
+);
+
+$surface-block-border: (
+        light: color.adjust(map.get($surface-block-bg, "light"), $lightness: -7%),
+        dark: color.adjust(map.get($surface-block-bg, "dark"), $lightness: +7%),
 );
 
 
@@ -151,11 +201,12 @@ $surface-block: (
         --mdc-theme-background: #{map.get($background, "light")};
         --mdc-theme-surface: #{map.get($surface, "light")};
         // 默认字体颜色，段落p
-        --mdc-theme-on-surface: #{map.get($on-surface, "light")};
+        --mdc-theme-on-surface: #{map.get($text-content, "light")};
+        --mdc-theme-on-surface-secondary: #{map.get($text-content-secondary, "light")};
         // 标题字体色
-        --mdc-theme-text-primary-on-background: #191919;
+        --mdc-theme-text-primary-on-background: #{map.get($text-title, "light")};
         // 小标题字体色
-        --mdc-theme-text-secondary-on-background: #{map.get($text-secondary-on-background, "light")};
+        --mdc-theme-text-secondary-on-background: #{map.get($text-subtitle, "light")};
 
         --top-bar-blur: #{map.get($top-bar, "bg-blur-light")};
 
@@ -167,18 +218,18 @@ $surface-block: (
         --dialog-scrim-bg: #{map.get($scrim, "color")};
 
         // Button
-        --button-bg: #{map.get($button, "bg-light")};
-        --button-ink: #{map.get($button, "ink-light")};
-        --navigation: #{map.get($text-secondary-on-background, "light")};
+        --button-bg: #{map.get($button-bg, "light")};
+        --button-ink: #{map.get($button-ink, "light")};
+        --navigation: #{map.get($text-subtitle, "light")};
 
         // Code
-        --code-highlight-bg: #f9f9f9;
-        --code-highlight-border: #f0f0f0;
+        --code-highlight-bg: #{map.get($code-highlight-bg, "light")};
+        --code-highlight-border: #{map.get($code-highlight-border, "light")};
         --pre-code-bg: #15171a;
 
         // Chip
-        --chip-bg: #{map.get($chip, "bg-light")};
-        --chip-ink: #{map.get($chip, "ink-light")};
+        --chip-bg: #{map.get($chip-bg, "light")};
+        --chip-ink: #{map.get($chip-ink, "light")};
         --list-chip-1-bg: rgba(224, 213, 255, 0.5);
         --list-chip-1-ink: #8167c1;
         --list-chip-1-border: transparent;
@@ -192,25 +243,22 @@ $surface-block: (
         --list-chip-4-ink: #883232;
         --list-chip-4-border: transparent;
         --list-chip-5-bg: rgba(235, 235, 235, 0.5);
-        --list-chip-5-ink: #{map.get($on-surface, "light")};
+        --list-chip-5-ink: #{map.get($text-content, "light")};
         --list-chip-5-border: transparent;
-        --list-secondary-ink: #555555;
+        --list-secondary-ink: #{map.get($text-content-secondary, "light")};
 
-        --list-hover: #f5f5f5;
-
-        --link-color: #2b00fe;
-        --em-color: #535c68;
-        --strong-color: rgba(0, 0, 0, 0.9);
+        --em-color: #{map.get($text-content-secondary, "light")};
+        --strong-color: #{map.get($text-title, "light")};
         --strong-underline-color: rgba(255, 119, 74, 0.15);
         --tag-underline-color: rgba(100, 100, 100, 0.15);
-        --divider-color: #ededed;
-        --divider-dashed-color: #d5d5d5;
+        --divider-color: #{map.get($surface-block-border, "light")};
+        --divider-dashed-color: #{map.get($surface-block-border-dashed, "light")};
         --blockquote-border: #e2a08a;
         --table-list-border-radius: 0.3rem;
 
-        --surface-block-border: #{map.get($surface-block, "border-light")};
-        --surface-block-bg: #{map.get($surface-block, "bg-light")};
-        --surface-block-ink-strong: #{map.get($surface-block, "ink-strong-light")};
+        --surface-block-border: #{map.get($surface-block-border-dashed, "light")};
+        --surface-block-bg: #{map.get($surface-block-bg, "light")};
+        --surface-block-ink-strong: #{map.get($surface-block-ink-strong, "light")};
 
         // Switch默认颜色为primary
         --md-sys-color-primary: #5a5fc1;
@@ -234,27 +282,28 @@ $surface-block: (
         --mdc-theme-on-secondary: #{map.get($fab, "ink-dark")};
         --mdc-theme-background: #{map.get($background, "dark")};
         --mdc-theme-surface: #{map.get($surface, "dark")};
-        --mdc-theme-on-surface: #{map.get($on-surface, "dark")};
-        --mdc-theme-text-primary-on-background: #f5f5f5;
-        --mdc-theme-text-secondary-on-background: #{map.get($text-secondary-on-background, "dark")};
+        --mdc-theme-on-surface: #{map.get($text-content, "dark")};
+        --mdc-theme-on-surface-secondary: #{map.get($text-content-secondary, "dark")};
+        --mdc-theme-text-primary-on-background: #{map.get($text-title, "dark")};
+        --mdc-theme-text-secondary-on-background: #{map.get($text-subtitle, "dark")};
 
         --top-bar-blur: #{map.get($top-bar, "bg-blur-dark")};
 
         // Drawer
         --drawer-ink: white;
 
-        --button-bg: #{map.get($button, "bg-dark")};
-        --button-ink: #{map.get($button, "ink-dark")};
-        --navigation: #{map.get($text-secondary-on-background, "dark")};
+        --button-bg: #{map.get($button-bg, "dark")};
+        --button-ink: #{map.get($button-ink, "dark")};
+        --navigation: #{map.get($text-subtitle, "dark")};
 
         // Code
-        --code-highlight-bg: rgba(55, 55, 55, 0.2);
-        --code-highlight-border: rgba(45, 45, 45, 0.6);
-        --pre-code-bg: #0f0f0f;
+        --code-highlight-bg: #{map.get($code-highlight-bg, "dark")};
+        --code-highlight-border: #{map.get($code-highlight-border, "dark")};
+        --pre-code-bg: #{color.adjust(map.get($surface, "dark"), $lightness: -5%)};
 
         // Chip
-        --chip-bg: #{map.get($chip, "bg-dark")};
-        --chip-ink: #{map.get($chip, "ink-dark")};
+        --chip-bg: #{map.get($chip-bg, "dark")};
+        --chip-ink: #{map.get($chip-ink, "dark")};
         --list-chip-1-bg: rgba(54, 47, 70, 0.5);
         --list-chip-1-ink: rgb(210, 195, 249);
         --list-chip-1-border: transparent;
@@ -268,24 +317,21 @@ $surface-block: (
         --list-chip-4-ink: #ec9797;
         --list-chip-4-border: transparent;
         --list-chip-5-bg: rgba(50, 50, 50, 0.5);
-        --list-chip-5-ink: #{map.get($on-surface, "dark")};
+        --list-chip-5-ink: #{map.get($text-content, "dark")};
         --list-chip-5-border: transparent;
-        --list-secondary-ink: #c3c3c3;
+        --list-secondary-ink: #{map.get($text-content-secondary, "dark")};
 
-        --list-hover: #252525;
-
-        --link-color: #54a0ff;
-        --em-color: rgba(255, 255, 255, 0.65);
-        --strong-color: rgba(255, 255, 255, 0.95);
+        --em-color: #{map.get($text-content-secondary, "dark")};
+        --strong-color: #{map.get($text-title, "dark")};
         --strong-underline-color: rgba(255, 128, 85, 0.3);
         --tag-underline-color: rgba(120, 120, 120, 0.3);
-        --divider-color: #2a2a2a;
-        --divider-dashed-color: #3e3e3e;
+        --divider-color: #{map.get($surface-block-border, "dark")};
+        --divider-dashed-color: #{map.get($surface-block-border-dashed, "dark")};
         --blockquote-border: #9c6d5e;
 
-        --surface-block-border: #{map.get($surface-block, "border-dark")};
-        --surface-block-bg: #{map.get($surface-block, "bg-dark")};
-        --surface-block-ink-strong: #{map.get($surface-block, "ink-strong-dark")};
+        --surface-block-border: #{map.get($surface-block-border-dashed, "dark")};
+        --surface-block-bg: #{map.get($surface-block-bg, "dark")};
+        --surface-block-ink-strong: #{map.get($surface-block-ink-strong, "dark")};
 
         --md-sys-color-primary: #3a78c6;
 }

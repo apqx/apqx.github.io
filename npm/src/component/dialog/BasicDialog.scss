@@ -55,7 +55,7 @@
     @include elevation.elevation(map.get(blogTheme.$dialog, "elevation"), map.get(blogTheme.$dialog, "shadow-light"), 0);
     // 亮色主题加空白边框是为了与暗色主题尺寸保持一致
     // border: 2px solid map.get(blogTheme.$dialog, "border-light");
-    border: 1px dashed var(--divider-dashed-color);
+    // border: 1px dashed var(--divider-dashed-color);
     // surface不滚动，content滚动
     overflow: clip;
 }
