@@ -30,6 +30,7 @@ blockFromSearchEngine: false
                     </div>
                 </div>
             </section>
+            <div class="index-li-divider" />
         </li>
         {%- assign count = 0 -%}
         {% for post in site.posts %}
@@ -58,6 +59,7 @@ blockFromSearchEngine: false
                     </div>
                 </section>
             </a>
+            <div class="index-li-divider" />
         </li>
         {%- assign count = count | plus: 1 %}
         {% endif -%}

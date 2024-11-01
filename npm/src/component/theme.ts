@@ -23,43 +23,70 @@ export function initTheme() {
     });
 }
 
-function checkMetaThemeColor(dark: boolean) {
-    // 黑白配色
-    // if (dark) {
-    //     setMetaThemeColor("#161616")
-    // } else {
-    //     setMetaThemeColor("#ffffff")
-    // }
-    // if (isMobileOrTablet()) {
-    //     toggleTopbarGlass(false)
-    // } else {
-    //     toggleTopbarGlass(true)
-    // }
+// 黑配色
+// const metaThemeColor = {
+//     light: null,
+//     lightMobile: null,
+//     dark: "#101010",
+//     darkMobile: "#101010"
+// }
 
-    // 主题色，只有桌面端Safari不设置主题色
-    // 毛玻璃
-    if (isMobileOrTablet()) {
-        // mobile或tablet设置主题色theme-color
-        // <meta name="theme-color" content="#df696e" />
+// const metaThemeColor = {
+//     light: null,
+//     lightMobile: "#884e4c",
+//     dark: "#101010",
+//     darkMobile: "#101010"
+// }
+// 黑白配色
+const metaThemeColor = {
+    light: "#fdfdfd",
+    lightMobile: "#fdfdfd",
+    dark: "#101010",
+    darkMobile: "#101010"
+}
+
+const topbarBlur = {
+    default: true,
+    mobile: false,
+}
+
+function checkMetaThemeColor(dark: boolean, show: boolean) {
+    // 黑配色
+    if (show) {
         if (dark) {
-            setMetaThemeColor("#9f5d50")
+            if (isMobileOrTablet()) {
+                setMetaThemeColor(metaThemeColor.darkMobile)
+            } else {
+                setMetaThemeColor(metaThemeColor.dark)
+            }
         } else {
-            setMetaThemeColor("#c77d70")
+            if (isMobileOrTablet()) {
+                setMetaThemeColor(metaThemeColor.lightMobile)
+            } else {
+                setMetaThemeColor(metaThemeColor.light)
+            }
         }
-        toggleTopbarGlass(false)
     } else {
-        // desktop不设置主题色，Safari会自动使用检测到的background颜色作为theme-color
-        // 启用毛玻璃
-        // 暗色主题下，设置亮色的theme-color是无效的
-        toggleTopbarGlass(true)
+        setMetaThemeColor(null)
     }
+    if (isMobileOrTablet()) {
+        toggleTopbarGlass(topbarBlur.mobile)
+    } else {
+        toggleTopbarGlass(topbarBlur.default)
+    }
+}
+
+export function toggleMetaThemeColor(show: boolean) {
+    const bodyE = document.getElementsByTagName("body")[0]
+    const currentDark = bodyE.classList.contains(darkClass)
+    checkMetaThemeColor(currentDark, show)
 }
 
 /**
  * 设置浏览器的theme-color属性
  * @param {String} color 如果为null则删除属性
  */
-function setMetaThemeColor(color: string) {
+export function setMetaThemeColor(color: string) {
     consoleDebug("SetThemeColor " + color)
     let themeColorE = null
     for (const metaE of document.getElementsByTagName("meta")) {
@@ -83,7 +110,6 @@ function setMetaThemeColor(color: string) {
         }
     }
 }
-
 
 /**
  * 切换主题
@@ -109,7 +135,7 @@ export function showThemeDark(dark: boolean) {
     const bodyE = document.getElementsByTagName("body")[0]
     toggleClassWithEnable(bodyE, darkClass, dark)
     iconToggleTheme.on = dark
-    checkMetaThemeColor(dark)
+    checkMetaThemeColor(dark, true)
     // 当切换主题的时候，检查是否需要修改theme-color
     // 目前不需要，只切换暗色、亮色主题，而设置的亮色theme-color在系统级暗色主题下无效，还不如直接交给浏览器去自动检测呢
 }

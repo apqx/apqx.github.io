@@ -67,7 +67,6 @@ body {
 }
 
 .index-top-card {
-    margin-top: var(--top-card-to-container-top);
     margin-left: var(--index-card-to-container-border-horizontal);
     margin-right: var(--index-card-to-container-border-horizontal);
     @include cardElevation();
@@ -176,6 +175,7 @@ body {
 .index-ul {
     padding: 0;
     margin-top: var(--index-card-gap);
+    margin-bottom: 0;
 }
 
 .index-li {
@@ -228,14 +228,18 @@ body {
 .grid-index-ul {
     padding: 0;
     padding-inline-start: 0;
-    margin: calc(var(--top-card-to-container-top) - calc(var(--grid-index-card-gap) / 2)) calc(var(--index-card-to-container-border-horizontal) - calc(var(--grid-index-card-gap) / 2));
+    margin: 0 calc(var(--index-card-to-container-border-horizontal) - calc(var(--grid-index-card-gap) / 2));
 }
 
 .grid-index-li {
     list-style-type: none;
     box-sizing: border-box;
-    padding: calc(var(--grid-index-card-gap) / 2) calc(var(--grid-index-card-gap) / 2);
+    padding: 0 calc(var(--grid-index-card-gap) / 2);
     margin: 0;
+}
+
+.grid-index-li-divider {
+    height: var(--grid-index-card-gap);
 }
 
 .grid-index-text-container {

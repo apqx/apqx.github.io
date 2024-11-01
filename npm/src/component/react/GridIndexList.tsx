@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import { MDCRipple } from "@material/ripple";
 import { ImageLoadAnimator } from "../animation/ImageLoadAnimator";
 import { ERROR_HINT, LoadingHint } from "./LoadingHint";
-import { consoleDebug } from "../../util/log";
+import { consoleDebug, consoleObjDebug } from "../../util/log";
 import { BasePostPaginateShow, BasePostPaginateShowProps, BasePostPaginateShowState, Post } from "./post/BasePostPaginateShow";
 import { IPostPaginateShowPresenter } from "./post/IPostPaginateShowPresenter";
 import { PostPaginateShowPresenter } from "./post/PostPaginateShowPresenter";
@@ -94,7 +94,8 @@ export class GridIndexList extends BasePostPaginateShow<Props> {
                                 path={item.path}
                                 description={item.description}
                                 cover={item.cover}
-                                coverAlt={item.coverAlt} />
+                                coverAlt={item.coverAlt}
+                                last={index == this.state.posts.length - 1} />
                         )}
                         {(this.state.loading || this.state.loadHint != null) &&
                             <li className="grid-index-li">
@@ -118,6 +119,7 @@ type IndexItemProps = {
     description: string,
     cover: string,
     coverAlt: string,
+    last: boolean,
 }
 
 class IndexItem extends React.Component<IndexItemProps, any> {
@@ -128,7 +130,7 @@ class IndexItem extends React.Component<IndexItemProps, any> {
     }
 
     componentDidMount(): void {
-        consoleDebug("IndexItem componentDidMount " + this.props.title)
+        consoleObjDebug("IndexItem componentDidMount", this.props)
         const rootE = ReactDOM.findDOMNode(this) as HTMLElement
         new MDCRipple(rootE.querySelector(".grid-index-card__ripple"))
         const imgE = rootE.querySelector(".grid-index-cover")
@@ -170,6 +172,7 @@ class IndexItem extends React.Component<IndexItemProps, any> {
                         </div>
                     </section>
                 </a>
+                {!this.props.last && <div className="index-li-divider" />}
             </li>
         )
     }

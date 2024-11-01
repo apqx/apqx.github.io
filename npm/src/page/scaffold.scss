@@ -46,18 +46,18 @@ footer {
 }
 
 footer * {
-    color: blogTheme.$footer-ink-color;
+    color: var(--mdc-theme-on-primary);
 }
 
 footer a {
-    color: blogTheme.$footer-link-color;
+    color: var(--mdc-theme-link-on-primary);
     text-decoration: none;
 }
 
-.foot-header {
-    height: 1.5rem;
-    background-color: rgba(0, 0, 0, 0.04);
-}
+// .foot-header {
+//     height: 1.5rem;
+//     background-color: rgba(0, 0, 0, 0.04);
+// }
 
 .copyright {
     padding: 1rem;
@@ -68,8 +68,7 @@ footer a {
     width: 100%;
     max-width: blogTheme.$center-card-max-width;
     // 横向居中
-    margin: 0 auto;
-    padding-bottom: 1rem;
+    margin: var(--main-container-padding-vertical) auto;
 }
 
 .foot-container {
@@ -103,7 +102,7 @@ footer a {
 }
 
 .mdc-top-app-bar--fixed-adjust {
-    padding-top: calc(var(--top-bar-height) + 0.5rem);
+    padding-top: var(--top-bar-height);
 }
 
 img {
@@ -116,9 +115,7 @@ img.inline-for-center {
 
 // 手机小屏
 @media all and (max-width: blogTheme.$screen-middle-min-width) {
-    .mdc-top-app-bar--fixed-adjust {
-        padding-top: calc(var(--top-bar-height) + 0.4rem);
-    }
+
 }
 
 // 平板中屏

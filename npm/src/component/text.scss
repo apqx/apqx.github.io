@@ -33,9 +33,10 @@ h2 {
     @include typography.typography(headline2);
 }
 
-// h2::before {
-//     content: "# "
-// }
+h2::before {
+    content: "# ";
+    font-size: 0.9em;
+}
 
 h2.h2-mini {
     @include typography.typography(headline3);
@@ -43,19 +44,13 @@ h2.h2-mini {
 }
 
 h3 {
-    // @include typography.typography(headline3);
-    @include typography.typography(body1);
-    margin: 0.8rem 0;
-    display: inline;
-    color: var(--strong-color);
-    box-shadow: inset 0 -8px 0 0 var(--strong-underline-color);
-    font-size: 1.4rem;
-    width: fit-content;
+    @include typography.typography(headline3);
 }
 
-// h3::before {
-//     content: "## "
-// }
+h3::before {
+    content: "## ";
+    font-size: 0.9em;
+}
 
 p {
     @include basicText();

@@ -2,7 +2,7 @@ import { MDCRipple } from "@material/ripple";
 import React from "react";
 import ReactDOM from "react-dom";
 import { ERROR_HINT, LoadingHint } from "./LoadingHint";
-import { consoleDebug } from "../../util/log";
+import { consoleDebug, consoleObjDebug } from "../../util/log";
 import { ScrollLoader } from "../../base/ScrollLoader";
 import { BasePostPaginateShow, BasePostPaginateShowProps, BasePostPaginateShowState } from "./post/BasePostPaginateShow";
 import { PostPaginateShowPresenter } from "./post/PostPaginateShowPresenter";
@@ -96,7 +96,7 @@ class IndexItem extends React.Component<IndexItemProps, any> {
     }
 
     componentDidMount(): void {
-        consoleDebug("IndexItem componentDidMount " + this.props.title)
+        consoleObjDebug("IndexItem componentDidMount", this.props)
         const rootE = ReactDOM.findDOMNode(this) as HTMLElement;
         if (this.props.pin) {
             rootE.classList.add("index-li--pin")
