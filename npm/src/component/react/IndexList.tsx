@@ -68,8 +68,8 @@ export class IndexList extends BasePostPaginateShow<BasePostPaginateShowProps> {
                     {this.state.posts.map((item, index) =>
                         // 隐藏部分post
                         // 有时候jekyll生成的path和paginate生成的path不一样，导致item重新加载
-                        !item.pin && !item.hide && <IndexItem key={item.path}
-                            title={item.title} author={item.author} date={item.date} path={item.path} pin={item.pin}
+                        !item.hide && <IndexItem key={item.path}
+                            title={item.title} author={item.author} date={item.date} path={item.path} pin={false}
                             last={index == this.state.posts.length - 1} />
                     )}
                     {(this.state.loading || this.state.loadHint != null) &&

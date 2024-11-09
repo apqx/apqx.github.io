@@ -36,6 +36,7 @@ h2 {
 h2::before {
     content: "# ";
     font-size: 0.9em;
+    color: var(--mdc-theme-on-surface-secondary);
 }
 
 h2.h2-mini {
@@ -50,6 +51,7 @@ h3 {
 h3::before {
     content: "## ";
     font-size: 0.9em;
+    color: var(--mdc-theme-on-surface-secondary);
 }
 
 p {

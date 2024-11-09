@@ -7,6 +7,7 @@
 @use "@material/icon-button/mdc-icon-button";
 @use "@material/ripple";
 @use "sass:map";
+@use "sass:color";
 
 body {
     --top-bar-slid-translateY : calc(0px - var(--top-bar-height) - 10px)
@@ -17,14 +18,17 @@ body {
     @include top-app-bar.fill-color(var(--mdc-theme-primary));
     // 阴影
     @include elevation.elevation(map.get(blogTheme.$top-bar-elevation, "elevation"), map.get(blogTheme.$top-bar-elevation, "shadow-light"), 0);
-    // i {
-    //     color: var(--mdc-theme-on-surface);
-    // }
+    * {
+        color: var(--mdc-theme-on-primary);
+    }
+    // border-bottom: 1px solid color.adjust(map.get(blogTheme.$top-bar, "bg-light"), $lightness: - 3%);
+    position: absolute;
 }
 
 .dark .mdc-top-app-bar {
     // 阴影
     @include elevation.elevation(map.get(blogTheme.$top-bar-elevation, "elevation"), map.get(blogTheme.$top-bar-elevation, "shadow-dark"), 0);
+    // border-bottom: 1px solid color.adjust(map.get(blogTheme.$top-bar, "bg-dark"), $lightness: + 3%);
 }
 
 .top-app-bar--blur {
@@ -37,20 +41,34 @@ body {
 .mdc-top-app-bar__navigation-icon.mdc-icon-button {
     @include ripple.surface;
     @include ripple.radius-unbounded(100%);
-    @include ripple.states-base-color(white);
-    @include ripple.states-opacities((hover: .0, focus: .0, press: .1));
+    @include ripple.states-base-color(color.adjust(map.get(blogTheme.$top-bar, "bg-light"), $lightness: + blogTheme.$ripple-gap-percent));
+    @include ripple.states-opacities((hover: .0, focus: .0, press: .15));
+}
+
+.dark .mdc-top-app-bar__action-item.mdc-icon-button,
+.dark .mdc-top-app-bar__navigation-icon.mdc-icon-button {
+    @include ripple.states-base-color(color.adjust(map.get(blogTheme.$top-bar, "bg-dark"), $lightness: + blogTheme.$ripple-gap-percent));
+    @include ripple.states-opacities((hover: .0, focus: .0, press: .15));
 }
 
 .mdc-top-app-bar__row {
     height: var(--top-bar-height);
 }
 
-// 默认固定，需要时监测滚动启动隐藏、展示动画
-// 动态获取topbar高度，设置滚动值
+// 添加此类以禁用mdc的滚动隐藏/显示逻辑
 .mdc-top-app-bar--fixed {
-    transform: translateY(0px);
-    opacity: 1;
-    transition: all 0.4s ease;
+    // 默认固定，需要时监测滚动启动隐藏、展示动画
+    // transform: translateY(0px);
+    // opacity: 1;
+    // transition: all 0.4s ease;
+
+    // 固定显示在Viewport顶部
+    position: fixed;
+}
+
+// 不固定在顶部
+.mdc-top-app-bar--fixed.mdc-top-app-bar--no-sticky {
+    position: absolute;
 }
 
 // 执行中的CSS动画可以被新动画打断，会从当前状态开始过渡，而非从原始状态

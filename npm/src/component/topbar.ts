@@ -49,31 +49,27 @@ export function initTopbar() {
 
 export function setFixedTopbar(on: boolean) {
     consoleDebug("setFixedTopbar " + on)
-    if (on) {
-        toggleShowTopbar(true)
-        window.removeEventListener("scroll", scrollListener)
-        window.removeEventListener("animationend", animationDoneListener)
-        // window.removeEventListener("animationcancel", animationDoneListener)
-        toggleClassWithEnable(topAppBarE, "top-app-bar--moving-down", false)
-        toggleClassWithEnable(topAppBarE, "top-app-bar--down", false)
-        toggleClassWithEnable(topAppBarE, "top-app-bar--moving-up", false)
-        toggleClassWithEnable(topAppBarE, "top-app-bar--up", false)
-    } else {
-        // 非固定topbar监听滚动
-        // 多次添加同一个监听器是无效的
-        window.addEventListener("scroll", scrollListener)
-        window.addEventListener("animationend", animationDoneListener)
-        // window.addEventListener("animationcancel", animationDoneListener)
-    }
-    // 只有桌面浏览器才设置毛玻璃，和theme-color的判断条件一致，毛玻璃和theme-color难以搭配，索性不搭
-    // if (isMobileOrTablet()) {
-    //     // 移动设备会设置theme-color，不启用毛玻璃
+    // 监听滚动，平滑隐藏/显示
+    // if (on) {
+    //     toggleShowTopbar(true)
+    //     window.removeEventListener("scroll", scrollListener)
+    //     window.removeEventListener("animationend", animationDoneListener)
+    //     toggleClassWithEnable(topAppBarE, "top-app-bar--moving-down", false)
+    //     toggleClassWithEnable(topAppBarE, "top-app-bar--down", false)
+    //     toggleClassWithEnable(topAppBarE, "top-app-bar--moving-up", false)
+    //     toggleClassWithEnable(topAppBarE, "top-app-bar--up", false)
     // } else {
-    //     // 桌面设备不设置theme-color，启用毛玻璃
-    //     toggleTopbarGlass(on)
+    //     // 非固定topbar监听滚动
+    //     // 多次添加同一个监听器是无效的
+    //     window.addEventListener("scroll", scrollListener)
+    //     window.addEventListener("animationend", animationDoneListener)
     // }
 
-    // toggleTopbarGlass(true)
+    if (on) {
+        toggleClassWithEnable(topAppBarE, "mdc-top-app-bar--no-sticky", false)
+    } else {
+        toggleClassWithEnable(topAppBarE, "mdc-top-app-bar--no-sticky", true)
+    }
 }
 
 export function toggleTopbarGlass(on: boolean) {

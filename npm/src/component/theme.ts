@@ -23,44 +23,35 @@ export function initTheme() {
     });
 }
 
-// 黑配色
-// const metaThemeColor = {
-//     light: null,
-//     lightMobile: null,
-//     dark: "#101010",
-//     darkMobile: "#101010"
-// }
-
-// const metaThemeColor = {
-//     light: null,
-//     lightMobile: "#884e4c",
-//     dark: "#101010",
-//     darkMobile: "#101010"
-// }
-// 黑白配色
 const metaThemeColor = {
-    light: "#fdfdfd",
-    lightMobile: "#fdfdfd",
-    dark: "#101010",
-    darkMobile: "#101010"
+    light: "#ffffff",
+    lightMobile: "#ffffff",
+    lightChrome: "#ffffff",
+    dark: "#111111",
+    darkMobile: "#111111",
+    darkChrome: "#111111",
 }
 
 const topbarBlur = {
     default: true,
-    mobile: false,
+    mobile: true,
 }
 
 function checkMetaThemeColor(dark: boolean, show: boolean) {
     // 黑配色
     if (show) {
         if (dark) {
-            if (isMobileOrTablet()) {
+            if (isChrome()) {
+                setMetaThemeColor(metaThemeColor.darkChrome)
+            } else if (isMobileOrTablet()) {
                 setMetaThemeColor(metaThemeColor.darkMobile)
             } else {
                 setMetaThemeColor(metaThemeColor.dark)
             }
         } else {
-            if (isMobileOrTablet()) {
+            if (isChrome()) {
+                setMetaThemeColor(metaThemeColor.lightChrome)
+            } else if (isMobileOrTablet()) {
                 setMetaThemeColor(metaThemeColor.lightMobile)
             } else {
                 setMetaThemeColor(metaThemeColor.light)

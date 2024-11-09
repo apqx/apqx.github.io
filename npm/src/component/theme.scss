@@ -21,20 +21,22 @@ $center-card-max-width: 880px;
 
 $ripple-gap-percent: 25%;
 
-// 主色，top-bar背景色
-// blur是待透明度的相同颜色
 // shadow是阴影颜色
 $top-bar: (
-        bg-light: #c77d70,
-        bg-blur-light: rgba(163, 37, 12, 0.6),
+        bg-light: #c57b6b,
+        bg-blur-light: rgba(172, 66, 44, 0.7),
         bg-shadow-light: #a46053,
         ink-light: #f5f5f5,
         ink-link-light: #ffe0b2,
-        bg-dark: #9f5d50,
-        bg-blur-dark: rgba(255, 145, 122, 0.6),
+        bg-dark: #995a4d,
+        bg-blur-dark: rgba(214, 124, 105, 0.7),
         bg-shadow-dark: #a46053,
         ink-dark: #f5f5f5,
         ink-link-dark: #ffe0b2,
+);
+$surface: (
+        light: #ffffff,
+        dark: #111111,
 );
 
 // 黑配色
@@ -44,39 +46,36 @@ $top-bar: (
 //         bg-shadow-light: #a46053,
 //         ink-light: #f5f5f5,
 //         ink-link-light: #d29d79,
-//         bg-dark: #101010,
-//         bg-blur-dark: rgba(19, 19, 19, 0.7),
+//         bg-dark: #111111,
+//         bg-blur-dark: rgba(19, 19, 19, 0.8),
 //         bg-shadow-dark: #a46053,
 //         ink-dark: #dcdcdc,
 //         ink-link-dark: #dea896,
 // );
 
 // 黑白配色
-$top-bar: (
-        bg-light: #fdfdfd,
-        bg-blur-light: rgba(255, 255, 255, 0.7),
-        bg-shadow-light: #a46053,
-        ink-light: #333333,
-        ink-link-light: #80290d,
-        bg-dark: #101010,
-        bg-blur-dark: rgba(19, 19, 19, 0.7),
-        bg-shadow-dark: #a46053,
-        ink-dark: #dcdcdc,
-        ink-link-dark: #dea896,
-);
-
-$footer-link-color: #ffe0b2;
-
-$surface: (
-        light: #fdfdfd,
-        dark: #101010,
-);
+// $top-bar: (
+//         bg-light: #fefefe,
+//         bg-blur-light: rgba(255, 255, 255, 0.8),
+//         bg-shadow-light: #a46053,
+//         ink-light: #333333,
+//         ink-link-light: #80290d,
+//         bg-dark: #111111,
+//         bg-blur-dark: rgba(19, 19, 19, 0.8),
+//         bg-shadow-dark: #a46053,
+//         ink-dark: #dcdcdc,
+//         ink-link-dark: #dea896,
+// );
+// $surface: (
+//         light: #fefefe,
+//         dark: #111111,
+// );
 
 $background: (
-        light: color.adjust(map.get($surface, "light"), $lightness: -2.5%),
-        light-mini-screen: color.adjust(map.get($surface, "light"), $lightness: -2.5%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: -2.5%),
-        dark-mini-screen: color.adjust(map.get($surface, "dark"), $lightness: -2.5%),
+        light: color.adjust(map.get($surface, "light"), $lightness: -2%),
+        light-mini-screen: color.adjust(map.get($surface, "light"), $lightness: -2%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: -2%),
+        dark-mini-screen: color.adjust(map.get($surface, "dark"), $lightness: -2%),
 );
 
 $text-title: (
