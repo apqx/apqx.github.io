@@ -16,10 +16,10 @@
 .mdc-drawer {
     z-index: 3;
     @include elevation.elevation(map.get(blogTheme.$drawer-elevation, "elevation"), map.get(blogTheme.$drawer-elevation, "shadow-light"), 0);
-    @include drawer.item-text-ink-color(var(--drawer-ink));
-    @include drawer.item-icon-ink-color(var(--drawer-ink));
-    @include drawer.item-activated-text-ink-color(var(--drawer-ink));
-    @include drawer.item-activated-icon-ink-color(var(--drawer-ink));
+    @include drawer.item-text-ink-color(var(--mdc-theme-on-surface));
+    @include drawer.item-icon-ink-color(var(--mdc-theme-on-surface));
+    @include drawer.item-activated-text-ink-color(var(--mdc-theme-on-surface));
+    @include drawer.item-activated-icon-ink-color(var(--mdc-theme-on-surface));
     // transition: transform 0.2s ease-out !important;
     border: none;
 }

@@ -35,7 +35,7 @@ git config --global credential.helper store
 
 ### 授权token
 
-授权`token`在`GitHub`中配置生成，可以指定权限范围，包括从访问用户仓库列表到创建、删除仓库在内的一系列危险操作。它和用户名+密码一样通常被`IDE`使用以在本地管理远程仓库，比如`Intellj Idea`在创建工程时就可以直接从用户的`GitHub`仓库中`clone`。
+授权`token`在`GitHub`中配置生成，可以指定权限范围，包括从访问用户仓库列表到创建、删除仓库在内的一系列危险操作。它和用户名+密码一样通常被`IDE`使用以在本地管理远程仓库，比如`IntellJ IDEA`在创建工程时就可以直接从用户的`GitHub`仓库中`clone`。
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20230605/idea_github_repository.webp){: loading="lazy" class="clickable clickShowOriginalImg" alt="Intellij Idea GitHub Repository" }
 
@@ -49,9 +49,9 @@ git config --global credential.helper store
 
 ## 建立关联
 
-曾经有一段时间如何正确的把本地仓库和远程仓库建立关联让我十分费解，不过现在一切都清晰明朗，我用几种典型情况来说明。
+曾经有一段时间如何正确的把本地仓库和远程仓库建立关联让我十分费解，不过现在一切都清晰明朗，用几种典型情况来说明。
 
-## 克隆
+### 克隆
 
 最常见也最简单的一种场景是`clone`一个`GitHub`仓库到本地，这种情况下本地仓库是自动与该远程仓库绑定的，仓库目录下执行`git remote -v`就能看到名为`origin`的远程仓库。
 
@@ -87,7 +87,7 @@ git push
 
 一个小技巧是可以把这个`.git`目录复制到任何一个目录下，则该目录就变成了一个链接对应远程仓库的本地`git`仓库。`git`会检查当前目录相对于`HEAD`所指向`commit`版本的文件变化，等待用户新的`commit`提交。
 
-## 手动关联
+### 手动关联
 
 另一个常见场景是在本地创建`git`仓库，想把它托管到`GitHub`上，应该如何操作？
 
@@ -177,4 +177,4 @@ git push origin --delete <branch-name>
 
 ## 尾声
 
-`GitHub`在被微软并入后能感觉到功能迭代更加活跃，已经在之前博文中提过`Github Pages`，再排除今天写的部分，还有一些如`Fork`和`Action`的功能没有涉及。不过很快也会有，计划中的一个东西需要使用它们，等我做完就会把相关心得分享出来。
+`GitHub`在被微软并入后功能迭代更加活跃，已经在之前博文中提过`Github Pages`，再排除今天写的部分，还有一些如`Fork`和`Action`的功能没有涉及。最近计划的一个东西需要用到它们，做完也会把相关心得分享出来。

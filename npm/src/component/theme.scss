@@ -36,7 +36,7 @@ $top-bar: (
 );
 $surface: (
         light: #ffffff,
-        dark: #111111,
+        dark: #1f1f1f,
 );
 
 // 黑配色
@@ -108,6 +108,16 @@ $fab: (
         ink-light: map.get($text-content, "light"),
         bg-dark: rgba(40, 40, 40, 0.5),
         ink-dark: map.get($text-content, "dark"),
+);
+
+$fab-bg: (
+        light: rgba(color.adjust(map.get($background, "light"), $lightness: -5%), 0.5),
+        dark: rgba(color.adjust(map.get($background, "dark"), $lightness: -5%), 0.5),
+);
+
+$fab-ink: (
+        light: rgba(color.adjust(map.get($fab-bg, "light"), $lightness: -70%), 1),
+        dark: rgba(color.adjust(map.get($fab-bg, "dark"), $lightness: +70%), 1),
 );
 
 $scrim: (
@@ -184,6 +194,11 @@ $code-highlight-border: (
         dark: color.adjust(map.get($code-highlight-bg, "dark"), $lightness: +3%),
 );
 
+$strong-under-line: (
+        light: rgba(map.get($text-content, "light"), 0.12),
+        dark: rgba(map.get($text-content, "dark"), 0.12)
+);
+
 $surface-block-bg: (
         light: color.adjust(map.get($surface, "light"), $lightness: - 0.5%),
         dark: color.adjust(map.get($surface, "dark"), $lightness: - 1.2%),
@@ -214,8 +229,8 @@ $surface-block-border: (
         --mdc-theme-primary: #{map.get($top-bar, "bg-light")};
         --mdc-theme-on-primary: #{map.get($top-bar, "ink-light")};
         --mdc-theme-link-on-primary: #{map.get($top-bar, "ink-link-light")};
-        --mdc-theme-secondary: #{map.get($fab, "bg-light")};
-        --mdc-theme-on-secondary: #{map.get($fab, "ink-light")};
+        --mdc-theme-secondary: #{map.get($fab-bg, "light")};
+        --mdc-theme-on-secondary: #{map.get($fab-ink, "light")};
         --mdc-theme-background: #{map.get($background, "light")};
         --mdc-theme-surface: #{map.get($surface, "light")};
         // 默认字体颜色，段落p
@@ -229,7 +244,6 @@ $surface-block-border: (
         --top-bar-blur: #{map.get($top-bar, "bg-blur-light")};
 
         // Drawer
-        --drawer-ink: black;
         --drawer-scrim-bg: #{map.get($scrim, "color")};
 
         // Dialog
@@ -267,8 +281,8 @@ $surface-block-border: (
 
         --em-color: #{map.get($text-content-secondary, "light")};
         --strong-color: #{map.get($text-title, "light")};
-        --strong-underline-color: rgba(255, 119, 74, 0.15);
-        --tag-underline-color: rgba(100, 100, 100, 0.15);
+        --strong-underline-color: #{map.get($strong-under-line, "light")};
+        --tag-underline-color: #{map.get($strong-under-line, "light")};
         --divider-color: #{map.get($surface-block-border, "light")};
         --divider-dashed-color: #{map.get($surface-block-border-dashed, "light")};
         --blockquote-border: #e2a08a;
@@ -297,8 +311,8 @@ $surface-block-border: (
         --mdc-theme-primary: #{map.get($top-bar, "bg-dark")};
         --mdc-theme-on-primary: #{map.get($top-bar, "ink-dark")};
         --mdc-theme-link-on-primary: #{map.get($top-bar, "ink-link-dark")};
-        --mdc-theme-secondary: #{map.get($fab, "bg-dark")};
-        --mdc-theme-on-secondary: #{map.get($fab, "ink-dark")};
+        --mdc-theme-secondary: #{map.get($fab-bg, "dark")};
+        --mdc-theme-on-secondary: #{map.get($fab-ink, "dark")};
         --mdc-theme-background: #{map.get($background, "dark")};
         --mdc-theme-surface: #{map.get($surface, "dark")};
         --mdc-theme-on-surface: #{map.get($text-content, "dark")};
@@ -309,7 +323,6 @@ $surface-block-border: (
         --top-bar-blur: #{map.get($top-bar, "bg-blur-dark")};
 
         // Drawer
-        --drawer-ink: white;
 
         --button-bg: #{map.get($button-bg, "dark")};
         --button-ink: #{map.get($button-ink, "dark")};
@@ -342,8 +355,8 @@ $surface-block-border: (
 
         --em-color: #{map.get($text-content-secondary, "dark")};
         --strong-color: #{map.get($text-title, "dark")};
-        --strong-underline-color: rgba(181, 105, 79, 0.3);
-        --tag-underline-color: rgba(120, 120, 120, 0.3);
+        --strong-underline-color: #{map.get($strong-under-line, "dark")};
+        --tag-underline-color: #{map.get($strong-under-line, "dark")};
         --divider-color: #{map.get($surface-block-border, "dark")};
         --divider-dashed-color: #{map.get($surface-block-border-dashed, "dark")};
         --blockquote-border: #9c6d5e;
