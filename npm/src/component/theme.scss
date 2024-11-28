@@ -1,6 +1,7 @@
 // 霞鹜文楷GB
 $text-font-xlwk: unquote("PingFangSCEllipsis, LXGW WenKai GB, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
 $text-font-noto-serif: unquote("Noto Serif SC, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
+$text-font-libre-baskerville: unquote("LibreBaskerville, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
 // 兰亭题序国风行楷
 $handwritten-font: unquote("AaLTTXGFXK, LXGW WenKai GB, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
 // 索引页的许静行楷
@@ -22,22 +23,22 @@ $center-card-max-width: 880px;
 $ripple-gap-percent: 25%;
 
 // shadow是阴影颜色
-$top-bar: (
-        bg-light: #c57b6b,
-        bg-blur-light: rgba(172, 66, 44, 0.7),
-        bg-shadow-light: #a46053,
-        ink-light: #f5f5f5,
-        ink-link-light: #ffe0b2,
-        bg-dark: #995a4d,
-        bg-blur-dark: rgba(214, 124, 105, 0.7),
-        bg-shadow-dark: #a46053,
-        ink-dark: #f5f5f5,
-        ink-link-dark: #ffe0b2,
-);
-$surface: (
-        light: #ffffff,
-        dark: #1f1f1f,
-);
+// $top-bar: (
+//         bg-light: #c57b6b,
+//         bg-blur-light: rgba(172, 66, 44, 0.7),
+//         bg-shadow-light: #a46053,
+//         ink-light: #f5f5f5,
+//         ink-link-light: #ffe0b2,
+//         bg-dark: #bb6e5d,
+//         bg-blur-dark: rgba(255, 144, 121, 0.7),
+//         bg-shadow-dark: #a46053,
+//         ink-dark: #f5f5f5,
+//         ink-link-dark: #ffe0b2,
+// );
+// $surface: (
+//         light: #ffffff,
+//         dark: #1f1f1f,
+// );
 
 // 黑配色
 // $top-bar: (
@@ -54,22 +55,22 @@ $surface: (
 // );
 
 // 黑白配色
-// $top-bar: (
-//         bg-light: #fefefe,
-//         bg-blur-light: rgba(255, 255, 255, 0.8),
-//         bg-shadow-light: #a46053,
-//         ink-light: #333333,
-//         ink-link-light: #80290d,
-//         bg-dark: #111111,
-//         bg-blur-dark: rgba(19, 19, 19, 0.8),
-//         bg-shadow-dark: #a46053,
-//         ink-dark: #dcdcdc,
-//         ink-link-dark: #dea896,
-// );
-// $surface: (
-//         light: #fefefe,
-//         dark: #111111,
-// );
+$top-bar: (
+        bg-light: #fefefe,
+        bg-blur-light: rgba(255, 255, 255, 0.8),
+        bg-shadow-light: #a46053,
+        ink-light: #333333,
+        ink-link-light: #80290d,
+        bg-dark: #1f1f1f,
+        bg-blur-dark: rgba(33, 33, 33, 0.8),
+        bg-shadow-dark: #a46053,
+        ink-dark: #dcdcdc,
+        ink-link-dark: #dea896,
+);
+$surface: (
+        light: #fefefe,
+        dark: #1f1f1f,
+);
 
 $background: (
         light: color.adjust(map.get($surface, "light"), $lightness: -2%),
@@ -171,6 +172,19 @@ $button-ripple: (
         dark: color.adjust(map.get($button-bg, "dark"), $lightness: + $ripple-gap-percent),
 );
 
+$dialog-action-btn-bg: (
+        light: map.get($surface, "light"),
+        dark: map.get($surface, "dark"),
+);
+$dialog-action-btn-ink: (
+        light: color.adjust(map.get($dialog-action-btn-bg, "light"), $lightness: -65%),
+        dark: color.adjust(map.get($dialog-action-btn-bg, "dark"), $lightness: +65%),
+);
+$dialog-action-btn-ripple: (
+        light: color.adjust(map.get($dialog-action-btn-bg, "light"), $lightness: - $ripple-gap-percent),
+        dark: color.adjust(map.get($dialog-action-btn-bg, "dark"), $lightness: + $ripple-gap-percent),
+);
+
 $chip-bg: (
         light: color.adjust(map.get($surface, "light"), $lightness: -3%),
         dark: color.adjust(map.get($surface, "dark"), $lightness: +3%),
@@ -182,6 +196,44 @@ $chip-ink: (
 $chip-ripple: (
         light: color.adjust(map.get($chip-bg, "light"), $lightness: -$ripple-gap-percent),
         dark: color.adjust(map.get($chip-bg, "dark"), $lightness: +$ripple-gap-percent),
+);
+
+@function calc-text-block-bg-light($ink) {
+        @return rgba(color.adjust($ink, $lightness: +30%), 0.3),
+};
+
+@function calc-text-block-bg-dark($ink) {
+        @return rgba(color.adjust($ink, $lightness: -20%), 0.1),
+};
+
+$text-block-1-ink: (
+        light: #8167c1,
+        dark: rgb(210, 195, 249),
+);
+
+$text-block-1-bg: (
+        light: calc-text-block-bg-light(map.get($text-block-1-ink, "light")),
+        dark: calc-text-block-bg-dark(map.get($text-block-1-ink, "dark")),
+);
+
+$text-block-2-ink: (
+        light: #dd5c5c,
+        dark: rgb(249, 184, 184),
+);
+
+$text-block-2-bg: (
+        light: calc-text-block-bg-light(map.get($text-block-2-ink, "light")),
+        dark: calc-text-block-bg-dark(map.get($text-block-2-ink, "dark")),
+);
+
+$text-block-3-ink: (
+        light: #d89c3b,
+        dark: rgb(248, 237, 194),
+);
+
+$text-block-3-bg: (
+        light: calc-text-block-bg-light(map.get($text-block-3-ink, "light")),
+        dark: calc-text-block-bg-dark(map.get($text-block-3-ink, "dark")),
 );
 
 $code-highlight-bg: (
@@ -224,7 +276,6 @@ $surface-block-border: (
         dark: color.adjust(map.get($surface-block-bg, "dark"), $lightness: +7%),
 );
 
-
 @mixin light {
         --mdc-theme-primary: #{map.get($top-bar, "bg-light")};
         --mdc-theme-on-primary: #{map.get($top-bar, "ink-light")};
@@ -248,6 +299,8 @@ $surface-block-border: (
 
         // Dialog
         --dialog-scrim-bg: #{map.get($scrim, "color")};
+        --dialog-action-btn-bg: #{map.get($dialog-action-btn-bg, "light")};
+        --dialog-action-btn-ink: #{map.get($dialog-action-btn-ink, "light")};
 
         // Button
         --button-bg: #{map.get($button-bg, "light")};
@@ -262,21 +315,12 @@ $surface-block-border: (
         // Chip
         --chip-bg: #{map.get($chip-bg, "light")};
         --chip-ink: #{map.get($chip-ink, "light")};
-        --list-chip-1-bg: rgba(224, 213, 255, 0.5);
-        --list-chip-1-ink: #8167c1;
-        --list-chip-1-border: transparent;
-        --list-chip-2-bg: rgba(255, 224, 221, 0.5);
-        --list-chip-2-ink: #f77575;
-        --list-chip-2-border: transparent;
-        --list-chip-3-bg: rgba(254, 242, 192, 0.5);
-        --list-chip-3-ink: #9a6000;
-        --list-chip-3-border: transparent;
-        --list-chip-4-bg: rgba(255, 212, 212, 0.5);
-        --list-chip-4-ink: #883232;
-        --list-chip-4-border: transparent;
-        --list-chip-5-bg: rgba(235, 235, 235, 0.5);
-        --list-chip-5-ink: #{map.get($text-content, "light")};
-        --list-chip-5-border: transparent;
+        --list-chip-1-bg: #{map.get($text-block-1-bg, "light")};
+        --list-chip-1-ink: #{map.get($text-block-1-ink, "light")};
+        --list-chip-2-bg: #{map.get($text-block-2-bg, "light")};
+        --list-chip-2-ink: #{map.get($text-block-2-ink, "light")};
+        --list-chip-3-bg: #{map.get($text-block-3-bg, "light")};
+        --list-chip-3-ink: #{map.get($text-block-3-ink, "light")};
         --list-secondary-ink: #{map.get($text-content-secondary, "light")};
 
         --em-color: #{map.get($text-content-secondary, "light")};
@@ -285,7 +329,7 @@ $surface-block-border: (
         --tag-underline-color: #{map.get($strong-under-line, "light")};
         --divider-color: #{map.get($surface-block-border, "light")};
         --divider-dashed-color: #{map.get($surface-block-border-dashed, "light")};
-        --blockquote-border: #e2a08a;
+        --blockquote-border: #eca4a4;
         --table-list-border-radius: 0.3rem;
 
         --surface-block-border: #{map.get($surface-block-border-dashed, "light")};
@@ -324,6 +368,9 @@ $surface-block-border: (
 
         // Drawer
 
+        --dialog-action-btn-bg: #{map.get($dialog-action-btn-bg, "dark")};
+        --dialog-action-btn-ink: #{map.get($dialog-action-btn-ink, "dark")};
+
         --button-bg: #{map.get($button-bg, "dark")};
         --button-ink: #{map.get($button-ink, "dark")};
         --navigation: #{map.get($text-subtitle, "dark")};
@@ -336,21 +383,12 @@ $surface-block-border: (
         // Chip
         --chip-bg: #{map.get($chip-bg, "dark")};
         --chip-ink: #{map.get($chip-ink, "dark")};
-        --list-chip-1-bg: rgba(54, 47, 70, 0.5);
-        --list-chip-1-ink: rgb(210, 195, 249);
-        --list-chip-1-border: transparent;
-        --list-chip-2-bg: rgba(55, 33, 34, 0.5);
-        --list-chip-2-ink: rgb(253, 155, 157);
-        --list-chip-2-border: transparent;
-        --list-chip-3-bg: rgba(52, 46, 23, 0.5);
-        --list-chip-3-ink: rgb(254, 241, 190);
-        --list-chip-3-border: transparent;
-        --list-chip-4-bg: rgba(92, 45, 45, 0.5);
-        --list-chip-4-ink: #ec9797;
-        --list-chip-4-border: transparent;
-        --list-chip-5-bg: rgba(50, 50, 50, 0.5);
-        --list-chip-5-ink: #{map.get($text-content, "dark")};
-        --list-chip-5-border: transparent;
+        --list-chip-1-bg: #{map.get($text-block-1-bg, "dark")};
+        --list-chip-1-ink: #{map.get($text-block-1-ink, "dark")};
+        --list-chip-2-bg: #{map.get($text-block-2-bg, "dark")};
+        --list-chip-2-ink: #{map.get($text-block-2-ink, "dark")};
+        --list-chip-3-bg: #{map.get($text-block-3-bg, "dark")};
+        --list-chip-3-ink: #{map.get($text-block-3-ink, "dark")};
         --list-secondary-ink: #{map.get($text-content-secondary, "dark")};
 
         --em-color: #{map.get($text-content-secondary, "dark")};
@@ -359,7 +397,7 @@ $surface-block-border: (
         --tag-underline-color: #{map.get($strong-under-line, "dark")};
         --divider-color: #{map.get($surface-block-border, "dark")};
         --divider-dashed-color: #{map.get($surface-block-border-dashed, "dark")};
-        --blockquote-border: #9c6d5e;
+        --blockquote-border: #8c5353;
 
         --surface-block-border: #{map.get($surface-block-border-dashed, "dark")};
         --surface-block-bg: #{map.get($surface-block-bg, "dark")};
@@ -369,23 +407,33 @@ $surface-block-border: (
 }
 
 body {
-        --mdc-typography-headline1-font-size: 1.6rem;
+        --mdc-typography-body1-font-size: 1rem;
+        --mdc-typography-body1-line-height: calc(var(--mdc-typography-body1-font-size) + 0.7rem);
+        --mdc-typography-body2-font-size: calc(var(--mdc-typography-body1-font-size) - 0.12rem);
+        --mdc-typography-subtitle1-font-size: var(--mdc-typography-body1-font-size);
+
+        --mdc-text-button-label-text-size: calc(var(--mdc-typography-body1-font-size) - 0.12rem);
+
+        --mdc-typography-headline1-font-size: calc(var(--mdc-typography-body1-font-size) + 0.6rem);
         --mdc-typography-headline1-font-weight: normal;
 
-        --mdc-typography-headline2-font-size: 1.6rem;
-        --mdc-typography-headline2-line-height: 2.2rem;
+        --mdc-typography-headline2-font-size: calc(var(--mdc-typography-body1-font-size) + 0.6rem);
+        --mdc-typography-headline2-line-height: calc(var(--mdc-typography-body1-font-size) + 1.2rem);
         --mdc-typography-headline2-font-weight: normal;
 
-        --mdc-typography-headline3-font-size: 1.5rem;
-        --mdc-typography-headline3-line-height: 2rem;
+        --mdc-typography-headline3-font-size: calc(var(--mdc-typography-body1-font-size) + 0.5rem);
+        --mdc-typography-headline3-line-height: calc(var(--mdc-typography-body1-font-size) + 1rem);
         --mdc-typography-headline3-font-weight: normal;
 
-        --mdc-typography-body1-font-size: 1rem;
-        --mdc-typography-body1-line-height: 1.7rem;
+        --mdc-typography-headline6-font-size: calc(var(--mdc-typography-body1-font-size) + 0.25rem);
+
+        // drawer list圆角
+        --mdc-shape-small: 0.5rem;
         // card, dialog 圆角
-        --mdc-shape-medium: 0.3rem;
+        --mdc-shape-medium: 0.8rem;
         // 文章内元素圆角，code block和description
-        --post-inner-shape-round: 0.3rem;
+        --post-inner-shape-round: 0.8rem;
+        --table-list-border-radius: 0.8rem !important;
 
         --md-switch-state-layer-size: 0rem;
         --md-switch-handle-width: 0.6rem;

@@ -24,9 +24,9 @@ export function initTheme() {
 }
 
 const metaThemeColor = {
-    light: "#ffffff",
-    lightMobile: "#ffffff",
-    lightChrome: "#ffffff",
+    light: "#fefefe",
+    lightMobile: "#fefefe",
+    lightChrome: "#fefefe",
     dark: "#1f1f1f",
     darkMobile: "#1f1f1f",
     darkChrome: "#1f1f1f",

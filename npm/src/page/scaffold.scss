@@ -61,6 +61,11 @@ footer a {
 
 .copyright {
     padding: 1rem;
+
+    p {
+        font-family: blogTheme.$text-font-libre-baskerville;
+        font-style: italic;
+    }
 }
 
 // 内容最外层的主容器

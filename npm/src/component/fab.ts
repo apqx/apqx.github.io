@@ -24,7 +24,10 @@ export function initFab() {
 
 function showEncodedUrl() {
     const url = window.location.href
-    const urlLink = "当前页面的编码URL为<a href=\"" + url + "\">此链接</a>"
+    const urlLink = `
+    当前页面的编码URL为：
+    <pre style="color: var(--mdc-theme-on-surface-secondary)">${url}</pre>
+    `
     showAlertDialog("提示", urlLink, "关闭", () => {
     })
 }

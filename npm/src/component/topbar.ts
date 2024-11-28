@@ -31,17 +31,17 @@ export function initTopbar() {
     iconToggleTheme = new MDCIconButtonToggle(btnThemeE)
 
     // 监听topbar的主题切换按钮
-    btnThemeE.addEventListener("click", () => {
+    btnThemeE?.addEventListener("click", () => {
         // toggleButton会自动toggle图标
         toggleTheme(true)
     });
-    btnAboutMeE.addEventListener("click", () => {
+    btnAboutMeE?.addEventListener("click", () => {
         showAboutMeDialog()
 
     })
-    btnMenuE.addEventListener("focus", clearFocusListener)
-    btnThemeE.addEventListener("focus", clearFocusListener)
-    btnAboutMeE.addEventListener("focus", clearFocusListener)
+    btnMenuE?.addEventListener("focus", clearFocusListener)
+    btnThemeE?.addEventListener("focus", clearFocusListener)
+    btnAboutMeE?.addEventListener("focus", clearFocusListener)
 
     refreshTopbar()
 }

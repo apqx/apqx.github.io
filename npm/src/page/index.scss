@@ -36,6 +36,7 @@ body {
 @mixin cardElevation {
     @include elevation.elevation(map.get(blogTheme.$card-elevation, "elevation"),
         map.get(blogTheme.$card-elevation, "shadow-light"), 0);
+    // border: 1px dashed var(--surface-block-border);
 }
 
 @mixin cardElevationDark {
@@ -88,11 +89,7 @@ body {
 .index-top-card-text {
     @include typography.typography(subtitle1);
     text-align: right;
-    font-size: 1.1rem;
-}
-
-.font-handwritten-index {
-    font-family: blogTheme.$handwritten-font-index;
+    font-size: calc(var(--mdc-typography-body1-font-size) + 0.1rem);
 }
 
 .index-card {
@@ -109,19 +106,23 @@ body {
 
 // 小屏
 @media all and (max-width: blogTheme.$screen-middle-max-width) {
-    .index-top-card, .index-card {
+
+    .index-top-card,
+    .index-card {
         @include cardElevationMiniScreen();
     }
 
     .dark {
-        .index-top-card, .index-card {
+
+        .index-top-card,
+        .index-card {
             @include cardElevationMiniScreenDark();
         }
     }
 }
 
 .index-top-cover {
-    border-radius: var(--mdc-shape-medium);
+    // border-radius: var(--mdc-shape-medium);
     object-fit: cover;
     width: 100%;
     // 封面宽高比例，在不设置动画时使用，JS动画用它计算高度
@@ -146,7 +147,7 @@ body {
 .index-author {
     @include typography.typography(body1);
     @include theme.property(color, text-secondary-on-background);
-    font-size: 0.9rem;
+    font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
     line-height: 1.5rem;
     text-align: right;
     margin: 0;
@@ -164,7 +165,7 @@ body {
 .index-date {
     @include typography.typography(body1);
     @include theme.property(color, text-secondary-on-background);
-    font-size: 0.9rem;
+    font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
     line-height: 1.5rem;
     text-align: right;
     margin: 0;
@@ -247,14 +248,14 @@ body {
 }
 
 .grid-index-cover {
-    border-radius: var(--mdc-shape-medium);
+    // border-radius: var(--mdc-shape-medium);
     width: 100%;
 }
 
 .grid-index-title {
     @include typography.typography(subtitle1);
     @include theme.property(color, on-surface);
-    font-size: 1.2rem;
+    font-size: calc(var(--mdc-typography-body1-font-size) + 0.2rem);
     margin: 0;
     text-align: left
 }
@@ -262,7 +263,7 @@ body {
 .grid-index-date {
     @include typography.typography(body1);
     @include theme.property(color, text-secondary-on-background);
-    font-size: 0.75rem;
+    font-size: calc(var(--mdc-typography-body1-font-size) - 0.25rem);
     margin: 0;
     display: inline;
 }
@@ -270,7 +271,7 @@ body {
 .grid-index-author {
     @include typography.typography(body1);
     @include theme.property(color, text-secondary-on-background);
-    font-size: 0.75rem;
+    font-size: calc(var(--mdc-typography-body1-font-size) - 0.25rem);
     display: inline;
 }
 
@@ -301,17 +302,17 @@ body {
     .grid-index-card {
         @include cardElevationMiniScreen();
     }
-    
+
     .dark .grid-index-card {
         @include cardElevationMiniScreenDark();
     }
 
     .index-author {
-        font-size: 0.75rem;
+        font-size: calc(var(--mdc-typography-body1-font-size) - 0.25rem);
     }
 
     .index-date {
-        font-size: 0.75rem;
+        font-size: calc(var(--mdc-typography-body1-font-size) - 0.25rem);
     }
 
     .index-top-card-container {
@@ -340,11 +341,11 @@ body {
     }
 
     .index-author {
-        font-size: 0.8rem;
+        font-size: calc(var(--mdc-typography-body1-font-size) - 0.2rem);
     }
 
     .index-date {
-        font-size: 0.8rem;
+        font-size: calc(var(--mdc-typography-body1-font-size) - 0.2rem);
     }
 
     .grid-index-text-container {

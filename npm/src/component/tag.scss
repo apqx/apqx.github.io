@@ -23,12 +23,12 @@
     @include button.container-fill-color(var(--chip-bg));
     @include button.horizontal-padding(0.8rem);
     text-transform: none;
-    font-size: 0.9rem;
+    font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
     font-weight: normal;
     margin-top: 0.2rem;
     margin-bottom: 0.2rem;
     @include button.height(2rem);
-    border-radius: 1rem;
+    border-radius: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
 
     @include btnChipRipple();
 }

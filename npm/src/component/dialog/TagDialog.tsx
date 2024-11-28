@@ -55,12 +55,12 @@ export class TagDialog extends BasicDialog<DialogContentProps, DialogContentStat
     }
 
     onClickLoadMore() {
-        this.presenter.loadMore()
+        this.presenter.loadMore(true)
     }
 
     scrollNearToBottom(): void {
         if (this.state.loadHint == ERROR_HINT) return
-        this.presenter.loadMore()
+        this.presenter.loadMore(false)
     }
 
     componentDidMount() {

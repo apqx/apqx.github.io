@@ -29,5 +29,5 @@
 }
 
 .mdc-button.btn-round {
-    border-radius: 1.3rem;
+    border-radius: calc(var(--mdc-typography-body1-font-size) + 0.3rem);
 }

@@ -5,6 +5,9 @@
 @use "@material/elevation/mdc-elevation";
 @use "@material/theme";
 @use "@material/typography";
+@use "@material/button";
+@use "@material/button/mdc-button";
+@use "@material/ripple";
 @use "sass:map";
 @use "sass:color";
 
@@ -84,10 +87,12 @@
 
 .basic-dialog_actions {
     justify-content: center;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    padding-left: var(--dialog-content-padding-left-right);
-    padding-right: var(--dialog-content-padding-left-right);
+    // padding-top: 1rem;
+    // padding-bottom: 1rem;
+    // padding-left: var(--dialog-content-padding-left-right);
+    // padding-right: var(--dialog-content-padding-left-right);
+    padding: 0;
+    height: fit-content;
     border: none;
     border-top: 1px dashed;
     border-color: var(--divider-dashed-color) !important;
@@ -95,6 +100,25 @@
 
 .basic-dialog_btn_action {
     width: 100%;
+    height: 3.2rem;
+    padding: 0;
+    border-radius: 0;
+}
+
+.basic-dialog_btn_action.mdc-button {
+    @include button.container-fill-color(var(--dialog-action-btn-bg));
+    @include button.ink-color(var(--dialog-action-btn-ink));
+
+    @include ripple.surface;
+    // 如果为bounded则宽度可能有问题，导致横向溢出，滚动🤔
+    // Dialog的surface的尺寸异常导致滚动，已设置设置其overflow为clip
+    @include ripple.radius-bounded(100%);
+    @include ripple.states-base-color(map.get(blogTheme.$dialog-action-btn-ripple, "light"));
+    @include ripple.states-opacities((hover: .0, focus: .0, press: .1));
+}
+
+.dark .basic-dialog_btn_action.mdc-button {
+    @include ripple.states-base-color(map.get(blogTheme.$dialog-action-btn-ripple, "dark"));
 }
 
 .mdc-dialog__content .mdc-deprecated-list {

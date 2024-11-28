@@ -51,7 +51,7 @@ input {
 }
 
 .search-result-item-type {
-    font-size: 0.8rem;
+    font-size: calc(var(--mdc-typography-body1-font-size) - 0.2rem);
     padding: 0.06rem 0.5rem;
     border-radius: 0.5rem;
     margin-right: 0.2rem;

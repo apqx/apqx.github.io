@@ -41,7 +41,7 @@ body {
 .mdc-top-app-bar__navigation-icon.mdc-icon-button {
     @include ripple.surface;
     @include ripple.radius-unbounded(100%);
-    @include ripple.states-base-color(color.adjust(map.get(blogTheme.$top-bar, "bg-light"), $lightness: + blogTheme.$ripple-gap-percent));
+    @include ripple.states-base-color(color.adjust(map.get(blogTheme.$top-bar, "bg-light"), $lightness: - blogTheme.$ripple-gap-percent));
     @include ripple.states-opacities((hover: .0, focus: .0, press: .15));
 }
 
@@ -49,6 +49,12 @@ body {
 .dark .mdc-top-app-bar__navigation-icon.mdc-icon-button {
     @include ripple.states-base-color(color.adjust(map.get(blogTheme.$top-bar, "bg-dark"), $lightness: + blogTheme.$ripple-gap-percent));
     @include ripple.states-opacities((hover: .0, focus: .0, press: .15));
+}
+
+.mdc-top-app-bar__title {
+    padding-left: 0.3rem;
+    // font-family: LibreBaskerville !important; 
+    // font-style: italic !important;
 }
 
 .mdc-top-app-bar__row {

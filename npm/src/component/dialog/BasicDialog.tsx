@@ -174,7 +174,7 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
                         {(this.props.btnText != null) &&
                             <div className="mdc-dialog__actions basic-dialog_actions">
                                 <button type="button"
-                                    className="mdc-button btn-round basic-dialog_btn_action"
+                                    className="mdc-button basic-dialog_btn_action"
                                     data-mdc-dialog-action="cancel"
                                     onClick={this.props.OnClickBtn}
                                     id="basic-dialog_btn_close"

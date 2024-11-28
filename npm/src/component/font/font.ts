@@ -13,6 +13,7 @@ export function initFont() {
     // TODO: 之后应使用字体设置项，而非boolean
     // const localNotoSerifSCFontOn = localRepository.getNotoSerifSCFontOn()
     // setNotoSerifSCFont(localNotoSerifSCFontOn)
+    // setNotoSerifSCFont(true)
 }
 
 export function setHandwrittenFont(on: boolean) {

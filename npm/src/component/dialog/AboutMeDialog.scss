@@ -2,7 +2,7 @@
 
 .about-me-name {
     @include typography.typography(headline4);
-    font-size: 1.8rem;
+    font-size: calc(var(--mdc-typography-body1-font-size) + 0.8rem);
     text-align: center;
     margin-top: 1.0rem;
     margin-bottom: 1.0rem;

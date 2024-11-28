@@ -143,7 +143,7 @@ export class TagDialogPresenter {
         return postsForShow
     }
 
-    loadMore() {
+    loadMore(click: boolean) {
         if (this.component.state.loading) return
         if (this.component.state.loadHint == ERROR_HINT) {
             this.findTaggedPosts(this.component.props.tag)
@@ -161,14 +161,23 @@ export class TagDialogPresenter {
         const newPostsForShow = this.generatePostsForShow(cachedPosts, currentSize, loadSize)
         const postsForShow = this.component.state.postList.concat(newPostsForShow)
         const loadHint = getLoadHint(postsForShow.length, totalSize)
-        // runAfterMinimalTime(startTime, () => {
-        this.component.setState({
-            loading: false,
-            resultSize: totalSize,
-            postList: postsForShow,
-            loadHint: loadHint
-        })
-        // })
+        if (click) {
+            runAfterMinimalTime(startTime, () => {
+                this.component.setState({
+                    loading: false,
+                    resultSize: totalSize,
+                    postList: postsForShow,
+                    loadHint: loadHint
+                })
+            })
+        } else {
+            this.component.setState({
+                loading: false,
+                resultSize: totalSize,
+                postList: postsForShow,
+                loadHint: loadHint
+            })
+        }
     }
 
     reduceResult() {

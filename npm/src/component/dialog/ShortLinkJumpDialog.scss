@@ -2,7 +2,7 @@
 
 #short-link-jump-dialog_emoji {
     text-align: center;
-    font-size: 4rem;
+    font-size: calc(var(--mdc-typography-body1-font-size) + 3rem);
     //margin-top: 2rem;
 }
 

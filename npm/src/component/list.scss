@@ -73,6 +73,6 @@
 .list-item__secondary-text {
     @include typography.typography(body1);
     color: var(--list-secondary-ink);
-    font-size: 0.9rem;
+    font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
     text-align: left;
 }
