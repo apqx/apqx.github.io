@@ -34,7 +34,7 @@ h2 {
 }
 
 h2::before {
-    content: "# ";  
+    content: "# ";
     // 相对尺寸
     font-size: 0.9em;
     color: var(--mdc-theme-on-surface-secondary);
@@ -230,8 +230,9 @@ audio {
 }
 
 .font-handwritten,
+.index-top-card-text.font-handwritten,
 .font-handwritten :not(button, i, pre code, pre code *, .font-handwritten-index) {
-    font-family: blogTheme.$handwritten-font !important;
+    font-family: blogTheme.$handwritten-font;
 }
 
 .font-handwritten {
