@@ -26,7 +26,7 @@ function showEncodedUrl() {
     const url = window.location.href
     const urlLink = `
     当前页面的编码URL为：
-    <pre style="color: var(--mdc-theme-on-surface-secondary)">${url}</pre>
+    <pre style="color: var(--mdc-theme-on-surface-secondary); margin: 0; padding: 0.5rem 0;">${url}</pre>
     `
     showAlertDialog("提示", urlLink, "关闭", () => {
     })
