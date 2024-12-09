@@ -53,9 +53,11 @@ body {
 
 .mdc-top-app-bar__title {
     padding-left: 0.3rem;
-    font-family: LibreBaskerville !important; 
-    font-style: normal !important;
     font-weight: normal;
+
+    a {
+        text-decoration: none;
+    }
 }
 
 .mdc-top-app-bar__row {

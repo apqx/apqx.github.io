@@ -28,7 +28,7 @@ body {
     --index-card-padding-vertical: 1.3rem;
     --index-card-padding-horizontal: 2.7rem;
 
-    --index-card-to-container-border-horizontal: 1rem;
+    --index-card-to-container-border-horizontal: var(--main-container-padding-vertical);
     --index-card-gap: 0.74rem;
     --grid-index-card-gap: 0.74rem;
 }
@@ -170,6 +170,10 @@ body {
     text-align: right;
     margin: 0;
     display: block;
+}
+
+.index-description {
+    margin: 0;
 }
 
 // 索引列表

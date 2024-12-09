@@ -6,6 +6,7 @@ import {MDCRipple} from "@material/ripple";
 import {showAboutMeDialog} from "./dialog/AboutMeDialog";
 import {showPreferenceDialog} from "./dialog/PreferenceDialog";
 import {showSearchDialog} from "./dialog/SearchDialog";
+import { getSectionTypeByPath, SECTION_TYPE_OPERA, SECTION_TYPE_POETRY, SECTION_TYPE_REPOST, SECTION_TYPE_TAG } from "../base/constant";
 // import "./drawer.scss"
 
 const DRAWER_ITEM_ORIGINAL_ID = "drawer-a-original"
@@ -80,14 +81,14 @@ export function initDrawer() {
 }
 
 function getCurrentPageIndex(aEList: NodeListOf<Element>) {
-    let path = window.location.pathname
-    if (path.match("/section/repost.*") || path.match("/post/repost/.*")) {
+    let section = getSectionTypeByPath(window.location.pathname)
+    if (section.identifier == SECTION_TYPE_REPOST.identifier) {
         return findIndexById(aEList, DRAWER_ITEM_REPOST_ID)
-    } else if (path.match("/section/poetry.*") || path.match("/post/poetry/.*")) {
+    } else if (section.identifier == SECTION_TYPE_POETRY.identifier) {
         return findIndexById(aEList, DRAWER_ITEM_POETRY_ID)
-    } else if (path.match("/section/opera.*") || path.match("/post/opera/.*")) {
+    } else if (section.identifier == SECTION_TYPE_OPERA.identifier) {
         return findIndexById(aEList, DRAWER_ITEM_OPERA_ID)
-    } else if (path.match("/section/tag.*")) {
+    } else if (section.identifier == SECTION_TYPE_TAG.identifier) {
         return findIndexById(aEList, DRAWER_ITEM_TAG_ID)
     } else {
         // 其余所有页面都显示随笔板块

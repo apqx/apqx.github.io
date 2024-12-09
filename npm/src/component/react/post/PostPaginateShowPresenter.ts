@@ -1,4 +1,4 @@
-import { POST_TYPE_POETRY } from "../../../base/constant";
+import { SECTION_TYPE_POETRY } from "../../../base/constant";
 import { PaginatePage } from "../../../repository/service/bean/PaginatePage";
 import { consoleError, consoleObjDebug } from "../../../util/log";
 import { isDebug, runAfterMinimalTime } from "../../../util/tools";
@@ -88,7 +88,7 @@ export class PostPaginateShowPresenter implements IPostPaginateShowPresenter {
     }
     private getPostForShow(item: ApiPost) {
         let author = item.author;
-        if (this.component.props.category == POST_TYPE_POETRY.identifier && item.moreDate.length > 0) {
+        if (this.component.props.category == SECTION_TYPE_POETRY.identifier && item.moreDate.length > 0) {
             author = item.moreDate + " " + item.author;
         }
         let cover = item.cover;

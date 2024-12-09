@@ -145,6 +145,10 @@ a {
     text-underline-offset: 0.3rem;
 }
 
+.font-english-baskerville a {
+    text-underline-offset: 0.1rem;
+}
+
 // a::after {
 //     content: "";
 //     position: absolute;
@@ -225,13 +229,20 @@ audio {
     white-space: pre;
 }
 
+// 局部字体
+.font-english-baskerville,
+.font-english-baskerville * {
+    font-family: blogTheme.$text-font-libre-baskerville;
+}
+
 .font-handwritten-index {
     font-family: blogTheme.$handwritten-font-index !important;
 }
 
+// 全局字体
 .font-handwritten,
-.index-top-card-text.font-handwritten,
-.font-handwritten :not(button, i, pre code, pre code *, .font-handwritten-index) {
+.font-handwritten :not(button, i, pre code, pre code *,
+    .font-no-change, .font-no-change *) {
     font-family: blogTheme.$handwritten-font;
 }
 
@@ -249,7 +260,10 @@ audio {
 }
 
 .font-noto-serif-sc,
-.font-noto-serif-sc :not(button, i, pre code, pre code *, .font-handwritten-index, .font-handwritten, .font-handwritten *) {
+.font-noto-serif-sc :not(button, i, pre code, pre code *,
+    .font-english-baskerville, .font-english-baskerville *,
+    .font-handwritten, .font-handwritten *,
+    .font-no-change, .font-no-change *) {
     font-family: blogTheme.$text-font-noto-serif;
     --mdc-typography-body1-line-height: calc(var(--mdc-typography-body1-font-size) + 0.8rem);
 }

@@ -1,6 +1,6 @@
 // 霞鹜文楷GB
 $text-font-xlwk: unquote("PingFangSCEllipsis, LXGW WenKai GB, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
-$text-font-noto-serif: unquote("Noto Serif SC, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
+$text-font-noto-serif: unquote("PingFangSCEllipsis, Noto Serif SC, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
 $text-font-libre-baskerville: unquote("LibreBaskerville, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
 // 兰亭题序国风行楷
 $handwritten-font: unquote("AaLTTXGFXK, LXGW WenKai GB, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
@@ -22,51 +22,25 @@ $center-card-max-width: 880px;
 
 $ripple-gap-percent: 25%;
 
-// shadow是阴影颜色
-// $top-bar: (
-//         bg-light: #c57b6b,
-//         bg-blur-light: rgba(172, 66, 44, 0.7),
-//         bg-shadow-light: #a46053,
-//         ink-light: #f5f5f5,
-//         ink-link-light: #ffe0b2,
-//         bg-dark: #bb6e5d,
-//         bg-blur-dark: rgba(255, 144, 121, 0.7),
-//         bg-shadow-dark: #a46053,
-//         ink-dark: #f5f5f5,
-//         ink-link-dark: #ffe0b2,
-// );
-// $surface: (
-//         light: #ffffff,
-//         dark: #1f1f1f,
-// );
-
-// 黑配色
-// $top-bar: (
-//         bg-light: #3e3e3e,
-//         bg-blur-light: rgba(0, 0, 0, 0.75),
-//         bg-shadow-light: #a46053,
-//         ink-light: #f5f5f5,
-//         ink-link-light: #d29d79,
-//         bg-dark: #111111,
-//         bg-blur-dark: rgba(19, 19, 19, 0.8),
-//         bg-shadow-dark: #a46053,
-//         ink-dark: #dcdcdc,
-//         ink-link-dark: #dea896,
-// );
-
 // 黑白配色
 $top-bar: (
         bg-light: #fefefe,
         bg-blur-light: rgba(255, 255, 255, 0.8),
         bg-shadow-light: #a46053,
-        ink-light: #333333,
-        ink-link-light: #80290d,
         bg-dark: #1f1f1f,
         bg-blur-dark: rgba(33, 33, 33, 0.8),
         bg-shadow-dark: #a46053,
-        ink-dark: #dcdcdc,
-        ink-link-dark: #dea896,
 );
+$top-bar-ink:(
+        light: color.adjust(map.get($top-bar, "bg-light"), $lightness: -80%),
+        dark: color.adjust(map.get($top-bar, "bg-dark"), $lightness: +80%),
+);
+
+$footer-ink:(
+        light: color.adjust(map.get($top-bar, "bg-light"), $lightness: -70%),
+        dark: color.adjust(map.get($top-bar, "bg-dark"), $lightness: +70%),
+);
+
 $surface: (
         light: #fefefe,
         dark: #1f1f1f,
@@ -90,8 +64,8 @@ $text-subtitle: (
 );
 
 $text-content: (
-        light: color.adjust(map.get($text-title, "light"), $lightness: +10%),
-        dark: color.adjust(map.get($text-title, "dark"), $lightness: -10%),
+        light: color.adjust(map.get($surface, "light"), $lightness: -80%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: +80%),
 );
 
 $text-content-secondary: (
@@ -102,13 +76,6 @@ $text-content-secondary: (
 $drawer-nav-ripple: (
         light: color.adjust(map.get($surface, "light"), $lightness: - $ripple-gap-percent),
         dark: color.adjust(map.get($surface, "dark"), $lightness: + $ripple-gap-percent),
-);
-
-$fab: (
-        bg-light: rgba(235, 235, 235, 0.5),
-        ink-light: map.get($text-content, "light"),
-        bg-dark: rgba(40, 40, 40, 0.5),
-        ink-dark: map.get($text-content, "dark"),
 );
 
 $fab-bg: (
@@ -278,8 +245,7 @@ $surface-block-border: (
 
 @mixin light {
         --mdc-theme-primary: #{map.get($top-bar, "bg-light")};
-        --mdc-theme-on-primary: #{map.get($top-bar, "ink-light")};
-        --mdc-theme-link-on-primary: #{map.get($top-bar, "ink-link-light")};
+        --mdc-theme-on-primary: #{map.get($top-bar-ink, "light")};
         --mdc-theme-secondary: #{map.get($fab-bg, "light")};
         --mdc-theme-on-secondary: #{map.get($fab-ink, "light")};
         --mdc-theme-background: #{map.get($background, "light")};
@@ -293,6 +259,7 @@ $surface-block-border: (
         --mdc-theme-text-secondary-on-background: #{map.get($text-subtitle, "light")};
 
         --top-bar-blur: #{map.get($top-bar, "bg-blur-light")};
+        --footer-ink:#{map.get($footer-ink, "light")};
 
         // Drawer
         --drawer-scrim-bg: #{map.get($scrim, "color")};
@@ -353,8 +320,7 @@ $surface-block-border: (
 
 @mixin dark {
         --mdc-theme-primary: #{map.get($top-bar, "bg-dark")};
-        --mdc-theme-on-primary: #{map.get($top-bar, "ink-dark")};
-        --mdc-theme-link-on-primary: #{map.get($top-bar, "ink-link-dark")};
+        --mdc-theme-on-primary: #{map.get($top-bar-ink, "dark")};
         --mdc-theme-secondary: #{map.get($fab-bg, "dark")};
         --mdc-theme-on-secondary: #{map.get($fab-ink, "dark")};
         --mdc-theme-background: #{map.get($background, "dark")};
@@ -365,6 +331,7 @@ $surface-block-border: (
         --mdc-theme-text-secondary-on-background: #{map.get($text-subtitle, "dark")};
 
         --top-bar-blur: #{map.get($top-bar, "bg-blur-dark")};
+        --footer-ink:#{map.get($footer-ink, "dark")};
 
         // Drawer
 
@@ -397,7 +364,7 @@ $surface-block-border: (
         --tag-underline-color: #{map.get($strong-under-line, "dark")};
         --divider-color: #{map.get($surface-block-border, "dark")};
         --divider-dashed-color: #{map.get($surface-block-border-dashed, "dark")};
-        --blockquote-border: #8c5353;
+        --blockquote-border: #ae5c5c;
 
         --surface-block-border: #{map.get($surface-block-border-dashed, "dark")};
         --surface-block-bg: #{map.get($surface-block-bg, "dark")};
@@ -443,6 +410,7 @@ body {
         --md-switch-track-width: 2.5rem;
         --md-switch-track-height: 1.2rem;
 
+        --top-bar-height: 56px;
         --main-container-padding-vertical: 1.2rem;
 
         --dialog-animation-duration: 0.3s;
@@ -450,8 +418,6 @@ body {
         --cover-animation-duration: 0.8s;
         --card-animation-duration: 0.8s;
         --card-animation-translate-y: 15rem;
-
-        --top-bar-height: 56px;
 
         @include light;
 }
@@ -467,7 +433,7 @@ body {
                 --cover-animation-duration: 0.6s;
                 --card-animation-translate-y: 15rem;
 
-                --main-container-padding-vertical: 1.1rem;
+                --main-container-padding-vertical: 0.8rem;
 
                 --top-bar-height: 56px;
         }

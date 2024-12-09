@@ -5,6 +5,7 @@ import { localRepository } from "../repository/LocalRepository";
 import { MDCTopAppBar } from "@material/top-app-bar";
 import { clearFocusListener, isMobileOrTablet, toggleClassWithEnable } from "../util/tools";
 import { showAboutMeDialog } from "./dialog/AboutMeDialog";
+import { getSectionTypeByPath, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL, SECTION_TYPE_POETRY, SECTION_TYPE_REPOST, SECTION_TYPE_TAG } from "../base/constant";
 // import "./topbar.scss"
 
 export var iconToggleTheme: MDCIconButtonToggle = null
@@ -26,6 +27,7 @@ export function initTopbar() {
     const btnThemeE = document.querySelector("#topbar_btn_theme") as HTMLElement
     const btnAboutMeE = document.querySelector("#topbar_btn_about_me") as HTMLElement
     topAppBarE = document.querySelector(".mdc-top-app-bar")
+    initTitle(topAppBarE)
 
     topAppBar = new MDCTopAppBar(topAppBarE)
     iconToggleTheme = new MDCIconButtonToggle(btnThemeE)
@@ -187,5 +189,37 @@ export function blockTopbarKeyFrameAnimation(block: boolean) {
     } else {
         topAppBarE.style.animation = null;
         // topAppBarE.style.animationPlayState = "running"
+    }
+}
+
+function initTitle(topAppBarE: HTMLElement) {
+    let section = getSectionTypeByPath(window.location.pathname)
+    let titleAE: HTMLLinkElement = topAppBarE.querySelector(".mdc-top-app-bar__title a")
+    switch (section.identifier) {
+        case SECTION_TYPE_REPOST.identifier: {
+            titleAE.innerText = "Repost"
+            titleAE.href = section.indexPath
+            break
+        }
+        case SECTION_TYPE_POETRY.identifier: {
+            titleAE.innerText = "Poetry"
+            titleAE.href = section.indexPath
+            break
+        }
+        case SECTION_TYPE_OPERA.identifier: {
+            titleAE.innerText = "Opera"
+            titleAE.href = section.indexPath
+            break
+        }
+        case SECTION_TYPE_TAG.identifier: {
+            titleAE.innerText = "Tag"
+            titleAE.href = section.indexPath
+            break
+        }
+        default: {
+            titleAE.innerText = "ʕ•ᴥ•ʔ"
+            titleAE.href = "/"
+            break
+        }
     }
 }

@@ -5,8 +5,7 @@ import { consoleArrayDebug, consoleDebug, consoleError, consoleObjDebug } from "
 import * as React from "react"
 import { createRoot } from "react-dom/client"
 import { IndexList } from "../component/react/IndexList"
-import { getIndexType } from "../base"
-import { POST_TYPE_ORIGINAL, POST_TYPE_OTHER, POST_TYPE_POETRY, POST_TYPE_REPOST } from "../base/constant"
+import { getSectionTypeByPath, SECTION_TYPE_ORIGINAL, SECTION_TYPE_OTHER, SECTION_TYPE_POETRY, SECTION_TYPE_REPOST } from "../base/constant"
 import { ImageLoadAnimator } from "../component/animation/ImageLoadAnimator"
 import { Post } from "../component/react/post/BasePostPaginateShow"
 import { GridIndexList } from "../component/react/GridIndexList"
@@ -24,17 +23,17 @@ function initIndexList() {
     }
 
     const root = createRoot(wrapperE)
-    const category = getIndexType(window.location.pathname).identifier
+    const category = getSectionTypeByPath(window.location.pathname).identifier
     consoleDebug("Index category = " + category + ", path = " + window.location.pathname)
-    if (category == POST_TYPE_OTHER.identifier) return
+    if (category == SECTION_TYPE_OTHER.identifier) return
 
     const onUpdate = () => {
         // 当react更新时，动画更新wrapper高度
         destroyMasonry()
     }
-    if (category == POST_TYPE_ORIGINAL.identifier ||
-        category == POST_TYPE_POETRY.identifier ||
-        category == POST_TYPE_REPOST.identifier) {
+    if (category == SECTION_TYPE_ORIGINAL.identifier ||
+        category == SECTION_TYPE_POETRY.identifier ||
+        category == SECTION_TYPE_REPOST.identifier) {
 
         // 随笔、诗词、转载
         // 获取已有的post，包括置顶和非置顶

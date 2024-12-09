@@ -62,14 +62,14 @@ export class IndexList extends BasePostPaginateShow<BasePostPaginateShowProps> {
                 <ul className="index-ul">
                     {this.props.pinedPosts.map((post) =>
                         <IndexItem key={post.path}
-                            title={post.title} author={post.author} date={post.date} path={post.path} pin={post.pin}
+                            title={post.title} author={post.author} date={post.date} description={post.description} path={post.path} pin={post.pin}
                             last={false} />
                     )}
                     {this.state.posts.map((item, index) =>
                         // 隐藏部分post
                         // 有时候jekyll生成的path和paginate生成的path不一样，导致item重新加载
                         !item.hide && <IndexItem key={item.path}
-                            title={item.title} author={item.author} date={item.date} path={item.path} pin={false}
+                            title={item.title} author={item.author} date={item.date} description={item.description} path={item.path} pin={false}
                             last={index == this.state.posts.length - 1} />
                     )}
                     {(this.state.loading || this.state.loadHint != null) &&
@@ -85,6 +85,7 @@ export type IndexItemProps = {
     title: string,
     author: string,
     date: string,
+    description: string,
     path: string,
     pin: boolean,
     last: boolean

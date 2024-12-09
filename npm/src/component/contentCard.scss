@@ -6,7 +6,9 @@
 @use "sass:map";
 
 body {
-    --content-card-to-container-border-horizontal: 1rem;
+    --content-card-to-container-border-horizontal: var(--main-container-padding-vertical);
+    --content-card-padding-vertical: 2.5rem;
+    --content-card-padding-horizontal: 2.7rem;
 }
 
 @mixin cardElevation {
@@ -21,7 +23,7 @@ body {
 }
 
 .content-card {
-    padding: 2.5rem;
+    padding: var(--content-card-padding-vertical) var(--content-card-padding-horizontal);
     margin: 0 var(--content-card-to-container-border-horizontal);
     // 文章卡片的阴影，z高度，阴影颜色，扩散度
     @include cardElevation();
@@ -50,10 +52,11 @@ body {
 @media all and (max-width: blogTheme.$screen-middle-min-width) {
     body {
         --content-card-to-container-border-horizontal: 0;
+        --content-card-padding-vertical: 2rem;
+        --content-card-padding-horizontal: 1.3rem;
     }
 
     .content-card {
-        padding: 2rem 1.3rem;
         @include elevation.elevation(map.get(blogTheme.$card-elevation, "elevation"),
             map.get(blogTheme.$card-elevation, "min-screen-shadow-light"), 0);
     }

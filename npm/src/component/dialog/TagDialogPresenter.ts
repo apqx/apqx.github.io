@@ -1,7 +1,7 @@
 import { TagDialog, PostItemData } from "./TagDialog"
 import { consoleDebug, consoleError } from "../../util/log"
 import { isDebug, runAfterMinimalTime } from "../../util/tools"
-import { POST_TYPE_OPERA, POST_TYPE_ORIGINAL, POST_TYPE_POETRY, POST_TYPE_REPOST, PostType } from "../../base/constant"
+import { SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL, SECTION_TYPE_OTHER, SECTION_TYPE_POETRY, SECTION_TYPE_REPOST, SectionType } from "../../base/constant"
 import { ERROR_HINT, getLoadHint } from "../react/LoadingHint"
 
 /**
@@ -200,20 +200,17 @@ export class TagDialogPresenter {
         return cachedTagPostsMap.get(tag).length
     }
 
-    getPostType(categories: string): PostType {
-        if (categories.includes(POST_TYPE_ORIGINAL.identifier)) {
-            return POST_TYPE_ORIGINAL
-        } else if (categories.includes(POST_TYPE_REPOST.identifier)) {
-            return POST_TYPE_REPOST
-        } else if (categories.includes(POST_TYPE_POETRY.identifier)) {
-            return POST_TYPE_POETRY
-        } else if (categories.includes(POST_TYPE_OPERA.identifier)) {
-            return POST_TYPE_OPERA
+    getPostType(categories: string): SectionType {
+        if (categories.includes(SECTION_TYPE_ORIGINAL.identifier)) {
+            return SECTION_TYPE_ORIGINAL
+        } else if (categories.includes(SECTION_TYPE_REPOST.identifier)) {
+            return SECTION_TYPE_REPOST
+        } else if (categories.includes(SECTION_TYPE_POETRY.identifier)) {
+            return SECTION_TYPE_POETRY
+        } else if (categories.includes(SECTION_TYPE_OPERA.identifier)) {
+            return SECTION_TYPE_OPERA
         } else {
-            return {
-                identifier: "",
-                name: "未知"
-            }
+            return SECTION_TYPE_OTHER
         }
     }
 
@@ -221,13 +218,13 @@ export class TagDialogPresenter {
      * 获取一个文章要显示的块，包括author作者、actor演员、mention提到
      * 显示，一共就2个block，用不同的颜色区分
      */
-    getPostBlocks(author: string, actor: string, mention: string, postType: PostType): [string[], string[]] {
+    getPostBlocks(author: string, actor: string, mention: string, postType: SectionType): [string[], string[]] {
         const actorArray = actor === "" ? [] : actor.split(" ")
         const mentionArray = mention === "" ? [] : mention.split(" ")
-        if (postType.identifier === POST_TYPE_ORIGINAL.identifier) {
+        if (postType.identifier === SECTION_TYPE_ORIGINAL.identifier) {
             // 随笔，不显示author，显示actor和mention
             return [actorArray, mentionArray]
-        } else if (postType.identifier === POST_TYPE_OPERA.identifier) {
+        } else if (postType.identifier === SECTION_TYPE_OPERA.identifier) {
             // 看剧，显示actor和mention
             return [actorArray, mentionArray]
         } else {
