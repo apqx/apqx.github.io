@@ -1,6 +1,6 @@
-import {MDCRipple} from "@material/ripple";
-import {consoleDebug, consoleError} from "../util/log";
-import {showAlertDialog} from "./dialog/CommonAlertDialog";
+import { MDCRipple } from "@material/ripple";
+import { consoleDebug, consoleError } from "../util/log";
+import { showAlertDialog } from "./dialog/CommonAlertDialog";
 // import "./fab.scss"
 
 export function initFab() {
@@ -25,18 +25,25 @@ export function initFab() {
 function showEncodedUrl() {
     const url = window.location.href
     const urlLink = `
-    当前页面的编码URL为：
-    <pre style="color: var(--mdc-theme-on-surface-secondary); margin: 0; padding: 0.5rem 0;">${url}</pre>
+    <span>当前页面的编码URL为：<span><br/>
+    <span style="color: var(--mdc-theme-on-surface-secondary); margin: 0; padding: 0.5rem 0; line-break: anywhere">${url}</span>
     `
     showAlertDialog("提示", urlLink, "关闭", () => {
     })
+    // navigator.clipboard.writeText(url).then(() => {
+    //     consoleDebug("Copy url to clipboard: " + url)
+    //     alert("编码URL已复制到剪切板")
+    // }).catch(err => {
+    //     consoleError("Copy url to clipboard failed: " + err)
+    //     alert("编码URL复制到剪切失败： " + err)
+    // })
 }
 
 let lastScrollY = -1
 
 function scrollToTop() {
     const scrollY = window.scrollY
-    if( lastScrollY != -1 && scrollY > lastScrollY ){
+    if (lastScrollY != -1 && scrollY > lastScrollY) {
         // 用户中断
         lastScrollY = -1
         return

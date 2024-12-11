@@ -24,7 +24,7 @@ $ripple-gap-percent: 25%;
 
 // 黑白配色
 $top-bar: (
-        bg-light: #fefefe,
+        bg-light: #ffffff,
         bg-blur-light: rgba(255, 255, 255, 0.8),
         bg-shadow-light: #a46053,
         bg-dark: #1f1f1f,
@@ -42,7 +42,7 @@ $footer-ink:(
 );
 
 $surface: (
-        light: #fefefe,
+        light: #ffffff,
         dark: #1f1f1f,
 );
 
@@ -214,8 +214,8 @@ $code-highlight-border: (
 );
 
 $strong-under-line: (
-        light: rgba(map.get($text-content, "light"), 0.12),
-        dark: rgba(map.get($text-content, "dark"), 0.12)
+        light: color.adjust(map.get($surface, "light"), $lightness: -10%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: +10%),
 );
 
 $surface-block-bg: (

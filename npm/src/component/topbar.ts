@@ -198,22 +198,22 @@ function initTitle(topAppBarE: HTMLElement) {
     switch (section.identifier) {
         case SECTION_TYPE_REPOST.identifier: {
             titleAE.innerText = "Repost"
-            titleAE.href = section.indexPath
+            titleAE.href = "/"
             break
         }
         case SECTION_TYPE_POETRY.identifier: {
             titleAE.innerText = "Poetry"
-            titleAE.href = section.indexPath
+            titleAE.href = "/"
             break
         }
         case SECTION_TYPE_OPERA.identifier: {
             titleAE.innerText = "Opera"
-            titleAE.href = section.indexPath
+            titleAE.href = "/"
             break
         }
         case SECTION_TYPE_TAG.identifier: {
             titleAE.innerText = "Tag"
-            titleAE.href = section.indexPath
+            titleAE.href = "/"
             break
         }
         default: {

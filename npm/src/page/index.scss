@@ -191,6 +191,8 @@ body {
 
 .index-li-divider {
     height: var(--index-card-gap);
+    margin: 0;
+    border: none;
 }
 
 .index-li--pin .index-card {

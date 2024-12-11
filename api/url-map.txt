@@ -10,42 +10,42 @@ sitemap: false
             "id": "index-opera",
             "target": {
                 "path": "/section/opera.html",
-                "title": "立泉の看剧"
+                "title": "立泉的看剧"
             }
         },
         {
             "id": "opera",
             "target": {
                 "path": "/section/opera.html",
-                "title": "立泉の看剧"
+                "title": "立泉的看剧"
             }
         },
         {
             "id": "poetry",
             "target": {
                 "path": "/section/poetry.html",
-                "title": "立泉の诗文"
+                "title": "立泉的诗文"
             }
         },
         {
             "id": "repost",
             "target": {
                 "path": "/section/repost.html",
-                "title": "立泉の转载"
+                "title": "立泉的转载"
             }
         },
         {
             "id": "share",
             "target": {
                 "path": "/page/share.html",
-                "title": "立泉の分享"
+                "title": "立泉的分享"
             }
         },
         {
             "id": "print",
             "target": {
                 "path": "/page/print.html",
-                "title": "立泉の印刷品"
+                "title": "立泉的印刷品"
             }
         },
         {

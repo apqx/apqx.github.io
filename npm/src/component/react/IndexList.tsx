@@ -122,7 +122,7 @@ class IndexItem extends React.Component<IndexItemProps, any> {
                         }
                     </section>
                 </a>
-                {!this.props.last && <div className="index-li-divider" />}
+                {!this.props.last && <hr className="index-li-divider" />}
             </li>
         )
     }

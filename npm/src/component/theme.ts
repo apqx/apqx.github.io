@@ -24,9 +24,9 @@ export function initTheme() {
 }
 
 const metaThemeColor = {
-    light: "#fefefe",
-    lightMobile: "#fefefe",
-    lightChrome: "#fefefe",
+    light: "#ffffff",
+    lightMobile: "#ffffff",
+    lightChrome: "#ffffff",
     dark: "#1f1f1f",
     darkMobile: "#1f1f1f",
     darkChrome: "#1f1f1f",
@@ -34,7 +34,7 @@ const metaThemeColor = {
 
 const topbarBlur = {
     default: true,
-    mobile: true,
+    mobile: false,
 }
 
 function checkMetaThemeColor(dark: boolean, show: boolean) {

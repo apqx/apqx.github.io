@@ -11,7 +11,7 @@
                     <i class="material-symbols-rounded-thin index-pin-icon">keep</i>
                 </section>
             </a>
-            <div class="index-li-divider" />
+            <hr class="index-li-divider" />
         </li>
         {% endif -%}
         {% endfor -%}
@@ -29,7 +29,7 @@
                         <span class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
                     </section>
                 </a>
-                <div class="index-li-divider" />
+                <hr class="index-li-divider" />
             </li>
             {%- assign count = count | plus: 1 %}
             {% endif -%}

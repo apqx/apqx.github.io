@@ -82,10 +82,13 @@ export class GridIndexList extends BasePostPaginateShow<Props> {
                         breakpointCols={breakpointColumnsObj}
                         className="my-masonry-grid"
                         columnClassName="my-masonry-grid_column">
-                        <IndexDescriptionItem innerHtml={this.props.pageDescriptionHtml} />
+                        {this.props.pageDescriptionHtml != null && this.props.pageDescriptionHtml.length > 0 &&
+                            <IndexDescriptionItem innerHtml={this.props.pageDescriptionHtml} />
+                        }
                         {this.state.posts.map((item: Post, index: number) =>
                             // TODO: 有时候jekyll生成的path和paginate生成的path不一样，导致item重新加载，这种情况并不多
-                            !item.pin && !item.hide && <IndexItem key={item.path}
+                            !item.pin && !item.hide &&
+                            <IndexItem key={item.path}
                                 index={index}
                                 title={item.title}
                                 author={item.author}
@@ -155,10 +158,10 @@ class IndexItem extends React.Component<IndexItemProps, any> {
             <li className="grid-index-li">
                 <a className="index-a mdc-card grid-index-card grid-index-card__ripple" href={this.props.path}>
                     <section>
-                        {this.props.cover.length > 0 &&
+                        {this.props.cover != null && this.props.cover.length > 0 &&
                             <img className="grid-index-cover" loading="lazy" src={this.props.cover} alt={this.props.coverAlt} />
                         }
-                        {this.props.cover.length == 0 &&
+                        {this.props.cover == null || this.props.cover.length == 0 &&
                             <div style={{ height: "0.5rem" }}></div>
                         }
                         <div className="grid-index-text-container">
@@ -172,7 +175,7 @@ class IndexItem extends React.Component<IndexItemProps, any> {
                         </div>
                     </section>
                 </a>
-                {!this.props.last && <div className="index-li-divider" />}
+                {!this.props.last && <hr className="index-li-divider" />}
             </li>
         )
     }

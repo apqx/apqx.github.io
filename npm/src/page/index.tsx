@@ -29,19 +29,17 @@ function initIndexList() {
 
     const onUpdate = () => {
         // 当react更新时，动画更新wrapper高度
+        // 销毁react之前的Masonry实例
         destroyMasonry()
     }
-    if (category == SECTION_TYPE_ORIGINAL.identifier ||
-        category == SECTION_TYPE_POETRY.identifier ||
-        category == SECTION_TYPE_REPOST.identifier) {
-
+    if (wrapperE.querySelectorAll(".index-ul").length > 0) {
         // 随笔、诗词、转载
         // 获取已有的post，包括置顶和非置顶
         const loadedPosts = getLinearLoadedPosts(wrapperE)
         consoleObjDebug("Index loaded posts", loadedPosts)
         root.render(<IndexList tag={""} category={category} pinedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
             onUpdate={onUpdate} />)
-    } else {
+    } else if(wrapperE.querySelectorAll(".grid-index-ul").length > 0) {
         // 看剧
         // 显示Jekyll预加载数据，然后React去更新它，会更顺滑
         initMasonry()
@@ -103,8 +101,8 @@ function getGridLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
         const path = (liE.querySelector(".index-a") as HTMLAnchorElement).pathname
         const description = (liE.querySelector(".grid-index-description") as HTMLElement).innerText
         const coverE = liE.querySelector(".grid-index-cover") as HTMLImageElement
-        const cover = coverE.src
-        const coverAlt = coverE.alt
+        const cover = coverE?.src
+        const coverAlt = coverE?.alt
 
         const pin = liE.classList.contains("grid-index-li--pin")
         const post = {

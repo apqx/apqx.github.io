@@ -6,19 +6,19 @@
 
 并非通用博客模版，而是以我自己的喜好量身定制，由随笔、转载、诗文、看剧4个板块组成，应用淡色极简风格，在文字、色彩和动画之外不添加多余元素。或可作为`Material Design`个人站参考，但不建议直接套用，尚未进行模版优化。
 
-主页：[立泉の写字板](https://mudan.me)
+主页：[立泉的写字板](https://mudan.me)
 
-![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/screenshots/index.webp)
+![立泉的写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/screenshots/index.webp)
 
-看剧：[立泉の看剧](https://mudan.me/opera)
+看剧：[立泉的看剧](https://mudan.me/opera)
 
-![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/screenshots/index_opera.webp)
+![立泉的看剧](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/screenshots/index_opera.webp)
 
 ## Markdown
 
 博文以`Markdown`格式撰写，由`Jekyll`将其转换为`HTML`网页。
 
-![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/screenshots/post.webp)
+![立泉的写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/screenshots/post.webp)
 
 ## 本地调试
 
@@ -93,7 +93,7 @@ git push
 
 静候数秒或数分钟，取决于`Pages`执行速度，完成后网页就会更新。
 
-![立泉の写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/screenshots/index_phone.webp)
+![立泉的写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/screenshots/index_phone.webp)
 
 ## 版权
 

@@ -1,0 +1,38 @@
+<hr class="index-li-divider" />
+<section id="index-list-wrapper">
+    <ul class="grid grid-index-ul">
+        <div class="grid-sizer"></div>
+        {%- assign count = 0 -%}
+        {% for post in site.posts %}
+        {%- if count == 10 %}
+        {%- break %}
+        {% endif -%}
+        {%- if post.categories contains index-category and post.hideFromIndex != true %}
+        <li class="grid-item grid-index-li">
+            <a class="index-a mdc-card grid-index-card grid-index-card__ripple" href="{{ post.url }}">
+                <section>
+                    {%- if post.index-cover != null %}
+                    <img class="grid-index-cover height-animation" loading="lazy" src="{{ post.index-cover }}"
+                        alt="{{ post.cover-alt }}" />
+                    {% elsif post.cover != null %}
+                    <img class="grid-index-cover height-animation" loading="lazy" src="{{ post.cover }}"
+                        alt="{{ post.cover-alt }}" />
+                    {% else %}
+                    <div style="height: 0.5rem;"></div>
+                    {%- endif %}
+                    <div class="grid-index-text-container">
+                        <h1 class="grid-index-title">{{ post.title }}</h1>
+                        <div>
+                            <span class="grid-index-date">{{ post.date | date: "%Y年%m月%d日" }} {{ post.author }}</span>
+                        </div>
+                        <p class="grid-index-description">{{ post.description }}</p>
+                    </div>
+                </section>
+            </a>
+            <hr class="index-li-divider" />
+        </li>
+        {%- assign count = count | plus: 1 %}
+        {% endif -%}
+        {% endfor %}
+    </ul>
+</section>
