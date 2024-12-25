@@ -28,9 +28,8 @@ function initIndexList() {
     if (category == SECTION_TYPE_OTHER.identifier) return
 
     const onUpdate = () => {
-        // 当react更新时，动画更新wrapper高度
         // 销毁react之前的Masonry实例
-        destroyMasonry()
+        // destroyMasonry()
     }
     if (wrapperE.querySelectorAll(".index-ul").length > 0) {
         // 随笔、诗词、转载
@@ -41,8 +40,8 @@ function initIndexList() {
             onUpdate={onUpdate} />)
     } else if(wrapperE.querySelectorAll(".grid-index-ul").length > 0) {
         // 看剧
-        // 显示Jekyll预加载数据，然后React去更新它，会更顺滑
-        initMasonry()
+        // 显示Jekyll预加载数据，同样适用Masonry布局，然后React更新它，会更顺滑
+        // initMasonry()
         const descriptionE = document.querySelector(".grid-index-li--description")
         let descriptionHtml = ""
         if (descriptionE != null)
@@ -147,6 +146,7 @@ function initIndexTopCover() {
 let masonry: Masonry = null
 
 function initMasonry() {
+    // React加载布局是通过另一个React Masonry组件，不能在React之外使用，所以这里用另一个替代
     const gridE = document.querySelector(".grid")
     if (gridE == null) return
     masonry = new Masonry(gridE, {

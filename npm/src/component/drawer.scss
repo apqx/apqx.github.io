@@ -22,6 +22,8 @@
     @include drawer.item-activated-icon-ink-color(var(--mdc-theme-on-surface));
     // transition: transform 0.2s ease-out !important;
     border: none;
+    padding-left: var(--drawer-padding-horizontal);
+    padding-right: var(--drawer-padding-horizontal);
 }
 
 .dark .mdc-drawer {

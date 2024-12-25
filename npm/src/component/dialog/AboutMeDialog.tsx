@@ -29,10 +29,10 @@ class AboutMeDialog extends BasicDialog<BasicDialogProps, any> {
         return (
             <div className="center">
                 <picture>
-                    <source srcSet="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me_emoji.webp"
+                    <source srcSet="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me_emoji_light.webp"
                         type="image/webp" />
                     <img width="100px" height="100px" className="circle-avatar inline-for-center" alt="avatar"
-                        src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me_emoji.png" />
+                        src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me_emoji_light.png" />
                 </picture>
                 <span className="about-me-name">立泉</span>
                 <section className="about-me-tag-wrapper">

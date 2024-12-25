@@ -35,6 +35,22 @@ export const SECTION_TYPE_TAG: SectionType = {
     pathRegex: "^(\\/section/tag.*)$"
 }
 
+export const SECTION_TYPE_SHARE: SectionType = {
+    identifier: "share",
+    name: "分享",
+    indexPath: "/page/share.html",
+    // /page/share /page/share.html
+    pathRegex: "^(\\/page/share.*)$"
+}
+
+export const SECTION_TYPE_PRINT: SectionType = {
+    identifier: "print",
+    name: "印刷",
+    indexPath: "/page/print.html",
+    // /page/print /page/print.html
+    pathRegex: "^(\\/page/print.*)$"
+}
+
 export const SECTION_TYPE_OTHER: SectionType = {
     identifier: "other",
     name: "其它",
@@ -60,6 +76,10 @@ export function getSectionTypeByPath(path: string): SectionType {
         return SECTION_TYPE_OPERA
     } else if (path.match(new RegExp(SECTION_TYPE_TAG.pathRegex))) {
         return SECTION_TYPE_TAG
+    } else if (path.match(new RegExp(SECTION_TYPE_SHARE.pathRegex))) {
+        return SECTION_TYPE_SHARE
+    } else if (path.match(new RegExp(SECTION_TYPE_PRINT.pathRegex))) {
+        return SECTION_TYPE_PRINT
     } else {
         return SECTION_TYPE_OTHER
     }

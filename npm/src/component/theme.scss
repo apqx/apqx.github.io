@@ -73,6 +73,13 @@ $text-content-secondary: (
         dark: color.adjust(map.get($text-content, "dark"), $lightness: -5%),
 );
 
+$blockquote-border: (
+        light: #eca4a4,
+        dark: #ae5c5c,
+        // light: color.adjust(map.get($surface, "light"), $lightness: -15%),
+        // dark: color.adjust(map.get($surface, "dark"), $lightness: +15%),
+);
+
 $drawer-nav-ripple: (
         light: color.adjust(map.get($surface, "light"), $lightness: - $ripple-gap-percent),
         dark: color.adjust(map.get($surface, "dark"), $lightness: + $ripple-gap-percent),
@@ -296,7 +303,7 @@ $surface-block-border: (
         --tag-underline-color: #{map.get($strong-under-line, "light")};
         --divider-color: #{map.get($surface-block-border, "light")};
         --divider-dashed-color: #{map.get($surface-block-border-dashed, "light")};
-        --blockquote-border: #eca4a4;
+        --blockquote-border: #{map.get($blockquote-border, "light")};
         --table-list-border-radius: 0.3rem;
 
         --surface-block-border: #{map.get($surface-block-border-dashed, "light")};
@@ -364,7 +371,7 @@ $surface-block-border: (
         --tag-underline-color: #{map.get($strong-under-line, "dark")};
         --divider-color: #{map.get($surface-block-border, "dark")};
         --divider-dashed-color: #{map.get($surface-block-border-dashed, "dark")};
-        --blockquote-border: #ae5c5c;
+        --blockquote-border: #{map.get($blockquote-border, "dark")};
 
         --surface-block-border: #{map.get($surface-block-border-dashed, "dark")};
         --surface-block-bg: #{map.get($surface-block-bg, "dark")};
@@ -402,6 +409,8 @@ body {
         --post-inner-shape-round: 0.8rem;
         --table-list-border-radius: 0.8rem !important;
 
+        --drawer-padding-horizontal: 0.55rem;
+
         --md-switch-state-layer-size: 0rem;
         --md-switch-handle-width: 0.6rem;
         --md-switch-handle-height: 0.6rem;
@@ -432,6 +441,8 @@ body {
                 --mdc-theme-background: #{map.get($background, "light-mini-screen")};
                 --cover-animation-duration: 0.6s;
                 --card-animation-translate-y: 15rem;
+
+                --drawer-padding-horizontal: 0.2rem;
 
                 --main-container-padding-vertical: 0.8rem;
 

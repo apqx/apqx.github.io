@@ -5,7 +5,7 @@ import { localRepository } from "../repository/LocalRepository";
 import { MDCTopAppBar } from "@material/top-app-bar";
 import { clearFocusListener, isMobileOrTablet, toggleClassWithEnable } from "../util/tools";
 import { showAboutMeDialog } from "./dialog/AboutMeDialog";
-import { getSectionTypeByPath, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL, SECTION_TYPE_POETRY, SECTION_TYPE_REPOST, SECTION_TYPE_TAG } from "../base/constant";
+import { getSectionTypeByPath, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL, SECTION_TYPE_POETRY, SECTION_TYPE_PRINT, SECTION_TYPE_REPOST, SECTION_TYPE_SHARE, SECTION_TYPE_TAG } from "../base/constant";
 // import "./topbar.scss"
 
 export var iconToggleTheme: MDCIconButtonToggle = null
@@ -196,6 +196,11 @@ function initTitle(topAppBarE: HTMLElement) {
     let section = getSectionTypeByPath(window.location.pathname)
     let titleAE: HTMLLinkElement = topAppBarE.querySelector(".mdc-top-app-bar__title a")
     switch (section.identifier) {
+        case SECTION_TYPE_ORIGINAL.identifier: {
+            titleAE.innerText = "Diary"
+            titleAE.href = "/"
+            break
+        }
         case SECTION_TYPE_REPOST.identifier: {
             titleAE.innerText = "Repost"
             titleAE.href = "/"
@@ -216,8 +221,18 @@ function initTitle(topAppBarE: HTMLElement) {
             titleAE.href = "/"
             break
         }
+        case SECTION_TYPE_SHARE.identifier: {
+            titleAE.innerText = "Share"
+            titleAE.href = "/"
+            break
+        }
+        case SECTION_TYPE_PRINT.identifier: {
+            titleAE.innerText = "Print"
+            titleAE.href = "/"
+            break
+        }
         default: {
-            titleAE.innerText = "ʕ•ᴥ•ʔ"
+            titleAE.innerText = "Other"
             titleAE.href = "/"
             break
         }
