@@ -123,10 +123,10 @@ export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogConten
                     <SettingsToggle titleHtml="固定顶部标题栏"
                         on={this.state.fixedTopbarOn}
                         onClickToggle={this.onClickFixedTopbarSwitch} />
-                    <SettingsToggle titleHtml={this.handwrittenFontTitle}
+                    {/* <SettingsToggle titleHtml={this.handwrittenFontTitle}
                         on={this.state.handwrittenFontOn}
-                        onClickToggle={this.onClickHandwritingFontSwitch} />
-                     {/* <SettingsToggle titleHtml={this.notoSerifSCFontTitle}
+                        onClickToggle={this.onClickHandwritingFontSwitch} /> */}
+                    {/* <SettingsToggle titleHtml={this.notoSerifSCFontTitle}
                         on={this.state.notoSerifSCFontOn}
                         onClickToggle={this.onClickNotoSerifSCFontSwitch} /> */}
                     <SettingsToggle titleHtml={this.autoThemeTitle}

@@ -8,12 +8,13 @@ import { consoleError } from "../../util/log"
  */
 export function initFont() {
     // 废弃handwritten设置，TODO: 注意旧版本可能启用了这个设置项
-    const localHandWritingFontOn = localRepository.getHandWritingFontOn()
-    setHandwrittenFont(localHandWritingFontOn)
+    // const localHandWritingFontOn = localRepository.getHandWritingFontOn()
+    // setHandwrittenFont(localHandWritingFontOn)
     // TODO: 之后应使用字体设置项，而非boolean
     // const localNotoSerifSCFontOn = localRepository.getNotoSerifSCFontOn()
     // setNotoSerifSCFont(localNotoSerifSCFontOn)
     // setNotoSerifSCFont(true)
+    checkFont()
 }
 
 export function setHandwrittenFont(on: boolean) {

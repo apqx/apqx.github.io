@@ -197,7 +197,7 @@ function initTitle(topAppBarE: HTMLElement) {
     let titleAE: HTMLLinkElement = topAppBarE.querySelector(".mdc-top-app-bar__title a")
     switch (section.identifier) {
         case SECTION_TYPE_ORIGINAL.identifier: {
-            titleAE.innerText = "Diary"
+            titleAE.innerText = "ʕ•ᴥ•ʔ"
             titleAE.href = "/"
             break
         }

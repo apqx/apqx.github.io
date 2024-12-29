@@ -13,7 +13,7 @@ th,
 }
 
 .mdc-data-table {
-    @include data-table-theme.shape-radius(0.3rem);
+    // @include data-table-theme.shape-radius(0.3rem);
     // 设置标题背景为透明色，防止横向滚动时遮挡边框角
     @include data-table-theme.header-row-fill-color(#00000000);
     @include data-table-theme.header-row-text-color(var(--mdc-theme-text-primary-on-background));
@@ -30,4 +30,62 @@ th,
 
 .dark .mdc-data-table__row:not(.mdc-data-table__row--selected):hover {
     background-color: rgba($color: map.get(blogTheme.$drawer-nav-ripple, "dark"), $alpha: 0.1);
+}
+
+.table-wrapper {
+    width: 100%;
+    overflow: scroll;
+    margin: calc(var(--mdc-typography-body1-font-size) - 0.5rem) 0;
+    border: 1px solid var(--divider-color);
+    border-radius: var(--post-inner-shape-round);
+}
+
+table {
+    // 设置表格圆角必须将collapse设置为separate
+    border-collapse: separate;
+    // border: 1px solid var(--divider-color);
+    // border-radius: var(--post-inner-shape-round);
+    border-spacing: 0;
+    min-width: 100%;
+
+    * {
+        @include text.basicText();
+    }
+
+    thead {
+        margin: 0;
+    }
+
+    tbody {
+        margin: 0;
+
+        :last-child td {
+            border: none;
+        }
+    }
+
+
+}
+
+// 表格一行
+tr {
+    margin: 0;
+}
+
+// 单元格
+th,
+td {
+    margin: 0;
+    border-bottom: 1px solid var(--divider-color);
+    padding: 0.8rem 1rem;
+    text-align: left;
+    white-space: nowrap;
+    min-width: fit-content;
+    // text-overflow: ellipsis;
+}
+
+.align-right {
+    th, td {
+        text-align: right;
+    }
 }

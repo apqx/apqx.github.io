@@ -87,6 +87,7 @@ em code {
 }
 
 pre {
+    margin: calc(var(--mdc-typography-body1-font-size) - 0.5rem) 0;
     overflow: scroll;
 }
 
