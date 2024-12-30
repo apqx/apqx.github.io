@@ -1,5 +1,5 @@
 // import "./scaffold.scss"
-import { isDebug, isWriting, runOnHtmlDone, runOnPageBackFromCache, runOnPageDone } from "../util/tools"
+import { checkWebpSupport, isDebug, isWriting, runOnHtmlDone, runOnPageBackFromCache, runOnPageDone } from "../util/tools"
 import { blockTopbarKeyFrameAnimation, initTopbar } from "../component/topbar"
 import { initDrawer } from "../component/drawer"
 import { checkUserTheme, initTheme } from "../component/theme"
@@ -31,6 +31,7 @@ runOnHtmlDone(() => {
 })
 
 runOnPageDone(() => {
+    checkWebpSupport()
     loadGoogleAnalytics()
 })
 
