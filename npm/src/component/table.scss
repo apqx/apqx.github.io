@@ -34,19 +34,42 @@ th,
 
 .table-wrapper {
     width: 100%;
+    // 表格宽度超出时滚动
     overflow: scroll;
     margin: calc(var(--mdc-typography-body1-font-size) - 0.5rem) 0;
+    // wrapper边框
     border: 1px solid var(--divider-color);
     border-radius: var(--post-inner-shape-round);
+
+    table {
+        // 有wrapper时不显示边框，由wrapper显示
+        border: none;
+        border-radius: none;
+        width: fit-content;
+        min-width: 100%;
+
+        th,
+        td {
+            // 有wrapper时设置单元格最小宽度，因为表格已经支持滚动
+            min-width: fit-content;
+            // 有wrapper时设置单元格不换行，方便滚动
+            white-space: nowrap;
+            line-break: normal;
+        }
+    }
 }
 
+// markdown转换的table，将由js移动到wrapper中
+// 无wrapper时表格不支持滚动，宽度为100%
 table {
     // 设置表格圆角必须将collapse设置为separate
     border-collapse: separate;
-    // border: 1px solid var(--divider-color);
-    // border-radius: var(--post-inner-shape-round);
+    // 确保没有wrapper也能显示边框
+    border: 1px solid var(--divider-color);
+    border-radius: var(--post-inner-shape-round);
+    // 没有wrapper时宽度100%，不支持滚动
+    width: 100%;
     border-spacing: 0;
-    min-width: 100%;
 
     * {
         @include text.basicText();
@@ -64,28 +87,28 @@ table {
         }
     }
 
+    // 表格一行
+    tr {
+        margin: 0;
+    }
+    // 单元格
+    th,
+    td {
+        margin: 0;
+        border-bottom: 1px solid var(--divider-color);
+        padding: 0.8rem 1rem;
+        text-align: left;
+        // 无wrapper时单元格宽度很小，自动换行
+        white-space: normal;
+        line-break: anywhere;
+    }
 
 }
 
-// 表格一行
-tr {
-    margin: 0;
-}
-
-// 单元格
-th,
-td {
-    margin: 0;
-    border-bottom: 1px solid var(--divider-color);
-    padding: 0.8rem 1rem;
-    text-align: left;
-    white-space: nowrap;
-    min-width: fit-content;
-    // text-overflow: ellipsis;
-}
 
 .align-right {
-    th, td {
+    th,
+    td {
         text-align: right;
     }
 }

@@ -5,12 +5,12 @@ title: "记一次朴实无华的Android API文档替换"
 author: 立泉
 mention: GFW Java
 date: 2016-06-12 +0800
-description: 使用浏览器查看Android SDK本地文件里的API文档，发现其在联网状态下加载速度极慢，而如果断开网络就正常了🤔。
+description: 使用浏览器查看本地Android SDK里的API文档，发现其在联网状态下加载速度极慢，而如果断开网络就正常了🤔。
 cover: 
 tags: Code Android Java GFW
 ---
 
-学习`Android`的过程中要参阅系统提供的应用开发接口`API`来实现所需功能，实际上在`Android SDK`本地文件中就有一份`HTML`版本的`API`文档，可以离线查看。但是当我用浏览器打开时却发现它们在联网状态下加载速度极慢，而如果断开网络就是正常的。考虑到墙，应该是页面中存在需要联网下载的`StyleSheet`或`Javascript`，而要连接的域名十有八九就是`Google`。
+学习`Android`的过程中要参阅系统提供的应用开发接口`API`来实现所需功能，实际上在本地`Android SDK`中就有一份`HTML`版本的`API`文档。但是当我用浏览器打开时却发现它们在联网状态下加载速度极慢，而断开网络则是正常的。考虑到墙的存在，应该是页面中有些需要联网下载的`StyleSheet`或`Javascript`，而要连接的域名十有八九就是`Google`。
 
 排查一番，加载缓慢的元凶是下面这段代码：
 
