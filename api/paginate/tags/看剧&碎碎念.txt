@@ -1,5 +1,5 @@
 ---
-layout: null
+layout: paginate-posts-json
 sitemap: false
 permalink: /api/paginate/tags/看剧&碎碎念
 pagination:
@@ -9,5 +9,3 @@ pagination:
     extension: .json
     indexpage: 'page-:num'
 ---
-
-{% include paginate-posts-json.html %}

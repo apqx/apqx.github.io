@@ -19,7 +19,8 @@ export interface BasePostPaginateShowState {
 export type Post = {
     title: string,
     author: string,
-    actor: string,
+    actor: Array<string>,
+    mention: Array<string>,
     date: string,
     path: string,
     description: string,

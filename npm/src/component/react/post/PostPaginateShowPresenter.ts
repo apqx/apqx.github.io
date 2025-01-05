@@ -98,7 +98,8 @@ export class PostPaginateShowPresenter implements IPostPaginateShowPresenter {
         const post = {
             title: item.title,
             author: author,
-            actor: item.actor,
+            actor: item.actor.split(" "),
+            mention: item.mention.split(" "),
             date: item.date,
             path: item.path,
             description: item.description,

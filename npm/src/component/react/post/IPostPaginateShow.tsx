@@ -5,6 +5,5 @@ export interface IPostPaginateShow {
 
     loadFirstPage()
     loadMore()
-
     destroy()
 }

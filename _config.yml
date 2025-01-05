@@ -41,7 +41,7 @@ plugins:
 
 pagination:
   enabled: true
-  # 源目录为 `_posts`
+  # 处理的文章目录为 `_posts`
   collection: "posts"
   per_page: 10
   permalink: ""
@@ -51,14 +51,20 @@ pagination:
 
 autopages:
   enabled: true
-  categories:
-    enabled: false
   collections:
     enabled: false
+  categories:
+    enabled: true
+    layouts:
+      - paginate-posts-json.html
+    permalink: "/api/paginate/categories/:cat"
+    slugify:
+      mode: "default"
+      case: false
   tags:
     enabled: true
     layouts:
-      - paginate-tag.html
+      - paginate-posts-json.html
     permalink: "/api/paginate/tags/:tag"
     slugify:
       mode: "default"

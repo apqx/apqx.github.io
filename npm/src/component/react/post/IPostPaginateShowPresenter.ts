@@ -5,6 +5,5 @@ export interface IPostPaginateShowPresenter {
 
     init()
     loadMore()
-
     destroy()
 }

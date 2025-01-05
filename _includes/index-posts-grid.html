@@ -23,7 +23,8 @@
                     <div class="grid-index-text-container">
                         <h1 class="grid-index-title">{{ post.title }}</h1>
                         <div>
-                            <span class="grid-index-date">{{ post.date | date: "%Y年%m月%d日" }} {{ post.author }}</span>
+                            <span class="grid-index-date">{{ post.date | date: "%Y年%m月%d日" }} </span>
+                            <span class="grid-index-author">{{ post.author }}</span>
                         </div>
                         <p class="grid-index-description">{{ post.description }}</p>
                     </div>

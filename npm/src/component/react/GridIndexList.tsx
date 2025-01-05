@@ -116,7 +116,7 @@ type IndexItemProps = {
     index: number,
     title: string,
     author: string,
-    actor: string,
+    actor: Array<string>,
     date: string,
     path: string,
     description: string,
@@ -154,6 +154,7 @@ class IndexItem extends React.Component<IndexItemProps, any> {
     }
 
     render(): ReactNode {
+        const actorStr = this.props.actor.join(" ")
         return (
             <li className="grid-index-li">
                 <a className="index-a mdc-card grid-index-card grid-index-card__ripple" href={this.props.path}>
@@ -167,9 +168,8 @@ class IndexItem extends React.Component<IndexItemProps, any> {
                         <div className="grid-index-text-container">
                             <h1 className="grid-index-title">{this.props.title}</h1>
                             <div>
-                                <span className="grid-index-date">{this.props.date} {this.props.actor}</span>
-                                {/* actor和date放在一起了，因为两个span之间的距离，在原生和react中不一样 */}
-                                {/* <span className="grid-index-author">{this.props.actor}</span> */}
+                                <span className="grid-index-date">{this.props.date} </span>
+                                <span className="grid-index-author">{actorStr}</span>
                             </div>
                             <p className="grid-index-description">{this.props.description}</p>
                         </div>

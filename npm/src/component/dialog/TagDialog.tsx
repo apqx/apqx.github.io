@@ -51,7 +51,7 @@ export class TagDialog extends BasicDialog<DialogContentProps, DialogContentStat
     onDialogClose() {
         super.onDialogClose()
         this.presenter.abortFetch()
-        this.presenter.reduceResult()
+        // this.presenter.reduceResult()
     }
 
     onClickLoadMore() {
