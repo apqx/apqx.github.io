@@ -4,17 +4,18 @@
 // 苹方的 Horizontal Ellipsis 字符，即…省略号，因为霞鹜文楷的省略号竖向居中，不合适，用苹方的替代
 @use "PingFangSCEllipsis";
 // 霞鹜文楷
-@use "LXGWWenKaiGBRegular";
-@use "LXGWWenKaiGBMedium";
+@use "LXGWWenKaiGBLiteLight";
+@use "LXGWWenKaiGBLiteRegular";
+@use "LXGWWenKaiGBLiteMedium";
 // 一款英文字体
 @use "LibreBaskerville";
 // Material Icons
 @use "MaterialSymbols";
 
 // @font-face {
-//     font-family: "test";
-//     src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/IBMPlexSansSC-Medium.woff2") format('woff2');
+//     font-family: "LXGW WenKai GB";
+//     src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/LXGWWenKaiGBLite/v1.501/LXGWWenKaiGBLite-Light.ttf") format('woff2');
 //     font-style: normal;
-//     font-weight: 500;
+//     font-weight: 400;
 //     font-display: swap;
 // }

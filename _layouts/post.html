@@ -13,11 +13,11 @@
         <main class="main-container">
             <article data-pagefind-body class="mdc-card content-card">
                 {% include script-content-card.html %}
-                <h1 data-pagefind-meta="title" class="essay-title">{{ page.title }}</h1>
-                <address class="essay-author">
+                <h1 data-pagefind-meta="title" class="post-title">{{ page.title }}</h1>
+                <address class="post-author">
                     {% if page.moreDate != null %}{{ page.moreDate }} {% endif %}{{ page.author}}
                 </address>
-                <time data-pagefind-meta="date" class="essay-date" datetime="{{ page.date | date: " %Y-%m-%d" }}">
+                <time data-pagefind-meta="date" class="post-date" datetime="{{ page.date | date: " %Y-%m-%d" }}">
                     {{ page.date | date: "%Y年%m月%d日" }}
                 </time>
 
@@ -26,7 +26,7 @@
                     <!-- 如果用span创建mdc-button，则点击动画结束后才会触发点击事件，感觉明显会很慢 -->
                     {%- for tagInPage in page.tags %}
                     <button type="button" class="mdc-button tag-dialog-trigger btn-tag" id="chip_tag_{{ tagInPage }}">
-                        <span class="mdc-button__label">#{{ tagInPage }}</span>
+                        <span class="mdc-button__label">{{ tagInPage }}</span>
                     </button>
                     {%- endfor %}
                 </section>
