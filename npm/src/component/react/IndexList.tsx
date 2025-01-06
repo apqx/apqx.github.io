@@ -13,7 +13,7 @@ export class IndexList extends BasePostPaginateShow<BasePostPaginateShowProps> {
     heightAnimationContainer: HeightAnimationContainer
 
     createPresenter(): IPostPaginateShowPresenter {
-        return new PostPaginateShowPresenter(this)
+        return new PostPaginateShowPresenter(this, false)
     }
 
     componentDidMount(): void {
@@ -28,15 +28,11 @@ export class IndexList extends BasePostPaginateShow<BasePostPaginateShowProps> {
         this.heightAnimationContainer.destroy()
     }
 
-    loadFirstPage() {
-        this.presenter.init()
-    }
-
     initScroll() {
         const scrollLoader = new ScrollLoader(() => {
             consoleDebug("Index scroll should load")
             if (this.state.loadHint == ERROR_HINT) return
-            this.presenter.loadMore()
+            this.loadMore()
         })
         window.addEventListener("scroll", () => {
             scrollLoader.onScroll(document.body.clientHeight, window.scrollY, document.body.scrollHeight)
@@ -46,14 +42,6 @@ export class IndexList extends BasePostPaginateShow<BasePostPaginateShowProps> {
     componentDidUpdate(prevProps: Readonly<BasePostPaginateShowProps>, prevState: Readonly<BasePostPaginateShowState>, snapshot?: any): void {
         this.heightAnimationContainer.update()
         if (this.props.onUpdate != null) this.props.onUpdate()
-    }
-
-    loadMore() {
-        this.presenter.loadMore()
-    }
-
-    destroy() {
-        this.presenter.destroy()
     }
 
     render() {
@@ -73,7 +61,7 @@ export class IndexList extends BasePostPaginateShow<BasePostPaginateShowProps> {
                             last={index == this.state.posts.length - 1} />
                     )}
                     {(this.state.loading || this.state.loadHint != null) &&
-                        <LoadingHint loading={this.state.loading} loadHint={this.state.loadHint} onClickHint={this.loadMore} />
+                        <LoadingHint loading={this.state.loading} loadHint={this.state.loadHint} onClickHint={this.loadMoreByClick} />
                     }
                 </ul>
             </div>

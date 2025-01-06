@@ -3,11 +3,14 @@ import { MDCList } from "@material/list"
 import { MDCRipple } from "@material/ripple"
 import { BasicDialog, BasicDialogProps, TAG_DIALOG_WRAPPER_ID, showDialog } from "./BasicDialog"
 import { consoleDebug } from "../../util/log"
-import { TagDialogPresenter } from "./TagDialogPresenter"
 import ReactDOM from "react-dom"
 import { initListItem } from "../list"
 import { ERROR_HINT, LoadingHint } from "../react/LoadingHint"
 import { HeightAnimationContainer } from "../animation/HeightAnimationContainer"
+import { BasePostPaginateShow, BasePostPaginateShowProps, BasePostPaginateShowState, Post } from "../react/post/BasePostPaginateShow"
+import { IPostPaginateShowPresenter } from "../react/post/IPostPaginateShowPresenter"
+import { PostPaginateShowPresenter } from "../react/post/PostPaginateShowPresenter"
+import { getSectionTypeByPath, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL, SectionType } from "../../base/constant"
 // import "./TagEssayListDialog.scss"
 
 interface DialogContentProps extends BasicDialogProps {
@@ -15,63 +18,48 @@ interface DialogContentProps extends BasicDialogProps {
 }
 
 interface DialogContentState {
-    loading: boolean,
-    resultSize: number,
-    postList: PostItemData[]
-    loadHint: string
+    dialogOpened: boolean,
+    loadMoreId: number,
 }
 
 export class TagDialog extends BasicDialog<DialogContentProps, DialogContentState> {
-    presenter: TagDialogPresenter = null
     heightAnimationContainer: HeightAnimationContainer = null
 
     constructor(props) {
         super(props)
         consoleDebug("TagDialogContent constructor")
-        this.onClickLoadMore = this.onClickLoadMore.bind(this)
+        this.onListSizeChanged = this.onListSizeChanged.bind(this)
         // this.scrollToTopOnDialogOpen = false
         this.listenScroll = true
-        this.presenter = new TagDialogPresenter(this)
         this.state = {
-            loading: true,
-            resultSize: 0,
-            postList: [],
-            loadHint: null
+            dialogOpened: false,
+            loadMoreId: 0,
         }
     }
 
     onDialogOpen() {
         super.onDialogOpen()
-        // 检查是否应该触发fetch数据
-        if (this.state.postList.length == 0) {
-            this.presenter.findTaggedPosts(this.props.tag)
-        }
+        this.setState({ dialogOpened: true })
     }
 
     onDialogClose() {
         super.onDialogClose()
-        this.presenter.abortFetch()
-        // this.presenter.reduceResult()
+        this.setState({ dialogOpened: false })
     }
 
-    onClickLoadMore() {
-        this.presenter.loadMore(true)
-    }
 
     scrollNearToBottom(): void {
-        if (this.state.loadHint == ERROR_HINT) return
-        this.presenter.loadMore(false)
+        this.setState({ loadMoreId: this.state.loadMoreId + 1 })
+    }
+
+    onListSizeChanged() {
+        this.heightAnimationContainer.update()
     }
 
     componentDidMount() {
         super.componentDidMount()
         consoleDebug("TagDialogContent componentDidMount")
         this.heightAnimationContainer = new HeightAnimationContainer(this.rootE.querySelector(".height-animation-container"))
-    }
-
-    componentDidUpdate(prevProps: Readonly<BasicDialogProps>, prevState: Readonly<any>, snapshot?: any): void {
-        super.componentDidUpdate(prevProps, prevState, snapshot)
-        this.heightAnimationContainer.update()
     }
 
     componentWillUnmount(): void {
@@ -88,28 +76,73 @@ export class TagDialog extends BasicDialog<DialogContentProps, DialogContentStat
 
     dialogContent(): JSX.Element {
         consoleDebug("TagDialogContent render")
+
+        return (
+            <div className="height-animation-container">
+                <ResultWrapper category={""} tag={this.props.tag} pinedPosts={[]} loadedPosts={[]}
+                    onUpdate={this.onListSizeChanged} dialogOpened={this.state.dialogOpened}
+                    loadMoreId={this.state.loadMoreId} />
+            </div>
+        )
+    }
+}
+
+interface ResultWrapperProps extends BasePostPaginateShowProps {
+    dialogOpened: boolean
+    loadMoreId: number
+}
+
+class ResultWrapper extends BasePostPaginateShow<ResultWrapperProps> {
+
+    constructor(props: ResultWrapperProps) {
+        super(props)
+        this.loadFirstPageOnMount = false
+    }
+
+    createPresenter(): IPostPaginateShowPresenter {
+        return new PostPaginateShowPresenter(this, true)
+    }
+
+    shouldComponentUpdate(nextProps: Readonly<ResultWrapperProps>, nextState: Readonly<BasePostPaginateShowState>, nextContext: any): boolean {
+        if (nextProps.loadMoreId > 0 && this.props.loadMoreId != nextProps.loadMoreId &&
+            (this.presenter.isLastPage() || this.state.loadHint == ERROR_HINT)) {
+            // 如果是最后一页，不触发加载
+            // 如果是异常状态，不触发加载，等待用户点击
+            return false
+        }
+        return true
+    }
+
+    componentDidUpdate(prevProps: Readonly<ResultWrapperProps>, prevState: Readonly<BasePostPaginateShowState>, snapshot?: any): void {
+        super.componentDidUpdate(prevProps, prevState, snapshot)
+        if (this.props.dialogOpened && !prevProps.dialogOpened && this.state.posts.length == 0) {
+            this.loadFirstPage()
+        }
+        if (!this.props.dialogOpened && prevProps.dialogOpened) {
+            this.presenter.abortLoad()
+        }
+        if (this.props.loadMoreId > 0 && this.props.loadMoreId != prevProps.loadMoreId) {
+            this.loadMore()
+        }
+    }
+
+    render(): React.ReactNode {
         let count: JSX.Element
-        if (this.state.postList.length == 0) {
+        if (this.state.posts.length == 0) {
             count = <></>
         } else {
-            count = <><span>{this.state.resultSize}</span></>
+            count = <><span>{this.state.totalPostsSize}</span></>
         }
         return (
             <>
-                <p className="mdc-theme--on-surface">标记 {this.props.tag} 的{count}篇博文
+                <p>标记 {this.props.tag} 的{count}篇博文
                 </p>
-
-                {/* <ProgressLinear loading={this.state.loading} /> */}
-                <div className="height-animation-container">
-                    <div>
-                        {this.state.postList != null && this.state.postList.length != 0 &&
-                            <PostResult list={this.state.postList} />
-                        }
-                        {(this.state.loading || this.state.loadHint != null) &&
-                            <LoadingHint loading={this.state.loading} loadHint={this.state.loadHint} onClickHint={this.onClickLoadMore} />
-                        }
-                    </div>
-                </div>
+                {this.state.posts != null && this.state.posts.length != 0 &&
+                    <PostResult list={this.state.posts} />
+                }
+                {(this.state.loading || this.state.loadHint != null) &&
+                    <LoadingHint loading={this.state.loading} loadHint={this.state.loadHint} onClickHint={this.loadMoreByClick} />
+                }
             </>
         )
     }
@@ -117,7 +150,7 @@ export class TagDialog extends BasicDialog<DialogContentProps, DialogContentStat
 
 
 interface PostResultProps {
-    list: PostItemData[]
+    list: Post[]
 }
 
 class PostResult extends React.Component<PostResultProps, any> {
@@ -132,15 +165,42 @@ class PostResult extends React.Component<PostResultProps, any> {
         new MDCList(e)
     }
 
+    getPostType(item: Post): SectionType {
+        return getSectionTypeByPath(item.path)
+    }
+
+    /**
+     * 获取一个文章要显示的块，包括author作者、actor演员、mention提到
+     * 显示，一共就2个block，用不同的颜色区分
+     */
+    getPostBlocks(author: string, actor: Array<string>, mention: Array<string>, postType: SectionType): [string[], string[]] {
+        if (postType.identifier === SECTION_TYPE_ORIGINAL.identifier) {
+            // 随笔，不显示author，显示actor和mention
+            return [actor, mention]
+        } else if (postType.identifier === SECTION_TYPE_OPERA.identifier) {
+            // 看剧，显示actor和mention
+            return [actor, mention]
+        } else {
+            // 其它类型，显示author和mention
+            return [[author], mention]
+        }
+    }
+
     render() {
+        const items = this.props.list.map((item) => {
+            const postType = this.getPostType(item)
+            const postBlocks = this.getPostBlocks(item.author, item.actor, item.mention, postType)
+            // 两个chip列表
+            return new PostItemData(item.path, item.title, item.date, postType.name, postBlocks[0], postBlocks[1])
+        })
         return (
             <ul className="mdc-deprecated-list">
-                {this.props.list.map((item) =>
+                {items.map((item) =>
                     <PostItem
                         key={item.title + item.date}
                         data={new PostItemData(item.url, item.title, item.date, item.type, item.block1Array, item.block2Array)}
-                        first={this.props.list.indexOf(item) === 0}
-                        last={this.props.list.indexOf(item) === (this.props.list.length - 1)}
+                        first={items.indexOf(item) === 0}
+                        last={items.indexOf(item) === (this.props.list.length - 1)}
                     />
                 )}
             </ul>

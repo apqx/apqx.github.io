@@ -25,26 +25,14 @@ export class GridIndexList extends BasePostPaginateShow<Props> {
     }
 
     createPresenter(): IPostPaginateShowPresenter {
-        return new PostPaginateShowPresenter(this)
-    }
-
-    loadFirstPage() {
-        this.presenter.init()
-    }
-
-    destroy() {
-        this.presenter.destroy()
-    }
-
-    loadMore() {
-        this.presenter.loadMore()
+        return new PostPaginateShowPresenter(this, false)
     }
 
     initScroll() {
         const scrollLoader = new ScrollLoader(() => {
             consoleDebug("Index scroll should load")
             if (this.state.loadHint == ERROR_HINT) return
-            this.presenter.loadMore()
+            this.loadMore()
         })
         window.addEventListener("scroll", () => {
             scrollLoader.onScroll(document.body.clientHeight, window.scrollY, document.body.scrollHeight)
@@ -102,7 +90,7 @@ export class GridIndexList extends BasePostPaginateShow<Props> {
                         )}
                         {(this.state.loading || this.state.loadHint != null) &&
                             <li className="grid-index-li">
-                                <LoadingHint loading={this.state.loading} loadHint={this.state.loadHint} onClickHint={this.loadMore} />
+                                <LoadingHint loading={this.state.loading} loadHint={this.state.loadHint} onClickHint={this.loadMoreByClick} />
                             </li>
                         }
                     </Masonry>

@@ -13,7 +13,8 @@ export interface BasePostPaginateShowProps {
 export interface BasePostPaginateShowState {
     loading: boolean,
     loadHint: string,
-    posts: Array<Post>
+    posts: Array<Post>,
+    totalPostsSize: number
 }
 
 export type Post = {
@@ -32,6 +33,7 @@ export type Post = {
 
 export abstract class BasePostPaginateShow<P extends BasePostPaginateShowProps> extends React.Component<P, BasePostPaginateShowState> implements IPostPaginateShow {
     presenter: IPostPaginateShowPresenter
+    loadFirstPageOnMount: boolean = true
 
     constructor(props: P) {
         super(props)
@@ -39,20 +41,40 @@ export abstract class BasePostPaginateShow<P extends BasePostPaginateShowProps> 
         this.state = {
             loading: true,
             loadHint: null,
-            posts: this.props.loadedPosts
+            posts: this.props.loadedPosts,
+            totalPostsSize: 0
         }
         this.loadMore = this.loadMore.bind(this)
+        this.loadMoreByClick = this.loadMoreByClick.bind(this)
     }
 
     componentDidMount(): void {
-        this.loadFirstPage()
+        if (this.loadFirstPageOnMount) {
+            this.loadFirstPage()
+        }
+    }
+
+    componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<BasePostPaginateShowState>, snapshot?: any): void {
+        if (this.props.onUpdate != null) {
+            this.props.onUpdate()
+        }
     }
 
     abstract createPresenter(): IPostPaginateShowPresenter
 
-    abstract loadFirstPage()
+    loadFirstPage() {
+        this.presenter.init()
+    }
 
-    abstract loadMore()
+    loadMore() {
+        this.presenter.loadMore(false)
+    }
 
-    abstract destroy()
+    loadMoreByClick() {
+        this.presenter.loadMore(true)
+    }
+
+    destroy() {
+        this.presenter.destroy()
+    }
 }

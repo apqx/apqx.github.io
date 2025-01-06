@@ -2,21 +2,25 @@ import { SECTION_TYPE_POETRY } from "../../../base/constant";
 import { PaginatePage } from "../../../repository/service/bean/PaginatePage";
 import { consoleError, consoleObjDebug } from "../../../util/log";
 import { isDebug, runAfterMinimalTime } from "../../../util/tools";
-import { BasePostPaginateShow, Post } from "./BasePostPaginateShow";
+import { BasePostPaginateShow, BasePostPaginateShowProps, Post } from "./BasePostPaginateShow";
 import { IPostPaginateShowPresenter } from "./IPostPaginateShowPresenter";
 import { ERROR_HINT, getLoadHint } from "../LoadingHint";
 import { ApiPost } from "../../../repository/service/bean/Post";
 
 export class PostPaginateShowPresenter implements IPostPaginateShowPresenter {
-    component: BasePostPaginateShow<any>;
+    component: BasePostPaginateShow<BasePostPaginateShowProps>
     urlPrefix: string
     cachedPage: PaginatePage[] = null
+    firstLoadingDelay: boolean = false
+    abortController: AbortController = null
 
-    minimalLoadTime = 500
+    minimalLoadTime = 300
 
-    constructor(component: BasePostPaginateShow<any>) {
+    constructor(component: BasePostPaginateShow<any>, firstLoadingDelay: boolean = false) {
         this.component = component
+        this.firstLoadingDelay = firstLoadingDelay
     }
+
     destroy() {
 
     }
@@ -34,16 +38,20 @@ export class PostPaginateShowPresenter implements IPostPaginateShowPresenter {
         }
         let url = ""
         if (this.component.props.tag.length > 0) {
-            url = this.urlPrefix + "/api/paginate/tags/" + this.component.props.tag + "/page-1.json"
+            url = this.urlPrefix + "/api/paginate/tags/" + this.component.props.tag.toLowerCase() + "/page-1.json"
         } else {
-            url = this.urlPrefix + "/api/paginate/categories/" + this.component.props.category + "/page-1.json"
+            url = this.urlPrefix + "/api/paginate/categories/" + this.component.props.category.toLowerCase() + "/page-1.json"
         }
 
         const request = new Request(url, {
             method: "GET"
         })
-
-        fetch(request, { cache: "no-cache" })
+        if (this.abortController != null) {
+            // 终止之前的任务
+            this.abortController.abort()
+        }
+        this.abortController = new AbortController()
+        fetch(request, { signal: this.abortController.signal, cache: "no-cache" })
             .then((response: Response) => {
                 if (response.status === 200) {
                     return response.json()
@@ -54,7 +62,7 @@ export class PostPaginateShowPresenter implements IPostPaginateShowPresenter {
             .then((page: PaginatePage) => {
                 consoleObjDebug("Index api first page", page)
                 this.cachedPage.push(page)
-                this.showPosts(page, false, startTime)
+                this.showPosts(page, false, false, startTime)
             }).catch(error => {
                 consoleError(error)
                 runAfterMinimalTime(startTime, () => {
@@ -66,7 +74,8 @@ export class PostPaginateShowPresenter implements IPostPaginateShowPresenter {
             }
             )
     }
-    showPosts(page: PaginatePage, add: boolean, startTime: number) {
+
+    showPosts(page: PaginatePage, add: boolean, clickLoad: boolean, startTime: number) {
         const posts = new Array<Post>()
         if (add) {
             // 新加载的一页数据，直接加到已有数据末尾，保留已有数据
@@ -76,16 +85,24 @@ export class PostPaginateShowPresenter implements IPostPaginateShowPresenter {
             let post = this.getPostForShow(item);
             posts.push(post)
         }
-        const updateState = () => {
+        consoleObjDebug("Index update", posts)
+        const update = () => {
             this.component.setState({
                 loading: false,
                 loadHint: getLoadHint(posts.length, page.data.totalPosts),
-                posts: posts
+                posts: posts,
+                totalPostsSize: page.data.totalPosts
             })
         }
-        consoleObjDebug("Index update", posts)
-        updateState()
+        if ((!add && this.firstLoadingDelay) || (add && clickLoad)) {
+            runAfterMinimalTime(startTime, () => {
+                update()
+            }, this.minimalLoadTime)
+        } else {
+            update()
+        }
     }
+
     private getPostForShow(item: ApiPost) {
         let author = item.author;
         if (this.component.props.category == SECTION_TYPE_POETRY.identifier && item.moreDate.length > 0) {
@@ -98,8 +115,8 @@ export class PostPaginateShowPresenter implements IPostPaginateShowPresenter {
         const post = {
             title: item.title,
             author: author,
-            actor: item.actor.split(" "),
-            mention: item.mention.split(" "),
+            actor: item.actor.length == 0 ? [] : item.actor.split(" "),
+            mention: item.mention.length == 0 ? [] : item.mention.split(" "),
             date: item.date,
             path: item.path,
             description: item.description,
@@ -111,7 +128,15 @@ export class PostPaginateShowPresenter implements IPostPaginateShowPresenter {
         return post;
     }
 
-    loadMore() {
+    abortLoad() {
+        if (this.abortController != null) this.abortController.abort()
+        if (this.component.state.loading)
+            this.component.setState({
+                loading: false
+            })
+    }
+
+    loadMore(clickLoad: boolean = false) {
         if (this.component.state.loading) return
         if (this.component.state.loadHint == ERROR_HINT && this.cachedPage.length == 0) {
             this.init()
@@ -132,8 +157,12 @@ export class PostPaginateShowPresenter implements IPostPaginateShowPresenter {
         const request = new Request(this.urlPrefix + nextPagePath, {
             method: "GET"
         })
-
-        fetch(request, { cache: "no-cache" })
+        if (this.abortController != null) {
+            // 终止之前的任务
+            this.abortController.abort()
+        }
+        this.abortController = new AbortController()
+        fetch(request, { signal: this.abortController.signal, cache: "no-cache" })
             .then((response: Response) => {
                 if (response.status === 200) {
                     return response.json()
@@ -144,7 +173,7 @@ export class PostPaginateShowPresenter implements IPostPaginateShowPresenter {
             .then((page: PaginatePage) => {
                 consoleObjDebug("Index load page", page)
                 this.cachedPage.push(page)
-                this.showPosts(page, true, startTime)
+                this.showPosts(page, true, clickLoad, startTime)
             }).catch(error => {
                 consoleError(error)
                 runAfterMinimalTime(startTime, () => {
@@ -155,5 +184,10 @@ export class PostPaginateShowPresenter implements IPostPaginateShowPresenter {
                 }, this.minimalLoadTime)
             }
             )
+    }
+
+    isLastPage() {
+        if (this.cachedPage == null) return false
+        return this.cachedPage[this.cachedPage.length - 1].data.nextPagePath.length == 0
     }
 }

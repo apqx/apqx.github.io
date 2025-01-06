@@ -1,0 +1,11 @@
+---
+layout: paginate-posts-json
+sitemap: false
+permalink: /api/paginate/tags/看剧&杭州
+pagination:
+    permalink: ""
+    enabled: true
+    tag: "看剧,杭州"
+    extension: .json
+    indexpage: 'page-:num'
+---

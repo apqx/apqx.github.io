@@ -2,8 +2,10 @@ import { IPostPaginateShow } from "./IPostPaginateShow";
 
 export interface IPostPaginateShowPresenter {
     component: IPostPaginateShow
-
-    init()
-    loadMore()
-    destroy()
+    
+    init(): void
+    loadMore(clickLoad: boolean): void
+    abortLoad(): void
+    isLastPage(): boolean
+    destroy(): void
 }

@@ -1,0 +1,11 @@
+---
+layout: paginate-posts-json
+sitemap: false
+permalink: /api/paginate/tags/看剧&南京
+pagination:
+    permalink: ""
+    enabled: true
+    tag: "看剧,南京"
+    extension: .json
+    indexpage: 'page-:num'
+---
