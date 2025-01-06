@@ -5,7 +5,7 @@ import { localRepository } from "../repository/LocalRepository";
 import { MDCTopAppBar } from "@material/top-app-bar";
 import { clearFocusListener, isMobileOrTablet, toggleClassWithEnable } from "../util/tools";
 import { showAboutMeDialog } from "./dialog/AboutMeDialog";
-import { getSectionTypeByPath, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL, SECTION_TYPE_POETRY, SECTION_TYPE_PRINT, SECTION_TYPE_REPOST, SECTION_TYPE_SHARE, SECTION_TYPE_TAG } from "../base/constant";
+import { getSectionTypeByPath, isIndexPage, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL, SECTION_TYPE_POETRY, SECTION_TYPE_PRINT, SECTION_TYPE_REPOST, SECTION_TYPE_SHARE, SECTION_TYPE_TAG } from "../base/constant";
 // import "./topbar.scss"
 
 export var iconToggleTheme: MDCIconButtonToggle = null
@@ -193,7 +193,9 @@ export function blockTopbarKeyFrameAnimation(block: boolean) {
 }
 
 function initTitle(topAppBarE: HTMLElement) {
-    let section = getSectionTypeByPath(window.location.pathname)
+    const path = window.location.pathname
+    const section = getSectionTypeByPath(path)
+    const isIndex = isIndexPage(path)
     let titleAE: HTMLLinkElement = topAppBarE.querySelector(".mdc-top-app-bar__title a")
     switch (section.identifier) {
         case SECTION_TYPE_ORIGINAL.identifier: {
@@ -203,17 +205,17 @@ function initTitle(topAppBarE: HTMLElement) {
         }
         case SECTION_TYPE_REPOST.identifier: {
             titleAE.innerText = "Repost"
-            titleAE.href = "/"
+            titleAE.href = isIndex ? "/" : section.indexPath
             break
         }
         case SECTION_TYPE_POETRY.identifier: {
             titleAE.innerText = "Poetry"
-            titleAE.href = "/"
+            titleAE.href = isIndex ? "/" : section.indexPath
             break
         }
         case SECTION_TYPE_OPERA.identifier: {
             titleAE.innerText = "Opera"
-            titleAE.href = "/"
+            titleAE.href = isIndex ? "/" : section.indexPath
             break
         }
         case SECTION_TYPE_TAG.identifier: {

@@ -3,7 +3,7 @@ layout: post
 categories: original
 title: "Android中的MVP与MVVM"
 author: 立泉
-mention: 架构
+mention: 架构 生命周期
 date: 2019-03-07 +0800
 description: 我在工作和学习中大量使用过MVP，对MVC和MVVM只是有所耳闻，后来接触Kotlin和Jetpack，开始尝试更现代的新东西。编程感觉也不再是入门时枯燥的堆砌代码，而是像打造艺术品一样津津有味，这样的变化真实而有趣。
 cover: 

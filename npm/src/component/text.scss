@@ -31,6 +31,7 @@ h1 {
 
 h2 {
     @include typography.typography(headline2);
+    font-size: calc(var(--mdc-typography-body1-font-size) + 0.5rem);
 }
 
 h2::before {
@@ -47,6 +48,7 @@ h2.h2-mini {
 
 h3 {
     @include typography.typography(headline3);
+    font-size: calc(var(--mdc-typography-body1-font-size) + 0.3rem);
 }
 
 h3::before {

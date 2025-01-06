@@ -3,7 +3,7 @@ export const SECTION_TYPE_ORIGINAL: SectionType = {
     name: "随笔",
     indexPath: "/",
     // / /index /index.html /post/original/
-    pathRegex: "^(\\/|(\\/index.*)|(\\/post\\/original\\/.*))$"
+    pathRegex: "^((\\/)|(\\/index.*)|(\\/post\\/original\\/.*))$"
 }
 export const SECTION_TYPE_REPOST: SectionType = {
     identifier: "repost",
@@ -83,4 +83,8 @@ export function getSectionTypeByPath(path: string): SectionType {
     } else {
         return SECTION_TYPE_OTHER
     }
+}
+
+export function isIndexPage(path: string): boolean {
+    return path.match("^((\\/)|(\\/index.*)|(\\/section/.*))$") != null
 }
