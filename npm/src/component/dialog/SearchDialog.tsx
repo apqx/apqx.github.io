@@ -198,9 +198,9 @@ class ResultItem extends React.Component<ResultItemProps, any> {
 
     render() {
         return (
-            <div>
+            <li>
                 <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken mdc-ripple-upgraded"
-                    href={this.props.data.url}>
+                    tabIndex={-1} href={this.props.data.url}>
                     <span className="mdc-deprecated-list-item__text">
                         <span className="list-item__primary-text one-line">{this.props.data.title}</span>
                         <div className="list-item__secondary-text">
@@ -211,7 +211,7 @@ class ResultItem extends React.Component<ResultItemProps, any> {
                     </span>
                 </a>
                 {!this.props.last && <hr className="mdc-deprecated-list-divider" />}
-            </div>
+            </li>
         )
     }
 }

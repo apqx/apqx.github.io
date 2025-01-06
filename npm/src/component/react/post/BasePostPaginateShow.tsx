@@ -31,7 +31,8 @@ export type Post = {
     hide: boolean
 }
 
-export abstract class BasePostPaginateShow<P extends BasePostPaginateShowProps> extends React.Component<P, BasePostPaginateShowState> implements IPostPaginateShow {
+export abstract class BasePostPaginateShow<P extends BasePostPaginateShowProps>
+    extends React.Component<P, BasePostPaginateShowState> implements IPostPaginateShow {
     presenter: IPostPaginateShowPresenter
     loadFirstPageOnMount: boolean = true
 

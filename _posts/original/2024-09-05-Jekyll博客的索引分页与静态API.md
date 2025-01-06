@@ -129,7 +129,7 @@ autopages:
 
 ## Generator
 
-`Auto Pages`自动模式之外，`jekyll-paginate-v2`支持配置[Generator](https://github.com/sverrirs/jekyll-paginate-v2/blob/master/README-GENERATOR.md){: target="_blank" }以实现更丰富的分页条件。比如对同时包含2个`Tag`的文章列表分页，使用`Auto Pages`是做不到的，需要像定义普通`Jekyll`页面那样定义`Generator`。
+`Auto Pages`自动模式之外，`jekyll-paginate-v2`支持配置[Generator](https://github.com/sverrirs/jekyll-paginate-v2/blob/master/README-GENERATOR.md#paginate-categories-tags-locales){: target="_blank" }以实现更丰富的分页条件。比如对同时包含2个`Tag`的文章列表分页，使用`Auto Pages`是做不到的，需要像定义普通`Jekyll`页面那样定义`Generator`。
 
 上面为`Tag`配置的分页目录是`/api/paginate/tags/:tag`，保持结构统一，这里把同时包含`tag1`和`tag2`的分页也输出到该目录。
 

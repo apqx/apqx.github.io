@@ -67,10 +67,11 @@ export class TagDialog extends BasicDialog<DialogContentProps, DialogContentStat
     }
 
     shouldComponentUpdate(nextProps: Readonly<DialogContentProps>, nextState: Readonly<DialogContentState>, nextContext: any): boolean {
-        // 当props或state变化时，判断是否render
-        // state变化由内部触发，应该render
-        // props变化由外部通过<Dialog>触发，会复用本ReactElement实例，不论props是否变化，都应该render一下，来同步内容和显示
-        // 有时候在Element的display为none之后更新render了组件，实际有些尺寸可能是错误的，如果不同步render的话，可能会不一致
+        // 如果state没有变化，返回false，否则返回true
+        if (this.state.dialogOpened == nextState.dialogOpened &&
+            this.state.loadMoreId == nextState.loadMoreId) {
+            return false
+        }
         return true
     }
 
@@ -104,26 +105,34 @@ class ResultWrapper extends BasePostPaginateShow<ResultWrapperProps> {
     }
 
     shouldComponentUpdate(nextProps: Readonly<ResultWrapperProps>, nextState: Readonly<BasePostPaginateShowState>, nextContext: any): boolean {
-        if (nextProps.loadMoreId > 0 && this.props.loadMoreId != nextProps.loadMoreId &&
-            (this.presenter.isLastPage() || this.state.loadHint == ERROR_HINT)) {
-            // 如果是最后一页，不触发加载
-            // 如果是异常状态，不触发加载，等待用户点击
+        this.props
+        // props变化，这里无须触发render，调用presenter的方法会更改state，触发render
+        if (nextProps.dialogOpened && !this.props.dialogOpened) {
+            if (this.state.posts.length == 0) {
+                this.loadFirstPage()
+            }
+            return false
+        }
+        if (nextProps.loadMoreId > 0 && nextProps.loadMoreId != this.props.loadMoreId){
+            if (!this.presenter.isLastPage() && this.state.loadHint != ERROR_HINT) {
+                // 不是最后一页，且没有错误提示，加载更多
+                this.loadMore()
+            }
+            return false
+        }
+        if (!nextProps.dialogOpened && this.props.dialogOpened) {
+            // 如果Dialog关闭，取消加载
+            // 当Dialog关闭时，组件会被设置为不显示，尺寸是不正确的，如果触发更新会导致上层的heightAnimationContainer尺寸错误
+            this.presenter.abortLoad()
+            return false
+        }
+        // 如果state没有变化，返回false，否则返回true
+        if (this.state.loading == nextState.loading &&
+            this.state.loadHint == nextState.loadHint &&
+            this.state.posts.length == nextState.posts.length) {
             return false
         }
         return true
-    }
-
-    componentDidUpdate(prevProps: Readonly<ResultWrapperProps>, prevState: Readonly<BasePostPaginateShowState>, snapshot?: any): void {
-        super.componentDidUpdate(prevProps, prevState, snapshot)
-        if (this.props.dialogOpened && !prevProps.dialogOpened && this.state.posts.length == 0) {
-            this.loadFirstPage()
-        }
-        if (!this.props.dialogOpened && prevProps.dialogOpened) {
-            this.presenter.abortLoad()
-        }
-        if (this.props.loadMoreId > 0 && this.props.loadMoreId != prevProps.loadMoreId) {
-            this.loadMore()
-        }
     }
 
     render(): React.ReactNode {
@@ -135,8 +144,8 @@ class ResultWrapper extends BasePostPaginateShow<ResultWrapperProps> {
         }
         return (
             <>
-                <p>标记 {this.props.tag} 的{count}篇博文
-                </p>
+                <p>标记 {this.props.tag} 的{count}篇博文</p>
+                {/* <p>标记 {this.props.tag} 的{count}篇<a href="https://mudan.me">hh</a>博文 */}
                 {this.state.posts != null && this.state.posts.length != 0 &&
                     <PostResult list={this.state.posts} />
                 }
@@ -255,7 +264,7 @@ class PostItem extends React.Component<PostItemProps, any> {
         return (
             <li>
                 <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken tag-list-item mdc-ripple-upgraded"
-                    href={this.props.data.url}>
+                    tabIndex={-1} href={this.props.data.url}>
                     <span className="mdc-deprecated-list-item__text">
                         <span className="list-item__primary-text one-line">{this.props.data.title}</span>
                         <div className="list-item__secondary-text tag-list-item__secondary-container">
