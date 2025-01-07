@@ -120,6 +120,7 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
 
     initScrollListener() {
         if (!this.listenScroll) return
+
         let lastScrollTop = -1
         let lastFireTime = 0
         this.dialogContentE.addEventListener("scroll", () => {
@@ -138,7 +139,7 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
             const upScroll = newScrollTop <= lastScrollTop
             lastScrollTop = newScrollTop
             if (upScroll) return
-            if (this.dialogContentE.scrollHeight - this.dialogContentE.clientHeight - this.dialogContentE.scrollTop < 300) {
+            if (this.dialogContentE.scrollHeight - this.dialogContentE.clientHeight - this.dialogContentE.scrollTop < this.dialogContentE.clientHeight / 2) {
                 if (Date.now() - lastFireTime < 100) return
                 consoleDebug("BasicDialog scroll near to bottom, should fire load more")
                 this.scrollNearToBottom()

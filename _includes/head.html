@@ -21,7 +21,7 @@
 {% if page.cover != null -%}
 <meta data-pagefind-default-meta="image[content]" property="og:image" content="{{ page.cover }}"/>
 {% else -%}
-<meta data-pagefind-default-meta="image[content]" property="og:image" content="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me.jpg"/>
+<meta data-pagefind-default-meta="image[content]" property="og:image" content="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/old_man.jpg"/>
 {% endif -%}
 {% if page.blockFromSearchEngine == true -%}
 <!-- Let search engine not index this page -->
@@ -30,8 +30,12 @@
 <!-- Let browser know website is optimized for mobile -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <!-- Site icon -->
-<link rel="shortcut icon" href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/snail.png"/>
-<link rel="apple-touch-icon" href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/snail_white_bg.png"/>
+ <!-- PWA, Chrome 添加到桌面图标 -->
+<link rel="manifest" href="/manifest.json" />
+<!-- Chrome Safari Tab 图标 -->
+<link rel="shortcut icon" href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/old_man_rounded.png"/>
+<!-- Safari 添加到桌面图标 -->
+<link rel="apple-touch-icon" href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/old_man_white_bg.jpg"/>
 {% comment %} js和css由内部webpack工程输出，debug模式下使用localhost版本，release模式下使用托管在阿里云上的版本 {% endcomment -%}
 <script async type="text/javascript" src="{{ resUrlPrefix }}blog-runtime-v{{ version }}.js"></script>
 <script async type="text/javascript" src="{{ resUrlPrefix }}blog-scaffold-v{{ version }}.js"></script>
