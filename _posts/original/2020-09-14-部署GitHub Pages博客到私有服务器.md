@@ -81,7 +81,7 @@ sudo snap install --classic certbot
 sudo certbot --nginx
 ```
 
-按提示执行完成，`cerbot`会自动更新`Nginx`配置以使用生成的证书：
+按提示执行完成，`Certbot`会自动更新`Nginx`配置以使用生成的证书：
 
 ```sh
 server {

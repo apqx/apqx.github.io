@@ -67,12 +67,6 @@ function checkMetaThemeColor(dark: boolean, show: boolean) {
     }
 }
 
-export function toggleMetaThemeColor(show: boolean) {
-    const bodyE = document.getElementsByTagName("body")[0]
-    const currentDark = bodyE.classList.contains(darkClass)
-    checkMetaThemeColor(currentDark, show)
-}
-
 /**
  * 设置浏览器的theme-color属性
  * @param {String} color 如果为null则删除属性

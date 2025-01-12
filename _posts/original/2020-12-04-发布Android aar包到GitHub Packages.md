@@ -5,25 +5,25 @@ title: "发布Android aar包到GitHub Packages"
 author: 立泉
 mention: Gradle Maven
 date: 2020-12-04 +0800
-description: 成为全职Android开发者已有三年，经手项目很多，积累了一些常用代码工具，我把它们封装到一个Library里在各个业余项目中使用。但是每次都单独创建Module太过麻烦，直接打包为aar又会出现依赖问题。与jar一样，gradle默认并不把外部依赖包塞进aar，必须在使用时手动引入依赖，否则就会因为依赖缺失而无法通过编译。
+description: 成为全职Android开发者已有三年，在经手项目中积累到很多常用代码工具，也会在自己的业余项目中使用。但是每次都为它们重复创建Module很繁琐，直接打包为aar又会出现依赖问题。与jar一样，Gradle默认并不把外部依赖包塞进aar，需要在使用时手动引入，否则会因为依赖缺失而无法通过编译。
 cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20201204/github_packages_jettools.jpg
 tags: Code Android Gradle Build Maven GitHub
 ---
 
-成为全职`Android`开发者已有三年，经手项目很多，积累了一些常用代码工具，我把它们封装到一个`Library`里在各个业余项目中使用。但是每次都单独创建`Module`太过麻烦，直接打包为`aar`又会出现依赖问题。与`jar`一样，`gradle`默认并不把外部依赖包塞进`aar`，必须在使用时手动引入依赖，否则就会因为依赖缺失而无法通过编译。
+成为全职`Android`开发者已有三年，在经手项目中积累到很多常用代码工具，也会在自己的业余项目中使用。但是每次都为它们重复创建`Module`很繁琐，直接打包为`aar`又会出现依赖问题。与`jar`一样，`Gradle`默认并不把外部依赖包塞进`aar`，需要在使用时手动引入，否则会因为依赖缺失而无法通过编译。
 
-为什么`gradle`使用`Maven`里的类库可以不用手动引入依赖呢？其实，发布到`Maven`仓库的`aar`包同样没有外部依赖，只不过发布时`Maven`插件会自动生成一个包含依赖列表的`.pom`文件，`gradle`下载类库时会获取到它，然后下载指定版本的依赖包。
+为什么`Gradle`使用`Maven`仓库里的类库不需要手动引入依赖呢？其实，发布到`Maven`仓库的`aar`包里同样没有外部依赖，只不过`Maven`插件会自动生成一个`.pom`文件来标识依赖列表，`Gradle`下载类库时能获取到它，会自动下载指定版本的依赖包。
 
-既然如此，是否可以把自己的包发布到`Maven`仓库呢？当然可以，很多公司都会搭建内部`Maven`服务器来实现通用包共享，`Android`工程至少需要配置2个指向不同`URL`的`Maven`仓库。
+既然如此，是否可以把自己的包发布到`Maven`仓库呢？当然可以，很多公司都会搭建内部`Maven`服务器来实现组件共享，`Android`工程至少需要配置2个不同的`Maven`仓库：
 
 ```groovy
-// project根目录的build.gradle文件
+// Project 根目录的 build.gradle 文件
 
 allprojects {
     repositories {
-        // google的maven仓库在阿里云上的镜像
+        // Google 的 Maven 仓库在阿里云的镜像
         maven { url 'https://maven.aliyun.com/repository/google' }
-        // maven central的maven仓库在阿里云上的镜像
+        // Maven Central 的 Maven 仓库在阿里云的镜像
         maven { url 'https://maven.aliyun.com/repository/central' }
     }
 }
@@ -35,7 +35,7 @@ allprojects {
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20201204/github_packages_jettools.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="github packages" }
 
-左边是源码，右边是发布的包，一目了然，这也是我喜欢使用它的原因。
+左边是源码，右边是发布的包，一目了然，这也是我倾向它的原因。
 
 ## Access token
 
@@ -49,10 +49,10 @@ allprojects {
 
 ## Publish
 
-`Maven`为`gradle`提供`maven-publish`插件以支持在`gradle`中配置发包到指定`Maven`仓库，同时`Android Gradle plugin 3.6.0`以上则包含对`maven-publish`的支持，可以把`Android`工程中定义的`build variant`包发布到`Maven`仓库。
+`Maven`为`Gradle`提供`maven-publish`插件以支持在`Gradle`中配置发包到指定`Maven`仓库，同时`Android Gradle plugin 3.6.0`以上已经包含对`maven-publish`的支持，可以把`Android`工程中定义的`build variant`包发布到`Maven`仓库。
 
 ```groovy
-// project根目录的build.gradle文件
+// Project 根目录的 build.gradle 文件
 
 buildscript {
     ext.kotlin_version = "1.4.10"
@@ -61,21 +61,17 @@ buildscript {
         maven { url 'https://maven.aliyun.com/repository/central' }
     }
     dependencies {
-        // Android Gradle plugin版本
         classpath 'com.android.tools.build:gradle:4.1.1'
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version'
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
     }
 }
 ```
 
-关于使用`build variant`创建不同类型包的问题，通常用于打出同版本的不同渠道包，可以查看另一篇文章：
+关于使用`build variant`创建不同类型包的问题，通常用于打出同版本的不同渠道包，参见另一篇文章：
 
 [Gradle的Build Variant与多渠道打包]({% link _posts/original/2020-06-12-Gradle的Build Variant与多渠道打包.md %}){: target="_blank" }
 
-比如在`Module`的`build.gradle`中定义了`mi`、`play`2个`flavor`，用于配置发布到`小米商店`和`Google Play`商店的渠道包，它们与`release`、`debug`2个`build type`组合成4个`build variant`：
+比如在`Module`的`build.gradle`中定义`mi`和`play`2个`flavor`，用于配置发布到`小米商店`和`Google Play`商店的渠道包，它们与`release`和`debug`2个`build type`组合成4个`build variant`：
 
 ```sh
 miRelease
@@ -88,7 +84,7 @@ playDebug
 
 ```groovy
 android {
-    // 2个buildType
+    // 2个 buildType
     buildTypes {
         release {
             minifyEnabled false
@@ -102,25 +98,25 @@ android {
 
     flavorDimensions 'version'
 
-    // 2个flavor
+    // 2个 flavor
     productFlavors {
         mi {
             dimension = 'version'
-            // 定义该flavor的特性
+            // 定义该 flavor 的特性
             ...
         }
         play {
             dimension = 'version'
-            // 定义该flavor的特性
+            // 定义该 flavor 的特性
             ...
         }
     }
 }
 ```
 
-`Android Gradle plugin`会自动在编译时根据`build variant`为用于定义`Maven`发包类型的`components`对象生成对应属性，来实现发布指定`build variant`的包。
+`Android Gradle plugin`会在编译时根据`build variant`为用于定义`Maven`发包类型的`components`对象生成对应属性，来实现发布指定`build variant`的包。
 
-发包`token`属于私密信息，不应该上传到`GitHub`公开仓库，可以在工程根目录下创建一个`github.properties`文件，不要`push`到`GitHub`上。
+发包`token`属于私密信息，不能上传到公开仓库，可以在工程根目录下创建一个`github.properties`文件，不要`push`到`GitHub`上。
 
 ```sh
 gpr.usr=user_name
@@ -130,27 +126,27 @@ gpr.key=your_token
 配置要发包`Module`的`build.gradle`文件：
 
 ```groovy
-// 要发包的Module的build.gradle
+// 要发包的 Module 的 build.gradle
 
-// 本Module是一个Android library，打包类型为aar
+// 本 Module 是一个 Android library，打包类型为 aar
 apply plugin: 'com.android.library'
-// 使用maven-publish插件
+// 使用 maven-publish插件
 apply plugin: 'maven-publish'
 
-// 读取github.properties文件里的授权信息，不要把这个文件push到GitHub
+// 读取 github.properties 文件里的授权信息，不要把这个文件 push 到 GitHub
 def githubProperties = new Properties()
 githubProperties.load(new FileInputStream(rootProject.file("github.properties")))
 
-// 因为用于定义发布类型的components是在afterEvaluate阶段被创建的，所以必须把发布配置写在project.afterEvaluate {}代码块中
+// 因为用于定义发布类型的 components 是在 afterEvaluate 阶段被创建的，所以必须把发布配置写在 project.afterEvaluate {} 代码块中
 project.afterEvaluate {
     // 定义发布
     publishing {
-        // 定义要发布到的远程Maven仓库，可以定义多个，gradle会自动生成发送到指定Maven仓库的task
+        // 定义要发布到的远程 Maven 仓库，可以定义多个，Gradle 会自动生成发送到指定 Maven 仓库的 task
         repositories {
-            // GitHub Packages仓库
+            // GitHub Packages 仓库
             maven {
                 name = "GitHubPackages"
-                // 指定要发布到的GitHub Repository仓库url
+                // 指定要发布到的 GitHub Repository 仓库 url
                 url = uri("https://maven.pkg.github.com/apqx/JetTools")
                 credentials {
                     // 用户名和token
@@ -159,31 +155,24 @@ project.afterEvaluate {
                 }
             }
         }
-        // 定义要发布的包，可以定义多个，gradle会自动生成把不同的包发送到指定的Maven仓库的task
+        // 定义要发布的包，可以定义多个，Gradle 会自动生成把不同的包发送到指定的 Maven 仓库的 task
         publications {
-            // 发布build variant为miRelease的包，
+            // 发布 build variant 为 miRelease 的包，
             myMiRelease(MavenPublication) {
-                // 指定要发布的build variant，在编译阶段，components就已经根据工程配置的build variant生成了对应的属性
+                // 指定要发布的 build variant，在编译阶段 components 就已经根据工程配置的 build variant 生成了对应属性
                 from components.miRelease
-
-                // 定义Maven的3个参数，可以用[groupId:artifactId:version]定位到该包
+                // 定义 Maven 的3个参数，可以用 [groupId:artifactId:version] 定位到该包
                 // 所以这3个参数的组合必须具有唯一性
-                groupId = 'me.apqx.jettools'
+                groupId = 'me.mudan.tools'
                 artifactId = 'mi'
-                // 包版本
                 version = '1.0.0'
             }
 
-            // 发布build variant为playRelease的包，
+            // 发布 build variant 为 playRelease 的包，
             myPlayRelease(MavenPublication) {
-                // 指定要发布的build variant，在编译阶段，components就已经根据工程配置的build variant生成了对应的属性
                 from components.playRelease
-
-                // 定义Maven的3个参数，可以用[groupId:artifactId:version]定位到该包
-                // 所以这3个参数的组合必须具有唯一性
-                groupId = 'me.apqx.jettools'
+                groupId = 'me.mudan.tools'
                 artifactId = 'play'
-                // 包版本
                 version = '1.0.0'
             }
         }
@@ -191,7 +180,7 @@ project.afterEvaluate {
 }
 ```
 
-执行`sync`，`gradle`会根据配置的发包信息自动生成对应的发包`task`：
+执行`sync`，`Gradle`会根据配置的发包信息生成对应的发包`task`：
 
 ```sh
 publishMyMiReleasePublicationToGitHubPackagesRepository
@@ -206,19 +195,18 @@ publishMyPlayReleasePublicationToMavenLocal
 
 ## Implement
 
-添加包作为依赖需要先在工程根目录的`build.gradle`中配置包所在的`Maven`仓库，必须使用有`read:packages`权限的`token`。
+添加包作为依赖需要先在工程根目录的`build.gradle`中配置其所在的`Maven`仓库，必须使用有`read:packages`权限的`token`。
 
 ```groovy
-// 工程根目录的build.gradle
+// Project 根目录的 build.gradle
 
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext.kotlin_version = "1.4.20"
     repositories {
         maven { url 'https://maven.aliyun.com/repository/google' }
         maven { url 'https://maven.aliyun.com/repository/central' }
 
-        // 该包所在的GitHub Repository地址
+        // 该包所在的 GitHub Repository 地址
         maven { url 'https://maven.pkg.github.com/apqx/JetTools'
             credentials {
                 username = "user_name"
@@ -226,23 +214,15 @@ buildscript {
             }
         }
     }
-    dependencies {
-        classpath ‘com.android.tools.build:gradle:4.1.1’
-        classpath ’org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version1‘
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
-    }
+    ...
 }
 
 allprojects {
     repositories {
         maven { url 'https://maven.aliyun.com/repository/google' }
         maven { url 'https://maven.aliyun.com/repository/jcenter' }
-        google()
-        jcenter()
 
-        // 该包所在的GitHub Repository地址
+        // 该包所在的 GitHub Repository 地址
         maven { url 'https://maven.pkg.github.com/apqx/JetTools'
             credentials {
                 username = "apqx"
@@ -251,27 +231,22 @@ allprojects {
         }
     }
 }
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
-}
 ```
 
 在要使用该包的`Module`中：
 
 ```groovy
-// Module的build.gradle
+// Module 的 build.gradle
 
 dependencies {
-    // 使用该包，gradle会自动处理依赖问题
-    implementation 'me.apqx.jettools:play:1.0.0'
+    implementation 'me.apqx.tools:play:1.0.0'
 }
 ```
 
 ## 一些限制
 
-不同于常见的`Maven`仓库，`GitHub Packages`需要授权，这种限制意味着它只适合应用在一些小圈子里，比如团队或个人的私有类库。
+不同于常见`Maven`仓库，`GitHub Packages`需要授权，这种限制意味着它只适合应用在小圈子里，比如团队或个人的私有类库。
 
-还有一点是关于删除已发布的包，`GitHub`允许删除私有仓库的包，但不允许删除公共仓库的包，因为可能已经有其它项目在使用。如果某个版本存在问题，正确的解决方法不是删除而是发布一个修复问题的新版本。
+还有一点是关于删除已发布的包，`GitHub`允许删除私有仓库的包，但不允许删除公共仓库的包，因为可能已经有其它项目在使用。如果某个版本存在问题，正确解决方法不是删除而是发布一个修复问题的新版本。
 
 更多信息参见`Android Developers`对[Maven Publish Gradle plugin](https://developer.android.com/studio/build/maven-publish-plugin){: target="_blank" }的描述。

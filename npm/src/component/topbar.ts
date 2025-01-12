@@ -1,6 +1,6 @@
 import { MDCIconButtonToggle } from "@material/icon-button";
 import { consoleDebug, consoleError } from "../util/log";
-import { toggleMetaThemeColor, toggleTheme } from "./theme";
+import { toggleTheme } from "./theme";
 import { localRepository } from "../repository/LocalRepository";
 import { MDCTopAppBar } from "@material/top-app-bar";
 import { clearFocusListener, isMobileOrTablet, toggleClassWithEnable } from "../util/tools";

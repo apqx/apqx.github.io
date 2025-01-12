@@ -284,7 +284,7 @@ $surface-block-border: (
         // Code
         --code-highlight-bg: #{map.get($code-highlight-bg, "light")};
         --code-highlight-border: #{map.get($code-highlight-border, "light")};
-        --pre-code-bg: #15171a;
+        --pre-code-bg: #151515;
 
         // Chip
         --chip-bg: #{map.get($chip-bg, "light")};

@@ -13,11 +13,31 @@
         }
         const bodyE = document.getElementsByTagName("body")[0];
         // 默认是没有.dark的，在确定是暗黑模式时加上.dark
+        // 默认是没有theme-color的，在这里根据主题加上
         if (savedTheme === THEME_DARK
             // 跟随系统主题且系统主题是暗黑模式
             || (savedTheme === THEME_AUTO && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
             bodyE.classList.add("dark")
+            setMetaThemeColor(metaThemeColor.dark)
+        } else {
+            setMetaThemeColor(metaThemeColor.light)
         }
+    }
+
+    const metaThemeColor = {
+        light: "#ffffff",
+        dark: "#1f1f1f"
+    }
+
+    /**
+     * 设置浏览器的theme-color属性
+     * @param {String} color 颜色值
+     */
+    function setMetaThemeColor(color) {
+        const themeColorE = document.createElement("meta")
+        themeColorE.setAttribute("name", "theme-color")
+        themeColorE.setAttribute("content", color)
+        document.getElementsByTagName("head")[0].append(themeColorE)
     }
     // 应该在body中立即执行Theme切换检查，这样每次页面加载，都会执行一次主题检查
     checkTheme()

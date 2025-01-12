@@ -4,68 +4,20 @@
     "icons": [
       {
         "purpose": "maskable",
-        "sizes": "48x48",
-        "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/icon/maskable_icon_x48.png",
-        "type": "image/png"
-      },
-      {
-        "purpose": "maskable",
-        "sizes": "72x72",
-        "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/icon/maskable_icon_x72.png",
-        "type": "image/png"
-      },
-      {
-        "purpose": "maskable",
-        "sizes": "96x96",
-        "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/icon/maskable_icon_x96.png",
-        "type": "image/png"
-      },
-      {
-        "purpose": "maskable",
-        "sizes": "128x128",
-        "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/icon/maskable_icon_x128.png",
-        "type": "image/png"
-      },
-      {
-        "purpose": "maskable",
         "sizes": "192x192",
-        "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/icon/maskable_icon_x192.png",
+        "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/icon/old_man_white_bg_maskable_192.png",
         "type": "image/png"
       },
       {
         "purpose": "maskable",
         "sizes": "384x384",
-        "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/icon/maskable_icon_x384.png",
+        "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/icon/old_man_white_bg_maskable_384.png",
         "type": "image/png"
       },
       {
         "purpose": "maskable",
         "sizes": "512x512",
-        "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/icon/maskable_icon_x512.png",
-        "type": "image/png"
-      },
-      {
-        "purpose": "any",
-        "sizes": "48x48",
-        "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/icon/old_man_rounded_white_bg_48.png",
-        "type": "image/png"
-      },
-      {
-        "purpose": "any",
-        "sizes": "72x72",
-        "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/icon/old_man_rounded_white_bg_72.png",
-        "type": "image/png"
-      },
-      {
-        "purpose": "any",
-        "sizes": "96x96",
-        "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/icon/old_man_rounded_white_bg_96.png",
-        "type": "image/png"
-      },
-      {
-        "purpose": "any",
-        "sizes": "128x128",
-        "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/icon/old_man_rounded_white_bg_128.png",
+        "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/icon/old_man_white_bg_maskable_512.png",
         "type": "image/png"
       },
       {
