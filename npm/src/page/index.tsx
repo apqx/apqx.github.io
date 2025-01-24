@@ -93,11 +93,7 @@ function getGridLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
     for (const liE of wrapperE.querySelectorAll(".grid-index-li:not(.grid-index-li--description)")) {
         const title = (liE.querySelector(".grid-index-title") as HTMLElement).innerText
         const actor = (liE.querySelector(".grid-index-author") as HTMLElement).innerText.split(" ")
-        const date = (liE.querySelector(".grid-index-date") as HTMLElement).innerText
-        // actor和date放在一起了，因为两个span之间的距离，在原生和react中不一样
-        // const dateAndActor = (liE.querySelector(".grid-index-date") as HTMLElement).innerText.match("(\\d{4}年\\d{2}月\\d{2}日) (.*)")
-        // let actor = dateAndActor[2].split(" ")
-        // let date = dateAndActor[1]
+        const date = (liE.querySelector(".grid-index-date") as HTMLElement).innerText.trim()
         const path = (liE.querySelector(".index-a") as HTMLAnchorElement).pathname
         const description = (liE.querySelector(".grid-index-description") as HTMLElement).innerText
         const coverE = liE.querySelector(".grid-index-cover") as HTMLImageElement

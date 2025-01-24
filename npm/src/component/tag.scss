@@ -24,7 +24,7 @@
     @include button.horizontal-padding(0.8rem);
     text-transform: none;
     font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
-    font-weight: normal;
+    font-weight: 300;
     margin-top: 0.2rem;
     margin-bottom: 0.2rem;
     @include button.height(2rem);
