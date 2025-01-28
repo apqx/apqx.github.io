@@ -138,14 +138,13 @@ class ResultWrapper extends BasePostPaginateShow<ResultWrapperProps> {
     render(): React.ReactNode {
         let count: JSX.Element
         if (this.state.posts.length == 0) {
-            count = <></>
+            count = <><span>0</span></>
         } else {
             count = <><span>{this.state.totalPostsSize}</span></>
         }
         return (
             <>
                 <p>标记 {this.props.tag} 的{count}篇博文</p>
-                {/* <p>标记 {this.props.tag} 的{count}篇<a href="https://mudan.me">hh</a>博文 */}
                 {this.state.posts != null && this.state.posts.length != 0 &&
                     <PostResult list={this.state.posts} />
                 }
