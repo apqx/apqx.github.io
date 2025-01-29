@@ -7,6 +7,7 @@ import {showAboutMeDialog} from "./dialog/AboutMeDialog";
 import {showPreferenceDialog} from "./dialog/PreferenceDialog";
 import {showSearchDialog} from "./dialog/SearchDialog";
 import { getSectionTypeByPath, SECTION_TYPE_OPERA, SECTION_TYPE_POETRY, SECTION_TYPE_REPOST, SECTION_TYPE_TAG } from "../base/constant";
+import { toggleClassWithEnable } from "../util/tools";
 // import "./drawer.scss"
 
 const DRAWER_ITEM_ORIGINAL_ID = "drawer-a-original"
@@ -43,10 +44,13 @@ export function initDrawer() {
     drawerList.listElements.map((listItemEl) => new MDCRipple(listItemEl))
     drawerList.selectedIndex = currentPageIndex
     drawerE.addEventListener("MDCDrawer:opened", () => {
+        // Drawer弹出时禁止body滚动
+        toggleClassWithEnable(document.body, "mdc-dialog-scroll-lock", true)
         currentSelectedAE.focus()
         currentSelectedAE.blur()
     });
     drawerE.addEventListener("MDCDrawer:closed", () => {
+        toggleClassWithEnable(document.body, "mdc-dialog-scroll-lock", false)
         // 恢复选中
         // drawerList.selectedIndex = currentPageIndex
     });
