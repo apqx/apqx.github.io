@@ -15,15 +15,15 @@ interface DialogContentProps extends BasicDialogProps {
 }
 
 export class ShortLinkDialog extends BasicDialog<DialogContentProps, DialogContentState> {
-    presenter: ShortLinkJumpDialogPresenter = null
+    presenter: ShortLinkJumpDialogPresenter
 
-    constructor(props) {
+    constructor(props: DialogContentProps) {
         super(props)
         this.presenter = new ShortLinkJumpDialogPresenter(this)
         this.state = {
             title: "查询映射",
             content: this.props.pid,
-            onClickLink: null
+            onClickLink: () => {}
         }
     }
 
@@ -52,7 +52,8 @@ export class ShortLinkDialog extends BasicDialog<DialogContentProps, DialogConte
     }
 }
 
+let openCount = 0
 export function showShortLinkJumpDialog(_pid: string) {
-    showDialog(<ShortLinkDialog pid={_pid} fixedWidth={false} btnText={null}
-        OnClickBtn={null} closeOnClickOutside={false} />, COMMON_DIALOG_WRAPPER_ID)
+    showDialog(<ShortLinkDialog openCount={openCount++} pid={_pid} fixedWidth={false} btnText={undefined}
+        OnClickBtn={undefined} closeOnClickOutside={false} />, COMMON_DIALOG_WRAPPER_ID)
 }

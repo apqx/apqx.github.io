@@ -6,7 +6,7 @@ import { clearFocusListener } from "../../util/tools";
 
 export interface Props {
     text: string;
-    onClick: () => void;
+    onClick: (() => void) | null;
     className: string;
 }
 

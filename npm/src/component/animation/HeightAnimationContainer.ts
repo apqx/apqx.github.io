@@ -10,7 +10,7 @@ export class HeightAnimationContainer {
     containerE: HTMLElement
     contentE: HTMLElement
     lastHeight: number
-    resizeWidthObserver: ResizeWidthObserver
+    resizeWidthObserver: ResizeWidthObserver | null = null
 
     constructor(animationContainerE: HTMLElement) {
         this.containerE = animationContainerE

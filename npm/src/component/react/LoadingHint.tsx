@@ -6,7 +6,7 @@ export const ERROR_HINT: string = "加载错误，点击重试"
 
 interface Props {
     loading: boolean
-    loadHint: string
+    loadHint: string | null
     onClickHint: () => void
 }
 
@@ -26,7 +26,7 @@ export class LoadingHint extends React.Component<Props, any> {
     }
 }
 
-export function getLoadHint(loadSize: number, resultSize: number): string {
+export function getLoadHint(loadSize: number, resultSize: number): string | null {
     if (loadSize >= resultSize) return null
     return loadSize + "/" + resultSize + " MORE"
 }

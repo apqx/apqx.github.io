@@ -55,7 +55,11 @@ export function createHtmlContent(html: string) {
     return { __html: html }
 }
 
-export function toggleClassWithEnable(e: Element, className: string, enable: boolean) {
+export function toggleClassWithEnable(e: Element | null, className: string, enable: boolean) {
+    if (e == null) {
+        consoleDebug("Element is null")
+        return
+    }
     if (enable && !e.classList.contains(className)) {
         e.classList.add(className)
     } else if (!enable && e.classList.contains(className)) {
@@ -93,22 +97,22 @@ export function isSafari(): boolean {
     return check
 }
 
-var debugMode: boolean = undefined
-var writingMode: boolean = undefined
+var debugMode: boolean | undefined
+var writingMode: boolean | undefined
 
 export function isDebug(): boolean {
     if (debugMode != undefined) return debugMode
     // 读取head里的debug标志
-    const debugStr: string = document.querySelector("meta[name=debug]").getAttribute("content")
-    debugMode = JSON.parse(debugStr)
+    const debugStr: string = document.querySelector("meta[name=debug]")!!.getAttribute("content")!!
+    debugMode = JSON.parse(debugStr) as boolean
     return debugMode
 }
 
 export function isWriting(): boolean {
     if (writingMode != undefined) return writingMode
     // 读取head里的writing标志
-    const writingStr: string = document.querySelector("meta[name=writing]").getAttribute("content")
-    writingMode = JSON.parse(writingStr)
+    const writingStr: string = document.querySelector("meta[name=writing]")!!.getAttribute("content")!!
+    writingMode = JSON.parse(writingStr) as boolean
     return writingMode
 }
 

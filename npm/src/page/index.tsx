@@ -140,23 +140,3 @@ function initIndexTopCover() {
         new MDCRipple(ele)
     }
 }
-
-let masonry: Masonry = null
-
-function initMasonry() {
-    // React加载布局是通过另一个React Masonry组件，不能在React之外使用，所以这里用另一个替代
-    const gridE = document.querySelector(".grid")
-    if (gridE == null) return
-    masonry = new Masonry(gridE, {
-        percentPosition: true,
-        itemSelector: ".grid-item",
-        columnWidth: ".grid-sizer",
-    })
-}
-
-function destroyMasonry() {
-    if (masonry != null) {
-        masonry.destroy()
-        masonry = null
-    }
-}

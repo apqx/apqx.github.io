@@ -21,9 +21,13 @@ const DRAWER_ITEM_ABOUT_ME_ID = "drawer-a-about-me"
 
 export function initDrawer() {
     let drawerE = document.querySelector(".mdc-drawer")
+    if (drawerE == null) {
+        consoleError("Drawer not found")
+        return
+    }
     let drawer = MDCDrawer.attachTo(drawerE)
     // 监听menu按钮点击
-    topAppBar.listen("MDCTopAppBar:nav", () => {
+    topAppBar?.listen("MDCTopAppBar:nav", () => {
         drawer.open = !drawer.open
     })
     // 监听trigger弹出Drawer
@@ -35,7 +39,11 @@ export function initDrawer() {
     }
 
     // drawer中的list
-    const listE: HTMLElement = document.querySelector(".mdc-drawer .mdc-deprecated-list")
+    const listE = document.querySelector(".mdc-drawer .mdc-deprecated-list")
+    if (listE == null) {
+        consoleError("Drawer list not found")
+        return
+    }
     const aEList = listE.querySelectorAll("a.mdc-deprecated-list-item")
     const drawerList = MDCList.attachTo(listE)
     drawerList.singleSelection = true;
@@ -64,6 +72,10 @@ export function initDrawer() {
     });
 
     const searchE = listE.querySelector("#" + DRAWER_ITEM_SEARCH_ID)
+    if (searchE == null) {
+        consoleError("Drawer search item not found")
+        return
+    }
     const searchEHref = searchE.getAttribute("href")
     searchE.addEventListener("click", () => {
         if (searchEHref == null || searchEHref == "") {
@@ -72,12 +84,12 @@ export function initDrawer() {
             drawer.open = false;
         }
     })
-    listE.querySelector("#" + DRAWER_ITEM_PREFERENCE_ID).addEventListener("click", () => {
+    listE.querySelector("#" + DRAWER_ITEM_PREFERENCE_ID)?.addEventListener("click", () => {
         consoleDebug("Click drawer list item " + DRAWER_ITEM_PREFERENCE_ID)
         showPreferenceDialog()
         drawer.open = false;
     })
-    listE.querySelector("#" + DRAWER_ITEM_ABOUT_ME_ID).addEventListener("click", () => {
+    listE.querySelector("#" + DRAWER_ITEM_ABOUT_ME_ID)?.addEventListener("click", () => {
         consoleDebug("Click drawer list item " + DRAWER_ITEM_ABOUT_ME_ID)
         showAboutMeDialog()
         drawer.open = false;

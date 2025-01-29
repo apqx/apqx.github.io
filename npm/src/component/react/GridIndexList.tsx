@@ -8,7 +8,7 @@ import { consoleDebug, consoleObjDebug } from "../../util/log";
 import { BasePostPaginateShow, BasePostPaginateShowProps, BasePostPaginateShowState, Post } from "./post/BasePostPaginateShow";
 import { IPostPaginateShowPresenter } from "./post/IPostPaginateShowPresenter";
 import { PostPaginateShowPresenter } from "./post/PostPaginateShowPresenter";
-import { clickTag } from "../tag";
+import { setupTagTrigger } from "../tag";
 import { ScrollLoader } from "../../base/ScrollLoader";
 import Masonry from 'react-masonry-css'
 import { HeightAnimationContainer } from "../animation/HeightAnimationContainer";
@@ -18,7 +18,7 @@ interface Props extends BasePostPaginateShowProps {
 }
 
 export class GridIndexList extends BasePostPaginateShow<Props> {
-    heightAnimationContainer: HeightAnimationContainer
+    heightAnimationContainer: HeightAnimationContainer | null = null
 
     constructor(props: Props) {
         super(props);
@@ -49,12 +49,12 @@ export class GridIndexList extends BasePostPaginateShow<Props> {
     }
 
     componentWillUnmount(): void {
-        this.heightAnimationContainer.destroy()
+        this.heightAnimationContainer?.destroy()
     }
 
     componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<BasePostPaginateShowState>, snapshot?: any): void {
         consoleDebug("GridIndex componentDidUpdate")
-        this.heightAnimationContainer.update()
+        this.heightAnimationContainer?.update()
         if (this.props.onUpdate != null) this.props.onUpdate()
     }
 
@@ -114,7 +114,7 @@ type IndexItemProps = {
 }
 
 class IndexItem extends React.Component<IndexItemProps, any> {
-    imageLoadAnimator: ImageLoadAnimator
+    imageLoadAnimator: ImageLoadAnimator | null = null
 
     constructor(props: IndexItemProps) {
         super(props)
@@ -123,7 +123,7 @@ class IndexItem extends React.Component<IndexItemProps, any> {
     componentDidMount(): void {
         consoleObjDebug("IndexItem componentDidMount", this.props)
         const rootE = ReactDOM.findDOMNode(this) as HTMLElement
-        new MDCRipple(rootE.querySelector(".grid-index-card__ripple"))
+        new MDCRipple(rootE.querySelector(".grid-index-card__ripple")!!)
         const imgE = rootE.querySelector(".grid-index-cover")
         // 只有前10个有动画🤔
         // if (imgE != null && this.props.index < 10) {
@@ -183,10 +183,7 @@ class IndexDescriptionItem extends React.Component<IndexDescriptionItemProps, an
 
         const dialogsTriggers = rootE.querySelectorAll(".tag-dialog-trigger")
         for (const trigger of dialogsTriggers) {
-            // 获取每一个trigger的id，找到它对应的dialogId，和dialog里的listId
-            consoleDebug(trigger.id)
-            // 监听trigger的点击事件
-            trigger.addEventListener("click", clickTag)
+            setupTagTrigger(trigger as HTMLElement)
         }
     }
 

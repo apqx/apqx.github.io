@@ -7,7 +7,7 @@ interface Props {
 }
 
 export class ProgressLinear extends React.Component<Props, any> {
-    progressLinear: MDCLinearProgress = null
+    progressLinear: MDCLinearProgress | null = null
 
     init(e: Element) {
         if (e == null) return
@@ -29,9 +29,9 @@ export class ProgressLinear extends React.Component<Props, any> {
 
     private showLoading(show: boolean) {
         if (show) {
-            this.progressLinear.open()
+            this.progressLinear?.open()
         } else {
-            this.progressLinear.close()
+            this.progressLinear?.close()
         }
     }
 

@@ -1,6 +1,7 @@
 import React from "react"
 import { IPostPaginateShow } from "./IPostPaginateShow"
 import { IPostPaginateShowPresenter } from "./IPostPaginateShowPresenter"
+import { consoleDebug } from "../../../util/log"
 
 export interface BasePostPaginateShowProps {
     category: string,
@@ -12,7 +13,7 @@ export interface BasePostPaginateShowProps {
 
 export interface BasePostPaginateShowState {
     loading: boolean,
-    loadHint: string,
+    loadHint: string | null,
     posts: Array<Post>,
     totalPostsSize: number
 }
@@ -63,15 +64,23 @@ export abstract class BasePostPaginateShow<P extends BasePostPaginateShowProps>
 
     abstract createPresenter(): IPostPaginateShowPresenter
 
+    abortLoad() {
+        consoleDebug("BasePostPaginateShow abortLoad")
+        this.presenter.abortLoad()
+    }
+
     loadFirstPage() {
+        consoleDebug("BasePostPaginateShow loadFirstPage")
         this.presenter.init()
     }
 
     loadMore() {
+        consoleDebug("BasePostPaginateShow loadMore")
         this.presenter.loadMore(false)
     }
 
     loadMoreByClick() {
+        consoleDebug("BasePostPaginateShow loadMoreByClick")
         this.presenter.loadMore(true)
     }
 

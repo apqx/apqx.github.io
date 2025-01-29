@@ -8,5 +8,5 @@ export function initContentCard(startAnimation: boolean) {
 
 export function startContentCardAnimation() {
     const cardE = document.querySelector(".content-card.fade-in-animation")
-    cardE.classList.add("fade-in-animation--start")
+    cardE?.classList.add("fade-in-animation--start")
 }

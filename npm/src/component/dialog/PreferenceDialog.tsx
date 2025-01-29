@@ -15,7 +15,7 @@ interface DialogContentState {
 export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogContentState> {
     presenter: PreferenceDialogPresenter
 
-    constructor(props) {
+    constructor(props: BasicDialogProps) {
         super(props)
         consoleDebug("PreferenceDialogContent constructor")
         this.presenter = new PreferenceDialogPresenter(this)
@@ -29,6 +29,16 @@ export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogConten
             notoSerifSCFontOn: false,
             autoThemeOn: false
         }
+    }
+
+    onDialogOpen(): void {
+        consoleDebug("PreferenceDialogContent onDialogOpen")
+        this.presenter.initSettings()
+        // TODO: Toggle点击时自己会切换状态，如果这里更新State给Toggle设置状态，可能会导致Toggle状态不正确
+        // 一个思路是Toggle不使用state，而是dialog弹出时获取一个初始值
+
+        // BUG: toggle为开的状态，通过topbar切换主题后，再打开设置对话框，toggle状态随之变化，但是点击toggle不会触发UI切换，主题存储是正常的
+        // 用Material Icon的图标代替
     }
 
     onClickFixedTopbarSwitch() {
@@ -62,7 +72,7 @@ export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogConten
     }
 
     onClickAutoThemeSwitch() {
-        consoleDebug("PreferenceDialogContent onClickAutoThemeSwitch")
+        consoleDebug("PreferenceDialogContent onClickAutoThemeSwitch, current state: " + this.state.autoThemeOn)
         const newState = !this.state.autoThemeOn
         this.presenter.onClickAutoThemeSwitch(newState)
         // 更新state，刷新UI
@@ -74,33 +84,6 @@ export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogConten
     componentDidMount() {
         super.componentDidMount()
         consoleDebug("PreferenceDialogContent componentDidMount")
-        this.presenter.initSettings()
-    }
-
-    componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<DialogContentState>, snapshot?: any) {
-        consoleDebug("PreferenceDialogContent componentDidUpdate")
-    }
-
-    shouldComponentUpdate(nextProps: Readonly<any>, nextState: Readonly<DialogContentState>, nextContext: any): boolean {
-        consoleDebug("PreferenceDialogContent shouldComponentUpdate")
-        super.shouldComponentUpdate(nextProps, nextState, nextContext)
-        if (this.state.fixedTopbarOn != nextState.fixedTopbarOn ||
-            this.state.handwrittenFontOn != nextState.handwrittenFontOn ||
-            this.state.autoThemeOn != nextState.autoThemeOn) {
-            consoleDebug("State different, render")
-            return true
-        }
-
-        if (this.state.fixedTopbarOn != this.presenter.localFixedTopbarOn() ||
-            this.state.handwrittenFontOn != this.presenter.localHandWritingFontOn() ||
-            this.state.autoThemeOn != this.presenter.localAutoThemeOn()) {
-            // state不是最新的，更新state，来触发UI render
-            consoleDebug("State should update, update state, no render")
-            this.presenter.initSettings()
-            return false
-        }
-        consoleDebug("Props and state no change, no render")
-        return false
     }
 
     handwrittenFontTitle = "使用<a href=\"https://www.17font.com/font/detail/960a115089a711ee98da67ad58e0ec00.html\" target=\"_blank\">兰亭国风行楷</a>字体"
@@ -138,8 +121,9 @@ export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogConten
     }
 }
 
+let openCount = 0
 export function showPreferenceDialog() {
     consoleDebug("PreferenceDialogContent showPreferenceDialog")
-    showDialog(<PreferenceDialog fixedWidth={true} btnText={"关闭"}
-        OnClickBtn={null} closeOnClickOutside={true} />, PREFERENCE_DIALOG_WRAPPER_ID)
+    showDialog(<PreferenceDialog openCount={openCount++} fixedWidth={true} btnText={"关闭"}
+        OnClickBtn={undefined} closeOnClickOutside={true} />, PREFERENCE_DIALOG_WRAPPER_ID)
 }

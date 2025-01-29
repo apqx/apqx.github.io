@@ -9,11 +9,11 @@ import { getSectionTypeByPath } from "../../base/constant"
 const PAGE_SIZE: number = 10
 
 export class SearchDialogPresenter {
-    component: SearchDialog = null
+    component: SearchDialog
     pagefind: any = null
-    pagefindResult: Result = null
-    key: string = null
-    abortController: AbortController = null
+    pagefindResult: Result | null = null
+    key: string | null = null
+    abortController: AbortController | null = null
 
     constructor(component: SearchDialog) {
         this.component = component
@@ -53,7 +53,7 @@ export class SearchDialogPresenter {
                 consoleDebug("SearchByPagefind aborted")
                 return
             }
-            const resultSize = this.pagefindResult.results.length
+            const resultSize = this.pagefindResult!!.results.length
             consoleObjDebug("Pagefind result => ", this.pagefindResult)
             const firstPageSize = Math.min(resultSize, PAGE_SIZE)
             if (firstPageSize == 0) {
@@ -66,14 +66,15 @@ export class SearchDialogPresenter {
                 })
                 return
             }
-            const itemList: Array<Item> = await Promise.all(this.pagefindResult.results.slice(0, firstPageSize).map(it => it.data()))
+            const itemList: Array<Item> = await Promise.all(this.pagefindResult!!.results.slice(0, firstPageSize).map(it => it.data()))
             if (signal.aborted) {
                 consoleDebug("SearchByPagefind aborted")
                 return
             }
             this.showSearchResult(itemList, true, startTime)
-        } catch (e) {
-            consoleError(e)
+        } catch (e: unknown) {
+            if (e instanceof Error)
+                consoleError(e.message)
             runAfterMinimalTime(startTime, () => {
                 if (signal.aborted) {
                     consoleDebug("SearchByPagefind aborted")
@@ -104,7 +105,7 @@ export class SearchDialogPresenter {
     loadMore() {
         if (this.component.state.loading) return
         if (this.component.state.loadHint == ERROR_HINT) {
-            this.search(this.key)
+            this.search(this.key!!)
             return
         }
         if (this.abortController != null) this.abortController.abort()
@@ -118,17 +119,18 @@ export class SearchDialogPresenter {
             loading: true,
         })
         try {
-            const remainingCount = this.pagefindResult.results.length - this.component.state.results.length
+            const remainingCount = this.pagefindResult!!.results.length - this.component.state.results.length
             const loadCount = remainingCount < PAGE_SIZE ? remainingCount : PAGE_SIZE
             const startIndex = this.component.state.results.length
-            const itemList: Array<Item> = await Promise.all(this.pagefindResult.results.slice(startIndex, startIndex + loadCount).map(it => it.data()))
+            const itemList: Array<Item> = await Promise.all(this.pagefindResult!!.results.slice(startIndex, startIndex + loadCount).map(it => it.data()))
             if (signal.aborted) {
                 consoleDebug("LoadMoreByPagefind aborted")
                 return
             }
             this.showSearchResult(itemList, false, startTime)
-        } catch (e) {
-            consoleError(e)
+        } catch (e: unknown) {
+            if (e instanceof Error)
+                consoleError(e.message)
             runAfterMinimalTime(startTime, () => {
                 if (signal.aborted) {
                     consoleDebug("LoadMoreByPagefind aborted")
@@ -159,7 +161,7 @@ export class SearchDialogPresenter {
     }
 
     showSearchResult(itemList: Array<Item>, clear: boolean, startTime: number) {
-        const resultSize = this.pagefindResult.results.length
+        const resultSize = this.pagefindResult!!.results.length
         let results: ResultItemData[] = itemList.map(it =>
             new ResultItemData(it.meta.title, it.excerpt, getPostDate(it.raw_url), it.raw_url, getSectionTypeByPath(it.raw_url).name)
         )

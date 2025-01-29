@@ -10,7 +10,7 @@ import { IPostPaginateShowPresenter } from "./post/IPostPaginateShowPresenter";
 import { HeightAnimationContainer } from "../animation/HeightAnimationContainer";
 
 export class IndexList extends BasePostPaginateShow<BasePostPaginateShowProps> {
-    heightAnimationContainer: HeightAnimationContainer
+    heightAnimationContainer: HeightAnimationContainer | null = null
 
     createPresenter(): IPostPaginateShowPresenter {
         return new PostPaginateShowPresenter(this, false)
@@ -25,7 +25,7 @@ export class IndexList extends BasePostPaginateShow<BasePostPaginateShowProps> {
     }
 
     componentWillUnmount(): void {
-        this.heightAnimationContainer.destroy()
+        this.heightAnimationContainer?.destroy()
     }
 
     initScroll() {
@@ -40,7 +40,7 @@ export class IndexList extends BasePostPaginateShow<BasePostPaginateShowProps> {
     }
 
     componentDidUpdate(prevProps: Readonly<BasePostPaginateShowProps>, prevState: Readonly<BasePostPaginateShowState>, snapshot?: any): void {
-        this.heightAnimationContainer.update()
+        this.heightAnimationContainer?.update()
         if (this.props.onUpdate != null) this.props.onUpdate()
     }
 
@@ -90,7 +90,7 @@ class IndexItem extends React.Component<IndexItemProps, any> {
         if (this.props.pin) {
             rootE.classList.add("index-li--pin")
         }
-        new MDCRipple(rootE.querySelector(".index-card"))
+        new MDCRipple(rootE.querySelector(".index-card")!!)
     }
 
     componentWillUnmount(): void {

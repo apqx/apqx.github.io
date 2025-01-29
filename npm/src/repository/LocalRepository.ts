@@ -22,7 +22,7 @@ export class LocalRepository {
         localStorage.setItem(key, value)
     }
 
-    getString(key: string): string {
+    getString(key: string): string | null {
         return localStorage.getItem(key)
     }
 
@@ -50,7 +50,7 @@ export class LocalRepository {
         return this.getBoolean(this.KEY_NOTO_SERIF_SC_FONT)
     }
 
-    getTheme(): string {
+    getTheme(): string | null {
         return this.getString(this.KEY_THEME)
     }
 
@@ -63,7 +63,7 @@ export class LocalRepository {
     }
 }
 
-export var localRepository: LocalRepository = null
+export var localRepository: LocalRepository | undefined
 
 export function initLocalRepository() {
     localRepository = new LocalRepository()

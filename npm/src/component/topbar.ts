@@ -8,12 +8,12 @@ import { showAboutMeDialog } from "./dialog/AboutMeDialog";
 import { getSectionTypeByPath, isIndexPage, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL, SECTION_TYPE_POETRY, SECTION_TYPE_PRINT, SECTION_TYPE_REPOST, SECTION_TYPE_SHARE, SECTION_TYPE_TAG } from "../base/constant";
 // import "./topbar.scss"
 
-export var iconToggleTheme: MDCIconButtonToggle = null
-export var topAppBar: MDCTopAppBar = null
-export var topAppBarE: HTMLElement = null
+export var iconToggleTheme: MDCIconButtonToggle | null = null
+export var topAppBar: MDCTopAppBar | null = null
+export var topAppBarE: HTMLElement | null = null
 
 export function refreshTopbar() {
-    const fixedTopbar = localRepository.getFixedTopbarOn()
+    const fixedTopbar = localRepository!!.getFixedTopbarOn()
     setFixedTopbar(fixedTopbar)
 }
 
@@ -27,6 +27,10 @@ export function initTopbar() {
     const btnThemeE = document.querySelector("#topbar_btn_theme") as HTMLElement
     const btnAboutMeE = document.querySelector("#topbar_btn_about_me") as HTMLElement
     topAppBarE = document.querySelector(".mdc-top-app-bar")
+    if (topAppBarE == null) {
+        consoleError("Topbar not found")
+        return
+    }
     initTitle(topAppBarE)
 
     topAppBar = new MDCTopAppBar(topAppBarE)
@@ -81,10 +85,10 @@ export function toggleTopbarGlass(on: boolean) {
 const animationDoneListener = () => {
     consoleDebug("Topbar animation done")
     // topAppBarE.style.animationPlayState = "initial"
-    if (topAppBarE.classList.contains("top-app-bar--moving-up")) {
+    if (topAppBarE!!.classList.contains("top-app-bar--moving-up")) {
         toggleClassWithEnable(topAppBarE, "top-app-bar--up", true)
         // toggleClassWithEnable(topAppBarE, "top-app-bar--moving-up", false)
-    } else if (topAppBarE.classList.contains("top-app-bar--moving-down")) {
+    } else if (topAppBarE!!.classList.contains("top-app-bar--moving-down")) {
         toggleClassWithEnable(topAppBarE, "top-app-bar--down", true)
         // toggleClassWithEnable(topAppBarE, "top-app-bar--moving-down", false)
     }
@@ -100,10 +104,10 @@ let topbarDisplayTriggerScrollY = 100;
 
 let lastScrollY = -1;
 // 滚动变化的点
-let lastScrollChange: ScrollChange = null;
+let lastScrollChange: ScrollChange | null = null;
 
 const scrollListener = () => {
-    // const bodyE = document.querySelector("body")
+    // const bodyE = document.body
     // consoleDebug("Body scrollHeight = " + bodyE.scrollHeight + ", clientHeight = " + bodyE.clientHeight +
     //     ", scrollTop = " + window.scrollY
     // )
@@ -126,7 +130,7 @@ const scrollListener = () => {
     const scrollDown = window.scrollY > lastScrollY;
     if (scrollDown) {
         // 控制条向下滚动
-        if (Math.abs(window.scrollY - lastScrollChange.scrollY) > topbarDisplayTriggerScrollY) {
+        if (Math.abs(window.scrollY - lastScrollChange!!.scrollY) > topbarDisplayTriggerScrollY) {
             toggleShowTopbar(false);
             // 触发变化，记录变化的点
             lastScrollChange = {
@@ -136,7 +140,7 @@ const scrollListener = () => {
         }
     } else {
         // 控制条向上滚动
-        if (Math.abs(window.scrollY - lastScrollChange.scrollY) > topbarDisplayTriggerScrollY) {
+        if (Math.abs(window.scrollY - lastScrollChange!!.scrollY) > topbarDisplayTriggerScrollY) {
             // toggleShowTopbar(true);
             // 触发变化，记录变化的点
             lastScrollChange = {
@@ -146,7 +150,7 @@ const scrollListener = () => {
         }
     }
     lastScrollY = window.scrollY;
-    if (lastScrollChange.scrollDown != scrollDown) {
+    if (lastScrollChange!!.scrollDown != scrollDown) {
         // 滚动方向变化，记录变化的点
         lastScrollChange = {
             scrollDown: scrollDown,
@@ -159,8 +163,8 @@ function toggleShowTopbar(show: boolean) {
     // topbar默认不包含up-class和down-class
     if (show) {
         // 展示，向下移动
-        if (!topAppBarE.classList.contains("top-app-bar--moving-down") && !topAppBarE.classList.contains("top-app-bar--down")) {
-            if (!topAppBarE.classList.contains("top-app-bar--moving-up") && !topAppBarE.classList.contains("top-app-bar--up")) {
+        if (!topAppBarE!!.classList.contains("top-app-bar--moving-down") && !topAppBarE!!.classList.contains("top-app-bar--down")) {
+            if (!topAppBarE!!.classList.contains("top-app-bar--moving-up") && !topAppBarE!!.classList.contains("top-app-bar--up")) {
                 // topbar处于默认的显示状态，不必启动动画
                 return
             }
@@ -172,7 +176,7 @@ function toggleShowTopbar(show: boolean) {
         }
     } else {
         // 隐藏，向上移动
-        if (!topAppBarE.classList.contains("top-app-bar--up") && !topAppBarE.classList.contains("top-app-bar--moving-up")) {
+        if (!topAppBarE!!.classList.contains("top-app-bar--up") && !topAppBarE!!.classList.contains("top-app-bar--moving-up")) {
             consoleDebug("ToggleShowTopbar " + show)
             blockTopbarKeyFrameAnimation(false)
             toggleClassWithEnable(topAppBarE, "top-app-bar--moving-up", true)
@@ -184,10 +188,10 @@ function toggleShowTopbar(show: boolean) {
 
 export function blockTopbarKeyFrameAnimation(block: boolean) {
     if (block) {
-        topAppBarE.style.animation = "none"
+        topAppBarE!!.style.animation = "none"
         // topAppBarE.style.animationPlayState = "paused"
     } else {
-        topAppBarE.style.animation = null;
+        topAppBarE!!.style.animation = "";
         // topAppBarE.style.animationPlayState = "running"
     }
 }
@@ -196,7 +200,7 @@ function initTitle(topAppBarE: HTMLElement) {
     const path = window.location.pathname
     const section = getSectionTypeByPath(path)
     const isIndex = isIndexPage(path)
-    let titleAE: HTMLLinkElement = topAppBarE.querySelector(".mdc-top-app-bar__title a")
+    let titleAE: HTMLLinkElement = topAppBarE.querySelector(".mdc-top-app-bar__title a") as HTMLLinkElement
     switch (section.identifier) {
         case SECTION_TYPE_ORIGINAL.identifier: {
             titleAE.innerText = "ʕ•ᴥ•ʔ"

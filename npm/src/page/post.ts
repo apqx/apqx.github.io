@@ -28,7 +28,7 @@ function initPageCheck() {
     var matches = urlPath.match(/(post\/opera).*$/)
     if (matches != null && matches.length > 0) {
         consoleDebug("Add opera-page to body")
-        document.querySelector("body").classList.add("opera-page")
+        document.body.classList.add("opera-page")
     }
 }
 
@@ -42,7 +42,7 @@ function initImgJump() {
         img.addEventListener("click", () => {
             const hasCopyright = img.classList.contains("operaCopyright")
             // 所有的图片，缩略图都加了_thumb后缀，删除后即为原图
-            url = img.getAttribute("src").replace("_thumb", "")
+            url = img.getAttribute("src")!!.replace("_thumb", "")
             consoleDebug("Click show original img, copyright = " + hasCopyright + ", => " + url)
             if (hasCopyright && !copyrightImgClicked) {
                 showCopyrightDialog(url);

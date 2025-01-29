@@ -7,7 +7,7 @@ interface Props {
 }
 
 export class ProgressCircular extends React.Component<Props, any> {
-    progressCircular: MDCCircularProgress
+    progressCircular: MDCCircularProgress | null = null
 
     init(e: Element) {
         if (e == null) return
@@ -29,9 +29,9 @@ export class ProgressCircular extends React.Component<Props, any> {
 
     private showLoading(show: boolean) {
         if (show) {
-            this.progressCircular.open()
+            this.progressCircular?.open()
         } else {
-            this.progressCircular.close()
+            this.progressCircular?.close()
         }
     }
 

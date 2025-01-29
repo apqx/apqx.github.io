@@ -15,7 +15,7 @@ interface UrlMapItem {
 }
 
 export class ShortLinkJumpDialogPresenter {
-    component: ShortLinkDialog = null
+    component: ShortLinkDialog
 
     constructor(component: ShortLinkDialog) {
         this.component = component

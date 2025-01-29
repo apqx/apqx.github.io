@@ -11,7 +11,7 @@
             savedTheme = THEME_AUTO
             localStorage.setItem(KEY_THEME, savedTheme)
         }
-        const bodyE = document.getElementsByTagName("body")[0];
+        const bodyE = document.body;
         // 默认是没有.dark的，在确定是暗黑模式时加上.dark
         // 默认是没有theme-color的，在这里根据主题加上
         if (savedTheme === THEME_DARK

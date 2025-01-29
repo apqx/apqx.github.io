@@ -9,10 +9,10 @@ import { ApiPost } from "../../../repository/service/bean/Post";
 
 export class PostPaginateShowPresenter implements IPostPaginateShowPresenter {
     component: BasePostPaginateShow<BasePostPaginateShowProps>
-    urlPrefix: string
-    cachedPage: PaginatePage[] = null
+    urlPrefix: string | null = null
+    cachedPage: PaginatePage[] | null = null
     firstLoadingDelay: boolean = false
-    abortController: AbortController = null
+    abortController: AbortController | null = null
 
     minimalLoadTime = 300
 
@@ -61,7 +61,7 @@ export class PostPaginateShowPresenter implements IPostPaginateShowPresenter {
             })
             .then((page: PaginatePage) => {
                 consoleObjDebug("Index api first page", page)
-                this.cachedPage.push(page)
+                this.cachedPage!!.push(page)
                 this.showPosts(page, false, false, startTime)
             }).catch(error => {
                 consoleError(error)
@@ -138,11 +138,11 @@ export class PostPaginateShowPresenter implements IPostPaginateShowPresenter {
 
     loadMore(clickLoad: boolean = false) {
         if (this.component.state.loading) return
-        if (this.component.state.loadHint == ERROR_HINT && this.cachedPage.length == 0) {
+        if (this.component.state.loadHint == ERROR_HINT && this.cachedPage!!.length == 0) {
             this.init()
             return
         }
-        const nextPagePath = this.cachedPage[this.cachedPage.length - 1].data.nextPagePath
+        const nextPagePath = this.cachedPage!![this.cachedPage!!.length - 1].data.nextPagePath
         if (nextPagePath.length == 0) {
             this.component.setState({
                 loading: false,
@@ -172,7 +172,7 @@ export class PostPaginateShowPresenter implements IPostPaginateShowPresenter {
             })
             .then((page: PaginatePage) => {
                 consoleObjDebug("Index load page", page)
-                this.cachedPage.push(page)
+                this.cachedPage!!.push(page)
                 this.showPosts(page, true, clickLoad, startTime)
             }).catch(error => {
                 consoleError(error)

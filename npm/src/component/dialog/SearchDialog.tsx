@@ -13,7 +13,7 @@ import { HeightAnimationContainer } from "../animation/HeightAnimationContainer"
 
 interface SearchDialogState {
     loading: boolean
-    loadHint: string
+    loadHint: string | null
     results: ResultItemData[]
 }
 
@@ -24,8 +24,8 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
         results: [],
     }
 
-    heightAnimationContainer: HeightAnimationContainer = null
-    presenter: SearchDialogPresenter = null
+    heightAnimationContainer: HeightAnimationContainer | null = null
+    presenter: SearchDialogPresenter | null = null
     input: string = ""
 
     constructor(props: any) {
@@ -39,38 +39,39 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
     }
 
     onClickSearch() {
-        this.presenter.search(this.input)
+        this.presenter?.search(this.input)
     }
 
-    onInputChange(e) {
+    onInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+
         this.input = e.target.value
     }
 
     onClickLoadMore() {
-        this.presenter.loadMore()
+        this.presenter?.loadMore()
     }
 
     scrollNearToBottom(): void {
         if (this.state.loadHint == ERROR_HINT) return
-        this.presenter.loadMore()
+        this.presenter?.loadMore()
     }
 
     onDialogClose(): void {
         super.onDialogClose()
-        this.presenter.abortSearch()
+        this.presenter?.abortSearch()
         // this.presenter.reduceResult()
     }
 
     componentDidMount(): void {
         super.componentDidMount()
-        this.heightAnimationContainer = new HeightAnimationContainer(this.rootE.querySelector(".height-animation-container"))
-        this.initBtn(this.rootE.querySelector("#btn-search"))
-        this.initTextField(this.rootE.querySelector("#search-dialog_label"))
+        this.heightAnimationContainer = new HeightAnimationContainer(this.rootE!!.querySelector(".height-animation-container")!!)
+        this.initBtn(this.rootE!!.querySelector("#btn-search")!!)
+        this.initTextField(this.rootE!!.querySelector("#search-dialog_label")!!)
     }
 
     componentDidUpdate(prevProps: Readonly<BasicDialogProps>, prevState: Readonly<any>, snapshot?: any): void {
         super.componentDidUpdate(prevProps, prevState, snapshot)
-        this.heightAnimationContainer.update()
+        this.heightAnimationContainer?.update()
     }
 
     componentWillUnmount(): void {
@@ -83,7 +84,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
         e.addEventListener("focus", clearFocusListener)
     }
 
-    initTextField(e: Element) {
+    initTextField(e: HTMLElement) {
         if (e == null) return
         new MDCTextField(e)
         e.addEventListener("keyup", (event: KeyboardEvent) => {
@@ -187,7 +188,7 @@ class ResultItem extends React.Component<ResultItemProps, any> {
 
     componentDidMount(): void {
         const rootE = ReactDOM.findDOMNode(this) as Element
-        this.initRipple(rootE.querySelector(".mdc-deprecated-list-item"))
+        this.initRipple(rootE.querySelector(".mdc-deprecated-list-item")!!)
     }
 
     initRipple(e: HTMLElement) {
@@ -216,7 +217,8 @@ class ResultItem extends React.Component<ResultItemProps, any> {
     }
 }
 
+let openCount = 0
 export function showSearchDialog() {
-    showDialog(<SearchDialog fixedWidth={true} btnText={"关闭"} OnClickBtn={null}
+    showDialog(<SearchDialog openCount={openCount++} fixedWidth={true} btnText={"关闭"} OnClickBtn={undefined}
         closeOnClickOutside={true} />, SEARCH_DIALOG_WRAPPER_ID)
 }

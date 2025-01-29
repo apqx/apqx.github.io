@@ -18,13 +18,13 @@ export function initFont() {
 }
 
 export function setHandwrittenFont(on: boolean) {
-    const bodyE = document.querySelector("body");
+    const bodyE = document.body
     toggleClassWithEnable(bodyE, "font-handwritten", on)
     checkFont()
 }
 
 export function setNotoSerifSCFont(on: boolean) {
-    const bodyE = document.querySelector("body");
+    const bodyE = document.body
     toggleClassWithEnable(bodyE, "font-noto-serif-sc", on)
     checkFont()
 }

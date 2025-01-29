@@ -17,7 +17,7 @@ class AboutMeDialog extends BasicDialog<BasicDialogProps, any> {
 
     initList() {
         if (this.rootE == null) return
-        new MDCList(this.rootE.querySelector("#about-me-dialog_link_list"))
+        new MDCList(this.rootE.querySelector("#about-me-dialog_link_list")!!)
     }
 
     getKunQvLink(): string {
@@ -67,7 +67,7 @@ interface LinkItemProps {
 class LinkItem extends React.Component<LinkItemProps, any> {
     componentDidMount(): void {
         const rootE = ReactDOM.findDOMNode(this) as Element
-        this.initRipple(rootE.querySelector(".mdc-deprecated-list-item"))
+        this.initRipple(rootE.querySelector(".mdc-deprecated-list-item")!!)
     }
 
     initRipple(e: HTMLElement) {
@@ -87,9 +87,9 @@ class LinkItem extends React.Component<LinkItemProps, any> {
         )
     }
 }
-
+let openCount = 0
 export function showAboutMeDialog() {
-    showDialog(<AboutMeDialog fixedWidth={true} btnText={"关闭"}
-        OnClickBtn={null}
+    showDialog(<AboutMeDialog openCount={openCount++} fixedWidth={true} btnText={"关闭"}
+        OnClickBtn={undefined}
         closeOnClickOutside={true} />, ABOUT_DIALOG_WRAPPER_ID)
 }

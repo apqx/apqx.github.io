@@ -7,8 +7,8 @@ import { getElementAttribute } from "../../util/tools"
  */
 export class ImageLoadAnimator {
     imgE: HTMLImageElement
-    id: string
-    widthResizeObserver: ResizeWidthObserver
+    id: string | null
+    widthResizeObserver: ResizeWidthObserver | null = null
 
     /**
      * 为图片加载添加高度变化动画
@@ -16,7 +16,7 @@ export class ImageLoadAnimator {
      * @param ratio 图片宽高比
      * @param monitorResize 是否监听宽度变化，动画调整高度，false会在加载完成后设置高度为auto，之后不会再有动画
      */
-    constructor(imgE: HTMLImageElement, ratio: number = -1, monitorResize: boolean = false, animationEndCallback: () => void = null) {
+    constructor(imgE: HTMLImageElement, ratio: number = -1, monitorResize: boolean = false, animationEndCallback: (() => void) | null = null) {
         this.imgE = imgE
         this.id = getElementAttribute(imgE, "alt")
 
@@ -66,7 +66,7 @@ export class ImageLoadAnimator {
         })
     }
 
-    private animationDone(monitorResize: boolean, imgE: HTMLImageElement, animationEndCallback: () => void) {
+    private animationDone(monitorResize: boolean, imgE: HTMLImageElement, animationEndCallback: (() => void) | null) {
         if (!monitorResize) {
             imgE.classList.remove("height-animation")
             imgE.style.height = "auto"

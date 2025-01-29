@@ -25,9 +25,10 @@ class CommonAlertDialog extends BasicDialog<Props, any> {
     }
 }
 
+let openCount = 0
 export function showAlertDialog(title: string, contentHTML: string, btnText: string,
                                 onClickBtn: (e: React.MouseEvent<HTMLElement>) => void) {
-    showDialog(<CommonAlertDialog title={title} contentHTML={contentHTML}
+    showDialog(<CommonAlertDialog openCount={openCount++} title={title} contentHTML={contentHTML}
                                   fixedWidth={false} btnText={btnText} OnClickBtn={onClickBtn}
                                   closeOnClickOutside={true}/>, COMMON_DIALOG_WRAPPER_ID)
 }

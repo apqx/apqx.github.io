@@ -7,23 +7,24 @@ import ReactDOM from "react-dom"
 // import "./BasicDialog.scss"
 
 export interface BasicDialogProps {
+    // 用于启动dialog的计数，每次+1，用于弹出dialog
+    openCount: number,
     fixedWidth: boolean,
-    btnText: string,
-    OnClickBtn: (e: React.MouseEvent<HTMLElement>) => void,
+    btnText: string | undefined,
+    OnClickBtn: ((e: React.MouseEvent<HTMLElement>) => void) | undefined,
     closeOnClickOutside: boolean
 }
 
 export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.Component<T, V> {
-    mdcDialog: MDCDialog
-    rootE: Element
-    btnCloseE: HTMLElement
-    dialogContentE: HTMLElement
+    mdcDialog: MDCDialog | null = null
+    rootE: Element | null = null
+    btnCloseE: HTMLElement | null = null
+    dialogContentE: HTMLElement | null = null
     scrollToTopOnDialogOpen: boolean = true
     listenScroll: boolean = false
 
     constructor(props: T) {
         super(props)
-        this.mdcDialog = null
         consoleDebug("BasicDialog constructor")
     }
 
@@ -31,7 +32,7 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
         consoleDebug("BasicDialog componentDidMount")
         this.rootE = ReactDOM.findDOMNode(this) as Element
         this.initDialog()
-        this.mdcDialog.open()
+        this.mdcDialog?.open()
     }
 
     componentWillUnmount() {
@@ -40,6 +41,10 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
     }
 
     shouldComponentUpdate(nextProps: Readonly<T>, nextState: Readonly<V>, nextContext: any): boolean {
+        consoleDebug("BasicDialog shouldComponentUpdate")
+        if (nextProps.openCount != this.props.openCount) {
+            this.mdcDialog?.open()
+        }
         // 由子类覆写
         return true
     }
@@ -65,12 +70,10 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
         this.mdcDialog = new MDCDialog(this.rootE)
         if (this.props.btnText != null) {
             this.btnCloseE = this.rootE.querySelector("#basic-dialog_btn_close")
-            this.btnCloseE.scroll
-            new MDCRipple(this.btnCloseE)
+            this.btnCloseE?.scroll
+            new MDCRipple(this.btnCloseE!!)
         }
-        // 缓存dialog对象供外部调用
-        let rootDialog = rootDialogMap.get(currentDialogWrapperId)
-        rootDialog.dialog = this.mdcDialog
+        
         if (!this.props.closeOnClickOutside) {
             // 设置为空，点击Dialog外部，不取消
             this.mdcDialog.scrimClickAction = ""
@@ -78,11 +81,11 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
         // 启动open动画
         this.mdcDialog.listen("MDCDialog:opening", () => {
             consoleDebug("Dialog opening")
-            this.onDialogOpen()
         })
         // open动画结束
         this.mdcDialog.listen("MDCDialog:opened", () => {
             consoleDebug("Dialog opened")
+            this.onDialogOpen()
             this.handleFocus()
             if (this.scrollToTopOnDialogOpen) {
                 this.scrollToTop()
@@ -98,18 +101,19 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
             consoleDebug("Dialog closed")
             // dialog关闭之后，display会被设置为none，此时测量尺寸结果会是0
         })
+        this.mdcDialog.open()
     }
 
     scrollToTop(smooth: boolean = true) {
         if (smooth) {
-            this.dialogContentE.scrollTo(
+            this.dialogContentE?.scrollTo(
                 {
                     top: 0,
                     behavior: "smooth"
                 }
             )
         } else {
-            this.dialogContentE.scrollTo(
+            this.dialogContentE?.scrollTo(
                 {
                     top: 0,
                     behavior: "instant"
@@ -123,13 +127,13 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
 
         let lastScrollTop = -1
         let lastFireTime = 0
-        this.dialogContentE.addEventListener("scroll", () => {
+        this.dialogContentE!!.addEventListener("scroll", () => {
             // consoleDebug("BasicDialog scrollHeight = " + this.dialogContentE.scrollHeight + ", clientHeight = " + this.dialogContentE.clientHeight +
             //     ", scrollTop = " + this.dialogContentE.scrollTop
             // )
-            if (!this.mdcDialog.isOpen) return
-            if (this.dialogContentE.clientHeight == 0) return
-            const newScrollTop = this.dialogContentE.scrollTop
+            if (!this.mdcDialog?.isOpen) return
+            if (this.dialogContentE!!.clientHeight == 0) return
+            const newScrollTop = this.dialogContentE!!.scrollTop
             if (lastScrollTop == -1) {
                 lastScrollTop = newScrollTop
                 return
@@ -139,7 +143,7 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
             const upScroll = newScrollTop <= lastScrollTop
             lastScrollTop = newScrollTop
             if (upScroll) return
-            if (this.dialogContentE.scrollHeight - this.dialogContentE.clientHeight - this.dialogContentE.scrollTop < this.dialogContentE.clientHeight / 2) {
+            if (this.dialogContentE!!.scrollHeight - this.dialogContentE!!.clientHeight - this.dialogContentE!!.scrollTop < this.dialogContentE!!.clientHeight / 2) {
                 if (Date.now() - lastFireTime < 100) return
                 consoleDebug("BasicDialog scroll near to bottom, should fire load more")
                 this.scrollNearToBottom()
@@ -157,6 +161,8 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
         this.btnCloseE.focus()
         this.btnCloseE.blur()
     }
+
+
 
     render() {
         consoleDebug("BasicDialog render")
@@ -204,44 +210,29 @@ export const PREFERENCE_DIALOG_WRAPPER_ID = "preference-dialog-wrapper"
 
 interface RootDialog {
     root: Root
-    dialog: MDCDialog
+    dialog: MDCDialog | null
 }
 
 // 缓存每种dialog的root和dialog实例，即使该类型dialog的内容变化，其仍是同一个dialog对象
 // 每个tag都使用自己单独的Dialog
-let dialogContainerE = null
-let currentDialogWrapperId = null
-// id, {root, mdcDialog}
-let rootDialogMap = new Map<string, RootDialog>()
+let dialogContainerE: HTMLElement | null = null
+let rootDialogMap = new Map<string, Root>()
 
 export function showDialog(_contentElement: JSX.Element, _dialogWrapperId: string) {
     // 如果此时html还未加载完成，确实可能出现为null的情况
     if (document.readyState != "complete") return
     dialogContainerE = document.querySelector("#dialog_container")
-    currentDialogWrapperId = _dialogWrapperId
-    let root: Root = null
-    let dialog: MDCDialog = null
+    let root: Root | undefined
     if (rootDialogMap.has(_dialogWrapperId)) {
-        let rootDialog = rootDialogMap.get(_dialogWrapperId)
-        root = rootDialog.root
-        dialog = rootDialog.dialog
+        root = rootDialogMap.get(_dialogWrapperId)
     } else {
         // 创建wrapper节点
         let rootE = document.createElement("div")
         rootE.setAttribute("id", _dialogWrapperId)
-        dialogContainerE.appendChild(rootE)
+        dialogContainerE!!.appendChild(rootE)
         root = createRoot(rootE)
-        let rootDialog = {
-            root: root,
-            dialog: null
-        }
         // root对应的dialog会在之后创建时添加
-        rootDialogMap.set(_dialogWrapperId, rootDialog)
+        rootDialogMap.set(_dialogWrapperId, root)
     }
-    root.render(_contentElement)
-    if (dialog != null) {
-        // dialog的第一次加载一定会执行componentDidMount，在那里处理第一次弹出
-        // 在这里实现对于同一个dialog的多次点击弹出，即使内容不变，只要保留有上一次弹出时的mdcDialog对象即可
-        dialog.open()
-    }
+    root?.render(_contentElement)
 }

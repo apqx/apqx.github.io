@@ -11,6 +11,7 @@ import { BasePostPaginateShow, BasePostPaginateShowProps, BasePostPaginateShowSt
 import { IPostPaginateShowPresenter } from "../react/post/IPostPaginateShowPresenter"
 import { PostPaginateShowPresenter } from "../react/post/PostPaginateShowPresenter"
 import { getSectionTypeByPath, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL, SectionType } from "../../base/constant"
+import { DialogState, DialogStateObservable, DialogStateObserver } from "./DialogStateObservable"
 // import "./TagEssayListDialog.scss"
 
 interface DialogContentProps extends BasicDialogProps {
@@ -18,61 +19,46 @@ interface DialogContentProps extends BasicDialogProps {
 }
 
 interface DialogContentState {
-    dialogOpened: boolean,
-    loadMoreId: number,
 }
 
 export class TagDialog extends BasicDialog<DialogContentProps, DialogContentState> {
-    heightAnimationContainer: HeightAnimationContainer = null
+    heightAnimationContainer: HeightAnimationContainer | undefined
+    dialogStateObservable: DialogStateObservable
 
-    constructor(props) {
+    constructor(props: DialogContentProps) {
         super(props)
         consoleDebug("TagDialogContent constructor")
         this.onListSizeChanged = this.onListSizeChanged.bind(this)
         // this.scrollToTopOnDialogOpen = false
         this.listenScroll = true
-        this.state = {
-            dialogOpened: false,
-            loadMoreId: 0,
-        }
+
+        this.dialogStateObservable = new DialogStateObservable()
     }
 
-    onDialogOpen() {
-        super.onDialogOpen()
-        this.setState({ dialogOpened: true })
+    onDialogOpen(): void {
+        this.dialogStateObservable.notify(DialogState.OPENED)
     }
 
-    onDialogClose() {
-        super.onDialogClose()
-        this.setState({ dialogOpened: false })
+    onDialogClose(): void {
+        this.dialogStateObservable.notify(DialogState.CLOSED)
     }
-
 
     scrollNearToBottom(): void {
-        this.setState({ loadMoreId: this.state.loadMoreId + 1 })
+        this.dialogStateObservable.notify(DialogState.LOAD_MORE)
     }
 
     onListSizeChanged() {
-        this.heightAnimationContainer.update()
+        this.heightAnimationContainer?.update()
     }
 
     componentDidMount() {
         super.componentDidMount()
         consoleDebug("TagDialogContent componentDidMount")
-        this.heightAnimationContainer = new HeightAnimationContainer(this.rootE.querySelector(".height-animation-container"))
+        this.heightAnimationContainer = new HeightAnimationContainer(this.rootE!!.querySelector(".height-animation-container")!!)
     }
 
     componentWillUnmount(): void {
         if (this.heightAnimationContainer != null) this.heightAnimationContainer.destroy()
-    }
-
-    shouldComponentUpdate(nextProps: Readonly<DialogContentProps>, nextState: Readonly<DialogContentState>, nextContext: any): boolean {
-        // 如果state没有变化，返回false，否则返回true
-        if (this.state.dialogOpened == nextState.dialogOpened &&
-            this.state.loadMoreId == nextState.loadMoreId) {
-            return false
-        }
-        return true
     }
 
     dialogContent(): JSX.Element {
@@ -81,58 +67,50 @@ export class TagDialog extends BasicDialog<DialogContentProps, DialogContentStat
         return (
             <div className="height-animation-container">
                 <ResultWrapper category={""} tag={this.props.tag} pinedPosts={[]} loadedPosts={[]}
-                    onUpdate={this.onListSizeChanged} dialogOpened={this.state.dialogOpened}
-                    loadMoreId={this.state.loadMoreId} />
+                    onUpdate={this.onListSizeChanged} dialogStateObservable={this.dialogStateObservable} />
             </div>
         )
     }
 }
 
 interface ResultWrapperProps extends BasePostPaginateShowProps {
-    dialogOpened: boolean
-    loadMoreId: number
+    dialogStateObservable: DialogStateObservable
 }
 
 class ResultWrapper extends BasePostPaginateShow<ResultWrapperProps> {
+    observer: DialogStateObserver = {
+        update: (dialogState: DialogState) => {
+            if (dialogState == DialogState.CLOSED) {
+                // Dialog关闭时，取消加载
+                this.abortLoad()
+            } else if (dialogState == DialogState.OPENED) {
+                // Dialog打开时，加载第一页
+                if (this.state.posts.length == 0) {
+                    this.loadFirstPage()
+                }
+            } else if (dialogState == DialogState.LOAD_MORE) {
+                // Dialog加载更多
+                if (!this.presenter.isLastPage() && this.state.loadHint != ERROR_HINT) {
+                    // 不是最后一页，且没有错误提示，加载更多
+                    this.loadMore()
+                }
+            }
+        }
+    }
 
     constructor(props: ResultWrapperProps) {
         super(props)
         this.loadFirstPageOnMount = false
+
+        this.props.dialogStateObservable.addObserver(this.observer)
+    }
+
+    componentWillUnmount() {
+        this.props.dialogStateObservable.removeObserver(this.observer)
     }
 
     createPresenter(): IPostPaginateShowPresenter {
         return new PostPaginateShowPresenter(this, true)
-    }
-
-    shouldComponentUpdate(nextProps: Readonly<ResultWrapperProps>, nextState: Readonly<BasePostPaginateShowState>, nextContext: any): boolean {
-        this.props
-        // props变化，这里无须触发render，调用presenter的方法会更改state，触发render
-        if (nextProps.dialogOpened && !this.props.dialogOpened) {
-            if (this.state.posts.length == 0) {
-                this.loadFirstPage()
-            }
-            return false
-        }
-        if (nextProps.loadMoreId > 0 && nextProps.loadMoreId != this.props.loadMoreId){
-            if (!this.presenter.isLastPage() && this.state.loadHint != ERROR_HINT) {
-                // 不是最后一页，且没有错误提示，加载更多
-                this.loadMore()
-            }
-            return false
-        }
-        if (!nextProps.dialogOpened && this.props.dialogOpened) {
-            // 如果Dialog关闭，取消加载
-            // 当Dialog关闭时，组件会被设置为不显示，尺寸是不正确的，如果触发更新会导致上层的heightAnimationContainer尺寸错误
-            this.presenter.abortLoad()
-            return false
-        }
-        // 如果state没有变化，返回false，否则返回true
-        if (this.state.loading == nextState.loading &&
-            this.state.loadHint == nextState.loadHint &&
-            this.state.posts.length == nextState.posts.length) {
-            return false
-        }
-        return true
     }
 
     render(): React.ReactNode {
@@ -250,7 +228,7 @@ class PostItem extends React.Component<PostItemProps, any> {
 
     componentDidMount(): void {
         const rootE = ReactDOM.findDOMNode(this) as Element
-        this.initRipple(rootE.querySelector(".mdc-deprecated-list-item"))
+        this.initRipple(rootE.querySelector(".mdc-deprecated-list-item")!!)
     }
 
     initRipple(e: HTMLElement) {
@@ -290,9 +268,10 @@ class PostItem extends React.Component<PostItemProps, any> {
     }
 }
 
+let openCount = 0
 export function showTagDialog(_tag: string) {
     consoleDebug("TagDialogContent showTagEssayListDialog " + _tag)
-    showDialog(<TagDialog tag={_tag} fixedWidth={true} btnText={"关闭"}
-        OnClickBtn={null} closeOnClickOutside={true} />, TAG_DIALOG_WRAPPER_ID + "-" + _tag)
+    showDialog(<TagDialog openCount={openCount++} tag={_tag} fixedWidth={true} btnText={"关闭"}
+        OnClickBtn={undefined} closeOnClickOutside={true} />, TAG_DIALOG_WRAPPER_ID + "-" + _tag)
     // OnClickBtn={null} closeOnClickOutside={true} />, TAG_DIALOG_WRAPPER_ID)
 }

@@ -3,10 +3,11 @@ import { LocalRepository } from "../../repository/LocalRepository"
 import { saveTheme, toggleTheme } from "../theme"
 import { refreshTopbar, setFixedTopbar } from "../topbar"
 import { setHandwrittenFont, setNotoSerifSCFont } from "../font/font"
+import { consoleDebug } from "../../util/log"
 
 export class PreferenceDialogPresenter {
 
-    component: PreferenceDialog = null
+    component: PreferenceDialog
     localRepository: LocalRepository = new LocalRepository()
     darkClass: string = "dark"
 
@@ -15,12 +16,13 @@ export class PreferenceDialogPresenter {
     }
 
     initSettings() {
-        this.component.setState({
+        this.component?.setState({
             fixedTopbarOn: this.localFixedTopbarOn(),
             handwrittenFontOn: this.localHandWritingFontOn(),
             notoSerifSCFontOn: this.localNotoSerifSCFontOn(),
             autoThemeOn: this.localAutoThemeOn()
         })
+        consoleDebug("PreferenceDialogPresenter initSettings, state = " + JSON.stringify(this.component.state))
     }
     onClickFixedTopbarSwitch(on: boolean) {
         this.localRepository.saveFixedTopbarOn(on)
@@ -41,7 +43,7 @@ export class PreferenceDialogPresenter {
     }
 
     onClickAutoThemeSwitch(on: boolean) {
-        const bodyE = document.getElementsByTagName("body")[0]
+        const bodyE = document.body
         if (on) {
             // 启动了自适应主题，检测系统设置，更改当前主题
             const sysDarkTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
