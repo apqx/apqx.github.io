@@ -14,8 +14,6 @@ export class PostPaginateShowPresenter implements IPostPaginateShowPresenter {
     firstLoadingDelay: boolean = false
     abortController: AbortController | null = null
 
-    minimalLoadTime = 300
-
     constructor(component: BasePostPaginateShow<any>, firstLoadingDelay: boolean = false) {
         this.component = component
         this.firstLoadingDelay = firstLoadingDelay
@@ -70,7 +68,7 @@ export class PostPaginateShowPresenter implements IPostPaginateShowPresenter {
                         loading: false,
                         loadHint: ERROR_HINT
                     })
-                }, this.minimalLoadTime)
+                })
             }
             )
     }
@@ -97,7 +95,7 @@ export class PostPaginateShowPresenter implements IPostPaginateShowPresenter {
         if ((!add && this.firstLoadingDelay) || (add && clickLoad)) {
             runAfterMinimalTime(startTime, () => {
                 update()
-            }, this.minimalLoadTime)
+            })
         } else {
             update()
         }
@@ -181,7 +179,7 @@ export class PostPaginateShowPresenter implements IPostPaginateShowPresenter {
                         loading: false,
                         loadHint: ERROR_HINT
                     })
-                }, this.minimalLoadTime)
+                })
             }
             )
     }

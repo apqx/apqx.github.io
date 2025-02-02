@@ -74,10 +74,10 @@ $text-content-secondary: (
 );
 
 $blockquote-border: (
-        light: #eca4a4,
-        dark: #ae5c5c,
-        // light: color.adjust(map.get($surface, "light"), $lightness: -15%),
-        // dark: color.adjust(map.get($surface, "dark"), $lightness: +15%),
+        light: #f6c9c9,
+        dark: #824d4d,
+        // light: color.adjust(map.get($surface, "light"), $lightness: -10%),
+        // dark: color.adjust(map.get($surface, "dark"), $lightness: +10%),
 );
 
 $drawer-nav-ripple: (
@@ -86,8 +86,8 @@ $drawer-nav-ripple: (
 );
 
 $fab-bg: (
-        light: rgba(color.adjust(map.get($background, "light"), $lightness: -5%), 0.5),
-        dark: rgba(color.adjust(map.get($background, "dark"), $lightness: -5%), 0.5),
+        light: rgba(color.adjust(map.get($background, "light"), $lightness: -6%), 0.5),
+        dark: rgba(color.adjust(map.get($background, "dark"), $lightness: -6%), 0.5),
 );
 
 $fab-ink: (
