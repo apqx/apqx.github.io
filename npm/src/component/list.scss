@@ -26,7 +26,7 @@
 // hover与press的透明度在点击的时候是叠加的，所以可以一致
 .mdc-deprecated-list-item {
     @include ripple.surface;
-    @include ripple.radius-bounded(100%);
+    @include ripple.radius-bounded;
     @include ripple.states-base-color(map.get(blogTheme.$surface-block-ripple, "light"));
     @include ripple.states-opacities((hover: .08, focus: .08, press: .08));
     padding: 0.5rem 1rem;

@@ -8,7 +8,7 @@
 
 @mixin btnChipRipple {
     @include ripple.surface;
-    @include ripple.radius-unbounded(100%);
+    @include ripple.radius-bounded;
     @include ripple.states-base-color(map.get(blogTheme.$chip-ripple, "light"));
     @include ripple.states-opacities((hover: .0, focus: .0, press: .1));
 }
@@ -27,7 +27,7 @@
     font-weight: 300;
     margin-top: 0.2rem;
     margin-bottom: 0.2rem;
-    @include button.height(2rem);
+    @include button.height(2.2rem);
     border-radius: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
 
     @include btnChipRipple();

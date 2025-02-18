@@ -138,6 +138,8 @@ a {
     text-decoration: underline;
     // 下划线与文字的间距
     text-underline-offset: 0.25rem;
+    // 下划线粗细
+    text-decoration-thickness: 1px;
     // 去除移动版Chrome点击时默认的蓝色背景
     -webkit-tap-highlight-color: transparent;
     color: unset;

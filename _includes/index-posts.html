@@ -5,7 +5,7 @@
         <li class="index-li index-li--pin">
             <a class="index-a mdc-card index-card" href="{{ post.url }}">
                 <section>
-                    <h1 class="index-title one-line">{{ post.title }}</h1>
+                    <h1 class="index-title">{{ post.title }}</h1>
                     <span class="index-author">{% if post.moreDate != null %}{{ post.moreDate }}{% endif %} {{ post.author }}</span>
                     <span class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
                     <i class="material-symbols-rounded-thin index-pin-icon">keep</i>
@@ -24,7 +24,7 @@
             <li class="index-li">
                 <a class="index-a mdc-card index-card" href="{{ post.url }}">
                     <section>
-                        <h1 class="index-title one-line">{{ post.title }}</h1>
+                        <h1 class="index-title">{{ post.title }}</h1>
                         <span class="index-author">{% if post.moreDate != null %}{{ post.moreDate }}{% endif %} {{ post.author }}</span>
                         <span class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
                     </section>

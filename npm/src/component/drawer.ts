@@ -53,12 +53,12 @@ export function initDrawer() {
     drawerList.selectedIndex = currentPageIndex
     drawerE.addEventListener("MDCDrawer:opened", () => {
         // Drawer弹出时禁止body滚动
-        toggleClassWithEnable(document.body, "mdc-dialog-scroll-lock", true)
+        toggleClassWithEnable(document.body, "mdc-drawer-scroll-lock", true)
         currentSelectedAE.focus()
         currentSelectedAE.blur()
     });
     drawerE.addEventListener("MDCDrawer:closed", () => {
-        toggleClassWithEnable(document.body, "mdc-dialog-scroll-lock", false)
+        toggleClassWithEnable(document.body, "mdc-drawer-scroll-lock", false)
         // 恢复选中
         // drawerList.selectedIndex = currentPageIndex
     });

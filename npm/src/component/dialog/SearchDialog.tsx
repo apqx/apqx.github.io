@@ -95,7 +95,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
 
     dialogContent(): JSX.Element {
         return (
-            <div className="center">
+            <div className="items-center">
                 <label className="mdc-text-field mdc-text-field--outlined" id="search-dialog_label">
                     <span className="mdc-notched-outline">
                         <span className="mdc-notched-outline__leading"></span>
@@ -107,10 +107,9 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
                     <input type="search" className="mdc-text-field__input" aria-labelledby="search-label"
                         name="search-dialog_input" tabIndex={-1} onChange={this.onInputChange} />
                     <button id="btn-search" type="button"
-                        className="mdc-button btn-search btn-round center"
+                        className="mdc-icon-button"
                         tabIndex={-1} onClick={this.onClickSearch}>
                         <i className="material-symbols-rounded-thin mdc-button__icon" aria-hidden="true">search</i>
-                        <span className="mdc-button__label">SEARCH</span>
                     </button>
                 </label>
 

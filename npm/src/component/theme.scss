@@ -74,10 +74,10 @@ $text-content-secondary: (
 );
 
 $blockquote-border: (
-        light: #f6c9c9,
-        dark: #824d4d,
-        // light: color.adjust(map.get($surface, "light"), $lightness: -10%),
-        // dark: color.adjust(map.get($surface, "dark"), $lightness: +10%),
+        // light: #f6c9c9,
+        // dark: #824d4d,
+        light: color.adjust(map.get($surface, "light"), $lightness: -10%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: +10%),
 );
 
 $drawer-nav-ripple: (
@@ -97,7 +97,7 @@ $fab-ink: (
 
 $scrim: (
         color: rgba(0, 0, 0, 0.05),
-        backdrop-blur: 10px,
+        backdrop-blur: 5px,
 );
 
 $top-bar-elevation: (

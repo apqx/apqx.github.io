@@ -102,7 +102,7 @@ class IndexItem extends React.Component<IndexItemProps, any> {
             <li className="index-li">
                 <a className="index-a mdc-card index-card" href={this.props.path}>
                     <section>
-                        <h1 className="index-title one-line">{this.props.title}</h1>
+                        <h1 className="index-title">{this.props.title}</h1>
                         <span className="index-author">{this.props.author}</span>
                         <span className="index-date">{this.props.date}</span>
                         {this.props.pin &&

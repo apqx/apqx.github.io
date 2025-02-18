@@ -91,8 +91,17 @@ footer * {
     }
 }
 
-.center {
-    margin: auto;
+.self-center-horizontal {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.self-center-vertical {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.items-center {
     text-align: center;
 }
 

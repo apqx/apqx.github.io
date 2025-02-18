@@ -1,8 +1,11 @@
 @use "theme" as blogTheme;
 @use "@material/button";
 @use "@material/button/mdc-button";
+@use "@material/icon-button";
+@use "@material/icon-button/mdc-icon-button";
 @use "@material/ripple";
 @use "sass:map";
+@use "sass:color";
 
 // 解决Safari的Ripple动画无圆角
 .mdc-button,
@@ -15,10 +18,12 @@
     @include button.container-fill-color(var(--button-bg));
     @include button.ink-color(var(--button-ink));
 
+    overflow: hidden;
     @include ripple.surface;
     // 如果为bounded则宽度可能有问题，导致横向溢出，滚动🤔
+    // 设置其surface的overflow为hidden
     // Dialog的surface的尺寸异常导致滚动，已设置设置其overflow为clip
-    @include ripple.radius-unbounded(100%);
+    @include ripple.radius-bounded;
     @include ripple.states-base-color(map.get(blogTheme.$button-ripple, "light"));
     @include ripple.states-opacities((hover: .0, focus: .0, press: .1));
 }
@@ -30,4 +35,27 @@
 
 .mdc-button.btn-round {
     border-radius: calc(var(--mdc-typography-body1-font-size) + 0.3rem);
+}
+
+@mixin icon-button-ripple {
+    overflow: hidden;
+    @include ripple.surface;
+    @include ripple.radius-bounded;
+    @include ripple.states-base-color(color.adjust(map.get(blogTheme.$surface, "light"), $lightness: - blogTheme.$ripple-gap-percent));
+    @include ripple.states-opacities((hover: .0, focus: .0, press: .15));
+}
+
+@mixin icon-button-dark-ripple {
+    @include ripple.states-base-color(color.adjust(map.get(blogTheme.$surface, "dark"), $lightness: + blogTheme.$ripple-gap-percent));
+    @include ripple.states-opacities((hover: .0, focus: .0, press: .15));
+}
+
+.mdc-icon-button {
+    // border-radius: 20%;
+    color: var(--mdc-theme-on-surface);
+    @include icon-button-ripple;
+}
+
+.dark .mdc-icon-button {
+    @include icon-button-dark-ripple;
 }

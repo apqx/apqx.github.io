@@ -1,4 +1,5 @@
 @use "theme" as blogTheme;
+@use "button" as button;
 @use "@material/elevation";
 @use "@material/elevation/mdc-elevation";
 @use "@material/top-app-bar";
@@ -39,16 +40,12 @@ body {
 
 .mdc-top-app-bar__action-item.mdc-icon-button,
 .mdc-top-app-bar__navigation-icon.mdc-icon-button {
-    @include ripple.surface;
-    @include ripple.radius-unbounded(100%);
-    @include ripple.states-base-color(color.adjust(map.get(blogTheme.$top-bar, "bg-light"), $lightness: - blogTheme.$ripple-gap-percent));
-    @include ripple.states-opacities((hover: .0, focus: .0, press: .15));
+    @include button.icon-button-ripple;
 }
 
 .dark .mdc-top-app-bar__action-item.mdc-icon-button,
 .dark .mdc-top-app-bar__navigation-icon.mdc-icon-button {
-    @include ripple.states-base-color(color.adjust(map.get(blogTheme.$top-bar, "bg-dark"), $lightness: + blogTheme.$ripple-gap-percent));
-    @include ripple.states-opacities((hover: .0, focus: .0, press: .15));
+    @include button.icon-button-dark-ripple;
 }
 
 .mdc-top-app-bar__title {

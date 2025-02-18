@@ -30,6 +30,10 @@
     @include elevation.elevation(map.get(blogTheme.$drawer-elevation, "elevation"), map.get(blogTheme.$drawer-elevation, "shadow-dark"), 0);
 }
 
+.mdc-drawer-scroll-lock {
+    overflow: hidden;
+}
+
 .mdc-drawer--modal + .mdc-drawer-scrim {
     z-index: 2;
     background-color: var(--drawer-scrim-bg);
@@ -70,7 +74,7 @@
 .nav-list {
     .mdc-deprecated-list-item {
         @include ripple.surface;
-        @include ripple.radius-bounded(100%);
+        @include ripple.radius-bounded;
         @include ripple.states-base-color(map.get(blogTheme.$drawer-nav-ripple, "light"));
         @include ripple.states-opacities((hover: .1, focus: .1, press: .1));
     }

@@ -27,7 +27,7 @@ class AboutMeDialog extends BasicDialog<BasicDialogProps, any> {
     dialogContent(): JSX.Element {
         consoleDebug("AboutMeDialog render")
         return (
-            <div className="center">
+            <div className="items-center">
                 <picture>
                     <source srcSet="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me_emoji.webp"
                         type="image/webp" />
@@ -43,7 +43,7 @@ class AboutMeDialog extends BasicDialog<BasicDialogProps, any> {
                     <Button text="Git" onClick={null} className="btn-tag" />
                 </section>
                 <p className="about-me-description">九五后，旅居杭州，<a
-                    href={this.getKunQvLink()}>昆虫</a>，野生散养攻城狮，“十分”“业余”摄影Fans。联系我可以通过<a href="mailto:safari@mudan.me">电子邮件</a>，如果有必要也可以用<a
+                    href={this.getKunQvLink()}>昆虫</a>，野生散养攻城狮，“十分”“业余”摄影Fans。联系我可以通过电子邮件，如果有必要也可以用<a
                         href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/wechat.jpg">微信</a>。</p>
                 <ul className="mdc-deprecated-list mdc-deprecated-list--one-line dialog-link-list" id="about-me-dialog_link_list">
                     <LinkItem link="https://github.com/apqx" title="GitHub" first={true} last={false} />
