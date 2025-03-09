@@ -35,10 +35,14 @@ export class PostPaginateShowPresenter implements IPostPaginateShowPresenter {
             this.urlPrefix = "https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog"
         }
         let url = ""
+        // Jekyll生成的分页文件名会把Tag、Category中一些字符替换为`-`，这里要做相应的处理
+        const regex = new RegExp("[·_]")
         if (this.component.props.tag.length > 0) {
-            url = this.urlPrefix + "/api/paginate/tags/" + this.component.props.tag.toLowerCase() + "/page-1.json"
+            const tag = this.component.props.tag.replace(regex, "-").toLowerCase()
+            url = this.urlPrefix + "/api/paginate/tags/" + tag + "/page-1.json"
         } else {
-            url = this.urlPrefix + "/api/paginate/categories/" + this.component.props.category.toLowerCase() + "/page-1.json"
+            const category = this.component.props.category.replace(regex, "-").toLowerCase()
+            url = this.urlPrefix + "/api/paginate/categories/" + category + "/page-1.json"
         }
 
         const request = new Request(url, {
