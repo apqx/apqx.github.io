@@ -113,7 +113,6 @@ body {
     }
 
     .dark {
-
         .index-top-card,
         .index-card {
             @include cardElevationMiniScreenDark();
@@ -299,7 +298,7 @@ body {
 @media all and (max-width: blogTheme.$screen-middle-min-width) {
     body {
         --index-card-padding-vertical: 1rem;
-        --index-card-padding-horizontal: 1rem;
+        --index-card-padding-horizontal: 1.3rem;
         --index-card-to-container-border-horizontal: 0.5rem;
         --index-card-gap: 0.6rem;
         --grid-index-card-gap: 0.7rem;

@@ -66,3 +66,9 @@ body {
             map.get(blogTheme.$card-elevation, "min-screen-shadow-dark"), 0);
     }
 }
+
+@media all and (min-width: (blogTheme.$screen-middle-min-width + 1px)) and (max-width: (blogTheme.$screen-middle-max-width - 1px)) {
+    body {
+        --content-card-padding-horizontal: 2rem;
+    }
+}

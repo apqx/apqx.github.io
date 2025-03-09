@@ -27,9 +27,9 @@ const metaThemeColor = {
     light: "#ffffff",
     lightMobile: "#ffffff",
     lightChrome: "#ffffff",
-    dark: "#1f1f1f",
-    darkMobile: "#1f1f1f",
-    darkChrome: "#1f1f1f",
+    dark: "#1d1d1d",
+    darkMobile: "#1d1d1d",
+    darkChrome: "#1d1d1d",
 }
 
 const topbarBlur = {
