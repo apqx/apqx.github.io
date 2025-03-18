@@ -223,7 +223,7 @@ function initTitle(topAppBarE: HTMLElement) {
             break
         }
         case SECTION_TYPE_TAG.identifier: {
-            titleAE.innerText = "Tag"
+            titleAE.innerText = "Tags"
             titleAE.href = "/"
             break
         }

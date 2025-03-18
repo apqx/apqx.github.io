@@ -7,8 +7,8 @@
 @use "sass:color";
 
 .mdc-deprecated-list:not(.nav-list) {
-    border: 1px dashed;
-    border-color: var(--divider-dashed-color);
+    border: 1px solid;
+    border-color: var(--divider-color);
     border-radius: var(--table-list-border-radius);
 
     li {
@@ -16,8 +16,8 @@
     }
     .mdc-deprecated-list-divider {
         border: none;
-        border-top: 1px dashed;
-        border-color: var(--divider-dashed-color);
+        border-top: 1px solid;
+        border-color: var(--divider-color);
     }
 }
 
