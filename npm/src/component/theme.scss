@@ -76,8 +76,8 @@ $text-content-secondary: (
 $blockquote-border: (
         // light: #f6c9c9,
         // dark: #824d4d,
-        light: color.adjust(map.get($surface, "light"), $lightness: -10%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: +10%),
+        light: color.adjust(map.get($surface, "light"), $lightness: -5%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: +5%),
 );
 
 $drawer-nav-ripple: (
@@ -160,8 +160,8 @@ $dialog-action-btn-ripple: (
 );
 
 $chip-bg: (
-        light: color.adjust(map.get($surface, "light"), $lightness: -3%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: +3%),
+        light: color.adjust(map.get($surface, "light"), $lightness: -2.4%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: +2.4%),
 );
 $chip-ink: (
         light: color.adjust(map.get($chip-bg, "light"), $lightness: -60%),
@@ -221,13 +221,13 @@ $code-highlight-border: (
 );
 
 $strong-under-line: (
-        light: color.adjust(map.get($surface, "light"), $lightness: -10%),
+        light: color.adjust(map.get($surface, "light"), $lightness: -8%),
         dark: color.adjust(map.get($surface, "dark"), $lightness: +10%),
 );
 
 $surface-block-bg: (
         light: color.adjust(map.get($surface, "light"), $lightness: - 0.5%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: - 1.2%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: - 0.5%),
 );
 
 $surface-block-ripple: (
@@ -241,8 +241,8 @@ $surface-block-ink-strong: (
 );
 
 $surface-block-border-dashed: (
-        light: color.adjust(map.get($surface-block-bg, "light"), $lightness: -20%),
-        dark: color.adjust(map.get($surface-block-bg, "dark"), $lightness: +20%),
+        light: color.adjust(map.get($surface-block-bg, "light"), $lightness: -15%),
+        dark: color.adjust(map.get($surface-block-bg, "dark"), $lightness: +15%),
 );
 
 $surface-block-border: (
