@@ -222,7 +222,7 @@ $code-highlight-border: (
 
 $strong-under-line: (
         light: color.adjust(map.get($surface, "light"), $lightness: -8%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: +10%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: +9%),
 );
 
 $surface-block-bg: (
