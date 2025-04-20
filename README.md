@@ -4,7 +4,7 @@
 
 由[Jekyll](https://jekyllrb.com)驱动的静态博客，遵循[Material Design](https://material.io)设计规范，主体使用[Material Components Web](https://github.com/material-components/material-components-web)框架。
 
-并非通用博客模版，而是以我自己的喜好量身定制，由随笔、转载、诗文、看剧4个板块组成，应用淡色极简风格，在文字、色彩和动画之外不添加多余元素。或可作为`Material Design`个人站参考，但不建议直接套用，尚未进行模版优化。
+并非通用博客模版，而是以我自己的喜好量身定制，由随笔、转载、诗文、看剧4个板块组成，应用平淡极简风格，在文字、色彩和动画之外不添加多余元素。可作为`Material Design`个人站参考，但不建议直接套用，尚未进行模版化改造。
 
 主页：[立泉的写字板](https://mudan.me)
 
@@ -97,4 +97,4 @@ git push
 
 ## 版权
 
-博客代码以`GPL`许可开源，但对文章内容保留著作权，对摄影照片保留版权，未经允许不可用作商业用途。
+博客代码以`GPL`许可开源，但对文章内容保留著作权，对摄影照片保留版权，未经允许不可作商业用途。
