@@ -11,7 +11,7 @@ import { Post } from "../component/react/post/BasePostPaginateShow"
 import { GridIndexList } from "../component/react/GridIndexList"
 import { MDCRipple } from "@material/ripple"
 
-runOnPageDone(() => {
+runOnHtmlDone(() => {
     initIndexTopCover()
     initIndexList()
 })

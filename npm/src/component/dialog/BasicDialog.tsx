@@ -208,11 +208,6 @@ export const SEARCH_DIALOG_WRAPPER_ID = "search-dialog-wrapper"
 export const ABOUT_DIALOG_WRAPPER_ID = "about-dialog-wrapper"
 export const PREFERENCE_DIALOG_WRAPPER_ID = "preference-dialog-wrapper"
 
-interface RootDialog {
-    root: Root
-    dialog: MDCDialog | null
-}
-
 // 缓存每种dialog的root和dialog实例，即使该类型dialog的内容变化，其仍是同一个dialog对象
 // 每个tag都使用自己单独的Dialog
 let dialogContainerE: HTMLElement | null = null
@@ -220,7 +215,7 @@ let rootDialogMap = new Map<string, Root>()
 
 export function showDialog(_contentElement: JSX.Element, _dialogWrapperId: string) {
     // 如果此时html还未加载完成，确实可能出现为null的情况
-    if (document.readyState != "complete") return
+    if (document.readyState === "loading") return
     dialogContainerE = document.querySelector("#dialog_container")
     let root: Root | undefined
     if (rootDialogMap.has(_dialogWrapperId)) {

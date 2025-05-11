@@ -33,6 +33,7 @@ body {
     @include cardElevationDark();
 }
 
+// 文章卡片的默认位置向下偏移，且变为透明
 .fade-in-animation {
     transform: translateY(var(--card-animation-translate-y));
     opacity: 0;
@@ -43,6 +44,7 @@ body {
     // will-change: transform, opacity;
 }
 
+// 启动动画，文章卡片向上移动到原位置
 .fade-in-animation.fade-in-animation--start {
     transform: translateY(0);
     opacity: 1;
