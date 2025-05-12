@@ -146,10 +146,13 @@ export class PostPaginateShowPresenter implements IPostPaginateShowPresenter {
         }
         const nextPagePath = this.cachedPage!![this.cachedPage!!.length - 1].data.nextPagePath
         if (nextPagePath.length == 0) {
-            this.component.setState({
-                loading: false,
-                loadHint: null
-            })
+            // 列表滚动到底部时，这里会被高频触发
+            if (this.component.state.loading != false || this.component.state.loadHint != null) {
+                this.component.setState({
+                    loading: false,
+                    loadHint: null
+                })
+            }
             return
         }
         const startTime = Date.now()

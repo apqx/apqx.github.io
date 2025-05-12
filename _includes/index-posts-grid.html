@@ -12,10 +12,10 @@
             <a class="index-a mdc-card grid-index-card grid-index-card__ripple" href="{{ post.url }}">
                 <section>
                     {%- if post.index-cover != null %}
-                    <img class="grid-index-cover height-animation" loading="lazy" src="{{ post.index-cover }}"
+                    <img class="grid-index-cover image-height-animation" loading="lazy" src="{{ post.index-cover }}"
                         alt="{{ post.cover-alt }}" />
                     {% elsif post.cover != null %}
-                    <img class="grid-index-cover height-animation" loading="lazy" src="{{ post.cover }}"
+                    <img class="grid-index-cover image-height-animation" loading="lazy" src="{{ post.cover }}"
                         alt="{{ post.cover-alt }}" />
                     {% else %}
                     <div style="height: 0.5rem;"></div>

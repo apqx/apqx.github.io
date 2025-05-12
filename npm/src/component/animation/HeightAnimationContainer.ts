@@ -60,6 +60,7 @@ export class HeightAnimationContainer {
         this.containerE.style.transitionDuration = duration + "s"
         this.containerE.style.height = targetHeight + "px"
         this.lastHeight = targetHeight
+        consoleDebug("HeightAnimationContainer set height = " + targetHeight + ", duration = " + duration)
     }
 
     private calcHeight(containerE: HTMLElement): number {

@@ -5,6 +5,8 @@ import { runOnHtmlDone, runOnPageDone } from "../util/tools";
 import { initContentCard } from "../component/contentCard";
 
 runOnHtmlDone(() => {
+    // 404页面，卡片默认是隐藏的，由动画类之外的机制控制
+    // 这里像其它页面一样正常处理动画类
     initContentCard(false)
 })
 

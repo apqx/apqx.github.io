@@ -1,6 +1,7 @@
 <script>
-    function addAnimationClass() {
-        document.querySelector(".content-card").classList.add("fade-in-animation")
+    // 为Content card添加动画类，默认隐藏
+    const contentCardE = document.querySelector(".content-card")
+    if (contentCardE != null) {
+        contentCardE.classList.add("content-card--fade-in")
     }
-    addAnimationClass()
 </script>

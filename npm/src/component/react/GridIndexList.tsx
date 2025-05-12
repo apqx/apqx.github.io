@@ -12,6 +12,9 @@ import { setupTagTrigger } from "../tag";
 import { ScrollLoader } from "../../base/ScrollLoader";
 import Masonry from 'react-masonry-css'
 import { HeightAnimationContainer } from "../animation/HeightAnimationContainer";
+import { toggleClassWithEnable } from "../../util/tools";
+import { showFooter } from "../footer";
+import { interSectionObserver } from "../animation/BaseAnimation";
 
 interface Props extends BasePostPaginateShowProps {
     pageDescriptionHtml: string
@@ -30,7 +33,7 @@ export class GridIndexList extends BasePostPaginateShow<Props> {
 
     initScroll() {
         const scrollLoader = new ScrollLoader(() => {
-            consoleDebug("Index scroll should load")
+            consoleDebug("Index scroll should check load more")
             if (this.state.loadHint == ERROR_HINT) return
             this.loadMore()
         })
@@ -43,9 +46,12 @@ export class GridIndexList extends BasePostPaginateShow<Props> {
         super.componentDidMount()
         consoleDebug("GridIndex componentDidMount")
         const rootE = ReactDOM.findDOMNode(this) as HTMLElement
-        this.heightAnimationContainer = new HeightAnimationContainer(rootE)
+        // 不使用高度动画
+        // this.heightAnimationContainer = new HeightAnimationContainer(rootE)
         if (this.props.onUpdate != null) this.props.onUpdate()
         this.initScroll()
+        // 显示footer，在索引页其被默认隐藏，需要在列表首次加载后显示出来
+        showFooter()
     }
 
     componentWillUnmount(): void {
@@ -86,7 +92,8 @@ export class GridIndexList extends BasePostPaginateShow<Props> {
                                 description={item.description}
                                 cover={item.cover}
                                 coverAlt={item.coverAlt}
-                                last={index == this.state.posts.length - 1} />
+                                last={index == this.state.posts.length - 1}
+                                coverLoadedCallback={() => this.heightAnimationContainer?.update()} />
                         )}
                         {(this.state.loading || this.state.loadHint != null) &&
                             <li className="grid-index-li">
@@ -111,10 +118,12 @@ type IndexItemProps = {
     cover: string,
     coverAlt: string,
     last: boolean,
+    coverLoadedCallback: () => void
 }
 
 class IndexItem extends React.Component<IndexItemProps, any> {
     imageLoadAnimator: ImageLoadAnimator | null = null
+    cardE: HTMLElement | null = null
 
     constructor(props: IndexItemProps) {
         super(props)
@@ -123,14 +132,22 @@ class IndexItem extends React.Component<IndexItemProps, any> {
     componentDidMount(): void {
         consoleObjDebug("IndexItem componentDidMount", this.props)
         const rootE = ReactDOM.findDOMNode(this) as HTMLElement
+        this.cardE = rootE.querySelector(".grid-index-card")
+
         new MDCRipple(rootE.querySelector(".grid-index-card__ripple")!!)
         const imgE = rootE.querySelector(".grid-index-cover")
-        // 只有前10个有动画🤔
-        // if (imgE != null && this.props.index < 10) {
+        // 图片加载动画
         if (imgE != null) {
-            imgE.classList.add("height-animation")
+            imgE?.classList.add("image-height-animation")
             this.imageLoadAnimator = new ImageLoadAnimator(imgE as HTMLImageElement, -1, false, () => {
+                // 图片尺寸动画执行完成
+                this.props.coverLoadedCallback()
             })
+        }
+
+        // 监听元素进入窗口初次显示
+        if (this.cardE != null) {
+            interSectionObserver.observe(this.cardE)
         }
     }
 
@@ -139,13 +156,16 @@ class IndexItem extends React.Component<IndexItemProps, any> {
         if (this.imageLoadAnimator != null) {
             this.imageLoadAnimator.destroy()
         }
+        if (this.cardE != null) {
+            interSectionObserver.unobserve(this.cardE)
+        }
     }
 
     render(): ReactNode {
         const actorStr = this.props.actor.join(" ")
         return (
             <li className="grid-index-li">
-                <a className="index-a mdc-card grid-index-card grid-index-card__ripple" href={this.props.path}>
+                <a className="index-a mdc-card grid-index-card grid-index-card__ripple index-card--fade-in" href={this.props.path}>
                     <section>
                         {this.props.cover != null && this.props.cover.length > 0 &&
                             <img className="grid-index-cover" loading="lazy" src={this.props.cover} alt={this.props.coverAlt} />
@@ -174,6 +194,8 @@ type IndexDescriptionItemProps = {
 }
 
 class IndexDescriptionItem extends React.Component<IndexDescriptionItemProps, any> {
+    animationE: HTMLElement | null = null
+
     constructor(props: IndexDescriptionItemProps) {
         super(props)
     }
@@ -184,6 +206,19 @@ class IndexDescriptionItem extends React.Component<IndexDescriptionItemProps, an
         const dialogsTriggers = rootE.querySelectorAll(".tag-dialog-trigger")
         for (const trigger of dialogsTriggers) {
             setupTagTrigger(trigger as HTMLElement)
+        }
+
+        this.animationE = rootE.querySelector(".grid-index-card")
+        // 监听元素进入窗口初次显示
+        if (this.animationE != null) {
+            interSectionObserver.observe(this.animationE)
+        }
+    }
+
+    componentWillUnmount(): void {
+        consoleDebug("IndexDescriptionItem componentWillUnmount")
+        if (this.animationE != null) {
+            interSectionObserver.unobserve(this.animationE)
         }
     }
 

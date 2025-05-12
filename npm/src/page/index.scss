@@ -33,6 +33,36 @@ body {
     --grid-index-card-gap: 0.74rem;
 }
 
+.index-card--fade-in {
+    transform: translateY(var(--index-card-animation-translate-y));
+    opacity: 0;
+    transition: transform var(--index-card-animation-duration) ease,
+        opacity calc(var(--index-card-animation-duration) / 2) ease;
+}
+
+.index-card--fade-in.index-card--fade-in-start {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.index-card--fade-in-no-translate {
+    opacity: 0;
+    transition: opacity var(--index-card-animation-no-translate-duration) ease;
+}
+
+.index-card--fade-in-no-translate.index-card--fade-in-no-translate-start {
+    opacity: 1;
+}
+
+.index-top-card--fade-in {
+    opacity: 0;
+    transition: opacity var(--index-card-animation-duration) ease;
+}
+
+.index-top-card--fade-in.index-top-card--fade-in-start {
+    opacity: 1;
+}
+
 @mixin cardElevation {
     @include elevation.elevation(map.get(blogTheme.$card-elevation, "elevation"),
         map.get(blogTheme.$card-elevation, "shadow-light"), 0);
@@ -113,6 +143,7 @@ body {
     }
 
     .dark {
+
         .index-top-card,
         .index-card {
             @include cardElevationMiniScreenDark();
@@ -126,12 +157,6 @@ body {
     width: 100%;
     // 封面宽高比例，在不设置动画时使用，JS动画用它计算高度
     aspect-ratio: 844/295 auto;
-}
-
-.height-animation {
-    height: 0px;
-    transition: height var(--cover-animation-duration) ease;
-    // will-change: contents;
 }
 
 /* 索引题目 */

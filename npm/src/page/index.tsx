@@ -1,6 +1,5 @@
 // import "./index.scss"
-import Masonry from "masonry-layout"
-import { runOnHtmlDone, runOnPageDone } from "../util/tools"
+import { runOnHtmlDone, runOnPageDone, toggleClassWithEnable } from "../util/tools"
 import { consoleArrayDebug, consoleDebug, consoleError, consoleObjDebug } from "../util/log"
 import * as React from "react"
 import { createRoot } from "react-dom/client"
@@ -132,10 +131,18 @@ const INDEX_TOP_COVER_RATIO = 844 / 295
  * 初始化首页封面，监听下载状态，启动高度变化动画
  */
 function initIndexTopCover() {
-    for (const ele of document.querySelectorAll(".index-top-cover.height-animation")) {
-        const imgE = ele as HTMLImageElement
-        const imageLoadAnimator = new ImageLoadAnimator(imgE, INDEX_TOP_COVER_RATIO, true, null)
+    // 顶部卡片
+    for (const ele of document.querySelectorAll(".index-top-card.index-top-card--fade-in")) {
+        toggleClassWithEnable(ele, "index-top-card--fade-in-start", true)
     }
+    // 顶部封面图片
+    for (const ele of document.querySelectorAll(".index-top-cover.image-height-animation")) {
+        const imgE = ele as HTMLImageElement
+        const imageLoadAnimator = new ImageLoadAnimator(imgE, INDEX_TOP_COVER_RATIO, true, () => {
+            // 动画完成回调
+        })
+    }
+    // 索引卡片
     for (const ele of document.querySelectorAll(".index-top-card,.grid-index-card__ripple")) {
         new MDCRipple(ele)
     }

@@ -1,5 +1,5 @@
 // import "./scaffold.scss"
-import { checkWebpSupport, isDebug, isWriting, runOnHtmlDone, runOnPageBackFromCache, runOnPageDone } from "../util/tools"
+import { checkWebpSupport, isDebug, isWriting, runOnHtmlDone, runOnPageBackFromCache, runOnPageDone, toggleClassWithEnable } from "../util/tools"
 import { blockTopbarKeyFrameAnimation, initTopbar } from "../component/topbar"
 import { initDrawer } from "../component/drawer"
 import { checkUserTheme, initTheme } from "../component/theme"
@@ -13,11 +13,13 @@ import { initList } from "../component/list";
 import { initText } from "../component/text";
 import { consoleDebug, consoleObjDebug } from "../util/log";
 import { loadGoogleAnalytics } from "../util/gtag";
+import { initFooter } from "../component/footer"
 
 runOnHtmlDone(() => {
     initLocalRepository()
     initFont()
     initTopbar()
+    initFooter()
     initTheme()
     initDrawer()
     initFab()

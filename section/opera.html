@@ -38,14 +38,14 @@ blockFromSearchEngine: false
         {%- break %}
         {% endif -%}
         {%- if post.categories contains "opera" and post.hideFromIndex != true %}
-        <li class="grid-item grid-index-li" style="display: none;">
+        <li class="grid-item grid-index-li">
             <a class="index-a mdc-card grid-index-card grid-index-card__ripple" href="{{ post.url }}">
                 <section>
                     {%- if post.index-cover != null %}
-                    <img class="grid-index-cover height-animation" loading="lazy" src="{{ post.index-cover }}"
+                    <img class="grid-index-cover" loading="lazy" src="{{ post.index-cover }}"
                         alt="{{ post.cover-alt }}" />
                     {% elsif post.cover != null %}
-                    <img class="grid-index-cover height-animation" loading="lazy" src="{{ post.cover }}"
+                    <img class="grid-index-cover" loading="lazy" src="{{ post.cover }}"
                         alt="{{ post.cover-alt }}" />
                     {% else %}
                     <div style="height: 0.5rem;"></div>
@@ -67,3 +67,16 @@ blockFromSearchEngine: false
         {% endfor %}
     </ul>
 </section>
+
+<script>
+    // 隐藏所有item，因为预加载的列表的排版无法与React一致，所以隐藏
+    for(const e of document.querySelectorAll(".grid-index-li")) {
+        if (e.classList.contains("grid-index-li--description")) {
+            // 描述Item，添加动画类，默认隐藏
+            e.querySelector(".grid-index-card").classList.add("index-card--fade-in");
+            continue;
+        }
+        // 其他Item，隐藏，动画类在React中添加
+        e.style.display = "none";
+    }
+</script>

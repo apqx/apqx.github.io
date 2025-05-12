@@ -8,6 +8,9 @@ import { BasePostPaginateShow, BasePostPaginateShowProps, BasePostPaginateShowSt
 import { PostPaginateShowPresenter } from "./post/PostPaginateShowPresenter";
 import { IPostPaginateShowPresenter } from "./post/IPostPaginateShowPresenter";
 import { HeightAnimationContainer } from "../animation/HeightAnimationContainer";
+import { toggleClassWithEnable } from "../../util/tools";
+import { showFooter } from "../footer";
+import { interSectionObserver } from "../animation/BaseAnimation";
 
 export class IndexList extends BasePostPaginateShow<BasePostPaginateShowProps> {
     heightAnimationContainer: HeightAnimationContainer | null = null
@@ -19,9 +22,12 @@ export class IndexList extends BasePostPaginateShow<BasePostPaginateShowProps> {
     componentDidMount(): void {
         super.componentDidMount()
         const rootE = ReactDOM.findDOMNode(this) as HTMLElement
-        this.heightAnimationContainer = new HeightAnimationContainer(rootE)
+        // 不使用高度动画
+        // this.heightAnimationContainer = new HeightAnimationContainer(rootE)
         if (this.props.onUpdate != null) this.props.onUpdate()
         this.initScroll()
+        // 显示footer，在索引页其被默认隐藏，需要在列表首次加载后显示出来
+        showFooter()
     }
 
     componentWillUnmount(): void {
@@ -80,6 +86,8 @@ export type IndexItemProps = {
 }
 
 class IndexItem extends React.Component<IndexItemProps, any> {
+    cardE: HTMLElement | null = null
+
     constructor(props: IndexItemProps) {
         super(props);
     }
@@ -87,20 +95,29 @@ class IndexItem extends React.Component<IndexItemProps, any> {
     componentDidMount(): void {
         consoleObjDebug("IndexItem componentDidMount", this.props)
         const rootE = ReactDOM.findDOMNode(this) as HTMLElement;
+        this.cardE = rootE.querySelector(".index-card")
+
         if (this.props.pin) {
             rootE.classList.add("index-li--pin")
         }
-        new MDCRipple(rootE.querySelector(".index-card")!!)
+        new MDCRipple(this.cardE!!)
+        // 监听元素进入窗口初次显示
+        if (this.cardE != null) {
+            interSectionObserver.observe(this.cardE)
+        }
     }
 
     componentWillUnmount(): void {
         consoleDebug("IndexItem componentWillUnmount " + this.props.title)
+        if (this.cardE != null) {
+            interSectionObserver.unobserve(this.cardE)
+        }
     }
 
     render() {
         return (
             <li className="index-li">
-                <a className="index-a mdc-card index-card" href={this.props.path}>
+                <a className="index-a mdc-card index-card index-card--fade-in" href={this.props.path}>
                     <section>
                         <h1 className="index-title">{this.props.title}</h1>
                         <span className="index-author">{this.props.author}</span>

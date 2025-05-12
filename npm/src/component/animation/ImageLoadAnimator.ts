@@ -68,7 +68,7 @@ export class ImageLoadAnimator {
 
     private animationDone(monitorResize: boolean, imgE: HTMLImageElement, animationEndCallback: (() => void) | null) {
         if (!monitorResize) {
-            imgE.classList.remove("height-animation")
+            imgE.classList.remove("image-height-animation")
             imgE.style.height = "auto"
         }
         if (animationEndCallback != null) animationEndCallback()

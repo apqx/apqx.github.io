@@ -1,12 +1,14 @@
 @use "../component/theme" as blogTheme;
 @use "../component/text";
 @use "../component/topbar";
+@use "../component/footer";
 @use "../component/drawer";
 @use "../component/fab";
 @use "../component/tag";
 @use "../component/button";
 @use "../component/table";
 @use "../component/list";
+@use "../component/animation/BaseAnimation.scss";
 @use "../component/dialog/BasicDialog";
 @use "../component/dialog/AboutMeDialog";
 @use "../component/dialog/PreferenceDialog";
@@ -26,6 +28,8 @@ body {
 
 html,
 body {
+    // 设置html和body的高度为浏览器窗口高度
+    // 如果内部content高度超过窗口高度则处于overflow状态
     height: 100%;
 }
 
@@ -44,6 +48,10 @@ footer {
     background-color: var(--mdc-theme-primary);
     display: flex;
     flex-direction: column;
+}
+
+footer.footer--hidden {
+    opacity: 0;
 }
 
 footer * {
@@ -68,7 +76,8 @@ footer * {
 
 .foot-container {
     width: 100%;
-    max-width: blogTheme.$center-card-max-width;;
+    max-width: blogTheme.$center-card-max-width;
+    ;
     margin: 0 auto;
     flex: 1;
     padding: 0;
@@ -118,17 +127,10 @@ img.inline-for-center {
 }
 
 // 手机小屏
-@media all and (max-width: blogTheme.$screen-middle-min-width) {
-
-}
+@media all and (max-width: blogTheme.$screen-middle-min-width) {}
 
 // 平板中屏
-@media all and (min-width: (blogTheme.$screen-middle-min-width + 1px)) and (max-width: (blogTheme.$screen-middle-max-width - 1px)) {
-
-}
+@media all and (min-width: (blogTheme.$screen-middle-min-width + 1px)) and (max-width: (blogTheme.$screen-middle-max-width - 1px)) {}
 
 // 电脑大屏
-@media all and (min-width: blogTheme.$screen-middle-max-width) {
-
-}
-
+@media all and (min-width: blogTheme.$screen-middle-max-width) {}
