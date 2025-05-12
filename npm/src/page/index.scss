@@ -47,7 +47,7 @@ body {
 
 .index-card--fade-in-no-translate {
     opacity: 0;
-    transition: opacity var(--index-card-animation-no-translate-duration) ease;
+    transition: opacity var(--index-card-animation-duration) ease;
 }
 
 .index-card--fade-in-no-translate.index-card--fade-in-no-translate-start {

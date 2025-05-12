@@ -419,17 +419,17 @@ body {
         --md-switch-track-width: 2.5rem;
         --md-switch-track-height: 1.2rem;
 
-        --top-bar-height: 56px;
+        --top-bar-height: 3.5rem;
         --main-container-padding-vertical: 1.2rem;
 
-        --dialog-animation-duration: 0.3s;
+        --dialog-animation-duration: 0.4s;
         --dialog-animation-translate-y: 10rem;
         --image-height-animation-duration: 0.8s;
         --index-card-animation-duration: 0.8s;
         --index-card-animation-translate-y: 2rem;
         --index-card-animation-no-translate-duration: 0.4s;
         --content-card-animation-duration: 0.8s;
-        --content-card-animation-translate-y: 15rem;
+        --content-card-animation-translate-y: 10rem;
 
         @include light;
 }
@@ -448,8 +448,6 @@ body {
                 --drawer-padding-horizontal: 0.2rem;
 
                 --main-container-padding-vertical: 0.8rem;
-
-                --top-bar-height: 56px;
         }
 
         .dark {

@@ -11,7 +11,6 @@ import { GridIndexList } from "../component/react/GridIndexList"
 import { MDCRipple } from "@material/ripple"
 
 runOnHtmlDone(() => {
-    initIndexTopCover()
     initIndexList()
 })
 
@@ -30,13 +29,17 @@ function initIndexList() {
         // 销毁react之前的Masonry实例
         // destroyMasonry()
     }
+    const onMount = () => {
+        // React加载之后，启动Cover动画
+        initIndexTopCover()
+    }
     if (wrapperE.querySelectorAll(".index-ul").length > 0) {
         // 随笔、诗词、转载
         // 获取已有的post，包括置顶和非置顶
         const loadedPosts = getLinearLoadedPosts(wrapperE)
         consoleObjDebug("Index loaded posts", loadedPosts)
         root.render(<IndexList tag={""} category={category} pinedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
-            onUpdate={onUpdate} />)
+            onMount={onMount} onUpdate={onUpdate} />)
     } else if(wrapperE.querySelectorAll(".grid-index-ul").length > 0) {
         // 看剧
         // 显示Jekyll预加载数据，同样适用Masonry布局，然后React更新它，会更顺滑
@@ -48,7 +51,7 @@ function initIndexList() {
         const loadedPosts = getGridLoadedPosts(wrapperE)
         consoleObjDebug("Index loaded posts", loadedPosts)
         root.render(<GridIndexList tag={""} category={category} pinedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
-            onUpdate={onUpdate} pageDescriptionHtml={descriptionHtml} />)
+            onMount={onMount} onUpdate={onUpdate} pageDescriptionHtml={descriptionHtml} />)
     }
 }
 
@@ -131,11 +134,11 @@ const INDEX_TOP_COVER_RATIO = 844 / 295
  * 初始化首页封面，监听下载状态，启动高度变化动画
  */
 function initIndexTopCover() {
-    // 顶部卡片
+    // 顶部卡片，透明度动画
     for (const ele of document.querySelectorAll(".index-top-card.index-top-card--fade-in")) {
         toggleClassWithEnable(ele, "index-top-card--fade-in-start", true)
     }
-    // 顶部封面图片
+    // 顶部封面图片，高度动画
     for (const ele of document.querySelectorAll(".index-top-cover.image-height-animation")) {
         const imgE = ele as HTMLImageElement
         const imageLoadAnimator = new ImageLoadAnimator(imgE, INDEX_TOP_COVER_RATIO, true, () => {

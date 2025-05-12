@@ -73,7 +73,7 @@ blockFromSearchEngine: false
     for(const e of document.querySelectorAll(".grid-index-li")) {
         if (e.classList.contains("grid-index-li--description")) {
             // 描述Item，添加动画类，默认隐藏
-            e.querySelector(".grid-index-card").classList.add("index-card--fade-in");
+            e.querySelector(".grid-index-card").classList.add("index-card--fade-in-no-translate");
             continue;
         }
         // 其他Item，隐藏，动画类在React中添加

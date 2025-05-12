@@ -8,7 +8,8 @@ export interface BasePostPaginateShowProps {
     tag: string,
     pinedPosts: Array<Post>,
     loadedPosts: Array<Post>,
-    onUpdate: () => void
+    onMount?: () => void,
+    onUpdate?: () => void
 }
 
 export interface BasePostPaginateShowState {
@@ -53,6 +54,9 @@ export abstract class BasePostPaginateShow<P extends BasePostPaginateShowProps>
     componentDidMount(): void {
         if (this.loadFirstPageOnMount) {
             this.loadFirstPage()
+        }
+        if (this.props.onMount != null) {
+            this.props.onMount()
         }
     }
 
