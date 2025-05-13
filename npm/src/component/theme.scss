@@ -48,9 +48,7 @@ $surface: (
 
 $background: (
         light: color.adjust(map.get($surface, "light"), $lightness: -2%),
-        light-mini-screen: color.adjust(map.get($surface, "light"), $lightness: -2%),
         dark: color.adjust(map.get($surface, "dark"), $lightness: -2%),
-        dark-mini-screen: color.adjust(map.get($surface, "dark"), $lightness: -2%),
 );
 
 $text-title: (
@@ -241,8 +239,8 @@ $surface-block-ink-strong: (
 );
 
 $surface-block-border-dashed: (
-        light: color.adjust(map.get($surface-block-bg, "light"), $lightness: -15%),
-        dark: color.adjust(map.get($surface-block-bg, "dark"), $lightness: +15%),
+        light: color.adjust(map.get($surface-block-bg, "light"), $lightness: -12%),
+        dark: color.adjust(map.get($surface-block-bg, "dark"), $lightness: +12%),
 );
 
 $surface-block-border: (
@@ -425,11 +423,11 @@ body {
         --dialog-animation-duration: 0.4s;
         --dialog-animation-translate-y: 10rem;
         --image-height-animation-duration: 0.8s;
-        --index-card-animation-duration: 0.8s;
+        --index-card-animation-duration: 0.4s;
         --index-card-animation-translate-y: 2rem;
         --index-card-animation-no-translate-duration: 0.4s;
         --content-card-animation-duration: 0.8s;
-        --content-card-animation-translate-y: 10rem;
+        --content-card-animation-translate-y: 18rem;
 
         @include light;
 }
@@ -441,17 +439,13 @@ body {
 // 小屏
 @media all and (max-width: $screen-middle-min-width) {
         body {
-                --mdc-theme-background: #{map.get($background, "light-mini-screen")};
                 --image-height-animation-duration: 0.6s;
-                --index-card-animation-duration: 0.6s;
+                --content-card-animation-duration: 0.6s;
+                --content-card-animation-translate-y: 12rem;
 
                 --drawer-padding-horizontal: 0.2rem;
 
                 --main-container-padding-vertical: 0.8rem;
-        }
-
-        .dark {
-                --mdc-theme-background: #{map.get($background, "dark-mini-screen")};
         }
 }
 
@@ -459,7 +453,8 @@ body {
 @media all and (min-width: ($screen-middle-min-width + 1px)) and (max-width: ($screen-middle-max-width - 1px)) {
         body {
                 --image-height-animation-duration: 0.6s;
-                --index-card-animation-duration: 0.6s;
+                --content-card-animation-duration: 0.6s;
+                --content-card-animation-translate-y: 16rem;
         }
 
 }

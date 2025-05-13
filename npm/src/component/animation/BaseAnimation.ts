@@ -8,12 +8,13 @@ export const interSectionObserver = new IntersectionObserver(entries => {
             if (entry.target.classList.contains("index-card--fade-in")) {
                 // 索引的滑入动画，包括透明度和垂直移动
                 consoleDebug("Index card animation start " + entry.target)
-                if (entry.target.classList.contains("index-card")) {
+                if (entry.target.classList.contains("index-card") || entry.target.classList.contains("grid-index-card")) {
+                    // 线性索引 + 网格索引
                     if (window.scrollY > 0) {
                         // 用户滚动之后，使用滑入动画，更灵动
                         toggleClassWithEnable(entry.target, "index-card--fade-in-start", true)
                     } else {
-                        // 线性索引，用户滚动之前，使用透明度动画，防止与顶部封面展开动画冲突
+                        // 用户滚动之前，使用透明度动画，防止与顶部封面展开动画冲突
                         toggleClassWithEnable(entry.target, "index-card--fade-in-no-translate", true)
                         toggleClassWithEnable(entry.target, "index-card--fade-in", false)
                         toggleClassWithEnable(entry.target, "index-card--fade-in-no-translate-start", true)

@@ -5,16 +5,16 @@ title: "发布Android包到GitHub Packages"
 author: 立泉
 mention: Gradle Maven
 date: 2020-12-04 +0800
-description: 成为全职Android开发者已有三年，在经手项目中积累到很多常用代码工具，也会在自己的业余项目中使用。但是每次都为它们重复创建Module很繁琐，直接打包为aar又会出现依赖问题。与jar一样，Gradle默认并不把外部依赖包塞进aar，需要在使用时手动引入，否则会因为依赖缺失而无法通过编译。
+description: 成为全职Android开发者已有三年，在经手项目里积累了很多常用代码工具，也会在自己的业余项目中使用。但是每次都为它们重复创建Module很繁琐，直接打包为aar又会出现依赖问题。与jar一样，Gradle默认并不把外部依赖包塞进aar，需要在使用时手动引入，否则会因为依赖缺失而无法通过编译。
 cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20201204/github_packages_jettools.jpg
 tags: Code Android Gradle Build Maven GitHub
 ---
 
-成为全职`Android`开发者已有三年，在经手项目中积累到很多常用代码工具，也会在自己的业余项目中使用。但是每次都为它们重复创建`Module`很繁琐，直接打包为`aar`又会出现依赖问题。与`jar`一样，`Gradle`默认并不把外部依赖包塞进`aar`，需要在使用时手动引入，否则会因为依赖缺失而无法通过编译。
+成为全职`Android`开发者已有三年，在经手项目里积累了很多常用代码工具，也会在自己的业余项目中使用。但是每次都为它们重复创建`Module`很繁琐，直接打包为`aar`又会出现依赖问题。与`jar`一样，`Gradle`默认并不把外部依赖包塞进`aar`，需要在使用时手动引入，否则会因为依赖缺失而无法通过编译。
 
-为什么`Gradle`使用`Maven`仓库里的类库不需要手动引入依赖呢？其实，发布到`Maven`仓库的`aar`包里同样没有外部依赖，只不过`Maven`插件会自动生成一个`.pom`文件来标识依赖列表，`Gradle`下载类库时能获取到它，会自动下载指定版本的依赖包。
+为什么`Gradle`使用`Maven`仓库里的类库不需要手动引入依赖呢？其实，发布到`Maven`仓库的`aar`包同样不包含外部依赖，只不过`Maven`插件会自动生成一个`.pom`文件作为依赖列表，`Gradle`能获取到它，然后自动下载依赖。
 
-既然如此，是否可以把自己的包发布到`Maven`仓库呢？当然可以，很多公司都会搭建内部`Maven`服务器来实现组件共享，`Android`工程至少需要配置2个不同的`Maven`仓库：
+既然如此，是否可以把自己的包发布到`Maven`仓库呢？当然可以，很多公司都会搭建内部`Maven`服务器实现组件共享，`Android`工程至少需要配置2个不同的`Maven`仓库：
 
 ```groovy
 // Project 根目录的 build.gradle 文件
