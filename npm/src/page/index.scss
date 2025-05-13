@@ -313,12 +313,6 @@ body {
     margin-right: 0.2rem;
 }
 
-// 在JS执行之前设定item宽度，应与JS执行的layout一致
-.grid-sizer,
-.grid-item {
-    width: 50%;
-}
-
 // 手机小屏
 @media all and (max-width: blogTheme.$screen-middle-min-width) {
     body {
@@ -347,11 +341,6 @@ body {
 
     .index-top-card-container {
         padding-top: 0.35rem;
-    }
-
-    .grid-sizer,
-    .grid-item {
-        width: 100%;
     }
 
     .grid-index-text-container {

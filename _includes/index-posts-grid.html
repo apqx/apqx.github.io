@@ -1,14 +1,13 @@
 <hr class="index-li-divider" />
 <section id="index-list-wrapper">
-    <ul class="grid grid-index-ul">
-        <div class="grid-sizer"></div>
+    <ul class="grid-index-ul">
         {%- assign count = 0 -%}
         {% for post in site.posts %}
         {%- if count == 10 %}
         {%- break %}
         {% endif -%}
         {%- if post.categories contains index-category and post.hideFromIndex != true %}
-        <li class="grid-item grid-index-li">
+        <li class="grid-index-li">
             <a class="index-a mdc-card grid-index-card grid-index-card__ripple" href="{{ post.url }}">
                 <section>
                     {%- if post.index-cover != null %}

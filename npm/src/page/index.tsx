@@ -26,8 +26,7 @@ function initIndexList() {
     if (category == SECTION_TYPE_OTHER.identifier) return
 
     const onUpdate = () => {
-        // 销毁react之前的Masonry实例
-        // destroyMasonry()
+
     }
     const onMount = () => {
         // React加载之后，启动Cover动画
@@ -42,8 +41,6 @@ function initIndexList() {
             onMount={onMount} onUpdate={onUpdate} />)
     } else if(wrapperE.querySelectorAll(".grid-index-ul").length > 0) {
         // 看剧
-        // 显示Jekyll预加载数据，同样适用Masonry布局，然后React更新它，会更顺滑
-        // initMasonry()
         const descriptionE = document.querySelector(".grid-index-li--description")
         let descriptionHtml = ""
         if (descriptionE != null)
