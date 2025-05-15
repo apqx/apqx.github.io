@@ -34,7 +34,7 @@ body {
 }
 
 // 文章卡片的默认位置向下偏移，且变为透明
-.content-card--fade-in {
+.content-card-slide-in {
     transform: translateY(var(--content-card-animation-translate-y));
     opacity: 0;
     // TODO: 透明度动画部分页面在safari上会显示泛白，所以尽量缩短时间
@@ -45,7 +45,7 @@ body {
 }
 
 // 启动动画，文章卡片向上移动到原位置
-.content-card--fade-in.content-card--fade-in-start {
+.content-card-slide-in.content-card-slide-in-start {
     transform: translateY(0);
     opacity: 1;
 }

@@ -3,3 +3,36 @@
     transition: height var(--image-height-animation-duration) ease;
     // will-change: contents;
 }
+
+.card-slide-in {
+    transform: translateY(var(--index-card-animation-translate-y));
+    opacity: 0;
+    transition: transform var(--index-card-animation-duration) ease,
+        opacity calc(var(--index-card-animation-duration) / 2) ease;
+}
+
+.card-slide-in.card-slide-in-start {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.card-slide-in-middle {
+    transform: translateY(calc(var(--index-card-animation-translate-y) * 2));
+    opacity: 0;
+    transition: transform var(--index-card-animation-duration) ease,
+        opacity calc(var(--index-card-animation-duration) / 2) ease;
+}
+
+.card-slide-in-middle.card-slide-in-middle-start {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.card-fade-in {
+    opacity: 0;
+    transition: opacity var(--index-card-animation-duration) ease;
+}
+
+.card-fade-in.card-fade-in-start {
+    opacity: 1;
+}

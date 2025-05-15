@@ -165,7 +165,7 @@ class IndexItem extends React.Component<IndexItemProps, any> {
         const actorStr = this.props.actor.join(" ")
         return (
             <li className="grid-index-li">
-                <a className="index-a mdc-card grid-index-card grid-index-card__ripple index-card--fade-in" href={this.props.path}>
+                <a className="index-a mdc-card grid-index-card grid-index-card__ripple card-slide-in-middle" href={this.props.path}>
                     <section>
                         {this.props.cover != null && this.props.cover.length > 0 &&
                             <img className="grid-index-cover" loading="lazy" src={this.props.cover} alt={this.props.coverAlt} />
@@ -194,7 +194,7 @@ type IndexDescriptionItemProps = {
 }
 
 class IndexDescriptionItem extends React.Component<IndexDescriptionItemProps, any> {
-    animationE: HTMLElement | null = null
+    cardE: HTMLElement | null = null
 
     constructor(props: IndexDescriptionItemProps) {
         super(props)
@@ -208,17 +208,17 @@ class IndexDescriptionItem extends React.Component<IndexDescriptionItemProps, an
             setupTagTrigger(trigger as HTMLElement)
         }
 
-        this.animationE = rootE.querySelector(".grid-index-card")
+        this.cardE = rootE.querySelector(".grid-index-card")
         // 监听元素进入窗口初次显示
-        if (this.animationE != null) {
-            interSectionObserver.observe(this.animationE)
+        if (this.cardE != null) {
+            interSectionObserver.observe(this.cardE)
         }
     }
 
     componentWillUnmount(): void {
         consoleDebug("IndexDescriptionItem componentWillUnmount")
-        if (this.animationE != null) {
-            interSectionObserver.unobserve(this.animationE)
+        if (this.cardE != null) {
+            interSectionObserver.unobserve(this.cardE)
         }
     }
 

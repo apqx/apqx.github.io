@@ -132,8 +132,8 @@ const INDEX_TOP_COVER_RATIO = 844 / 295
  */
 function initIndexTopCover() {
     // 顶部卡片，透明度动画
-    for (const ele of document.querySelectorAll(".index-top-card.index-top-card--fade-in")) {
-        toggleClassWithEnable(ele, "index-top-card--fade-in-start", true)
+    for (const ele of document.querySelectorAll(".index-top-card.card-fade-in")) {
+        toggleClassWithEnable(ele, "card-fade-in-start", true)
     }
     // 顶部封面图片，高度动画
     for (const ele of document.querySelectorAll(".index-top-cover.image-height-animation")) {
