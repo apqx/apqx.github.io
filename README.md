@@ -2,9 +2,9 @@
 
 [![Deploy Jekyll site to Pages](https://github.com/apqx/apqx.github.io/actions/workflows/jekyll.yml/badge.svg)](https://github.com/apqx/apqx.github.io/actions/workflows/jekyll.yml)
 
-由[Jekyll](https://jekyllrb.com)驱动的静态博客，遵循[Material Design](https://material.io)设计规范，主体使用[Material Components Web](https://github.com/material-components/material-components-web)框架。
+由[Jekyll](https://jekyllrb.com)驱动的静态博客，参考[Material Design](https://material.io)设计风格，使用[Material Components Web](https://github.com/material-components/material-components-web)框架。
 
-并非通用博客模版，而是以我自己的喜好量身定制，由随笔、转载、诗文、看剧4个板块组成，应用平淡极简风格，在文字、色彩和动画之外不添加多余元素。可作为`Material Design`个人站参考，但不建议直接套用，尚未进行模版化改造。
+并非通用博客模版，而是以我自己的喜好量身定制，由随笔、转载、诗文、看剧4个板块组成，整体采用平淡极简风格，在文字、色彩和动画之外不添加多余元素。可作为`Material Design`个人站参考，但不建议直接套用，尚未进行模版化改造。
 
 主页：[立泉的写字板](https://mudan.me)
 
@@ -29,7 +29,7 @@
 切换到内部`Webpack`工程目录，编译生成`JS`、`CSS`：
 
 ```sh
-# 进入内部Webpack工程
+# 进入内部 Webpack 工程
 cd npm
 # 安装所需依赖
 npm install
@@ -44,7 +44,7 @@ npm run build
 ```html
 <!-- _includes/configure.html -->
 
-<!-- 设置debug为true，将会使用本地资源 -->
+<!-- 设置 debug 为 true，将会使用本地资源 -->
 {% assign debug = true %}
 ```
 
@@ -68,7 +68,7 @@ bundle exec jekyll serve -l -o --trace --draft
 http://localhost:4000
 ```
 
-`jekyll serve`是以开发模式生成站点，一些插件比如`jekyll-sitemap`并不会使用`_config.yml`中配置的域名。生成可部署站点需执行`jekyll build`。
+`jekyll serve`是以开发模式生成站点，一些插件比如`jekyll-sitemap`并不会使用`_config.yml`中配置的域名，如果要生成可部署站点需执行`jekyll build`。
 
 ```sh
 bundle exec jekyll build --trace
@@ -76,12 +76,12 @@ bundle exec jekyll build --trace
 
 ## 部署到GitHub Pages
 
-调试后，`Webpack`生成的新`JS`和`CSS`文件需要更新到`OSS`中，然后在`_includes/configure.html`中关闭`debug`模式即可使用这些远程资源。
+调试完成后，把`Webpack`生成的新`JS`和`CSS`文件上传到`OSS`中，然后在`_includes/configure.html`中关闭`debug`模式即可使用这些远程资源。
 
 ```html
 <!-- _includes/configure.html -->
 
-<!-- 设置debug为false -->
+<!-- 设置 debug 为 false -->
 {% assign debug = false %}
 ```
 
@@ -95,6 +95,6 @@ git push
 
 ![立泉的写字板](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/screenshots/index_phone.webp)
 
-## 版权
+## 开源与版权
 
-博客代码以`GPL`许可开源，但对文章内容保留著作权，对摄影照片保留版权，未经允许不可作商业用途。
+博客代码以`GPL-3.0`协议开源，但[_posts](./_posts/)目录下的原创文章以[CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/)协议保留著作权，对其中的摄影照片保留版权，未经允许不可作商业用途。
