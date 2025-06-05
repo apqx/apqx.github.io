@@ -69,15 +69,14 @@ footer * {
 // 内容最外层的主容器
 .main-container {
     width: 100%;
-    max-width: blogTheme.$center-card-max-width;
+    max-width: blogTheme.$center-container-max-width;
     // 横向居中
     margin: var(--main-container-padding-vertical) auto;
 }
 
 .foot-container {
     width: 100%;
-    max-width: blogTheme.$center-card-max-width;
-    ;
+    max-width: blogTheme.$center-container-max-width;
     margin: 0 auto;
     flex: 1;
     padding: 0;

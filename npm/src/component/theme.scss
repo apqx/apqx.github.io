@@ -16,9 +16,13 @@ $code-block-font: unquote("LXGW WenKai Mono GB, LXGW WenKai GB, PingFang SC, Rob
 @use "sass:map";
 @use "sass:color";
 
+// 中型屏幕宽度范围，定义为平板，小于此尺寸为手机，大于此尺寸为电脑
 $screen-middle-min-width: 600px;
 $screen-middle-max-width: 880px;
-$center-card-max-width: 880px;
+// 页面中部容器的最大宽度，普通索引页、文章页等都使用此宽度
+$center-container-max-width: 880px;
+// 更宽的页面中部容器的最大宽度，透镜索引页展示照片墙使用此宽度
+$center-container-larger-max-width: 1200px;
 
 $ripple-gap-percent: 25%;
 
@@ -52,8 +56,8 @@ $background: (
 );
 
 $text-title: (
-        light: color.adjust(map.get($surface, "light"), $lightness: -90%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: +90%),
+        light: color.adjust(map.get($surface, "light"), $lightness: -91%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: +91%),
 );
 
 $text-subtitle: (
@@ -62,8 +66,8 @@ $text-subtitle: (
 );
 
 $text-content: (
-        light: color.adjust(map.get($surface, "light"), $lightness: -80%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: +80%),
+        light: color.adjust(map.get($text-title, "light"), $lightness: +10%),
+        dark: color.adjust(map.get($text-title, "dark"), $lightness: -10%),
 );
 
 $text-content-secondary: (

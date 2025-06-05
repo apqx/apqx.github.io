@@ -20,7 +20,7 @@ export function runOnHtmlDone(task: () => void) {
 }
 
 /**
- * 当整个页面及资源加载完成后执行指定的任务
+ * 当整个页面及资源加载完成后执行指定的任务，包括字体、图片等
  */
 export function runOnPageDone(task: () => void) {
     // 有时候页面在设置监听器之前已经加载完成

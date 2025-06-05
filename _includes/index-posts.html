@@ -1,16 +1,9 @@
-<script>
-    // 为顶部卡片添加动画
-    const cardE = document.querySelector(".index-top-card")
-    if (cardE != null) {
-        cardE.classList.add("card-fade-in")
-    }
-</script>
-
+<!-- Jekyll生成的HTML列表默认隐藏，由React重新加载 -->
 <section id="index-list-wrapper">
     <ul class="index-ul">
         {% for post in site.posts %}
         {%- if post.categories contains index-category and post.hideFromIndex != true and post.pin == true %}
-        <li class="index-li index-li--pin">
+        <li class="index-li index-li--pin" style="display: none;">
             <a class="index-a mdc-card index-card" href="{{ post.url }}">
                 <section>
                     <h1 class="index-title">{{ post.title }}</h1>
@@ -29,7 +22,7 @@
                 {%- break %}
             {% endif -%}
             {%- if post.categories contains index-category and post.hideFromIndex != true -%}
-            <li class="index-li">
+            <li class="index-li" style="display: none;">
                 <a class="index-a mdc-card index-card" href="{{ post.url }}">
                     <section>
                         <h1 class="index-title">{{ post.title }}</h1>
@@ -44,15 +37,3 @@
         {% endfor -%}
     </ul>
 </section>
-
-<script>
-    // 为Cover添加动画
-    const coverE = document.querySelector(".index-top-cover")
-    if (coverE != null) {
-        coverE.classList.add("image-height-animation")
-    }
-    // 隐藏所有item，由React重新加载
-    for(const e of document.querySelectorAll(".index-li")) {
-        e.style.display = "none";
-    }
-</script>
