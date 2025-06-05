@@ -119,6 +119,8 @@ footer * {
 
 img {
     display: block;
+    // 阻止移动端 Safari 长按图片弹出菜单
+    -webkit-touch-callout: none;
 }
 
 img.inline-for-center {

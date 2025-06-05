@@ -9,6 +9,7 @@ runOnHtmlDone(() => {
     initCodeHighlight()
     initPageCheck()
     initImgJump()
+    initImg()
 })
 
 function initCodeHighlight() {
@@ -60,4 +61,14 @@ function showCopyrightDialog(url: string) {
             copyrightImgClicked = true
             window.open(url, "_blank")
         })
+}
+
+function initImg() {
+    // 右键点击图片时，阻止弹出默认的右键菜单，而是弹出自定义提示
+    document.addEventListener("contextmenu", (event) => {
+        if (event.target instanceof HTMLImageElement) {
+            event.preventDefault();
+            showAlertDialog("提示", "节省数据流量文中是缩略图，点击图片可以跳转到原图。", "OK", () => {})
+        }
+    })
 }
