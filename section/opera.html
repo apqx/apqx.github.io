@@ -41,8 +41,8 @@ blockFromSearchEngine: false
         <li class="grid-index-li" style="display: none;">
             <a class="index-a mdc-card grid-index-card grid-index-card__ripple" href="{{ post.url }}">
                 <section>
-                    {%- if post.index-cover != null %}
-                    <img class="grid-index-cover" loading="lazy" src="{{ post.index-cover }}"
+                    {%- if post.cover-for-index != null %}
+                    <img class="grid-index-cover" loading="lazy" src="{{ post.cover-for-index }}"
                         alt="{{ post.cover-alt }}" />
                     {% elsif post.cover != null %}
                     <img class="grid-index-cover" loading="lazy" src="{{ post.cover }}"
