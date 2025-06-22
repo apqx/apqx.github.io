@@ -65,6 +65,11 @@ export class GridIndexList extends BasePostPaginateShow<Props> {
     }
 
     render(): ReactNode {
+        // const breakpointColumnsObj = {
+        //     default: 3,
+        //     950: 2,
+        //     600: 1
+        // };
         const breakpointColumnsObj = {
             default: 2,
             600: 1

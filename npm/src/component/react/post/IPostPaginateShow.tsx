@@ -15,5 +15,6 @@ export interface IPostPaginateShow {
      * 加载更多，由点击触发，有动画延时
      */
     loadMoreByClick(): void
+    
     destroy(): void
 }

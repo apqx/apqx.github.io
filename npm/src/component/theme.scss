@@ -1,5 +1,6 @@
 // 霞鹜文楷GB
 $text-font-xlwk: unquote("PingFangSCEllipsis, LXGW WenKai GB, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
+// $text-font-xlwk-noto-emoji: unquote("PingFangSCEllipsis, LXGW WenKai GB, PingFang SC, Roboto, sans-serif, Noto Emoji, Apple Color Emoji, Noto Color Emoji");
 $text-font-noto-serif: unquote("PingFangSCEllipsis, Noto Serif SC, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
 $text-font-libre-baskerville: unquote("LibreBaskerville, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
 // 兰亭题序国风行楷
@@ -343,7 +344,6 @@ $surface-block-border: (
         --footer-ink:#{map.get($footer-ink, "dark")};
 
         // Drawer
-
         --dialog-action-btn-bg: #{map.get($dialog-action-btn-bg, "dark")};
         --dialog-action-btn-ink: #{map.get($dialog-action-btn-ink, "dark")};
 

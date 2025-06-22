@@ -11,10 +11,12 @@
 @use "LibreBaskerville";
 // Material Icons
 @use "MaterialSymbols";
+// 黑白颜色的 Noto Emoji，但是Safari显示异常，暂不启用
+// @use "NotoEmojiRegular";
 
 // @font-face {
-//     font-family: "LXGW WenKai GB";
-//     src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/LXGWWenKaiGBLite/v1.501/LXGWWenKaiGBLite-Light.ttf") format('woff2');
+//     font-family: "TEST";
+//     src: url("http://localhost:4000/assets/NotoEmoji-Regular.ttf") format('truetype');
 //     font-style: normal;
 //     font-weight: 400;
 //     font-display: swap;
