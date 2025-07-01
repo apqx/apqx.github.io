@@ -31,10 +31,10 @@ $ripple-gap-percent: 25%;
 $top-bar: (
         bg-light: #ffffff,
         bg-blur-light: rgba(255, 255, 255, 0.8),
-        bg-shadow-light: #a46053,
+        bg-shadow-light: #e8e8e8,
         bg-dark: #1d1d1d,
         bg-blur-dark: rgba(30, 30, 30, 0.8),
-        bg-shadow-dark: #a46053,
+        bg-shadow-dark: #0a0a0a,
 );
 $top-bar-ink:(
         light: color.adjust(map.get($top-bar, "bg-light"), $lightness: -80%),
@@ -110,18 +110,18 @@ $top-bar-elevation: (
 );
 $fab-elevation: (
         elevation: 0,
-        shadow-light: #2a2a2a,
-        shadow-dark: #1a1a1a
+        shadow-light: #e8e8e8,
+        shadow-dark: #0a0a0a
 );
 $drawer-elevation: (
         elevation: 0,
-        shadow-light: #d5d5d5,
+        shadow-light: #e8e8e8,
         shadow-dark: #0a0a0a
 );
 $card-elevation: (
         elevation: 0,
-        shadow-light: #d5d5d5,
-        min-screen-shadow-light: #e3e3e3,
+        shadow-light: #e8e8e8,
+        min-screen-shadow-light: #e8e8e8,
         shadow-dark: #0a0a0a,
         min-screen-shadow-dark: #0a0a0a,
 );

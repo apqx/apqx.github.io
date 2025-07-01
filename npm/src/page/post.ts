@@ -45,11 +45,12 @@ function initImgJump() {
             // 所有的图片，缩略图都加了_thumb后缀，删除后即为原图
             url = img.getAttribute("src")!!.replace("_thumb", "")
             consoleDebug("Click show original img, copyright = " + hasCopyright + ", => " + url)
-            if (hasCopyright && !copyrightImgClicked) {
-                showCopyrightDialog(url);
-            } else {
-                window.open(url, "_blank")
-            }
+            showCopyrightDialog(url);
+            // if (hasCopyright && !copyrightImgClicked) {
+            //     showCopyrightDialog(url);
+            // } else {
+            //     window.open(url, "_blank")
+            // }
         })
     }
 }

@@ -9,11 +9,6 @@ interface Props extends BasicDialogProps {
 
 class CommonAlertDialog extends BasicDialog<Props, any> {
 
-    shouldComponentUpdate(nextProps: Readonly<Props>, nextState: Readonly<any>, nextContext: any): boolean {
-        super.shouldComponentUpdate(nextProps, nextState, nextContext)
-        return nextProps.title != this.props.title || nextProps.contentHTML != this.props.contentHTML
-    }
-
     dialogContent(): JSX.Element {
         return (
             <div>
