@@ -1,0 +1,34 @@
+@use "../theme" as blogTheme;
+@use "@material/snackbar";
+@use "@material/snackbar/mdc-snackbar";
+
+.mdc-snackbar {
+    @include snackbar.elevation(0);
+    margin-top: 0rem;
+    margin-bottom: 0rem;
+    bottom: 1.3rem;
+}
+
+.mdc-snackbar__surface {
+    // 位置与fab中心对齐
+    padding-left: 0;
+    padding-right: 0;
+    min-width: 0;
+
+    background-color: var(--mdc-theme-secondary);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.mdc-snackbar__label {
+    font-family: blogTheme.$text-font-xlwk;
+    color: var(--mdc-theme-on-surface);
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+@media(min-width: blogTheme.$screen-middle-min-width) {
+    .mdc-snackbar {
+        bottom: 1.8rem;
+    }
+}

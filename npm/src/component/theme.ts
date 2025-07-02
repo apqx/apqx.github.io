@@ -1,7 +1,8 @@
 import { isChrome, isMobileOrTablet, isSafari, toggleClassWithEnable } from "../util/tools";
 import { consoleDebug } from "../util/log";
-import { localRepository } from "../repository/LocalRepository";
+import { LocalRepository, localRepository } from "../repository/LocalRepository";
 import { iconToggleTheme, toggleTopbarGlass } from "./topbar";
+import { showSnackbar } from "./react/Snackbar";
 
 export const darkClass = "dark"
 
@@ -100,16 +101,38 @@ export function setMetaThemeColor(color: string | null) {
  * 切换主题
  */
 export function toggleTheme(saveUserSetting: boolean) {
-    const bodyE = document.body
-    const currentDark = bodyE.classList.contains(darkClass)
-    if (currentDark) {
-        showThemeDark(false)
-        if (saveUserSetting)
-            saveTheme(localRepository!!.VALUE_THEME_LIGHT)
-    } else {
-        showThemeDark(true)
-        if (saveUserSetting)
-            saveTheme(localRepository!!.VALUE_THEME_DARK)
+    const themeArray = [localRepository!!.VALUE_THEME_AUTO, localRepository!!.VALUE_THEME_DARK, localRepository!!.VALUE_THEME_LIGHT]
+    const currentTheme = localRepository!!.getTheme() ?? localRepository!!.VALUE_THEME_AUTO
+    const currentThemeIndex = themeArray.indexOf(currentTheme)
+    const nextThemeIndex = (currentThemeIndex + 1) % themeArray.length
+    const nextTheme = themeArray[nextThemeIndex]
+    consoleDebug("Toggle theme, current = " + currentTheme + ", next = " + nextTheme)
+
+    switch (nextTheme) {
+        case localRepository!!.VALUE_THEME_AUTO: {
+            applySystemTheme()
+            showSnackbar("主题跟随系统")
+            break
+        }
+        case localRepository!!.VALUE_THEME_DARK: {
+            showThemeDark(true)
+            showSnackbar("已切换到暗色主题")
+            break
+        }
+        case localRepository!!.VALUE_THEME_LIGHT: {
+            showThemeDark(false)
+            showSnackbar("已切换到亮色主题")
+            break
+        }
+        default: {
+            // 默认使用系统主题
+            applySystemTheme()
+            showSnackbar("主题跟随系统")
+            break
+        }
+    }
+    if (saveUserSetting) {
+        saveTheme(nextTheme)
     }
 }
 
@@ -135,15 +158,11 @@ export function saveTheme(theme: string) {
 }
 
 export function checkUserTheme() {
+    // 默认情况下 savedTheme 为 null
     const savedTheme = localRepository!!.getTheme()
     switch (savedTheme) {
         case localRepository!!.VALUE_THEME_AUTO: {
-            const sysDarkTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
-            if (sysDarkTheme) {
-                showThemeDark(true)
-            } else {
-                showThemeDark(false)
-            }
+            applySystemTheme();
             break
         }
         case localRepository!!.VALUE_THEME_DARK: {
@@ -155,9 +174,20 @@ export function checkUserTheme() {
             break
         }
         default: {
-            // 默认设置为亮色主题
-            showThemeDark(false);
+            // 默认使用系统主题
+            applySystemTheme();
+            saveTheme(localRepository!!.VALUE_THEME_AUTO);
             break
         }
     }
 }
+
+function applySystemTheme() {
+    const sysDarkTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    if (sysDarkTheme) {
+        showThemeDark(true);
+    } else {
+        showThemeDark(false);
+    }
+}
+
