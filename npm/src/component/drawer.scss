@@ -1,4 +1,4 @@
-@use "theme" as blogTheme;
+@use "../style/global" as base;
 @use "@material/drawer";
 @use "@material/drawer/mdc-drawer";
 @use "@material/drawer/modal/mdc-drawer-modal";
@@ -15,7 +15,7 @@
 
 .mdc-drawer {
     z-index: 3;
-    @include elevation.elevation(map.get(blogTheme.$drawer-elevation, "elevation"), map.get(blogTheme.$drawer-elevation, "shadow-light"), 0);
+    @include elevation.elevation(map.get(base.$drawer-elevation, "elevation"), map.get(base.$drawer-elevation, "shadow-light"), 0);
     @include drawer.item-text-ink-color(var(--mdc-theme-on-surface));
     @include drawer.item-icon-ink-color(var(--mdc-theme-on-surface));
     @include drawer.item-activated-text-ink-color(var(--mdc-theme-on-surface));
@@ -27,7 +27,7 @@
 }
 
 .dark .mdc-drawer {
-    @include elevation.elevation(map.get(blogTheme.$drawer-elevation, "elevation"), map.get(blogTheme.$drawer-elevation, "shadow-dark"), 0);
+    @include elevation.elevation(map.get(base.$drawer-elevation, "elevation"), map.get(base.$drawer-elevation, "shadow-dark"), 0);
 }
 
 .mdc-drawer-scroll-lock {
@@ -38,8 +38,8 @@
     z-index: 2;
     background-color: var(--drawer-scrim-bg);
     transition: opacity var(--dialog-animation-duration) ease !important;
-    -webkit-backdrop-filter: blur(map.get(blogTheme.$scrim, "backdrop-blur"));
-    backdrop-filter: blur(map.get(blogTheme.$scrim, "backdrop-blur"));
+    -webkit-backdrop-filter: blur(map.get(base.$scrim, "backdrop-blur"));
+    backdrop-filter: blur(map.get(base.$scrim, "backdrop-blur"));
 }
 
 .mdc-drawer__title {
@@ -64,24 +64,24 @@
 }
 
 .nav-list .mdc-deprecated-list-item.mdc-deprecated-list-item--selected {
-    background-color: rgba($color: map.get(blogTheme.$drawer-nav-ripple, "light"), $alpha: 0.15)
+    background-color: rgba($color: map.get(base.$drawer-nav-ripple, "light"), $alpha: 0.15)
 }
 
 .dark .nav-list .mdc-deprecated-list-item.mdc-deprecated-list-item--selected {
-    background-color: rgba($color: map.get(blogTheme.$drawer-nav-ripple, "dark"), $alpha: 0.15)
+    background-color: rgba($color: map.get(base.$drawer-nav-ripple, "dark"), $alpha: 0.15)
 }
 
 .nav-list {
     .mdc-deprecated-list-item {
         @include ripple.surface;
         @include ripple.radius-bounded;
-        @include ripple.states-base-color(map.get(blogTheme.$drawer-nav-ripple, "light"));
+        @include ripple.states-base-color(map.get(base.$drawer-nav-ripple, "light"));
         @include ripple.states-opacities((hover: .1, focus: .1, press: .1));
     }
 }
 
 .dark .nav-list .mdc-deprecated-list-item {
-    @include ripple.states-base-color(map.get(blogTheme.$drawer-nav-ripple, "dark"));
+    @include ripple.states-base-color(map.get(base.$drawer-nav-ripple, "dark"));
     @include ripple.states-opacities((hover: .1, focus: .1, press: .1));
 }
 

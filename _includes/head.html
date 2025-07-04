@@ -53,10 +53,6 @@
 <link rel="stylesheet" href="{{ resUrlPrefix }}blog-post-v{{ version }}.css"/>
 {% endif -%}
 {% endif -%}
-{% if page.categories contains "search" -%}
-<link href="{{ pagefindUrlPrefix }}pagefind/pagefind-modular-ui.css" rel="stylesheet">
-<script src="{{ pagefindUrlPrefix }}pagefind/pagefind-modular-ui.js"></script>
-{% endif -%}
 {% if page.preloadImageWebp != null -%}
 <link rel="preload" href="{{ page.preloadImageWebp }}" as="image" type="image/webp" />
 {% endif -%}

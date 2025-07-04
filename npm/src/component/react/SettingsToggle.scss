@@ -1,0 +1,16 @@
+body {
+    --md-switch-state-layer-size: 0rem;
+    --md-switch-handle-width: 0.6rem;
+    --md-switch-handle-height: 0.6rem;
+    --md-switch-selected-handle-width: 0.6rem;
+    --md-switch-selected-handle-height: 0.6rem;
+    --md-switch-track-width: 2.5rem;
+    --md-switch-track-height: 1.2rem;
+
+    // Switch默认颜色为primary
+    --md-sys-color-primary: #5a5fc1;
+}
+
+.dark {
+    --md-sys-color-primary: #3a78c6;
+}

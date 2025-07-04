@@ -1,8 +1,8 @@
-import {MDCRipple} from "@material/ripple";
-import {consoleDebug} from "../util/log";
-import {showTagDialog} from "./dialog/TagDialog";
-import { clearFocusListener } from "../util/tools";
 // import "./tag.scss"
+import { MDCRipple } from "@material/ripple"
+import { consoleDebug } from "../util/log"
+import { showTagDialog } from "./dialog/TagDialog"
+import { clearFocusListener } from "../util/tools"
 
 /**
  * 初始化tag的点击事件

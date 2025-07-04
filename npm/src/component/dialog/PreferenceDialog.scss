@@ -1,4 +1,4 @@
-@use "../theme" as blogTheme;
+@use "../react/SettingsToggle";
 @use "@material/icon-button";
 @use "@material/icon-button/styles" as iconBtnStyles;
 @use "sass:map";
@@ -23,6 +23,7 @@
 }
 
 .preference-item-toggle__title {
+    font-size: var(--mdc-typography-body1-font-size);
     flex: 1;
 }
 

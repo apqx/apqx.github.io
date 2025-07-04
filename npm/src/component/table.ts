@@ -1,5 +1,5 @@
-import {MDCDataTable} from "@material/data-table";
 // import "./table.scss"
+import { MDCDataTable } from "@material/data-table"
 
 export function initTable() {
 

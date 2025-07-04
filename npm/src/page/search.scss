@@ -1,7 +1,0 @@
-@use "@material/typography";
-@use "@material/typography/mdc-typography";
-
-input.pagefind-modular-input {
-    @include typography.typography(body1);
-    color: var(--mdc-theme-on-surface);
-}

@@ -1,0 +1,5 @@
+.image-height-animation {
+    height: 0px;
+    transition: height var(--image-height-animation-duration) ease;
+    // will-change: contents;
+}

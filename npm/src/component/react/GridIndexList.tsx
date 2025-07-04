@@ -1,30 +1,28 @@
-import { ReactNode } from "react";
-import React from "react";
-import ReactDOM from "react-dom";
-import { MDCRipple } from "@material/ripple";
-import { ImageLoadAnimator } from "../animation/ImageLoadAnimator";
-import { ERROR_HINT, LoadingHint } from "./LoadingHint";
-import { consoleDebug, consoleObjDebug } from "../../util/log";
-import { BasePostPaginateShow, BasePostPaginateShowProps, BasePostPaginateShowState, Post } from "./post/BasePostPaginateShow";
-import { IPostPaginateShowPresenter } from "./post/IPostPaginateShowPresenter";
-import { PostPaginateShowPresenter } from "./post/PostPaginateShowPresenter";
-import { setupTagTrigger } from "../tag";
-import { ScrollLoader } from "../../base/ScrollLoader";
+// import "./GridIndexList.scss"
+import { ReactNode } from "react"
+import React from "react"
+import ReactDOM from "react-dom"
+import { MDCRipple } from "@material/ripple"
+import { ImageLoadAnimator } from "../animation/ImageLoadAnimator"
+import { ERROR_HINT, LoadingHint } from "./LoadingHint"
+import { consoleDebug, consoleObjDebug } from "../../util/log"
+import { BasePostPaginateShow, BasePostPaginateShowProps, BasePostPaginateShowState, Post } from "./post/BasePostPaginateShow"
+import { IPostPaginateShowPresenter } from "./post/IPostPaginateShowPresenter"
+import { PostPaginateShowPresenter } from "./post/PostPaginateShowPresenter"
+import { setupTagTrigger } from "../tag"
+import { ScrollLoader } from "../../base/ScrollLoader"
 import Masonry from 'react-masonry-css'
-import { HeightAnimationContainer } from "../animation/HeightAnimationContainer";
-import { toggleClassWithEnable } from "../../util/tools";
-import { showFooter } from "../footer";
-import { interSectionObserver } from "../animation/BaseAnimation";
+import { showFooter } from "../footer"
+import { interSectionObserver } from "../animation/BaseAnimation"
 
 interface Props extends BasePostPaginateShowProps {
     pageDescriptionHtml: string
 }
 
 export class GridIndexList extends BasePostPaginateShow<Props> {
-    heightAnimationContainer: HeightAnimationContainer | null = null
 
     constructor(props: Props) {
-        super(props);
+        super(props)
     }
 
     createPresenter(): IPostPaginateShowPresenter {
@@ -46,21 +44,14 @@ export class GridIndexList extends BasePostPaginateShow<Props> {
         super.componentDidMount()
         consoleDebug("GridIndex componentDidMount")
         const rootE = ReactDOM.findDOMNode(this) as HTMLElement
-        // 不使用高度动画
-        // this.heightAnimationContainer = new HeightAnimationContainer(rootE)
         if (this.props.onUpdate != null) this.props.onUpdate()
         this.initScroll()
         // 显示footer，在索引页其被默认隐藏，需要在列表首次加载后显示出来
         showFooter()
     }
 
-    componentWillUnmount(): void {
-        this.heightAnimationContainer?.destroy()
-    }
-
     componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<BasePostPaginateShowState>, snapshot?: any): void {
         consoleDebug("GridIndex componentDidUpdate")
-        this.heightAnimationContainer?.update()
         if (this.props.onUpdate != null) this.props.onUpdate()
     }
 
@@ -69,45 +60,43 @@ export class GridIndexList extends BasePostPaginateShow<Props> {
         //     default: 3,
         //     950: 2,
         //     600: 1
-        // };
+        // }
         const breakpointColumnsObj = {
             default: 2,
             600: 1
-        };
+        }
         return (
-            <div className="height-animation-container">
-                <ul className="grid-index-ul">
-                    <Masonry
-                        breakpointCols={breakpointColumnsObj}
-                        className="my-masonry-grid"
-                        columnClassName="my-masonry-grid_column">
-                        {this.props.pageDescriptionHtml != null && this.props.pageDescriptionHtml.length > 0 &&
-                            <IndexDescriptionItem innerHtml={this.props.pageDescriptionHtml} />
-                        }
-                        {this.state.posts.map((item: Post, index: number) =>
-                            // TODO: 有时候jekyll生成的path和paginate生成的path不一样，导致item重新加载，这种情况并不多
-                            !item.pin && !item.hide &&
-                            <IndexItem key={item.path}
-                                index={index}
-                                title={item.title}
-                                author={item.author}
-                                actor={item.actor}
-                                date={item.date}
-                                path={item.path}
-                                description={item.description}
-                                cover={item.cover}
-                                coverAlt={item.coverAlt}
-                                last={index == this.state.posts.length - 1}
-                                coverLoadedCallback={() => this.heightAnimationContainer?.update()} />
-                        )}
-                        {(this.state.loading || this.state.loadHint != null) &&
-                            <li className="grid-index-li">
-                                <LoadingHint loading={this.state.loading} loadHint={this.state.loadHint} onClickHint={this.loadMoreByClick} />
-                            </li>
-                        }
-                    </Masonry>
-                </ul>
-            </div>
+            <ul className="grid-index-ul">
+                <Masonry
+                    breakpointCols={breakpointColumnsObj}
+                    className="my-masonry-grid"
+                    columnClassName="my-masonry-grid_column">
+                    {this.props.pageDescriptionHtml != null && this.props.pageDescriptionHtml.length > 0 &&
+                        <IndexDescriptionItem innerHtml={this.props.pageDescriptionHtml} />
+                    }
+                    {this.state.posts.map((item: Post, index: number) =>
+                        // TODO: 有时候jekyll生成的path和paginate生成的path不一样，导致item重新加载，这种情况并不多
+                        !item.pin && !item.hide &&
+                        <IndexItem key={item.path}
+                            index={index}
+                            title={item.title}
+                            author={item.author}
+                            actor={item.actor}
+                            date={item.date}
+                            path={item.path}
+                            description={item.description}
+                            cover={item.cover}
+                            coverAlt={item.coverAlt}
+                            last={index == this.state.posts.length - 1}
+                            coverLoadedCallback={() => {}} />
+                    )}
+                    {(this.state.loading || this.state.loadHint != null) &&
+                        <li className="grid-index-li">
+                            <LoadingHint loading={this.state.loading} loadHint={this.state.loadHint} onClickHint={this.loadMoreByClick} />
+                        </li>
+                    }
+                </Masonry>
+            </ul>
         )
     }
 }

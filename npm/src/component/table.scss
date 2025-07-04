@@ -1,4 +1,4 @@
-@use "theme" as blogTheme;
+@use "../style/global" as base;
 @use "text";
 @use "@material/data-table/data-table";
 @use "@material/data-table/data-table-theme";
@@ -25,11 +25,11 @@ th,
 }
 
 .mdc-data-table__row:not(.mdc-data-table__row--selected):hover {
-    background-color: rgba($color: map.get(blogTheme.$drawer-nav-ripple, "light"), $alpha: 0.1);
+    background-color: rgba($color: map.get(base.$drawer-nav-ripple, "light"), $alpha: 0.1);
 }
 
 .dark .mdc-data-table__row:not(.mdc-data-table__row--selected):hover {
-    background-color: rgba($color: map.get(blogTheme.$drawer-nav-ripple, "dark"), $alpha: 0.1);
+    background-color: rgba($color: map.get(base.$drawer-nav-ripple, "dark"), $alpha: 0.1);
 }
 
 .table-wrapper {

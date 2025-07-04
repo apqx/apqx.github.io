@@ -1,3 +1,4 @@
+// import "./footer.scss"
 import { isIndexPage } from "../base/constant"
 import { interSectionObserver } from "./animation/BaseAnimation"
 

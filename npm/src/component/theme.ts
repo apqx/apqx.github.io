@@ -1,8 +1,9 @@
-import { isChrome, isMobileOrTablet, isSafari, toggleClassWithEnable } from "../util/tools";
-import { consoleDebug } from "../util/log";
-import { LocalRepository, localRepository } from "../repository/LocalRepository";
-import { iconToggleTheme, toggleTopbarGlass } from "./topbar";
-import { showSnackbar } from "./react/Snackbar";
+// import "./theme.scss"
+import { isChrome, isMobileOrTablet, isSafari, toggleClassWithEnable } from "../util/tools"
+import { consoleDebug } from "../util/log"
+import { LocalRepository, localRepository } from "../repository/LocalRepository"
+import { iconToggleTheme, toggleTopbarGlass } from "./topbar"
+import { showSnackbar } from "./react/Snackbar"
 
 export const darkClass = "dark"
 
@@ -18,7 +19,7 @@ export function initTheme() {
             const currentThemeDark = document.body.classList.contains(darkClass)
             if (currentThemeDark != newSysThemeDark) {
                 // 响应系统的主题修改，即变化主题
-                toggleTheme(false)
+                showThemeDark(newSysThemeDark);
             }
         }
     });
@@ -98,9 +99,9 @@ export function setMetaThemeColor(color: string | null) {
 }
 
 /**
- * 切换主题
+ * 根据用户设置切换主题
  */
-export function toggleTheme(saveUserSetting: boolean) {
+export function toggleTheme() {
     const themeArray = [localRepository!!.VALUE_THEME_AUTO, localRepository!!.VALUE_THEME_DARK, localRepository!!.VALUE_THEME_LIGHT]
     const currentTheme = localRepository!!.getTheme() ?? localRepository!!.VALUE_THEME_AUTO
     const currentThemeIndex = themeArray.indexOf(currentTheme)
@@ -111,7 +112,7 @@ export function toggleTheme(saveUserSetting: boolean) {
     switch (nextTheme) {
         case localRepository!!.VALUE_THEME_AUTO: {
             applySystemTheme()
-            showSnackbar("主题跟随系统")
+            showSnackbar("已设置主题跟随系统")
             break
         }
         case localRepository!!.VALUE_THEME_DARK: {
@@ -131,9 +132,7 @@ export function toggleTheme(saveUserSetting: boolean) {
             break
         }
     }
-    if (saveUserSetting) {
-        saveTheme(nextTheme)
-    }
+    saveTheme(nextTheme)
 }
 
 /**

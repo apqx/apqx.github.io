@@ -1,6 +1,6 @@
 import { PreferenceDialog } from "./PreferenceDialog"
 import { LocalRepository } from "../../repository/LocalRepository"
-import { saveTheme, toggleTheme } from "../theme"
+import { saveTheme, showThemeDark } from "../theme"
 import { refreshTopbar, setFixedTopbar } from "../topbar"
 import { setHandwrittenFont, setNotoSerifSCFont } from "../font/font"
 import { consoleDebug } from "../../util/log"
@@ -50,7 +50,7 @@ export class PreferenceDialogPresenter {
             const currentDarkTheme = bodyE.classList.contains(this.darkClass)
             if (currentDarkTheme != sysDarkTheme) {
                 // 响应系统的主题修改，即变化主题
-                toggleTheme(false)
+                showThemeDark(sysDarkTheme)
             }
             saveTheme(this.localRepository.VALUE_THEME_AUTO)
         } else {

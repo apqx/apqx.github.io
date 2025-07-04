@@ -1,3 +1,4 @@
+// import "./BaseAnimation.scss"
 import { consoleDebug } from "../../util/log"
 import { toggleClassWithEnable } from "../../util/tools"
 

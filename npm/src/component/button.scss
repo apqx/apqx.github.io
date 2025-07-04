@@ -1,4 +1,4 @@
-@use "theme" as blogTheme;
+@use "../style/global" as base;
 @use "@material/button";
 @use "@material/button/mdc-button";
 @use "@material/icon-button";
@@ -24,12 +24,12 @@
     // 设置其surface的overflow为hidden
     // Dialog的surface的尺寸异常导致滚动，已设置设置其overflow为clip
     @include ripple.radius-bounded;
-    @include ripple.states-base-color(map.get(blogTheme.$button-ripple, "light"));
+    @include ripple.states-base-color(map.get(base.$button-ripple, "light"));
     @include ripple.states-opacities((hover: .0, focus: .0, press: .1));
 }
 
 .dark .mdc-button {
-    @include ripple.states-base-color(map.get(blogTheme.$button-ripple, "dark"));
+    @include ripple.states-base-color(map.get(base.$button-ripple, "dark"));
     @include ripple.states-opacities((hover: .0, focus: .0, press: .1));
 }
 
@@ -41,12 +41,12 @@
     overflow: hidden;
     @include ripple.surface;
     @include ripple.radius-bounded;
-    @include ripple.states-base-color(color.adjust(map.get(blogTheme.$surface, "light"), $lightness: - blogTheme.$ripple-gap-percent));
+    @include ripple.states-base-color(color.adjust(map.get(base.$surface, "light"), $lightness: - base.$ripple-gap-percent));
     @include ripple.states-opacities((hover: .0, focus: .0, press: .15));
 }
 
 @mixin icon-button-dark-ripple {
-    @include ripple.states-base-color(color.adjust(map.get(blogTheme.$surface, "dark"), $lightness: + blogTheme.$ripple-gap-percent));
+    @include ripple.states-base-color(color.adjust(map.get(base.$surface, "dark"), $lightness: + base.$ripple-gap-percent));
     @include ripple.states-opacities((hover: .0, focus: .0, press: .15));
 }
 

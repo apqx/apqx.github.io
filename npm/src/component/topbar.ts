@@ -1,12 +1,12 @@
-import { MDCIconButtonToggle } from "@material/icon-button";
-import { consoleDebug, consoleError } from "../util/log";
-import { toggleTheme } from "./theme";
-import { localRepository } from "../repository/LocalRepository";
-import { MDCTopAppBar } from "@material/top-app-bar";
-import { clearFocusListener, isMobileOrTablet, toggleClassWithEnable } from "../util/tools";
-import { showAboutMeDialog } from "./dialog/AboutMeDialog";
-import { getSectionTypeByPath, isIndexPage, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL, SECTION_TYPE_POETRY, SECTION_TYPE_PRINT, SECTION_TYPE_REPOST, SECTION_TYPE_SHARE, SECTION_TYPE_TAG } from "../base/constant";
 // import "./topbar.scss"
+import { MDCIconButtonToggle } from "@material/icon-button"
+import { consoleDebug, consoleError } from "../util/log"
+import { localRepository } from "../repository/LocalRepository"
+import { MDCTopAppBar } from "@material/top-app-bar"
+import { clearFocusListener, isMobileOrTablet, toggleClassWithEnable } from "../util/tools"
+import { showAboutMeDialog } from "./dialog/AboutMeDialog"
+import { getSectionTypeByPath, isIndexPage, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL, SECTION_TYPE_POETRY, SECTION_TYPE_PRINT, SECTION_TYPE_REPOST, SECTION_TYPE_SHARE, SECTION_TYPE_TAG } from "../base/constant"
+import { toggleTheme } from "./theme"
 
 export var iconToggleTheme: MDCIconButtonToggle | null = null
 export var topAppBar: MDCTopAppBar | null = null
@@ -39,7 +39,7 @@ export function initTopbar() {
     // 监听topbar的主题切换按钮
     btnThemeE?.addEventListener("click", () => {
         // toggleButton会自动toggle图标
-        toggleTheme(true)
+        toggleTheme()
     });
     btnAboutMeE?.addEventListener("click", () => {
         showAboutMeDialog()

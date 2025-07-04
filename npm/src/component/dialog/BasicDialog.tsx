@@ -1,10 +1,10 @@
+// import "./BasicDialog.scss"
 import * as React from "react"
 import { consoleDebug, consoleObjDebug } from "../../util/log"
 import { MDCDialog } from "@material/dialog"
 import { MDCRipple } from "@material/ripple"
 import { createRoot, Root } from "react-dom/client"
 import ReactDOM from "react-dom"
-// import "./BasicDialog.scss"
 
 export interface BasicDialogProps {
     // 用于启动dialog的计数，每次+1，用于弹出dialog

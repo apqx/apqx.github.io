@@ -1,5 +1,5 @@
-@use "../react/ProgressCircular.scss";
-@use "../react/Button.scss";
+@use "../react/Button";
+@use "./ProgressCircular";
 @use "@material/button";
 @use '@material/button/mdc-button';
 @use "@material/ripple";
@@ -10,13 +10,13 @@
     height: 4.45rem;
 }
 
-.loading-hint-btn {
+.mdc-button.loading-hint-btn {
     @include button.ink-color(var(--navigation));
     @include button.container-fill-color(transparent);
     @include ripple.states-base-color(transparent);
 }
 
-.dark .loading-hint-btn {
+.dark .mdc-button.loading-hint-btn {
     @include button.container-fill-color(transparent);
     @include ripple.states-base-color(transparent);
 }

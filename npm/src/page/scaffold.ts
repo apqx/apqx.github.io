@@ -14,6 +14,7 @@ import { initText } from "../component/text";
 import { consoleDebug, consoleObjDebug } from "../util/log";
 import { loadGoogleAnalytics } from "../util/gtag";
 import { initFooter } from "../component/footer"
+import { initCard } from "../component/card"
 
 runOnHtmlDone(() => {
     initLocalRepository()
@@ -26,6 +27,7 @@ runOnHtmlDone(() => {
     // TODO:可选项，懒加载
     initTag()
     initButton()
+    initCard()
     initTable()
     initList()
     initText()

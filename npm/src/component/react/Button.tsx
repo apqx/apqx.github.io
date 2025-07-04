@@ -1,11 +1,12 @@
-import { MDCRipple } from "@material/ripple";
-import React from "react";
-import ReactDOM from "react-dom";
-import { consoleDebug, consoleObjDebug } from "../../util/log";
-import { clearFocusListener } from "../../util/tools";
+// import "./Button.scss"
+import { MDCRipple } from "@material/ripple"
+import React from "react"
+import ReactDOM from "react-dom"
+import { consoleDebug, consoleObjDebug } from "../../util/log"
+import { clearFocusListener } from "../../util/tools"
 
 export interface Props {
-    text: string;
+    text: string
     onClick: (() => void) | null;
     className: string;
 }

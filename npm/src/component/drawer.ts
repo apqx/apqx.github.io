@@ -1,3 +1,4 @@
+// import "./drawer.scss"
 import {MDCDrawer} from "@material/drawer";
 import {MDCList} from "@material/list";
 import {consoleDebug, consoleError} from "../util/log";
@@ -8,7 +9,6 @@ import {showPreferenceDialog} from "./dialog/PreferenceDialog";
 import {showSearchDialog} from "./dialog/SearchDialog";
 import { getSectionTypeByPath, SECTION_TYPE_OPERA, SECTION_TYPE_POETRY, SECTION_TYPE_REPOST, SECTION_TYPE_TAG } from "../base/constant";
 import { toggleClassWithEnable } from "../util/tools";
-// import "./drawer.scss"
 
 const DRAWER_ITEM_ORIGINAL_ID = "drawer-a-original"
 const DRAWER_ITEM_REPOST_ID = "drawer-a-repost"

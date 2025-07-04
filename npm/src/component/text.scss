@@ -1,4 +1,4 @@
-@use "theme" as blogTheme;
+@use "../style/global" as base;
 @use "@material/typography";
 @use "@material/typography/mdc-typography";
 @use "@material/theme";
@@ -62,6 +62,11 @@ p {
     @include basicText();
     text-align: justify;
     line-break: loose;
+}
+
+code {
+    @include basicText();
+    margin: 0;
 }
 
 /* 段落中单词高亮 */
@@ -239,18 +244,18 @@ audio {
 // 局部字体
 .font-english-baskerville,
 .font-english-baskerville * {
-    font-family: blogTheme.$text-font-libre-baskerville;
+    font-family: base.$text-font-libre-baskerville;
 }
 
 .font-handwritten-index {
-    font-family: blogTheme.$handwritten-font-index !important;
+    font-family: base.$handwritten-font-index !important;
 }
 
 // 全局字体
 .font-handwritten,
 .font-handwritten :not(button, i, pre code, pre code *,
     .font-no-change, .font-no-change *) {
-    font-family: blogTheme.$handwritten-font;
+    font-family: base.$handwritten-font;
 }
 
 .font-handwritten {
@@ -271,13 +276,13 @@ audio {
     .font-english-baskerville, .font-english-baskerville *,
     .font-handwritten, .font-handwritten *,
     .font-no-change, .font-no-change *) {
-    font-family: blogTheme.$text-font-noto-serif;
+    font-family: base.$text-font-noto-serif;
     --mdc-typography-body1-line-height: calc(var(--mdc-typography-body1-font-size) + 0.8rem);
 }
 
 .font-xlwk,
 .font-xlwk :not(button, i, pre code, pre code *, .font-handwritten-index, .font-handwritten, .font-handwritten *) {
-    font-family: blogTheme.$text-font-xlwk;
+    font-family: base.$text-font-xlwk;
 }
 
 .one-line {

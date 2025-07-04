@@ -1,4 +1,4 @@
-import "./Snackbar.scss";
+// import "./Snackbar.scss";
 import React from "react";
 import ReactDOM from "react-dom";
 import { MDCSnackbar } from '@material/snackbar';

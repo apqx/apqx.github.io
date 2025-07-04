@@ -1,0 +1,176 @@
+@use "../../style/global" as base;
+@use "./LoadingHint";
+@use "../card";
+@use "../animation/BaseAnimation";
+@use "../animation/HeightAnimationContainer";
+
+body {
+    --index-card-padding-vertical: 1.3rem;
+    --index-card-padding-horizontal: 2.7rem;
+}
+
+.mdc-card.index-top-card {
+    margin-left: var(--index-card-to-container-border-horizontal);
+    margin-right: var(--index-card-to-container-border-horizontal);
+    @include card.cardElevation();
+    @include card.cardRipple();
+}
+
+.dark .mdc-card.index-top-card {
+    @include card.cardElevationDark();
+    @include card.cardRippleDark();
+}
+
+.index-top-card-container {
+    padding-top: 0.4rem;
+    padding-bottom: 0.5rem;
+    padding-left: var(--index-card-padding-horizontal);
+    padding-right: var(--index-card-padding-horizontal);
+}
+
+.index-top-card-text {
+    line-height: 1.75rem;
+    text-align: right;
+    font-size: calc(var(--mdc-typography-body1-font-size) + 0.1rem);
+}
+
+.mdc-card.index-card {
+    padding: var(--index-card-padding-vertical) var(--index-card-padding-horizontal);
+    @include card.cardElevation();
+    // 添加Ripple动画
+    @include card.cardRipple();
+}
+
+.dark .mdc-card.index-card {
+    @include card.cardElevationDark();
+    @include card.cardRippleDark();
+}
+
+// 小屏
+@media all and (max-width: base.$screen-middle-max-width) {}
+
+.index-top-cover {
+    // border-radius: var(--mdc-shape-medium);
+    object-fit: cover;
+    width: 100%;
+    // 封面宽高比例，在不设置动画时使用，JS动画用它计算高度
+    aspect-ratio: 844/295 auto;
+}
+
+/* 索引题目 */
+.index-title {
+    color: var(--mdc-theme-on-surface);
+    font-size: var(--mdc-typography-body1-font-size);
+    line-height: var(--mdc-typography-body1-line-height);
+    letter-spacing: var(--mdc-typography-body1-letter-spacing);
+    margin: 0;
+    text-align: left;
+}
+
+/* 索引署名 */
+.index-author {
+    color: var(--mdc-theme-text-secondary-on-background);
+    font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
+    line-height: var(--mdc-typography-body1-line-height);
+    line-height: 1.5rem;
+    text-align: right;
+    margin: 0;
+    display: block
+}
+
+/* 索引日期 */
+.index-date {
+    color: var(--mdc-theme-text-secondary-on-background);
+    font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
+    line-height: var(--mdc-typography-body1-line-height);
+    line-height: 1.5rem;
+    text-align: right;
+    margin: 0;
+    display: block;
+}
+
+.index-description {
+    margin: 0;
+}
+
+// 索引列表
+.index-ul {
+    padding: 0;
+    margin-top: var(--index-card-gap);
+    margin-bottom: 0;
+}
+
+.index-li {
+    list-style-type: none;
+    margin: 0 var(--index-card-to-container-border-horizontal);
+    padding: 0;
+}
+
+.index-li-divider {
+    height: var(--index-card-gap);
+    margin: 0;
+    border: none;
+}
+
+.index-li--pin .index-card {
+    position: relative;
+}
+
+.index-pin-icon {
+    position: absolute;
+    z-index: 1;
+    color: var(--mdc-theme-text-secondary-on-background);
+    font-size: 1.2rem;
+    bottom: calc(var(--index-card-padding-vertical) + 0.2rem);
+    left: calc(var(--index-card-padding-horizontal) - 0.2rem);
+}
+
+// 索引链接
+.index-a {
+    // 去除下划线
+    text-decoration: none;
+    // 去除点击时的默认的背景，防止干扰Ripple动画
+    // background-color: transparent;
+}
+
+
+// 手机小屏
+@media all and (max-width: base.$screen-middle-min-width) {
+    body {
+        --index-card-padding-vertical: 1rem;
+        --index-card-padding-horizontal: 1.3rem;
+    }
+
+    .index-author {
+        font-size: calc(var(--mdc-typography-body1-font-size) - 0.25rem);
+    }
+
+    .index-date {
+        font-size: calc(var(--mdc-typography-body1-font-size) - 0.25rem);
+    }
+
+    .index-top-card-container {
+        padding-top: 0.35rem;
+    }
+}
+
+// 平板中屏
+@media all and (min-width: (base.$screen-middle-min-width + 1px)) and (max-width: (base.$screen-middle-max-width - 1px)) {
+    body {
+        --index-card-padding-vertical: 1.2rem;
+        --index-card-padding-horizontal: 2rem;
+    }
+
+    .index-top-card-container {
+        padding-top: 0.35rem;
+    }
+
+    .index-author {
+        font-size: calc(var(--mdc-typography-body1-font-size) - 0.2rem);
+    }
+
+    .index-date {
+        font-size: calc(var(--mdc-typography-body1-font-size) - 0.2rem);
+    }
+
+}

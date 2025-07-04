@@ -1,9 +1,6 @@
-@use "../component/theme" as blogTheme;
+@use "../style/global" as base;
+@use "../component/codeHighlight";
 @use "../component/contentCard";
-@use "search";
-@use "@material/theme";
-@use "@material/theme/custom-properties";
-@use "@material/typography";
 
 /* 文章题目 */
 .post-title {
@@ -16,8 +13,8 @@
 
 /* 文章署名 */
 .post-author {
-    @include typography.typography(subtitle1);
-    @include theme.property(color, text-secondary-on-background);
+    color: var(--mdc-theme-text-secondary-on-background);
+    line-height: 1.75rem;
     font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
     text-align: center;
     margin-top: 0.8rem;
@@ -25,8 +22,8 @@
 
 /* 文章日期 */
 .post-date {
-    @include typography.typography(subtitle1);
-    @include theme.property(color, text-secondary-on-background);
+    color: var(--mdc-theme-text-secondary-on-background);
+    line-height: 1.75rem;
     font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
     text-align: center;
     // margin-top: 0.5rem;
@@ -53,8 +50,7 @@
 
 // 代码块
 pre code.hljs {
-    @include typography.typography(body1);
-    font-family: blogTheme.$code-block-font;
+    font-family: base.$code-block-font;
     font-size: 1.0rem;
     line-height: 1.5rem;
     border-radius: var(--post-inner-shape-round);

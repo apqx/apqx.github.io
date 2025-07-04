@@ -1,3 +1,4 @@
+// import "./TagDialog.scss"
 import * as React from "react"
 import { MDCList } from "@material/list"
 import { MDCRipple } from "@material/ripple"
@@ -12,7 +13,6 @@ import { IPostPaginateShowPresenter } from "../react/post/IPostPaginateShowPrese
 import { PostPaginateShowPresenter } from "../react/post/PostPaginateShowPresenter"
 import { getSectionTypeByPath, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL, SectionType } from "../../base/constant"
 import { DialogState, DialogStateObservable, DialogStateObserver } from "./DialogStateObservable"
-// import "./TagEssayListDialog.scss"
 
 interface DialogContentProps extends BasicDialogProps {
     tag: string,

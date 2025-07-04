@@ -1,7 +1,7 @@
-@use "@material/typography";
+@use "../react/Button";
 
 .about-me-name {
-    @include typography.typography(headline4);
+    line-height: 2.5rem;
     font-size: calc(var(--mdc-typography-body1-font-size) + 0.8rem);
     text-align: center;
     margin-top: 1.0rem;
@@ -10,7 +10,6 @@
 }
 
 .about-me-description {
-    // @include typography.typography(body1);
     margin: 1.6rem 1rem;
     line-break: loose;
 }

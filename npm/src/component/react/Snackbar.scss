@@ -1,4 +1,4 @@
-@use "../theme" as blogTheme;
+@use "../../style/global" as base;
 @use "@material/snackbar";
 @use "@material/snackbar/mdc-snackbar";
 
@@ -21,13 +21,12 @@
 }
 
 .mdc-snackbar__label {
-    font-family: blogTheme.$text-font-xlwk;
     color: var(--mdc-theme-on-surface);
     padding-left: 1rem;
     padding-right: 1rem;
 }
 
-@media(min-width: blogTheme.$screen-middle-min-width) {
+@media(min-width: base.$screen-middle-min-width) {
     .mdc-snackbar {
         bottom: 1.8rem;
     }

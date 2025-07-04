@@ -5,6 +5,10 @@
     "watch": "webpack watch --mode=development",
     "build": "webpack --mode=production"
   },
+  "sideEffects": [
+    "*.css",
+    "*.scss"
+  ],
   "dependencies": {
     "@lit/react": "^1.0.4",
     "@material/animation": "^14.0.0",

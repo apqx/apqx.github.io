@@ -1,3 +1,4 @@
+// import "./AboutMeDialog.scss"
 import * as React from "react"
 import { MDCList } from "@material/list"
 import { MDCRipple } from "@material/ripple"
@@ -6,7 +7,6 @@ import { consoleDebug } from "../../util/log"
 import ReactDOM from "react-dom"
 import { Button } from "../react/Button"
 import { initListItem } from "../list"
-// import "./AboutMeDialog.scss"
 
 class AboutMeDialog extends BasicDialog<BasicDialogProps, any> {
 
@@ -34,7 +34,7 @@ class AboutMeDialog extends BasicDialog<BasicDialogProps, any> {
                     <img width="100px" height="100px" className="circle-avatar inline-for-center" alt="avatar"
                         src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me_emoji.png" />
                 </picture>
-                <span className="about-me-name">立泉</span>
+                <p className="about-me-name">立泉</p>
                 <section className="about-me-tag-wrapper">
                     <Button text="C++" onClick={null} className="btn-tag" />
                     <Button text="Java" onClick={null} className="btn-tag" />

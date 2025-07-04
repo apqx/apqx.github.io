@@ -1,5 +1,5 @@
-@use "../react/LoadingHint.scss";
-@use "../animation/HeightAnimationContainer.scss";
+@use "../react/LoadingHint";
+@use "../animation/HeightAnimationContainer";
 
 // 使用此class的标签，可以通过id chip_tag_随笔 弹出对应 dialog_随笔 的dialog
 .tag-dialog-trigger {

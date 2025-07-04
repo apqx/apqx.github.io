@@ -1,4 +1,4 @@
-@use "theme" as blogTheme;
+@use "../style/global" as base;
 @use "button" as button;
 @use "@material/elevation";
 @use "@material/elevation/mdc-elevation";
@@ -18,18 +18,18 @@ body {
     // 颜色，默认为 primary
     @include top-app-bar.fill-color(var(--mdc-theme-primary));
     // 阴影
-    @include elevation.elevation(map.get(blogTheme.$top-bar-elevation, "elevation"), map.get(blogTheme.$top-bar-elevation, "shadow-light"), 0);
+    @include elevation.elevation(map.get(base.$top-bar-elevation, "elevation"), map.get(base.$top-bar-elevation, "shadow-light"), 0);
     * {
         color: var(--mdc-theme-on-primary);
     }
-    // border-bottom: 1px solid color.adjust(map.get(blogTheme.$top-bar, "bg-light"), $lightness: - 3%);
+    // border-bottom: 1px solid color.adjust(map.get(base.$top-bar, "bg-light"), $lightness: - 3%);
     position: absolute;
 }
 
 .dark .mdc-top-app-bar {
     // 阴影
-    @include elevation.elevation(map.get(blogTheme.$top-bar-elevation, "elevation"), map.get(blogTheme.$top-bar-elevation, "shadow-dark"), 0);
-    // border-bottom: 1px solid color.adjust(map.get(blogTheme.$top-bar, "bg-dark"), $lightness: + 3%);
+    @include elevation.elevation(map.get(base.$top-bar-elevation, "elevation"), map.get(base.$top-bar-elevation, "shadow-dark"), 0);
+    // border-bottom: 1px solid color.adjust(map.get(base.$top-bar, "bg-dark"), $lightness: + 3%);
 }
 
 .top-app-bar--blur {

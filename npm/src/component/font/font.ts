@@ -1,6 +1,7 @@
 import { localRepository } from "../../repository/LocalRepository"
 import { toggleClassWithEnable } from "../../util/tools"
 import { consoleError } from "../../util/log"
+import React from "react"
 
 /**
  * 初始化主字体

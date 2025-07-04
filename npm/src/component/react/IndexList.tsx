@@ -1,19 +1,17 @@
-import { MDCRipple } from "@material/ripple";
-import React from "react";
-import ReactDOM from "react-dom";
-import { ERROR_HINT, LoadingHint } from "./LoadingHint";
-import { consoleDebug, consoleObjDebug } from "../../util/log";
-import { ScrollLoader } from "../../base/ScrollLoader";
-import { BasePostPaginateShow, BasePostPaginateShowProps, BasePostPaginateShowState } from "./post/BasePostPaginateShow";
-import { PostPaginateShowPresenter } from "./post/PostPaginateShowPresenter";
-import { IPostPaginateShowPresenter } from "./post/IPostPaginateShowPresenter";
-import { HeightAnimationContainer } from "../animation/HeightAnimationContainer";
-import { toggleClassWithEnable } from "../../util/tools";
-import { showFooter } from "../footer";
-import { interSectionObserver } from "../animation/BaseAnimation";
+// import "./IndexList.scss"
+import { MDCRipple } from "@material/ripple"
+import React from "react"
+import ReactDOM from "react-dom"
+import { ERROR_HINT, LoadingHint } from "./LoadingHint"
+import { consoleDebug, consoleObjDebug } from "../../util/log"
+import { ScrollLoader } from "../../base/ScrollLoader"
+import { BasePostPaginateShow, BasePostPaginateShowProps, BasePostPaginateShowState } from "./post/BasePostPaginateShow"
+import { PostPaginateShowPresenter } from "./post/PostPaginateShowPresenter"
+import { IPostPaginateShowPresenter } from "./post/IPostPaginateShowPresenter"
+import { showFooter } from "../footer"
+import { interSectionObserver } from "../animation/BaseAnimation"
 
 export class IndexList extends BasePostPaginateShow<BasePostPaginateShowProps> {
-    heightAnimationContainer: HeightAnimationContainer | null = null
 
     createPresenter(): IPostPaginateShowPresenter {
         return new PostPaginateShowPresenter(this, false)
@@ -30,10 +28,6 @@ export class IndexList extends BasePostPaginateShow<BasePostPaginateShowProps> {
         showFooter()
     }
 
-    componentWillUnmount(): void {
-        this.heightAnimationContainer?.destroy()
-    }
-
     initScroll() {
         const scrollLoader = new ScrollLoader(() => {
             consoleDebug("Index scroll should load")
@@ -46,31 +40,28 @@ export class IndexList extends BasePostPaginateShow<BasePostPaginateShowProps> {
     }
 
     componentDidUpdate(prevProps: Readonly<BasePostPaginateShowProps>, prevState: Readonly<BasePostPaginateShowState>, snapshot?: any): void {
-        this.heightAnimationContainer?.update()
         if (this.props.onUpdate != null) this.props.onUpdate()
     }
 
     render() {
         return (
-            <div className="height-animation-container">
-                <ul className="index-ul">
-                    {this.props.pinedPosts.map((post) =>
-                        <IndexItem key={post.path}
-                            title={post.title} author={post.author} date={post.date} description={post.description} path={post.path} pin={post.pin}
-                            last={false} />
-                    )}
-                    {this.state.posts.map((item, index) =>
-                        // 隐藏部分post
-                        // 有时候jekyll生成的path和paginate生成的path不一样，导致item重新加载
-                        !item.hide && <IndexItem key={item.path}
-                            title={item.title} author={item.author} date={item.date} description={item.description} path={item.path} pin={false}
-                            last={index == this.state.posts.length - 1} />
-                    )}
-                    {(this.state.loading || this.state.loadHint != null) &&
-                        <LoadingHint loading={this.state.loading} loadHint={this.state.loadHint} onClickHint={this.loadMoreByClick} />
-                    }
-                </ul>
-            </div>
+            <ul className="index-ul">
+                {this.props.pinedPosts.map((post) =>
+                    <IndexItem key={post.path}
+                        title={post.title} author={post.author} date={post.date} description={post.description} path={post.path} pin={post.pin}
+                        last={false} />
+                )}
+                {this.state.posts.map((item, index) =>
+                    // 隐藏部分post
+                    // 有时候jekyll生成的path和paginate生成的path不一样，导致item重新加载
+                    !item.hide && <IndexItem key={item.path}
+                        title={item.title} author={item.author} date={item.date} description={item.description} path={item.path} pin={false}
+                        last={index == this.state.posts.length - 1} />
+                )}
+                {(this.state.loading || this.state.loadHint != null) &&
+                    <LoadingHint loading={this.state.loading} loadHint={this.state.loadHint} onClickHint={this.loadMoreByClick} />
+                }
+            </ul>
         )
     }
 }

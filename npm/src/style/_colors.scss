@@ -1,0 +1,229 @@
+@use "variables";
+@use "sass:map";
+@use "sass:color";
+
+// 黑白配色
+$top-bar: (
+        bg-light: #ffffff,
+        bg-blur-light: rgba(255, 255, 255, 0.8),
+        bg-shadow-light: #e8e8e8,
+        bg-dark: #1d1d1d,
+        bg-blur-dark: rgba(30, 30, 30, 0.8),
+        bg-shadow-dark: #0a0a0a,
+);
+$top-bar-ink:(
+        light: color.adjust(map.get($top-bar, "bg-light"), $lightness: -80%),
+        dark: color.adjust(map.get($top-bar, "bg-dark"), $lightness: +80%),
+);
+
+$footer-ink:(
+        light: color.adjust(map.get($top-bar, "bg-light"), $lightness: -70%),
+        dark: color.adjust(map.get($top-bar, "bg-dark"), $lightness: +70%),
+);
+
+$surface: (
+        light: #ffffff,
+        dark: #1d1d1d,
+);
+
+$background: (
+        light: color.adjust(map.get($surface, "light"), $lightness: -2%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: -2%),
+);
+
+$text-title: (
+        light: color.adjust(map.get($surface, "light"), $lightness: -91%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: +91%),
+);
+
+$text-subtitle: (
+        light: color.adjust(map.get($text-title, "light"), $lightness: +35%),
+        dark: color.adjust(map.get($text-title, "dark"), $lightness: -35%),
+);
+
+$text-content: (
+        light: color.adjust(map.get($text-title, "light"), $lightness: +10%),
+        dark: color.adjust(map.get($text-title, "dark"), $lightness: -10%),
+);
+
+$text-content-secondary: (
+        light: color.adjust(map.get($text-content, "light"), $lightness: +5%),
+        dark: color.adjust(map.get($text-content, "dark"), $lightness: -5%),
+);
+
+$blockquote-border: (
+        // light: #f6c9c9,
+        // dark: #824d4d,
+        light: color.adjust(map.get($surface, "light"), $lightness: -5%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: +5%),
+);
+
+$drawer-nav-ripple: (
+        light: color.adjust(map.get($surface, "light"), $lightness: - variables.$ripple-gap-percent),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: + variables.$ripple-gap-percent),
+);
+
+$fab-bg: (
+        light: rgba(color.adjust(map.get($background, "light"), $lightness: -6%), 0.5),
+        dark: rgba(color.adjust(map.get($background, "dark"), $lightness: -6%), 0.5),
+);
+
+$fab-ink: (
+        light: rgba(color.adjust(map.get($fab-bg, "light"), $lightness: -70%), 1),
+        dark: rgba(color.adjust(map.get($fab-bg, "dark"), $lightness: +70%), 1),
+);
+
+$scrim: (
+        color: rgba(0, 0, 0, 0.05),
+        backdrop-blur: 5px,
+);
+
+$top-bar-elevation: (
+        elevation: 0,
+        shadow-light: map.get($top-bar, "bg-shadow-light"),
+        shadow-dark: map.get($top-bar, "bg-shadow-dark"),
+);
+$fab-elevation: (
+        elevation: 0,
+        shadow-light: #e8e8e8,
+        shadow-dark: #0a0a0a
+);
+$drawer-elevation: (
+        elevation: 0,
+        shadow-light: #e8e8e8,
+        shadow-dark: #0a0a0a
+);
+$card-elevation: (
+        elevation: 0,
+        shadow-light: #e8e8e8,
+        shadow-dark: #0a0a0a
+);
+
+$dialog: (
+        elevation: 0,
+        border-light: color.adjust(map.get($surface, "light"), $lightness: -3%),
+        // border-light: transparent,
+        shadow-light: #a1a1a1,
+        border-dark: color.adjust(map.get($surface, "dark"), $lightness: +3%),
+        // border-dark: transparent,
+        shadow-dark: #000000,
+);
+
+$button-bg: (
+        light: color.adjust(map.get($surface, "light"), $lightness: -70%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: +5%),
+);
+$button-ink: (
+        light: color.adjust(map.get($button-bg, "light"), $lightness: +65%),
+        dark: color.adjust(map.get($button-bg, "dark"), $lightness: +65%),
+);
+$button-ripple: (
+        light: color.adjust(map.get($button-bg, "light"), $lightness: + variables.$ripple-gap-percent),
+        dark: color.adjust(map.get($button-bg, "dark"), $lightness: + variables.$ripple-gap-percent),
+);
+
+$dialog-action-btn-bg: (
+        light: map.get($surface, "light"),
+        dark: map.get($surface, "dark"),
+);
+$dialog-action-btn-ink: (
+        light: color.adjust(map.get($dialog-action-btn-bg, "light"), $lightness: -65%),
+        dark: color.adjust(map.get($dialog-action-btn-bg, "dark"), $lightness: +65%),
+);
+$dialog-action-btn-ripple: (
+        light: color.adjust(map.get($dialog-action-btn-bg, "light"), $lightness: - variables.$ripple-gap-percent),
+        dark: color.adjust(map.get($dialog-action-btn-bg, "dark"), $lightness: + variables.$ripple-gap-percent),
+);
+
+$chip-bg: (
+        light: color.adjust(map.get($surface, "light"), $lightness: -2.4%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: +2.4%),
+);
+$chip-ink: (
+        light: color.adjust(map.get($chip-bg, "light"), $lightness: -60%),
+        dark: color.adjust(map.get($chip-bg, "dark"), $lightness: +60%),
+);
+$chip-ripple: (
+        light: color.adjust(map.get($chip-bg, "light"), $lightness: - variables.$ripple-gap-percent),
+        dark: color.adjust(map.get($chip-bg, "dark"), $lightness: + variables.$ripple-gap-percent),
+);
+
+
+
+@function calc-text-block-bg-light($ink) {
+        @return rgba(color.adjust($ink, $lightness: +30%), 0.3),
+};
+
+@function calc-text-block-bg-dark($ink) {
+        @return rgba(color.adjust($ink, $lightness: -20%), 0.1),
+};
+
+$text-block-1-ink: (
+        light: #8167c1,
+        dark: rgb(210, 195, 249),
+);
+
+$text-block-1-bg: (
+        light: calc-text-block-bg-light(map.get($text-block-1-ink, "light")),
+        dark: calc-text-block-bg-dark(map.get($text-block-1-ink, "dark")),
+);
+
+$text-block-2-ink: (
+        light: #dd5c5c,
+        dark: rgb(249, 184, 184),
+);
+
+$text-block-2-bg: (
+        light: calc-text-block-bg-light(map.get($text-block-2-ink, "light")),
+        dark: calc-text-block-bg-dark(map.get($text-block-2-ink, "dark")),
+);
+
+$text-block-3-ink: (
+        light: #dc7d51,
+        dark: #ffc5ab,
+);
+
+$text-block-3-bg: (
+        light: calc-text-block-bg-light(map.get($text-block-3-ink, "light")),
+        dark: calc-text-block-bg-dark(map.get($text-block-3-ink, "dark")),
+);
+
+$code-highlight-bg: (
+        light: color.adjust(map.get($surface, "light"), $lightness: -2%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: +2%),
+);
+
+$code-highlight-border: (
+        light: color.adjust(map.get($code-highlight-bg, "light"), $lightness: -3%),
+        dark: color.adjust(map.get($code-highlight-bg, "dark"), $lightness: +3%),
+);
+
+$strong-under-line: (
+        light: color.adjust(map.get($surface, "light"), $lightness: -8%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: +9%),
+);
+
+$surface-block-bg: (
+        light: color.adjust(map.get($surface, "light"), $lightness: - 0.5%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: - 0.5%),
+);
+
+$surface-block-ripple: (
+        light: color.adjust(map.get($surface-block-bg, "light"), $lightness: - variables.$ripple-gap-percent),
+        dark: color.adjust(map.get($surface-block-bg, "dark"), $lightness: + variables.$ripple-gap-percent),
+);
+
+$surface-block-ink-strong: (
+        light: #80290d,
+        dark: #dea896,
+);
+
+$surface-block-border-dashed: (
+        light: color.adjust(map.get($surface-block-bg, "light"), $lightness: -12%),
+        dark: color.adjust(map.get($surface-block-bg, "dark"), $lightness: +12%),
+);
+
+$surface-block-border: (
+        light: color.adjust(map.get($surface-block-bg, "light"), $lightness: -7%),
+        dark: color.adjust(map.get($surface-block-bg, "dark"), $lightness: +7%),
+);

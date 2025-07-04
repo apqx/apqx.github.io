@@ -1,8 +1,6 @@
-@use "theme" as blogTheme;
-@use "@material/elevation";
-@use "@material/elevation/mdc-elevation";
-@use "@material/card";
-@use "@material/card/mdc-card";
+@use "../style/global" as base;
+@use "./card";
+@use "../component/animation/BaseAnimation";
 @use "sass:map";
 
 body {
@@ -11,26 +9,15 @@ body {
     --content-card-padding-horizontal: 2.7rem;
 }
 
-@mixin cardElevation {
-    // 文章卡片的阴影，z高度，阴影颜色，扩散度
-    @include elevation.elevation(map.get(blogTheme.$card-elevation, "elevation"),
-        map.get(blogTheme.$card-elevation, "shadow-light"), 0);
-}
-
-@mixin cardElevationDark {
-    @include elevation.elevation(map.get(blogTheme.$card-elevation, "elevation"),
-        map.get(blogTheme.$card-elevation, "shadow-dark"), 0);
-}
-
 .content-card {
     padding: var(--content-card-padding-vertical) var(--content-card-padding-horizontal);
     margin: 0 var(--content-card-to-container-border-horizontal);
     // 文章卡片的阴影，z高度，阴影颜色，扩散度
-    @include cardElevation();
+    @include card.cardElevation();
 }
 
 .dark .content-card {
-    @include cardElevationDark();
+    @include card.cardElevationDark();
 }
 
 // 文章卡片的默认位置向下偏移，且变为透明
@@ -51,25 +38,15 @@ body {
 }
 
 // 手机小屏
-@media all and (max-width: blogTheme.$screen-middle-min-width) {
+@media all and (max-width: base.$screen-middle-min-width) {
     body {
         --content-card-to-container-border-horizontal: 0;
         --content-card-padding-vertical: 2rem;
         --content-card-padding-horizontal: 1.3rem;
     }
-
-    .content-card {
-        @include elevation.elevation(map.get(blogTheme.$card-elevation, "elevation"),
-            map.get(blogTheme.$card-elevation, "min-screen-shadow-light"), 0);
-    }
-
-    .dark .content-card {
-        @include elevation.elevation(map.get(blogTheme.$card-elevation, "elevation"),
-            map.get(blogTheme.$card-elevation, "min-screen-shadow-dark"), 0);
-    }
 }
 
-@media all and (min-width: (blogTheme.$screen-middle-min-width + 1px)) and (max-width: (blogTheme.$screen-middle-max-width - 1px)) {
+@media all and (min-width: (base.$screen-middle-min-width + 1px)) and (max-width: (base.$screen-middle-max-width - 1px)) {
     body {
         --content-card-padding-horizontal: 2rem;
     }

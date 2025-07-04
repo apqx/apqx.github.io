@@ -1,9 +1,3 @@
-.image-height-animation {
-    height: 0px;
-    transition: height var(--image-height-animation-duration) ease;
-    // will-change: contents;
-}
-
 .card-slide-in {
     transform: translateY(var(--index-card-animation-translate-y));
     opacity: 0;

@@ -1,6 +1,4 @@
-@use "theme" as blogTheme;
-@use "@material/typography";
-@use "@material/typography/mdc-typography";
+@use "../style/global" as base;
 @use "@material/button";
 @use "@material/button/mdc-button";
 @use "@material/ripple";
@@ -9,12 +7,12 @@
 @mixin btnChipRipple {
     @include ripple.surface;
     @include ripple.radius-bounded;
-    @include ripple.states-base-color(map.get(blogTheme.$chip-ripple, "light"));
+    @include ripple.states-base-color(map.get(base.$chip-ripple, "light"));
     @include ripple.states-opacities((hover: .0, focus: .0, press: .1));
 }
 
 @mixin btnChipRippleDark {
-    @include ripple.states-base-color(map.get(blogTheme.$chip-ripple, "dark"));
+    @include ripple.states-base-color(map.get(base.$chip-ripple, "dark"));
     @include ripple.states-opacities((hover: .0, focus: .0, press: .1));
 }
 
@@ -38,8 +36,9 @@
 }
 
 a.tag-link {
-    @include typography.typography(body1);
     color: var(--mdc-theme-on-surface);
+    line-height: var(--mdc-typography-body1-line-height);
+    letter-spacing: var(--mdc-typography-body1-letter-spacing);
     box-shadow: inset 0 -8px 0 0 var(--tag-underline-color);
     text-decoration: none;
     white-space: pre;

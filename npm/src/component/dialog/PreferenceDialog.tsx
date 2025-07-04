@@ -1,9 +1,9 @@
+// import "./PreferenceDialog.scss"
 import * as React from "react"
 import { PreferenceDialogPresenter } from "./PreferenceDialogPresenter"
 import { consoleDebug } from "../../util/log"
 import { BasicDialog, BasicDialogProps, PREFERENCE_DIALOG_WRAPPER_ID, showDialog } from "./BasicDialog"
-import { SettingsToggle } from "./SettingsToggle"
-// import "./PreferenceDialog.scss"
+import { SettingsToggle } from "../react/SettingsToggle"
 
 interface DialogContentState {
     fixedTopbarOn: boolean

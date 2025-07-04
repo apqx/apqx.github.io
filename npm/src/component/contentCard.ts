@@ -1,5 +1,4 @@
 // import "./contentCard.scss"
-
 import { consoleDebug } from "../util/log"
 import { toggleClassWithEnable } from "../util/tools"
 import { interSectionObserver } from "./animation/BaseAnimation"

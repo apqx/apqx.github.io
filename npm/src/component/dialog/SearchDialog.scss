@@ -1,12 +1,9 @@
-@use "../theme" as blogTheme;
 @use "../tag.scss";
-@use "../react/LoadingHint.scss";
-@use "../react/Button.scss";
-@use "@material/typography";
+@use "../react/LoadingHint";
+@use "../animation/HeightAnimationContainer";
 @use "@material/textfield";
 @use "@material/textfield/mdc-text-field";
 @use "sass:map";
-@use "../animation/HeightAnimationContainer.scss";
 
 #search-dialog_label {
     width: 94%;

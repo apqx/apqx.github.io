@@ -1,19 +1,21 @@
+@use "../style/global" as base;
 @use "../component/theme" as blogTheme;
-@use "../component/text";
-@use "../component/topbar";
-@use "../component/footer";
+@use "../component/button";
+@use "../component/card";
 @use "../component/drawer";
 @use "../component/fab";
-@use "../component/tag";
-@use "../component/button";
-@use "../component/table";
+@use "../component/footer";
 @use "../component/list";
-@use "../component/animation/BaseAnimation.scss";
-@use "../component/dialog/BasicDialog";
+@use "../component/table";
+@use "../component/tag";
+@use "../component/text";
+@use "../component/topbar";
 @use "../component/dialog/AboutMeDialog";
+@use "../component/dialog/BasicDialog";
 @use "../component/dialog/PreferenceDialog";
 @use "../component/dialog/SearchDialog";
 @use "../component/dialog/TagDialog";
+@use "../component/react/Snackbar";
 @use "@material/animation";
 
 // 通过js给body添加dark class，可以实现对mac-theme的参数更改
@@ -69,23 +71,18 @@ footer * {
 // 内容最外层的主容器
 .main-container {
     width: 100%;
-    max-width: blogTheme.$center-container-max-width;
+    max-width: base.$center-container-max-width;
     // 横向居中
     margin: var(--main-container-padding-vertical) auto;
 }
 
 .foot-container {
     width: 100%;
-    max-width: blogTheme.$center-container-max-width;
+    max-width: base.$center-container-max-width;
     margin: 0 auto;
     flex: 1;
     padding: 0;
 }
-
-// .mdc-card {
-//   // 淡入动画
-//   animation: animation.enter($name: fade-in, $duration: 600ms);
-// }
 
 @keyframes fade-in {
     from {
@@ -128,10 +125,10 @@ img.inline-for-center {
 }
 
 // 手机小屏
-@media all and (max-width: blogTheme.$screen-middle-min-width) {}
+@media all and (max-width: base.$screen-middle-min-width) {}
 
 // 平板中屏
-@media all and (min-width: (blogTheme.$screen-middle-min-width + 1px)) and (max-width: (blogTheme.$screen-middle-max-width - 1px)) {}
+@media all and (min-width: (base.$screen-middle-min-width + 1px)) and (max-width: (base.$screen-middle-max-width - 1px)) {}
 
 // 电脑大屏
-@media all and (min-width: blogTheme.$screen-middle-max-width) {}
+@media all and (min-width: base.$screen-middle-max-width) {}

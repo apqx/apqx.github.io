@@ -1,4 +1,4 @@
-import "./codeHighlight.scss"
+// import "./codeHighlight.scss"
 import highlight from "highlight.js/lib/core"
 
 export function init() {

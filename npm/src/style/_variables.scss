@@ -1,0 +1,21 @@
+// 霞鹜文楷GB
+$text-font-xlwk: unquote("PingFangSCEllipsis, LXGW WenKai GB, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
+// $text-font-xlwk-noto-emoji: unquote("PingFangSCEllipsis, LXGW WenKai GB, PingFang SC, Roboto, sans-serif, Noto Emoji, Apple Color Emoji, Noto Color Emoji");
+$text-font-noto-serif: unquote("PingFangSCEllipsis, Noto Serif SC, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
+$text-font-libre-baskerville: unquote("LibreBaskerville, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
+// 兰亭题序国风行楷
+$handwritten-font: unquote("AaLTTXGFXK, LXGW WenKai GB, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
+// 索引页的许静行楷
+$handwritten-font-index: unquote("HYXuJingXingKaiW, LXGW WenKai GB, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
+$code-block-font: unquote("LXGW WenKai Mono GB, LXGW WenKai GB, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
+
+
+// 中型屏幕宽度范围，定义为平板，小于此尺寸为手机，大于此尺寸为电脑
+$screen-middle-min-width: 600px;
+$screen-middle-max-width: 880px;
+// 页面中部容器的最大宽度，普通索引页、文章页等都使用此宽度
+$center-container-max-width: 880px;
+// 更宽的页面中部容器的最大宽度，透镜索引页展示照片墙使用此宽度
+$center-container-larger-max-width: 1200px;
+
+$ripple-gap-percent: 25%;

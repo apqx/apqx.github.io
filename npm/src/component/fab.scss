@@ -1,4 +1,4 @@
-@use "theme" as blogTheme;
+@use "../style/global" as base;
 @use "@material/elevation";
 @use "@material/elevation/mdc-elevation";
 @use "@material/fab";
@@ -8,12 +8,12 @@
 
 .mdc-fab, .mdc-fab:hover {
     // TODO: 使用var设置的阴影是失效的
-    @include elevation.elevation(map.get(blogTheme.$fab-elevation, "elevation"), map.get(blogTheme.$fab-elevation, "shadow-light"), 0);
+    @include elevation.elevation(map.get(base.$fab-elevation, "elevation"), map.get(base.$fab-elevation, "shadow-light"), 0);
 }
 
 .dark {
     .mdc-fab, .mdc-fab:hover {
-        @include elevation.elevation(map.get(blogTheme.$fab-elevation, "elevation"), map.get(blogTheme.$fab-elevation, "shadow-dark"), 0);
+        @include elevation.elevation(map.get(base.$fab-elevation, "elevation"), map.get(base.$fab-elevation, "shadow-dark"), 0);
     }
 }
 
@@ -28,7 +28,7 @@
     right: 1rem;
 }
 
-@media(min-width: blogTheme.$screen-middle-min-width) {
+@media(min-width: base.$screen-middle-min-width) {
     .app-fab--absolute {
         bottom: 1.5rem;
         right: 1.5rem;

@@ -1,3 +1,4 @@
+// import "./SearchDialog.scss"
 import * as React from "react"
 import { SearchDialogPresenter } from "./SearchDialogPresenter"
 import { MDCRipple } from "@material/ripple"
@@ -9,7 +10,6 @@ import ReactDOM from "react-dom"
 import { initListItem } from "../list"
 import { ERROR_HINT, LoadingHint } from "../react/LoadingHint"
 import { HeightAnimationContainer } from "../animation/HeightAnimationContainer"
-// import "./SearchDialog.scss"
 
 interface SearchDialogState {
     loading: boolean
