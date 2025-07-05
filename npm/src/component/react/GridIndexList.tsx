@@ -129,10 +129,9 @@ class IndexItem extends React.Component<IndexItemProps, any> {
         this.cardE = rootE.querySelector(".grid-index-card")
 
         new MDCRipple(rootE.querySelector(".grid-index-card__ripple")!!)
-        const imgE = rootE.querySelector(".grid-index-cover")
+        const imgE = rootE.querySelector(".grid-index-cover.image-height-animation")
         // 图片加载动画
         if (imgE != null) {
-            imgE?.classList.add("image-height-animation")
             this.imageLoadAnimator = new ImageLoadAnimator(imgE as HTMLImageElement, -1, false, () => {
                 // 图片尺寸动画执行完成
                 this.props.coverLoadedCallback()
@@ -162,7 +161,7 @@ class IndexItem extends React.Component<IndexItemProps, any> {
                 <a className="index-a mdc-card grid-index-card grid-index-card__ripple card-slide-in-middle" href={this.props.path}>
                     <section>
                         {this.props.cover != null && this.props.cover.length > 0 &&
-                            <img className="grid-index-cover" loading="lazy" src={this.props.cover} alt={this.props.coverAlt} />
+                            <img className="grid-index-cover image-height-animation" loading="lazy" src={this.props.cover} alt={this.props.coverAlt} />
                         }
                         {this.props.cover == null || this.props.cover.length == 0 &&
                             <div style={{ height: "0.5rem" }}></div>
@@ -219,25 +218,6 @@ class IndexDescriptionItem extends React.Component<IndexDescriptionItemProps, an
     render(): ReactNode {
         return (
             <li className="grid-index-li grid-index-li--description" dangerouslySetInnerHTML={{ __html: this.props.innerHtml }}></li>
-            // <li className="grid-index-li grid-index-li--description">
-            //     <section className="mdc-card grid-index-card">
-            //         <div className="grid-index-text-container">
-            //             <p>2021年08月08日，我在博客里开辟这个分区来承载曾经在剧场看过的剧和拍过的剧照，以昆曲为主，使用<a
-            //                 href="{% link _posts/original/2021-09-01-基于Jekyll的博客文章「标签化」.md %}">标签</a>把每一场演出按剧种、剧团、剧目、演员、剧场分类归档。这里的每一篇文章既是记录也是分享，亲手按下快门捕捉到的舞台瞬间，如此美丽的戏妆油彩，不应该只我一人看到。
-            //             </p>
-            //             <p>关于我与戏剧的渊源以及为什么会喜欢昆曲，参见之前的自述<a
-            //                 href="{% link _posts/original/2019-05-18-槐安国内春生酒.md %}">《槐安国内春生酒》</a>，还有一些由看剧衍生的<a
-            //                     id="chip_tag_看剧&碎碎念" className="tag-dialog-trigger clickable-empty-link">碎碎念</a>。</p>
-            //             <p><em>只是时常偷懒，更新的剧目还不多，我会慢慢整理上传的。</em></p>
-            //             <div style={{ marginBottom: "0.2rem" }}>
-            //                 <a id="chip_tag_看剧&杭州" className="tag-dialog-trigger clickable-empty-link tag-link grid-index-description-tag">@杭州</a>
-            //                 <a id="chip_tag_看剧&南京" className="tag-dialog-trigger clickable-empty-link tag-link grid-index-description-tag">@南京</a>
-            //                 <a id="chip_tag_看剧&上海" className="tag-dialog-trigger clickable-empty-link tag-link grid-index-description-tag">@上海</a>
-            //                 <a className="tag-link grid-index-description-tag" href="https://space.bilibili.com/11037907" target="_blank">@哔哩</a>
-            //             </div>
-            //         </div>
-            //     </section>
-            // </li>
         )
     }
 }

@@ -2,7 +2,7 @@
 // 先引入mdc的theme，然后用自定义变量覆盖其原有配置
 @use "@material/theme";
 @use "@material/theme/mdc-theme";
-@use "@material/typography" with ($font-family: base.$text-font-xlwk);
+@use "@material/typography" with ($font-family: base.$text-font-wenkai);
 @use "@material/typography/mdc-typography";
 @use "sass:map";
 @use "sass:color";
@@ -76,7 +76,7 @@
         --pagefind-ui-border-radius: 8px;
         --pagefind-ui-image-border-radius: 8px;
         --pagefind-ui-image-box-ratio: 3 / 2;
-        --pagefind-ui-font: $text-font-xlwk;
+        --pagefind-ui-font: $text-font-wenkai;
 }
 
 @mixin dark {
@@ -132,7 +132,7 @@
 }
 
 body {
-        --mdc-typography-font-family: #{base.$text-font-xlwk};
+        --mdc-typography-font-family: #{base.$text-font-wenkai};
 
         --mdc-typography-body1-font-size: 1rem;
         --mdc-typography-body1-line-height: calc(var(--mdc-typography-body1-font-size) + 0.7rem);

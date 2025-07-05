@@ -26,7 +26,7 @@ function initIndexList() {
     if (category == SECTION_TYPE_OTHER.identifier) return
 
     const onUpdate = () => {
-
+        // React更新
     }
     const onMount = () => {
         // React加载之后，启动Cover动画

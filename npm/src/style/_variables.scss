@@ -1,14 +1,19 @@
 // 霞鹜文楷GB
-$text-font-xlwk: unquote("PingFangSCEllipsis, LXGW WenKai GB, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
-// $text-font-xlwk-noto-emoji: unquote("PingFangSCEllipsis, LXGW WenKai GB, PingFang SC, Roboto, sans-serif, Noto Emoji, Apple Color Emoji, Noto Color Emoji");
+$text-font-wenkai: unquote("PingFangSCEllipsis, LXGW WenKai GB, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
+// $text-font-wenkai-noto-emoji: unquote("PingFangSCEllipsis, LXGW WenKai GB, PingFang SC, Roboto, sans-serif, Noto Emoji, Apple Color Emoji");
+$text-font-wenkai-noto-color-emoji: unquote("PingFangSCEllipsis, LXGW WenKai GB, PingFang SC, Roboto, sans-serif, Noto Color Emoji, Apple Color Emoji");
+// 思源宋体
 $text-font-noto-serif: unquote("PingFangSCEllipsis, Noto Serif SC, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
-$text-font-libre-baskerville: unquote("LibreBaskerville, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
+$text-font-noto-serif-noto-color-emoji: unquote("PingFangSCEllipsis, Noto Serif SC, PingFang SC, Roboto, sans-serif, Noto Color Emoji, Apple Color Emoji");
+// 思源黑体
+$text-font-noto-sans: unquote("PingFangSCEllipsis, Noto Sans SC, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
+$text-font-noto-sans-noto-color-emoji: unquote("PingFangSCEllipsis, Noto Sans SC, PingFang SC, Roboto, sans-serif, Noto Color Emoji, Apple Color Emoji");
 // 兰亭题序国风行楷
 $handwritten-font: unquote("AaLTTXGFXK, LXGW WenKai GB, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
 // 索引页的许静行楷
 $handwritten-font-index: unquote("HYXuJingXingKaiW, LXGW WenKai GB, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
-$code-block-font: unquote("LXGW WenKai Mono GB, LXGW WenKai GB, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
-
+// 代码字体，等宽
+$code-block-font: unquote("LXGW WenKai Mono GB, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
 
 // 中型屏幕宽度范围，定义为平板，小于此尺寸为手机，大于此尺寸为电脑
 $screen-middle-min-width: 600px;

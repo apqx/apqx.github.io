@@ -155,10 +155,6 @@ a {
     text-underline-offset: 0.2rem;
 }
 
-.font-english-baskerville a {
-    text-underline-offset: 0.1rem;
-}
-
 // a::after {
 //     content: "";
 //     position: absolute;
@@ -242,11 +238,6 @@ audio {
 }
 
 // 局部字体
-.font-english-baskerville,
-.font-english-baskerville * {
-    font-family: base.$text-font-libre-baskerville;
-}
-
 .font-handwritten-index {
     font-family: base.$handwritten-font-index !important;
 }
@@ -273,16 +264,15 @@ audio {
 
 .font-noto-serif-sc,
 .font-noto-serif-sc :not(button, i, pre code, pre code *,
-    .font-english-baskerville, .font-english-baskerville *,
     .font-handwritten, .font-handwritten *,
     .font-no-change, .font-no-change *) {
     font-family: base.$text-font-noto-serif;
     --mdc-typography-body1-line-height: calc(var(--mdc-typography-body1-font-size) + 0.8rem);
 }
 
-.font-xlwk,
-.font-xlwk :not(button, i, pre code, pre code *, .font-handwritten-index, .font-handwritten, .font-handwritten *) {
-    font-family: base.$text-font-xlwk;
+.font-wenkai,
+.font-wenkai :not(button, i, pre code, pre code *, .font-handwritten-index, .font-handwritten, .font-handwritten *) {
+    font-family: base.$text-font-wenkai;
 }
 
 .one-line {

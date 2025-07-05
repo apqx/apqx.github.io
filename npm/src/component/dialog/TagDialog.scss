@@ -48,6 +48,14 @@
     background: var(--list-chip-2-bg);
 }
 
+.font-noto-serif-sc {
+    .tag-list-item__post-type,
+    .tag-list-item__post-block1,
+    .tag-list-item__post-block2 {
+        padding: 0.18rem 0.5rem;
+    }
+}
+
 .font-handwritten {
     .tag-list-item__post-type,
     .tag-list-item__post-block1,
