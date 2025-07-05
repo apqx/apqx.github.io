@@ -1,6 +1,6 @@
 import { ResizeWidthObserver } from "../../base/ResizeWidthObserver"
 import { consoleDebug } from "../../util/log"
-import { getElementAttribute } from "../../util/tools"
+import { getElementAttribute, toggleClassWithEnable } from "../../util/tools"
 
 /**
  * 图片加载动画，需要自己添加transition属性和初始height，否则不会有动画
@@ -9,16 +9,20 @@ export class ImageLoadAnimator {
     imgE: HTMLImageElement
     id: string | null
     widthResizeObserver: ResizeWidthObserver | null = null
+    animationBeforeStart: (() => boolean) | null = null
 
     /**
      * 为图片加载添加高度变化动画
      * @param imgE 目标图片元素
      * @param ratio 图片宽高比
      * @param monitorResize 是否监听宽度变化，动画调整高度，false会在加载完成后设置高度为auto，之后不会再有动画
+     * @param [animationBeforeStart=null] 动画开始前的回调函数，返回true表示继续执行动画，false表示不执行动画
+     * @param [animationEndCallback=null] 动画结束后的回调函数
      */
-    constructor(imgE: HTMLImageElement, ratio: number = -1, monitorResize: boolean = false, animationEndCallback: (() => void) | null = null) {
+    constructor(imgE: HTMLImageElement, ratio: number = -1, monitorResize: boolean = false, animationBeforeStart: (() => boolean) | null = null, animationEndCallback: (() => void) | null = null) {
         this.imgE = imgE
         this.id = getElementAttribute(imgE, "alt")
+        this.animationBeforeStart = animationBeforeStart
 
         // 图片有可能已经加载、显示完成
         if (imgE.complete) {
@@ -75,6 +79,14 @@ export class ImageLoadAnimator {
     }
 
     setImageHeight(imgE: HTMLImageElement, ratio: number) {
+        // 检查是否需要执行动画
+        if (this.animationBeforeStart != null && !this.animationBeforeStart()) {
+            consoleDebug("ImageLoadAnimator animationBeforeStart returned false, not animating " + this.id)
+            // 删除动画类，Img高度自动变为图片实际高度
+            toggleClassWithEnable(imgE, "image-height-animation", false)
+            return
+        }
+
         const height = imgE.width / ratio
         consoleDebug("SetImageHeight = " + height + ", " + this.id)
         imgE.style.height = height + "px"

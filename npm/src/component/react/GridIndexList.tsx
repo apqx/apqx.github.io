@@ -88,7 +88,7 @@ export class GridIndexList extends BasePostPaginateShow<Props> {
                             cover={item.cover}
                             coverAlt={item.coverAlt}
                             last={index == this.state.posts.length - 1}
-                            coverLoadedCallback={() => {}} />
+                            coverLoadedCallback={() => { }} />
                     )}
                     {(this.state.loading || this.state.loadHint != null) &&
                         <li className="grid-index-li">
@@ -132,10 +132,15 @@ class IndexItem extends React.Component<IndexItemProps, any> {
         const imgE = rootE.querySelector(".grid-index-cover.image-height-animation")
         // 图片加载动画
         if (imgE != null) {
-            this.imageLoadAnimator = new ImageLoadAnimator(imgE as HTMLImageElement, -1, false, () => {
-                // 图片尺寸动画执行完成
-                this.props.coverLoadedCallback()
-            })
+            this.imageLoadAnimator = new ImageLoadAnimator(imgE as HTMLImageElement, -1, false,
+                () => {
+                    // 仅在用户未滚动时的第一页执行动画，否则是不可见的无需动画
+                    return window.scrollY <= 0
+                },
+                () => {
+                    // 图片尺寸动画执行完成
+                    this.props.coverLoadedCallback()
+                })
         }
 
         // 监听元素进入窗口初次显示

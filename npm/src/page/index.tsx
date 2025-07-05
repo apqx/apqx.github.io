@@ -39,7 +39,7 @@ function initIndexList() {
         consoleObjDebug("Index loaded posts", loadedPosts)
         root.render(<IndexList tag={""} category={category} pinedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
             onMount={onMount} onUpdate={onUpdate} />)
-    } else if(wrapperE.querySelectorAll(".grid-index-ul").length > 0) {
+    } else if (wrapperE.querySelectorAll(".grid-index-ul").length > 0) {
         // 看剧
         const descriptionE = document.querySelector(".grid-index-li--description")
         let descriptionHtml = ""
@@ -138,9 +138,14 @@ function initIndexTopCover() {
     // 顶部封面图片，高度动画
     for (const ele of document.querySelectorAll(".index-top-cover.image-height-animation")) {
         const imgE = ele as HTMLImageElement
-        const imageLoadAnimator = new ImageLoadAnimator(imgE, INDEX_TOP_COVER_RATIO, true, () => {
-            // 动画完成回调
-        })
+        const imageLoadAnimator = new ImageLoadAnimator(imgE, INDEX_TOP_COVER_RATIO, true,
+            () => {
+                // 仅在用户未滚动时的第一页执行动画，否则是不可见的无需动画
+                return window.scrollY <= 0
+            }, 
+            () => {
+                // 动画完成回调
+            })
     }
     // 索引卡片
     for (const ele of document.querySelectorAll(".index-top-card,.grid-index-card__ripple")) {
