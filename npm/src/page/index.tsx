@@ -1,18 +1,19 @@
-// import "./index.scss"
-import { runOnHtmlDone, runOnPageDone, toggleClassWithEnable } from "../util/tools"
-import { consoleArrayDebug, consoleDebug, consoleError, consoleObjDebug } from "../util/log"
-import * as React from "react"
+import "./index.scss"
+import { runOnHtmlDone, toggleClassWithEnable } from "../util/tools"
+import { consoleDebug, consoleObjDebug } from "../util/log"
 import { createRoot } from "react-dom/client"
 import { IndexList } from "../component/react/IndexList"
-import { getSectionTypeByPath, SECTION_TYPE_ORIGINAL, SECTION_TYPE_OTHER, SECTION_TYPE_POETRY, SECTION_TYPE_REPOST } from "../base/constant"
+import { getSectionTypeByPath, SECTION_TYPE_OTHER} from "../base/constant"
 import { ImageLoadAnimator } from "../component/animation/ImageLoadAnimator"
-import { Post } from "../component/react/post/BasePostPaginateShow"
+import type { Post } from "../component/react/post/BasePostPaginateShow"
 import { GridIndexList } from "../component/react/GridIndexList"
 import { MDCRipple } from "@material/ripple"
 
-runOnHtmlDone(() => {
-    initIndexList()
-})
+export function initIndex() {
+    runOnHtmlDone(() => {
+        initIndexList()
+    })
+}
 
 function initIndexList() {
     const wrapperE = document.querySelector("#index-list-wrapper") as HTMLElement
@@ -138,7 +139,7 @@ function initIndexTopCover() {
     // 顶部封面图片，高度动画
     for (const ele of document.querySelectorAll(".index-top-cover.image-height-animation")) {
         const imgE = ele as HTMLImageElement
-        const imageLoadAnimator = new ImageLoadAnimator(imgE, INDEX_TOP_COVER_RATIO, true,
+        new ImageLoadAnimator(imgE, INDEX_TOP_COVER_RATIO, true,
             () => {
                 // 仅在用户未滚动时的第一页执行动画，否则是不可见的无需动画
                 return window.scrollY <= 0

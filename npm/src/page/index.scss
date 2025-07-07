@@ -1,7 +1,7 @@
 @use "../style/global" as base;
-@use "../component/react/IndexList";
-@use "../component/react/GridIndexList";
-@use "../component/animation/ImageLoadAnimator";
+// @use "../component/react/IndexList";
+// @use "../component/react/GridIndexList";
+// @use "../component/animation/ImageLoadAnimator";
 
 body {
     --index-card-to-container-border-horizontal: var(--main-container-padding-vertical);

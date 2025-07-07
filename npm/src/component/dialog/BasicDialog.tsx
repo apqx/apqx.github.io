@@ -1,10 +1,10 @@
-// import "./BasicDialog.scss"
-import * as React from "react"
-import { consoleDebug, consoleObjDebug } from "../../util/log"
+import "./BasicDialog.scss"
+import { consoleDebug } from "../../util/log"
 import { MDCDialog } from "@material/dialog"
 import { MDCRipple } from "@material/ripple"
-import { createRoot, Root } from "react-dom/client"
-import ReactDOM from "react-dom"
+import React from "react"
+import { createRoot } from "react-dom/client"
+import type { Root } from "react-dom/client"
 
 export interface BasicDialogProps {
     // 用于启动dialog的计数，每次+1，用于弹出dialog
@@ -16,6 +16,8 @@ export interface BasicDialogProps {
 }
 
 export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.Component<T, V> {
+    protected containerRef: React.RefObject<HTMLDivElement | null> = React.createRef()
+
     mdcDialog: MDCDialog | null = null
     rootE: Element | null = null
     btnCloseE: HTMLElement | null = null
@@ -30,7 +32,7 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
 
     componentDidMount() {
         consoleDebug("BasicDialog componentDidMount")
-        this.rootE = ReactDOM.findDOMNode(this) as Element
+        this.rootE = this.containerRef.current as Element
         this.initDialog()
         this.mdcDialog?.open()
     }
@@ -73,7 +75,7 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
             this.btnCloseE?.scroll
             new MDCRipple(this.btnCloseE!!)
         }
-        
+
         if (!this.props.closeOnClickOutside) {
             // 设置为空，点击Dialog外部，不取消
             this.mdcDialog.scrimClickAction = ""
@@ -162,12 +164,10 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
         this.btnCloseE.blur()
     }
 
-
-
     render() {
         consoleDebug("BasicDialog render")
         return (
-            <div className="mdc-dialog">
+            <div ref={this.containerRef} className="mdc-dialog">
                 <div className="mdc-dialog__container">
                     <div
                         className={this.props.fixedWidth ? "mdc-dialog__surface mdc-dialog__fixed-width" : "mdc-dialog__surface"}
@@ -199,7 +199,7 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
         )
     }
 
-    abstract dialogContent(): JSX.Element
+    abstract dialogContent(): React.JSX.Element
 }
 
 export const COMMON_DIALOG_WRAPPER_ID = "common-dialog-wrapper"
@@ -213,7 +213,7 @@ export const PREFERENCE_DIALOG_WRAPPER_ID = "preference-dialog-wrapper"
 let dialogContainerE: HTMLElement | null = null
 let rootDialogMap = new Map<string, Root>()
 
-export function showDialog(_contentElement: JSX.Element, _dialogWrapperId: string) {
+export function showDialog(_contentElement: React.JSX.Element, _dialogWrapperId: string) {
     // 如果此时html还未加载完成，确实可能出现为null的情况
     if (document.readyState === "loading") return
     dialogContainerE = document.querySelector("#dialog_container")

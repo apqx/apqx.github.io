@@ -1,6 +1,5 @@
 // import "./fab.scss"
-import { MDCRipple } from "@material/ripple"
-import { consoleDebug, consoleError } from "../util/log"
+import { consoleDebug } from "../util/log"
 import { showAlertDialog } from "./dialog/CommonAlertDialog"
 
 export function initFab() {

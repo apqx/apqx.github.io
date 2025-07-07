@@ -1,18 +1,21 @@
-// import "./404.scss"
+import "./404.scss"
 import { showShortLinkJumpDialog } from "../component/dialog/ShortLinkJumpDialog";
 import { consoleDebug } from "../util/log";
 import { runOnHtmlDone, runOnPageDone } from "../util/tools";
 import { initContentCard } from "../component/contentCard";
 
-runOnHtmlDone(() => {
-    // 404页面，卡片默认是隐藏的，由动画类之外的机制控制
-    // 这里像其它页面一样正常处理动画类
-    initContentCard(false)
-})
 
-runOnPageDone(() => {
-    checkJump()
-})
+export function init404() {
+    runOnHtmlDone(() => {
+        // 404页面，卡片默认是隐藏的，由动画类之外的机制控制
+        // 这里像其它页面一样正常处理动画类
+        initContentCard(false)
+    })
+
+    runOnPageDone(() => {
+        checkJump()
+    })
+}
 
 /**
  * 进入页面，检查是否携带了跳转参数

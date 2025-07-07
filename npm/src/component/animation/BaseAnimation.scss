@@ -11,7 +11,7 @@
 }
 
 .card-slide-in-middle {
-    transform: translateY(calc(var(--index-card-animation-translate-y) * 2));
+    transform: translateY(calc(var(--index-card-animation-translate-y) * 3));
     opacity: 0;
     transition: transform var(--index-card-animation-duration) ease,
         opacity calc(var(--index-card-animation-duration) / 2) ease;

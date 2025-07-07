@@ -29,7 +29,7 @@ export class DialogStateObserver {
 }
 
 export enum DialogState {
-    OPENED,
-    CLOSED,
-    LOAD_MORE
-}
+    OPENED = "OPENED",
+    CLOSED = "CLOSED",
+    LOAD_MORE = "LOAD_MORE"
+} 

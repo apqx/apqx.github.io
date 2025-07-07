@@ -1,7 +1,8 @@
-// import "./ShortLinkJumpDialog.scss"
-import * as React from "react"
+import "./ShortLinkJumpDialog.scss"
+import type { JSX } from "react"
 import { ProgressLinear } from "../react/ProgressLinear"
-import { BasicDialog, BasicDialogProps, COMMON_DIALOG_WRAPPER_ID, showDialog } from "./BasicDialog"
+import { BasicDialog, COMMON_DIALOG_WRAPPER_ID, showDialog } from "./BasicDialog"
+import type { BasicDialogProps } from "./BasicDialog"
 import { ShortLinkJumpDialogPresenter } from "./ShortLinkJumpDialogPresenter"
 
 interface DialogContentState {

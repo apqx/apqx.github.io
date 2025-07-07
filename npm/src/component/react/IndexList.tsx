@@ -1,15 +1,16 @@
-// import "./IndexList.scss"
+import "./IndexList.scss"
 import { MDCRipple } from "@material/ripple"
 import React from "react"
-import ReactDOM from "react-dom"
+import type { RefObject } from "react"
 import { ERROR_HINT, LoadingHint } from "./LoadingHint"
 import { consoleDebug, consoleObjDebug } from "../../util/log"
 import { ScrollLoader } from "../../base/ScrollLoader"
-import { BasePostPaginateShow, BasePostPaginateShowProps, BasePostPaginateShowState } from "./post/BasePostPaginateShow"
+import { BasePostPaginateShow } from "./post/BasePostPaginateShow"
+import type { BasePostPaginateShowProps, BasePostPaginateShowState } from "./post/BasePostPaginateShow"
 import { PostPaginateShowPresenter } from "./post/PostPaginateShowPresenter"
-import { IPostPaginateShowPresenter } from "./post/IPostPaginateShowPresenter"
+import type { IPostPaginateShowPresenter } from "./post/IPostPaginateShowPresenter"
 import { showFooter } from "../footer"
-import { interSectionObserver } from "../animation/BaseAnimation"
+import { getInterSectionObserver } from "../animation/BaseAnimation"
 
 export class IndexList extends BasePostPaginateShow<BasePostPaginateShowProps> {
 
@@ -19,7 +20,6 @@ export class IndexList extends BasePostPaginateShow<BasePostPaginateShowProps> {
 
     componentDidMount(): void {
         super.componentDidMount()
-        const rootE = ReactDOM.findDOMNode(this) as HTMLElement
         // 不使用高度动画
         // this.heightAnimationContainer = new HeightAnimationContainer(rootE)
         if (this.props.onUpdate != null) this.props.onUpdate()
@@ -47,7 +47,7 @@ export class IndexList extends BasePostPaginateShow<BasePostPaginateShowProps> {
         return (
             <ul className="index-ul">
                 {this.props.pinedPosts.map((post) =>
-                    <IndexItem key={post.path}
+                    <IndexItem key={post.title + post.date}
                         title={post.title} author={post.author} date={post.date} description={post.description} path={post.path} pin={post.pin}
                         last={false} />
                 )}
@@ -77,6 +77,8 @@ export type IndexItemProps = {
 }
 
 class IndexItem extends React.Component<IndexItemProps, any> {
+    private containerRef: RefObject<HTMLLIElement | null> = React.createRef()
+
     cardE: HTMLElement | null = null
 
     constructor(props: IndexItemProps) {
@@ -85,7 +87,7 @@ class IndexItem extends React.Component<IndexItemProps, any> {
 
     componentDidMount(): void {
         consoleObjDebug("IndexItem componentDidMount", this.props)
-        const rootE = ReactDOM.findDOMNode(this) as HTMLElement;
+        const rootE = this.containerRef.current as HTMLElement;
         this.cardE = rootE.querySelector(".index-card")
 
         if (this.props.pin) {
@@ -94,20 +96,20 @@ class IndexItem extends React.Component<IndexItemProps, any> {
         new MDCRipple(this.cardE!!)
         // 监听元素进入窗口初次显示
         if (this.cardE != null) {
-            interSectionObserver.observe(this.cardE)
+            getInterSectionObserver().observe(this.cardE)
         }
     }
 
     componentWillUnmount(): void {
         consoleDebug("IndexItem componentWillUnmount " + this.props.title)
         if (this.cardE != null) {
-            interSectionObserver.unobserve(this.cardE)
+            getInterSectionObserver().unobserve(this.cardE)
         }
     }
 
     render() {
         return (
-            <li className="index-li">
+            <li ref={this.containerRef} className="index-li">
                 <a className="index-a mdc-card index-card card-slide-in" href={this.props.path}>
                     <section>
                         <h1 className="index-title">{this.props.title}</h1>

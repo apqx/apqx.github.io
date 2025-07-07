@@ -1,5 +1,5 @@
-// import "./scaffold.scss"
-import { checkWebpSupport, isDebug, isWriting, runOnHtmlDone, runOnPageBackFromCache, runOnPageDone, toggleClassWithEnable } from "../util/tools"
+import "./scaffold.scss"
+import { isWriting, runOnHtmlDone, runOnPageBackFromCache, runOnPageDone } from "../util/tools"
 import { blockTopbarKeyFrameAnimation, initTopbar } from "../component/topbar"
 import { initDrawer } from "../component/drawer"
 import { checkUserTheme, initTheme } from "../component/theme"
@@ -8,41 +8,72 @@ import { initFont } from "../component/font/font"
 import { initFab } from "../component/fab"
 import { initTag, initTagTriggers } from "../component/tag"
 import { initButton } from "../component/button"
-import { initTable } from "../component/table";
-import { initList } from "../component/list";
-import { initText } from "../component/text";
-import { consoleDebug, consoleObjDebug } from "../util/log";
-import { loadGoogleAnalytics } from "../util/gtag";
+import { initTable } from "../component/table"
+import { initList } from "../component/list"
+import { initText } from "../component/text"
+import { consoleDebug } from "../util/log"
+import { loadGoogleAnalytics } from "../util/gtag"
 import { initFooter } from "../component/footer"
 import { initCard } from "../component/card"
+import { is404Page, isIndexPage, isPostPage } from "../base/constant"
+import supportsWebP from "supports-webp"
+import { showAlertDialog } from "../component/dialog/CommonAlertDialog"
 
-runOnHtmlDone(() => {
-    initLocalRepository()
-    initFont()
-    initTopbar()
-    initFooter()
-    initTheme()
-    initDrawer()
-    initFab()
-    // TODO:可选项，懒加载
-    initTag()
-    initButton()
-    initCard()
-    initTable()
-    initList()
-    initText()
-    initTagTriggers()
-})
+initScaffold()
 
-runOnPageDone(() => {
-    checkWebpSupport()
-    loadGoogleAnalytics()
-})
+export function initScaffold() {
+    runOnHtmlDone(() => {
+        checkPage()
+        initLocalRepository()
+        initFont()
+        initTopbar()
+        initFooter()
+        initTheme()
+        initDrawer()
+        initFab()
+        initTag()
+        initButton()
+        initCard()
+        initTable()
+        initList()
+        initText()
+        initTagTriggers()
+    })
 
-runOnPageBackFromCache(() => {
-    blockTopbarKeyFrameAnimation(true)
-    checkUserTheme()
-})
+    runOnPageDone(() => {
+        checkWebpSupport()
+        loadGoogleAnalytics()
+    })
+
+    runOnPageBackFromCache(() => {
+        blockTopbarKeyFrameAnimation(true)
+        checkUserTheme()
+    })
+}
+
+// 检查当前页面类型，加载对应组件
+function checkPage() {
+    if (is404Page(window.location.pathname)) {
+        import("./404").then((page) => {
+            page.init404()
+        }).catch((e) => {
+            consoleDebug("Error loading 404 page script: " + e)
+        })
+    } else if (isIndexPage(window.location.pathname)) {
+        import("./index").then((page) => {
+            page.initIndex()
+        }).catch((e) => {
+            consoleDebug("Error loading index page script: " + e)
+        })
+    } else if (isPostPage(window.location.pathname)) {
+        import("./post").then((page) => {
+            page.initPost()
+        }).catch((e) => {
+            consoleDebug("Error loading post page script: " + e)
+        })
+    }
+}
+
 
 window.addEventListener("pageshow", (event) => {
     consoleDebug("Window event: pageshow, persisted = " + event.persisted)
@@ -74,3 +105,16 @@ window.addEventListener("pageshow", (event) => {
 window.addEventListener("pagehide", (event) => {
     consoleDebug("Window event: pagehide")
 });
+
+function checkWebpSupport() {
+    supportsWebP.then(supported => {
+        if (!supported) {
+            const urlLink = `
+            当前浏览器不支持<a href="https://caniuse.com/?search=webp" target="_blank">WebP</a>格式，部分图片可能无法显示，请更新浏览器版本。
+            `
+            showAlertDialog("提示", urlLink, "关闭", () => {
+                
+            })
+        } 
+    })
+}

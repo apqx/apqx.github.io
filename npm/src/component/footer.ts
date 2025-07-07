@@ -1,13 +1,13 @@
 // import "./footer.scss"
 import { isIndexPage } from "../base/constant"
-import { interSectionObserver } from "./animation/BaseAnimation"
+import { getInterSectionObserver } from "./animation/BaseAnimation"
 
 /**
  * 在Index页面Footer默认隐藏，首次加载完成后显示出来
  */
 export function showFooter() {
     const footerE = document.querySelector("footer")
-    interSectionObserver.observe(footerE!!)
+    getInterSectionObserver().observe(footerE!!)
 }
 
 export function initFooter() {

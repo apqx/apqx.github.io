@@ -1,8 +1,8 @@
 @use "../../style/global" as base;
-@use "./LoadingHint";
 @use "../card";
-@use "../animation/BaseAnimation";
-@use "../animation/HeightAnimationContainer";
+// @use "./LoadingHint";
+// @use "../animation/BaseAnimation";
+// @use "../animation/HeightAnimationContainer";
 
 body {
     --index-card-padding-vertical: 1.3rem;

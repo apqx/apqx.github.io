@@ -1,16 +1,18 @@
-// import "./post.scss"
-import { consoleDebug, consoleError } from "../util/log";
-import { runOnHtmlDone, runOnPageDone } from "../util/tools";
-import { initContentCard } from "../component/contentCard";
-import { showAlertDialog } from "../component/dialog/CommonAlertDialog";
+import "./post.scss"
+import { consoleDebug, consoleError } from "../util/log"
+import { runOnHtmlDone } from "../util/tools"
+import { initContentCard } from "../component/contentCard"
+import { showAlertDialog } from "../component/dialog/CommonAlertDialog"
 
-runOnHtmlDone(() => {
-    initContentCard(true)
-    initCodeHighlight()
-    initPageCheck()
-    initImgJump()
-    initImg()
-})
+export function initPost() {
+    runOnHtmlDone(() => {
+        initContentCard(true)
+        initCodeHighlight()
+        initPageCheck()
+        initImgJump()
+        initImg()
+    })
+}
 
 function initCodeHighlight() {
     if (document.querySelector("pre code") == null) return
@@ -33,8 +35,6 @@ function initPageCheck() {
     }
 }
 
-let copyrightImgClicked = false
-
 function initImgJump() {
     const imgList = document.querySelectorAll(".clickShowOriginalImg")
     let url = ""
@@ -50,11 +50,6 @@ function initImgJump() {
             } else {
                 window.open(url, "_blank")
             }
-            // if (hasCopyright && !copyrightImgClicked) {
-            //     showCopyrightDialog(url);
-            // } else {
-            //     window.open(url, "_blank")
-            // }
         })
     }
 }
@@ -63,7 +58,6 @@ function showCopyrightDialog(url: string) {
     showAlertDialog("版权声明", "点击“OK”将跳转到无水印原图，注意图片版权归属作者及剧团演员所有，未经允许不可作商业用途🤫。",
         "OK", () => {
             // 必须点击这个btn才允许跳转到大图
-            copyrightImgClicked = true
             window.open(url, "_blank")
         })
 }
@@ -73,7 +67,7 @@ function initImg() {
     document.addEventListener("contextmenu", (event) => {
         if (event.target instanceof HTMLImageElement) {
             event.preventDefault();
-            showAlertDialog("提示", "节省数据流量文中是缩略图，点击图片可以跳转到原图。", "OK", () => {})
+            showAlertDialog("提示", "节省数据流量文中是缩略图，点击图片可以跳转到原图。", "OK", () => { })
         }
     })
 }

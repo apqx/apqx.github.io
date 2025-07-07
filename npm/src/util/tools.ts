@@ -1,6 +1,4 @@
-import supportsWebP from "supports-webp"
-import { consoleDebug, consoleObjDebug } from "./log"
-import { showAlertDialog } from "../component/dialog/CommonAlertDialog"
+import { consoleDebug } from "./log"
 
 /**
  * 当HTML元素加载完成后执行指定的任务
@@ -154,17 +152,4 @@ export function runAfterMinimalTime(startTime: number, func: () => void, _minima
 export const clearFocusListener: (e: Event) => void = (e) => {
     const target = e.target as HTMLElement
     target.blur()
-}
-
-export function checkWebpSupport() {
-    supportsWebP.then(supported => {
-        if (!supported) {
-            const urlLink = `
-            当前浏览器不支持<a href="https://caniuse.com/?search=webp" target="_blank">WebP</a>格式，部分图片可能无法显示，请更新浏览器版本。
-            `
-            showAlertDialog("提示", urlLink, "关闭", () => {
-                
-            })
-        } 
-    })
 }

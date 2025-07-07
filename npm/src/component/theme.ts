@@ -1,7 +1,7 @@
 // import "./theme.scss"
-import { isChrome, isMobileOrTablet, isSafari, toggleClassWithEnable } from "../util/tools"
+import { isChrome, isMobileOrTablet, toggleClassWithEnable } from "../util/tools"
 import { consoleDebug } from "../util/log"
-import { LocalRepository, localRepository } from "../repository/LocalRepository"
+import { getLocalRepository } from "../repository/LocalRepository"
 import { iconToggleTheme, toggleTopbarGlass } from "./topbar"
 import { showSnackbar } from "./react/Snackbar"
 
@@ -13,7 +13,7 @@ export function initTheme() {
     window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
         let newSysTheme = e.matches ? "dark" : "light";
         consoleDebug("System theme change to " + newSysTheme)
-        const autoThemeOn = localRepository!!.getTheme() === localRepository!!.VALUE_THEME_AUTO
+        const autoThemeOn = getLocalRepository().getTheme() === getLocalRepository().VALUE_THEME_AUTO
         if (autoThemeOn) {
             const newSysThemeDark = newSysTheme === "dark"
             const currentThemeDark = document.body.classList.contains(darkClass)
@@ -102,25 +102,25 @@ export function setMetaThemeColor(color: string | null) {
  * 根据用户设置切换主题
  */
 export function toggleTheme() {
-    const themeArray = [localRepository!!.VALUE_THEME_AUTO, localRepository!!.VALUE_THEME_DARK, localRepository!!.VALUE_THEME_LIGHT]
-    const currentTheme = localRepository!!.getTheme() ?? localRepository!!.VALUE_THEME_AUTO
+    const themeArray = [getLocalRepository().VALUE_THEME_AUTO, getLocalRepository().VALUE_THEME_DARK, getLocalRepository().VALUE_THEME_LIGHT]
+    const currentTheme = getLocalRepository().getTheme() ?? getLocalRepository().VALUE_THEME_AUTO
     const currentThemeIndex = themeArray.indexOf(currentTheme)
     const nextThemeIndex = (currentThemeIndex + 1) % themeArray.length
     const nextTheme = themeArray[nextThemeIndex]
     consoleDebug("Toggle theme, current = " + currentTheme + ", next = " + nextTheme)
 
     switch (nextTheme) {
-        case localRepository!!.VALUE_THEME_AUTO: {
+        case getLocalRepository().VALUE_THEME_AUTO: {
             applySystemTheme()
             showSnackbar("已设置主题跟随系统")
             break
         }
-        case localRepository!!.VALUE_THEME_DARK: {
+        case getLocalRepository().VALUE_THEME_DARK: {
             showThemeDark(true)
             showSnackbar("已切换到暗色主题")
             break
         }
-        case localRepository!!.VALUE_THEME_LIGHT: {
+        case getLocalRepository().VALUE_THEME_LIGHT: {
             showThemeDark(false)
             showSnackbar("已切换到亮色主题")
             break
@@ -153,29 +153,29 @@ export function showThemeDark(dark: boolean) {
  */
 export function saveTheme(theme: string) {
     consoleDebug("Save theme = " + theme)
-    localRepository!!.setTheme(theme)
+    getLocalRepository().setTheme(theme)
 }
 
 export function checkUserTheme() {
     // 默认情况下 savedTheme 为 null
-    const savedTheme = localRepository!!.getTheme()
+    const savedTheme = getLocalRepository().getTheme()
     switch (savedTheme) {
-        case localRepository!!.VALUE_THEME_AUTO: {
+        case getLocalRepository().VALUE_THEME_AUTO: {
             applySystemTheme();
             break
         }
-        case localRepository!!.VALUE_THEME_DARK: {
+        case getLocalRepository().VALUE_THEME_DARK: {
             showThemeDark(true);
             break
         }
-        case localRepository!!.VALUE_THEME_LIGHT: {
+        case getLocalRepository().VALUE_THEME_LIGHT: {
             showThemeDark(false);
             break
         }
         default: {
             // 默认使用系统主题
             applySystemTheme();
-            saveTheme(localRepository!!.VALUE_THEME_AUTO);
+            saveTheme(getLocalRepository().VALUE_THEME_AUTO);
             break
         }
     }

@@ -1,13 +1,14 @@
-// import "./ProgressCircular.scss"
+import "./ProgressCircular.scss"
 import React from "react"
-import ReactDOM from "react-dom";
-import { MDCCircularProgress } from '@material/circular-progress';
+import type { RefObject } from "react"
+import { MDCCircularProgress } from '@material/circular-progress'
 
 interface Props {
     loading: boolean
 }
 
 export class ProgressCircular extends React.Component<Props, any> {
+    private containerRef: RefObject<HTMLDivElement | null> = React.createRef()
     progressCircular: MDCCircularProgress | null = null
 
     init(e: Element) {
@@ -20,7 +21,7 @@ export class ProgressCircular extends React.Component<Props, any> {
     }
 
     componentDidMount() {
-        const rootE = ReactDOM.findDOMNode(this) as Element
+        const rootE = this.containerRef.current as Element
         this.init(rootE)
     }
 
@@ -38,7 +39,7 @@ export class ProgressCircular extends React.Component<Props, any> {
 
     render() {
         return (
-            <div className="mdc-circular-progress" style={{ width: "2.8rem", height: "2.8rem" }} role="progressbar" aria-valuemin={0} aria-valuemax={1}>
+            <div ref={this.containerRef} className="mdc-circular-progress" style={{ width: "2.8rem", height: "2.8rem" }} role="progressbar" aria-valuemin={0} aria-valuemax={1}>
                 <div className="mdc-circular-progress__determinate-container">
                     <svg className="mdc-circular-progress__determinate-circle-graphic" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
                         <circle className="mdc-circular-progress__determinate-track" cx="24" cy="24" r="18" strokeWidth="4" />

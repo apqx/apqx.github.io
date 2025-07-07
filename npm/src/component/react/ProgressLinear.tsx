@@ -1,13 +1,14 @@
-// import "./ProgressLinear.scss"
+import "./ProgressLinear.scss"
 import React from "react"
+import type { RefObject } from "react";
 import {MDCLinearProgress} from "@material/linear-progress"
-import ReactDOM from "react-dom";
 
 interface Props {
     loading: boolean
 }
 
 export class ProgressLinear extends React.Component<Props, any> {
+    private containerRef: RefObject<HTMLDivElement | null> = React.createRef()
     progressLinear: MDCLinearProgress | null = null
 
     init(e: Element) {
@@ -20,7 +21,7 @@ export class ProgressLinear extends React.Component<Props, any> {
     }
 
     componentDidMount() {
-        const rootE = ReactDOM.findDOMNode(this) as Element
+        const rootE = this.containerRef.current as Element
         this.init(rootE)
     }
 
@@ -38,7 +39,7 @@ export class ProgressLinear extends React.Component<Props, any> {
 
     render() {
         return (
-            <div role="progressbar" className="mdc-linear-progress">
+            <div ref={this.containerRef} role="progressbar" className="mdc-linear-progress">
                 <div className="mdc-linear-progress__buffer">
                     <div className="mdc-linear-progress__buffer-bar"></div>
                     <div className="mdc-linear-progress__buffer-dots"></div>

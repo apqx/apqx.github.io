@@ -1,8 +1,8 @@
-// import "./PreferenceDialog.scss"
-import * as React from "react"
+import "./PreferenceDialog.scss"
 import { PreferenceDialogPresenter } from "./PreferenceDialogPresenter"
 import { consoleDebug } from "../../util/log"
-import { BasicDialog, BasicDialogProps, PREFERENCE_DIALOG_WRAPPER_ID, showDialog } from "./BasicDialog"
+import { BasicDialog, PREFERENCE_DIALOG_WRAPPER_ID, showDialog } from "./BasicDialog"
+import type { BasicDialogProps } from "./BasicDialog"
 import { SettingsToggle } from "../react/SettingsToggle"
 
 interface DialogContentState {
@@ -90,7 +90,7 @@ export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogConten
     notoSerifSCFontTitle = "使用<a href=\"https://source.typekit.com/source-han-serif/cn/\" target=\"_blank\">思源宋体</a>"
     autoThemeTitle = "跟随系统自动切换<a href=\"/post/original/2021/08/03/为博客添加站内搜索和暗黑模式.html\">主题配色</a>"
 
-    dialogContent(): JSX.Element {
+    dialogContent(): React.JSX.Element {
         consoleDebug("PreferenceDialogContent render")
         return (
             <>

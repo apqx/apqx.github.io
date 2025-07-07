@@ -1,31 +1,55 @@
 // import "./codeHighlight.scss"
 import highlight from "highlight.js/lib/core"
+import bash from "highlight.js/lib/languages/bash"
+import c from "highlight.js/lib/languages/c"
+import csharp from "highlight.js/lib/languages/csharp"
+import cpp from "highlight.js/lib/languages/cpp"
+import css from "highlight.js/lib/languages/css"
+import scss from "highlight.js/lib/languages/scss"
+import xml from "highlight.js/lib/languages/xml"
+import json from "highlight.js/lib/languages/json"
+import java from "highlight.js/lib/languages/java"
+import javascript from "highlight.js/lib/languages/javascript"
+import kotlin from "highlight.js/lib/languages/kotlin"
+import markdown from "highlight.js/lib/languages/markdown"
+import python from "highlight.js/lib/languages/python"
+import ruby from "highlight.js/lib/languages/ruby"
+import rust from "highlight.js/lib/languages/rust"
+import sql from "highlight.js/lib/languages/sql"
+import shell from "highlight.js/lib/languages/shell"
+import swift from "highlight.js/lib/languages/swift"
+import typescript from "highlight.js/lib/languages/typescript"
+import yaml from "highlight.js/lib/languages/yaml"
+import groovy from "highlight.js/lib/languages/groovy"
+import gradle from "highlight.js/lib/languages/gradle"
+import http from "highlight.js/lib/languages/http"
+import dart from "highlight.js/lib/languages/dart"
 
 export function init() {
-    highlight.registerLanguage("bash", require("highlight.js/lib/languages/bash"))
-    highlight.registerLanguage("c", require("highlight.js/lib/languages/c"))
-    highlight.registerLanguage("csharp", require("highlight.js/lib/languages/csharp"))
-    highlight.registerLanguage("cpp", require("highlight.js/lib/languages/cpp"))
-    highlight.registerLanguage("css", require("highlight.js/lib/languages/css"))
-    highlight.registerLanguage("xml", require("highlight.js/lib/languages/xml"))
-    highlight.registerLanguage("json", require("highlight.js/lib/languages/json"))
-    highlight.registerLanguage("java", require("highlight.js/lib/languages/java"))
-    highlight.registerLanguage("javascript", require("highlight.js/lib/languages/javascript"))
-    highlight.registerLanguage("kotlin", require("highlight.js/lib/languages/kotlin"))
-    highlight.registerLanguage("markdown", require("highlight.js/lib/languages/markdown"))
-    highlight.registerLanguage("python", require("highlight.js/lib/languages/python"))
-    highlight.registerLanguage("ruby", require("highlight.js/lib/languages/ruby"))
-    highlight.registerLanguage("rust", require("highlight.js/lib/languages/rust"))
-    highlight.registerLanguage("scss", require("highlight.js/lib/languages/scss"))
-    highlight.registerLanguage("sql", require("highlight.js/lib/languages/sql"))
-    highlight.registerLanguage("shell", require("highlight.js/lib/languages/shell"))
-    highlight.registerLanguage("swift", require("highlight.js/lib/languages/swift"))
-    highlight.registerLanguage("typescript", require("highlight.js/lib/languages/typescript"))
-    highlight.registerLanguage("yaml", require("highlight.js/lib/languages/yaml"))
-    highlight.registerLanguage("groovy", require("highlight.js/lib/languages/groovy"))
-    highlight.registerLanguage("gradle", require("highlight.js/lib/languages/gradle"))
-    highlight.registerLanguage("http", require("highlight.js/lib/languages/http"))
-    highlight.registerLanguage("dart", require("highlight.js/lib/languages/dart"))
+    highlight.registerLanguage("bash", bash)
+    highlight.registerLanguage("c", c)
+    highlight.registerLanguage("csharp", csharp)
+    highlight.registerLanguage("cpp", cpp)
+    highlight.registerLanguage("css", css)
+    highlight.registerLanguage("xml", xml)
+    highlight.registerLanguage("json", json)
+    highlight.registerLanguage("java", java)
+    highlight.registerLanguage("javascript", javascript)
+    highlight.registerLanguage("kotlin", kotlin)
+    highlight.registerLanguage("markdown", markdown)
+    highlight.registerLanguage("python", python)
+    highlight.registerLanguage("ruby", ruby)
+    highlight.registerLanguage("rust", rust)
+    highlight.registerLanguage("scss", scss)
+    highlight.registerLanguage("sql", sql)
+    highlight.registerLanguage("shell", shell)
+    highlight.registerLanguage("swift", swift)
+    highlight.registerLanguage("typescript", typescript)
+    highlight.registerLanguage("yaml", yaml)
+    highlight.registerLanguage("groovy", groovy)
+    highlight.registerLanguage("gradle", gradle)
+    highlight.registerLanguage("http", http)
+    highlight.registerLanguage("dart", dart)
 
     highlight.highlightAll()
 }

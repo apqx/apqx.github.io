@@ -1,8 +1,7 @@
-// import "./Button.scss"
+import "./Button.scss"
 import { MDCRipple } from "@material/ripple"
 import React from "react"
-import ReactDOM from "react-dom"
-import { consoleDebug, consoleObjDebug } from "../../util/log"
+import type { RefObject } from "react"
 import { clearFocusListener } from "../../util/tools"
 
 export interface Props {
@@ -12,6 +11,8 @@ export interface Props {
 }
 
 export class Button extends React.Component<Props, any> {
+    private containerRef: RefObject<HTMLButtonElement | null> = React.createRef()
+
 
     init(e: HTMLElement) {
         new MDCRipple(e)
@@ -29,12 +30,12 @@ export class Button extends React.Component<Props, any> {
     }
 
     componentDidMount() {
-        this.init(ReactDOM.findDOMNode(this) as HTMLElement)
+        this.init(this.containerRef.current as HTMLElement)
     }
 
     render() {
         return (
-            <button type="button" className="mdc-button" tabIndex={-1}>
+            <button ref={this.containerRef} type="button" className="mdc-button" tabIndex={-1}>
                 <span className="mdc-button__label">{this.props.text}</span>
             </button>
         )

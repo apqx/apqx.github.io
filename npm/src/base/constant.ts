@@ -86,5 +86,14 @@ export function getSectionTypeByPath(path: string): SectionType {
 }
 
 export function isIndexPage(path: string): boolean {
-    return path.match("^((\\/)|(\\/index.*)|(\\/section/.*))$") != null
+    return path.match("^((\\/)|(\\/index.*)|(\\/section/(?!tag).*))$") != null 
+}
+
+export function isPostPage(path: string): boolean {
+    return !is404Page(path)
+        && (path.match("^\\/post\\/.*$") != null || document.querySelector(".content-card") != null)
+}
+
+export function is404Page(path: string): boolean {
+    return path.match("^\\/404.*$") != null || document.querySelector(".container-404") != null
 }

@@ -1,6 +1,7 @@
 import React from "react"
-import { IPostPaginateShow } from "./IPostPaginateShow"
-import { IPostPaginateShowPresenter } from "./IPostPaginateShowPresenter"
+import type { RefObject } from "react"
+import type { IPostPaginateShow } from "./IPostPaginateShow"
+import type { IPostPaginateShowPresenter } from "./IPostPaginateShowPresenter"
 import { consoleDebug } from "../../../util/log"
 
 export interface BasePostPaginateShowProps {
@@ -35,6 +36,7 @@ export type Post = {
 
 export abstract class BasePostPaginateShow<P extends BasePostPaginateShowProps>
     extends React.Component<P, BasePostPaginateShowState> implements IPostPaginateShow {
+
     presenter: IPostPaginateShowPresenter
     loadFirstPageOnMount: boolean = true
 

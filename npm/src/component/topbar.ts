@@ -1,9 +1,9 @@
 // import "./topbar.scss"
 import { MDCIconButtonToggle } from "@material/icon-button"
 import { consoleDebug, consoleError } from "../util/log"
-import { localRepository } from "../repository/LocalRepository"
+import { getLocalRepository } from "../repository/LocalRepository"
 import { MDCTopAppBar } from "@material/top-app-bar"
-import { clearFocusListener, isMobileOrTablet, toggleClassWithEnable } from "../util/tools"
+import { clearFocusListener, toggleClassWithEnable } from "../util/tools"
 import { showAboutMeDialog } from "./dialog/AboutMeDialog"
 import { getSectionTypeByPath, isIndexPage, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL, SECTION_TYPE_POETRY, SECTION_TYPE_PRINT, SECTION_TYPE_REPOST, SECTION_TYPE_SHARE, SECTION_TYPE_TAG } from "../base/constant"
 import { toggleTheme } from "./theme"
@@ -13,7 +13,7 @@ export var topAppBar: MDCTopAppBar | null = null
 export var topAppBarE: HTMLElement | null = null
 
 export function refreshTopbar() {
-    const fixedTopbar = localRepository!!.getFixedTopbarOn()
+    const fixedTopbar = getLocalRepository().getFixedTopbarOn()
     setFixedTopbar(fixedTopbar)
 }
 
@@ -43,7 +43,6 @@ export function initTopbar() {
     });
     btnAboutMeE?.addEventListener("click", () => {
         showAboutMeDialog()
-
     })
     btnMenuE?.addEventListener("focus", clearFocusListener)
     btnThemeE?.addEventListener("focus", clearFocusListener)

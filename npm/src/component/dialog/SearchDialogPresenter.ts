@@ -1,7 +1,7 @@
 import { ResultItemData, SearchDialog } from "./SearchDialog"
 import { consoleDebug, consoleError, consoleObjDebug } from "../../util/log"
 import { isDebug, runAfterMinimalTime } from "../../util/tools"
-import { Item, Result } from "./bean/search/PagefindResult"
+import type { Item, Result } from "./bean/search/PagefindResult"
 import { getPostDate } from "../../base/post"
 import { ERROR_HINT, getLoadHint } from "../react/LoadingHint"
 import { getSectionTypeByPath } from "../../base/constant"

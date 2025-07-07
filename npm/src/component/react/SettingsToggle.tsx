@@ -1,8 +1,8 @@
-// import "./SettingsToggle.scss"
-import * as React from "react"
+import "./SettingsToggle.scss"
 import { createHtmlContent } from "../../util/tools"
 import { createComponent } from '@lit/react'
 import { MdSwitch } from '@material/web/switch/switch.js'
+import React from "react"
 
 // 新的@material/web必须借助lit/react来创建可以被react识别的component
 export const NewMdSwitch = createComponent({

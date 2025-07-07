@@ -1,5 +1,6 @@
 @use "../style/global" as base;
 @use "../component/theme" as blogTheme;
+@use "../component/contentCard";
 @use "../component/button";
 @use "../component/card";
 @use "../component/drawer";
@@ -10,12 +11,12 @@
 @use "../component/tag";
 @use "../component/text";
 @use "../component/topbar";
-@use "../component/dialog/AboutMeDialog";
-@use "../component/dialog/BasicDialog";
-@use "../component/dialog/PreferenceDialog";
-@use "../component/dialog/SearchDialog";
-@use "../component/dialog/TagDialog";
-@use "../component/react/Snackbar";
+// @use "../component/dialog/AboutMeDialog";
+// @use "../component/dialog/BasicDialog";
+// @use "../component/dialog/PreferenceDialog";
+// @use "../component/dialog/SearchDialog";
+// @use "../component/dialog/TagDialog";
+// @use "../component/react/Snackbar";
 @use "@material/animation";
 
 // 通过js给body添加dark class，可以实现对mac-theme的参数更改

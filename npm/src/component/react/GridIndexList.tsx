@@ -1,19 +1,20 @@
-// import "./GridIndexList.scss"
-import { ReactNode } from "react"
+import "./GridIndexList.scss"
+import type { ReactNode } from "react"
+import type { RefObject } from "react"
 import React from "react"
-import ReactDOM from "react-dom"
 import { MDCRipple } from "@material/ripple"
 import { ImageLoadAnimator } from "../animation/ImageLoadAnimator"
 import { ERROR_HINT, LoadingHint } from "./LoadingHint"
 import { consoleDebug, consoleObjDebug } from "../../util/log"
-import { BasePostPaginateShow, BasePostPaginateShowProps, BasePostPaginateShowState, Post } from "./post/BasePostPaginateShow"
-import { IPostPaginateShowPresenter } from "./post/IPostPaginateShowPresenter"
+import { BasePostPaginateShow } from "./post/BasePostPaginateShow"
+import type { BasePostPaginateShowProps, BasePostPaginateShowState, Post } from "./post/BasePostPaginateShow"
+import type { IPostPaginateShowPresenter } from "./post/IPostPaginateShowPresenter"
 import { PostPaginateShowPresenter } from "./post/PostPaginateShowPresenter"
 import { setupTagTrigger } from "../tag"
 import { ScrollLoader } from "../../base/ScrollLoader"
 import Masonry from 'react-masonry-css'
 import { showFooter } from "../footer"
-import { interSectionObserver } from "../animation/BaseAnimation"
+import { getInterSectionObserver } from "../animation/BaseAnimation"
 
 interface Props extends BasePostPaginateShowProps {
     pageDescriptionHtml: string
@@ -43,7 +44,6 @@ export class GridIndexList extends BasePostPaginateShow<Props> {
     componentDidMount(): void {
         super.componentDidMount()
         consoleDebug("GridIndex componentDidMount")
-        const rootE = ReactDOM.findDOMNode(this) as HTMLElement
         if (this.props.onUpdate != null) this.props.onUpdate()
         this.initScroll()
         // 显示footer，在索引页其被默认隐藏，需要在列表首次加载后显示出来
@@ -116,6 +116,7 @@ type IndexItemProps = {
 }
 
 class IndexItem extends React.Component<IndexItemProps, any> {
+    private containerRef: RefObject<HTMLLIElement | null> = React.createRef()
     imageLoadAnimator: ImageLoadAnimator | null = null
     cardE: HTMLElement | null = null
 
@@ -125,7 +126,7 @@ class IndexItem extends React.Component<IndexItemProps, any> {
 
     componentDidMount(): void {
         consoleObjDebug("IndexItem componentDidMount", this.props)
-        const rootE = ReactDOM.findDOMNode(this) as HTMLElement
+        const rootE = this.containerRef.current as HTMLElement
         this.cardE = rootE.querySelector(".grid-index-card")
 
         new MDCRipple(rootE.querySelector(".grid-index-card__ripple")!!)
@@ -145,7 +146,7 @@ class IndexItem extends React.Component<IndexItemProps, any> {
 
         // 监听元素进入窗口初次显示
         if (this.cardE != null) {
-            interSectionObserver.observe(this.cardE)
+            getInterSectionObserver().observe(this.cardE)
         }
     }
 
@@ -155,14 +156,14 @@ class IndexItem extends React.Component<IndexItemProps, any> {
             this.imageLoadAnimator.destroy()
         }
         if (this.cardE != null) {
-            interSectionObserver.unobserve(this.cardE)
+            getInterSectionObserver().unobserve(this.cardE)
         }
     }
 
     render(): ReactNode {
         const actorStr = this.props.actor.join(" ")
         return (
-            <li className="grid-index-li">
+            <li ref={this.containerRef} className="grid-index-li">
                 <a className="index-a mdc-card grid-index-card grid-index-card__ripple card-slide-in-middle" href={this.props.path}>
                     <section>
                         {this.props.cover != null && this.props.cover.length > 0 &&
@@ -192,6 +193,7 @@ type IndexDescriptionItemProps = {
 }
 
 class IndexDescriptionItem extends React.Component<IndexDescriptionItemProps, any> {
+    private containerRef: RefObject<HTMLLIElement | null> = React.createRef()
     cardE: HTMLElement | null = null
 
     constructor(props: IndexDescriptionItemProps) {
@@ -199,30 +201,48 @@ class IndexDescriptionItem extends React.Component<IndexDescriptionItemProps, an
     }
 
     componentDidMount(): void {
-        const rootE = ReactDOM.findDOMNode(this) as HTMLElement
+        const rootE = this.containerRef.current as HTMLElement
+        consoleObjDebug("IndexDescriptionItem componentDidMount", rootE)
+        const cardE = rootE.querySelector(".grid-index-card")
+        if (cardE != null) {
+            getInterSectionObserver().observe(cardE)
+        }
 
         const dialogsTriggers = rootE.querySelectorAll(".tag-dialog-trigger")
         for (const trigger of dialogsTriggers) {
             setupTagTrigger(trigger as HTMLElement)
-        }
-
-        this.cardE = rootE.querySelector(".grid-index-card")
-        // 监听元素进入窗口初次显示
-        if (this.cardE != null) {
-            interSectionObserver.observe(this.cardE)
         }
     }
 
     componentWillUnmount(): void {
         consoleDebug("IndexDescriptionItem componentWillUnmount")
         if (this.cardE != null) {
-            interSectionObserver.unobserve(this.cardE)
+            getInterSectionObserver().unobserve(this.cardE)
         }
     }
 
     render(): ReactNode {
         return (
-            <li className="grid-index-li grid-index-li--description" dangerouslySetInnerHTML={{ __html: this.props.innerHtml }}></li>
+            <li ref={this.containerRef} className="grid-index-li grid-index-li--description">
+                <section className="mdc-card grid-index-card card-fade-in">
+                    <div className="grid-index-text-container">
+                        <p>2021年08月08日，我在博客里开辟这个分区来承载曾经在剧场看过的剧和拍过的剧照，以昆曲为主，使用<a
+                            href="/post/original/2021/09/01/基于Jekyll的博客文章-标签化.html">标签</a>把每一场演出按剧种、剧团、剧目、演员、剧场分类归档。这里每一篇文章既是记录也是分享，亲手按下快门捕捉到的舞台瞬间，如此美丽的戏妆油彩，不应该只我一人看到。
+                        </p>
+                        <p>关于我与戏剧的渊源以及为什么会喜欢昆曲，参见之前的自述<a
+                            href="/post/original/2019/05/18/槐安国内春生酒.html">《槐安国内春生酒》</a>，还有一些由看剧衍生的<a
+                                id="chip_tag_看剧&碎碎念" className="tag-dialog-trigger clickable-empty-link">碎碎念</a>。</p>
+                        <p>只是时常偷懒，日渐事繁，更新剧目不多，我会慢慢整理上传的。</p>
+                        <div style={{ marginBottom: "0.2rem" }}>
+                            <a id="chip_tag_看剧&杭州" className="tag-dialog-trigger clickable-empty-link tag-link grid-index-description-tag">@杭州</a>
+                            <a id="chip_tag_看剧&南京" className="tag-dialog-trigger clickable-empty-link tag-link grid-index-description-tag">@南京</a>
+                            <a id="chip_tag_看剧&上海" className="tag-dialog-trigger clickable-empty-link tag-link grid-index-description-tag">@上海</a>
+                            <a className="tag-link grid-index-description-tag" href="https://space.bilibili.com/11037907" target="_blank">@哔哩</a>
+                        </div>
+                    </div>
+                </section>
+                <hr className="index-li-divider" />
+            </li>
         )
     }
 }

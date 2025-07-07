@@ -1,5 +1,3 @@
-import { consoleDebug } from "../util/log"
-
 export class ScrollLoader {
     timeMsIgnore: number
     shouldLoad: () => void

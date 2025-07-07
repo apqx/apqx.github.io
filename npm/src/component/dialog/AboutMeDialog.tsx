@@ -1,12 +1,12 @@
-// import "./AboutMeDialog.scss"
-import * as React from "react"
+import "./AboutMeDialog.scss"
 import { MDCList } from "@material/list"
 import { MDCRipple } from "@material/ripple"
-import { ABOUT_DIALOG_WRAPPER_ID, BasicDialog, BasicDialogProps, showDialog } from "./BasicDialog"
+import { ABOUT_DIALOG_WRAPPER_ID, BasicDialog, showDialog } from "./BasicDialog"
+import type { BasicDialogProps } from "./BasicDialog"
 import { consoleDebug } from "../../util/log"
-import ReactDOM from "react-dom"
 import { Button } from "../react/Button"
 import { initListItem } from "../list"
+import React from "react"
 
 class AboutMeDialog extends BasicDialog<BasicDialogProps, any> {
 
@@ -24,7 +24,7 @@ class AboutMeDialog extends BasicDialog<BasicDialogProps, any> {
         return window.location.origin + "/post/original/2019/05/18/槐安国内春生酒.html"
     }
 
-    dialogContent(): JSX.Element {
+    dialogContent(): React.JSX.Element {
         consoleDebug("AboutMeDialog render")
         return (
             <div className="items-center">
@@ -65,8 +65,9 @@ interface LinkItemProps {
 }
 
 class LinkItem extends React.Component<LinkItemProps, any> {
+    private containerRef: React.RefObject<HTMLLIElement | null> = React.createRef()
     componentDidMount(): void {
-        const rootE = ReactDOM.findDOMNode(this) as Element
+        const rootE = this.containerRef.current as Element
         this.initRipple(rootE.querySelector(".mdc-deprecated-list-item")!!)
     }
 
@@ -78,7 +79,7 @@ class LinkItem extends React.Component<LinkItemProps, any> {
 
     render() {
         return (
-            <li>
+            <li ref={this.containerRef}>
                 <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken" href={this.props.link} target="_blank" tabIndex={-1}>
                     <span className="mdc-deprecated-list-item__text link-item">{this.props.title}</span>
                 </a>

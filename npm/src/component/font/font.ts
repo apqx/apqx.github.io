@@ -1,4 +1,4 @@
-import { localRepository } from "../../repository/LocalRepository"
+import { getLocalRepository } from "../../repository/LocalRepository"
 import { toggleClassWithEnable } from "../../util/tools"
 import { consoleError } from "../../util/log"
 
@@ -9,7 +9,7 @@ export function initFont() {
     // 废弃handwritten设置，TODO: 注意旧版本可能启用了这个设置项
     // const localHandWritingFontOn = localRepository.getHandWritingFontOn()
     // setHandwrittenFont(localHandWritingFontOn)
-    const localNotoSerifSCFontOn = localRepository!!.getNotoSerifSCFontOn()
+    const localNotoSerifSCFontOn = getLocalRepository().getNotoSerifSCFontOn()
     setNotoSerifSCFont(localNotoSerifSCFontOn)
 }
 

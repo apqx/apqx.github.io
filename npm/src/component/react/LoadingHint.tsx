@@ -1,4 +1,4 @@
-// import "./LoadingHint.scss"
+import "./LoadingHint.scss"
 import React from "react"
 import { Button } from "./Button"
 import { ProgressCircular } from "./ProgressCircular"

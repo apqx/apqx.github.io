@@ -1,15 +1,16 @@
-// import "./SearchDialog.scss"
-import * as React from "react"
+import "./SearchDialog.scss"
 import { SearchDialogPresenter } from "./SearchDialogPresenter"
 import { MDCRipple } from "@material/ripple"
 import { MDCTextField } from "@material/textfield"
 import { MDCList } from "@material/list"
 import { clearFocusListener, createHtmlContent } from "../../util/tools"
-import { BasicDialog, BasicDialogProps, SEARCH_DIALOG_WRAPPER_ID, showDialog } from "./BasicDialog"
-import ReactDOM from "react-dom"
+import { BasicDialog, SEARCH_DIALOG_WRAPPER_ID, showDialog } from "./BasicDialog"
+import type { BasicDialogProps } from "./BasicDialog"
 import { initListItem } from "../list"
 import { ERROR_HINT, LoadingHint } from "../react/LoadingHint"
 import { HeightAnimationContainer } from "../animation/HeightAnimationContainer"
+import React from "react"
+import type { RefObject } from "react"
 
 interface SearchDialogState {
     loading: boolean
@@ -93,7 +94,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
         })
     }
 
-    dialogContent(): JSX.Element {
+    dialogContent(): React.JSX.Element {
         return (
             <div className="items-center">
                 <label className="mdc-text-field mdc-text-field--outlined" id="search-dialog_label">
@@ -136,9 +137,10 @@ interface SearchResultProps {
 }
 
 class SearchResult extends React.Component<SearchResultProps, any> {
+    private containerRef: React.RefObject<HTMLUListElement | null> = React.createRef()
 
     componentDidMount(): void {
-        const rootE = ReactDOM.findDOMNode(this) as Element
+        const rootE = this.containerRef.current as Element
         this.initList(rootE)
     }
 
@@ -149,7 +151,7 @@ class SearchResult extends React.Component<SearchResultProps, any> {
 
     render() {
         return (
-            <ul className="mdc-deprecated-list">
+            <ul ref={this.containerRef} className="mdc-deprecated-list">
                 {this.props.list.map((item) =>
                     <ResultItem key={item.url}
                         data={item}
@@ -184,9 +186,10 @@ export class ResultItemData {
 }
 
 class ResultItem extends React.Component<ResultItemProps, any> {
+    private containerRef: RefObject<HTMLLIElement | null> = React.createRef()
 
     componentDidMount(): void {
-        const rootE = ReactDOM.findDOMNode(this) as Element
+        const rootE = this.containerRef.current as Element
         this.initRipple(rootE.querySelector(".mdc-deprecated-list-item")!!)
     }
 
@@ -198,7 +201,7 @@ class ResultItem extends React.Component<ResultItemProps, any> {
 
     render() {
         return (
-            <li>
+            <li ref={this.containerRef}>
                 <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken mdc-ripple-upgraded"
                     tabIndex={-1} href={this.props.data.url}>
                     <span className="mdc-deprecated-list-item__text">

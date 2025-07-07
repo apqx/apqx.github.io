@@ -63,8 +63,15 @@ export class LocalRepository {
     }
 }
 
-export var localRepository: LocalRepository | undefined
+var localRepository: LocalRepository | undefined
 
 export function initLocalRepository() {
     localRepository = new LocalRepository()
+}
+
+export function getLocalRepository(): LocalRepository {
+    if (localRepository == null) {
+        initLocalRepository()
+    }
+    return localRepository!!
 }

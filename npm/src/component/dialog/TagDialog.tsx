@@ -1,18 +1,21 @@
-// import "./TagDialog.scss"
-import * as React from "react"
+import "./TagDialog.scss"
 import { MDCList } from "@material/list"
 import { MDCRipple } from "@material/ripple"
-import { BasicDialog, BasicDialogProps, TAG_DIALOG_WRAPPER_ID, showDialog } from "./BasicDialog"
+import { BasicDialog, TAG_DIALOG_WRAPPER_ID, showDialog } from "./BasicDialog"
+import type { BasicDialogProps } from "./BasicDialog"
 import { consoleDebug } from "../../util/log"
-import ReactDOM from "react-dom"
 import { initListItem } from "../list"
 import { ERROR_HINT, LoadingHint } from "../react/LoadingHint"
 import { HeightAnimationContainer } from "../animation/HeightAnimationContainer"
-import { BasePostPaginateShow, BasePostPaginateShowProps, BasePostPaginateShowState, Post } from "../react/post/BasePostPaginateShow"
-import { IPostPaginateShowPresenter } from "../react/post/IPostPaginateShowPresenter"
+import { BasePostPaginateShow } from "../react/post/BasePostPaginateShow"
+import type { BasePostPaginateShowProps, Post } from "../react/post/BasePostPaginateShow"
+import type { IPostPaginateShowPresenter } from "../react/post/IPostPaginateShowPresenter"
 import { PostPaginateShowPresenter } from "../react/post/PostPaginateShowPresenter"
-import { getSectionTypeByPath, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL, SectionType } from "../../base/constant"
+import { getSectionTypeByPath, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL } from "../../base/constant"
+import type { SectionType } from "../../base/constant"
 import { DialogState, DialogStateObservable, DialogStateObserver } from "./DialogStateObservable"
+import type { JSX } from "react"
+import React from "react"
 
 interface DialogContentProps extends BasicDialogProps {
     tag: string,
@@ -140,9 +143,10 @@ interface PostResultProps {
 }
 
 class PostResult extends React.Component<PostResultProps, any> {
+    private containerRef: React.RefObject<HTMLUListElement | null> = React.createRef()
 
     componentDidMount(): void {
-        const rootE = ReactDOM.findDOMNode(this) as Element
+        const rootE = this.containerRef.current as Element
         this.initList(rootE)
     }
 
@@ -180,7 +184,7 @@ class PostResult extends React.Component<PostResultProps, any> {
             return new PostItemData(item.path, item.title, item.date, postType.name, postBlocks[0], postBlocks[1])
         })
         return (
-            <ul className="mdc-deprecated-list">
+            <ul ref={this.containerRef} className="mdc-deprecated-list">
                 {items.map((item) =>
                     <PostItem
                         key={item.title + item.date}
@@ -225,9 +229,10 @@ interface PostItemProps {
 }
 
 class PostItem extends React.Component<PostItemProps, any> {
+    private containerRef: React.RefObject<HTMLLIElement | null> = React.createRef()
 
     componentDidMount(): void {
-        const rootE = ReactDOM.findDOMNode(this) as Element
+        const rootE = this.containerRef.current as Element
         this.initRipple(rootE.querySelector(".mdc-deprecated-list-item")!!)
     }
 
@@ -239,7 +244,7 @@ class PostItem extends React.Component<PostItemProps, any> {
 
     render() {
         return (
-            <li>
+            <li ref={this.containerRef}>
                 <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken tag-list-item mdc-ripple-upgraded"
                     tabIndex={-1} href={this.props.data.url}>
                     <span className="mdc-deprecated-list-item__text">

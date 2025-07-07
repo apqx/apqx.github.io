@@ -1,5 +1,5 @@
 @use "../../style/global" as base;
-@use "./LoadingHint";
+// @use "./LoadingHint";
 @use "../card";
 @use "../animation/BaseAnimation";
 @use "../animation/ImageLoadAnimator";
@@ -89,8 +89,8 @@
     // filter: grayscale(100%);
 }
 
-.grid-index-description-tag {
-    margin-right: 0.2rem;
+.tag-link.grid-index-description-tag {
+    margin-right: 0.4rem;
 }
 
 // 手机小屏

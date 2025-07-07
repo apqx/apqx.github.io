@@ -1,4 +1,4 @@
-import { IPostPaginateShowPresenter } from "./IPostPaginateShowPresenter";
+import type { IPostPaginateShowPresenter } from "./IPostPaginateShowPresenter";
 
 export interface IPostPaginateShow {
     presenter: IPostPaginateShowPresenter

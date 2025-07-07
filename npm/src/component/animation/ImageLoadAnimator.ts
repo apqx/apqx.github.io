@@ -60,7 +60,7 @@ export class ImageLoadAnimator {
         }
         imgE.addEventListener("transitionend", () => {
             consoleDebug("Image transitionend " + this.id)
-            // 动画完成后，设置高度为auto
+            // 动画完成后，删除动画类，设置高度为auto
             this.animationDone(monitorResize, imgE, animationEndCallback)
         })
         // 监听动画失败
@@ -72,7 +72,7 @@ export class ImageLoadAnimator {
 
     private animationDone(monitorResize: boolean, imgE: HTMLImageElement, animationEndCallback: (() => void) | null) {
         if (!monitorResize) {
-            imgE.classList.remove("image-height-animation")
+            toggleClassWithEnable(imgE, "image-height-animation", false)
             imgE.style.height = "auto"
         }
         if (animationEndCallback != null) animationEndCallback()
@@ -84,6 +84,7 @@ export class ImageLoadAnimator {
             consoleDebug("ImageLoadAnimator animationBeforeStart returned false, not animating " + this.id)
             // 删除动画类，Img高度自动变为图片实际高度
             toggleClassWithEnable(imgE, "image-height-animation", false)
+            imgE.style.height = "auto"
             return
         }
 

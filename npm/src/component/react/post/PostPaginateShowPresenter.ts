@@ -1,11 +1,12 @@
 import { SECTION_TYPE_POETRY } from "../../../base/constant";
-import { PaginatePage } from "../../../repository/service/bean/PaginatePage";
+import type { PaginatePage } from "../../../repository/service/bean/PaginatePage";
 import { consoleError, consoleObjDebug } from "../../../util/log";
 import { isDebug, runAfterMinimalTime } from "../../../util/tools";
-import { BasePostPaginateShow, BasePostPaginateShowProps, Post } from "./BasePostPaginateShow";
-import { IPostPaginateShowPresenter } from "./IPostPaginateShowPresenter";
+import { BasePostPaginateShow } from "./BasePostPaginateShow";
+import type { BasePostPaginateShowProps, Post } from "./BasePostPaginateShow";
+import type { IPostPaginateShowPresenter } from "./IPostPaginateShowPresenter";
 import { ERROR_HINT, getLoadHint } from "../LoadingHint";
-import { ApiPost } from "../../../repository/service/bean/Post";
+import type { ApiPost } from "../../../repository/service/bean/Post";
 
 export class PostPaginateShowPresenter implements IPostPaginateShowPresenter {
     component: BasePostPaginateShow<BasePostPaginateShowProps>

@@ -1,8 +1,9 @@
-// import "./Snackbar.scss";
+import "./Snackbar.scss";
 import React from "react";
-import ReactDOM from "react-dom";
+import type { RefObject } from "react";
 import { MDCSnackbar } from '@material/snackbar';
-import { createRoot, Root } from "react-dom/client";
+import { createRoot } from "react-dom/client";
+import type { Root } from "react-dom/client";
 import { consoleError } from "../../util/log";
 
 interface props {
@@ -10,10 +11,11 @@ interface props {
 }
 
 export class Snackbar extends React.Component<props, any> {
+    private containerRef: RefObject<HTMLDivElement | null> = React.createRef()
     snackbar: MDCSnackbar | null = null
 
     componentDidMount(): void {
-        const rootE = ReactDOM.findDOMNode(this) as Element
+        const rootE = this.containerRef.current as Element
         this.snackbar = new MDCSnackbar(rootE)
         // 自动关闭时间
         // this.snackbar.timeoutMs = -1
@@ -26,7 +28,7 @@ export class Snackbar extends React.Component<props, any> {
 
     render() {
         return (
-            <aside className="mdc-snackbar">
+            <aside ref={this.containerRef} className="mdc-snackbar">
                 <div className="mdc-snackbar__surface" role="status" aria-relevant="additions">
                     <div className="mdc-snackbar__label" aria-atomic="false">
                         <span>{this.props.text}</span>

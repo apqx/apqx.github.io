@@ -1,7 +1,6 @@
-// import "./HeightAnimationContainer.scss"
-import { ResizeHeightObserver } from "../../base/ResizeHeightObserver"
+import "./HeightAnimationContainer.scss"
 import { ResizeWidthObserver } from "../../base/ResizeWidthObserver"
-import { consoleDebug, consoleObjDebug } from "../../util/log"
+import { consoleDebug } from "../../util/log"
 import { getElementSize } from "../../util/tools"
 
 /**
