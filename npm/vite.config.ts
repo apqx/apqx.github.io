@@ -28,6 +28,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
+        quietDeps: true,
         additionalData: '' 
       }
     }

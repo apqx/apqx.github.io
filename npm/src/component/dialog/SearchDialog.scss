@@ -18,6 +18,12 @@
 }
 
 .mdc-text-field {
+    display: flex;
+    align-items: center;
+    padding: 0 0 0 1rem;
+    margin-left: auto;
+    margin-right: auto;
+
     @include textfield.ink-color(var(--mdc-theme-on-surface));
     @include textfield.caret-color(var(--mdc-theme-on-surface));
     @include textfield.placeholder-color(var(--mdc-theme-text-secondary-on-background));
@@ -25,12 +31,6 @@
     @include textfield.outline-color(var(--divider-color));
     @include textfield.hover-outline-color(var(--divider-color));
     @include textfield.focused-outline-color(var(--divider-color));
-
-    display: flex;
-    align-items: center;
-    padding: 0 0 0 1rem;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 #btn-search {

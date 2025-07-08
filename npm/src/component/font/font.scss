@@ -1,9 +1,11 @@
-// 苹方的 Horizontal Ellipsis 字符，即 … 省略号，因为霞鹜文楷的省略号竖向居中，不合适，用苹方替代
-@use "PingFangSCEllipsis";
+// Noto Serif 的省略号和引号字符，霞鹜文楷的省略号竖向居中，思源宋体的引号是全角，均用 Noto Serif 替代
+@use "NotoSerifSub";
 // 霞鹜文楷
 @use "LXGWWenKaiGBLiteLight";
 @use "LXGWWenKaiGBLiteRegular";
 @use "LXGWWenKaiGBLiteMedium";
+// Noto Serif SC，思源宋体
+@use "NotoSerifSC";
 // JetBrainsMono，代码字体
 @use "JetBrainsMono";
 // Material Icons
@@ -11,18 +13,18 @@
 // Noto Color Emoji，彩色
 // 但是其使用的 CBDT/CBLC 色彩格式并不被 Safari 支持，导致渲染明显卡顿，不要使用 
 // @use "NotoColorEmojiRegular";
-// Noto Serif SC，思源宋体
-@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200..900&display=swap");
 
+// Noto Serif SC，思源宋体
+// @import url("https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200..900&display=swap");
 // // Noto Sans SC，思源黑体
 // @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100..900&display=swap");
 // // Noto Sans SC，思源黑体，等宽
 // @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&display=swap");
 
 // @font-face {
-//     font-family: "Noto Color Emoji";
-//     src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/OpenMoji-black-glyf.woff2") format('woff2');
+//     font-family: "Noto Serif SC";
+//     src: url("http://localhost:4000/assets/NotoSerifSC-VariableFont_wght.ttf") format('truetype');
 //     font-style: normal;
-//     font-weight: 400;
+//     font-weight: 200 900;
 //     font-display: swap;
 // }

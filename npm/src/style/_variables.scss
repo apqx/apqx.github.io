@@ -1,15 +1,15 @@
 @use "sass:string";
 
 // 霞鹜文楷GB
-$text-font-wenkai: string.unquote("PingFangSCEllipsis, LXGW WenKai GB, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
-// $text-font-wenkai-noto-emoji: string.unquote("PingFangSCEllipsis, LXGW WenKai GB, PingFang SC, Roboto, sans-serif, Noto Emoji, Apple Color Emoji");
-$text-font-wenkai-noto-color-emoji: string.unquote("PingFangSCEllipsis, LXGW WenKai GB, PingFang SC, Roboto, sans-serif, Noto Color Emoji, Apple Color Emoji");
+$text-font-wenkai: string.unquote("Noto Serif Sub, LXGW WenKai GB, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
+// $text-font-wenkai-noto-emoji: string.unquote("Noto Serif Sub, LXGW WenKai GB, PingFang SC, Roboto, sans-serif, Noto Emoji, Apple Color Emoji");
+$text-font-wenkai-noto-color-emoji: string.unquote("Noto Serif Sub, LXGW WenKai GB, PingFang SC, Roboto, sans-serif, Noto Color Emoji, Apple Color Emoji");
 // 思源宋体
-$text-font-noto-serif: string.unquote("PingFangSCEllipsis, Noto Serif SC, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
-$text-font-noto-serif-noto-color-emoji: string.unquote("PingFangSCEllipsis, Noto Serif SC, PingFang SC, Roboto, sans-serif, Noto Color Emoji, Apple Color Emoji");
+$text-font-noto-serif: string.unquote("Noto Serif Sub, Noto Serif SC, PingFang SC, Roboto, serif, Apple Color Emoji, Noto Color Emoji");
+$text-font-noto-serif-noto-color-emoji: string.unquote("Noto Serif Sub, Noto Serif SC, PingFang SC, Roboto, serif, Noto Color Emoji, Apple Color Emoji");
 // 思源黑体
-$text-font-noto-sans: string.unquote("PingFangSCEllipsis, Noto Sans SC, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
-$text-font-noto-sans-noto-color-emoji: string.unquote("PingFangSCEllipsis, Noto Sans SC, PingFang SC, Roboto, sans-serif, Noto Color Emoji, Apple Color Emoji");
+$text-font-noto-sans: string.unquote("Noto Serif Sub, Noto Sans SC, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
+$text-font-noto-sans-noto-color-emoji: string.unquote("Noto Serif Sub, Noto Sans SC, PingFang SC, Roboto, sans-serif, Noto Color Emoji, Apple Color Emoji");
 // 兰亭题序国风行楷
 $handwritten-font: string.unquote("AaLTTXGFXK, LXGW WenKai GB, PingFang SC, Roboto, sans-serif, Apple Color Emoji, Noto Color Emoji");
 // 索引页的许静行楷

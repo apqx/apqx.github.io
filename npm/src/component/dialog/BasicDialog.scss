@@ -59,7 +59,7 @@
     // border: 2px solid map.get(base.$dialog, "border-light");
     // border: 1px dashed var(--divider-dashed-color);
     // surface不滚动，content滚动
-    overflow: clip;
+    overflow-x: hidden;
 }
 
 .dark .mdc-dialog__surface {
@@ -103,16 +103,13 @@
     height: 3.2rem;
     padding: 0;
     border-radius: 0;
-}
-
-.mdc-button.basic-dialog_btn_action {
+    
     @include button.container-fill-color(var(--dialog-action-btn-bg));
     @include button.ink-color(var(--dialog-action-btn-ink));
-
-    @include ripple.surface;
-    // 如果为bounded则宽度可能有问题，导致横向溢出，滚动🤔
-    // Dialog的surface的尺寸异常导致滚动，已设置设置其overflow为clip
+    // 启用Ripple的radius-bounded可能导致某些东西溢出元素，导致整个页面宽度不正常可以横向滚动
+    // 加上这个则可以解决🤔
     overflow: hidden;
+    @include ripple.surface;
     @include ripple.radius-bounded;
     @include ripple.states-base-color(map.get(base.$dialog-action-btn-ripple, "light"));
     @include ripple.states-opacities((hover: .0, focus: .0, press: .1));

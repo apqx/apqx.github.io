@@ -1,3 +1,6 @@
-@use "NotoSerifSCLight";
-@use "NotoSerifSCRegular";
-@use "NotoSerifSCMedium";
+// cn-font-split 分割的字体在 Safari 中下划线不会在遮挡字体时隔断，但使用 Google Fonts 却是正常的
+// @use "NotoSerifSCLight";
+// @use "NotoSerifSCRegular";
+// @use "NotoSerifSCMedium";
+
+@use "NotoSerifSC";

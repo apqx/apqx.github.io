@@ -19,11 +19,11 @@ body {
     @include top-app-bar.fill-color(var(--mdc-theme-primary));
     // 阴影
     @include elevation.elevation(map.get(base.$top-bar-elevation, "elevation"), map.get(base.$top-bar-elevation, "shadow-light"), 0);
+    // border-bottom: 1px solid color.adjust(map.get(base.$top-bar, "bg-light"), $lightness: - 3%);
+    position: absolute;
     * {
         color: var(--mdc-theme-on-primary);
     }
-    // border-bottom: 1px solid color.adjust(map.get(base.$top-bar, "bg-light"), $lightness: - 3%);
-    position: absolute;
 }
 
 .dark .mdc-top-app-bar {

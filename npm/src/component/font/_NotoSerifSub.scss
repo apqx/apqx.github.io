@@ -1,0 +1,27 @@
+// Noto Serif 的省略号 … 和引号 “” ‘’ 字符，注意比正常自重大一级，这里的Regular是源字体的Light
+@font-face {
+    font-family: "Noto Serif Sub";
+    src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/NotoSerif-ExtraLight-Ellipsis-Quotation/39b0e1e8024e5698dcc3c2411d0b33e1.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    unicode-range: U+2018-2019, U+201c-201d, U+2026;
+}
+
+@font-face {
+    font-family: "Noto Serif Sub";
+    src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/NotoSerif-Light-Ellipsis-Quotation/6a794c8ad38390c6e23e3adbc6d19186.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    unicode-range: U+2018-2019, U+201c-201d, U+2026;
+}
+
+@font-face {
+    font-family: "Noto Serif Sub";
+    src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/NotoSerif-Regular-Ellipsis-Quotation/f34a43b2b879093842cb30be1d30c73c.woff2") format("woff2");
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    unicode-range: U+2018-2019, U+201c-201d, U+2026;
+}

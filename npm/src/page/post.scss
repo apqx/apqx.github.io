@@ -53,6 +53,7 @@ pre code.hljs {
     font-family: base.$code-block-font;
     font-size: 1.0rem;
     line-height: 1.5rem;
+    letter-spacing: var(--mdc-typography-body1-letter-spacing);
     border-radius: var(--post-inner-shape-round);
     padding: 1rem;
     background: var(--pre-code-bg);

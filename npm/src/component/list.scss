@@ -25,6 +25,7 @@
 // 效果似乎是与原有__ripple叠加🤔
 // hover与press的透明度在点击的时候是叠加的，所以可以一致
 .mdc-deprecated-list-item {
+    overflow: hidden;
     @include ripple.surface;
     @include ripple.radius-bounded;
     @include ripple.states-base-color(map.get(base.$surface-block-ripple, "light"));

@@ -23,7 +23,7 @@
 // 大部分组件都会正确相应颜色变化，但是list和chip却无效
 // 且theme.$property引用的值也没有动态变化
 body {
-    // 消除top app bar左侧的margin
+    // 消除topbar左侧的margin
     margin: 0;
 }
 
