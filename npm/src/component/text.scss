@@ -72,7 +72,7 @@ code {
 /* 段落中单词高亮 */
 code:not(pre code) {
     @include typography.typography(body1);
-    padding: .02rem .2rem .08rem .2rem;
+    padding: 0rem .2rem .08rem .2rem;
     margin-left: 0.05rem;
     margin-right: 0.05rem;
     border-radius: 0.3rem;
@@ -83,7 +83,7 @@ code:not(pre code) {
 }
 
 .font-noto-serif-sc code:not(pre code) {
-    padding: 0rem .2rem .05rem .2rem;
+    padding: 0rem .2rem .06rem .2rem;
 }
 
 em code {

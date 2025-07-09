@@ -28,20 +28,6 @@ export function setNotoSerifSCFont(on: boolean) {
 export function checkFont() {
     // 默认加载：霞鹜文楷，思源宋体，避免切换字体时动态加载的延迟
 
-    // 主字体：霞鹜文楷
-    // if (document.querySelectorAll("body.font-noto-serif-sc").length <= 0 && document.querySelectorAll("body.font-handwritten").length <= 0) {
-    //     import("./fontMainLXGWWenKai").then().catch((e) => {
-    //         consoleError("Load fontMainLXGWWenKai font error: " + e)
-    //     })
-    // }
-    // 主字体：思源宋体
-    // const notoSerifSCElements = document.querySelectorAll(".font-noto-serif-sc")
-    // if (notoSerifSCElements.length > 0) {
-    //     import("./fontMainNotoSerifSC").then().catch((e) => {
-    //         consoleError("Load notoSerifSC font error: " + e)
-    //     })
-    // }
-
     // 按需加载
 
     // 手写字体，兰亭题序国风行楷，正文部分使用

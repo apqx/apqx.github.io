@@ -11,6 +11,8 @@
 @use "../component/tag";
 @use "../component/text";
 @use "../component/topbar";
+@use "../component/animation/BaseAnimation.scss";
+@use "../component/animation/ImageLoadAnimator.scss";
 // @use "../component/dialog/AboutMeDialog";
 // @use "../component/dialog/BasicDialog";
 // @use "../component/dialog/PreferenceDialog";

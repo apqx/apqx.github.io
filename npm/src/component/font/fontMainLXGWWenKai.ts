@@ -1,1 +1,0 @@
-import "./fontMainXLWK.scss"
