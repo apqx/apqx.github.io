@@ -2,7 +2,7 @@
 // 先引入mdc的theme，然后用自定义变量覆盖其原有配置
 @use "@material/theme";
 @use "@material/theme/mdc-theme";
-@use "@material/typography" with ($font-family: base.$text-font-wenkai);
+@use "@material/typography";
 @use "@material/typography/mdc-typography";
 @use "sass:map";
 @use "sass:color";
@@ -66,17 +66,6 @@
         --surface-block-border: #{map.get(base.$surface-block-border-dashed, "light")};
         --surface-block-bg: #{map.get(base.$surface-block-bg, "light")};
         --surface-block-ink-strong: #{map.get(base.$surface-block-ink-strong, "light")};
-
-        --pagefind-ui-primary: var(--mdc-theme-on-surface);
-        --pagefind-ui-text: var(--mdc-theme-on-surface);
-        --pagefind-ui-background: var(--mdc-theme-surface);
-        --pagefind-ui-border: var(--divider-color);
-        --pagefind-ui-tag: var(--code-highlight-bg);
-        --pagefind-ui-border-width: 2px;
-        --pagefind-ui-border-radius: 8px;
-        --pagefind-ui-image-border-radius: 8px;
-        --pagefind-ui-image-box-ratio: 3 / 2;
-        --pagefind-ui-font: $text-font-wenkai;
 }
 
 @mixin dark {
@@ -134,7 +123,7 @@
 body {
         --mdc-typography-font-family: #{base.$text-font-wenkai};
 
-        --mdc-typography-body1-font-size: 1rem;
+        --mdc-typography-body1-font-size: 1.02rem;
         --mdc-typography-body1-line-height: calc(var(--mdc-typography-body1-font-size) + 0.8rem);
         --mdc-typography-body1-letter-spacing: 0.03rem;
 

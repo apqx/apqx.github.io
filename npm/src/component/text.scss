@@ -145,7 +145,7 @@ a {
     // Safari
     -webkit-text-underline-offset: 0.18rem;
     // Chrome, Firefox
-    text-underline-offset: 0.15rem;
+    text-underline-offset: 0.13rem;
     // 下划线粗细
     text-decoration-thickness: 1px;
     // 去除移动版Chrome点击时默认的蓝色背景
@@ -270,6 +270,7 @@ audio {
     .font-handwritten, .font-handwritten *,
     .font-no-change, .font-no-change *) {
     font-family: base.$text-font-noto-serif;
+    --mdc-typography-body1-font-size: 1rem;
     --mdc-typography-body1-line-height: calc(var(--mdc-typography-body1-font-size) + 0.8rem);
 }
 

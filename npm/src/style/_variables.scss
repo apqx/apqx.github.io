@@ -1,21 +1,18 @@
 @use "sass:string";
 
 // 霞鹜文楷GB
-$text-font-wenkai: string.unquote("Noto Serif Sub, LXGW WenKai GB, ui-serif, sans-serif, system-ui");
-// $text-font-wenkai-noto-emoji: string.unquote("Noto Serif Sub, LXGW WenKai GB, Noto Emoji, ui-serif, sans-serif, system-ui");
-$text-font-wenkai-noto-color-emoji: string.unquote("Noto Serif Sub, LXGW WenKai GB, Noto Color Emoji, ui-serif, sans-serif, system-ui");
+$text-font-wenkai: string.unquote("Noto Serif Sub, LXGW WenKai GB, sans-serif");
 // 思源宋体
-$text-font-noto-serif: string.unquote("Noto Serif Sub, Noto Serif SC, ui-serif, serif, system-ui");
-$text-font-noto-serif-noto-color-emoji: string.unquote("Noto Serif Sub, Noto Serif SC, Noto Color Emoji, ui-serif, serif, system-ui");
+$text-font-noto-serif: string.unquote("Noto Serif Sub, Noto Serif SC, sans-serif");
 // 思源黑体
-$text-font-noto-sans: string.unquote("Noto Serif Sub, Noto Sans SC, ui-sans-serif, sans-serif, system-ui");
-$text-font-noto-sans-noto-color-emoji: string.unquote("Noto Serif Sub, Noto Sans SC, ui-sans-serif, sans-serif, system-ui");
+$text-font-noto-sans: string.unquote("Noto Serif Sub, Noto Sans SC, sans-serif");
 // 兰亭题序国风行楷
-$handwritten-font: string.unquote("AaLTTXGFXK, LXGW WenKai GB, ui-serif, serif, system-ui");
+$handwritten-font: string.unquote("AaLTTXGFXK, LXGW WenKai GB, sans-serif");
 // 索引页的许静行楷
-$handwritten-font-index: string.unquote("HYXuJingXingKaiW, LXGW WenKai GB, ui-serif, serif, system-ui");
+$handwritten-font-index: string.unquote("HYXuJingXingKaiW, LXGW WenKai GB, sans-serif");
 // 代码字体，等宽
-$code-block-font: string.unquote("LXGW WenKai Mono GB, ui-monospace, monospace, system-ui");
+$code-block-font: string.unquote("LXGW WenKai Mono GB, monospace, sans-serif");
+$code-block-font-sans: string.unquote("JetBrainsMono, Noto Sans SC, monospace, sans-serif");
 
 // 中型屏幕宽度范围，定义为平板，小于此尺寸为手机，大于此尺寸为电脑
 $screen-middle-min-width: 600px;
