@@ -25,22 +25,22 @@ export function setNotoSerifSCFont(on: boolean) {
     checkFont()
 }
 
+export function setNotoSansSCFont(on: boolean) {
+    const bodyE = document.body
+    toggleClassWithEnable(bodyE, "font-noto-sans-sc", on)
+    checkFont()
+}
+
 export function checkFont() {
     // 默认加载：霞鹜文楷，思源宋体，避免切换字体时动态加载的延迟
 
     // 按需加载
 
-    // 手写字体，兰亭题序国风行楷，正文部分使用
-    const handwrittenElements = document.querySelectorAll(".font-handwritten")
-    if (handwrittenElements.length > 0)
+    // 手写字体，汉仪许静行楷
+    const handwrittenIndexElements = document.querySelectorAll(".font-handwritten")
+    if (handwrittenIndexElements.length > 0)
         import("./fontHandwritten").then().catch((e) => {
             consoleError("Load handwritten font error: " + e)
-        })
-    // 手写字体，汉仪许静行楷，索引页封面使用
-    const handwrittenIndexElements = document.querySelectorAll(".font-handwritten-index")
-    if (handwrittenIndexElements.length > 0)
-        import("./fontHandwrittenIndex").then().catch((e) => {
-            consoleError("Load handwrittenIndex font error: " + e)
         })
     // 代码字体：霞鹜文楷Mono
     const codeElements = document.querySelectorAll("pre code")

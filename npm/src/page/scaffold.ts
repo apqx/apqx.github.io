@@ -4,7 +4,7 @@ import { blockTopbarKeyFrameAnimation, initTopbar } from "../component/topbar"
 import { initDrawer } from "../component/drawer"
 import { checkUserTheme, initTheme } from "../component/theme"
 import { initLocalRepository } from "../repository/LocalRepository"
-import { initFont } from "../component/font/font"
+import { initFont, setNotoSansSCFont } from "../component/font/font"
 import { initFab } from "../component/fab"
 import { initTag, initTagTriggers } from "../component/tag"
 import { initButton } from "../component/button"
@@ -38,6 +38,8 @@ export function initScaffold() {
         initList()
         initText()
         initTagTriggers()
+        // 检查URL中的测试参数
+        checkTest()
     })
 
     runOnPageDone(() => {
@@ -113,8 +115,19 @@ function checkWebpSupport() {
             当前浏览器不支持<a href="https://caniuse.com/?search=webp" target="_blank">WebP</a>格式，部分图片可能无法显示，请更新浏览器版本。
             `
             showAlertDialog("提示", urlLink, "关闭", () => {
-                
+
             })
-        } 
+        }
     })
+}
+
+function checkTest() {
+    // 如果url含有 ?fontSans=true, 启用思源黑体
+    const urlParams = new URLSearchParams(window.location.search)
+    const fontSans = urlParams.get("fontSans")
+    if (fontSans === "true") {
+        // 启用思源黑体的逻辑
+        consoleDebug("Enable Noto Sans SC font")
+        setNotoSansSCFont(true)
+    }
 }

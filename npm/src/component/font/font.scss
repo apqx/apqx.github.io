@@ -4,15 +4,10 @@
 @use "LXGWWenKaiGBLiteLight";
 @use "LXGWWenKaiGBLiteRegular";
 @use "LXGWWenKaiGBLiteMedium";
-// Noto Serif SC，思源宋体
-@use "NotoSerifSC";
 // JetBrainsMono，代码字体
 @use "JetBrainsMono";
 // Material Icons
 @use "MaterialSymbols";
-// Noto Color Emoji，彩色
-// 但是其使用的 CBDT/CBLC 色彩格式并不被 Safari 支持，导致渲染明显卡顿，不要使用 
-// @use "NotoColorEmojiRegular";
 
 // @font-face {
 //     font-family: "Noto Serif SC";

@@ -6,10 +6,8 @@ $text-font-wenkai: string.unquote("Noto Serif Sub, LXGW WenKai GB, sans-serif");
 $text-font-noto-serif: string.unquote("Noto Serif Sub, Noto Serif SC, sans-serif");
 // 思源黑体
 $text-font-noto-sans: string.unquote("Noto Serif Sub, Noto Sans SC, sans-serif");
-// 兰亭题序国风行楷
-$handwritten-font: string.unquote("AaLTTXGFXK, LXGW WenKai GB, sans-serif");
-// 索引页的许静行楷
-$handwritten-font-index: string.unquote("HYXuJingXingKaiW, LXGW WenKai GB, sans-serif");
+// 书法字体，许静行楷
+$handwritten-font: string.unquote("HYXuJingXingKaiW, LXGW WenKai GB, sans-serif");
 // 代码字体，等宽
 $code-block-font: string.unquote("LXGW WenKai Mono GB, monospace, sans-serif");
 $code-block-font-sans: string.unquote("JetBrainsMono, Noto Sans SC, monospace, sans-serif");

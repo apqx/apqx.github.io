@@ -71,7 +71,6 @@ code {
 
 /* 段落中单词高亮 */
 code:not(pre code) {
-    @include typography.typography(body1);
     padding: 0rem .2rem .08rem .2rem;
     margin-left: 0.05rem;
     margin-right: 0.05rem;
@@ -79,7 +78,7 @@ code:not(pre code) {
     line-break: loose;
 
     background: var(--code-highlight-bg);
-    border: 1px solid var(--code-highlight-border);
+    // border: 1px solid var(--code-highlight-border);
 }
 
 .font-noto-serif-sc code:not(pre code) {
@@ -241,41 +240,46 @@ audio {
 }
 
 // 局部字体
-.font-handwritten-index {
-    font-family: base.$handwritten-font-index !important;
-}
-
-// 全局字体
 .font-handwritten,
 .font-handwritten :not(button, i, pre code, pre code *,
     .font-no-change, .font-no-change *) {
     font-family: base.$handwritten-font;
-}
-
-.font-handwritten {
-    --mdc-typography-body1-font-size: 1.05rem;
-}
-
-.font-handwritten .english,
-.font-handwritten .english * {
-    font-size: calc(var(--mdc-typography-body1-font-size) + 0.2rem);
+    font-size: 1.2rem;
+    letter-spacing: -0.1rem;
+    padding-bottom: 0.1rem;
 }
 
 .font-handwritten .material-symbols-rounded-thin:not(.index-pin-icon) {
     font-weight: 400;
 }
 
+// 全局字体
 .font-noto-serif-sc,
 .font-noto-serif-sc :not(button, i, pre code, pre code *,
-    .font-handwritten, .font-handwritten *,
-    .font-no-change, .font-no-change *) {
+    .font-no-change, .font-no-change *,
+    .font-handwritten, .font-handwritten *) {
     font-family: base.$text-font-noto-serif;
     --mdc-typography-body1-font-size: 1rem;
     --mdc-typography-body1-line-height: calc(var(--mdc-typography-body1-font-size) + 0.8rem);
+    --mdc-typography-body1-letter-spacing: 0.032rem;
 }
 
+// 全局字体
+.font-noto-sans-sc,
+.font-noto-sans-sc :not(button, i, pre code, pre code *,
+    .font-no-change, .font-no-change *,
+    .font-handwritten, .font-handwritten *) {
+    font-family: base.$text-font-noto-sans;
+    --mdc-typography-body1-font-size: 1rem;
+    --mdc-typography-body1-line-height: calc(var(--mdc-typography-body1-font-size) + 0.8rem);
+    --mdc-typography-body1-letter-spacing: 0.032rem;
+}
+
+// 全局字体
 .font-wenkai,
-.font-wenkai :not(button, i, pre code, pre code *, .font-handwritten-index, .font-handwritten, .font-handwritten *) {
+.font-wenkai :not(button, i, pre code, pre code *,
+    .font-no-change, .font-no-change *,
+    .font-handwritten, .font-handwritten *) {
     font-family: base.$text-font-wenkai;
 }
 

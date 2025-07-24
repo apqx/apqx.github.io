@@ -51,18 +51,17 @@
 // 代码块
 pre code.hljs {
     font-family: base.$code-block-font;
-    font-size: 1.0rem;
-    line-height: 1.5rem;
+    font-size: var(--mdc-typography-body1-font-size);
+    line-height: calc(var(--mdc-typography-body1-font-size) + 0.5rem);
     letter-spacing: var(--mdc-typography-body1-letter-spacing);
     border-radius: var(--post-inner-shape-round);
     padding: 1rem;
     background: var(--pre-code-bg);
 }
 
-.font-handwritten {
-    code:not(pre code.hljs, .surface-block code, .opera-page code) {
-        padding: 0.02rem 0.2rem 0.02rem 0.2rem;
-    }
+.font-noto-sans-sc pre code.hljs,
+.font-noto-serif-sc pre code.hljs {
+    font-family: base.$code-block-font-sans;
 }
 
 .surface-block code,
