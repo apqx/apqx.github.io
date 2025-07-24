@@ -42,12 +42,6 @@ export function checkFont() {
         import("./fontHandwritten").then().catch((e) => {
             consoleError("Load handwritten font error: " + e)
         })
-    // 代码字体：霞鹜文楷Mono
-    const codeElements = document.querySelectorAll("pre code")
-    if (codeElements.length > 0)
-        import("./fontCode").then().catch((e) => {
-            consoleError("Load code font error: " + e)
-        })
 }
 
 // 动态加载云端字体

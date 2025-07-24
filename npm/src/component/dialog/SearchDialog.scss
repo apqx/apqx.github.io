@@ -1,6 +1,7 @@
 // @use "../tag.scss";
 // @use "../react/LoadingHint";
 // @use "../animation/HeightAnimationContainer";
+@use "../../style/global" as base;
 @use "@material/textfield";
 @use "@material/textfield/mdc-text-field";
 @use "sass:map";
@@ -14,7 +15,7 @@
     margin: 1.2rem 1rem;
     color: var(--list-secondary-ink);
     line-break: loose;
-    font-weight: 300;
+    font-weight: var(--font-weight-light);
 }
 
 .mdc-text-field {

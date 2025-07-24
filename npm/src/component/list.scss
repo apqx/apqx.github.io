@@ -73,6 +73,6 @@
 .list-item__secondary-text {
     color: var(--list-secondary-ink);
     font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
-    font-weight: 300;
+    font-weight: var(--font-weight-light);
     text-align: left;
 }

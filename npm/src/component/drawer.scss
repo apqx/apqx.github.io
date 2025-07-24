@@ -42,16 +42,10 @@
     backdrop-filter: blur(map.get(base.$scrim, "backdrop-blur"));
 }
 
-.mdc-drawer__title {
-    font-weight: normal;
-}
-
-.mdc-drawer__subtitle {
-    font-weight: normal;
-}
-
-.mdc-drawer__content .mdc-deprecated-list-item--activated .mdc-deprecated-list-item__text {
-    font-weight: normal
+.mdc-drawer__title, 
+.mdc-drawer__subtitle,
+.mdc-drawer__content .mdc-deprecated-list-item--activated .mdc-deprecated-list-item__text  {
+    font-weight: var(--font-weight-normal);
 }
 
 .mdc-drawer__content {

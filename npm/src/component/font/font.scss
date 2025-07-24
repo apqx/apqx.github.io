@@ -1,9 +1,9 @@
 // Noto Serif 的省略号和引号字符，霞鹜文楷的省略号竖向居中，思源宋体的引号是全角，均用 Noto Serif 替代
 @use "NotoSerifSub";
+// Noto Serif SC 的 · 符号，Noto Sans SC 的 · 符号过粗，用 Noto Serif SC 替代
+@use "NotoSerifSCSub";
 // 霞鹜文楷
-@use "LXGWWenKaiGBLiteLight";
 @use "LXGWWenKaiGBLiteRegular";
-@use "LXGWWenKaiGBLiteMedium";
 // JetBrainsMono，代码字体
 @use "JetBrainsMono";
 // Material Icons

@@ -59,15 +59,10 @@ pre code.hljs {
     background: var(--pre-code-bg);
 }
 
-.font-noto-sans-sc pre code.hljs,
-.font-noto-serif-sc pre code.hljs {
-    font-family: base.$code-block-font-sans;
-}
-
 .surface-block code,
 .opera-page code:not(.mdc-dialog code) {
     color: var(--surface-block-ink-strong);
-    font-weight: normal;
+    font-weight: var(--font-weight-normal);
     padding: 0;
     margin: 0 0.1rem;
     border: none;

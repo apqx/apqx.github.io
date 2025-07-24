@@ -24,7 +24,7 @@
     @include button.height(2.2rem);
     text-transform: none;
     font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
-    font-weight: 300;
+    font-weight: var(--font-weight-light);
     margin-top: 0.2rem;
     margin-bottom: 0.2rem;
     border-radius: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
@@ -36,6 +36,7 @@
 }
 
 a.tag-link {
+    font-weight: var(--font-weight-normal);
     color: var(--mdc-theme-on-surface);
     line-height: var(--mdc-typography-body1-line-height);
     letter-spacing: var(--mdc-typography-body1-letter-spacing);

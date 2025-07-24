@@ -115,7 +115,7 @@ em {
 strong,
 b {
     // 霞鹜文楷粗体只提供medium
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
 }
 
 // 加粗强调，一般用于句子
@@ -132,29 +132,18 @@ strong {
     color: var(--em-color);
 }
 
-.font-handwritten strong {
-    font-weight: normal;
-}
-
 a {
     // 以::after伪元素方式实现下划线
     position: relative;
     text-decoration: underline;
     // 下划线与文字的间距
-    // Safari
-    -webkit-text-underline-offset: 0.18rem;
-    // Chrome, Firefox
-    text-underline-offset: 0.13rem;
+    text-underline-offset: 0.15rem;
     // 下划线粗细
     text-decoration-thickness: 1px;
     // 去除移动版Chrome点击时默认的蓝色背景
     -webkit-tap-highlight-color: transparent;
     color: unset;
     line-break: loose;
-}
-
-.font-noto-serif-sc a {
-    text-underline-offset: 0.15rem;
 }
 
 // a::after {
@@ -203,10 +192,15 @@ address {
     font-style: normal;
 }
 
+address, time {
+    @include basicText();
+    margin: 0;
+}
+
 // 引用段落
 blockquote {
     margin: 0.65rem 0;
-    padding: 0 0 0 1rem;
+    padding: 0 1.3rem 0 1rem;
     border-left: 0.3rem solid var(--blockquote-border);
     border-radius: 0.2rem;
 }
@@ -215,6 +209,7 @@ blockquote {
 blockquote p {
     margin: 0;
     color: var(--mdc-theme-on-surface-secondary);
+    font-weight: var(--font-weight-light);
 }
 
 audio {
@@ -244,13 +239,10 @@ audio {
 .font-handwritten :not(button, i, pre code, pre code *,
     .font-no-change, .font-no-change *) {
     font-family: base.$handwritten-font;
+    font-weight: base.$font-weight-normal-default;
     font-size: 1.2rem;
     letter-spacing: -0.1rem;
     padding-bottom: 0.1rem;
-}
-
-.font-handwritten .material-symbols-rounded-thin:not(.index-pin-icon) {
-    font-weight: 400;
 }
 
 // 全局字体
@@ -259,9 +251,7 @@ audio {
     .font-no-change, .font-no-change *,
     .font-handwritten, .font-handwritten *) {
     font-family: base.$text-font-noto-serif;
-    --mdc-typography-body1-font-size: 1rem;
-    --mdc-typography-body1-line-height: calc(var(--mdc-typography-body1-font-size) + 0.8rem);
-    --mdc-typography-body1-letter-spacing: 0.032rem;
+    --font-weight-normal: #{base.$font-weight-normal-default};
 }
 
 // 全局字体
@@ -270,17 +260,17 @@ audio {
     .font-no-change, .font-no-change *,
     .font-handwritten, .font-handwritten *) {
     font-family: base.$text-font-noto-sans;
-    --mdc-typography-body1-font-size: 1rem;
-    --mdc-typography-body1-line-height: calc(var(--mdc-typography-body1-font-size) + 0.8rem);
-    --mdc-typography-body1-letter-spacing: 0.032rem;
 }
 
-// 全局字体
+// 局部字体
 .font-wenkai,
 .font-wenkai :not(button, i, pre code, pre code *,
     .font-no-change, .font-no-change *,
     .font-handwritten, .font-handwritten *) {
     font-family: base.$text-font-wenkai;
+    font-weight: base.$font-weight-normal-default;
+    --mdc-typography-body1-font-size: 1.02rem;
+    --mdc-typography-body1-letter-spacing: 0.03rem;
 }
 
 .one-line {

@@ -50,10 +50,11 @@ body {
 
 .mdc-top-app-bar__title {
     padding-left: 0.3rem;
-    font-weight: normal;
+    font-weight: var(--font-weight-normal);
 
     a {
         text-decoration: none;
+        font-family: base.$text-font-wenkai;
     }
 }
 

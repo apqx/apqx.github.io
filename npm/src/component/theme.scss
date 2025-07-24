@@ -121,29 +121,39 @@
 }
 
 body {
-        --mdc-typography-font-family: #{base.$text-font-wenkai};
+        --font-weight-normal: #{base.$font-weight-normal-noto-sans};
+        --font-weight-light: calc(var(--font-weight-normal) - #{base.$font-weight-gap});
+        --font-weight-medium: calc(var(--font-weight-normal) + #{base.$font-weight-gap});
 
-        --mdc-typography-body1-font-size: 1.02rem;
+        --mdc-typography-font-family: #{base.$text-font-noto-sans};
+
+        --mdc-typography-body1-font-size: 1rem;
         --mdc-typography-body1-line-height: calc(var(--mdc-typography-body1-font-size) + 0.8rem);
-        --mdc-typography-body1-letter-spacing: 0.025rem;
+        --mdc-typography-body1-letter-spacing: 0.03rem;
+        --mdc-typography-body1-font-weight: var(--font-weight-normal);
 
         --mdc-typography-body2-font-size: calc(var(--mdc-typography-body1-font-size) - 0.12rem);
+        --mdc-typography-body2-font-weight: var(--mdc-typography-body1-font-weight);
+
         --mdc-typography-subtitle1-font-size: var(--mdc-typography-body1-font-size);
+        --mdc-typography-subtitle1-font-weight: var(--mdc-typography-body1-font-weight);
 
         --mdc-text-button-label-text-size: calc(var(--mdc-typography-body1-font-size) - 0.12rem);
+        --mdc-text-button-label-text-weight: var(--mdc-typography-body1-font-weight);
 
         --mdc-typography-headline1-font-size: calc(var(--mdc-typography-body1-font-size) + 0.6rem);
-        --mdc-typography-headline1-font-weight: normal;
+        --mdc-typography-headline1-font-weight: var(--mdc-typography-body1-font-weight);
 
         --mdc-typography-headline2-font-size: calc(var(--mdc-typography-body1-font-size) + 0.6rem);
         --mdc-typography-headline2-line-height: calc(var(--mdc-typography-body1-font-size) + 1.2rem);
-        --mdc-typography-headline2-font-weight: normal;
+        --mdc-typography-headline2-font-weight: var(--mdc-typography-body1-font-weight);
 
         --mdc-typography-headline3-font-size: calc(var(--mdc-typography-body1-font-size) + 0.5rem);
         --mdc-typography-headline3-line-height: calc(var(--mdc-typography-body1-font-size) + 1rem);
-        --mdc-typography-headline3-font-weight: normal;
+        --mdc-typography-headline3-font-weight: var(--mdc-typography-body1-font-weight);
 
         --mdc-typography-headline6-font-size: calc(var(--mdc-typography-body1-font-size) + 0.25rem);
+        --mdc-typography-headline6-font-weight: var(--mdc-typography-body1-font-weight);
 
         // drawer list圆角
         --mdc-shape-small: 0.5rem;

@@ -1,0 +1,31 @@
+
+@use "../../style/global" as base;
+
+// Noto Serif SC 的 · 符号，用于替换 Noto Sans SC 过粗的版本
+
+@font-face {
+    font-family: "Noto Serif SC Sub";
+    src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerifSC/NotoSerifSC-Light-Sub/0970e9cb215313ff6f59b79096000b7c.woff2") format("woff2");
+    font-style: normal;
+    font-display: swap;
+    font-weight: base.$font-weight-normal-noto-sans - base.$font-weight-gap;
+    unicode-range: U+B7;
+}
+
+@font-face {
+    font-family: "Noto Serif SC Sub";
+    src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerifSC/NotoSerifSC-Regular-Sub/c8c762da87a9f6f90c884cb25c5aa47a.woff2") format("woff2");
+    font-style: normal;
+    font-display: swap;
+    font-weight: base.$font-weight-normal-noto-sans;
+    unicode-range: U+B7;
+}
+
+@font-face {
+    font-family: "Noto Serif SC Sub";
+    src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerifSC/NotoSerifSC-Medium-Sub/d1526947cbf6a5b8ee9d2fceabcde0d4.woff2") format("woff2");
+    font-style: normal;
+    font-display: swap;
+    font-weight: base.$font-weight-normal-noto-sans + base.$font-weight-gap;
+    unicode-range: U+B7;
+}
