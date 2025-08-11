@@ -129,7 +129,8 @@ body {
 
         --mdc-typography-body1-font-size: 1rem;
         --mdc-typography-body1-line-height: calc(var(--mdc-typography-body1-font-size) + 0.8rem);
-        --mdc-typography-body1-letter-spacing: 0.03rem;
+        // Chrome 设置 letter-spacing 为非 normal 会导致 OpenType 字体的连字功能失效
+        --mdc-typography-body1-letter-spacing: normal;
         --mdc-typography-body1-font-weight: var(--font-weight-normal);
 
         --mdc-typography-body2-font-size: calc(var(--mdc-typography-body1-font-size) - 0.12rem);

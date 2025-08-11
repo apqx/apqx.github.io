@@ -1,4 +1,5 @@
 // @use "../component/dialog/ShortLinkJumpDialog";
+@use "../style/global" as base;
 @use "../component/contentCard";
 
 .container-404 {
@@ -7,6 +8,12 @@
 
 .container-404 .title {
     font-size: 4.6rem;
-    font-weight: normal;
-    font-family: "JetBrainsMono", sans-serif;
+    font-weight: base.$font-weight-extra-light-default;
+    font-family: base.$code-block-font;
+}
+
+.emoji-404 {
+    width: 6rem;
+    height: 6rem;
+    margin-top: 5rem;
 }

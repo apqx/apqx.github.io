@@ -1,6 +1,6 @@
 // import "./topbar.scss"
 import { MDCIconButtonToggle } from "@material/icon-button"
-import { consoleDebug, consoleError } from "../util/log"
+import { consoleDebug, consoleError, consoleObjDebug } from "../util/log"
 import { getLocalRepository } from "../repository/LocalRepository"
 import { MDCTopAppBar } from "@material/top-app-bar"
 import { clearFocusListener, toggleClassWithEnable } from "../util/tools"
@@ -202,6 +202,7 @@ function initTitle(topAppBarE: HTMLElement) {
     let titleAE: HTMLLinkElement = topAppBarE.querySelector(".mdc-top-app-bar__title a") as HTMLLinkElement
     switch (section.identifier) {
         case SECTION_TYPE_ORIGINAL.identifier: {
+            titleAE.parentElement?.classList.add("font-wenkai", "font-no-change")
             titleAE.innerText = "ʕ•ᴥ•ʔ"
             titleAE.href = "/"
             break

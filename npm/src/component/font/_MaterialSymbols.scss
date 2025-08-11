@@ -27,7 +27,7 @@
 
 @mixin font() {
     font-style: normal;
-    font-size: 24px;
+    font-size: 1.65rem;
     line-height: 1;
     letter-spacing: normal;
     text-transform: none;
@@ -50,13 +50,13 @@
     @include font;
 }
 
-.material-symbols-rounded-thin {
+.material-symbols-rounded-light {
     font-family: 'Material Symbols Rounded';
     font-weight: 300;
     @include font;
 }
 
-.material-symbols-rounded-ultra-thin {
+.material-symbols-rounded-ultra-light {
     font-family: 'Material Symbols Rounded';
     font-weight: 200;
     @include font;

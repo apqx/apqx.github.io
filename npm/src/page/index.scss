@@ -1,7 +1,7 @@
 @use "../style/global" as base;
-// @use "../component/react/IndexList";
-// @use "../component/react/GridIndexList";
-// @use "../component/animation/ImageLoadAnimator";
+// 如果放到组件中加载时可能出现样式闪烁
+@use "../component/react/IndexList";
+@use "../component/react/GridIndexList";
 
 body {
     --index-card-to-container-border-horizontal: var(--main-container-padding-vertical);

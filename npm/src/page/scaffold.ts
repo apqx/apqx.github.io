@@ -1,5 +1,5 @@
 import "./scaffold.scss"
-import { isWriting, runOnHtmlDone, runOnPageBackFromCache, runOnPageDone } from "../util/tools"
+import { isChrome, isWriting, runOnHtmlDone, runOnPageBackFromCache, runOnPageDone, toggleClassWithEnable } from "../util/tools"
 import { blockTopbarKeyFrameAnimation, initTopbar } from "../component/topbar"
 import { initDrawer } from "../component/drawer"
 import { checkUserTheme, initTheme } from "../component/theme"
@@ -18,11 +18,13 @@ import { initCard } from "../component/card"
 import { is404Page, isIndexPage, isPostPage } from "../base/constant"
 import supportsWebP from "supports-webp"
 import { showAlertDialog } from "../component/dialog/CommonAlertDialog"
+import { ResizeWidthObserver } from "../base/ResizeWidthObserver"
 
 initScaffold()
 
 export function initScaffold() {
     runOnHtmlDone(() => {
+        // checkBrowser()
         checkPage()
         initLocalRepository()
         initFont()
@@ -130,4 +132,28 @@ function checkTest() {
         consoleDebug("Enable Noto Sans SC font")
         setNotoSansSCFont(true)
     }
+}
+
+function checkBrowser() {
+    // 解决移动端Chrome字体问题，在小米手机上可能字体过大，原因是窗口宽度过小，所以为小宽度设置一个合适的字体大小
+    if (isChrome()) {
+        const updateChromeClass = (width: number) => {
+            consoleDebug("Chrome detected, window width: " + width)
+            if (width < 400) {
+                consoleDebug("Chrome windowWidth < 400px, set fontSize to 14.5px")
+                document.documentElement.style.fontSize = "14.5px"
+            } else if (width >= 400 && width < 410) {
+                consoleDebug("Chrome windowWidth >= 400px, < 410px, set fontSize to 15px")
+                document.documentElement.style.fontSize = "15px"
+            } else {
+                consoleDebug("Chrome windowWidth >= 410px, set fontSize to unset")
+                document.documentElement.style.fontSize = "unset"
+            }
+        }
+        updateChromeClass(window.innerWidth)
+        new ResizeWidthObserver(document.documentElement, (width) => {
+            updateChromeClass(width)
+        })
+    }
+    // alert("width = " + window.innerWidth)
 }

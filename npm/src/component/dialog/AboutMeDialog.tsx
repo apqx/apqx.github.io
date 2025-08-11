@@ -27,11 +27,11 @@ class AboutMeDialog extends BasicDialog<BasicDialogProps, any> {
     dialogContent(): React.JSX.Element {
         consoleDebug("AboutMeDialog render")
         return (
-            <div className="items-center">
+            <div className="center-items">
                 <picture>
                     <source srcSet="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me_emoji.webp"
                         type="image/webp" />
-                    <img width="100px" height="100px" className="circle-avatar inline-for-center" alt="avatar"
+                    <img className="circle-avatar inline-for-center" alt="avatar"
                         src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me_emoji.png" />
                 </picture>
                 <p className="about-me-name">立泉</p>
@@ -43,14 +43,13 @@ class AboutMeDialog extends BasicDialog<BasicDialogProps, any> {
                     <Button text="Git" onClick={null} className="btn-tag" />
                 </section>
                 <p className="about-me-description">九五后，旅居杭州，<a
-                    href={this.getKunQvLink()}>昆虫</a>，野生散养攻城狮，“十分”“业余”摄影Fans。联系我可以通过电子邮件，如果有必要也可以用<a
+                    href={this.getKunQvLink()}>昆虫</a>，野生散养攻城狮，“十分”“业余”摄影 Fans。联系我可以通过<a href="mailto:safari@mudan.me">电子邮件</a>，如果有必要也可以用<a
                         href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/wechat.jpg" target="_blank">微信</a>。</p>
                 <ul className="mdc-deprecated-list mdc-deprecated-list--one-line dialog-link-list" id="about-me-dialog_link_list">
                     <LinkItem link="https://github.com/apqx" title="GitHub" first={true} last={false} />
                     <LinkItem link="https://www.youtube.com/channel/UCF3Qv9tpULGL-CabxSEaCaQ" title="YouTube" first={false} last={false} />
                     <LinkItem link="https://space.bilibili.com/11037907" title="Bilibili" first={false} last={false} />
-                    <LinkItem link="https://weibo.com/u/7026785047" title="Weibo" first={false} last={false} />
-                    <LinkItem link="mailto:safari@mudan.me" title="Email" first={false} last={true} />
+                    <LinkItem link="https://weibo.com/u/7026785047" title="Weibo" first={false} last={true} />
                 </ul>
             </div>
         )

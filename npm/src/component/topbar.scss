@@ -47,14 +47,22 @@ body {
 .dark .mdc-top-app-bar__navigation-icon.mdc-icon-button {
     @include button.icon-button-dark-ripple;
 }
+.mdc-top-app-bar__navigation-icon.mdc-icon-button,
+.mdc-top-app-bar__action-item.mdc-icon-button {
+    display: flex;
+    align-items: center;
+    i.mdc-icon-button__icon {
+        margin: auto;
+    }
+}
 
 .mdc-top-app-bar__title {
     padding-left: 0.3rem;
     font-weight: var(--font-weight-normal);
+    // font-family: base.$text-font-wenkai;
 
     a {
         text-decoration: none;
-        font-family: base.$text-font-wenkai;
     }
 }
 

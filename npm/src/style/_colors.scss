@@ -189,8 +189,8 @@ $text-block-3-bg: (
 );
 
 $code-highlight-bg: (
-        light: color.adjust(map.get($surface, "light"), $lightness: -2%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: +2%),
+        light: color.adjust(map.get($surface, "light"), $lightness: -4%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: +4%),
 );
 
 $code-highlight-border: (

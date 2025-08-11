@@ -1,18 +1,21 @@
-// Noto Serif 的省略号和引号字符，霞鹜文楷的省略号竖向居中，思源宋体的引号是全角，均用 Noto Serif 替代
-@use "NotoSerifSub";
-// Noto Serif SC 的 · 符号，Noto Sans SC 的 · 符号过粗，用 Noto Serif SC 替代
-@use "NotoSerifSCSub";
+// 中文字体普遍存在引号全角在排版时导致的标点挤压问题，解决方法是配合一个西文字体，优先使用西文字体的符号，比如省略号 ...
+// 与 Noto Sans SC 思源宋体配合的西文字体
+@use "Inter";
+// 与 Noto Serif SC 思源宋体配合的西文字体
+@use "IBMPlexSerif";
 // 霞鹜文楷
 @use "LXGWWenKaiGBLiteRegular";
-// JetBrainsMono，代码字体
+// JetBrains Mono，代码字体
 @use "JetBrainsMono";
 // Material Icons
 @use "MaterialSymbols";
 
 // @font-face {
-//     font-family: "Noto Serif SC";
-//     src: url("http://localhost:4000/assets/NotoSerifSC-VariableFont_wght.ttf") format('truetype');
+//     font-family: "Demo";
+//     src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/JetBrainsMono/v2.304/JetBrainsMono%5Bwght%5D.ttf") format('truetype');
 //     font-style: normal;
 //     font-weight: 200 900;
 //     font-display: swap;
 // }
+
+// @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');

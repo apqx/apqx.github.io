@@ -48,17 +48,6 @@
     margin: 0.5rem;
 }
 
-// 代码块
-pre code.hljs {
-    font-family: base.$code-block-font;
-    font-size: var(--mdc-typography-body1-font-size);
-    line-height: calc(var(--mdc-typography-body1-font-size) + 0.5rem);
-    letter-spacing: var(--mdc-typography-body1-letter-spacing);
-    border-radius: var(--post-inner-shape-round);
-    padding: 1rem;
-    background: var(--pre-code-bg);
-}
-
 .surface-block code,
 .opera-page code:not(.mdc-dialog code) {
     color: var(--surface-block-ink-strong);

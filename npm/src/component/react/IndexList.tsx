@@ -1,4 +1,4 @@
-import "./IndexList.scss"
+// import "./IndexList.scss"
 import { MDCRipple } from "@material/ripple"
 import React from "react"
 import type { RefObject } from "react"
@@ -116,7 +116,7 @@ class IndexItem extends React.Component<IndexItemProps, any> {
                         <span className="index-author">{this.props.author}</span>
                         <span className="index-date">{this.props.date}</span>
                         {this.props.pin &&
-                            <i className="material-symbols-rounded-thin index-pin-icon">keep</i>
+                            <i className="material-symbols-rounded-light index-pin-icon">keep</i>
                         }
                     </section>
                 </a>

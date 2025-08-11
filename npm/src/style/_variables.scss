@@ -1,15 +1,15 @@
 @use "sass:string";
 
 // 霞鹜文楷GB
-$text-font-wenkai: string.unquote("Noto Serif Sub, LXGW WenKai GB, sans-serif");
+$text-font-wenkai: string.unquote("LXGW WenKai GB, sans-serif");
 // 思源宋体
-$text-font-noto-serif: string.unquote("Noto Serif Sub, Noto Serif SC, sans-serif");
+$text-font-noto-serif: string.unquote("IBM Plex Serif, Noto Serif SC, sans-serif");
 // 思源黑体
-$text-font-noto-sans: string.unquote("Noto Serif SC Sub, Noto Serif Sub Lighter, Noto Sans SC, sans-serif");
+$text-font-noto-sans: string.unquote("Inter, Noto Sans SC, sans-serif;");
 // 书法字体，许静行楷
 $handwritten-font: string.unquote("HYXuJingXingKaiW, LXGW WenKai GB, sans-serif");
 // 代码字体，等宽
-$code-block-font: string.unquote("JetBrainsMono, Noto Sans SC, monospace, sans-serif");
+$code-block-font: string.unquote("JetBrains Mono, Noto Sans SC, monospace, sans-serif");
 
 // 中型屏幕宽度范围，定义为平板，小于此尺寸为手机，大于此尺寸为电脑
 $screen-middle-min-width: 600px;
@@ -21,7 +21,11 @@ $center-container-larger-max-width: 1200px;
 
 $ripple-gap-percent: 25%;
 
-$font-weight-normal-noto-sans: 350;
+$font-weight-normal-noto-sans: 360;
+
+$font-weight-extra-light-default: 200;
+$font-weight-light-default: 300;
 $font-weight-normal-default: 400;
+$font-weight-medium-default: 500;
 
 $font-weight-gap: 30;

@@ -12,7 +12,7 @@ class CommonAlertDialog extends BasicDialog<Props, any> {
     dialogContent(): React.JSX.Element {
         return (
             <div>
-                <p className="common-alert-dialog_title items-center">{this.props.title}</p>
+                <p className="common-alert-dialog_title center-items">{this.props.title}</p>
                 <p className="common-alert-dialog_content"
                     dangerouslySetInnerHTML={createHtmlContent(this.props.contentHTML)} />
             </div>

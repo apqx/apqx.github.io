@@ -1,10 +1,9 @@
 // @use "../react/ProgressLinear";
 @use "../../style/global" as base;
 
-#short-link-jump-dialog_emoji {
-    text-align: center;
-    font-size: calc(var(--mdc-typography-body1-font-size) + 3rem);
-    //margin-top: 2rem;
+.emoji-jump {
+    width: 10rem;
+    height: 10rem;
 }
 
 #short-link-jump-dialog_title {

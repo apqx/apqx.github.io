@@ -96,7 +96,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
 
     dialogContent(): React.JSX.Element {
         return (
-            <div className="items-center">
+            <div className="center-items">
                 <label className="mdc-text-field mdc-text-field--outlined" id="search-dialog_label">
                     <span className="mdc-notched-outline">
                         <span className="mdc-notched-outline__leading"></span>
@@ -110,12 +110,12 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
                     <button id="btn-search" type="button"
                         className="mdc-icon-button"
                         tabIndex={-1} onClick={this.onClickSearch}>
-                        <i className="material-symbols-rounded-thin mdc-button__icon" aria-hidden="true">search</i>
+                        <i className="material-symbols-rounded-light mdc-button__icon" aria-hidden="true">search</i>
                     </button>
                 </label>
 
-                <p id="search-dialog_tips"><b>TIPS：</b>中文低频词组用空格分隔会有更好匹配，比如输入名字「施夏明」改为「施 夏 明」。如果网络通畅也可使用<a
-                    href="https://cse.google.com/cse?cx=757420b6b2f3d47d2" target="_blank">Google站内搜索</a>。</p>
+                <p id="search-dialog_tips"><b>TIPS：</b>中文低频词组用空格分隔会有更好匹配，比如输入名字「施夏明」改为「施 夏 明」。如果网络通畅可使用 <a
+                    href="https://cse.google.com/cse?cx=757420b6b2f3d47d2" target="_blank">Google 站内搜索</a>。</p>
                 <div className="height-animation-container">
                     <div>
                         {(this.state.results != null && this.state.results.length > 0) &&

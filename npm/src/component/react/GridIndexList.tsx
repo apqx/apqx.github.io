@@ -1,4 +1,4 @@
-import "./GridIndexList.scss"
+// import "./GridIndexList.scss"
 import type { ReactNode } from "react"
 import type { RefObject } from "react"
 import React from "react"

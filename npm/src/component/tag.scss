@@ -35,8 +35,14 @@
     @include btnChipRippleDark();
 }
 
-a.tag-link {
+.tag-container {
     font-weight: var(--font-weight-normal);
+    text-align: center;
+    margin-bottom: 1.6rem;
+}
+
+a.tag-link {
+    font-weight: inherit;
     color: var(--mdc-theme-on-surface);
     line-height: var(--mdc-typography-body1-line-height);
     letter-spacing: var(--mdc-typography-body1-letter-spacing);
@@ -49,4 +55,9 @@ a.tag-link {
 a.tag-link:hover {
     box-shadow: inset 0 0 0 0 var(--tag-underline-color);
     text-decoration: none;
+}
+
+.emoji-tag {
+    width: 6.5rem;
+    height: 6.5rem;
 }

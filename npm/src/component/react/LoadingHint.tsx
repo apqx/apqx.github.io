@@ -17,7 +17,7 @@ export class LoadingHint extends React.Component<Props, any> {
     }
     render() {
         return (
-            <div className="loading-hint-wrapper items-center">
+            <div className="loading-hint-wrapper center-items">
                 {this.props.loading && <ProgressCircular loading={true} />}
                 {(!this.props.loading && this.props.loadHint != null) &&
                     <Button text={this.props.loadHint} onClick={this.props.onClickHint} className="loading-hint-btn" />

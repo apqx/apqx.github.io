@@ -14,6 +14,11 @@
 
 body * {
     -webkit-text-size-adjust: 100%;
+    // 如果不设置这个，部分字体如 Inter 在 Safari 上下划线不会被字体线条隔断
+    font-variation-settings: "opsz" 14;
+    font-optical-sizing: auto;
+    // 启用 OpenType 的 Ligature 连字功能
+    font-variant-ligatures: normal;
 }
 
 h1,
@@ -61,28 +66,36 @@ h3::before {
 p {
     @include basicText();
     text-align: justify;
-    line-break: loose;
+    line-break: normal;
 }
 
 code {
     @include basicText();
+    // font-family: base.$code-block-font;
     margin: 0;
+}
+
+// 代码块
+pre code,
+pre code.hljs {
+    font-family: base.$code-block-font;
+    line-height: calc(var(--mdc-typography-body1-font-size) + 0.5rem);
+    border-radius: var(--post-inner-shape-round);
+    padding: 1rem;
+    background: var(--pre-code-bg);
 }
 
 /* 段落中单词高亮 */
 code:not(pre code) {
-    padding: 0rem .2rem .08rem .2rem;
-    margin-left: 0.05rem;
-    margin-right: 0.05rem;
+    padding: 0.1rem .3rem .18rem .3rem;
+    margin-left: 0.1rem;
+    margin-right: 0.1rem;
     border-radius: 0.3rem;
-    line-break: loose;
 
     background: var(--code-highlight-bg);
+    // color: var(--strong-color);
+    font-weight: inherit;
     // border: 1px solid var(--code-highlight-border);
-}
-
-.font-noto-serif-sc code:not(pre code) {
-    padding: 0rem .2rem .06rem .2rem;
 }
 
 em code {
@@ -142,22 +155,8 @@ a {
     text-decoration-thickness: 1px;
     // 去除移动版Chrome点击时默认的蓝色背景
     -webkit-tap-highlight-color: transparent;
-    color: unset;
-    line-break: loose;
+    color: inherit;
 }
-
-// a::after {
-//     content: "";
-//     position: absolute;
-//     /* 下划线距离文本底部2px */
-//     bottom: -2px;
-//     left: 0;
-//     right: 0;
-//     /* 下划线高度 */
-//     height: 1px;
-//     /* 下划线样式 */
-//     border-bottom: 1px solid;
-// }
 
 a.clickable-empty-link {
     // url为空的<a>
@@ -192,7 +191,8 @@ address {
     font-style: normal;
 }
 
-address, time {
+address,
+time {
     @include basicText();
     margin: 0;
 }
@@ -208,7 +208,7 @@ blockquote {
 // 引用段落中的<p>
 blockquote p {
     margin: 0;
-    color: var(--mdc-theme-on-surface-secondary);
+    // color: var(--mdc-theme-on-surface-secondary);
     font-weight: var(--font-weight-light);
 }
 
@@ -241,7 +241,6 @@ audio {
     font-family: base.$handwritten-font;
     font-weight: base.$font-weight-normal-default;
     font-size: 1.2rem;
-    letter-spacing: -0.1rem;
     padding-bottom: 0.1rem;
 }
 
@@ -252,6 +251,10 @@ audio {
     .font-handwritten, .font-handwritten *) {
     font-family: base.$text-font-noto-serif;
     --font-weight-normal: #{base.$font-weight-normal-default};
+
+    .mdc-top-app-bar__title a {
+        font-weight: 400;
+    }
 }
 
 // 全局字体
@@ -260,6 +263,10 @@ audio {
     .font-no-change, .font-no-change *,
     .font-handwritten, .font-handwritten *) {
     font-family: base.$text-font-noto-sans;
+
+    .mdc-top-app-bar__title a {
+        font-weight: 340;
+    }
 }
 
 // 局部字体
@@ -267,10 +274,9 @@ audio {
 .font-wenkai :not(button, i, pre code, pre code *,
     .font-no-change, .font-no-change *,
     .font-handwritten, .font-handwritten *) {
-    font-family: base.$text-font-wenkai;
-    font-weight: base.$font-weight-normal-default;
-    --mdc-typography-body1-font-size: 1.02rem;
-    --mdc-typography-body1-letter-spacing: 0.03rem;
+    font-family: base.$text-font-wenkai !important;
+    font-weight: base.$font-weight-normal-default !important;
+    --mdc-typography-body1-font-size: 1.02rem !important;
 }
 
 .one-line {
@@ -280,4 +286,9 @@ audio {
     overflow: hidden;
     /* 文字超出部分显示省略号 */
     text-overflow: ellipsis;
+}
+
+// 设置一些长文本可在任意位置换行，优化排版
+.break-anywhere {
+    line-break: anywhere;
 }

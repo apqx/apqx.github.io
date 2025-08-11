@@ -99,17 +99,17 @@ footer * {
     }
 }
 
-.self-center-horizontal {
+.center-self-horizontal {
     margin-left: auto;
     margin-right: auto;
 }
 
-.self-center-vertical {
+.center-self-vertical {
     margin-top: auto;
     margin-bottom: auto;
 }
 
-.items-center {
+.center-items {
     text-align: center;
 }
 
@@ -125,6 +125,27 @@ img {
 
 img.inline-for-center {
     display: inline;
+}
+
+// 目前只发现Chrome在小米手机中的字体过大，Firefox正常
+// 这种写法会影响所有浏览器，应在js中对Chrome单独处理
+
+@media screen and (max-width: 400px) {
+    html {
+        font-size: 14.5px;
+    }
+}
+
+@media screen and (min-width: 400px) and (max-width: 410px) {
+    html {
+        font-size: 15px;
+    }
+}
+
+@media screen and (min-width: 410px) and (max-width: 420px) {
+    html {
+        font-size: 16px;
+    }
 }
 
 // 手机小屏
