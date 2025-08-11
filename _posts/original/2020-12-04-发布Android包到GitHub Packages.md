@@ -1,7 +1,7 @@
 ---
 layout: post
 categories: original
-title: "发布Android包到GitHub Packages"
+title: "发布 Android 包到 GitHub Packages"
 author: 立泉
 mention: Gradle Maven
 date: 2020-12-04 +0800

@@ -1,18 +1,18 @@
 ---
 layout: post
 categories: original
-title: "记一次朴实无华的Android API文档替换"
+title: "记一次朴实无华的 Android API 文档替换"
 author: 立泉
-mention: GFW Java
+mention: GFW Java GoogleAnalytics
 date: 2016-06-12 +0800
-description: 使用浏览器查看本地Android SDK里的API文档，发现其在联网状态下加载速度极慢，而如果断开网络就正常了🤔。
+description: 使用浏览器查看本机 Android SDK 里的 API 文档，发现其在联网状态下加载缓慢，而断开网络则正常🤔。
 cover: 
 tags: Code Android Java GFW
 ---
 
-学习`Android`的过程中要参阅系统提供的应用开发接口`API`来实现所需功能，实际上在本地`Android SDK`中就有一份`HTML`版本的`API`文档。但是当我用浏览器打开时却发现它们在联网状态下加载速度极慢，而断开网络则是正常的。考虑到墙的存在，应该是页面中有些需要联网下载的`StyleSheet`或`Javascript`，而要连接的域名十有八九就是`Google`。
+学习 Android 要参阅系统提供的 API 开发接口实现所需功能，除官网之外其实本地 Android SDK 中已经有一份 HTML 版本的 API 文档。但是当我用浏览器打开时却发现它们在联网状态下加载速度极慢，断开网络则正常。考虑到墙的存在，应该是页面中存在需要联网下载的 CSS 或 Javascript，所连接的域名十有八九是 Google。
 
-排查一番，加载缓慢的元凶是下面这段代码：
+排查过后，加载缓慢的元凶是下面这段代码：
 
 ```html
 <script src="http://www.google.com/jsapi" type="text/javascript"></script>
@@ -29,9 +29,9 @@ tags: Code Android Java GFW
 </script>
 ```
 
-似乎是`Google Analytics`网站统计工具，“正常”情况下无法访问的远程资源使浏览器等待响应直至超时，造成加载缓慢的现象，删除即可。
+似乎是 Google Analytics 网站统计工具，“正常”情况下无法访问的远程资源使浏览器等待响应直至超时，造成加载缓慢的现象，删除即可。
 
-写一个小程序扫描这几千个`HTML`文档，发现含有以上代码就删除，然后输出回原文件。单线程处理是一个费时操作，不过我并不赶时间☕️。
+写一段程序扫描这几千个 HTML 文档，发现含有以上代码即删除并输出回原文件。单线程处理是一个费时操作，不过我不赶时间☕️。
 
 ```java
 package me.apqx.util;
@@ -43,7 +43,7 @@ import java.util.regex.Pattern;
 
 /**
  * Created by apqx on 2016/6/11.
- * 删除Android API文档中需要链接Google的Javascript代码
+ * 删除 Android API 文档中需要链接 Google 的 Javascript 代码
  */
 public class ChangeFile {
     public static void main(String[] args) {

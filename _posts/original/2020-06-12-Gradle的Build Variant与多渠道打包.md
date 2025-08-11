@@ -1,7 +1,7 @@
 ---
 layout: post
 categories: original
-title: "Gradle的Build Variant与多渠道打包"
+title: "Gradle 的 Build Variant 与多渠道打包"
 author: 立泉
 mention: 应用分发 Build Flavor
 date: 2020-06-12 +0800

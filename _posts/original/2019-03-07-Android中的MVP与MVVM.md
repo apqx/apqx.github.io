@@ -1,30 +1,30 @@
 ---
 layout: post
 categories: original
-title: "Android中的MVP与MVVM"
+title: "Android 中的 MVP 与 MVVM"
 author: 立泉
-mention: 架构 生命周期
+mention: 架构 生命周期 Jetpack
 date: 2019-03-07 +0800
-description: 我在工作和学习中大量使用过MVP，对MVC和MVVM只是有所耳闻，后来接触Kotlin和Jetpack，开始尝试更现代的新东西。编程感觉也不再是入门时枯燥的堆砌代码，而是像打造艺术品一样津津有味，这样的变化真实而有趣。
+description: 我在工作中大量使用过 MVP，对 MVC 和 MVVM 只是有所耳闻，接触 Kotlin 和 Jetpack 后开始尝试在自己的练习中使用这些新东西，编程不再是入门时枯燥的堆砌代码，而是像打造艺术品一样津津有味，这样的变化真实而有趣。
 cover: 
 tags: Code Android MVP MVVM
 ---
 
-初学`Android`只晓得`Activity`可以控制UI，并不懂`设计模式`，也不知道那些操作数据的逻辑代码应该如何归类，索性都堆砌在`Activity`和`Fragment`里。但随着练习的逻辑越来越复杂，`Activity`的代码结构开始变得混乱起来，越来越臃肿，几乎无法维护，那种在一个`class`里各种方法间到处跳来跳去的感觉，岂止酸爽。后来看到`MVP`，顿时豁然开朗，原来还可以这样，它将`View`和`Model`彻底分离，用`Presenter`承上启下，让代码里每一个UI驱动的逻辑都十分清晰。
+初学 Android 只知道`Activity`可以控制 UI，并不懂设计模式，也不知道操作数据的逻辑代码应该如何归类，索性全堆砌在`Activity`和`Fragment`里。但随着功能逻辑的复杂化，`Activity`结构开始变得混乱、臃肿、难以维护，在长文件里到处跳跃的感觉岂止酸爽。后来看到 MVP 顿时豁然开朗，原来可以这样，它将`View`和`Model`分离用`Presenter`连接，代码中 UI 驱动的逻辑立刻清晰整洁。
 
-我确实喜欢`MVP`，也在工作中大量使用，之后又接触到`Jetpack`，其`DataBinding`、`LiveData`和`ViewModel`都在向我预示着一个新的设计模式：`MVVM`。它的`View`和`Model`概念与`MVP`中一致，不同的是`ViewModel`，把视图和数据进行双向绑定，当数据发生变化时视图自动更新，而视图的变化也会直接作用到数据上。这种比`MVP`更简洁的结构让我很感兴趣。
+我在工作中大量使用 MVP，之后接触 Jetpack，其`DataBinding`、`LiveData`和`ViewModel`向我预示一个新的设计模式： MVVM。它的`View`和`Model`概念与 MVP 一致，不同的是`ViewModel`，把视图和数据双向绑定，当数据发生变化时视图自动更新，而视图变化也会直接作用到数据上。这种比 MVP 更简洁的结构让我很感兴趣。
 
-## 古老的MVC
+## 古老的 MVC
 
 > Model View Controller
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20190307/mvc.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="mvc" }
 
-* `View`即视图，用于接收UI事件，控制UI状态。
-* `Model`即数据模型，用于处理数据，比如从数据库和网络中读写操作。
-* `Controller`即控制器，它接收`View`传来的事件，定义具体的业务实现逻辑，调用`Model`操作数据，然后由`Model`通知`View`更新UI，在`Android`中一般是`Activity`和`Fragment`。
+* `View`即视图，用于接收 UI 事件，控制 UI 状态。
+* `Model`即数据模型，用于处理数据，比如操作数据库和网络中。
+* `Controller`即控制器，接收`View`传来的事件，定义具体业务逻辑，调用`Model`操作数据再由它通知`View`更新 UI。在 Android 中通常是`Activity`或`Fragment`。
 
-通过一个简单的实例来理解`MVC`的结构，UI上有一个按钮，点击按钮，查询一下天气，在`TextView`中显示结果，并弹出一个`Toast`。
+通过一个简单例子理解 MVC：点击`Button`查询天气，在`TextView`中显示结果并弹出`Toast`。
 
 ### Model
 
@@ -54,7 +54,7 @@ interface Callback {
 
 ```kotlin
 /**
- * 接收UI点击事件，并能控制UI
+ * 接收 UI 点击事件，控制 UI
  */
 class WeatherView(private var activity: Activity, onBtnClickListener: OnBtnClickListener) : Callback {
     private val btn = activity.findViewById<Button>(R.id.btn)
@@ -63,13 +63,13 @@ class WeatherView(private var activity: Activity, onBtnClickListener: OnBtnClick
     init {
         // 收到点击事件
         btn.setOnClickListener {
-            // 通知Controller执行操作
+            // 通知 Controller 执行操作
             onBtnClickListener.onClick()
         }
     }
 
     /**
-     * UI显示天气
+     * UI 显示天气
      */
     fun showWeather(weather: String) {
         tv.text = weather
@@ -77,7 +77,7 @@ class WeatherView(private var activity: Activity, onBtnClickListener: OnBtnClick
     }
 
     /**
-     * Model处理完成后，调用View更新UI
+     * Model 处理完成后调用 View 更新 UI
      */
     override fun querySuccess(weather: String) {
         showWeather(weather)
@@ -85,7 +85,7 @@ class WeatherView(private var activity: Activity, onBtnClickListener: OnBtnClick
 }
 
 /**
- * 用于通知Controller点击事件的监听器
+ * 用于通知 Controller 点击事件的监听器
  */
 interface OnBtnClickListener {
     fun onClick()
@@ -96,7 +96,7 @@ interface OnBtnClickListener {
 
 ```kotlin
 /**
- * 接收UI事件，控制Model处理
+ * 接收 UI 事件，控制 Model 处理
  */
 class WeatherActivity : Activity(), OnBtnClickListener{
     private lateinit var model: WeatherModel
@@ -110,7 +110,7 @@ class WeatherActivity : Activity(), OnBtnClickListener{
     }
 
     /**
-     * View被点击时，调用Model处理数据
+     * View 被点击时调用 Model 处理数据
      */
     override fun onClick() {
         model.queryWeather()
@@ -118,20 +118,20 @@ class WeatherActivity : Activity(), OnBtnClickListener{
 }
 ```
 
-可以看到，UI层被从`Activity`中剥离，`Activity`作为`Controller`持有`View`和`Model`，`View`要实现在有事件发生时及时通知`Controller`，就必须持有`Controller`，而`Model`中又持有`View`的一个回调接口，当UI有事件发生时，`Controller`得到通知，它会调用`Model`中的方法去处理数据，完成后，`Model`调用`View`更新UI，这是一个完整的环形结构，相互之间都有依赖，并不符合低耦合高内聚的要求。
+UI 层被从`Activity`中剥离，`Activity`作为`Controller`持有`View`和`Model`。`View`反向持有`Controller`以实现在点击事件发生时触发查询，`Model`需要更新 UI 则持有`View`的回调接口，`Controller`调用`Model`查询数据，完成后由它回调`View`更新 UI。这是一个闭环结构，组件循环依赖并不符合低耦合规则。
 
 
-## 进化的MVP
+## 进化的 MVP
 
 > Model View Presenter
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20190307/mvp.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="mvp" }
 
-* `View`即视图，用于接收UI事件，控制UI状态，一般为`Activity`和`Fragment`。
-* `Model`即数据模型，用于处理数据，比如从数据库和网络中读写操作。
-* `Presenter`即逻辑实现类，从`View`中接收事件，向下调用`Model`处理数据并获取结果，然后再向上控制`View`更新UI。
+* `View`即视图，用于接收 UI 事件，控制 UI 状态，一般是`Activity`或`Fragment`。
+* `Model`即数据模型，用于处理数据，比如操作数据库和网络。
+* `Presenter`即逻辑实现类，从`View`中接收事件，向下调用`Model`处理数据、获取结果，再向上控制`View`更新 UI。
 
-同样的例子，用`MVP`是这样的：
+同样的例子，用 MVP 是这样：
 
 ### Model
 
@@ -154,14 +154,14 @@ class WeatherModel(private val callBack: Callback) {
 
 ```kotlin
 /**
- * 定义操作UI的接口
+ * 定义操作 UI 的接口
  */
 interface IWeatherActivity {
     fun showWeather(weather: String)
 }
 
 /**
- * Activity实现操作UI的接口
+ * Activity 实现操作 UI 的接口
  */
 class WeatherActivity : Activity(), IWeatherActivity {
     private lateinit var iWeatherPresenter: IWeatherPresenter
@@ -169,20 +169,19 @@ class WeatherActivity : Activity(), IWeatherActivity {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_weather)
-        // 创建Presenter
+        // 创建 Presenter
         iWeatherPresenter = WeatherPresenter(this)
-        // Kotlin可以直接用id访问View实例
+        // Kotlin 可直接用 id 访问 View 实例
         btn.setOnClickListener {
-            // 点击事件发生时，调用Presenter执行操作
+            // 点击事件发生时，调用 Presenter 执行操作
             iWeatherPresenter.queryWeather()
         }
     }
 
     /**
-     * UI显示天气
+     * UI 显示天气
      */
     override fun showWeather(weather: String) {
-        // Kotlin中可以直接用id访问View实例
         tv.text = weather
         Toast.makeText(activity, weather, Toast.LENGTH_SHORT).show()
     }
@@ -194,14 +193,14 @@ class WeatherActivity : Activity(), IWeatherActivity {
 
 ```kotlin
 /**
- * 定义响应UI事件的接口
+ * 定义响应 UI 事件的接口
  */
 interface IWeatherPresenter {
     fun queryWeather()
 }
 
 /**
- * 实现接口，构造器要求传入View以操作UI
+ * 实现接口，构造器要求传入 View 以操作 UI
  */
 class WeatherPresenter(private val iWeatherActivity: IWeatherActivity) : IWeatherPresenter {
 
@@ -210,29 +209,29 @@ class WeatherPresenter(private val iWeatherActivity: IWeatherActivity) : IWeathe
      */
     override fun queryWeather() {
         val weatherModel = WeatherModel()
-        // 调用Model获取数据，然后调用View更新UI
+        // 调用 Model 获取数据，然后调用 View 更新 UI
         iWeatherActivity.showWeather(weatherModel.queryWeather())
     }
 }
 ```
 
-可以看到，在`MVP`模式中`View`和`Model`是完全分离的，`Activity`就是`View`，它持有`Presenter`，`Presenter`则持有`View`和`Model`。当有事件发生时，`View`通知`Presenter`执行操作，`Presenter`调用`Model`获取数据，然后调用`View`更新UI。由于`IPresenter`接口的存在，实际上可以根据需求创建多个不同实现的`Presenter`实例，具有很高的灵活性。
+在 MVP 模式中`View`和`Model`完全分离，`Activity`作为`View`持有`Presenter`，`Presenter`则持有`View`和`Model`。当点击事件发生时，`View`通知`Presenter`执行操作，`Presenter`调用`Model`获取数据，然后调用`View`更新 UI。由于`IPresenter`接口的存在，实际上可根据需求创建多个不同实现的`Presenter`实例，具有很高的灵活性。
 
-## 双向绑定的MVVM
+## 双向绑定的 MVVM
 
 > Model View ViewModel
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20190307/mvvm.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="mvvm" }
 
-* `View`即视图，用于接收UI事件，控制UI状态，一般为`Activity`和`Fragment`。
-* `Model`即数据模型，用于处理数据，比如从数据库和网络中读写操作。
-* `ViewModel`即视图模型，从`View`中接收事件，向下调用`Model`获取数据，数据被修改后，`View`将自动被更新。
+* `View`即视图，用于接收 UI 事件，控制 UI 状态，一般是`Activity`或`Fragment`。
+* `Model`即数据模型，用于处理数据，比如操作数据库和网络。
+* `ViewModel`即视图模型，从`View`中接收事件，向下调用`Model`获取数据，数据被修改后`View`将随之自动更新。
 
-其实`MVP`已经足够好了，既能实现`View`和`Model`的分离，又能使用多`Presenter`实例来改变UI事件的行为。但`MVC`和`MVP`都有一个共同的特点，就是UI总是是由数据驱动的，数据变化后必须使用`Model`或`Presenter`去主动更新UI，而`MVVM`则可以实现数据和UI的绑定，当数据变化时，UI自动更新，这一切在`Android`上的实现基础就是`Jetpack`里的`DataBinding`和`LiveData`。
+MVP 已经足够好，既能实现`View`和`Model`的分离又能使用多`Presenter`实例改变 UI 事件的行为。但`MVC`和`MVP`都有一个共同特点，即 UI 由数据驱动，数据变化后必须使用`Model`或`Presenter`主动更新 UI。而`MVVM`可实现数据和 UI 的绑定，当数据变化时 UI 自动更新，这在 Android 上的实现基础是 Jetpack 组件里的`DataBinding`和`LiveData`。
 
-`DataBinding`把数据和UI资源`xml`文件绑定，`LiveData`则允许数据感知其所在组件的生命周期，在有效的生命周期内，当数据发生变化时，UI也会随之自动改变。
+`DataBinding`把数据和 UI 资源`xml`文件绑定，`LiveData`支持数据感知其所在组件的生命周期，有效生命周期内的数据变化会自动触发 UI 改变。
 
-同样是上面的例子，用`MVVM`是这样的：
+同样上面的例子，用 MVVM 是这样：
 
 ### Model
 
@@ -253,18 +252,18 @@ class WeatherModel() {
 
 ### View
 
-首先在`Layout`资源文件中定义`DataBinding`
+首先在`Layout`资源文件中定义`DataBinding`：
 
-```html
+```xml
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <!--定义DataBinding中要和View绑定的数据-->
+    <!-- 定义 DataBinding 中要和 View 绑定的数据 -->
     <data>
         <variable
             name="weather"
             type="String"/>
     </data>
-    <!--正常的View布局-->
+    <!-- 正常的 View 布局 -->
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -273,8 +272,8 @@ class WeatherModel() {
             android:id="@+id/tv"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            <!--把内容设置为DataBinding的weather变量，
-            这样点击按钮时，当数据发生变化，这里会直接随之变化-->
+            <!-- 内容设置为 DataBinding 的 weather 变量，
+            点击按钮时，这里会随数据变化自动更新 -->
             android:text="@{weather}"/>
         <Button
             android:id="@+id/btn"
@@ -283,33 +282,32 @@ class WeatherModel() {
             android:text="Show Weather"/>
     </LinearLayout>
 </layout>
-
 ```
 
 用`Activity`作为`View`：
 
 ```kotlin
-// 注意是AppCompatActivity
+// 注意是 AppCompatActivity
 class WeatherActivity : AppCompatActivity() {
     private lateinit var dataBinding: ActivityWeatherBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // 使用DataBinding将视图资源加载到Activity上
+        // 使用 DataBinding 将视图资源加载到 Activity上
         dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_weather)
-        // 创建ViewModel，LiveData就保存在ViewModel中
+        // 创建 ViewModel，LiveData 保存在 ViewModel 中
         val weatherViewModel = ViewModelProviders.of(this).get(WeatherViewModel::class.java)
         // 绑定视图和数据
         dataBinding.weather = weatherViewModel.weatherLiveData.value
-        // 当数据发生变化时，这里会得到通知
+        // 数据发生变化时这里会得到通知
         weatherViewModel.weatherLiveData.observe(this, Observer<String> {
-            // 弹出天气信息，注意这里的回调方法运行在LiveData发生变化的线程里
+            // 弹出天气信息，注意这里的回调方法运行在 LiveData 发生变化的线程里
             tv.text = weatherViewModel.weatherLiveData.value
             Toast.makeText(this, weatherViewModel.weatherLiveData.value, Toast.LENGTH_SHORT).show()
         })
-        // DataBinding可以直接使用id获取View实例
+        // DataBinding 可直接使用 id 获取 View 实例
         dataBinding.btn.setOnClickListener {
-            // 调用ViewModel执行点击操作
+            // 调用 ViewModel 执行点击操作
             weatherViewModel.queryWeather()
         }
     }
@@ -324,7 +322,7 @@ class WeatherActivity : AppCompatActivity() {
  */
 class WeatherViewModel : ViewModel() {
     private val weatherModel = WeatherModel()
-    // LiveData保存天气数据
+    // LiveData 保存天气数据
     var weatherLiveData: MutableLiveData<String> = MutableLiveData()
 
     init {
@@ -333,16 +331,16 @@ class WeatherViewModel : ViewModel() {
     }
 
     fun queryWeather() {
-        // 从Model中查询天气
+        // 从 Model 中查询天气
         val weather =  weatherModel.queryWeather()
-        // 查询完成后，设置LiveData数据，监听此LiveData数据的观察者会得到通知
+        // 查询完成后更新 LiveData 数据，监听此 LiveData 的观察者会得到通知
         weatherLiveData.value =  weather
     }
 }
 ```
 
-可见`MVVM`与`MVP`最大的不同，当`ViewModel`处理好事件逻辑并更新数据后，UI是自动刷新的，而不是由`Presenter`主动调用`View`的更新视图方法。此外也可以使用`DataBinding`直接在视图`xml`文件里定义UI对数据的响应操作，实现了数据变化后UI去自动根据数据加载对应的逻辑内容，把数据和UI绑在一起就只需要在`ViewModel`中更新数据，而不用去管UI要怎么显示这些数据。
+可见 MVVM 与 MVP 的最大不同，当`ViewModel`处理事件、更新数据后 UI 是自动刷新的，而非由`Presenter`调用`View`更新视图的方法。此外可使用`DataBinding`直接在视图`xml`文件里定义 UI 对数据的响应操作，实现数据变化后 UI 自主调整数据的显示方式。MVVM 把数据和 UI 绑定只需在`ViewModel`中更新数据而不用关心 UI 如何显示它们。
 
 ## 结语
 
-我在工作和学习中大量使用过`MVP`，对`MVC`和`MVVM`只是有所耳闻，接触`Kotlin`和`Jetpack`后开始尝试在自己的练习中使用这些新东西，编程的感觉也不再是入门时枯燥的堆砌代码，而是像打造艺术品一样津津有味，这样的变化真实而有趣。
+我在工作中大量使用过 MVP，对 MVC 和 MVVM 只是耳闻，接触 Kotlin 和 Jetpack 后开始尝试在练习中使用这些新东西。编程不再是入门时枯燥的堆砌代码而是像打造艺术品一样津津有味，这样的变化真实而有趣。

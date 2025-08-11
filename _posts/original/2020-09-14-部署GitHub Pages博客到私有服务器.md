@@ -1,7 +1,7 @@
 ---
 layout: post
 categories: original
-title: "部署GitHub Pages博客到私有服务器"
+title: "部署 GitHub Pages 博客到私有服务器"
 author: 立泉
 mention: Jekyll HTTPS
 date: 2020-09-14 +0800

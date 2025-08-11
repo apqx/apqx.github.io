@@ -1,19 +1,19 @@
 ---
 layout: post
 categories: original
-title: "Java中的ThreadLocal"
+title: "Java 中的 ThreadLocal"
 author: 立泉
-mention: 线程私有 源码
+mention: 线程私有 源码 ThreadLocalMap
 date: 2019-03-05 +0800
-description: 虽然没怎么用过，但也很好奇它是怎么实现的。
+description: 没怎么用过但很好奇它是如何实现的线程私有数据，阅读源码获得的答案远比预期简单。
 cover: 
-tags: Code Java Thread Handler
+tags: Code Java Thread SourceCode
 ---
 
-在`Android`的消息机制中，创建`Handler`需要一个`Looper`，如果不在构造器中指定，会自动获取当前线程的`Looper`：
+在 Android 的消息机制中创建`Handler`需要一个`Looper`，如果不在构造器中指定会从当前线程获取：
 
 ```java
-// Handler的构造器，获取当前线程的Looper
+// Handler 构造器，获取当前线程的 Looper
 mLooper = Looper.myLooper();
 
 public static @Nullable Looper myLooper() {
@@ -21,7 +21,7 @@ public static @Nullable Looper myLooper() {
 }
 ```
 
-这里用到了`ThreadLocal`来获取创建`Handler`时所在线程的`Looper`，再看一个例子：
+这里是使用`ThreadLocal`获取创建`Handler`时所在线程的`Looper`，再看一个例子：
 
 ```kotlin
 fun main(args: Array<String>) {
@@ -45,15 +45,15 @@ fun main(args: Array<String>) {
 }
 ```
 
-启动2个线程，`Thread-1`和`Thread-2`使用同一个`ThreadLocal`对象来分别在各自的线程里读写数据，实际打印日志可以发现，即使`Thread-1`一直在向`ThreadLocal`中写数据，`Thread-2`读到的永远都是`null`，而`Thread-1`却可以正常的读出数据。也就是说，一个线程只能通过`TheadLocal`读取到该线程存储的数据，这就是`ThreadLocal`的功能。
+启动 2 个线程，`Thread-1`和`Thread-2`使用同一个`ThreadLocal`对象分别在各自线程中读写数据，实际打印日志发现，即使`Thread-1`一直在向`ThreadLocal`中写数据，`Thread-2`读到的永远都是`null`，而`Thread-1`却可以正常的读出数据。即一个线程只能通过`TheadLocal`读取到该线程存储的数据，这就是`ThreadLocal`的功能。
 
-那么它是如何做到的，看一下`ThreadLocal`存取数据的源码就知道了：
+具体是如何实现的，看一下`ThreadLocal`存取数据的源码：
 
 ```java
-// ThreadLocal用于存储数据的set()方法
+// ThreadLocal 用于存储数据的 set() 方法
 public void set(T value) {
     Thread t = Thread.currentThread();
-    // 实际存储数据的map
+    // 实际存储数据的 map
     ThreadLocalMap map = t.threadLocals;
     if (map != null)
         map.set(this, value);
@@ -61,10 +61,10 @@ public void set(T value) {
         createMap(t, value);
 }
 
-// ThreadLocal用于获取数据的get()方法
+// ThreadLocal 用于获取数据的 get() 方法
 public T get() {
     Thread t = Thread.currentThread();
-    // 实际存储数据的map
+    // 实际存储数据的 map
     ThreadLocalMap map = t.threadLocals;
     if (map != null) {
         ThreadLocalMap.Entry e = map.getEntry(this);
@@ -78,10 +78,10 @@ public T get() {
 }
 ```
 
-可以看到，数据实际上是被保存在`Thread`内部持有的一个`ThreadLocalMap`实例对象中的：
+可以看到，数据实际是被保存在`Thread`内部持有的一个`ThreadLocalMap`实例对象中：
 
 ```java
-// Thread中的ThreadLocalMap
+// Thread 中的 ThreadLocalMap
 class Thread {
     ...
     ThreadLocal.ThreadLocalMap threadLocals = null;
@@ -89,4 +89,4 @@ class Thread {
 }
 ```
 
-存取数据时，`ThreadLocal`只是取出当前线程内部的`ThreadLocalMap`，并以自己作为键，来从这个`Map`里存入或取出数据。也就是说，数据最终被保存在线程自己内部持有的对象里，`ThreadLocal`只是一个`“中间商”`，它本身不存储任何数据，只是扮演一个`Key`的角色。
+存取数据时`ThreadLocal`只是取出当前线程内部的`ThreadLocalMap`，再以自己作键向`Map`存入或取出数据。即数据最终是被保存在线程自己内部持有的对象里，`ThreadLocal`只是“中间商”，它本身不存储任何数据，只扮演一个`Key`的角色。
