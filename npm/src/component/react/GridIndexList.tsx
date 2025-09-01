@@ -227,7 +227,7 @@ class IndexDescriptionItem extends React.Component<IndexDescriptionItemProps, an
                 <section className="mdc-card grid-index-card card-fade-in">
                     <div className="grid-index-text-container">
                         <p>2021年08月08日，我在博客里开辟这个分区来承载曾经在剧场看过的剧和拍过的剧照，以昆曲为主，使用<a
-                            href="/post/original/2021/09/01/基于Jekyll的博客文章-标签化.html">标签</a>把每一场演出按剧种、剧团、剧目、演员、剧场分类归档。这里每一篇文章既是记录也是分享，亲手按下快门捕捉到的舞台瞬间，如此美丽的戏妆油彩，不应该只我一人看到。
+                            href="/post/original/2021/09/01/基于Jekyll实现博客文章-标签化.html">标签</a>把每一场演出按剧种、剧团、剧目、演员、剧场分类归档。这里每一篇文章既是记录也是分享，亲手按下快门捕捉到的舞台瞬间，如此美丽的戏妆油彩，不应该只我一人看到。
                         </p>
                         <p>关于我与戏剧的渊源以及为什么会喜欢昆曲，参见之前的自述<a
                             href="/post/original/2019/05/18/槐安国内春生酒.html">《槐安国内春生酒》</a>，还有一些由看剧衍生的<a

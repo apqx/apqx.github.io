@@ -210,6 +210,10 @@ blockquote p {
     margin: 0;
     // color: var(--mdc-theme-on-surface-secondary);
     font-weight: var(--font-weight-light);
+
+    strong, b {
+        font-weight: var(--font-weight-normal);
+    }
 }
 
 audio {
@@ -250,14 +254,17 @@ audio {
     .font-no-change, .font-no-change *,
     .font-handwritten, .font-handwritten *) {
     font-family: base.$text-font-noto-serif;
-    --font-weight-normal: #{base.$font-weight-normal-default};
+    // 更改全局变量
+    --font-weight-light: #{base.$font-weight-light-noto-serif};
+    --font-weight-normal: #{base.$font-weight-normal-noto-serif};
+    --font-weight-medium: #{base.$font-weight-medium-noto-serif};
 
     .mdc-top-app-bar__title a {
         font-weight: 400;
     }
 }
 
-// 全局字体
+// 全局字体，默认字体
 .font-noto-sans-sc,
 .font-noto-sans-sc :not(button, i, pre code, pre code *,
     .font-no-change, .font-no-change *,

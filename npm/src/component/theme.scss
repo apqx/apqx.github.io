@@ -121,9 +121,10 @@
 }
 
 body {
+        // 默认字体是思源黑体
+        --font-weight-light: #{base.$font-weight-light-noto-sans};
         --font-weight-normal: #{base.$font-weight-normal-noto-sans};
-        --font-weight-light: calc(var(--font-weight-normal) - #{base.$font-weight-gap});
-        --font-weight-medium: calc(var(--font-weight-normal) + #{base.$font-weight-gap});
+        --font-weight-medium: #{base.$font-weight-medium-noto-sans};
 
         --mdc-typography-font-family: #{base.$text-font-noto-sans};
 
