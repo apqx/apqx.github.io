@@ -9,6 +9,7 @@ export function getInterSectionObserver() {
         // 创建一个新的IntersectionObserver实例
         interSectionObserver = new IntersectionObserver(entries => {
             entries.forEach(entry => {
+                // 元素进入视口，触发动画
                 if (entry.isIntersecting) {
                     if (entry.target.classList.contains("card-slide-in")) {
                         // 滑入动画，包括透明度和垂直移动，索引页要特殊处理，避免与图片的展开动画冲突
@@ -34,8 +35,7 @@ export function getInterSectionObserver() {
     return interSectionObserver
 }
 
-// 元素进入窗口初次显示时添加动画
-
+// 元素进入窗口初次显示时添加动画，部分页面需要将 slide-in 替换为 fade-in，避免与其它动画冲突
 function handleSlideIn(entry: IntersectionObserverEntry, slideInAnimationBaseClass: string, slideInAnimationStartClass: string) {
     if (entry.target.classList.contains("index-card") || entry.target.classList.contains("grid-index-card")) {
         // 线性索引 + 网格索引

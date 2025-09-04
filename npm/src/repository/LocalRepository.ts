@@ -50,8 +50,8 @@ export class LocalRepository {
         return this.getBoolean(this.KEY_NOTO_SERIF_SC_FONT)
     }
 
-    getTheme(): string | null {
-        return this.getString(this.KEY_THEME)
+    getTheme(): string {
+        return this.getString(this.KEY_THEME) ?? this.VALUE_THEME_AUTO
     }
 
     setTheme(theme: string) {

@@ -8,7 +8,7 @@ import { showAboutMeDialog } from "./dialog/AboutMeDialog"
 import { getSectionTypeByPath, isIndexPage, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL, SECTION_TYPE_POETRY, SECTION_TYPE_PRINT, SECTION_TYPE_REPOST, SECTION_TYPE_SHARE, SECTION_TYPE_TAG } from "../base/constant"
 import { toggleTheme } from "./theme"
 
-export var iconToggleTheme: MDCIconButtonToggle | null = null
+var iconToggleTheme: MDCIconButtonToggle | null = null
 export var topAppBar: MDCTopAppBar | null = null
 export var topAppBarE: HTMLElement | null = null
 
@@ -75,6 +75,14 @@ export function setFixedTopbar(on: boolean) {
     } else {
         toggleClassWithEnable(topAppBarE, "mdc-top-app-bar--no-sticky", true)
     }
+}
+
+export function showToggleThemeIconDark(dark: boolean) {
+    if (iconToggleTheme == null) return
+    // 图标默认隐藏，避免切换页面时默认图标与主题不符引起的闪烁
+    // 这样有时候仍会闪烁，但已经尽量避免了
+    iconToggleTheme.on = dark
+    toggleClassWithEnable(iconToggleTheme!!.root, "display_none", false)
 }
 
 export function toggleTopbarGlass(on: boolean) {

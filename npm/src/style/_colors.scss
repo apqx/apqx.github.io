@@ -32,8 +32,8 @@ $background: (
 );
 
 $text-title: (
-        light: color.adjust(map.get($surface, "light"), $lightness: -91%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: +91%),
+        light: color.adjust(map.get($surface, "light"), $lightness: -90%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: +90%),
 );
 
 $text-subtitle: (
@@ -65,12 +65,21 @@ $drawer-nav-ripple: (
 
 $fab-bg: (
         light: rgba(color.adjust(map.get($background, "light"), $lightness: -6%), 0.5),
-        dark: rgba(color.adjust(map.get($background, "dark"), $lightness: -6%), 0.5),
+        dark: rgba(color.adjust(map.get($background, "dark"), $lightness: +6%), 0.5),
 );
 
 $fab-ink: (
         light: rgba(color.adjust(map.get($fab-bg, "light"), $lightness: -70%), 1),
         dark: rgba(color.adjust(map.get($fab-bg, "dark"), $lightness: +70%), 1),
+);
+
+$snackbar-bg: (
+        light: rgba(map.get($surface, "dark"), 0.7),
+        dark: rgba(map.get($surface, "light"), 0.7),
+);
+$snackbar-ink: (
+        light: map.get($text-title, "dark"),
+        dark: map.get($text-title, "light"),
 );
 
 $scrim: (
@@ -199,13 +208,13 @@ $code-highlight-border: (
 );
 
 $strong-under-line: (
-        light: color.adjust(map.get($surface, "light"), $lightness: -8%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: +9%),
+        light: color.adjust(map.get($surface, "light"), $lightness: -10%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: +10%),
 );
 
 $surface-block-bg: (
-        light: color.adjust(map.get($surface, "light"), $lightness: - 0.5%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: - 0.5%),
+        light: color.adjust(map.get($surface, "light"), $lightness: - 0.8%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: - 0.8%),
 );
 
 $surface-block-ripple: (

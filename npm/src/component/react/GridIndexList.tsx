@@ -162,16 +162,16 @@ class IndexItem extends React.Component<IndexItemProps, any> {
 
     render(): ReactNode {
         const actorStr = this.props.actor.join(" ")
+        const animationClass = this.props.index == 0 ? "card-fade-in" : "card-slide-in-middle"
         return (
             <li ref={this.containerRef} className="grid-index-li">
-                <a className="index-a mdc-card grid-index-card grid-index-card__ripple card-slide-in-middle" href={this.props.path}>
+                {/* 第一个元素使用 fade-in 动画，避免在小尺寸手机上因为 slide 距离在页面初次加载时不触发动画 */}
+                <a className={"index-a mdc-card grid-index-card grid-index-card__ripple " + animationClass} href={this.props.path}>
                     <section>
                         {this.props.cover != null && this.props.cover.length > 0 &&
-                            <img className="grid-index-cover image-height-animation" loading="lazy" src={this.props.cover} alt={this.props.coverAlt} />
-                        }
+                            <img className="grid-index-cover image-height-animation" loading="lazy" src={this.props.cover} alt={this.props.coverAlt} />}
                         {this.props.cover == null || this.props.cover.length == 0 &&
-                            <div style={{ height: "0.5rem" }}></div>
-                        }
+                            <div style={{ height: "0.5rem" }}></div>}
                         <div className="grid-index-text-container">
                             <h1 className="grid-index-title">{this.props.title}</h1>
                             <div>

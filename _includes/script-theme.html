@@ -9,7 +9,6 @@
         let savedTheme = localStorage.getItem(KEY_THEME)
         if (savedTheme == null) {
             savedTheme = THEME_AUTO
-            localStorage.setItem(KEY_THEME, savedTheme)
         }
         const bodyE = document.body;
         // 默认是没有.dark的，在确定是暗黑模式时加上.dark

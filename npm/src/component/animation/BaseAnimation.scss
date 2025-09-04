@@ -1,25 +1,25 @@
 .card-slide-in {
-    transform: translateY(var(--index-card-animation-translate-y));
     opacity: 0;
+    transform: translateY(var(--index-card-animation-translate-y));
     transition: transform var(--index-card-animation-duration) ease,
         opacity calc(var(--index-card-animation-duration) / 2) ease;
 }
 
 .card-slide-in.card-slide-in-start {
-    transform: translateY(0);
     opacity: 1;
+    transform: translateY(0);
 }
 
 .card-slide-in-middle {
-    transform: translateY(calc(var(--index-card-animation-translate-y) * 3));
     opacity: 0;
+    transform: translateY(calc(var(--index-card-animation-translate-y) * 3));
     transition: transform var(--index-card-animation-duration) ease,
         opacity calc(var(--index-card-animation-duration) / 2) ease;
 }
 
 .card-slide-in-middle.card-slide-in-middle-start {
-    transform: translateY(0);
     opacity: 1;
+    transform: translateY(0);
 }
 
 .card-fade-in {

@@ -125,3 +125,51 @@ class IndexItem extends React.Component<IndexItemProps, any> {
         )
     }
 }
+
+
+class IndexItemWithDesc extends React.Component<IndexItemProps, any> {
+    private containerRef: RefObject<HTMLLIElement | null> = React.createRef()
+
+    cardE: HTMLElement | null = null
+
+    constructor(props: IndexItemProps) {
+        super(props);
+    }
+
+    componentDidMount(): void {
+        consoleObjDebug("IndexItemWithDescription componentDidMount", this.props)
+        const rootE = this.containerRef.current as HTMLElement;
+        this.cardE = rootE.querySelector(".index-card")
+
+        if (this.props.pin) {
+            rootE.classList.add("index-li--pin")
+        }
+        new MDCRipple(this.cardE!!)
+        // 监听元素进入窗口初次显示
+        if (this.cardE != null) {
+            getInterSectionObserver().observe(this.cardE)
+        }
+    }
+
+    componentWillUnmount(): void {
+        consoleDebug("IndexItemWithDescription componentWillUnmount " + this.props.title)
+        if (this.cardE != null) {
+            getInterSectionObserver().unobserve(this.cardE)
+        }
+    }
+
+    render() {
+        return (
+            <li ref={this.containerRef} className="index-li index-with-desc">
+                <a className="index-a mdc-card index-card card-slide-in" href={this.props.path}>
+                    <section>
+                        <h1 className="index-width-desc-title">{this.props.title}</h1>
+                        <span className="index-with-desc-date">{this.props.date} {this.props.author}</span>
+                        <span className="index-width-desc-desc">{this.props.description}</span>
+                    </section>
+                </a>
+                {!this.props.last && <hr className="index-li-divider" />}
+            </li>
+        )
+    }
+}

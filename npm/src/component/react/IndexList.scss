@@ -69,7 +69,6 @@ body {
 .index-author {
     color: var(--mdc-theme-text-secondary-on-background);
     font-size: calc(var(--mdc-typography-body1-font-size) - 0.2rem);
-    line-height: var(--mdc-typography-body1-line-height);
     line-height: 1.5rem;
     text-align: right;
     margin: 0;
@@ -80,7 +79,6 @@ body {
 .index-date {
     color: var(--mdc-theme-text-secondary-on-background);
     font-size: calc(var(--mdc-typography-body1-font-size) - 0.2rem);
-    line-height: var(--mdc-typography-body1-line-height);
     line-height: 1.5rem;
     text-align: right;
     margin: 0;
@@ -88,6 +86,33 @@ body {
 }
 
 .index-description {
+    margin: 0;
+}
+
+.index-width-desc-title {
+    color: var(--mdc-theme-on-surface);
+    font-size: var(--mdc-typography-body1-font-size);
+    line-height: var(--mdc-typography-body1-line-height);
+    letter-spacing: var(--mdc-typography-body1-letter-spacing);
+    margin: 0;
+    text-align: left;
+}
+
+.index-with-desc-date {
+    color: var(--mdc-theme-text-secondary-on-background);
+    font-size: calc(var(--mdc-typography-body1-font-size) - 0.2rem);
+    line-height: 1.5rem;
+    text-align: left;
+    margin: 0;
+    display: block;
+}
+
+.index-width-desc-desc {
+    color: var(--mdc-theme-text-secondary-on-background);
+    font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
+    line-height: 1rem;
+    font-weight: var(--font-weight-light);
+    text-align: left;
     margin: 0;
 }
 
