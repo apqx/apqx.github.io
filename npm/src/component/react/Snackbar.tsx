@@ -17,7 +17,7 @@ export class Snackbar extends React.Component<props, any> {
     componentDidMount(): void {
         const rootE = this.containerRef.current as Element
         this.snackbar = new MDCSnackbar(rootE)
-        // 自动关闭时间
+        // 自动关闭时间，-1 表示不自动关闭
         // this.snackbar.timeoutMs = -1
         this.snackbar.open()
     }

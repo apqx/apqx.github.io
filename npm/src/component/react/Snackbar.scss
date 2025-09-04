@@ -15,13 +15,13 @@
     padding-right: 0;
     min-width: 0;
 
-    background-color: var(--mdc-theme-secondary);
+    background-color: var(--snackbar-bg);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
 }
 
 .mdc-snackbar__label {
-    color: var(--mdc-theme-on-surface);
+    color: var(--snackbar-ink);
     padding-left: 1rem;
     padding-right: 1rem;
 }

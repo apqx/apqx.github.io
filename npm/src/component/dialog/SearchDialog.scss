@@ -16,6 +16,10 @@
     color: var(--list-secondary-ink);
     line-break: normal;
     font-weight: var(--font-weight-light);
+
+    strong, b {
+        font-weight: var(--font-weight-normal);
+    }
 }
 
 .mdc-text-field {

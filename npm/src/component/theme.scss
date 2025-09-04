@@ -66,6 +66,9 @@
         --surface-block-border: #{map.get(base.$surface-block-border-dashed, "light")};
         --surface-block-bg: #{map.get(base.$surface-block-bg, "light")};
         --surface-block-ink-strong: #{map.get(base.$surface-block-ink-strong, "light")};
+
+        --snackbar-bg: #{map.get(base.$snackbar-bg, "light")};
+        --snackbar-ink: #{map.get(base.$snackbar-ink, "light")};
 }
 
 @mixin dark {
@@ -118,6 +121,9 @@
         --surface-block-border: #{map.get(base.$surface-block-border-dashed, "dark")};
         --surface-block-bg: #{map.get(base.$surface-block-bg, "dark")};
         --surface-block-ink-strong: #{map.get(base.$surface-block-ink-strong, "dark")};
+
+        --snackbar-bg: #{map.get(base.$snackbar-bg, "dark")};
+        --snackbar-ink: #{map.get(base.$snackbar-ink, "dark")};
 }
 
 body {

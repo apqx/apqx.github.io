@@ -5,8 +5,8 @@
 // @use "../animation/HeightAnimationContainer";
 
 body {
-    --index-card-padding-vertical: 1.3rem;
-    --index-card-padding-horizontal: 2.7rem;
+    --index-card-padding-vertical: 1.25rem;
+    --index-card-padding-horizontal: 2.5rem;
 }
 
 .mdc-card.index-top-card {
@@ -68,7 +68,7 @@ body {
 /* 索引署名 */
 .index-author {
     color: var(--mdc-theme-text-secondary-on-background);
-    font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
+    font-size: calc(var(--mdc-typography-body1-font-size) - 0.2rem);
     line-height: var(--mdc-typography-body1-line-height);
     line-height: 1.5rem;
     text-align: right;
@@ -79,7 +79,7 @@ body {
 /* 索引日期 */
 .index-date {
     color: var(--mdc-theme-text-secondary-on-background);
-    font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
+    font-size: calc(var(--mdc-typography-body1-font-size) - 0.2rem);
     line-height: var(--mdc-typography-body1-line-height);
     line-height: 1.5rem;
     text-align: right;
