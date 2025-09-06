@@ -22,6 +22,7 @@ export function setHandwrittenFont(on: boolean) {
 export function setNotoSerifSCFont(on: boolean) {
     const bodyE = document.body
     toggleClassWithEnable(bodyE, "font-noto-serif-sc", on)
+    // toggleClassWithEnable(bodyE, "font-wenkai", on)
     checkFont()
 }
 

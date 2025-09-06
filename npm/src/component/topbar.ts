@@ -210,7 +210,7 @@ function initTitle(topAppBarE: HTMLElement) {
     let titleAE: HTMLLinkElement = topAppBarE.querySelector(".mdc-top-app-bar__title a") as HTMLLinkElement
     switch (section.identifier) {
         case SECTION_TYPE_ORIGINAL.identifier: {
-            titleAE.parentElement?.classList.add("font-wenkai", "font-no-change")
+            titleAE.parentElement?.classList.add("font-wenkai")
             titleAE.innerText = "ʕ•ᴥ•ʔ"
             titleAE.href = "/"
             break

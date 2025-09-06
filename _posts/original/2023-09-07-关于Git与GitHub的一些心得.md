@@ -5,7 +5,7 @@ title: "关于 Git 与 GitHub 的一些心得"
 author: 立泉
 mention: 身份验证 分支关联 SSH 
 date: 2023-09-07 +0800
-description: 软件开发者对 Git 不会陌生，它是现代最受欢迎的开源分布式版本控制工具，典型使用场景下，多个客户端从中央仓库`pull`拉取代码副本，各自开发`commit`再`push`到中央仓库。“分布式”的意思是各个客户端的开发互相独立，分布进行，只在需要时与中央仓库同步。
+description: 软件开发者对 Git 不会陌生，它是现代最受欢迎的开源分布式版本控制工具，典型使用场景下，多个客户端从中央仓库 pull 拉取代码副本，各自开发`commit`再`push`到中央仓库。“分布式”的意思是各个客户端的开发互相独立，分布进行，只在需要时与中央仓库同步。
 cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20230605/github_url_ssh_thumb.jpg
 tags: Code Git GitHub SSH
 ---

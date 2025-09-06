@@ -1,15 +1,18 @@
 @use "sass:string";
 
-// 霞鹜文楷GB
-$text-font-wenkai: string.unquote("LXGW WenKai GB, sans-serif");
+// 思源黑体，默认字体
+$text-font-noto-sans: string.unquote("Inter, Noto Sans SC, sans-serif;");
 // 思源宋体
 $text-font-noto-serif: string.unquote("IBM Plex Serif, Noto Serif SC, sans-serif");
-// 思源黑体
-$text-font-noto-sans: string.unquote("Inter, Noto Sans SC, sans-serif;");
+// 思源宋体段落中的代码块字体
+$text-font-noto-serif-code: string.unquote("Google Sans Code, Noto Serif SC, monospace, sans-serif");
+// 霞鹜文楷GB
+$text-font-wenkai: string.unquote("LXGW WenKai GB, sans-serif");
 // 书法字体，许静行楷
-$handwritten-font: string.unquote("HYXuJingXingKaiW, LXGW WenKai GB, sans-serif");
+$text-font-handwritten: string.unquote("HYXuJingXingKaiW, LXGW WenKai GB, sans-serif");
 // 代码字体，等宽
-$code-block-font: string.unquote("JetBrains Mono, Noto Sans SC, monospace, sans-serif");
+$text-font-code-block: string.unquote("Google Sans Code, Noto Sans SC, monospace, sans-serif");
+$text-font-code-block-jetbrains: string.unquote("Jetbrains Mono, Noto Sans SC, monospace, sans-serif");
 
 // 中型屏幕宽度范围，定义为平板，小于此尺寸为手机，大于此尺寸为电脑
 $screen-middle-min-width: 600px;
@@ -29,6 +32,10 @@ $font-weight-medium-noto-sans: 480;
 $font-weight-light-noto-serif: 350;
 $font-weight-normal-noto-serif: 450;
 $font-weight-medium-noto-serif: 550;
+
+// 与思源宋配合的 Google Code Mono 代码块字体，在段落中同时显示时应该更细一些
+$font-weight-light-noto-serif-code: 310;
+$font-weight-normal-noto-serif-code: 350;
 
 $font-weight-extra-light-default: 200;
 $font-weight-light-default: 300;

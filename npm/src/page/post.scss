@@ -30,11 +30,15 @@
 }
 
 .surface-block {
+    // --mdc-theme-on-surface: var(--mdc-theme-on-surface-secondary);
+    --mdc-typography-body1-font-weight: var(--font-weight-light);
+    // --mdc-typography-body1-font-size: calc(var(--text-font-size-base) - 0.05rem);
+    --text-code-font-weight: var(--font-weight-light);
+
     border: 1px dashed var(--surface-block-border);
     border-radius: var(--post-inner-shape-round);
     background: var(--surface-block-bg);
     padding: 1rem;
-    font-weight: var(--font-weight-light);
 }
 
 .line-divider {

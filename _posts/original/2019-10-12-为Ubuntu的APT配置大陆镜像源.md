@@ -18,11 +18,11 @@ outdated: true
 sudo apt install jekyll
 ```
 
-APT 会从源服务器上查找 Jekyll 软件包下载安装，在 Software & Update 中看到系统当前使用的源是 Main server。
+APT 会从源服务器查找 Jekyll 软件包下载安装，在 Software & Update 中看到系统当前使用的是 Main server。
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20191012/ubuntu_settings_apt_thumb.webp){: loading="lazy" class="clickable clickShowOriginalImg" alt="Ubuntu" }
 
-众所周知，Main server 在中国大陆的访问速度非常慢，有必要修改为国内的镜像源。Ubuntu 18.04.3 LTS 点击 Download from 下拉列表会发现系统提供很多大陆源，阿里云是一个不错的选择。
+众所周知 Main server 在中国大陆的访问速度非常慢，有必要修改为国内镜像源。Ubuntu 18.04.3 LTS 点击 Download from 下拉列表发现系统提供很多大陆源，阿里云是一个不错的选择。
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20191012/ubuntu_settings_apt_source.webp){: loading="lazy" class="clickable clickShowOriginalImg" alt="Ubuntu" }
 

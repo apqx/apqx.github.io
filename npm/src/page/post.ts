@@ -3,6 +3,7 @@ import { consoleDebug, consoleError } from "../util/log"
 import { runOnHtmlDone } from "../util/tools"
 import { initContentCard } from "../component/contentCard"
 import { showAlertDialog } from "../component/dialog/CommonAlertDialog"
+import { showSnackbar } from "../component/react/Snackbar"
 
 export function initPost() {
     runOnHtmlDone(() => {
@@ -67,7 +68,8 @@ function initImg() {
     document.addEventListener("contextmenu", (event) => {
         if (event.target instanceof HTMLImageElement) {
             event.preventDefault();
-            showAlertDialog("提示", "节省数据流量文中是缩略图，点击图片可以跳转到原图。", "OK", () => { })
+            // showAlertDialog("提示", "节省数据流量文中是缩略图，点击图片可以跳转到原图。", "OK", () => { })
+            showSnackbar("节省数据流量文中是缩略图，点击图片可跳转到原图")
         }
     })
 }

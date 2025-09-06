@@ -229,7 +229,7 @@ class WeatherPresenter(private val iWeatherActivity: IWeatherActivity) : IWeathe
 
 MVP 已经足够好，既能实现`View`和`Model`的分离又能使用多`Presenter`实例改变 UI 事件的行为。但`MVC`和`MVP`都有一个共同特点，即 UI 由数据驱动，数据变化后必须使用`Model`或`Presenter`主动更新 UI。而`MVVM`可实现数据和 UI 的绑定，当数据变化时 UI 自动更新，这在 Android 上的实现基础是 Jetpack 组件里的`DataBinding`和`LiveData`。
 
-`DataBinding`把数据和 UI 资源`xml`文件绑定，`LiveData`支持数据感知其所在组件的生命周期，有效生命周期内的数据变化会自动触发 UI 改变。
+`DataBinding`把数据和定义 UI 的 XML 文件绑定，`LiveData`支持数据感知其所在组件的生命周期，有效生命周期内的数据变化会自动触发 UI 改变。
 
 同样上面的例子，用 MVVM 是这样：
 
@@ -339,8 +339,8 @@ class WeatherViewModel : ViewModel() {
 }
 ```
 
-可见 MVVM 与 MVP 的最大不同，当`ViewModel`处理事件、更新数据后 UI 是自动刷新的，而非由`Presenter`调用`View`更新视图的方法。此外可使用`DataBinding`直接在视图`xml`文件里定义 UI 对数据的响应操作，实现数据变化后 UI 自主调整数据的显示方式。MVVM 把数据和 UI 绑定只需在`ViewModel`中更新数据而不用关心 UI 如何显示它们。
+可见 MVVM 与 MVP 最大的不同，当`ViewModel`处理事件、更新数据后 UI 是自动刷新的，而非由`Presenter`调用`View`更新视图的方法。此外可使用`DataBinding`直接在视图 XML 文件里定义 UI 对数据的响应操作，实现数据变化后 UI 自主调整显示方式。MVVM 把数据和 UI 绑定只需在`ViewModel`中更新数据而不用关心 UI 如何显示它们。
 
 ## 结语
 
-我在工作中大量使用过 MVP，对 MVC 和 MVVM 只是耳闻，接触 Kotlin 和 Jetpack 后开始尝试在练习中使用这些新东西。编程不再是入门时枯燥的堆砌代码而是像打造艺术品一样津津有味，这样的变化真实而有趣。
+我在工作中大量使用 MVP，对 MVC 和 MVVM 只是耳闻，接触 Kotlin 和 Jetpack 后尝试在练习中使用这些新东西，编程不再是入门时枯燥的堆砌代码而是像打造艺术品一样津津有味，这样的变化真实而有趣。

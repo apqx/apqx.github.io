@@ -82,7 +82,7 @@ autopages:
 
 本博客文章以 Category 分类，配置分页后在不同索引页加载对应 JSON 即可。至于 Tag ，是[文章标记的一些标签]({% link _posts/original/2021-09-01-基于Jekyll实现博客文章「标签化」.md %}){: target="_blank" }，以 Chip 形式显示在文章顶部，点击会弹出相关文章列表，所以也为它启用分页。
 
-在`_layouts/paginate-posts-json.html`里定义输出分页的单页格式，这里配置为 JSON，Jekyll 会自动把每一页的文章列表填充到 Liquid 模版语言的`paginator`变量里，遍历`paginator.posts`生成的就是当页文章列表。
+在`_layouts/paginate-posts-json.html`里定义输出分页的单页格式，这里配置为 JSON，Jekyll 会自动把每一页的文章列表填充到 Liquid 模版语言的`paginator`变量里，遍历`paginator.posts`生成的即是当页文章列表：
 
 ```json
 // _layouts/paginate-tag.html
@@ -131,7 +131,7 @@ JS 下载分页 JSON 文件即可按需分段加载文章列表。
 
 Auto Pages 自动模式之外，jekyll-paginate-v2 支持配置 [Generator](https://github.com/sverrirs/jekyll-paginate-v2/blob/master/README-GENERATOR.md#paginate-categories-tags-locales){: target="_blank" } 实现更丰富的分页条件。比如对同时包含 2 个 Tag 的文章列表分页，使用 Auto Pages 是做不到的，需要像定义普通 Jekyll 页面那样定义 Generator。
 
-上面为 Tag 配置的分页目录是`/api/paginate/tags/:tag`，保持结构统一，这里把同时包含`tag1`和`tag2`的分页也输出到该目录。
+上面为 Tag 配置的分页目录是`/api/paginate/tags/:tag`，保持结构统一，这里把同时包含`tag1`和`tag2`的分页也输出到该目录：
 
 ```sh
 # 创建 api/paginate/tags/tag1&tag2.txt

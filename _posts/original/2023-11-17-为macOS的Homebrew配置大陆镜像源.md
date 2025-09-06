@@ -18,11 +18,11 @@ Homebrew 之于 macOS 正如 APT 之于 Ubuntu，且如 APT 在大陆面临的�
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-从脚本看其实是克隆 Homebrew 的 GitHub 仓库到本地，再把`brew`可执行文件映射到环境变量目录里。clone 后所在目录被称为 prefix 目录，在 x86 芯片的 Mac 上是`/usr/local/`，在搭载 Apple Silicon 的 Mac 上为和 Rosetta 转译的包共存被改为`/opt/homebrew/`。源码和可执行文件位于`[prefix]/Homebrew/`，通过它安装的包被保存在`[prefix]/Cellar/`目录里。
+从脚本看其实是克隆 Homebrew 的 GitHub 仓库到本地，再把`brew`可执行文件映射到环境变量目录里。clone 后所在目录被称为`prefix`目录，在 x86 芯片的 Mac 上是`/usr/local/`，在搭载 Apple Silicon 的 Mac 上为和 Rosetta 转译的包共存被改为`/opt/homebrew/`。源码和可执行文件位于`[prefix]/Homebrew/`，通过它安装的包被保存在`[prefix]/Cellar/`目录里。
 
 ## 术语
 
-Homebrew 直译“家酿啤酒🍺”，之所以取这么个性化的名字[据说](https://docs.brew.sh/FAQ#homebrew-is-a-poor-name-its-too-generic-why-was-it-chosen){: target="_blank" }是因为当初作者没有预料到它之后会如此流行，想要更改的时候已经来不及。不仅名字，它使用的术语也不是常见的 package 之类，而真的是一堆很形象的酿酒词。
+Homebrew 直译“家酿啤酒🍺”，之所以取这么个性化的名字[据说](https://docs.brew.sh/FAQ#homebrew-is-a-poor-name-its-too-generic-why-was-it-chosen){: target="_blank" }是因为当初作者没有预料到之后的流行，想更改时已经来不及。不仅名字，它使用的术语也不是常见的 package，而真的是一堆形象的酿酒词。
 
 ### prefix
 
@@ -79,7 +79,7 @@ https://github.com/Homebrew/homebrew-core/packages
 [prefix]/Cellar/kotlin/1.9.20/
 ```
 
-使用 Homebrew 可能经常看到 keg-only 这个词，意思是酒仅仅是被储存在酒窖里，并不能被外界使用，`brew`安装的第二步将其可执行文件`symlink`软链接到`[prefix]/bin/`中没有进行。原因通常是里面已有同名文件，比如 macOS 自带的 Git 同样会软链接到这里，如果想使用`brew`安装的新版本需要按照提示执行`brew link`，建议在执行覆盖前先`--dry-run`检查一下可能会被影响的文件。
+使用 Homebrew 可能经常看到 keg-only 这个词，意思是酒仅仅是被储存在酒窖里并不能被外界使用，`brew`安装的第二步将其可执行文件`symlink`软链接到`[prefix]/bin/`中没有进行。原因通常是里面已有同名文件，比如 macOS 自带的 Git 同样会软链接到这里，如果想使用`brew`安装的新版本需要按照提示执行`brew link`，建议覆盖前先`--dry-run`检查一下可能被影响的文件。
 
 ```sh
 # 检查并输出会被影响的文件
@@ -88,7 +88,7 @@ brew link --overwrite --dry-run git
 brew link --overwrite git
 ```
 
-对于一些不能使用软链接覆盖的包比如 openjdk，可手动将其路径添加进环境变量。
+一些不能使用软链接覆盖的包比如 openjdk，可手动将其路径添加进环境变量。
 
 ```sh
 brew info openjdk
@@ -147,6 +147,8 @@ https://github.com/Homebrew/homebrew-core/packages
 ## 大陆镜像
 
 现在知道为什么`brew install`这么慢，不仅是从 GitHub 拉取代码和下载 package，在 4.0 版本之后每次执行操作都会先去 `https://formulae.brew.sh/api/` 获取完整包信息，使用镜像源即是将这些地址改为大陆链接。推荐我自用十分稳定的[清华大学](https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/){: target="_blank" }镜像站，文档比[阿里云](https://developer.aliyun.com/mirror/homebrew){: target="_blank" }完整，而且很奇怪之前尝试阿里云的源均是 404，不知道现在是什么状态。
+
+*2025 年 08 月 12 日更新：配置方式可能随 macOS 升级变化，具体应参考镜像站文档，这里的方法不一定对未来版本有效。*
 
 参考文档，首先编辑`~/.zshrc`添加`brew`使用的环境变量:
 

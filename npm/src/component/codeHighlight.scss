@@ -1,1 +1,8 @@
+// @import "highlight.js/styles/xcode.css";
 @import "highlight.js/styles/atom-one-dark.css";
+
+// 覆盖样式
+.hljs-comment,
+.hljs-quote {
+    color: #6c737f;
+}

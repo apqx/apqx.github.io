@@ -41,7 +41,9 @@
         // Code
         --code-highlight-bg: #{map.get(base.$code-highlight-bg, "light")};
         --code-highlight-border: #{map.get(base.$code-highlight-border, "light")};
+        --code-highlight-ink: #{map.get(base.$code-highlight-ink, "light")};
         --pre-code-bg: #151515;
+        --pre-code-border: #151515;
 
         // Chip
         --chip-bg: #{map.get(base.$chip-bg, "light")};
@@ -97,7 +99,9 @@
         // Code
         --code-highlight-bg: #{map.get(base.$code-highlight-bg, "dark")};
         --code-highlight-border: #{map.get(base.$code-highlight-border, "dark")};
+        --code-highlight-ink: #{map.get(base.$code-highlight-ink, "dark")};
         --pre-code-bg: #{color.adjust(map.get(base.$surface, "dark"), $lightness: -5%)};
+        --pre-code-border: #{color.adjust(map.get(base.$surface, "dark"), $lightness: -5%)};
 
         // Chip
         --chip-bg: #{map.get(base.$chip-bg, "dark")};
@@ -128,23 +132,30 @@
 
 body {
         // 默认字体是思源黑体
+        --mdc-typography-font-family: #{base.$text-font-noto-sans};
+        // 该字体对应的 font-weight 级别
         --font-weight-light: #{base.$font-weight-light-noto-sans};
         --font-weight-normal: #{base.$font-weight-normal-noto-sans};
         --font-weight-medium: #{base.$font-weight-medium-noto-sans};
 
-        --mdc-typography-font-family: #{base.$text-font-noto-sans};
+        --text-font-size-base: 1rem;
 
-        --mdc-typography-body1-font-size: 1rem;
+        --mdc-typography-body1-font-size: var(--text-font-size-base);
         --mdc-typography-body1-line-height: calc(var(--mdc-typography-body1-font-size) + 0.8rem);
         // Chrome 设置 letter-spacing 为非 normal 会导致 OpenType 字体的连字功能失效
         --mdc-typography-body1-letter-spacing: normal;
         --mdc-typography-body1-font-weight: var(--font-weight-normal);
 
-        --mdc-typography-body2-font-size: calc(var(--mdc-typography-body1-font-size) - 0.12rem);
-        --mdc-typography-body2-font-weight: var(--mdc-typography-body1-font-weight);
+        // 代码字体
+        --text-code-font-family: #{base.$text-font-code-block};
+        // 代码字重，注意段落中的代码块字重，有时候同样字重的中英文字体显示并不一致，需要单独设置
+        --text-code-font-weight: var(--font-weight-normal);
 
         --mdc-typography-subtitle1-font-size: var(--mdc-typography-body1-font-size);
         --mdc-typography-subtitle1-font-weight: var(--mdc-typography-body1-font-weight);
+
+        // Drawer 中的 section title
+        --mdc-typography-subtitle2-font-weight: var(--font-weight-normal);
 
         --mdc-text-button-label-text-size: calc(var(--mdc-typography-body1-font-size) - 0.12rem);
         --mdc-text-button-label-text-weight: var(--mdc-typography-body1-font-weight);

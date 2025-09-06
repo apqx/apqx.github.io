@@ -71,30 +71,52 @@ p {
 
 code {
     @include basicText();
+    font-family: var(--text-code-font-family);
+    font-weight: var(--text-code-font-weight);
     margin: 0;
 }
 
 // 代码块
 pre code,
 pre code.hljs {
-    font-family: base.$code-block-font;
+    display: block;
+    overflow-x: scroll;
     line-height: calc(var(--mdc-typography-body1-font-size) + 0.5rem);
     border-radius: var(--post-inner-shape-round);
     padding: 1rem;
     background: var(--pre-code-bg);
+    // border: 2px solid var(--pre-code-border);
 }
 
 /* 段落中单词高亮 */
 code:not(pre code) {
+    font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
     padding: 0.1rem .3rem .18rem .3rem;
     margin-left: 0.1rem;
     margin-right: 0.1rem;
     border-radius: 0.3rem;
 
+    // 允许在任意位置换行，防止长单词撑破布局
+    line-break: anywhere;
+
     background: var(--code-highlight-bg);
-    // color: var(--strong-color);
-    font-weight: inherit;
+    color: var(--code-highlight-ink);
     // border: 1px solid var(--code-highlight-border);
+}
+
+// 思源宋体段落中的代码块
+.font-noto-serif-sc {
+    code:not(pre code) {
+        --text-code-font-family: #{base.$text-font-noto-serif-code};
+        // 英文字体比宋体粗很多，需要单独设置更细
+        --text-code-font-weight: #{base.$font-weight-normal-noto-serif-code};
+    }
+
+    // 使用细字重的组件中，单独设置代码字重
+    blockquote code:not(pre code),
+    .surface-block code:not(pre code) {
+        --text-code-font-weight: #{base.$font-weight-light-noto-serif-code};
+    }
 }
 
 em code {
@@ -205,13 +227,19 @@ blockquote {
 }
 
 // 引用段落中的<p>
-blockquote p {
-    margin: 0;
-    // color: var(--mdc-theme-on-surface-secondary);
-    font-weight: var(--font-weight-light);
+blockquote {
+    p {
+        margin: 0;
+    }
 
-    strong, b {
-        font-weight: var(--font-weight-normal);
+    // --mdc-theme-on-surface: var(--mdc-theme-on-surface-secondary);
+    --mdc-typography-body1-font-weight: var(--font-weight-light);
+    // --mdc-typography-body1-font-size: calc(var(--text-font-size-base) - 0.05rem);
+    --text-code-font-weight: var(--font-weight-light);
+
+    strong,
+    b {
+        --mdc-typography-body1-font-weight: var(--font-weight-normal);
     }
 }
 
@@ -238,51 +266,36 @@ audio {
 }
 
 // 局部字体
-.font-handwritten,
-.font-handwritten :not(button, i, pre code, pre code *,
-    .font-no-change, .font-no-change *) {
-    font-family: base.$handwritten-font;
-    font-weight: base.$font-weight-normal-default;
-    font-size: 1.2rem;
+.font-handwritten {
+    --mdc-typography-font-family: #{base.$text-font-handwritten};
+    --font-weight-light: #{base.$font-weight-light-default};
+    --font-weight-normal: #{base.$font-weight-normal-default};
+    --font-weight-medium: #{base.$font-weight-medium-default};
+    --mdc-typography-body1-font-size: 1.2rem;
+
     padding-bottom: 0.1rem;
 }
 
 // 全局字体
-.font-noto-serif-sc,
-.font-noto-serif-sc :not(button, i, pre code, pre code *,
-    .font-no-change, .font-no-change *,
-    .font-handwritten, .font-handwritten *) {
-    font-family: base.$text-font-noto-serif;
+.font-noto-serif-sc {
     // 更改全局变量
+    --mdc-typography-font-family: #{base.$text-font-noto-serif};
     --font-weight-light: #{base.$font-weight-light-noto-serif};
     --font-weight-normal: #{base.$font-weight-normal-noto-serif};
     --font-weight-medium: #{base.$font-weight-medium-noto-serif};
 
-    .mdc-top-app-bar__title a {
-        font-weight: 400;
-    }
-}
-
-// 全局字体，默认字体
-.font-noto-sans-sc,
-.font-noto-sans-sc :not(button, i, pre code, pre code *,
-    .font-no-change, .font-no-change *,
-    .font-handwritten, .font-handwritten *) {
-    font-family: base.$text-font-noto-sans;
-
-    .mdc-top-app-bar__title a {
-        font-weight: 340;
-    }
+    --mdc-typography-subtitle2-font-weight: 510;
 }
 
 // 局部字体
-.font-wenkai,
-.font-wenkai :not(button, i, pre code, pre code *,
-    .font-no-change, .font-no-change *,
-    .font-handwritten, .font-handwritten *) {
-    font-family: base.$text-font-wenkai !important;
-    font-weight: base.$font-weight-normal-default !important;
-    --mdc-typography-body1-font-size: 1.02rem !important;
+.font-wenkai {
+    --mdc-typography-font-family: #{base.$text-font-wenkai};
+    --font-weight-light: #{base.$font-weight-light-default};
+    --font-weight-normal: #{base.$font-weight-normal-default};
+    --font-weight-medium: #{base.$font-weight-medium-default};
+
+    --mdc-typography-body1-font-size: calc(var(--text-font-size-base) + 0.02rem);
+    --mdc-typography-body1-font-weight: var(--font-weight-normal);
 }
 
 .one-line {

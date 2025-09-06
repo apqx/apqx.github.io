@@ -11,12 +11,12 @@ $top-bar: (
         bg-blur-dark: rgba(30, 30, 30, 0.8),
         bg-shadow-dark: #0a0a0a,
 );
-$top-bar-ink:(
+$top-bar-ink: (
         light: color.adjust(map.get($top-bar, "bg-light"), $lightness: -80%),
         dark: color.adjust(map.get($top-bar, "bg-dark"), $lightness: +80%),
 );
 
-$footer-ink:(
+$footer-ink: (
         light: color.adjust(map.get($top-bar, "bg-light"), $lightness: -70%),
         dark: color.adjust(map.get($top-bar, "bg-dark"), $lightness: +70%),
 );
@@ -161,11 +161,15 @@ $chip-ripple: (
 
 @function calc-text-block-bg-light($ink) {
         @return rgba(color.adjust($ink, $lightness: +30%), 0.3),
-};
+}
+
+;
 
 @function calc-text-block-bg-dark($ink) {
         @return rgba(color.adjust($ink, $lightness: -20%), 0.1),
-};
+}
+
+;
 
 $text-block-1-ink: (
         light: #8167c1,
@@ -200,6 +204,11 @@ $text-block-3-bg: (
 $code-highlight-bg: (
         light: color.adjust(map.get($surface, "light"), $lightness: -4%),
         dark: color.adjust(map.get($surface, "dark"), $lightness: +4%),
+);
+
+$code-highlight-ink: (
+        light: color.adjust(map.get($code-highlight-bg, "light"), $lightness: -70%),
+        dark: color.adjust(map.get($code-highlight-bg, "dark"), $lightness: +70%),
 );
 
 $code-highlight-border: (

@@ -5,24 +5,24 @@ title: "Android 中的 Thread 和 Handler"
 author: 立泉
 mention: Looper MessageQueue ANR
 date: 2018-11-20 +0800
-description: 其实很长一段时间我并不知道 Handler 究竟是如何工作的，接触 RxJava 之前切换线程只是简单的 handler.post(() -> {})。但随着所做项目的迭代更新，我需要知道关键组件的执行原理，不然无法为代码质量负责。
+description: 其实很长一段时间我并不知道 Handler 是如何工作的，接触 RxJava 之前切换线程只是 handler.post(() -> {})，但随着项目更迭我需要知道关键组件的执行原理，不然无法为代码质量负责。
 cover: 
 tags: Code Android Thread Handler SourceCode
 ---
 
-其实很长一段时间我并不知道`Handler`究竟是如何工作的，接触 RxJava 之前切换线程只是简单的`handler.post(() -> {})`。但随着所做项目的更新迭代我需要知道关键组件的执行原理，不然无法为代码质量负责。
+其实很长一段时间我并不知道`Handler`是如何工作的，接触 RxJava 之前切换线程只是`handler.post(() -> {})`，但随着项目更迭我需要知道关键组件的执行原理，不然无法为代码质量负责。
 
-习惯在 OneNote 中记录学习和工作笔记，这些文本容量已经累积到 57MB，我觉得是时候停下来好好整理一遍，用它们更精细的填充技术栈。这篇文章是一个开始，能描述清楚一个组件才意味着真正理解它。
+习惯在 OneNote 中记录学习和工作笔记，这些文本容量已经累积到 57MB，是时候停下来整理一遍更精细的填充技术栈。这篇文章是一个开始，能描述清楚一个组件才意味着真正理解它。
 
 ## Main Thread
 
-Android 的 Thread 即是 Java 线程，当 App 启动时，系统会为它创建一个 Linux Process 和一个 Execution Thread。默认情况下此 App 的所有组件都会运行在这个进程的单一执行线程中，包括 UI 产生的触控事件的分发处理，所以此线程又被称为 UI Thread 或 Main Thread。
+Android 的 Thread 即是 Java 线程，系统会为启动的 App 创建一个 Linux Process 和一个 Execution Thread，默认此 App 的所有组件都会运行在这个进程的单一执行线程中，包括 UI 触控事件的分发处理，所以此线程又被称为 UI Thread 或 Main Thread。
 
 ## Called from wrong thread
 
 > Only the original thread that created a view hierarchy can touch its views.
 
-为性能考虑，Android 的 UI 操作是线程不安全的，即多线程操作 UI 时可能出现状态不一致的情况，所以 Android 强制要求只能在主线程操作 UI，否则抛出`CalledFromWrongThreadException`{: class="break-anywhere" }异常。
+为性能考虑，Android 的 UI 操作是线程不安全的，即多线程操作 UI 可能出现状态不一致的情况，所以 Android 强制要求只能在主线程操作 UI，否则抛出`CalledFromWrongThreadException`异常。
 
 ```kotlin
 override onCreate(savedInstanceState: Bundle?) {
@@ -41,9 +41,9 @@ override onCreate(savedInstanceState: Bundle?) {
 
 ## ANR
 
-ANR 即 Application Not Responding，应用程序无响应。Android 作为手持设备通过 UI 触控与用户交互，产生的触控事件会在主线程进行由`Activity`到`View`的层层分发，交给对应组件处理后再刷新 UI，这个过程的迅速完成会让用户感觉到操作顺滑。
+ANR 即 Application Not Responding，应用程序无响应。Android 作为手持设备通过 UI 触控与用户交互，产生的触控事件会在主线程进行由`Activity`到`View`的层层分发，交给对应组件处理后刷新 UI，这个过程的迅速完成会让用户感觉到操作顺滑。
 
-如果负责分发事件的主线程被阻塞（通常是因为在主线程执行耗时操作），则用户点击屏幕后触控事件迟迟不能向下传递，处理组件无法获取事件并给出反馈，用户看到的是点击屏幕却无任何反应，App 像卡住一样。如果阻塞时间大于 5 秒，Android 系统就会弹出 ANR 提醒用户强制关闭程序。
+如果负责分发事件的主线程被阻塞（通常是因为在主线程执行耗时操作），则用户点击屏幕后触控事件迟迟不能向下传递，处理组件无法获取事件给出反馈，用户看到的是点击屏幕却无反应，App 像卡住一样。当阻塞时间大于 5 秒，Android 就会弹出 ANR 提醒用户强制关闭程序。
 
 所以在 Android 中使用线程必须遵循 2 条规则：
 
@@ -190,11 +190,11 @@ public static void loop() {
 }
 ```
 
-`Looper.loop()`会进入一个无限的等待循环，不断检查`MessageQueue`中是否有新的`Message`，一旦获取到新的`Message`，就取出其在`post()`时保存的`Handler`实例，调用该`Handler`的方法来处理`Message`，这就是整个`Handler.post(Runnable)`的执行轨迹。
+`Looper.loop()`会进入无限的等待循环，不断检查`MessageQueue`中是否有新`Message`，一旦获得就取出其在`post()`时保存的`Handler`实例，调用它的方法处理`Message`，这就是`Handler.post(Runnable)`的执行轨迹。
 
-至于最关键的线程切换是如何实现的，需注意`Looper.prepare()`执行时所在的线程，它就是`Runnable`事件被处理时所在的线程，和线程启用`Looper`有关。
+至于最关键的线程切换如何实现，需注意`Looper.prepare()`所在的线程，它就是`Runnable`事件被处理时的线程，和线程启用`Looper`有关。
 
-前面提到`Handler`创建时要求线程必须有`Looper`，即执行过`Looper.prepare()`，一个典型的支持`Looper`的线程是这样创建的：
+前面提到`Handler`创建时要求线程必须有`Looper`，即执行过`Looper.prepare()`，一般这样创建支持`Looper`的线程：
 
 ```kotlin
 class CusThread : Thread() {
@@ -208,7 +208,7 @@ class CusThread : Thread() {
 }
 ```
 
-实际这个线程在创建`Handler`之后就因为执行`Looper.loop()`而阻塞，在监听`MessageQueue`等待`Handler`分发事件。注意`Looper.loop()`是在该线程中执行，结合之前的源码分析，通过`Handler`发送的`Runnable`都会在此线程中执行，而`Handler.post(Runnable)`这个行为可以在任意线程中进行，这就实现了在其它线程发送事件到指定线程处理，即广义的切换线程。
+实际这个线程在创建`Handler`之后就因为执行`Looper.loop()`而阻塞，处于监听`MessageQueue`等待`Handler`分发事件的状态。注意`Looper.loop()`是在该线程中执行，结合之前的源码，通过`Handler`发送的`Runnable`都会在此线程中执行，而`Handler.post(Runnable)`这个行为可在任意线程中进行，所以能实现在其它线程发送事件到指定线程处理，即广义的切换线程。
 
 使用`CusThread`示例：
 
@@ -228,7 +228,7 @@ thread.handler.looper.quite()
 
 ## 使用 HandlerThread
 
-普通线程需创建`Looper`才可使用`Handler`，`Android`提供一个默认创建好`Looper`的线程`HandlerThread`，原理和上面`CusThread`大同小异，只是多些细节控制，可以这样使用它：
+普通线程需创建`Looper`才可使用`Handler`，Android 提供一个默认创建好`Looper`的线程`HandlerThread`，原理和上面`CusThread`大同小异，只是多些细节控制，可这样使用它：
 
 ```kotlin
 val handlerThread = HandlerThread("")
@@ -248,10 +248,10 @@ handler.looper.quite()
 
 ## 总结
 
-`Handler`机制总结起来大概是这样：`Handler`创建时需要一个`Looper`，可以是指定的`Looper`或默认使用当前线程的`Looper`。`Handler`获取此`Looper`的`MessageQueue`，当`Handler.post(Runnable)`执行时，`Handler`把`Runnable`封装成`Message`并携带该`Handler`实例，发送到从`Looper`那里拿到的`MessageQueue`中。`Looper`在其创建线程中不断检查`MessageQueue`是否有新`Message`，有的话就取出，调用附带的`Handler`实例方法处理，因为`Handler`发送事件的线程和`Looper`执行事件的线程一般不同，这样就能实现线程切换。
+`Handler`机制总结起来大概是这样：`Handler`创建时需要一个`Looper`，可以是指定的`Looper`或使用当前线程的`Looper`。`Handler`获取此`Looper`的`MessageQueue`，当`Handler.post(Runnable)`执行时，`Handler`把`Runnable`封装成`Message`并携带该`Handler`实例，发送到从`Looper`拿到的`MessageQueue`中。`Looper`在其创建线程中不断检查`MessageQueue`是否有新`Message`，有即取出，调用附带的`Handler`方法处理，因为`Handler`发送事件的线程和`Looper`执行事件的线程一般不同，即实现线程切换。
 
 ## Main Thread 的特殊性
 
-可能已经注意到，既然创建`Handler`时要求该线程必须有`Looper`否则抛出异常，那么 Android 的主线程为什么可以直接创建`Handler`呢？
+可能已经注意到，既然创建`Handler`时要求该线程必须有`Looper`否则抛出异常，那么 Android 主线程为什么能直接创建`Handler`呢？
 
-其实，能创建即说明这个主线程默认已经有`Looper`，Android 实际是由事件驱动，主线程相当于一直都在“阻塞”（即`Looper.loop()`），它在等待新事件进行处理，所谓“不能阻塞主线程”实际是指不能阻塞主线程的事件处理。体会一下区别，很有意思。
+其实，能创建即说明这个主线程默认已经有`Looper`，Android 实际由事件驱动，主线程相当于一直在“阻塞”（即`Looper.loop()`），它在等待新事件，所谓“不能阻塞主线程”实际是指不能阻塞主线程的事件处理。体会一下区别，很有意思。
