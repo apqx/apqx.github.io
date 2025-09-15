@@ -7,7 +7,6 @@ gem "jekyll"
 
 group :jekyll_plugins do
   gem "kramdown"
-  # gem "jekyll-feed"
   gem "jekyll-sitemap"
   gem "jekyll-redirect-from"
   gem "jekyll-paginate-v2"

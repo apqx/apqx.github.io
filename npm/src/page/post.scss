@@ -1,6 +1,7 @@
 @use "../style/global" as base;
 @use "../component/codeHighlight";
 @use "../component/contentCard";
+@use "../component/text";
 
 /* 文章题目 */
 .post-title {
@@ -30,10 +31,7 @@
 }
 
 .surface-block {
-    // --mdc-theme-on-surface: var(--mdc-theme-on-surface-secondary);
-    --mdc-typography-body1-font-weight: var(--font-weight-light);
-    // --mdc-typography-body1-font-size: calc(var(--text-font-size-base) - 0.05rem);
-    --text-code-font-weight: var(--font-weight-light);
+    @include text.block-text();
 
     border: 1px dashed var(--surface-block-border);
     border-radius: var(--post-inner-shape-round);
