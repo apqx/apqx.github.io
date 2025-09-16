@@ -21,23 +21,36 @@
 // @use "../component/react/Snackbar";
 @use "@material/animation";
 
-// 通过js给body添加dark class，可以实现对mac-theme的参数更改
-// 大部分组件都会正确相应颜色变化，但是list和chip却无效
-// 且theme.$property引用的值也没有动态变化
+
+// <body class="mdc-typography mdc-theme--surface">
+//     {% include header.html %}
+//     {% include aside.html %}
+//     <div class="page-wrap mdc-theme--background">
+//         <hr class="header-space mdc-theme--surface" />
+//         <main class="main-container">
+//             {{ content }}
+//         </main>
+//         {% include footer.html %}
+//     </div>
+// </body>
+
+// 通过 js 给 body 添加 dark class，实现对 mac-theme 参数更改
+// 大部分组件都会正确响应颜色变化，但是 list 和 chip 却无效
+// 且 theme.$property 引用的值也没有动态变化
 body {
-    // 消除topbar左侧的margin
+    // 消除 topbar 左侧的 margin
     margin: 0;
 }
 
-// footer吸附在页面底部
-
 html,
 body {
-    // 设置html和body的高度为浏览器窗口高度
-    // 如果内部content高度超过窗口高度则处于overflow状态
+    // 设置 html 和 body 高度为浏览器窗口高度
+    // 如果内部 content 高度超过窗口高度则处于 overflow 状态
     height: 100%;
 }
 
+// 包含 main 和 footer，以及顶部的 header 空间
+// header 内容不在这里，悬浮在独立层级
 .page-wrap {
     min-height: 100%;
     display: flex;
@@ -49,6 +62,7 @@ main {
     flex: 1;
 }
 
+// footer 吸附在页面底部
 footer {
     background-color: var(--mdc-theme-primary);
     display: flex;
@@ -71,7 +85,15 @@ footer * {
     }
 }
 
-// 内容最外层的主容器
+// header 在 page-wrap 中的占位空间
+.header-space {
+    width: 100%;
+    height: var(--top-bar-height);
+    border: none;
+    margin: 0;
+}
+
+// 内容最外层容器，高度为 100% - top-bar-height - footer-height 
 .main-container {
     width: 100%;
     max-width: base.$center-container-max-width;
@@ -118,7 +140,16 @@ footer * {
 }
 
 .mdc-top-app-bar--fixed-adjust {
+    // margin-top: var(--top-bar-height);
+    // padding-top: 0;
+    // top: 0;
     padding-top: var(--top-bar-height);
+    top: 0;
+}
+
+.mdc-top-app-bar--fixed-adjust-by-padding {
+    padding-top: var(--top-bar-height);
+    top: 0;
 }
 
 img {
