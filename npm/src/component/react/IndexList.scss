@@ -22,8 +22,8 @@ body {
 }
 
 .index-top-card-container {
-    padding-top: 0.4rem;
-    padding-bottom: 0.5rem;
+    padding-top: 0.1rem;
+    padding-bottom: 0.18rem;
     padding-left: var(--index-card-padding-horizontal);
     padding-right: var(--index-card-padding-horizontal);
 }
@@ -173,7 +173,8 @@ body {
     }
 
     .index-top-card-container {
-        padding-top: 0.35rem;
+        padding-top: 0.08rem;
+        padding-bottom: 0.15rem;
     }
 }
 
@@ -182,10 +183,6 @@ body {
     body {
         --index-card-padding-vertical: 1.2rem;
         --index-card-padding-horizontal: 2rem;
-    }
-
-    .index-top-card-container {
-        padding-top: 0.35rem;
     }
 
     .index-author {

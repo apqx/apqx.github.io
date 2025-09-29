@@ -12,9 +12,10 @@ export class LocalRepository {
         this.saveString(key, String(value))
     }
     
-    getBoolean(key: string): boolean {
+    getBoolean(key: string): boolean | null {
         // 默认为false
         const value = this.getString(key)
+        if (value == null || value == "") return null
         return value === "true";
     }
 
@@ -31,7 +32,7 @@ export class LocalRepository {
     }
 
     getFixedTopbarOn(): boolean {
-        return this.getBoolean(this.KEY_FIXED_TOPBAR)
+        return this.getBoolean(this.KEY_FIXED_TOPBAR) ?? false
     }
 
     saveHandwritingFontOn(on: boolean) {
@@ -39,15 +40,18 @@ export class LocalRepository {
     }
 
     getHandWritingFontOn(): boolean {
-        return this.getBoolean(this.KEY_HANDWRITTEN_FONT)
+        return this.getBoolean(this.KEY_HANDWRITTEN_FONT) ?? false
     }
 
     saveNotoSerifSCFontOn(on: boolean) {
         this.saveBoolean(this.KEY_NOTO_SERIF_SC_FONT, on)
     }
 
+    /**
+     * 获取思源宋体设置，默认开启
+     */
     getNotoSerifSCFontOn(): boolean {
-        return this.getBoolean(this.KEY_NOTO_SERIF_SC_FONT)
+        return this.getBoolean(this.KEY_NOTO_SERIF_SC_FONT) ?? true
     }
 
     getTheme(): string {

@@ -146,6 +146,8 @@ body {
         --mdc-typography-body1-letter-spacing: normal;
         --mdc-typography-body1-font-weight: var(--font-weight-normal);
 
+        --mdc-typography-body2-letter-spacing: normal;
+
         // 代码字体
         --text-code-font-family: #{base.$text-font-code-block};
         // 代码字重，注意段落中的代码块字重，有时候同样字重的中英文字体显示并不一致，需要单独设置
@@ -162,17 +164,26 @@ body {
 
         --mdc-typography-headline1-font-size: calc(var(--mdc-typography-body1-font-size) + 0.6rem);
         --mdc-typography-headline1-font-weight: var(--mdc-typography-body1-font-weight);
+        --mdc-typography-headline1-letter-spacing: normal;
 
         --mdc-typography-headline2-font-size: calc(var(--mdc-typography-body1-font-size) + 0.6rem);
         --mdc-typography-headline2-line-height: calc(var(--mdc-typography-body1-font-size) + 1.2rem);
         --mdc-typography-headline2-font-weight: var(--mdc-typography-body1-font-weight);
+        --mdc-typography-headline2-letter-spacing: normal;
 
         --mdc-typography-headline3-font-size: calc(var(--mdc-typography-body1-font-size) + 0.5rem);
         --mdc-typography-headline3-line-height: calc(var(--mdc-typography-body1-font-size) + 1rem);
         --mdc-typography-headline3-font-weight: var(--mdc-typography-body1-font-weight);
+        --mdc-typography-headline3-letter-spacing: normal;
 
+        --mdc-typography-headline4-letter-spacing: normal;
+        --mdc-typography-headline5-letter-spacing: normal;
+        
         --mdc-typography-headline6-font-size: calc(var(--mdc-typography-body1-font-size) + 0.25rem);
         --mdc-typography-headline6-font-weight: var(--mdc-typography-body1-font-weight);
+        --mdc-typography-headline6-letter-spacing: normal;
+
+        --mdc-typography-button-letter-spacing: normal;
 
         // drawer list圆角
         --mdc-shape-small: 0.5rem;

@@ -24,10 +24,14 @@
     border: none;
     padding-left: var(--drawer-padding-horizontal);
     padding-right: var(--drawer-padding-horizontal);
+    // background-color: rgba($color: map.get(base.$surface, "light"), $alpha: 0.8);
+    // backdrop-filter: blur(30px);
+    // -webkit-backdrop-filter: blur(30px);
 }
 
 .dark .mdc-drawer {
     @include elevation.elevation(map.get(base.$drawer-elevation, "elevation"), map.get(base.$drawer-elevation, "shadow-dark"), 0);
+    // background-color: rgba($color: map.get(base.$surface, "dark"), $alpha: 0.8);
 }
 
 .mdc-drawer-scroll-lock {
