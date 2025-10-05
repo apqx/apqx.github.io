@@ -8,6 +8,7 @@ import { showSnackbar } from "./react/Snackbar"
 export const darkClass = "dark"
 
 export function initTheme() {
+    checkColorfulToolbar()
     checkUserTheme()
     // 监听系统级主题变化，即系统和导航栏都可以控制主题变化
     window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
@@ -26,12 +27,9 @@ export function initTheme() {
 }
 
 const metaThemeColor = {
+    colorful: "#556a3b",
     light: "#ffffff",
-    lightMobile: "#ffffff",
-    lightChrome: "#ffffff",
-    dark: "#1d1d1d",
-    darkMobile: "#1d1d1d",
-    darkChrome: "#1d1d1d",
+    dark: "#1d1d1d"
 }
 
 const topbarBlur = {
@@ -39,22 +37,18 @@ const topbarBlur = {
     mobile: false,
 }
 
+// 是否启用彩色标题栏
+// 在使用 Material You 的 Android Chrome 上，浅色主题的主题色不会影响 Chrome 工具栏和状态栏颜色，需要设置更深的主题色才会生效
+// 暗黑模式下则完全不影响，所以不必设置
+const colorfulToolbar = false
+
 function checkMetaThemeColor(dark: boolean, show: boolean) {
-    // 黑配色
     if (show) {
         if (dark) {
-            if (isChrome()) {
-                setMetaThemeColor(metaThemeColor.darkChrome)
-            } else if (isMobileOrTablet()) {
-                setMetaThemeColor(metaThemeColor.darkMobile)
-            } else {
-                setMetaThemeColor(metaThemeColor.dark)
-            }
+            setMetaThemeColor(metaThemeColor.dark)
         } else {
-            if (isChrome()) {
-                setMetaThemeColor(metaThemeColor.lightChrome)
-            } else if (isMobileOrTablet()) {
-                setMetaThemeColor(metaThemeColor.lightMobile)
+            if (document.querySelector(".colorful") != null) {
+                setMetaThemeColor(metaThemeColor.colorful)
             } else {
                 setMetaThemeColor(metaThemeColor.light)
             }
@@ -66,6 +60,12 @@ function checkMetaThemeColor(dark: boolean, show: boolean) {
         toggleTopbarGlass(topbarBlur.mobile)
     } else {
         toggleTopbarGlass(topbarBlur.default)
+    }
+}
+
+function checkColorfulToolbar() {
+    if (colorfulToolbar && isChrome() && isMobileOrTablet()) {
+        toggleClassWithEnable(document.querySelector(".mdc-top-app-bar"), "colorful", true)
     }
 }
 

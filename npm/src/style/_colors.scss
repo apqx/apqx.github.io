@@ -32,18 +32,18 @@ $background: (
 );
 
 $text-title: (
-        light: color.adjust(map.get($surface, "light"), $lightness: -90%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: +90%),
+        light: color.adjust(map.get($surface, "light"), $lightness: -95%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: +95%),
 );
 
 $text-subtitle: (
-        light: color.adjust(map.get($text-title, "light"), $lightness: +35%),
-        dark: color.adjust(map.get($text-title, "dark"), $lightness: -35%),
+        light: color.adjust(map.get($text-title, "light"), $lightness: +30%),
+        dark: color.adjust(map.get($text-title, "dark"), $lightness: -30%),
 );
 
 $text-content: (
-        light: color.adjust(map.get($text-title, "light"), $lightness: +10%),
-        dark: color.adjust(map.get($text-title, "dark"), $lightness: -10%),
+        light: color.adjust(map.get($text-title, "light"), $lightness: +5%),
+        dark: color.adjust(map.get($text-title, "dark"), $lightness: -5%),
 );
 
 $text-content-secondary: (
@@ -157,19 +157,13 @@ $chip-ripple: (
         dark: color.adjust(map.get($chip-bg, "dark"), $lightness: + variables.$ripple-gap-percent),
 );
 
-
-
 @function calc-text-block-bg-light($ink) {
         @return rgba(color.adjust($ink, $lightness: +30%), 0.3),
-}
-
-;
+};
 
 @function calc-text-block-bg-dark($ink) {
         @return rgba(color.adjust($ink, $lightness: -20%), 0.1),
-}
-
-;
+};
 
 $text-block-1-ink: (
         light: #8167c1,

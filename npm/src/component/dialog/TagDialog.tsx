@@ -250,9 +250,11 @@ class PostItem extends React.Component<PostItemProps, any> {
                     <span className="mdc-deprecated-list-item__text">
                         <span className="list-item__primary-text one-line">{this.props.data.title}</span>
                         <div className="list-item__secondary-text tag-list-item__secondary-container">
-                            <span>{this.props.data.date}</span>
+                            {/* <span>{this.props.data.date}</span> */}
+                            <span>
+                                <span className="tag-list-item__post-type">{this.props.data.date}｜{this.props.data.type}</span>
+                            </span>
                             <span className="tag-list-item__block-container">
-                                <span className="tag-list-item__post-type">{this.props.data.type}</span>
                                 {this.props.data.block1Array.map(block =>
                                     <span
                                         key={block}

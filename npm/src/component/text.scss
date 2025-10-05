@@ -72,6 +72,7 @@ p {
 code {
     @include basicText();
     font-family: var(--text-code-font-family);
+    // 段落中的代码块字重与段落字体匹配
     font-weight: var(--text-code-font-weight);
     margin: 0;
 }
@@ -82,6 +83,8 @@ pre code.hljs {
     display: block;
     overflow-x: scroll;
     line-height: calc(var(--mdc-typography-body1-font-size) + 0.5rem);
+    // 独立代码块字重为 normal
+    font-weight: base.$font-weight-normal-default;
     border-radius: var(--post-inner-shape-round);
     padding: 1rem;
     background: var(--pre-code-bg);

@@ -8,12 +8,11 @@
 .tag-list-item__secondary-container {
     display: flex;
     white-space: nowrap;
+    align-items: center;
 }
 
 .tag-list-item__block-container {
     overflow-x: auto;
-    padding-left: 0.1rem;
-    padding-right: 0.1rem;
 }
 
 // 移动端Chrome的scrollBar一直显示，需要消除，其它浏览器scrollBar都会自动隐藏
@@ -52,7 +51,7 @@
     .tag-list-item__post-type,
     .tag-list-item__post-block1,
     .tag-list-item__post-block2 {
-        padding: 0.18rem 0.5rem;
+        padding: 0.15rem 0.5rem;
     }
 }
 

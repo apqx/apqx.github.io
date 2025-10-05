@@ -61,11 +61,18 @@ input {
 
 .search-result-item-type {
     font-size: calc(var(--mdc-typography-body1-font-size) - 0.2rem);
-    padding: 0.06rem 0.5rem;
-    border-radius: 0.5rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: calc(var(--mdc-typography-body1-font-size) - 0.5rem);
     margin-right: 0.2rem;
+    
     color: var(--list-chip-1-ink);
     background: var(--list-chip-1-bg);
+}
+
+.font-noto-serif-sc {
+    .search-result-item-type {
+        padding: 0.15rem 0.5rem;
+    }
 }
 
 .search-result-item-snippet {

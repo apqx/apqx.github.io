@@ -14,9 +14,23 @@ body {
     --top-bar-slid-translateY : calc(0px - var(--top-bar-height) - 10px)
 }
 
+.mdc-top-app-bar.colorful {
+    background-color: #556a3b;
+    * {
+        color: white;
+    }
+}
+
+.dark .mdc-top-app-bar.colorful {
+    background-color: var(--mdc-theme-primary);
+    * {
+        color: var(--mdc-theme-on-primary);
+    }
+}
+
 .mdc-top-app-bar {
     // 颜色，默认为 primary
-    @include top-app-bar.fill-color(var(--mdc-theme-primary));
+    background-color: var(--mdc-theme-primary);
     // 阴影
     @include elevation.elevation(map.get(base.$top-bar-elevation, "elevation"), map.get(base.$top-bar-elevation, "shadow-light"), 0);
     // border-bottom: 1px solid color.adjust(map.get(base.$top-bar, "bg-light"), $lightness: - 3%);
