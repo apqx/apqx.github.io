@@ -82,13 +82,14 @@ pre code,
 pre code.hljs {
     display: block;
     overflow-x: scroll;
-    line-height: calc(var(--mdc-typography-body1-font-size) + 0.5rem);
+    line-height: calc(var(--mdc-typography-body1-font-size) + 0.6rem);
+    font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
     // 独立代码块字重为 normal
     font-weight: base.$font-weight-normal-default;
     border-radius: var(--post-inner-shape-round);
     padding: 1rem;
     background: var(--pre-code-bg);
-    // border: 2px solid var(--pre-code-border);
+    border: 1px solid var(--pre-code-border);
 }
 
 /* 段落中单词高亮 */

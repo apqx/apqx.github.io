@@ -162,16 +162,30 @@ class PostResult extends React.Component<PostResultProps, any> {
     /**
      * 获取一个文章要显示的块，包括author作者、actor演员、mention提到
      * 显示，一共就2个block，用不同的颜色区分
+     * @param author 作者
+     * @param actor 演员
+     * @param mention 提到
+     * @param location 地点
+     * @param postType 文章类型
+     * @returns [block1, block2]
      */
-    getPostBlocks(author: string, actor: Array<string>, mention: Array<string>, postType: SectionType): [string[], string[]] {
+    getPostBlocks(author: string, actor: Array<string>, mention: Array<string>, location: string, postType: SectionType): [string[], string[]] {
         if (postType.identifier === SECTION_TYPE_ORIGINAL.identifier) {
-            // 随笔，不显示author，显示actor和mention
-            return [actor, mention]
+            // 随笔，不显示 author，显示 actor、mention、location
+            if (location.length > 0) {
+                return [actor, mention.concat(location)]
+            } else {
+                return [actor, mention]
+            }
         } else if (postType.identifier === SECTION_TYPE_OPERA.identifier) {
-            // 看剧，显示actor和mention
-            return [actor, mention]
+            // 看剧，显示 actor、mention、location
+            if (location.length > 0) {
+                return [actor, mention.concat(location)]
+            } else {
+                return [actor, mention]
+            }
         } else {
-            // 其它类型，显示author和mention
+            // 其它类型，显示 author、mention
             return [[author], mention]
         }
     }
@@ -179,7 +193,7 @@ class PostResult extends React.Component<PostResultProps, any> {
     render() {
         const items = this.props.list.map((item) => {
             const postType = this.getPostType(item)
-            const postBlocks = this.getPostBlocks(item.author, item.actor, item.mention, postType)
+            const postBlocks = this.getPostBlocks(item.author, item.actor, item.mention, item.location, postType)
             // 两个chip列表
             return new PostItemData(item.path, item.title, item.date, postType.name, postBlocks[0], postBlocks[1])
         })

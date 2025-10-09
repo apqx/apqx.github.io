@@ -120,6 +120,7 @@ export class PostPaginateShowPresenter implements IPostPaginateShowPresenter {
             author: author,
             actor: item.actor.length == 0 ? [] : item.actor.split(" "),
             mention: item.mention.length == 0 ? [] : item.mention.split(" "),
+            location: item.location,
             date: item.date,
             path: item.path,
             description: item.description,

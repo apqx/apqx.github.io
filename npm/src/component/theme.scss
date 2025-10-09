@@ -42,8 +42,9 @@
         --code-highlight-bg: #{map.get(base.$code-highlight-bg, "light")};
         --code-highlight-border: #{map.get(base.$code-highlight-border, "light")};
         --code-highlight-ink: #{map.get(base.$code-highlight-ink, "light")};
-        --pre-code-bg: #151515;
-        --pre-code-border: #151515;
+        // --pre-code-bg: #151515;
+        --pre-code-bg: #{map.get(base.$pre-code-bg, "light")};
+        --pre-code-border: #{map.get(base.$pre-code-border, "light")};
 
         // Chip
         --chip-bg: #{map.get(base.$chip-bg, "light")};
@@ -100,8 +101,8 @@
         --code-highlight-bg: #{map.get(base.$code-highlight-bg, "dark")};
         --code-highlight-border: #{map.get(base.$code-highlight-border, "dark")};
         --code-highlight-ink: #{map.get(base.$code-highlight-ink, "dark")};
-        --pre-code-bg: #{color.adjust(map.get(base.$surface, "dark"), $lightness: -5%)};
-        --pre-code-border: #{color.adjust(map.get(base.$surface, "dark"), $lightness: -5%)};
+        --pre-code-bg: #{map.get(base.$pre-code-bg, "dark")};
+        --pre-code-border: #{map.get(base.$pre-code-border, "dark")};
 
         // Chip
         --chip-bg: #{map.get(base.$chip-bg, "dark")};

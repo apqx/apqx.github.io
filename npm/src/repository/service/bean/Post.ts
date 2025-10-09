@@ -6,6 +6,7 @@ export type ApiPost = {
     "author": string,
     "actor": string,
     "mention": string,
+    "location": string,
     "description": string,
     "cover": string,
     "index-cover": string,

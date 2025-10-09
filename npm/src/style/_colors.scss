@@ -210,6 +210,16 @@ $code-highlight-border: (
         dark: color.adjust(map.get($code-highlight-bg, "dark"), $lightness: +3%),
 );
 
+$pre-code-bg: (
+        light: map.get($background, "light"),
+        dark: map.get($background, "dark"),
+);
+
+$pre-code-border: (
+        light: color.adjust(map.get($surface, "light"), $lightness: -5%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: +5%),
+);
+
 $strong-under-line: (
         light: color.adjust(map.get($surface, "light"), $lightness: -10%),
         dark: color.adjust(map.get($surface, "dark"), $lightness: +10%),

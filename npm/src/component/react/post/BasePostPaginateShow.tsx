@@ -25,6 +25,7 @@ export type Post = {
     author: string,
     actor: Array<string>,
     mention: Array<string>,
+    location: string,
     date: string,
     path: string,
     description: string,
