@@ -27,7 +27,12 @@ function checkJump() {
     consoleDebug("Url path = " + urlPath)
     // https://mudan.me/op01
     // https://mudan.me/opera
-    var matches = urlPath.match(RegExp("^/((op|og|rp|pt|ot)\\d\\d|index-opera|opera|repost|poetry|share|print|kfc)$"))
+    // og: original
+    // rp: repost
+    // op: opera
+    // pt: poetry
+    // ot: other
+    var matches = urlPath.match(RegExp("^/((og|rp|op|pt|ot)\\d\\d|index-opera|opera|repost|poetry|share|print|kfc)$"))
     consoleDebug("Url matches = " + matches)
     if (matches != null && matches.length > 0) {
         // 检查是否符合格式，取出pid

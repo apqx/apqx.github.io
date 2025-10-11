@@ -62,7 +62,7 @@ export class ShortLinkJumpDialogPresenter {
                 consoleDebug("Pid not exist, check url-map")
             }).catch(error => {
                 consoleError(error)
-                this.showJump(startTimeMs, window.location.origin + "/404.html", "未找到映射表")
+                this.showJump(startTimeMs, window.location.origin + "/404.html", "解析映射表异常")
             }
         )
     }
@@ -87,6 +87,6 @@ export class ShortLinkJumpDialogPresenter {
         setTimeout(() => {
             // 延时1秒再跳转，显示动画
             window.location.replace(url)
-        }, 500)
+        }, 800)
     }
 }

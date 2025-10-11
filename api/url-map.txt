@@ -56,6 +56,13 @@ sitemap: false
             }
         },
         {
+            "id": "og00",
+            "target": {
+                "path": "{% link _posts/original/2025-10-06-桃李不言，下自成蹊.md %}",
+                "title": "桃李不言，下自成蹊"
+            }
+        },
+        {
             "id": "op00",
             "target": {
                 "path": "{% link _posts/opera/2021-08-08-昆曲「红梨记·亭会」折子.md %}",
@@ -192,6 +199,27 @@ sitemap: false
             }
         },
         {
+            "id": "op20",
+            "target": {
+                "path": "{% link _posts/opera/2022-11-27-昆曲「牡丹亭·写真」折子.md %}",
+                "title": "昆曲「牡丹亭·写真」折子"
+            }
+        },
+        {
+            "id": "op21",
+            "target": {
+                "path": "{% link _posts/opera/2021-01-09-昆曲「焚香记·阳告」折子.md %}",
+                "title": "昆曲「焚香记·阳告」折子"
+            }
+        },
+        {
+            "id": "op22",
+            "target": {
+                "path": "{% link _posts/opera/2022-10-29-昆曲「白兔记·产子」折子.md %}",
+                "title": "昆曲「白兔记·产子」折子"
+            }
+        },
+        {
             "id": "og00",
             "target": {
                 "path": "{% link _posts/original/2021-06-10-旅行志03：兰苑狮吼.md %}",
@@ -308,6 +336,27 @@ sitemap: false
             "target": {
                 "path": "https://www.bilibili.com/video/BV18G411H7Eu",
                 "title": "【张唐逍】孽海记·思凡（哭皇天、香雪灯）"
+            }
+        },
+        {
+            "id": "ot12",
+            "target": {
+                "path": "https://www.bilibili.com/video/BV1V8411j7T9",
+                "title": "【李芊羽&张唐逍】牡丹亭·写真（普天乐）"
+            }
+        },
+        {
+            "id": "ot13",
+            "target": {
+                "path": "https://www.bilibili.com/video/BV1s84y167vG",
+                "title": "【李芊羽】牡丹亭·写真（尾声）"
+            }
+        },
+        {
+            "id": "ot14",
+            "target": {
+                "path": "https://www.bilibili.com/video/BV17LK8zjELP",
+                "title": "【李芊羽&王恒涛】南柯梦·瑶台（四块玉、骂玉郎、乌夜啼）"
             }
         }
     ]
