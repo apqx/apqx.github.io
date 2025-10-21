@@ -33,7 +33,7 @@ $background: (
 
 $text-title: (
         light: color.adjust(map.get($surface, "light"), $lightness: -95%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: +95%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: +90%),
 );
 
 $text-subtitle: (
@@ -47,8 +47,8 @@ $text-content: (
 );
 
 $text-content-secondary: (
-        light: color.adjust(map.get($text-content, "light"), $lightness: +5%),
-        dark: color.adjust(map.get($text-content, "dark"), $lightness: -5%),
+        light: color.adjust(map.get($text-content, "light"), $lightness: +10%),
+        dark: color.adjust(map.get($text-content, "dark"), $lightness: -10%),
 );
 
 $blockquote-border: (
@@ -149,8 +149,8 @@ $chip-bg: (
         dark: color.adjust(map.get($surface, "dark"), $lightness: +2.4%),
 );
 $chip-ink: (
-        light: color.adjust(map.get($chip-bg, "light"), $lightness: -60%),
-        dark: color.adjust(map.get($chip-bg, "dark"), $lightness: +60%),
+        light: color.adjust(map.get($chip-bg, "light"), $lightness: -70%),
+        dark: color.adjust(map.get($chip-bg, "dark"), $lightness: +70%),
 );
 $chip-ripple: (
         light: color.adjust(map.get($chip-bg, "light"), $lightness: - variables.$ripple-gap-percent),

@@ -51,7 +51,7 @@ export class LocalRepository {
      * 获取思源宋体设置，默认开启
      */
     getNotoSerifSCFontOn(): boolean {
-        return this.getBoolean(this.KEY_NOTO_SERIF_SC_FONT) ?? true
+        return this.getBoolean(this.KEY_NOTO_SERIF_SC_FONT) ?? false
     }
 
     getTheme(): string {

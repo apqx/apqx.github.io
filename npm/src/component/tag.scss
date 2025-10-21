@@ -1,4 +1,5 @@
 @use "../style/global" as base;
+@use "./text" as text;
 @use "@material/button";
 @use "@material/button/mdc-button";
 @use "@material/ripple";
@@ -22,14 +23,15 @@
     @include button.container-fill-color(var(--chip-bg));
     @include button.horizontal-padding(0.8rem);
     @include button.height(2.2rem);
+    min-width: 3.5rem;
     text-transform: none;
-    // font-family: base.$text-font-noto-serif;
-    // font-weight: base.$font-weight-normal-noto-serif;
     font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
     margin-top: 0.2rem;
     margin-bottom: 0.2rem;
     border-radius: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
     @include btnChipRipple();
+
+    // @include text.notoSerifText();
 }
 
 .dark .mdc-button.btn-tag {

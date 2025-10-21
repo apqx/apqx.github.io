@@ -32,6 +32,7 @@
 
 .surface-block {
     @include text.block-text();
+    // @include text.notoSerifTextContainer();
 
     border: 1px dashed var(--surface-block-border);
     border-radius: var(--post-inner-shape-round);

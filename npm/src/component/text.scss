@@ -12,6 +12,48 @@
     margin: calc(var(--mdc-typography-body1-font-size) - 0.5rem) 0;
 }
 
+@mixin notoSerifTextContainer {
+    --mdc-typography-font-family: #{base.$text-font-noto-serif};
+    --font-weight-light: #{base.$font-weight-light-noto-serif};
+    --font-weight-normal: #{base.$font-weight-normal-noto-serif};
+    --font-weight-medium: #{base.$font-weight-medium-noto-serif};
+    --mdc-typography-body1-font-weight: var(--font-weight-normal);
+    --mdc-typography-subtitle2-font-weight: 510;
+}
+
+@mixin notoSerifText {
+    font-family: #{base.$text-font-noto-serif};
+    font-weight: #{base.$font-weight-normal-noto-serif};
+}
+
+// 局部字体
+.font-handwritten {
+    --mdc-typography-font-family: #{base.$text-font-handwritten};
+    --font-weight-light: #{base.$font-weight-light-default};
+    --font-weight-normal: #{base.$font-weight-normal-default};
+    --font-weight-medium: #{base.$font-weight-medium-default};
+    --mdc-typography-body1-font-size: 1.2rem;
+    --mdc-typography-body1-font-weight: var(--font-weight-normal);
+
+    padding-bottom: 0.1rem;
+}
+
+// 全局字体
+.font-noto-serif-sc {
+    // 更改全局变量
+    @include notoSerifTextContainer();
+}
+
+// 局部字体
+.font-wenkai {
+    --mdc-typography-font-family: #{base.$text-font-wenkai};
+    --font-weight-light: #{base.$font-weight-light-default};
+    --font-weight-normal: #{base.$font-weight-normal-default};
+    --font-weight-medium: #{base.$font-weight-medium-default};
+    --mdc-typography-body1-font-size: calc(var(--text-font-size-base) + 0.02rem);
+    --mdc-typography-body1-font-weight: var(--font-weight-normal);
+}
+
 body * {
     -webkit-text-size-adjust: 100%;
     // 如果不设置这个，部分字体如 Inter 在 Safari 上下划线不会被字体线条隔断
@@ -245,6 +287,7 @@ blockquote {
     border-left: 0.3rem solid var(--blockquote-border);
     border-radius: 0.2rem;
     @include block-text();
+    // @include notoSerifTextContainer();
 
     p {
         margin: 0;
@@ -273,38 +316,6 @@ audio {
     white-space: pre;
 }
 
-// 局部字体
-.font-handwritten {
-    --mdc-typography-font-family: #{base.$text-font-handwritten};
-    --font-weight-light: #{base.$font-weight-light-default};
-    --font-weight-normal: #{base.$font-weight-normal-default};
-    --font-weight-medium: #{base.$font-weight-medium-default};
-    --mdc-typography-body1-font-size: 1.2rem;
-    --mdc-typography-body1-font-weight: var(--font-weight-normal);
-
-    padding-bottom: 0.1rem;
-}
-
-// 全局字体
-.font-noto-serif-sc {
-    // 更改全局变量
-    --mdc-typography-font-family: #{base.$text-font-noto-serif};
-    --font-weight-light: #{base.$font-weight-light-noto-serif};
-    --font-weight-normal: #{base.$font-weight-normal-noto-serif};
-    --font-weight-medium: #{base.$font-weight-medium-noto-serif};
-    --mdc-typography-body1-font-weight: var(--font-weight-normal);
-    --mdc-typography-subtitle2-font-weight: 510;
-}
-
-// 局部字体
-.font-wenkai {
-    --mdc-typography-font-family: #{base.$text-font-wenkai};
-    --font-weight-light: #{base.$font-weight-light-default};
-    --font-weight-normal: #{base.$font-weight-normal-default};
-    --font-weight-medium: #{base.$font-weight-medium-default};
-    --mdc-typography-body1-font-size: calc(var(--text-font-size-base) + 0.02rem);
-    --mdc-typography-body1-font-weight: var(--font-weight-normal);
-}
 
 .one-line {
     /* 不换行 */
