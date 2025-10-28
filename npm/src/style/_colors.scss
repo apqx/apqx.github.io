@@ -196,8 +196,8 @@ $text-block-3-bg: (
 );
 
 $code-highlight-bg: (
-        light: color.adjust(map.get($surface, "light"), $lightness: -4%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: +4%),
+        light: color.adjust(map.get($surface, "light"), $lightness: -3%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: +3%),
 );
 
 $code-highlight-ink: (
@@ -211,13 +211,13 @@ $code-highlight-border: (
 );
 
 $pre-code-bg: (
-        light: map.get($background, "light"),
-        dark: map.get($background, "dark"),
+        light: color.adjust(map.get($surface, "light"), $lightness: -2%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: +2%),
 );
 
 $pre-code-border: (
-        light: color.adjust(map.get($surface, "light"), $lightness: -5%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: +5%),
+        light: color.adjust(map.get($pre-code-bg, "light"), $lightness: -3%),
+        dark: color.adjust(map.get($pre-code-bg, "dark"), $lightness: +3%),
 );
 
 $strong-under-line: (
@@ -227,7 +227,7 @@ $strong-under-line: (
 
 $surface-block-bg: (
         light: color.adjust(map.get($surface, "light"), $lightness: - 0.8%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: - 0.8%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: + 0.8%),
 );
 
 $surface-block-ripple: (

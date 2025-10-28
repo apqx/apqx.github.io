@@ -95,6 +95,7 @@ class IndexItem extends React.Component<IndexItemProps, any> {
         }
         new MDCRipple(this.cardE!!)
         // 监听元素进入窗口初次显示
+        // TODO: 执行动画后应该立即解除监听，避免不必要的性能开销
         if (this.cardE != null) {
             getInterSectionObserver().observe(this.cardE)
         }
