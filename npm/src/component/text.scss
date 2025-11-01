@@ -280,6 +280,16 @@ time {
 
 }
 
+.surface-block {
+    @include block-text();
+    // @include text.notoSerifTextContainer();
+
+    border: 1px solid var(--surface-block-border);
+    border-radius: var(--post-inner-shape-round);
+    background: var(--surface-block-bg);
+    padding: 1rem 1.3rem;
+}
+
 // 引用段落
 blockquote {
     margin: 0.65rem 0;

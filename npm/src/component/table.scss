@@ -15,11 +15,11 @@ th,
 .mdc-data-table {
     // @include data-table-theme.shape-radius(0.3rem);
     // 设置标题背景为透明色，防止横向滚动时遮挡边框角
-    @include data-table-theme.header-row-fill-color(#00000000);
-    @include data-table-theme.header-row-text-color(var(--mdc-theme-text-primary-on-background));
-    @include data-table-theme.row-text-color(var(--mdc-theme-on-surface));
-    @include data-table-theme.divider-color(var(--divider-color));
-    @include data-table-theme.stroke-color(var(--divider-color));
+    // @include data-table-theme.header-row-fill-color(#00000000);
+    // @include data-table-theme.header-row-text-color(var(--mdc-theme-text-primary-on-background));
+    // @include data-table-theme.row-text-color(var(--mdc-theme-on-surface-secondary));
+    // @include data-table-theme.divider-color(var(--surface-block-border));
+    // @include data-table-theme.stroke-color(var(--surface-block-border));
     margin-top: 0.8rem;
     margin-bottom: 0.8rem;
 }
@@ -38,7 +38,7 @@ th,
     overflow: scroll;
     margin: calc(var(--mdc-typography-body1-font-size) - 0.5rem) 0;
     // wrapper边框
-    border: 1px solid var(--divider-color);
+    border: 1px solid var(--surface-block-border);
     border-radius: var(--post-inner-shape-round);
 
     table {
@@ -65,7 +65,7 @@ table {
     // 设置表格圆角必须将collapse设置为separate
     border-collapse: separate;
     // 确保没有wrapper也能显示边框
-    border: 1px solid var(--divider-color);
+    border: 1px solid var(--surface-block-border);
     border-radius: var(--post-inner-shape-round);
     // 没有wrapper时宽度100%，不支持滚动
     width: 100%;
@@ -76,11 +76,18 @@ table {
     }
 
     thead {
+        background-color: var(--surface-block-bg);
         margin: 0;
+        * {
+            color: var(--mdc-theme-on-surface);
+        }
     }
 
     tbody {
         margin: 0;
+        * {
+            color: var(--mdc-theme-on-surface-secondary);
+        }
 
         :last-child td {
             border: none;
@@ -95,7 +102,7 @@ table {
     th,
     td {
         margin: 0;
-        border-bottom: 1px solid var(--divider-color);
+        border-bottom: 1px solid var(--surface-block-border);
         padding: 0.8rem 1rem;
         text-align: left;
         // 无wrapper时单元格宽度很小，自动换行
@@ -110,5 +117,12 @@ table {
     th,
     td {
         text-align: right;
+    }
+}
+
+.align-center {
+    th,
+    td {
+        text-align: center;
     }
 }

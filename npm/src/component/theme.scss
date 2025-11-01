@@ -61,14 +61,21 @@
         --strong-color: #{map.get(base.$text-title, "light")};
         --strong-underline-color: #{map.get(base.$strong-under-line, "light")};
         --tag-underline-color: #{map.get(base.$strong-under-line, "light")};
-        --divider-color: #{map.get(base.$surface-block-border, "light")};
-        --divider-dashed-color: #{map.get(base.$surface-block-border-dashed, "light")};
         --blockquote-border: #{map.get(base.$blockquote-border, "light")};
         --table-list-border-radius: 0.3rem;
-
-        --surface-block-border: #{map.get(base.$surface-block-border-dashed, "light")};
+        
+        --surface-block-border: #{map.get(base.$surface-block-border, "light")};
         --surface-block-bg: #{map.get(base.$surface-block-bg, "light")};
         --surface-block-ink-strong: #{map.get(base.$surface-block-ink-strong, "light")};
+
+        --list-border: #{map.get(base.$list-border, "light")};
+        --list-bg: #{map.get(base.$list-bg, "light")};
+        --list-ink-strong: #{map.get(base.$list-ink-strong, "light")};
+        --list-divider-color: #{map.get(base.$list-border, "light")};
+        --list-divider-dashed-color: #{map.get(base.$list-border-dashed, "light")};
+
+        --textfield-border: #{map.get(base.$textfield-border, "light")};
+        --common-divider-color: #{map.get(base.$common-divider-color, "light")};
 
         --snackbar-bg: #{map.get(base.$snackbar-bg, "light")};
         --snackbar-ink: #{map.get(base.$snackbar-ink, "light")};
@@ -119,13 +126,20 @@
         --strong-color: #{map.get(base.$text-title, "dark")};
         --strong-underline-color: #{map.get(base.$strong-under-line, "dark")};
         --tag-underline-color: #{map.get(base.$strong-under-line, "dark")};
-        --divider-color: #{map.get(base.$surface-block-border, "dark")};
-        --divider-dashed-color: #{map.get(base.$surface-block-border-dashed, "dark")};
         --blockquote-border: #{map.get(base.$blockquote-border, "dark")};
-
-        --surface-block-border: #{map.get(base.$surface-block-border-dashed, "dark")};
+        
+        --surface-block-border: #{map.get(base.$surface-block-border, "dark")};
         --surface-block-bg: #{map.get(base.$surface-block-bg, "dark")};
         --surface-block-ink-strong: #{map.get(base.$surface-block-ink-strong, "dark")};
+
+        --list-border: #{map.get(base.$list-border, "dark")};
+        --list-bg: #{map.get(base.$list-bg, "dark")};
+        --list-ink-strong: #{map.get(base.$list-ink-strong, "dark")};
+        --list-divider-color: #{map.get(base.$list-border, "dark")};
+        --list-divider-dashed-color: #{map.get(base.$list-border-dashed, "dark")};
+
+        --textfield-border: #{map.get(base.$textfield-border, "dark")};
+        --common-divider-color: #{map.get(base.$common-divider-color, "dark")};
 
         --snackbar-bg: #{map.get(base.$snackbar-bg, "dark")};
         --snackbar-ink: #{map.get(base.$snackbar-ink, "dark")};
@@ -189,10 +203,10 @@ body {
         // drawer list圆角
         --mdc-shape-small: 0.5rem;
         // card, dialog 圆角
-        --mdc-shape-medium: 0.8rem;
-        // 文章内元素圆角，code block和description
-        --post-inner-shape-round: 0.8rem;
-        --table-list-border-radius: 0.8rem !important;
+        --mdc-shape-medium: 1.2rem;
+        // 文章内元素圆角，code block 和 description
+        --post-inner-shape-round: 1.2rem;
+        --table-list-border-radius: 1.2rem !important;
 
         --drawer-padding-horizontal: 0.55rem;
 

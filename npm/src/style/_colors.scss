@@ -211,13 +211,13 @@ $code-highlight-border: (
 );
 
 $pre-code-bg: (
-        light: color.adjust(map.get($surface, "light"), $lightness: -2%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: +2%),
+        light: color.adjust(map.get($surface, "light"), $lightness: -1.8%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: +1.8%),
 );
 
 $pre-code-border: (
-        light: color.adjust(map.get($pre-code-bg, "light"), $lightness: -3%),
-        dark: color.adjust(map.get($pre-code-bg, "dark"), $lightness: +3%),
+        light: color.adjust(map.get($pre-code-bg, "light"), $lightness: -2%),
+        dark: color.adjust(map.get($pre-code-bg, "dark"), $lightness: +2%),
 );
 
 $strong-under-line: (
@@ -225,9 +225,10 @@ $strong-under-line: (
         dark: color.adjust(map.get($surface, "dark"), $lightness: +10%),
 );
 
+// 使 border 与 bg 亮度差为 2
 $surface-block-bg: (
-        light: color.adjust(map.get($surface, "light"), $lightness: - 0.8%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: + 0.8%),
+        light: color.adjust(map.get($surface, "light"), $lightness: - 1.8%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: + 1.8%),
 );
 
 $surface-block-ripple: (
@@ -241,11 +242,50 @@ $surface-block-ink-strong: (
 );
 
 $surface-block-border-dashed: (
-        light: color.adjust(map.get($surface-block-bg, "light"), $lightness: -12%),
-        dark: color.adjust(map.get($surface-block-bg, "dark"), $lightness: +12%),
+        light: color.adjust(map.get($surface-block-bg, "light"), $lightness: -10%),
+        dark: color.adjust(map.get($surface-block-bg, "dark"), $lightness: +10%),
 );
 
 $surface-block-border: (
-        light: color.adjust(map.get($surface-block-bg, "light"), $lightness: -7%),
-        dark: color.adjust(map.get($surface-block-bg, "dark"), $lightness: +7%),
+        light: color.adjust(map.get($surface-block-bg, "light"), $lightness: -2%),
+        dark: color.adjust(map.get($surface-block-bg, "dark"), $lightness: +2%),
+);
+
+$list-bg: (
+        // light: color.adjust(map.get($surface, "light"), $lightness: - 0.8%),
+        light: color.adjust(map.get($surface, "light"), $lightness: - 1.8%),
+        // dark: color.adjust(map.get($surface, "dark"), $lightness: + 0.8%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: + 1.8%),
+);
+
+$list-ripple: (
+        light: color.adjust(map.get($list-bg, "light"), $lightness: - variables.$ripple-gap-percent),
+        dark: color.adjust(map.get($list-bg, "dark"), $lightness: + variables.$ripple-gap-percent),
+);
+
+$list-ink-strong: (
+        light: #80290d,
+        dark: #dea896,
+);
+
+$list-border-dashed: (
+        light: color.adjust(map.get($list-bg, "light"), $lightness: -10%),
+        dark: color.adjust(map.get($list-bg, "dark"), $lightness: +10%),
+);
+
+$list-border: (
+        // light: color.adjust(map.get($list-bg, "light"), $lightness: -2.5%),
+        light: map.get($surface, "light"),
+        // dark: color.adjust(map.get($list-bg, "dark"), $lightness: +2.5%),
+        dark: map.get($surface, "dark"),
+);
+
+$textfield-border: (
+        light: color.adjust(map.get($surface, "light"), $lightness: -5%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: +5%),
+);
+
+$common-divider-color: (
+        light: color.adjust(map.get($surface, "light"), $lightness: -3%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: +3%),
 );

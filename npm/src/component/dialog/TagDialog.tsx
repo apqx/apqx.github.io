@@ -194,17 +194,17 @@ class PostResult extends React.Component<PostResultProps, any> {
         const items = this.props.list.map((item) => {
             const postType = this.getPostType(item)
             const postBlocks = this.getPostBlocks(item.author, item.actor, item.mention, item.location, postType)
-            // 两个chip列表
+            // 两个 chip 列表
             return new PostItemData(item.path, item.title, item.date, postType.name, postBlocks[0], postBlocks[1])
         })
         return (
             <ul ref={this.containerRef} className="mdc-deprecated-list">
-                {items.map((item) =>
+                {items.map((item, index) =>
                     <PostItem
                         key={item.title + item.date}
-                        data={new PostItemData(item.url, item.title, item.date, item.type, item.block1Array, item.block2Array)}
-                        first={items.indexOf(item) === 0}
-                        last={items.indexOf(item) === (this.props.list.length - 1)}
+                        data={item}
+                        first={index === 0}
+                        last={index === (items.length - 1)}
                     />
                 )}
             </ul>
@@ -244,16 +244,22 @@ interface PostItemProps {
 
 class PostItem extends React.Component<PostItemProps, any> {
     private containerRef: React.RefObject<HTMLLIElement | null> = React.createRef()
+    private liE: HTMLElement | null = null
 
     componentDidMount(): void {
         const rootE = this.containerRef.current as Element
-        this.initRipple(rootE.querySelector(".mdc-deprecated-list-item")!!)
+        this.liE = rootE.querySelector(".mdc-deprecated-list-item") as HTMLElement
+        this.initRipple(this.liE)
+        initListItem(this.liE, this.props.first, this.props.last)
     }
 
     initRipple(e: HTMLElement) {
         if (e == null) return
         new MDCRipple(e)
-        initListItem(e, this.props.first, this.props.last)
+    }
+
+    componentDidUpdate(prevProps: Readonly<PostItemProps>, prevState: Readonly<any>, snapshot?: any): void {
+        initListItem(this.liE!!, this.props.first, this.props.last)
     }
 
     render() {

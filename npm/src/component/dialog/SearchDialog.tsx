@@ -114,7 +114,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
                     </button>
                 </label>
 
-                <p id="search-dialog_tips"><b>TIPS：</b>中文低频词组用空格分隔会有更好匹配，比如输入名字「施夏明」改为「施 夏 明」。如果网络通畅可使用 <a
+                <p id="search-dialog_tips"><b>TIPS：</b>中文低频词组用空格分隔会有更好匹配，比如名字「施夏明」改为「施 夏 明」。若网络通畅可使用 <a
                     href="https://cse.google.com/cse?cx=757420b6b2f3d47d2" target="_blank">Google 站内搜索</a>。</p>
                 <div className="height-animation-container">
                     <div>
@@ -152,11 +152,11 @@ class SearchResult extends React.Component<SearchResultProps, any> {
     render() {
         return (
             <ul ref={this.containerRef} className="mdc-deprecated-list">
-                {this.props.list.map((item) =>
+                {this.props.list.map((item, index) =>
                     <ResultItem key={item.url}
                         data={item}
-                        first={this.props.list.indexOf(item) === 0}
-                        last={this.props.list.indexOf(item) === this.props.list.length - 1} />
+                        first={index === 0}
+                        last={index === this.props.list.length - 1} />
                 )}
             </ul>
         )
@@ -187,16 +187,22 @@ export class ResultItemData {
 
 class ResultItem extends React.Component<ResultItemProps, any> {
     private containerRef: RefObject<HTMLLIElement | null> = React.createRef()
+    private liE: HTMLElement | null = null
 
     componentDidMount(): void {
         const rootE = this.containerRef.current as Element
-        this.initRipple(rootE.querySelector(".mdc-deprecated-list-item")!!)
+        this.liE = rootE.querySelector(".mdc-deprecated-list-item") as HTMLElement
+        this.initRipple(this.liE)
+        initListItem(this.liE, this.props.first, this.props.last)
     }
 
     initRipple(e: HTMLElement) {
         if (e == null) return
         new MDCRipple(e)
-        initListItem(e, this.props.first, this.props.last)
+    }
+
+    componentDidUpdate(prevProps: Readonly<ResultItemProps>, prevState: Readonly<any>, snapshot?: any): void {
+        initListItem(this.liE!!, this.props.first, this.props.last)
     }
 
     render() {

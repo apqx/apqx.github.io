@@ -30,28 +30,6 @@
     // margin-top: 0.5rem;
 }
 
-.surface-block {
-    @include text.block-text();
-    // @include text.notoSerifTextContainer();
-
-    border: 1px dashed var(--surface-block-border);
-    border-radius: var(--post-inner-shape-round);
-    background: var(--surface-block-bg);
-    padding: 1rem;
-}
-
-.line-divider {
-    width: 80%;
-    border: none;
-    border-top: 2px dashed var(--divider-color);
-    margin: 1.5rem auto;
-}
-
-.icon-divider {
-    text-align: center;
-    margin: 0.5rem;
-}
-
 .surface-block code,
 .opera-page code:not(.mdc-dialog code) {
     color: var(--surface-block-ink-strong);

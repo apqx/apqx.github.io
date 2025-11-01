@@ -39,7 +39,7 @@ allprojects {
 
 ## Access token
 
-`GitHub Packages`只允许获得授权的用户发包到指定`Repository`，也只有获得授权的用户才可以引入该`Repository`的包作为依赖，即发包和使用包都需要授权。这里的授权，指的是一个配置权限的用户`access token`，在`Settings`->`Developer settings`的`Personal access tokens`中管理。
+`GitHub Packages`只允许获得授权的用户发包到指定`Repository`，也只有获得授权的用户才可以引入该`Repository`的包作为依赖，即发包和使用包都需要授权。这里的授权，指的是一个配置权限的用户`access token`，在`Settings / Developer settings`的`Personal access tokens`中管理。
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20201204/github_packages_token.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="github access token" }
 
