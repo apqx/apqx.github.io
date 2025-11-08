@@ -69,7 +69,7 @@ function initImg() {
         if (event.target instanceof HTMLImageElement) {
             event.preventDefault();
             // showAlertDialog("提示", "节省数据流量文中是缩略图，点击图片可以跳转到原图。", "OK", () => { })
-            showSnackbar("节省数据流量文中是缩略图，点击图片可跳转到原图")
+            showSnackbar("节省数据文中是缩略图，点击图片可跳转到原图")
         }
     })
 }

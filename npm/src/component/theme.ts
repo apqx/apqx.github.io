@@ -29,7 +29,7 @@ export function initTheme() {
 const metaThemeColor = {
     colorful: "#556a3b",
     light: "#ffffff",
-    dark: "#1d1d1d"
+    dark: "#161616"
 }
 
 const topbarBlur = {

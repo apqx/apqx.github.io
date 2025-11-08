@@ -1,6 +1,7 @@
 @use "../../style/global" as base;
 @use "@material/snackbar";
 @use "@material/snackbar/mdc-snackbar";
+@use "sass:map";
 
 .mdc-snackbar {
     @include snackbar.elevation(0);
@@ -10,14 +11,14 @@
 }
 
 .mdc-snackbar__surface {
-    // 位置与fab中心对齐
+    // 位置与 fab 中心对齐
     padding-left: 0;
     padding-right: 0;
     min-width: 0;
 
     background-color: var(--snackbar-bg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(map.get(base.$snackbar-bg, "backdrop-filter"));
+    -webkit-backdrop-filter: blur(map.get(base.$snackbar-bg, "backdrop-filter"));
 }
 
 .mdc-snackbar__label {

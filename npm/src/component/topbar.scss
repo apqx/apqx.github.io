@@ -47,8 +47,8 @@ body {
 }
 
 .top-app-bar--blur {
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
+    backdrop-filter: blur(map.get(base.$top-bar, "backdrop-filter"));
+    -webkit-backdrop-filter: blur(map.get(base.$top-bar, "backdrop-filter"));
     @include top-app-bar.fill-color(var(--top-bar-blur));
 }
 

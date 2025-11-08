@@ -2,14 +2,19 @@
 @use "sass:map";
 @use "sass:color";
 
+$surface: (
+        light: #ffffff,
+        dark: #161616,
+);
+
 // 黑白配色
+// blur 30px 0.8 可与 Safari 的 frosted glass 效果相似
 $top-bar: (
-        bg-light: #ffffff,
-        bg-blur-light: rgba(255, 255, 255, 0.8),
-        bg-shadow-light: #e8e8e8,
-        bg-dark: #1d1d1d,
-        bg-blur-dark: rgba(29, 29, 29, 0.8),
-        bg-shadow-dark: #0a0a0a,
+        backdrop-filter: 30px,
+        bg-light: map.get($surface, "light"),
+        bg-blur-light: rgba(map.get($surface, "light"), 0.8),
+        bg-dark: map.get($surface, "dark"),
+        bg-blur-dark: rgba(map.get($surface, "dark"), 0.8),
 );
 $top-bar-ink: (
         light: color.adjust(map.get($top-bar, "bg-light"), $lightness: -80%),
@@ -21,18 +26,13 @@ $footer-ink: (
         dark: color.adjust(map.get($top-bar, "bg-dark"), $lightness: +70%),
 );
 
-$surface: (
-        light: #ffffff,
-        dark: #1d1d1d,
-);
-
 $background: (
         light: color.adjust(map.get($surface, "light"), $lightness: -2%),
         dark: color.adjust(map.get($surface, "dark"), $lightness: -2%),
 );
 
 $text-title: (
-        light: color.adjust(map.get($surface, "light"), $lightness: -95%),
+        light: color.adjust(map.get($surface, "light"), $lightness: -90%),
         dark: color.adjust(map.get($surface, "dark"), $lightness: +90%),
 );
 
@@ -52,8 +52,6 @@ $text-content-secondary: (
 );
 
 $blockquote-border: (
-        // light: #f6c9c9,
-        // dark: #824d4d,
         light: color.adjust(map.get($surface, "light"), $lightness: -5%),
         dark: color.adjust(map.get($surface, "dark"), $lightness: +5%),
 );
@@ -64,8 +62,9 @@ $drawer-nav-ripple: (
 );
 
 $fab-bg: (
-        light: rgba(color.adjust(map.get($background, "light"), $lightness: -6%), 0.5),
-        dark: rgba(color.adjust(map.get($background, "dark"), $lightness: +6%), 0.5),
+        backdrop-filter: 10px,
+        light: rgba(color.adjust(map.get($surface, "light"), $lightness: -4%), 0.6),
+        dark: rgba(color.adjust(map.get($surface, "dark"), $lightness: +4%), 0.6),
 );
 
 $fab-ink: (
@@ -74,6 +73,7 @@ $fab-ink: (
 );
 
 $snackbar-bg: (
+        backdrop-filter: 10px,
         light: rgba(map.get($surface, "dark"), 0.7),
         dark: rgba(map.get($surface, "light"), 0.7),
 );
@@ -89,41 +89,39 @@ $scrim: (
 
 $top-bar-elevation: (
         elevation: 0,
-        shadow-light: map.get($top-bar, "bg-shadow-light"),
-        shadow-dark: map.get($top-bar, "bg-shadow-dark"),
+        shadow-light: color.adjust(map.get($top-bar, "bg-light"), $lightness: -3%),
+        shadow-dark: color.adjust(map.get($top-bar, "bg-dark"), $lightness: +3%),
 );
 $fab-elevation: (
         elevation: 0,
-        shadow-light: #e8e8e8,
-        shadow-dark: #0a0a0a
+        shadow-light: color.adjust(map.get($surface, "light"), $lightness: -3%),
+        shadow-dark: color.adjust(map.get($surface, "dark"), $lightness: +3%)
 );
 $drawer-elevation: (
         elevation: 0,
-        shadow-light: #e8e8e8,
-        shadow-dark: #0a0a0a
+        shadow-light: color.adjust(map.get($surface, "light"), $lightness: -3%),
+        shadow-dark: color.adjust(map.get($surface, "dark"), $lightness: +3%),
 );
 $card-elevation: (
         elevation: 0,
-        shadow-light: #e8e8e8,
-        shadow-dark: #0a0a0a
+        shadow-light: color.adjust(map.get($surface, "light"), $lightness: -3%),
+        shadow-dark: color.adjust(map.get($surface, "dark"), $lightness: +3%),
 );
 
 $dialog: (
         elevation: 0,
         border-light: color.adjust(map.get($surface, "light"), $lightness: -3%),
-        // border-light: transparent,
-        shadow-light: #a1a1a1,
+        shadow-light: color.adjust(map.get($surface, "light"), $lightness: -10%),
         border-dark: color.adjust(map.get($surface, "dark"), $lightness: +3%),
-        // border-dark: transparent,
-        shadow-dark: #000000,
+        shadow-dark: color.adjust(map.get($surface, "dark"), $lightness: +10%),
 );
 
 $button-bg: (
-        light: color.adjust(map.get($surface, "light"), $lightness: -70%),
+        light: color.adjust(map.get($surface, "light"), $lightness: -5%),
         dark: color.adjust(map.get($surface, "dark"), $lightness: +5%),
 );
 $button-ink: (
-        light: color.adjust(map.get($button-bg, "light"), $lightness: +65%),
+        light: color.adjust(map.get($button-bg, "light"), $lightness: -65%),
         dark: color.adjust(map.get($button-bg, "dark"), $lightness: +65%),
 );
 $button-ripple: (
@@ -158,7 +156,7 @@ $chip-ripple: (
 );
 
 @function calc-text-block-bg-light($ink) {
-        @return rgba(color.adjust($ink, $lightness: +30%), 0.3),
+        @return rgba(color.adjust($ink, $lightness: +20%), 0.15),
 };
 
 @function calc-text-block-bg-dark($ink) {
@@ -216,8 +214,8 @@ $pre-code-bg: (
 );
 
 $pre-code-border: (
-        light: color.adjust(map.get($pre-code-bg, "light"), $lightness: -2%),
-        dark: color.adjust(map.get($pre-code-bg, "dark"), $lightness: +2%),
+        light: color.adjust(map.get($pre-code-bg, "light"), $lightness: -1.5%),
+        dark: color.adjust(map.get($pre-code-bg, "dark"), $lightness: +1.5%),
 );
 
 $strong-under-line: (
@@ -227,8 +225,8 @@ $strong-under-line: (
 
 // 使 border 与 bg 亮度差为 2
 $surface-block-bg: (
-        light: color.adjust(map.get($surface, "light"), $lightness: - 1.8%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: + 1.8%),
+        light: color.adjust(map.get($surface, "light"), $lightness: -1.8%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: +1.8%),
 );
 
 $surface-block-ripple: (
@@ -247,15 +245,13 @@ $surface-block-border-dashed: (
 );
 
 $surface-block-border: (
-        light: color.adjust(map.get($surface-block-bg, "light"), $lightness: -2%),
-        dark: color.adjust(map.get($surface-block-bg, "dark"), $lightness: +2%),
+        light: color.adjust(map.get($surface-block-bg, "light"), $lightness: -1.8%),
+        dark: color.adjust(map.get($surface-block-bg, "dark"), $lightness: +1.8%),
 );
 
 $list-bg: (
-        // light: color.adjust(map.get($surface, "light"), $lightness: - 0.8%),
-        light: color.adjust(map.get($surface, "light"), $lightness: - 1.8%),
-        // dark: color.adjust(map.get($surface, "dark"), $lightness: + 0.8%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: + 1.8%),
+        light: color.adjust(map.get($surface, "light"), $lightness: -1.8%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: +1.8%),
 );
 
 $list-ripple: (

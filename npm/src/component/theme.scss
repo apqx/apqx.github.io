@@ -62,7 +62,6 @@
         --strong-underline-color: #{map.get(base.$strong-under-line, "light")};
         --tag-underline-color: #{map.get(base.$strong-under-line, "light")};
         --blockquote-border: #{map.get(base.$blockquote-border, "light")};
-        --table-list-border-radius: 0.3rem;
         
         --surface-block-border: #{map.get(base.$surface-block-border, "light")};
         --surface-block-bg: #{map.get(base.$surface-block-bg, "light")};
@@ -200,13 +199,17 @@ body {
 
         --mdc-typography-button-letter-spacing: normal;
 
-        // drawer list圆角
+        // drawer list 圆角
         --mdc-shape-small: 0.5rem;
         // card, dialog 圆角
-        --mdc-shape-medium: 1.2rem;
+        --mdc-shape-medium: 0.8rem;
         // 文章内元素圆角，code block 和 description
-        --post-inner-shape-round: 1.2rem;
-        --table-list-border-radius: 1.2rem !important;
+        --post-inner-shape-round: 1rem;
+        // 列表圆角
+        --table-list-border-radius: 1rem;
+
+        --list-divider-height: 2.6px;
+
 
         --drawer-padding-horizontal: 0.55rem;
 
@@ -238,6 +241,8 @@ body {
                 --drawer-padding-horizontal: 0.2rem;
 
                 --main-container-padding-vertical: 0.8rem;
+
+                --list-divider-height: 2.2px;
         }
 }
 

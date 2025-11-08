@@ -15,7 +15,7 @@
 
     .mdc-deprecated-list-divider {
         border: none;
-        border-top: 2px solid var(--list-divider-color);
+        border-top: var(--list-divider-height) solid var(--list-divider-color);
     }
 }
 
