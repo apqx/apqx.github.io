@@ -111,7 +111,7 @@ class IndexItem extends React.Component<IndexItemProps, any> {
     render() {
         return (
             <li ref={this.containerRef} className="index-li">
-                <a className="index-a mdc-card index-card card-slide-in" href={this.props.path}>
+                <a className={`index-a mdc-card index-card card-slide-in ${this.props.last ? "list-last" : ""}`} href={this.props.path}>
                     <section>
                         <h1 className="index-title">{this.props.title}</h1>
                         <span className="index-author">{this.props.author}</span>

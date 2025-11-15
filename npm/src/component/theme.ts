@@ -39,7 +39,7 @@ const topbarBlur = {
 
 // 是否启用彩色标题栏
 // 在使用 Material You 的 Android Chrome 上，浅色主题的主题色不会影响 Chrome 工具栏和状态栏颜色，需要设置更深的主题色才会生效
-// 暗黑模式下则完全不影响，所以不必设置
+// 深色模式下则完全不影响，所以不必设置
 const colorfulToolbar = false
 
 function checkMetaThemeColor(dark: boolean, show: boolean) {

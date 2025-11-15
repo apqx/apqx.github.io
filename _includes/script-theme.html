@@ -11,10 +11,10 @@
             savedTheme = THEME_AUTO
         }
         const bodyE = document.body;
-        // 默认是没有.dark的，在确定是暗黑模式时加上.dark
+        // 默认是没有.dark的，在确定是深色模式时加上.dark
         // 默认是没有theme-color的，在这里根据主题加上
         if (savedTheme === THEME_DARK
-            // 跟随系统主题且系统主题是暗黑模式
+            // 跟随系统主题且系统主题是深色模式
             || (savedTheme === THEME_AUTO && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
             bodyE.classList.add("dark")
             setMetaThemeColor(metaThemeColor.dark)

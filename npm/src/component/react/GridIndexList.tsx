@@ -182,7 +182,7 @@ class IndexItem extends React.Component<IndexItemProps, any> {
                         </div>
                     </section>
                 </a>
-                {!this.props.last && <hr className="index-li-divider" />}
+                {!this.props.last && <hr className="grid-index-li-divider" />}
             </li>
         )
     }
@@ -241,7 +241,7 @@ class IndexDescriptionItem extends React.Component<IndexDescriptionItemProps, an
                         </div>
                     </div>
                 </section>
-                <hr className="index-li-divider" />
+                <hr className="grid-index-li-divider" />
             </li>
         )
     }

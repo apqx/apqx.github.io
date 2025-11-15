@@ -5,7 +5,11 @@
 
 body {
     --index-card-to-container-border-horizontal: var(--main-container-padding-vertical);
-    --index-card-gap: 0.7rem;
+    --index-card-gap: 0.6rem;
+    // 列表顶部卡片与文章 content-card 圆角一致
+    --index-card-top-radius: var(--mdc-shape-medium);
+    // 内部卡片圆角参照 MD3 缩小
+    --index-card-radius: 0.5rem;
     --grid-index-card-gap: 0.7rem;
 }
 
@@ -15,7 +19,8 @@ body {
 @media all and (max-width: base.$screen-middle-min-width) {
     body {
         --index-card-to-container-border-horizontal: 0.5rem;
-        --index-card-gap: 0.6rem;
+        --index-card-gap: 0.45rem;
+        --index-card-radius: 0.45rem;
         --grid-index-card-gap: 0.6rem;
     }
 

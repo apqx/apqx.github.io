@@ -36,12 +36,12 @@
     @include ripple.states-base-color(map.get(base.$list-ripple, "dark"));
 }
 
-.mdc-deprecated-list-item__first {
+.list-first {
     border-top-left-radius: calc(var(--table-list-border-radius) - 1px);
     border-top-right-radius: calc(var(--table-list-border-radius) - 1px);
 }
 
-.mdc-deprecated-list-item__last {
+.list-last {
     border-bottom-left-radius: calc(var(--table-list-border-radius) - 1px);
     border-bottom-right-radius: calc(var(--table-list-border-radius) - 1px);
 }

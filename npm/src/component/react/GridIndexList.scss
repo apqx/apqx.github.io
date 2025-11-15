@@ -11,11 +11,15 @@
     display: -ms-flexbox;
     /* Not needed if autoprefixing */
     display: flex;
+    // 左移 column 水平方向的 gap 尺寸，需与 column 内 padding-left 保持一致
+    // margin-left: calc(0rem - var(--grid-index-card-gap));
     width: auto;
 }
 
 .my-masonry-grid_column {
     background-clip: padding-box;
+    // column 水平方向的 gap
+    // padding-left: var(--grid-index-card-gap)
 }
 
 .mdc-card.grid-index-card {
@@ -49,6 +53,8 @@
 
 .grid-index-li-divider {
     height: var(--grid-index-card-gap);
+    margin: 0;
+    border: none;
 }
 
 .grid-index-text-container {

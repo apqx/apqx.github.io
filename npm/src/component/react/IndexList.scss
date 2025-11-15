@@ -10,6 +10,10 @@ body {
 }
 
 .mdc-card.index-top-card {
+    border-top-left-radius: var(--index-card-top-radius);
+    border-top-right-radius: var(--index-card-top-radius);
+    border-bottom-left-radius: var(--index-card-radius);
+    border-bottom-right-radius: var(--index-card-radius);
     margin-left: var(--index-card-to-container-border-horizontal);
     margin-right: var(--index-card-to-container-border-horizontal);
     @include card.cardElevation();
@@ -33,6 +37,7 @@ body {
 }
 
 .mdc-card.index-card {
+    border-radius: var(--index-card-radius);
     padding: var(--index-card-padding-vertical) var(--index-card-padding-horizontal);
     @include card.cardElevation();
     // 添加Ripple动画
@@ -44,11 +49,15 @@ body {
     @include card.cardRippleDark();
 }
 
+.mdc-card.index-card.list-last {
+    border-bottom-left-radius: var(--index-card-top-radius);
+    border-bottom-right-radius: var(--index-card-top-radius);
+}
+
 // 小屏
 @media all and (max-width: base.$screen-middle-max-width) {}
 
 .index-top-cover {
-    // border-radius: var(--mdc-shape-medium);
     object-fit: cover;
     width: 100%;
     // 封面宽高比例，在不设置动画时使用，JS动画用它计算高度
