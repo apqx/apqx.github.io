@@ -56,13 +56,6 @@ sitemap: false
             }
         },
         {
-            "id": "og00",
-            "target": {
-                "path": "{% link _posts/original/2025-10-06-桃李不言，下自成蹊.md %}",
-                "title": "桃李不言，下自成蹊"
-            }
-        },
-        {
             "id": "op00",
             "target": {
                 "path": "{% link _posts/opera/2021-08-08-昆曲「红梨记·亭会」折子.md %}",
@@ -231,6 +224,13 @@ sitemap: false
             "target": {
                 "path": "{% link _posts/original/2021-02-25-央视、戏剧、4K、HEVC，惊喜连连.md %}",
                 "title": "央视、戏剧、4K、HEVC，惊喜连连"
+            }
+        },
+        {
+            "id": "og02",
+            "target": {
+                "path": "{% link _posts/original/2025-10-06-桃李不言，下自成蹊.md %}",
+                "title": "桃李不言，下自成蹊"
             }
         },
         {

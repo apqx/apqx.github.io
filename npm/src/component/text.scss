@@ -340,3 +340,12 @@ audio {
 .break-anywhere {
     line-break: anywhere;
 }
+
+.year,
+.month {
+    margin: 0 0.12rem;
+}
+
+.day {
+    margin: 0 0 0 0.12rem;
+}

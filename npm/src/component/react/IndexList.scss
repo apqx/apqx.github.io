@@ -54,9 +54,6 @@ body {
     border-bottom-right-radius: var(--index-card-top-radius);
 }
 
-// 小屏
-@media all and (max-width: base.$screen-middle-max-width) {}
-
 .index-top-cover {
     object-fit: cover;
     width: 100%;
@@ -152,7 +149,7 @@ body {
     position: absolute;
     z-index: 1;
     color: var(--mdc-theme-text-secondary-on-background);
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     bottom: calc(var(--index-card-padding-vertical) + 0.2rem);
     left: calc(var(--index-card-padding-horizontal) - 0.2rem);
 }
@@ -179,6 +176,12 @@ body {
 
     .index-date {
         font-size: calc(var(--mdc-typography-body1-font-size) - 0.25rem);
+    }
+
+    .index-pin-icon {
+        font-size: 1.05rem;
+        bottom: calc(var(--index-card-padding-vertical) + 0.2rem);
+        left: calc(var(--index-card-padding-horizontal) - 0.1rem);
     }
 
     .index-top-card-container {

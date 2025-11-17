@@ -11,6 +11,7 @@ import { ERROR_HINT, LoadingHint } from "../react/LoadingHint"
 import { HeightAnimationContainer } from "../animation/HeightAnimationContainer"
 import React from "react"
 import type { RefObject } from "react"
+import { getSplittedDate } from "../../base/post"
 
 interface SearchDialogState {
     loading: boolean
@@ -206,6 +207,7 @@ class ResultItem extends React.Component<ResultItemProps, any> {
     }
 
     render() {
+        const date = getSplittedDate(this.props.data.date);
         return (
             <li ref={this.containerRef}>
                 <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken mdc-ripple-upgraded"
@@ -213,7 +215,11 @@ class ResultItem extends React.Component<ResultItemProps, any> {
                     <span className="mdc-deprecated-list-item__text">
                         <span className="list-item__primary-text one-line">{this.props.data.title}</span>
                         <div className="list-item__secondary-text">
-                            <span className="search-result-item-type">{this.props.data.date}｜{this.props.data.type}</span>
+                            <span className="search-result-item-type">
+                                {date.year}<span className="year">年</span>
+                                {date.month}<span className="month">月</span>
+                                {date.day}<span className="day">日</span>
+                                ｜{this.props.data.type}</span>
                             <span className="search-result-item-snippet"
                                 dangerouslySetInnerHTML={createHtmlContent(this.props.data.description)} />
                         </div>

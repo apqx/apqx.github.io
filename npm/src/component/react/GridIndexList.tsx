@@ -15,6 +15,7 @@ import { ScrollLoader } from "../../base/ScrollLoader"
 import Masonry from 'react-masonry-css'
 import { showFooter } from "../footer"
 import { getInterSectionObserver } from "../animation/BaseAnimation"
+import { getSplittedDate } from "../../base/post"
 
 interface Props extends BasePostPaginateShowProps {
     pageDescriptionHtml: string
@@ -163,6 +164,8 @@ class IndexItem extends React.Component<IndexItemProps, any> {
     render(): ReactNode {
         const actorStr = this.props.actor.join(" ")
         const animationClass = this.props.index == 0 ? "card-fade-in" : "card-slide-in-middle"
+
+        const date = getSplittedDate(this.props.date);
         return (
             <li ref={this.containerRef} className="grid-index-li">
                 {/* 第一个元素使用 fade-in 动画，避免在小尺寸手机上因为 slide 距离在页面初次加载时不触发动画 */}
@@ -175,8 +178,12 @@ class IndexItem extends React.Component<IndexItemProps, any> {
                         <div className="grid-index-text-container">
                             <h1 className="grid-index-title">{this.props.title}</h1>
                             <div>
-                                <span className="grid-index-date">{this.props.date} </span>
-                                <span className="grid-index-author">{actorStr}</span>
+                                <span className="grid-index-date">
+                                    {date.year}<span className="year">年</span>
+                                    {date.month}<span className="month">月</span>
+                                    {date.day}<span className="day">日</span>
+                                </span>
+                                <span className="grid-index-author"> {actorStr}</span>
                             </div>
                             <p className="grid-index-description">{this.props.description}</p>
                         </div>
@@ -226,7 +233,7 @@ class IndexDescriptionItem extends React.Component<IndexDescriptionItemProps, an
             <li ref={this.containerRef} className="grid-index-li grid-index-li--description">
                 <section className="mdc-card grid-index-card card-fade-in">
                     <div className="grid-index-text-container">
-                        <p>2021年08月08日，我在博客里开辟这个分区来承载曾经在剧场看过的剧和拍过的剧照，以昆曲为主，使用<a
+                        <p>2021 年 08 月 08 日，我在博客里开辟这个分区来承载曾经在剧场看过的剧和拍过的剧照，以昆曲为主，使用<a
                             href="/post/original/2021/09/01/基于Jekyll实现博客文章-标签化.html">标签</a>把每一场演出按剧种、剧团、剧目、演员、剧场分类归档。这里每一篇文章既是记录也是分享，亲手按下快门捕捉到的舞台瞬间，如此美丽的戏妆油彩，不应该只我一人看到。
                         </p>
                         <p>关于我与戏剧的渊源以及为什么会喜欢昆曲，参见之前的自述<a

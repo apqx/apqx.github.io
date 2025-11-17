@@ -19,7 +19,9 @@
                     {% if page.moreDate != null %}{{ page.moreDate }} {% endif %}{{ page.author}}
                 </address>
                 <time data-pagefind-meta="date" class="post-date" datetime="{{ page.date | date: " %Y-%m-%d" }}">
-                    {{ page.date | date: "%Y年%m月%d日" }}
+                    {{- page.date | date: "%Y" }}<span class="year">年</span>
+                    {{- page.date | date: "%m" }}<span class="month">月</span>
+                    {{- page.date | date: "%d" }}<span class="day">日</span>
                 </time>
 
                 <!-- tags -->

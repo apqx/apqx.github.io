@@ -16,6 +16,7 @@ import type { SectionType } from "../../base/constant"
 import { DialogState, DialogStateObservable, DialogStateObserver } from "./DialogStateObservable"
 import type { JSX } from "react"
 import React from "react"
+import { getSplittedDate } from "../../base/post"
 
 interface DialogContentProps extends BasicDialogProps {
     tag: string,
@@ -263,6 +264,7 @@ class PostItem extends React.Component<PostItemProps, any> {
     }
 
     render() {
+        const date = getSplittedDate(this.props.data.date);
         return (
             <li ref={this.containerRef}>
                 <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken tag-list-item mdc-ripple-upgraded"
@@ -272,7 +274,11 @@ class PostItem extends React.Component<PostItemProps, any> {
                         <div className="list-item__secondary-text tag-list-item__secondary-container">
                             {/* <span>{this.props.data.date}</span> */}
                             <span>
-                                <span className="tag-list-item__post-type">{this.props.data.date}｜{this.props.data.type}</span>
+                                <span className="tag-list-item__post-type">
+                                    {date.year}<span className="year">年</span>
+                                    {date.month}<span className="month">月</span>
+                                    {date.day}<span className="day">日</span>
+                                    ｜{this.props.data.type}</span>
                             </span>
                             <span className="tag-list-item__block-container">
                                 {this.props.data.block1Array.map(block =>

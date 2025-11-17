@@ -11,6 +11,7 @@ import { PostPaginateShowPresenter } from "./post/PostPaginateShowPresenter"
 import type { IPostPaginateShowPresenter } from "./post/IPostPaginateShowPresenter"
 import { showFooter } from "../footer"
 import { getInterSectionObserver } from "../animation/BaseAnimation"
+import { getSplittedDate } from "../../base/post"
 
 export class IndexList extends BasePostPaginateShow<BasePostPaginateShowProps> {
 
@@ -109,13 +110,18 @@ class IndexItem extends React.Component<IndexItemProps, any> {
     }
 
     render() {
+        const date = getSplittedDate(this.props.date);
         return (
             <li ref={this.containerRef} className="index-li">
                 <a className={`index-a mdc-card index-card card-slide-in ${this.props.last ? "list-last" : ""}`} href={this.props.path}>
                     <section>
                         <h1 className="index-title">{this.props.title}</h1>
                         <span className="index-author">{this.props.author}</span>
-                        <span className="index-date">{this.props.date}</span>
+                        <span className="index-date">
+                            {date.year}<span className="year">年</span>
+                            {date.month}<span className="month">月</span>
+                            {date.day}<span className="day">日</span>
+                        </span>
                         {this.props.pin &&
                             <i className="material-symbols-rounded-light index-pin-icon">keep</i>
                         }
