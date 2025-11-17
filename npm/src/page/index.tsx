@@ -38,7 +38,7 @@ function initIndexList() {
         // 获取已有的post，包括置顶和非置顶
         const loadedPosts = getLinearLoadedPosts(wrapperE)
         consoleObjDebug("Index loaded posts", loadedPosts)
-        root.render(<IndexList tag={""} category={category} pinedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
+        root.render(<IndexList tag={""} category={category} pinnedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
             onMount={onMount} onUpdate={onUpdate} />)
     } else if (wrapperE.querySelectorAll(".grid-index-ul").length > 0) {
         // 看剧
@@ -48,7 +48,7 @@ function initIndexList() {
             descriptionHtml = descriptionE.innerHTML
         const loadedPosts = getGridLoadedPosts(wrapperE)
         consoleObjDebug("Index loaded posts", loadedPosts)
-        root.render(<GridIndexList tag={""} category={category} pinedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
+        root.render(<GridIndexList tag={""} category={category} pinnedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
             onMount={onMount} onUpdate={onUpdate} pageDescriptionHtml={descriptionHtml} />)
     }
 }
@@ -61,7 +61,8 @@ function getLinearLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
         const author = (liE.querySelector(".index-author") as HTMLElement).innerText
         const date = (liE.querySelector(".index-date") as HTMLElement).innerText
         const path = (liE.querySelector(".index-a") as HTMLAnchorElement).pathname
-        const pin = liE.classList.contains("index-li--pin")
+        const pinned = liE.querySelector(".index-pinned-icon") != null
+        const featured = liE.querySelector(".index-featured-icon") != null
         const post = {
             title: title,
             author: author,
@@ -73,10 +74,11 @@ function getLinearLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
             description: "",
             cover: "",
             coverAlt: "",
-            pin: pin,
-            hide: false
+            pinned: pinned,
+            featured: featured,
+            hidden: false
         }
-        if (pin) {
+        if (pinned) {
             pinedPosts.push(post)
         } else {
             otherPosts.push(post)
@@ -101,7 +103,8 @@ function getGridLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
         const cover = coverE?.src
         const coverAlt = coverE?.alt
 
-        const pin = liE.classList.contains("grid-index-li--pin")
+        const pinned = liE.querySelector(".index-pinned-icon") != null
+        const featured = liE.querySelector(".index-featured-icon") != null
         const post = {
             title: title,
             author: "",
@@ -113,10 +116,11 @@ function getGridLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
             description: description,
             cover: cover,
             coverAlt: coverAlt,
-            pin: pin,
-            hide: false
+            pinned: pinned,
+            featured: featured,
+            hidden: false
         }
-        if (pin) {
+        if (pinned) {
             pinedPosts.push(post)
         } else {
             otherPosts.push(post)

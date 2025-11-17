@@ -11,8 +11,9 @@ export type ApiPost = {
     "cover": string,
     "index-cover": string,
     "cover-alt": string,
-    "hide": string,
     "tags": Array<string>,
     "categories": string,
-    "pin": string
+    "pinned": string,
+    "featured": string,
+    "hidden": string,
 }

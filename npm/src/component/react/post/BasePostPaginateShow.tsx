@@ -7,7 +7,7 @@ import { consoleDebug } from "../../../util/log"
 export interface BasePostPaginateShowProps {
     category: string,
     tag: string,
-    pinedPosts: Array<Post>,
+    pinnedPosts: Array<Post>,
     loadedPosts: Array<Post>,
     onMount?: () => void,
     onUpdate?: () => void
@@ -31,8 +31,9 @@ export type Post = {
     description: string,
     cover: string,
     coverAlt: string,
-    pin: boolean,
-    hide: boolean
+    pinned: boolean,
+    featured: boolean,
+    hidden: boolean
 }
 
 export abstract class BasePostPaginateShow<P extends BasePostPaginateShowProps>

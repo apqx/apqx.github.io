@@ -1,15 +1,15 @@
 <!-- Jekyll生成的HTML列表默认隐藏，由React重新加载 -->
 <section id="index-list-wrapper">
-    <ul class="index-ul">
+    <ul class="index-ul" style="display: none;">
         {% for post in site.posts %}
-        {%- if post.categories contains index-category and post.hideFromIndex != true and post.pin == true %}
-        <li class="index-li index-li--pin" style="display: none;">
+        {%- if post.categories contains index-category and post.hideFromIndex != true and post.pinned == true %}
+        <li class="index-li">
             <a class="index-a mdc-card index-card" href="{{ post.url }}">
                 <section>
                     <h1 class="index-title">{{ post.title }}</h1>
                     <span class="index-author">{% if post.moreDate != null %}{{ post.moreDate }}{% endif %} {{ post.author }}</span>
                     <span class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
-                    <i class="material-symbols-rounded-light index-pin-icon">keep</i>
+                    <i class="material-symbols-rounded-light index-pinned-icon">keep</i>
                 </section>
             </a>
             <hr class="index-li-divider" />
@@ -22,12 +22,15 @@
                 {%- break %}
             {% endif -%}
             {%- if post.categories contains index-category and post.hideFromIndex != true -%}
-            <li class="index-li" style="display: none;">
+            <li class="index-li">
                 <a class="index-a mdc-card index-card" href="{{ post.url }}">
                     <section>
                         <h1 class="index-title">{{ post.title }}</h1>
                         <span class="index-author">{% if post.moreDate != null %}{{ post.moreDate }}{% endif %} {{ post.author }}</span>
                         <span class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
+                        {%- if post.featured == true %}
+                        <i class="material-symbols-rounded-light index-featured-icon">editor_choice</i>
+                        {%- endif %}
                     </section>
                 </a>
                 <hr class="index-li-divider" />

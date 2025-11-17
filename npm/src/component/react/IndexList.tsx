@@ -47,17 +47,19 @@ export class IndexList extends BasePostPaginateShow<BasePostPaginateShowProps> {
     render() {
         return (
             <ul className="index-ul">
-                {this.props.pinedPosts.map((post) =>
+                {/* 置顶文章 */}
+                {this.props.pinnedPosts.map((post) =>
                     <IndexItem key={post.title + post.date}
-                        title={post.title} author={post.author} date={post.date} description={post.description} path={post.path} pin={post.pin}
-                        last={false} />
+                        title={post.title} author={post.author} date={post.date} description={post.description} path={post.path} 
+                        fromPinnedList={true} pinned={true} featured={post.featured} last={false} />
                 )}
+                {/* 普通文章 */}
                 {this.state.posts.map((item, index) =>
-                    // 隐藏部分post
-                    // 有时候jekyll生成的path和paginate生成的path不一样，导致item重新加载
-                    !item.hide && <IndexItem key={item.path}
-                        title={item.title} author={item.author} date={item.date} description={item.description} path={item.path} pin={false}
-                        last={index == this.state.posts.length - 1} />
+                    // 隐藏部分 post
+                    // 有时候 jekyll 生成的 path 和 paginate 生成的 path 不一样，导致 item 重新加载
+                    !item.hidden && <IndexItem key={item.path}
+                        title={item.title} author={item.author} date={item.date} description={item.description} path={item.path} 
+                        fromPinnedList={false} pinned={item.pinned} featured={item.featured} last={index == this.state.posts.length - 1} />
                 )}
                 {(this.state.loading || this.state.loadHint != null) &&
                     <LoadingHint loading={this.state.loading} loadHint={this.state.loadHint} onClickHint={this.loadMoreByClick} />
@@ -73,7 +75,9 @@ export type IndexItemProps = {
     date: string,
     description: string,
     path: string,
-    pin: boolean,
+    fromPinnedList: boolean,
+    pinned: boolean,
+    featured: boolean,
     last: boolean
 }
 
@@ -91,9 +95,6 @@ class IndexItem extends React.Component<IndexItemProps, any> {
         const rootE = this.containerRef.current as HTMLElement;
         this.cardE = rootE.querySelector(".index-card")
 
-        if (this.props.pin) {
-            rootE.classList.add("index-li--pin")
-        }
         new MDCRipple(this.cardE!!)
         // 监听元素进入窗口初次显示
         // TODO: 执行动画后应该立即解除监听，避免不必要的性能开销
@@ -122,8 +123,11 @@ class IndexItem extends React.Component<IndexItemProps, any> {
                             {date.month}<span className="month">月</span>
                             {date.day}<span className="day">日</span>
                         </span>
-                        {this.props.pin &&
-                            <i className="material-symbols-rounded-light index-pin-icon">keep</i>
+                        {this.props.fromPinnedList &&
+                            <i className="material-symbols-rounded-light index-pinned-icon">keep</i>
+                        }
+                        {!this.props.fromPinnedList && (this.props.pinned || this.props.featured) &&
+                            <i className="material-symbols-rounded-light index-featured-icon">editor_choice</i>
                         }
                     </section>
                 </a>
@@ -148,9 +152,6 @@ class IndexItemWithDesc extends React.Component<IndexItemProps, any> {
         const rootE = this.containerRef.current as HTMLElement;
         this.cardE = rootE.querySelector(".index-card")
 
-        if (this.props.pin) {
-            rootE.classList.add("index-li--pin")
-        }
         new MDCRipple(this.cardE!!)
         // 监听元素进入窗口初次显示
         if (this.cardE != null) {

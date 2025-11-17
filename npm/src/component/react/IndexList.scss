@@ -141,11 +141,11 @@ body {
     border: none;
 }
 
-.index-li--pin .index-card {
+.index-card {
     position: relative;
 }
 
-.index-pin-icon {
+.index-pinned-icon, .index-featured-icon {
     position: absolute;
     z-index: 1;
     color: var(--mdc-theme-text-secondary-on-background);
@@ -154,11 +154,15 @@ body {
     left: calc(var(--index-card-padding-horizontal) - 0.2rem);
 }
 
+.index-featured-icon {
+    left: calc(var(--index-card-padding-horizontal) - 0.1rem);
+}
+
 // 索引链接
 .index-a {
     // 去除下划线
     text-decoration: none;
-    // 去除点击时的默认的背景，防止干扰Ripple动画
+    // 去除点击时的默认的背景，防止干扰 Ripple 动画
     // background-color: transparent;
 }
 
@@ -178,10 +182,14 @@ body {
         font-size: calc(var(--mdc-typography-body1-font-size) - 0.25rem);
     }
 
-    .index-pin-icon {
+    .index-pinned-icon {
         font-size: 1.05rem;
-        bottom: calc(var(--index-card-padding-vertical) + 0.2rem);
         left: calc(var(--index-card-padding-horizontal) - 0.1rem);
+    }
+
+    .index-featured-icon {
+        font-size: 1.05rem;
+        left: var(--index-card-padding-horizontal);
     }
 
     .index-top-card-container {

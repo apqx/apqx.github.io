@@ -70,7 +70,7 @@ export class TagDialog extends BasicDialog<DialogContentProps, DialogContentStat
 
         return (
             <div className="height-animation-container">
-                <ResultWrapper category={""} tag={this.props.tag} pinedPosts={[]} loadedPosts={[]}
+                <ResultWrapper category={""} tag={this.props.tag} pinnedPosts={[]} loadedPosts={[]}
                     onUpdate={this.onListSizeChanged} dialogStateObservable={this.dialogStateObservable} />
             </div>
         )

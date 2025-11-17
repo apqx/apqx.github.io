@@ -126,8 +126,9 @@ export class PostPaginateShowPresenter implements IPostPaginateShowPresenter {
             description: item.description,
             cover: cover,
             coverAlt: item["cover-alt"],
-            pin: item.pin == "true",
-            hide: item.hide == "true"
+            pinned: item.pinned == "true",
+            featured: item.featured == "true",
+            hidden: item.hidden == "true"
         };
         return post;
     }

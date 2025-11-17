@@ -1,14 +1,14 @@
 <!-- Jekyll生成的HTML列表默认隐藏，由React重新加载 -->
 <hr class="index-li-divider" />
 <section id="index-list-wrapper">
-    <ul class="grid-index-ul">
+    <ul class="grid-index-ul" style="display: none;">
         {%- assign count = 0 -%}
         {% for post in site.posts %}
         {%- if count == 10 %}
         {%- break %}
         {% endif -%}
         {%- if post.categories contains index-category and post.hideFromIndex != true %}
-        <li class="grid-index-li style="display: none;"">
+        <li class="grid-index-li">
             <a class="index-a mdc-card grid-index-card grid-index-card__ripple" href="{{ post.url }}">
                 <section>
                     {%- if post.cover-for-index != null %}
