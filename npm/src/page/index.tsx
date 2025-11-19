@@ -61,8 +61,8 @@ function getLinearLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
         const author = (liE.querySelector(".index-author") as HTMLElement).innerText
         const date = (liE.querySelector(".index-date") as HTMLElement).innerText
         const path = (liE.querySelector(".index-a") as HTMLAnchorElement).pathname
-        const pinned = liE.querySelector(".index-pinned-icon") != null
-        const featured = liE.querySelector(".index-featured-icon") != null
+        const pinned = liE.querySelector(".index-pinned-icon-container") != null
+        const featured = liE.querySelector(".index-featured-icon-container") != null
         const post = {
             title: title,
             author: author,
@@ -103,8 +103,8 @@ function getGridLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
         const cover = coverE?.src
         const coverAlt = coverE?.alt
 
-        const pinned = liE.querySelector(".index-pinned-icon") != null
-        const featured = liE.querySelector(".index-featured-icon") != null
+        const pinned = liE.querySelector(".index-pinned-icon-container") != null
+        const featured = liE.querySelector(".index-featured-icon-container") != null
         const post = {
             title: title,
             author: "",

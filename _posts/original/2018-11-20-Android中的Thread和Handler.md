@@ -47,8 +47,8 @@ ANR 即 Application Not Responding，应用程序无响应。Android 作为手�
 
 所以在 Android 中使用线程必须遵循 2 条规则：
 
-* 只在主线程操作 UI。
-* 不能阻塞主线程。
+* 只在主线程操作 UI
+* 不能阻塞主线程
 
 ## 什么是 Handler
 

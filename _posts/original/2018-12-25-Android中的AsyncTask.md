@@ -12,8 +12,8 @@ tags: Code Android Thread Handler SourceCode
 
 Android 开发者需遵循 2 个基本线程规则：
 
-* 只在主线程操作 UI。
-* 不能阻塞主线程。
+* 只在主线程操作 UI
+* 不能阻塞主线程
 
 要兼顾它们，代码执行中切换线程是必要且频繁的操作，可通过 Android 提供的`Handler`将`Message`或`Runnable`发送到指定线程中执行：
 

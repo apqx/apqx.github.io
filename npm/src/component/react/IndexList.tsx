@@ -124,10 +124,10 @@ class IndexItem extends React.Component<IndexItemProps, any> {
                             {date.day}<span className="day">日</span>
                         </span>
                         {this.props.fromPinnedList &&
-                            <i className="material-symbols-rounded-light index-pinned-icon">keep</i>
+                            <span className="index-pinned-icon-container"><i className="material-symbols-rounded-light">keep</i></span>
                         }
                         {!this.props.fromPinnedList && (this.props.pinned || this.props.featured) &&
-                            <i className="material-symbols-rounded-light index-featured-icon">editor_choice</i>
+                            <span className="index-featured-icon-container"><i className="material-symbols-rounded-light">editor_choice</i></span>
                         }
                     </section>
                 </a>
@@ -172,7 +172,7 @@ class IndexItemWithDesc extends React.Component<IndexItemProps, any> {
                 <a className="index-a mdc-card index-card card-slide-in" href={this.props.path}>
                     <section>
                         <h1 className="index-width-desc-title">{this.props.title}</h1>
-                        <span className="index-with-desc-date">{this.props.date} {this.props.author}</span>
+                        {/* <span className="index-with-desc-date">{this.props.date} {this.props.author}</span> */}
                         <span className="index-width-desc-desc">{this.props.description}</span>
                     </section>
                 </a>

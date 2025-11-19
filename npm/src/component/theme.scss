@@ -57,6 +57,8 @@
         --list-chip-3-ink: #{map.get(base.$text-block-3-ink, "light")};
         --list-secondary-ink: #{map.get(base.$text-content-secondary, "light")};
 
+        --index-list-pin-icon-bg: #{map.get(base.$index-list-pin-icon-bg, "light")};
+
         --em-color: #{map.get(base.$text-content-secondary, "light")};
         --strong-color: #{map.get(base.$text-title, "light")};
         --strong-underline-color: #{map.get(base.$strong-under-line, "light")};
@@ -120,6 +122,8 @@
         --list-chip-3-bg: #{map.get(base.$text-block-3-bg, "dark")};
         --list-chip-3-ink: #{map.get(base.$text-block-3-ink, "dark")};
         --list-secondary-ink: #{map.get(base.$text-content-secondary, "dark")};
+
+        --index-list-pin-icon-bg: #{map.get(base.$index-list-pin-icon-bg, "dark")};
 
         --em-color: #{map.get(base.$text-content-secondary, "dark")};
         --strong-color: #{map.get(base.$text-title, "dark")};

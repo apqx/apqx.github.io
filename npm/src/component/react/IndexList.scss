@@ -145,17 +145,29 @@ body {
     position: relative;
 }
 
-.index-pinned-icon, .index-featured-icon {
-    position: absolute;
+.index-pinned-icon-container,
+.index-featured-icon-container {
     z-index: 1;
+    position: absolute;
+    bottom: calc(var(--index-card-padding-vertical) + 0.1rem);
+    left: calc(var(--index-card-padding-horizontal) - 0.4rem);
+    width: 1.7rem;
+    height: 1.7rem;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 45%;
+    font-size: 1.1rem;
+    // background-color: var(--index-list-pin-icon-bg);
     color: var(--mdc-theme-text-secondary-on-background);
-    font-size: 1.15rem;
-    bottom: calc(var(--index-card-padding-vertical) + 0.2rem);
-    left: calc(var(--index-card-padding-horizontal) - 0.2rem);
+
+    i {
+        margin: auto;
+        font-size: inherit;
+    }
 }
 
-.index-featured-icon {
-    left: calc(var(--index-card-padding-horizontal) - 0.1rem);
+.index-featured-icon-container {
+    left: calc(var(--index-card-padding-horizontal) - 0.32rem);
 }
 
 // 索引链接
@@ -182,14 +194,11 @@ body {
         font-size: calc(var(--mdc-typography-body1-font-size) - 0.25rem);
     }
 
-    .index-pinned-icon {
+    .index-pinned-icon-container,
+    .index-featured-icon-container {
+        width: 1.6rem;
+        height: 1.6rem;
         font-size: 1.05rem;
-        left: calc(var(--index-card-padding-horizontal) - 0.1rem);
-    }
-
-    .index-featured-icon {
-        font-size: 1.05rem;
-        left: var(--index-card-padding-horizontal);
     }
 
     .index-top-card-container {

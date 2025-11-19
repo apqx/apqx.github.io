@@ -32,8 +32,8 @@ $background: (
 );
 
 $text-title: (
-        light: color.adjust(map.get($surface, "light"), $lightness: -90%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: +90%),
+        light: color.adjust(map.get($surface, "light"), $lightness: -85%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: +85%),
 );
 
 $text-subtitle: (
@@ -153,6 +153,11 @@ $chip-ink: (
 $chip-ripple: (
         light: color.adjust(map.get($chip-bg, "light"), $lightness: - variables.$ripple-gap-percent),
         dark: color.adjust(map.get($chip-bg, "dark"), $lightness: + variables.$ripple-gap-percent),
+);
+
+$index-list-pin-icon-bg: (
+        light: color.adjust(map.get($surface, "light"), $lightness: -2.5%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: +2.5%),
 );
 
 @function calc-text-block-bg-light($ink) {

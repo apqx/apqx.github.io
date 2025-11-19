@@ -9,7 +9,7 @@ blockFromSearchEngine: true
 preloadImageWebp: https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/noto-animated-emoji/cooking/512.webp
 ---
 
-<div class="center-items" style="margin: 1rem 0;">
+<div class="center-items" style="margin: 1rem 0 2.5rem 0;">
     <picture>
         <source srcset="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/noto-animated-emoji/cooking/512.webp"
             type="image/webp" />
@@ -19,15 +19,22 @@ preloadImageWebp: https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/not
 </div>
 
 <div class="tag-container">
+    <a id="chip_tag_碎碎念" class="tag-dialog-trigger clickable-empty-link tag-link" style="margin: 0.3rem">碎念</a>
+    <a id="chip_tag_Code" class="tag-dialog-trigger clickable-empty-link tag-link" style="margin: 0.3rem">编码</a>
+    <a id="chip_tag_Blog" class="tag-dialog-trigger clickable-empty-link tag-link" style="margin: 0.3rem">博客</a>
+    <a id="chip_tag_看剧" class="tag-dialog-trigger clickable-empty-link tag-link" style="margin: 0.3rem">看剧</a>
+</div>
+
+<div class="tag-container">
     {% comment %}
-    <!-- 遍历所有的tag -->
+    <!-- 遍历所有 tag -->
+    <!-- 标签太多，如果 style 复杂，性能会很差，所以不能用 chip -->
     {% endcomment %}
     {%- for tag in site.tags -%}
-    <!-- 标签太多，如果style太复杂，性能会很差，所以不能用chip -->
-    <a id="chip_tag_{{ tag[0] }}" class="tag-dialog-trigger clickable-empty-link tag-link" style="margin: 0.3rem">{{
-        tag[0] }}</a>
+    <a id="chip_tag_{{ tag[0] }}" class="tag-dialog-trigger clickable-empty-link tag-link" style="margin: 0.3rem">
+        {{- tag[0] }}</a>
     {% comment %}
-    <!-- 结束遍历本页的tag -->
+    <!-- 结束遍历 -->
     {% endcomment %}
     {%- endfor -%}
 </div>
