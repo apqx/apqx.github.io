@@ -3,7 +3,7 @@ layout: post
 categories: original
 title: "Gradle 的 Build Variant 与多渠道打包"
 author: 立泉
-mention: Android Flavor 应用分发
+mention: Android BuildType Flavor
 date: 2020-06-12 +0800
 description: 一个现实中的常见需求，同时也是反应国内 Android 生态现状的需求，即 iOS 开发中不存在的多渠道打包，反感归反感，解决方案是有的。
 cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20200612/module_build_variant.png

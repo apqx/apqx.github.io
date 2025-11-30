@@ -46,7 +46,7 @@ https://github.com/homebrew/homebrew-core
 
 ### cask
 
-直译“酒桶”，是 macOS 使用的原生包定义，和 formulae 一样通过 GitHub 仓库管理:
+直译“酒桶”，装酒容器，里面是独立的图形化应用包，比如 Chrome，和 formulae 一样通过 GitHub 仓库管理:
 
 ```sh
 https://github.com/homebrew/homebrew-cask.git
@@ -54,7 +54,7 @@ https://github.com/homebrew/homebrew-cask.git
 
 ### bottle
 
-直译“酒瓶”，是预编译好的二进制包，酿好的酒。
+直译“酒瓶”，也是装酒容器，里面是预编译好的二进制包，包含依赖列表，比如命令行工具。
 
 这些包被托管在 GitHub Packages 上:
 
@@ -79,7 +79,7 @@ https://github.com/Homebrew/homebrew-core/packages
 [prefix]/Cellar/kotlin/1.9.20/
 ```
 
-使用 Homebrew 可能经常看到 keg-only 这个词，意思是酒仅仅是被储存在酒窖里并不能被外界使用，`brew`安装的第二步将其可执行文件`symlink`软链接到`[prefix]/bin/`中没有进行。原因通常是里面已有同名文件，比如 macOS 自带的 Git 同样会软链接到这里，如果想使用`brew`安装的新版本需要按照提示执行`brew link`，建议覆盖前先`--dry-run`检查一下可能被影响的文件。
+使用 Homebrew 可能经常看到 keg-only 这个词，意思是酒仅仅是被储存在酒窖里并不能被外界使用，`brew`安装的第二步将其可执行文件`symlink`软链接到`[prefix]/bin/`中没有进行。原因通常是里面已有同名文件，比如 macOS 自带的 Git 同样会软链接到这里，如果想使用`brew`安装的新版本需按提示执行`brew link`，建议覆盖前先`--dry-run`检查一下可能被影响的文件。
 
 ```sh
 # 检查并输出会被影响的文件
@@ -146,7 +146,7 @@ https://github.com/Homebrew/homebrew-core/packages
 
 ## 大陆镜像
 
-现在知道为什么`brew install`这么慢，不仅是从 GitHub 拉取代码和下载 package，在 4.0 版本之后每次执行操作都会先去 `https://formulae.brew.sh/api/` 获取完整包信息，使用镜像源即是将这些地址改为大陆链接。推荐我自用十分稳定的[清华大学](https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/){: target="_blank" }镜像站，文档比[阿里云](https://developer.aliyun.com/mirror/homebrew){: target="_blank" }完整，而且很奇怪之前尝试阿里云的源均是 404，不知道现在是什么状态。
+现在知道为什么`brew install`这么慢，不仅是从 GitHub 拉取代码和下载 package，在 4.0 版本之后每次执行操作都会先去 `https://formulae.brew.sh/api/` 获取完整包信息，使用镜像源即是将这些地址改为大陆链接。推荐我一直使用的[清华大学镜像站](https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/){: target="_blank" }，文档比[阿里云镜像站](https://developer.aliyun.com/mirror/homebrew){: target="_blank" }完整，之前连接阿里云总是 404，不知道现在是什么状态，也可尝试[MirrorZ](https://mirrors.tuna.tsinghua.edu.cn){: target="_blank" }中的其它镜像站。
 
 *2025 年 08 月 12 日更新：配置方式可能随 macOS 升级变化，具体应参考镜像站文档，这里的方法不一定对未来版本有效。*
 
