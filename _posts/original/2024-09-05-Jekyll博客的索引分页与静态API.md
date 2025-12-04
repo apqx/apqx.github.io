@@ -169,6 +169,8 @@ pagination:
 
 ## 加载时机
 
-滚动加载新数据是一个常见交互，如何检测滚动并判断加载时机也是一个常见话题。首先要知道列表“滚动”的定义，它是指列表的`height`高度超过其`Viewport`显示区域，所以处于可滚动状态。此时只需检测列表的`scrollY`滚动距离，通过`height - Viewport.height - scrollY`计算列表的最后一个元素与`Viewport`显示区域的距离，当它小于一个阈值就是触发加载新数据的时机。
+滚动加载新数据是一个常见交互，如何检测滚动判断加载时机也是一个常见话题。列表“滚动”是指其`height`高度超过`viewport`显示区域，处于`overflow`溢出的可滚动状态，只需检测列表的`scrollY`滚动距离，通过`height - viewport.height - scrollY`计算列表底部与`viewport`显示区域的距离，小于一个阈值即是触发加载新数据的时机。
 
-另外应注意过滤滚动时高频触发的加载事件。
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20240905/scroll_thumb.webp){: loading="lazy" class="clickable clickShowOriginalImg" alt="scroll" }
+
+同时应注意过滤掉滚动时高频触发的重复加载事件。

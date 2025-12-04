@@ -267,6 +267,7 @@ time {
 @mixin block-text {
     // 颜色减淡，字体减小
     --mdc-theme-on-surface: var(--mdc-theme-on-surface-secondary);
+    // --strong-color: var(--mdc-theme-on-surface);
     --mdc-typography-body1-font-size: calc(var(--text-font-size-base) - 0.05rem);
     --mdc-typography-body1-line-height: calc(var(--mdc-typography-body1-font-size) + 0.75rem);
 
@@ -277,7 +278,6 @@ time {
     // b {
     //     --mdc-typography-body1-font-weight: var(--font-weight-normal);
     // }
-
 }
 
 .surface-block {

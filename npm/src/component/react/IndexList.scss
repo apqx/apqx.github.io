@@ -61,6 +61,10 @@ body {
     aspect-ratio: 844/295 auto;
 }
 
+.dark .index-top-cover#main-index {
+    filter: brightness(0.95);
+}
+
 /* 索引题目 */
 .index-title {
     color: var(--mdc-theme-on-surface);

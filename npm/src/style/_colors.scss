@@ -31,9 +31,19 @@ $background: (
         dark: color.adjust(map.get($surface, "dark"), $lightness: -2%),
 );
 
+$text-content: (
+        light: color.adjust(map.get($surface, "light"), $lightness: -83%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: +83%),
+);
+
+$text-content-secondary: (
+        light: color.adjust(map.get($text-content, "light"), $lightness: +10%),
+        dark: color.adjust(map.get($text-content, "dark"), $lightness: -10%),
+);
+
 $text-title: (
-        light: color.adjust(map.get($surface, "light"), $lightness: -85%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: +85%),
+        light: color.adjust(map.get($text-content, "light"), $lightness: -10%),
+        dark: color.adjust(map.get($text-content, "dark"), $lightness: +10%),
 );
 
 $text-subtitle: (
@@ -41,15 +51,6 @@ $text-subtitle: (
         dark: color.adjust(map.get($text-title, "dark"), $lightness: -30%),
 );
 
-$text-content: (
-        light: color.adjust(map.get($text-title, "light"), $lightness: +5%),
-        dark: color.adjust(map.get($text-title, "dark"), $lightness: -5%),
-);
-
-$text-content-secondary: (
-        light: color.adjust(map.get($text-content, "light"), $lightness: +10%),
-        dark: color.adjust(map.get($text-content, "dark"), $lightness: -10%),
-);
 
 $blockquote-border: (
         light: color.adjust(map.get($surface, "light"), $lightness: -5%),
@@ -223,9 +224,15 @@ $pre-code-border: (
         dark: color.adjust(map.get($pre-code-bg, "dark"), $lightness: +1.5%),
 );
 
+// 强调颜色，应不强于标题颜色
+$strong: (
+        light: color.adjust(map.get($text-content, "light"), $lightness: -10%),
+        dark: color.adjust(map.get($text-content, "dark"), $lightness: +10%),
+);
+
 $strong-under-line: (
-        light: color.adjust(map.get($surface, "light"), $lightness: -10%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: +10%),
+        light: color.adjust(map.get($surface, "light"), $lightness: -12%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: +12%),
 );
 
 // 使 border 与 bg 亮度差为 2

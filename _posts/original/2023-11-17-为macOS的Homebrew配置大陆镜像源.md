@@ -12,13 +12,13 @@ tags: Code Git macOS Homebrew GitHub 阿里云 镜像源
 
 Homebrew 之于 macOS 正如 APT 之于 Ubuntu，且如 APT 在大陆面临的网络问题一样，Homebrew 也面临相近甚至更糟的网络问题，因为它默认的源正是“剪不断、理还乱”的 GitHub 和 GitHub Packages，后面会提到。
 
-[Homebrew](https://brew.sh){: target="_blank" } 是 macOS 的包管理器，但并没有被内置，需要手动安装:
+[Homebrew](https://brew.sh){: target="_blank" } 是 macOS 的包管理器，但并没有被内置，需手动安装:
 
 ```sh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-从脚本看其实是克隆 Homebrew 的 GitHub 仓库到本地，再把`brew`可执行文件映射到环境变量目录里。clone 后所在目录被称为`prefix`目录，在 x86 芯片的 Mac 上是`/usr/local/`，在搭载 Apple Silicon 的 Mac 上为和 Rosetta 转译的包共存被改为`/opt/homebrew/`。源码和可执行文件位于`[prefix]/Homebrew/`，通过它安装的包被保存在`[prefix]/Cellar/`目录里。
+从脚本看其实是克隆 Homebrew 的 GitHub 仓库到本地，再把`brew`可执行文件映射到环境变量目录里。`clone`后所在目录被称为`prefix`目录，在 x86 芯片的 Mac 上是`/usr/local/`，在搭载 Apple Silicon 的 Mac 上为和 Rosetta 转译的包共存被改为`/opt/homebrew/`。源码和可执行文件位于`[prefix]/Homebrew/`，通过它安装的包被保存在`[prefix]/Cellar/`目录里。
 
 ## 术语
 
@@ -146,7 +146,7 @@ https://github.com/Homebrew/homebrew-core/packages
 
 ## 大陆镜像
 
-现在知道为什么`brew install`这么慢，不仅是从 GitHub 拉取代码和下载 package，在 4.0 版本之后每次执行操作都会先去 `https://formulae.brew.sh/api/` 获取完整包信息，使用镜像源即是将这些地址改为大陆链接。推荐我一直使用的[清华大学镜像站](https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/){: target="_blank" }，文档比[阿里云镜像站](https://developer.aliyun.com/mirror/homebrew){: target="_blank" }完整，之前连接阿里云总是 404，不知道现在是什么状态，也可尝试[MirrorZ](https://mirrors.tuna.tsinghua.edu.cn){: target="_blank" }中的其它镜像站。
+现在知道为什么`brew install`这么慢，不仅是从 GitHub 拉取代码和下载 package，在 4.0 版本之后每次执行操作都会先去 `https://formulae.brew.sh/api/` 获取完整包信息，使用镜像源即是将这些地址改为大陆链接。推荐我一直使用的[清华大学镜像站](https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/){: target="_blank" }，文档比[阿里云镜像站](https://developer.aliyun.com/mirror/homebrew){: target="_blank" }完整，之前连接阿里云总是 404，不知道现在是什么状态，也可尝试 [MirrorZ](https://help.mirrorz.org){: target="_blank" } 中的其它镜像站。
 
 *2025 年 08 月 12 日更新：配置方式可能随 macOS 升级变化，具体应参考镜像站文档，这里的方法不一定对未来版本有效。*
 

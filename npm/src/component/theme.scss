@@ -60,7 +60,7 @@
         --index-list-pin-icon-bg: #{map.get(base.$index-list-pin-icon-bg, "light")};
 
         --em-color: #{map.get(base.$text-content-secondary, "light")};
-        --strong-color: #{map.get(base.$text-title, "light")};
+        --strong-color: #{map.get(base.$strong, "light")};
         --strong-underline-color: #{map.get(base.$strong-under-line, "light")};
         --tag-underline-color: #{map.get(base.$strong-under-line, "light")};
         --blockquote-border: #{map.get(base.$blockquote-border, "light")};
@@ -126,7 +126,7 @@
         --index-list-pin-icon-bg: #{map.get(base.$index-list-pin-icon-bg, "dark")};
 
         --em-color: #{map.get(base.$text-content-secondary, "dark")};
-        --strong-color: #{map.get(base.$text-title, "dark")};
+        --strong-color: #{map.get(base.$strong, "dark")};
         --strong-underline-color: #{map.get(base.$strong-under-line, "dark")};
         --tag-underline-color: #{map.get(base.$strong-under-line, "dark")};
         --blockquote-border: #{map.get(base.$blockquote-border, "dark")};
