@@ -20,7 +20,7 @@ $screen-middle-max-width: 880px;
 // 页面中部容器的最大宽度，普通索引页、文章页等都使用此宽度
 $center-container-max-width: 880px;
 // 更宽的页面中部容器的最大宽度，透镜索引页展示照片墙使用此宽度
-$center-container-larger-max-width: 1200px;
+$center-container-larger-max-width: 1400px;
 
 $ripple-gap-percent: 25%;
 
@@ -30,8 +30,8 @@ $font-weight-normal-noto-sans: 380;
 $font-weight-medium-noto-sans: 480;
 
 $font-weight-light-noto-serif: 360;
-$font-weight-normal-noto-serif: 480;
-$font-weight-medium-noto-serif: 580;
+$font-weight-normal-noto-serif: 470;
+$font-weight-medium-noto-serif: 570;
 
 // 与思源宋配合的 Google Code Mono 代码块字体，在段落中同时显示时应该更细一些
 $font-weight-light-noto-serif-code: 310;

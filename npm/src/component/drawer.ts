@@ -7,13 +7,14 @@ import {MDCRipple} from "@material/ripple";
 import {showAboutMeDialog} from "./dialog/AboutMeDialog";
 import {showPreferenceDialog} from "./dialog/PreferenceDialog";
 import {showSearchDialog} from "./dialog/SearchDialog";
-import { getSectionTypeByPath, SECTION_TYPE_OPERA, SECTION_TYPE_POETRY, SECTION_TYPE_REPOST, SECTION_TYPE_TAG } from "../base/constant";
+import { getSectionTypeByPath, SECTION_TYPE_LENS, SECTION_TYPE_OPERA, SECTION_TYPE_POETRY, SECTION_TYPE_REPOST, SECTION_TYPE_TAG } from "../base/constant";
 import { toggleClassWithEnable } from "../util/tools";
 
 const DRAWER_ITEM_ORIGINAL_ID = "drawer-a-original"
 const DRAWER_ITEM_REPOST_ID = "drawer-a-repost"
 const DRAWER_ITEM_POETRY_ID = "drawer-a-poetry"
 const DRAWER_ITEM_OPERA_ID = "drawer-a-opera"
+const DRAWER_ITEM_LENS_ID = "drawer-a-lens"
 const DRAWER_ITEM_TAG_ID = "drawer-a-tag"
 const DRAWER_ITEM_SEARCH_ID = "drawer-a-search"
 const DRAWER_ITEM_PREFERENCE_ID = "drawer-a-preference"
@@ -104,6 +105,8 @@ function getCurrentPageIndex(aEList: NodeListOf<Element>) {
         return findIndexById(aEList, DRAWER_ITEM_POETRY_ID)
     } else if (section.identifier == SECTION_TYPE_OPERA.identifier) {
         return findIndexById(aEList, DRAWER_ITEM_OPERA_ID)
+    } else if (section.identifier == SECTION_TYPE_LENS.identifier) {
+        return findIndexById(aEList, DRAWER_ITEM_LENS_ID)
     } else if (section.identifier == SECTION_TYPE_TAG.identifier) {
         return findIndexById(aEList, DRAWER_ITEM_TAG_ID)
     } else {

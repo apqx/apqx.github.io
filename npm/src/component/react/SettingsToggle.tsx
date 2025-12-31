@@ -4,32 +4,26 @@ import { createComponent } from '@lit/react'
 import { MdSwitch } from '@material/web/switch/switch.js'
 import React from "react"
 
-// 新的@material/web必须借助lit/react来创建可以被react识别的component
+// 新的 @material/web 须借助 lit/react 来创建可以被 react 识别的 component
 export const NewMdSwitch = createComponent({
     tagName: 'md-switch',
     elementClass: MdSwitch,
     react: React,
 })
 
-export interface SettingsToggleProps {
+interface Props {
     titleHtml: string
     on: boolean
     onClickToggle: () => void
 }
 
-export class SettingsToggle extends React.Component<SettingsToggleProps, any> {
-    constructor(props: SettingsToggleProps) {
-        super(props)
-    }
-
-    render() {
-        return (
-            <div className="preference-item-toggle">
-                <span className="preference-item-toggle__title one-line"
-                    dangerouslySetInnerHTML={createHtmlContent(this.props.titleHtml)} />
-                {/*会自动识别组建内定义的属性*/}
-                <NewMdSwitch selected={this.props.on} onClick={this.props.onClickToggle} />
-            </div>
-        )
-    }
+export function SettingsToggle(props: Props) {
+    return (
+        <div className="preference-item-toggle">
+            <span className="preference-item-toggle__title one-line"
+                dangerouslySetInnerHTML={createHtmlContent(props.titleHtml)} />
+            {/* 会自动识别组建内定义的属性 */}
+            <NewMdSwitch selected={props.on} onClick={props.onClickToggle} />
+        </div>
+    )
 }

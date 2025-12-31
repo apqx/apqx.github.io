@@ -5,7 +5,7 @@ import { getLocalRepository } from "../repository/LocalRepository"
 import { MDCTopAppBar } from "@material/top-app-bar"
 import { clearFocusListener, toggleClassWithEnable } from "../util/tools"
 import { showAboutMeDialog } from "./dialog/AboutMeDialog"
-import { getSectionTypeByPath, isIndexPage, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL, SECTION_TYPE_POETRY, SECTION_TYPE_PRINT, SECTION_TYPE_REPOST, SECTION_TYPE_SHARE, SECTION_TYPE_TAG } from "../base/constant"
+import { getSectionTypeByPath, isIndexPage, SECTION_TYPE_LENS, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL, SECTION_TYPE_POETRY, SECTION_TYPE_PRINT, SECTION_TYPE_REPOST, SECTION_TYPE_SHARE, SECTION_TYPE_TAG } from "../base/constant"
 import { toggleTheme } from "./theme"
 
 var iconToggleTheme: MDCIconButtonToggle | null = null
@@ -227,6 +227,11 @@ function initTitle(topAppBarE: HTMLElement) {
         }
         case SECTION_TYPE_OPERA.identifier: {
             titleAE.innerText = "Opera"
+            titleAE.href = isIndex ? "/" : section.indexPath
+            break
+        }
+        case SECTION_TYPE_LENS.identifier: {
+            titleAE.innerText = "Lens"
             titleAE.href = isIndex ? "/" : section.indexPath
             break
         }

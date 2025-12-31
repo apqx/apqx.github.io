@@ -32,7 +32,7 @@ function checkJump() {
     // op: opera
     // pt: poetry
     // ot: other
-    var matches = urlPath.match(RegExp("^/((og|rp|op|pt|ot)\\d\\d|index-opera|opera|repost|poetry|share|print|kfc)$"))
+    var matches = urlPath.match(RegExp("^/((og|rp|op|pt|ot)\\d\\d|index-opera|opera|lens|repost|poetry|share|print|kfc)$"))
     consoleDebug("Url matches = " + matches)
     if (matches != null && matches.length > 0) {
         // 检查是否符合格式，取出pid

@@ -5,9 +5,10 @@ import { createRoot } from "react-dom/client"
 import { IndexList } from "../component/react/IndexList"
 import { getSectionTypeByPath, SECTION_TYPE_OTHER} from "../base/constant"
 import { ImageLoadAnimator } from "../component/animation/ImageLoadAnimator"
-import type { Post } from "../component/react/post/BasePostPaginateShow"
 import { GridIndexList } from "../component/react/GridIndexList"
 import { MDCRipple } from "@material/ripple"
+import { LensIndexList } from "../component/react/LensIndexList"
+import type { Post } from "../component/react/post/PostPaginateShowPresenter"
 
 export function initIndex() {
     runOnHtmlDone(() => {
@@ -50,6 +51,10 @@ function initIndexList() {
         consoleObjDebug("Index loaded posts", loadedPosts)
         root.render(<GridIndexList tag={""} category={category} pinnedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
             onMount={onMount} onUpdate={onUpdate} pageDescriptionHtml={descriptionHtml} />)
+    } else if (wrapperE.classList.contains("lens-index-list-wrapper")) {
+        // 透镜
+        root.render(<LensIndexList tag={""} category={"opera"} pinnedPosts={[]} loadedPosts={[]}
+            onMount={onMount} onUpdate={onUpdate} />)
     }
 }
 

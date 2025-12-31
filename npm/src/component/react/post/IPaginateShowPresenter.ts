@@ -1,6 +1,6 @@
-import type { IPostPaginateShow } from "./IPostPaginateShow";
+import type { IPostPaginateShow } from "./IPaginateShow";
 
-export interface IPostPaginateShowPresenter {
+export interface IPaginateShowPresenter {
     component: IPostPaginateShow
     
     init(): void

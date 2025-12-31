@@ -1,21 +1,22 @@
 // import "./IndexList.scss"
 import { MDCRipple } from "@material/ripple"
-import React from "react"
+import React, { useEffect, useRef } from "react"
 import type { RefObject } from "react"
 import { ERROR_HINT, LoadingHint } from "./LoadingHint"
 import { consoleDebug, consoleObjDebug } from "../../util/log"
 import { ScrollLoader } from "../../base/ScrollLoader"
-import { BasePostPaginateShow } from "./post/BasePostPaginateShow"
-import type { BasePostPaginateShowProps, BasePostPaginateShowState } from "./post/BasePostPaginateShow"
-import { PostPaginateShowPresenter } from "./post/PostPaginateShowPresenter"
-import type { IPostPaginateShowPresenter } from "./post/IPostPaginateShowPresenter"
+import { BasePaginateShow } from "./post/BasePaginateShow"
+import type { BasePaginateShowProps, BasePaginateShowState } from "./post/BasePaginateShow"
+import { BasePaginateShowPresenter } from "./post/BasePaginateShowPresenter"
+import type { IPaginateShowPresenter } from "./post/IPaginateShowPresenter"
 import { showFooter } from "../footer"
 import { getInterSectionObserver } from "../animation/BaseAnimation"
 import { getSplittedDate } from "../../base/post"
+import { PostPaginateShowPresenter, type Post } from "./post/PostPaginateShowPresenter"
 
-export class IndexList extends BasePostPaginateShow<BasePostPaginateShowProps> {
+export class IndexList extends BasePaginateShow<Post, BasePaginateShowProps<Post>> {
 
-    createPresenter(): IPostPaginateShowPresenter {
+    createPresenter(): IPaginateShowPresenter {
         return new PostPaginateShowPresenter(this, false)
     }
 
@@ -40,7 +41,7 @@ export class IndexList extends BasePostPaginateShow<BasePostPaginateShowProps> {
         })
     }
 
-    componentDidUpdate(prevProps: Readonly<BasePostPaginateShowProps>, prevState: Readonly<BasePostPaginateShowState>, snapshot?: any): void {
+    componentDidUpdate(prevProps: Readonly<BasePaginateShowProps<Post>>, prevState: Readonly<BasePaginateShowState<Post>>, snapshot?: any): void {
         if (this.props.onUpdate != null) this.props.onUpdate()
     }
 
@@ -50,7 +51,7 @@ export class IndexList extends BasePostPaginateShow<BasePostPaginateShowProps> {
                 {/* 置顶文章 */}
                 {this.props.pinnedPosts.map((post) =>
                     <IndexItem key={post.title + post.date}
-                        title={post.title} author={post.author} date={post.date} description={post.description} path={post.path} 
+                        title={post.title} author={post.author} date={post.date} description={post.description} path={post.path}
                         fromPinnedList={true} pinned={true} featured={post.featured} last={false} />
                 )}
                 {/* 普通文章 */}
@@ -58,7 +59,7 @@ export class IndexList extends BasePostPaginateShow<BasePostPaginateShowProps> {
                     // 隐藏部分 post
                     // 有时候 jekyll 生成的 path 和 paginate 生成的 path 不一样，导致 item 重新加载
                     !item.hidden && <IndexItem key={item.path}
-                        title={item.title} author={item.author} date={item.date} description={item.description} path={item.path} 
+                        title={item.title} author={item.author} date={item.date} description={item.description} path={item.path}
                         fromPinnedList={false} pinned={item.pinned} featured={item.featured} last={index == this.state.posts.length - 1} />
                 )}
                 {(this.state.loading || this.state.loadHint != null) &&
@@ -69,7 +70,7 @@ export class IndexList extends BasePostPaginateShow<BasePostPaginateShowProps> {
     }
 }
 
-export type IndexItemProps = {
+type IndexItemProps = {
     title: string,
     author: string,
     date: string,
@@ -81,62 +82,54 @@ export type IndexItemProps = {
     last: boolean
 }
 
-class IndexItem extends React.Component<IndexItemProps, any> {
-    private containerRef: RefObject<HTMLLIElement | null> = React.createRef()
+function IndexItem(props: IndexItemProps) {
+    const containerRef = useRef<HTMLLIElement>(null)
+    const cardE = useRef<HTMLElement>(null)
+    const date = getSplittedDate(props.date);
 
-    cardE: HTMLElement | null = null
+    useEffect(() => {
+        consoleObjDebug("IndexItem component mounted", props)
+        const rootE = containerRef.current as HTMLElement;
+        cardE.current = rootE.querySelector(".index-card")
 
-    constructor(props: IndexItemProps) {
-        super(props);
-    }
-
-    componentDidMount(): void {
-        consoleObjDebug("IndexItem componentDidMount", this.props)
-        const rootE = this.containerRef.current as HTMLElement;
-        this.cardE = rootE.querySelector(".index-card")
-
-        new MDCRipple(this.cardE!!)
+        new MDCRipple(cardE.current!!)
         // 监听元素进入窗口初次显示
         // TODO: 执行动画后应该立即解除监听，避免不必要的性能开销
-        if (this.cardE != null) {
-            getInterSectionObserver().observe(this.cardE)
+        if (cardE.current != null) {
+            getInterSectionObserver().observe(cardE.current)
         }
-    }
 
-    componentWillUnmount(): void {
-        consoleDebug("IndexItem componentWillUnmount " + this.props.title)
-        if (this.cardE != null) {
-            getInterSectionObserver().unobserve(this.cardE)
+        return () => {
+            consoleDebug("IndexItem component unmount " + props.title)
+            if (cardE.current != null) {
+                getInterSectionObserver().unobserve(cardE.current)
+            }
         }
-    }
+    }, [])
 
-    render() {
-        const date = getSplittedDate(this.props.date);
-        return (
-            <li ref={this.containerRef} className="index-li">
-                <a className={`index-a mdc-card index-card card-slide-in ${this.props.last ? "list-last" : ""}`} href={this.props.path}>
-                    <section>
-                        <h1 className="index-title">{this.props.title}</h1>
-                        <span className="index-author">{this.props.author}</span>
-                        <span className="index-date">
-                            {date.year}<span className="year">年</span>
-                            {date.month}<span className="month">月</span>
-                            {date.day}<span className="day">日</span>
-                        </span>
-                        {this.props.fromPinnedList &&
-                            <span className="index-pinned-icon-container"><i className="material-symbols-rounded-light">keep</i></span>
-                        }
-                        {!this.props.fromPinnedList && (this.props.pinned || this.props.featured) &&
-                            <span className="index-featured-icon-container"><i className="material-symbols-rounded-light">editor_choice</i></span>
-                        }
-                    </section>
-                </a>
-                {!this.props.last && <hr className="index-li-divider" />}
-            </li>
-        )
-    }
+    return (
+        <li ref={containerRef} className="index-li">
+            <a className={`index-a mdc-card index-card card-slide-in ${props.last ? "list-last" : ""}`} href={props.path}>
+                <section>
+                    <h1 className="index-title">{props.title}</h1>
+                    <span className="index-author">{props.author}</span>
+                    <span className="index-date">
+                        {date.year}<span className="year">年</span>
+                        {date.month}<span className="month">月</span>
+                        {date.day}<span className="day">日</span>
+                    </span>
+                    {props.fromPinnedList &&
+                        <span className="index-pinned-icon-container"><i className="material-symbols-rounded-light">keep</i></span>
+                    }
+                    {!props.fromPinnedList && (props.pinned || props.featured) &&
+                        <span className="index-featured-icon-container"><i className="material-symbols-rounded-light">editor_choice</i></span>
+                    }
+                </section>
+            </a>
+            {!props.last && <hr className="index-li-divider" />}
+        </li>
+    )
 }
-
 
 class IndexItemWithDesc extends React.Component<IndexItemProps, any> {
     private containerRef: RefObject<HTMLLIElement | null> = React.createRef()

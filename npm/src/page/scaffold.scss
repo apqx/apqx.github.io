@@ -101,6 +101,13 @@ footer * {
     margin: var(--main-container-padding-vertical) auto;
 }
 
+.main-container-wide {
+    width: 100%;
+    max-width: base.$center-container-larger-max-width;
+    // 横向居中
+    margin: var(--main-container-padding-vertical) auto;
+}
+
 .foot-container {
     width: 100%;
     max-width: base.$center-container-max-width;

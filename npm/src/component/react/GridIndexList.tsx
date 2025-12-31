@@ -1,33 +1,33 @@
 // import "./GridIndexList.scss"
 import type { ReactNode } from "react"
-import type { RefObject } from "react"
-import React from "react"
+import React, { useEffect, useRef } from "react"
 import { MDCRipple } from "@material/ripple"
 import { ImageLoadAnimator } from "../animation/ImageLoadAnimator"
 import { ERROR_HINT, LoadingHint } from "./LoadingHint"
 import { consoleDebug, consoleObjDebug } from "../../util/log"
-import { BasePostPaginateShow } from "./post/BasePostPaginateShow"
-import type { BasePostPaginateShowProps, BasePostPaginateShowState, Post } from "./post/BasePostPaginateShow"
-import type { IPostPaginateShowPresenter } from "./post/IPostPaginateShowPresenter"
-import { PostPaginateShowPresenter } from "./post/PostPaginateShowPresenter"
+import { BasePaginateShow } from "./post/BasePaginateShow"
+import type { BasePaginateShowProps, BasePaginateShowState } from "./post/BasePaginateShow"
+import type { IPaginateShowPresenter } from "./post/IPaginateShowPresenter"
+import { BasePaginateShowPresenter } from "./post/BasePaginateShowPresenter"
 import { setupTagTrigger } from "../tag"
 import { ScrollLoader } from "../../base/ScrollLoader"
 import Masonry from 'react-masonry-css'
 import { showFooter } from "../footer"
 import { getInterSectionObserver } from "../animation/BaseAnimation"
 import { getSplittedDate } from "../../base/post"
+import { PostPaginateShowPresenter, type Post } from "./post/PostPaginateShowPresenter"
 
-interface Props extends BasePostPaginateShowProps {
+interface Props extends BasePaginateShowProps<Post> {
     pageDescriptionHtml: string
 }
 
-export class GridIndexList extends BasePostPaginateShow<Props> {
+export class GridIndexList extends BasePaginateShow<Post,Props> {
 
     constructor(props: Props) {
         super(props)
     }
 
-    createPresenter(): IPostPaginateShowPresenter {
+    createPresenter(): IPaginateShowPresenter {
         return new PostPaginateShowPresenter(this, false)
     }
 
@@ -51,7 +51,7 @@ export class GridIndexList extends BasePostPaginateShow<Props> {
         showFooter()
     }
 
-    componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<BasePostPaginateShowState>, snapshot?: any): void {
+    componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<BasePaginateShowState<Post>>, snapshot?: any): void {
         consoleDebug("GridIndex componentDidUpdate")
         if (this.props.onUpdate != null) this.props.onUpdate()
     }
@@ -116,99 +116,88 @@ type IndexItemProps = {
     coverLoadedCallback: () => void
 }
 
-class IndexItem extends React.Component<IndexItemProps, any> {
-    private containerRef: RefObject<HTMLLIElement | null> = React.createRef()
-    imageLoadAnimator: ImageLoadAnimator | null = null
-    cardE: HTMLElement | null = null
+function IndexItem(props: IndexItemProps) {
+    const containerRef = useRef<HTMLLIElement>(null)
 
-    constructor(props: IndexItemProps) {
-        super(props)
-    }
+    useEffect(() => {
+        consoleObjDebug("IndexItem componentDidMount", props)
+        const rootE = containerRef.current as HTMLElement;
+        const cardE = rootE.querySelector(".grid-index-card")
+        new MDCRipple(cardE!!)
 
-    componentDidMount(): void {
-        consoleObjDebug("IndexItem componentDidMount", this.props)
-        const rootE = this.containerRef.current as HTMLElement
-        this.cardE = rootE.querySelector(".grid-index-card")
-
-        new MDCRipple(rootE.querySelector(".grid-index-card__ripple")!!)
         const imgE = rootE.querySelector(".grid-index-cover.image-height-animation")
         // 图片加载动画
+        let imageLoadAnimator: ImageLoadAnimator | null = null
         if (imgE != null) {
-            this.imageLoadAnimator = new ImageLoadAnimator(imgE as HTMLImageElement, -1, false,
+            imageLoadAnimator = new ImageLoadAnimator(imgE as HTMLImageElement, -1, false,
                 () => {
                     // 仅在用户未滚动时的第一页执行动画，否则是不可见的无需动画
                     return window.scrollY <= 0
                 },
                 () => {
                     // 图片尺寸动画执行完成
-                    this.props.coverLoadedCallback()
+                    props.coverLoadedCallback()
                 })
         }
 
         // 监听元素进入窗口初次显示
-        if (this.cardE != null) {
-            getInterSectionObserver().observe(this.cardE)
+        if (cardE != null) {
+            getInterSectionObserver().observe(cardE)
         }
-    }
 
-    componentWillUnmount(): void {
-        consoleDebug("IndexItem componentWillUnmount " + this.props.title)
-        if (this.imageLoadAnimator != null) {
-            this.imageLoadAnimator.destroy()
+        return () => {
+            consoleDebug("IndexItem componentWillUnmount " + props.title)
+            if (imageLoadAnimator != null) {
+                imageLoadAnimator.destroy()
+            }
+            if (cardE != null) {
+                getInterSectionObserver().unobserve(cardE)
+            }
         }
-        if (this.cardE != null) {
-            getInterSectionObserver().unobserve(this.cardE)
-        }
-    }
+    }, [])
 
-    render(): ReactNode {
-        const actorStr = this.props.actor.join(" ")
-        const animationClass = this.props.index == 0 ? "card-fade-in" : "card-slide-in-middle"
+    const actorStr = props.actor.join(" ")
+    const animationClass = props.index == 0 ? "card-fade-in" : "card-slide-in-middle"
 
-        const date = getSplittedDate(this.props.date);
-        return (
-            <li ref={this.containerRef} className="grid-index-li">
-                {/* 第一个元素使用 fade-in 动画，避免在小尺寸手机上因为 slide 距离在页面初次加载时不触发动画 */}
-                <a className={"index-a mdc-card grid-index-card grid-index-card__ripple " + animationClass} href={this.props.path}>
-                    <section>
-                        {this.props.cover != null && this.props.cover.length > 0 &&
-                            <img className="grid-index-cover image-height-animation" loading="lazy" src={this.props.cover} alt={this.props.coverAlt} />}
-                        {this.props.cover == null || this.props.cover.length == 0 &&
-                            <div style={{ height: "0.5rem" }}></div>}
-                        <div className="grid-index-text-container">
-                            <h1 className="grid-index-title">{this.props.title}</h1>
-                            <div>
-                                <span className="grid-index-date">
-                                    {date.year}<span className="year">年</span>
-                                    {date.month}<span className="month">月</span>
-                                    {date.day}<span className="day">日</span>
-                                </span>
-                                <span className="grid-index-author"> {actorStr}</span>
-                            </div>
-                            <p className="grid-index-description">{this.props.description}</p>
+    const date = getSplittedDate(props.date);
+
+    return (
+        <li ref={containerRef} className="grid-index-li">
+            {/* 第一个元素使用 fade-in 动画，避免在小尺寸手机上因为 slide 距离在页面初次加载时不触发动画 */}
+            <a className={"index-a mdc-card grid-index-card grid-index-card__ripple " + animationClass} href={props.path}>
+                <section>
+                    {props.cover != null && props.cover.length > 0 &&
+                        <img className="grid-index-cover image-height-animation" loading="lazy" src={props.cover} alt={props.coverAlt} />}
+                    {props.cover == null || props.cover.length == 0 &&
+                        <div style={{ height: "0.5rem" }}></div>}
+                    <div className="grid-index-text-container">
+                        <h1 className="grid-index-title">{props.title}</h1>
+                        <div>
+                            <span className="grid-index-date">
+                                {date.year}<span className="year">年</span>
+                                {date.month}<span className="month">月</span>
+                                {date.day}<span className="day">日</span>
+                            </span>
+                            <span className="grid-index-author"> {actorStr}</span>
                         </div>
-                    </section>
-                </a>
-                {!this.props.last && <hr className="grid-index-li-divider" />}
-            </li>
-        )
-    }
+                        <p className="grid-index-description">{props.description}</p>
+                    </div>
+                </section>
+            </a>
+            {!props.last && <hr className="grid-index-li-divider" />}
+        </li>
+    )
 }
 
 type IndexDescriptionItemProps = {
     innerHtml: string,
 }
 
-class IndexDescriptionItem extends React.Component<IndexDescriptionItemProps, any> {
-    private containerRef: RefObject<HTMLLIElement | null> = React.createRef()
-    cardE: HTMLElement | null = null
+function IndexDescriptionItem(props: IndexDescriptionItemProps) {
+    const containerRef = useRef<HTMLLIElement>(null)
 
-    constructor(props: IndexDescriptionItemProps) {
-        super(props)
-    }
-
-    componentDidMount(): void {
-        const rootE = this.containerRef.current as HTMLElement
+    useEffect(() => {
+        const rootE = containerRef.current as HTMLElement
         consoleObjDebug("IndexDescriptionItem componentDidMount", rootE)
         const cardE = rootE.querySelector(".grid-index-card")
         if (cardE != null) {
@@ -219,37 +208,35 @@ class IndexDescriptionItem extends React.Component<IndexDescriptionItemProps, an
         for (const trigger of dialogsTriggers) {
             setupTagTrigger(trigger as HTMLElement)
         }
-    }
-
-    componentWillUnmount(): void {
-        consoleDebug("IndexDescriptionItem componentWillUnmount")
-        if (this.cardE != null) {
-            getInterSectionObserver().unobserve(this.cardE)
+        return () => {
+            consoleDebug("IndexDescriptionItem componentWillUnmount")
+            if (cardE != null) {
+                getInterSectionObserver().unobserve(cardE)
+            }
         }
-    }
+    }, [])
 
-    render(): ReactNode {
-        return (
-            <li ref={this.containerRef} className="grid-index-li grid-index-li--description">
-                <section className="mdc-card grid-index-card card-fade-in">
-                    <div className="grid-index-text-container">
-                        <p>2021 年 08 月 08 日，我在博客里开辟这个分区来承载曾经在剧场看过的剧和拍过的剧照，以昆曲为主，使用<a
-                            href="/post/original/2021/09/01/基于Jekyll实现博客文章-标签化.html">标签</a>把每一场演出按剧种、剧团、剧目、演员、剧场分类归档。这里每一篇文章既是记录也是分享，亲手按下快门捕捉到的舞台瞬间，如此美丽的戏妆油彩，不应该只我一人看到。
-                        </p>
-                        <p>关于我与戏剧的渊源以及为什么会喜欢昆曲，参见之前的自述<a
-                            href="/post/original/2019/05/18/槐安国内春生酒.html">《槐安国内春生酒》</a>，还有一些由看剧衍生的<a
-                                id="chip_tag_看剧&碎碎念" className="tag-dialog-trigger clickable-empty-link">碎碎念</a>。</p>
-                        <p>只是时常偷懒，日渐事繁，更新剧目不多，我会慢慢整理上传的。</p>
-                        <div style={{ marginBottom: "0.2rem" }}>
-                            <a id="chip_tag_看剧&杭州" className="tag-dialog-trigger clickable-empty-link tag-link grid-index-description-tag">@杭州</a>
-                            <a id="chip_tag_看剧&南京" className="tag-dialog-trigger clickable-empty-link tag-link grid-index-description-tag">@南京</a>
-                            <a id="chip_tag_看剧&上海" className="tag-dialog-trigger clickable-empty-link tag-link grid-index-description-tag">@上海</a>
-                            <a className="tag-link grid-index-description-tag" href="https://space.bilibili.com/11037907" target="_blank">@哔哩</a>
-                        </div>
+    return (
+        <li ref={containerRef} className="grid-index-li grid-index-li--description">
+            <section className="mdc-card grid-index-card card-fade-in">
+                <div className="grid-index-text-container">
+                    <p>2021 年 08 月 08 日，我在博客里开辟这个分区来承载曾经在剧场看过的剧和拍过的剧照，以昆曲为主，使用<a
+                        href="/post/original/2021/09/01/基于Jekyll实现博客文章-标签化.html">标签</a>把每一场演出按剧种、剧团、剧目、演员、剧场分类归档。这里每一篇文章既是记录也是分享，亲手按下快门捕捉到的舞台瞬间，如此美丽的戏妆油彩，不应该只我一人看到。
+                    </p>
+                    <p>关于我与戏剧的渊源以及为什么会喜欢昆曲，参见之前的自述<a
+                        href="/post/original/2019/05/18/槐安国内春生酒.html">《槐安国内春生酒》</a>，还有一些由看剧衍生的<a
+                            id="chip_tag_看剧&碎碎念" className="tag-dialog-trigger clickable-empty-link">碎碎念</a>。</p>
+                    <p>只是时常偷懒，日渐事繁，更新剧目不多，我会慢慢整理上传的。</p>
+                    <div style={{ marginBottom: "0.2rem" }}>
+                        <a id="chip_tag_看剧&杭州" className="tag-dialog-trigger clickable-empty-link tag-link grid-index-description-tag">@杭州</a>
+                        <a id="chip_tag_看剧&南京" className="tag-dialog-trigger clickable-empty-link tag-link grid-index-description-tag">@南京</a>
+                        <a id="chip_tag_看剧&上海" className="tag-dialog-trigger clickable-empty-link tag-link grid-index-description-tag">@上海</a>
+                        <a className="tag-link grid-index-description-tag" href="/section/lens.html" target="_self">@透镜</a>
+                        <a className="tag-link grid-index-description-tag" href="https://space.bilibili.com/11037907" target="_blank">@哔哩</a>
                     </div>
-                </section>
-                <hr className="grid-index-li-divider" />
-            </li>
-        )
-    }
+                </div>
+            </section>
+            <hr className="grid-index-li-divider" />
+        </li>
+    )
 }

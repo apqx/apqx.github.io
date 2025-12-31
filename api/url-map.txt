@@ -21,6 +21,13 @@ sitemap: false
             }
         },
         {
+            "id": "lens",
+            "target": {
+                "path": "/section/lens.html",
+                "title": "立泉的透镜"
+            }
+        },
+        {
             "id": "poetry",
             "target": {
                 "path": "/section/poetry.html",

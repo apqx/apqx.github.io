@@ -1,0 +1,52 @@
+@use "../../style/global" as base;
+
+.lens-index-container {
+    position: relative;
+}
+
+.lens-index-text-container {
+    padding: 0rem 0.6rem;
+    position: absolute;
+    left: 0rem;
+    bottom: 0rem;
+    width: 100%;
+    background-color: #ffffff8f;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    // border-top-right-radius: 0.6rem;
+
+    .grid-index-date {
+        overflow: hidden;
+        line-height: 1rem;
+        color: rgb(76 76 76);
+    }
+}
+
+.dark .lens-index-text-container {
+    background-color: #0000008f;
+    .grid-index-date {
+        color: rgb(189 189 189);
+    }
+}
+
+.lens-index-list-wrapper {
+    --grid-index-card-gap: 0.4rem;
+    --mdc-shape-medium: 0.5rem;
+}
+
+// 手机小屏
+@media all and (max-width: base.$screen-middle-min-width) {
+    body {
+        .lens-index-list-wrapper {
+            .grid-index-ul{
+                margin: 0 0.1rem;
+            }
+            --grid-index-card-gap: 0.3rem;
+            --mdc-shape-medium: 0.4rem;
+        }
+
+        .lens-index-text-container {
+            padding: 0rem 0.4rem;
+        }
+    }
+}

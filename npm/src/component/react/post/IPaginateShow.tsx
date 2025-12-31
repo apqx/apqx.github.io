@@ -1,7 +1,7 @@
-import type { IPostPaginateShowPresenter } from "./IPostPaginateShowPresenter";
+import type { IPaginateShowPresenter } from "./IPaginateShowPresenter";
 
 export interface IPostPaginateShow {
-    presenter: IPostPaginateShowPresenter
+    presenter: IPaginateShowPresenter
 
     /**
      * 加载第一页

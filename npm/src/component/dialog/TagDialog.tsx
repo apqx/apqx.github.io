@@ -7,16 +7,17 @@ import { consoleDebug } from "../../util/log"
 import { initListItem } from "../list"
 import { ERROR_HINT, LoadingHint } from "../react/LoadingHint"
 import { HeightAnimationContainer } from "../animation/HeightAnimationContainer"
-import { BasePostPaginateShow } from "../react/post/BasePostPaginateShow"
-import type { BasePostPaginateShowProps, Post } from "../react/post/BasePostPaginateShow"
-import type { IPostPaginateShowPresenter } from "../react/post/IPostPaginateShowPresenter"
-import { PostPaginateShowPresenter } from "../react/post/PostPaginateShowPresenter"
+import { BasePaginateShow } from "../react/post/BasePaginateShow"
+import type { BasePaginateShowProps } from "../react/post/BasePaginateShow"
+import type { IPaginateShowPresenter } from "../react/post/IPaginateShowPresenter"
+import { BasePaginateShowPresenter } from "../react/post/BasePaginateShowPresenter"
 import { getSectionTypeByPath, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL } from "../../base/constant"
 import type { SectionType } from "../../base/constant"
 import { DialogState, DialogStateObservable, DialogStateObserver } from "./DialogStateObservable"
 import type { JSX } from "react"
 import React from "react"
 import { getSplittedDate } from "../../base/post"
+import { PostPaginateShowPresenter, type Post } from "../react/post/PostPaginateShowPresenter"
 
 interface DialogContentProps extends BasicDialogProps {
     tag: string,
@@ -77,11 +78,11 @@ export class TagDialog extends BasicDialog<DialogContentProps, DialogContentStat
     }
 }
 
-interface ResultWrapperProps extends BasePostPaginateShowProps {
+interface ResultWrapperProps extends BasePaginateShowProps<Post> {
     dialogStateObservable: DialogStateObservable
 }
 
-class ResultWrapper extends BasePostPaginateShow<ResultWrapperProps> {
+class ResultWrapper extends BasePaginateShow<Post, ResultWrapperProps> {
     observer: DialogStateObserver = {
         update: (dialogState: DialogState) => {
             if (dialogState == DialogState.CLOSED) {
@@ -113,7 +114,7 @@ class ResultWrapper extends BasePostPaginateShow<ResultWrapperProps> {
         this.props.dialogStateObservable.removeObserver(this.observer)
     }
 
-    createPresenter(): IPostPaginateShowPresenter {
+    createPresenter(): IPaginateShowPresenter {
         return new PostPaginateShowPresenter(this, true)
     }
 

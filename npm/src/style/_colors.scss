@@ -22,8 +22,8 @@ $top-bar-ink: (
 );
 
 $footer-ink: (
-        light: color.adjust(map.get($top-bar, "bg-light"), $lightness: -70%),
-        dark: color.adjust(map.get($top-bar, "bg-dark"), $lightness: +70%),
+        light: color.adjust(map.get($top-bar, "bg-light"), $lightness: -80%),
+        dark: color.adjust(map.get($top-bar, "bg-dark"), $lightness: +80%),
 );
 
 $background: (

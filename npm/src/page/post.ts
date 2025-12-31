@@ -4,6 +4,8 @@ import { runOnHtmlDone } from "../util/tools"
 import { initContentCard } from "../component/contentCard"
 import { showAlertDialog } from "../component/dialog/CommonAlertDialog"
 import { showSnackbar } from "../component/react/Snackbar"
+import { getSectionTypeByPath, SECTION_TYPE_OPERA, SECTION_TYPE_SHARE } from "../base/constant"
+import { initShareList } from "../component/react/ShareList"
 
 export function initPost() {
     runOnHtmlDone(() => {
@@ -29,11 +31,16 @@ function initCodeHighlight() {
  */
 function initPageCheck() {
     const urlPath = window.location.pathname
-    var matches = urlPath.match(/(post\/opera).*$/)
-    if (matches != null && matches.length > 0) {
+    var sectionIdentifier = getSectionTypeByPath(urlPath).identifier
+    consoleDebug("Post page section = " + sectionIdentifier + ", path = " + urlPath)
+    if (sectionIdentifier === SECTION_TYPE_OPERA.identifier) {
         consoleDebug("Add opera-page to body")
         document.body.classList.add("opera-page")
+    } else if (sectionIdentifier === SECTION_TYPE_SHARE.identifier) {
+        consoleDebug("Init share page")
+        initShareList()
     }
+    
 }
 
 function initImgJump() {
@@ -72,4 +79,8 @@ function initImg() {
             showSnackbar("节省数据文中是缩略图，点击图片可跳转到原图")
         }
     })
+}
+
+function inidShareList() {
+    throw new Error("Function not implemented.")
 }

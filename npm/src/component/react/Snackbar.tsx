@@ -1,6 +1,5 @@
 import "./Snackbar.scss";
-import React from "react";
-import type { RefObject } from "react";
+import React, { useEffect, useRef } from "react";
 import { MDCSnackbar } from '@material/snackbar';
 import { createRoot } from "react-dom/client";
 import type { Root } from "react-dom/client";
@@ -10,33 +9,30 @@ interface props {
     text: string
 }
 
-export class Snackbar extends React.Component<props, any> {
-    private containerRef: RefObject<HTMLDivElement | null> = React.createRef()
-    snackbar: MDCSnackbar | null = null
+export function Snackbar(props: props) {
+    const containerRef = useRef<HTMLDivElement>(null)
+    const snackbar = useRef<MDCSnackbar>(null)
 
-    componentDidMount(): void {
-        const rootE = this.containerRef.current as Element
-        this.snackbar = new MDCSnackbar(rootE)
+    useEffect(() => {
+        if (snackbar.current == null) {
+            const rootE = containerRef.current as Element
+            snackbar.current = new MDCSnackbar(rootE)
+        }
         // 自动关闭时间，-1 表示不自动关闭
-        // this.snackbar.timeoutMs = -1
-        this.snackbar.open()
-    }
+        // snackbar.current.timeoutMs = -1
+        snackbar.current.open()
+    }, [props.text])
 
-    componentDidUpdate(prevProps: Readonly<props>, prevState: Readonly<any>, snapshot?: any): void {
-        this.snackbar?.open();
-    }
-
-    render() {
-        return (
-            <aside ref={this.containerRef} className="mdc-snackbar">
-                <div className="mdc-snackbar__surface" role="status" aria-relevant="additions">
-                    <div className="mdc-snackbar__label" aria-atomic="false">
-                        <span>{this.props.text}</span>
-                    </div>
+    return (
+        <aside ref={containerRef} className="mdc-snackbar">
+            <div className="mdc-snackbar__surface" role="status" aria-relevant="additions">
+                <div className="mdc-snackbar__label" aria-atomic="false">
+                    <span>{props.text}</span>
                 </div>
-            </aside>
-        )
-    }
+            </div>
+        </aside>
+    )
+
 }
 
 var root: Root | null = null

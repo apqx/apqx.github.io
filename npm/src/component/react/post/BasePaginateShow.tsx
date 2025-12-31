@@ -1,45 +1,33 @@
 import React from "react"
 import type { RefObject } from "react"
-import type { IPostPaginateShow } from "./IPostPaginateShow"
-import type { IPostPaginateShowPresenter } from "./IPostPaginateShowPresenter"
+import type { IPostPaginateShow } from "./IPaginateShow"
+import type { IPaginateShowPresenter } from "./IPaginateShowPresenter"
 import { consoleDebug } from "../../../util/log"
 
-export interface BasePostPaginateShowProps {
+export interface BasePaginateShowProps<T> {
     category: string,
     tag: string,
-    pinnedPosts: Array<Post>,
-    loadedPosts: Array<Post>,
+    pinnedPosts: Array<T>,
+    loadedPosts: Array<T>,
     onMount?: () => void,
     onUpdate?: () => void
 }
 
-export interface BasePostPaginateShowState {
+export interface BasePaginateShowState<T> {
     loading: boolean,
     loadHint: string | null,
-    posts: Array<Post>,
+    posts: Array<T>,
     totalPostsSize: number
 }
 
-export type Post = {
-    title: string,
-    author: string,
-    actor: Array<string>,
-    mention: Array<string>,
-    location: string,
-    date: string,
-    path: string,
-    description: string,
-    cover: string,
-    coverAlt: string,
-    pinned: boolean,
-    featured: boolean,
-    hidden: boolean
-}
+/**
+ * D, 要加载的数据类型
+ * P, 组件的props类型
+ */
+export abstract class BasePaginateShow<D, P extends BasePaginateShowProps<D>>
+    extends React.Component<P, BasePaginateShowState<D>> implements IPostPaginateShow {
 
-export abstract class BasePostPaginateShow<P extends BasePostPaginateShowProps>
-    extends React.Component<P, BasePostPaginateShowState> implements IPostPaginateShow {
-
-    presenter: IPostPaginateShowPresenter
+    presenter: IPaginateShowPresenter
     loadFirstPageOnMount: boolean = true
 
     constructor(props: P) {
@@ -64,13 +52,13 @@ export abstract class BasePostPaginateShow<P extends BasePostPaginateShowProps>
         }
     }
 
-    componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<BasePostPaginateShowState>, snapshot?: any): void {
+    componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<BasePaginateShowState<D>>, snapshot?: any): void {
         if (this.props.onUpdate != null) {
             this.props.onUpdate()
         }
     }
 
-    abstract createPresenter(): IPostPaginateShowPresenter
+    abstract createPresenter(): IPaginateShowPresenter
 
     abortLoad() {
         consoleDebug("BasePostPaginateShow abortLoad")

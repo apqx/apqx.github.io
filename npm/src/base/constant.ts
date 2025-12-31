@@ -35,6 +35,14 @@ export const SECTION_TYPE_TAG: SectionType = {
     pathRegex: "^(\\/section/tag.*)$"
 }
 
+export const SECTION_TYPE_LENS: SectionType = {
+    identifier: "lens",
+    name: "透镜",
+    indexPath: "/section/lens.html",
+    // /section/lens /section/lens.html /post/lens/
+    pathRegex: "^((\\/section/lens.*)|(\\/post\\/lens\\/.*))$"
+}
+
 export const SECTION_TYPE_SHARE: SectionType = {
     identifier: "share",
     name: "分享",
@@ -74,6 +82,8 @@ export function getSectionTypeByPath(path: string): SectionType {
         return SECTION_TYPE_POETRY
     } else if (path.match(new RegExp(SECTION_TYPE_OPERA.pathRegex))) {
         return SECTION_TYPE_OPERA
+    } else if (path.match(new RegExp(SECTION_TYPE_LENS.pathRegex))) {
+        return SECTION_TYPE_LENS
     } else if (path.match(new RegExp(SECTION_TYPE_TAG.pathRegex))) {
         return SECTION_TYPE_TAG
     } else if (path.match(new RegExp(SECTION_TYPE_SHARE.pathRegex))) {

@@ -2,20 +2,23 @@ import { SECTION_TYPE_POETRY } from "../../../base/constant";
 import type { PaginatePage } from "../../../repository/service/bean/PaginatePage";
 import { consoleError, consoleObjDebug } from "../../../util/log";
 import { isDebug, runAfterMinimalTime } from "../../../util/tools";
-import { BasePostPaginateShow } from "./BasePostPaginateShow";
-import type { BasePostPaginateShowProps, Post } from "./BasePostPaginateShow";
-import type { IPostPaginateShowPresenter } from "./IPostPaginateShowPresenter";
+import { BasePaginateShow } from "./BasePaginateShow";
+import type { BasePaginateShowProps } from "./BasePaginateShow";
+import type { IPaginateShowPresenter } from "./IPaginateShowPresenter";
 import { ERROR_HINT, getLoadHint } from "../LoadingHint";
 import type { ApiPost } from "../../../repository/service/bean/Post";
 
-export class PostPaginateShowPresenter implements IPostPaginateShowPresenter {
-    component: BasePostPaginateShow<BasePostPaginateShowProps>
+/**
+ * D, 要加载的数据类型
+ */
+export abstract class BasePaginateShowPresenter<D> implements IPaginateShowPresenter {
+    component: BasePaginateShow<D, BasePaginateShowProps<D>>
     urlPrefix: string | null = null
     cachedPage: PaginatePage[] | null = null
     firstLoadingDelay: boolean = false
     abortController: AbortController | null = null
 
-    constructor(component: BasePostPaginateShow<any>, firstLoadingDelay: boolean = false) {
+    constructor(component: BasePaginateShow<D, BasePaginateShowProps<D>>, firstLoadingDelay: boolean = false) {
         this.component = component
         this.firstLoadingDelay = firstLoadingDelay
     }
@@ -30,7 +33,8 @@ export class PostPaginateShowPresenter implements IPostPaginateShowPresenter {
         this.component.setState({
             loading: true
         })
-        if (isDebug()) {
+        // share 资源是由另一个工程输出到云端，本地没有，所以对它不能用调试链接
+        if (isDebug() && this.component.props.category != "share") {
             this.urlPrefix = window.location.origin
         } else {
             this.urlPrefix = "https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog"
@@ -79,7 +83,7 @@ export class PostPaginateShowPresenter implements IPostPaginateShowPresenter {
     }
 
     showPosts(page: PaginatePage, add: boolean, clickLoad: boolean, startTime: number) {
-        const posts = new Array<Post>()
+        const posts = new Array<D>()
         if (add) {
             // 新加载的一页数据，直接加到已有数据末尾，保留已有数据
             posts.push(...this.component.state.posts)
@@ -106,32 +110,34 @@ export class PostPaginateShowPresenter implements IPostPaginateShowPresenter {
         }
     }
 
-    private getPostForShow(item: ApiPost) {
-        let author = item.author;
-        if (this.component.props.category == SECTION_TYPE_POETRY.identifier && item.moreDate.length > 0) {
-            author = item.moreDate + " " + item.author;
-        }
-        let cover = item.cover;
-        if (item["index-cover"].length > 0) {
-            cover = item["index-cover"];
-        }
-        const post = {
-            title: item.title,
-            author: author,
-            actor: item.actor.length == 0 ? [] : item.actor.split(" "),
-            mention: item.mention.length == 0 ? [] : item.mention.split(" "),
-            location: item.location,
-            date: item.date,
-            path: item.path,
-            description: item.description,
-            cover: cover,
-            coverAlt: item["cover-alt"],
-            pinned: item.pinned == "true",
-            featured: item.featured == "true",
-            hidden: item.hidden == "true"
-        };
-        return post;
-    }
+    abstract getPostForShow(item: any): D
+
+    // private getPostForShow(item: ApiPost): D {
+    //     let author = item.author;
+    //     if (this.component.props.category == SECTION_TYPE_POETRY.identifier && item.moreDate.length > 0) {
+    //         author = item.moreDate + " " + item.author;
+    //     }
+    //     let cover = item.cover;
+    //     if (item["index-cover"].length > 0) {
+    //         cover = item["index-cover"];
+    //     }
+    //     const post = {
+    //         title: item.title,
+    //         author: author,
+    //         actor: item.actor.length == 0 ? [] : item.actor.split(" "),
+    //         mention: item.mention.length == 0 ? [] : item.mention.split(" "),
+    //         location: item.location,
+    //         date: item.date,
+    //         path: item.path,
+    //         description: item.description,
+    //         cover: cover,
+    //         coverAlt: item["cover-alt"],
+    //         pinned: item.pinned == "true",
+    //         featured: item.featured == "true",
+    //         hidden: item.hidden == "true"
+    //     };
+    //     return post;
+    // }
 
     abortLoad() {
         if (this.abortController != null) this.abortController.abort()

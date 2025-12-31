@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+    {% include head.html %}
+</head>
+
+<body class="mdc-typography mdc-theme--surface">
+    {% include script-theme.html %}
+    {% include header.html %}
+    {% include aside.html %}
+    <div class="page-wrap mdc-theme--background">
+        <hr class="header-space mdc-theme--surface" />
+        <main class="main-container-wide">
+            {{ content }}
+        </main>
+        {% include footer.html %}
+    </div>
+</body>
+
+</html>
