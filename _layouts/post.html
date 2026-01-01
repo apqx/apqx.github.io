@@ -32,8 +32,16 @@
                         <span class="mdc-button__label">{{ tagInPage }}</span>
                     </button>
                     {%- endfor %}
+                    {%- if page.categories contains "lens" %}
+                    {%- assign lensTags = page.lens-tags | split: " " %}
+                    {%- for tagInPage in lensTags %}
+                    <button type="button" class="mdc-button tag-dialog-trigger btn-tag" id="chip_tag_{{ tagInPage }}">
+                        <span class="mdc-button__label">{{ tagInPage }}</span>
+                    </button>
+                    {%- endfor %}
+                    {%- endif %}
                 </section>
-                {%- if page.categories contains "opera" %}
+                {%- if page.categories contains "opera"  or page.categories contains "lens" %}
                 <blockquote data-pagefind-ignore="all">
                     <p>
                         节省数据流量，本页为缩略图，点击可跳转到高清原图。我不喜欢水印更愿意分享纯净剧照，只是注意图片版权归属作者及剧团演员所有，未经允许不可作商业用途🤫。
@@ -48,6 +56,17 @@
                 <blockquote data-pagefind-ignore="all">
                     <p><strong>本文时间久远，部分内容可能过时，仅供参考。</strong></p>
                 </blockquote>
+                {%- endif %}
+                {%- if page.categories contains "lens" %}
+                {%- assign actors = page.actor | split: " " %}
+                <section data-pagefind-ignore="all" style="margin-top: 0rem; margin-bottom: 0.3rem;">
+                    {%- for actor in actors %}
+                    <button type="button" class="mdc-button tag-dialog-trigger btn-tag" id="chip_tag_{{ actor }}">
+                        <span class="mdc-button__label">{{ actor }}</span>
+                    </button>
+                    {%- endfor %}
+                </section>
+                <p><img src="{{ page.cover }}" loading="lazy" class="clickable clickShowOriginalImg operaCopyright"></p>
                 {%- endif %}
 
                 <!-- main content -->

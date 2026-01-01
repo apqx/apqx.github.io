@@ -111,15 +111,30 @@ function IndexItem(props: IndexItemProps) {
         // 图片加载动画
         let imageLoadAnimator: ImageLoadAnimator | null = null
         if (imgE != null) {
-            imageLoadAnimator = new ImageLoadAnimator(imgE as HTMLImageElement, -1, false,
-                () => {
-                    // 仅在用户未滚动时的第一页执行动画，否则是不可见的无需动画
-                    return window.scrollY <= 0
-                },
-                () => {
-                    // 图片尺寸动画执行完成
-                    props.coverLoadedCallback()
-                })
+            // 每行 3 个 item，第一行动画依次执行
+            if (props.index < 3) {
+                setInterval(() => {
+                    imageLoadAnimator = new ImageLoadAnimator(imgE as HTMLImageElement, -1, false,
+                        () => {
+                            // 仅在用户未滚动时的第一页执行动画，否则是不可见的无需动画
+                            return window.scrollY <= 0
+                        },
+                        () => {
+                            // 图片尺寸动画执行完成
+                            props.coverLoadedCallback()
+                        })
+                }, 50 * (props.index + 1))
+            } else {
+                imageLoadAnimator = new ImageLoadAnimator(imgE as HTMLImageElement, -1, false,
+                    () => {
+                        // 仅在用户未滚动时的第一页执行动画，否则是不可见的无需动画
+                        return window.scrollY <= 0
+                    },
+                    () => {
+                        // 图片尺寸动画执行完成
+                        props.coverLoadedCallback()
+                    })
+            }
         }
 
         // 监听元素进入窗口初次显示
@@ -150,8 +165,8 @@ function IndexItem(props: IndexItemProps) {
                 <section className="lens-index-container">
                     <img className="grid-index-cover image-height-animation" loading="lazy" src={props.cover} />
                     <div className="lens-index-text-container">
-                        <div className="grid-index-date">
-                            <span>{date.year}{date.month}{date.day} {actorStr}</span>
+                        <div className="lens-index-date">
+                            {date.year}{date.month}
                         </div>
                     </div>
                 </section>

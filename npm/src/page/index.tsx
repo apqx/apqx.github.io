@@ -53,7 +53,7 @@ function initIndexList() {
             onMount={onMount} onUpdate={onUpdate} pageDescriptionHtml={descriptionHtml} />)
     } else if (wrapperE.classList.contains("lens-index-list-wrapper")) {
         // 透镜
-        root.render(<LensIndexList tag={""} category={"opera"} pinnedPosts={[]} loadedPosts={[]}
+        root.render(<LensIndexList tag={""} category={"lens"} pinnedPosts={[]} loadedPosts={[]}
             onMount={onMount} onUpdate={onUpdate} />)
     }
 }
