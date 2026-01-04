@@ -10,49 +10,49 @@ sitemap: false
             "id": "index-opera",
             "target": {
                 "path": "/section/opera.html",
-                "title": "立泉的看剧"
+                "title": "立泉落落｜看剧"
             }
         },
         {
             "id": "opera",
             "target": {
                 "path": "/section/opera.html",
-                "title": "立泉的看剧"
+                "title": "立泉落落｜看剧"
             }
         },
         {
             "id": "lens",
             "target": {
                 "path": "/section/lens.html",
-                "title": "立泉的透镜"
+                "title": "立泉落落｜透镜"
             }
         },
         {
             "id": "poetry",
             "target": {
                 "path": "/section/poetry.html",
-                "title": "立泉的诗文"
+                "title": "立泉落落｜诗文"
             }
         },
         {
             "id": "repost",
             "target": {
                 "path": "/section/repost.html",
-                "title": "立泉的转载"
+                "title": "立泉落落｜转载"
             }
         },
         {
             "id": "share",
             "target": {
                 "path": "/page/share.html",
-                "title": "立泉的分享"
+                "title": "立泉落落｜分享"
             }
         },
         {
             "id": "print",
             "target": {
                 "path": "/page/print.html",
-                "title": "立泉的印刷品"
+                "title": "立泉落落｜印刷"
             }
         },
         {

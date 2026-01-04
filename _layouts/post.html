@@ -12,7 +12,12 @@
     <div class="page-wrap mdc-theme--background">
         <hr class="header-space mdc-theme--surface" />
         <main class="main-container">
+            <!-- 不携带 data-pagefind-body 将不会被 pagefind 索引 -->
+            {%- if page.categories contains "original" or page.categories contains "opera" or page.categories contains "poetry" or page.categories contains "repost" %}
             <article data-pagefind-body class="mdc-card content-card">
+            {%- else %}
+            <article class="mdc-card content-card">
+            {%- endif %}
                 {% include script-content-card.html %}
                 <h1 data-pagefind-meta="title" class="post-title">{{ page.title }}</h1>
                 <address class="post-author">
@@ -41,7 +46,7 @@
                     {%- endfor %}
                     {%- endif %}
                 </section>
-                {%- if page.categories contains "opera"  or page.categories contains "lens" %}
+                {%- if page.categories contains "opera" or page.categories contains "lens" %}
                 <blockquote data-pagefind-ignore="all">
                     <p>
                         节省数据流量，本页为缩略图，点击可跳转到高清原图。我不喜欢水印更愿意分享纯净剧照，只是注意图片版权归属作者及剧团演员所有，未经允许不可作商业用途🤫。
@@ -59,14 +64,13 @@
                 {%- endif %}
                 {%- if page.categories contains "lens" %}
                 {%- assign actors = page.actor | split: " " %}
-                <section data-pagefind-ignore="all" style="margin-top: 0rem; margin-bottom: 0.3rem;">
+                <p>
+                    {{ page.date | date: "%Y%m%d %H:%M:%S" }}
                     {%- for actor in actors %}
-                    <button type="button" class="mdc-button tag-dialog-trigger btn-tag" id="chip_tag_{{ actor }}">
-                        <span class="mdc-button__label">{{ actor }}</span>
-                    </button>
+                    <a id="chip_tag_{{ actor }}" class="tag-dialog-trigger clickable-empty-link">{{ actor }}</a>
                     {%- endfor %}
-                </section>
-                <p><img src="{{ page.cover }}" loading="lazy" class="clickable clickShowOriginalImg operaCopyright"></p>
+                </p>
+                <p><img src="{{ page.cover }}" loading="lazy" class="clickable clickShowOriginalImg operaCopyright" alt="{{ page.actor }}"></p>
                 {%- endif %}
 
                 <!-- main content -->

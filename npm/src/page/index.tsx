@@ -3,7 +3,7 @@ import { runOnHtmlDone, toggleClassWithEnable } from "../util/tools"
 import { consoleDebug, consoleObjDebug } from "../util/log"
 import { createRoot } from "react-dom/client"
 import { IndexList } from "../component/react/IndexList"
-import { getSectionTypeByPath, SECTION_TYPE_OTHER} from "../base/constant"
+import { getSectionTypeByPath, SECTION_TYPE_OTHER } from "../base/constant"
 import { ImageLoadAnimator } from "../component/animation/ImageLoadAnimator"
 import { GridIndexList } from "../component/react/GridIndexList"
 import { MDCRipple } from "@material/ripple"
@@ -27,21 +27,14 @@ function initIndexList() {
     consoleDebug("Index category = " + category + ", path = " + window.location.pathname)
     if (category == SECTION_TYPE_OTHER.identifier) return
 
-    const onUpdate = () => {
-        // React更新
-    }
-    const onMount = () => {
-        // React加载之后，启动Cover动画
-        initIndexTopCover()
-    }
-    if (wrapperE.querySelectorAll(".index-ul").length > 0) {
+    if (wrapperE.classList.contains("index-list-wrapper")) {
         // 随笔、诗词、转载
         // 获取已有的post，包括置顶和非置顶
         const loadedPosts = getLinearLoadedPosts(wrapperE)
         consoleObjDebug("Index loaded posts", loadedPosts)
         root.render(<IndexList tag={""} category={category} pinnedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
-            onMount={onMount} onUpdate={onUpdate} />)
-    } else if (wrapperE.querySelectorAll(".grid-index-ul").length > 0) {
+            onMount={() => { initIndexTopCover() }} onUpdate={() => { }} />)
+    } else if (wrapperE.classList.contains("grid-index-list-wrapper")) {
         // 看剧
         const descriptionE = document.querySelector(".grid-index-li--description")
         let descriptionHtml = ""
@@ -50,11 +43,13 @@ function initIndexList() {
         const loadedPosts = getGridLoadedPosts(wrapperE)
         consoleObjDebug("Index loaded posts", loadedPosts)
         root.render(<GridIndexList tag={""} category={category} pinnedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
-            onMount={onMount} onUpdate={onUpdate} pageDescriptionHtml={descriptionHtml} />)
+            onMount={() => { }} onUpdate={() => { }} pageDescriptionHtml={descriptionHtml} />)
     } else if (wrapperE.classList.contains("lens-index-list-wrapper")) {
         // 透镜
-        root.render(<LensIndexList tag={""} category={"lens"} pinnedPosts={[]} loadedPosts={[]}
-            onMount={onMount} onUpdate={onUpdate} />)
+        const loadedPosts = getLensLoadedPosts(wrapperE)
+        consoleObjDebug("Lens Index loaded posts", loadedPosts)
+        root.render(<LensIndexList tag={""} category={category} pinnedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
+            onMount={() => { }} onUpdate={() => { }} />)
     }
 }
 
@@ -93,6 +88,41 @@ function getLinearLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
     array.push(pinedPosts)
     array.push(otherPosts)
     return array
+}
+
+function getLensLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
+    // 仅读取置顶
+    const pinedPosts: Array<Post> = []
+    const otherPosts: Array<Post> = []
+    for (const liE of wrapperE.querySelectorAll(".grid-index-li")) {
+        // 202010｜王文惠 王恒涛
+        const dateActorE = liE.querySelector(".lens-index-date") as HTMLElement
+        const dateActor = dateActorE.innerText.trim().split("｜")
+        const date = dateActor[0].trim()
+        const fullDate = dateActorE.getAttribute("full-date") || "2000年01月01日"
+        const actors = dateActor[1].trim().split(" ")
+        const coverE = liE.querySelector(".grid-index-cover") as HTMLImageElement
+        const cover = coverE?.src
+        const coverAlt = coverE?.alt
+        const path = (liE.querySelector(".index-a") as HTMLAnchorElement).pathname
+        const post = {
+            title: dateActor.join("｜"),
+            author: "",
+            actor: actors,
+            mention: [],
+            location: "",
+            date: fullDate,
+            path: path,
+            description: "",
+            cover: cover,
+            coverAlt: coverAlt,
+            pinned: true,
+            featured: false,
+            hidden: false
+        }
+        pinedPosts.push(post)
+    }
+    return [pinedPosts, otherPosts]
 }
 
 function getGridLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
@@ -154,7 +184,7 @@ function initIndexTopCover() {
             () => {
                 // 仅在用户未滚动时的第一页执行动画，否则是不可见的无需动画
                 return window.scrollY <= 0
-            }, 
+            },
             () => {
                 // 动画完成回调
             })

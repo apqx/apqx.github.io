@@ -3,12 +3,29 @@ layout: index-wide
 categories: lens
 title: 立泉落落｜透镜
 topbar-title: Just pictures
-description: 落花人独立，微雨燕双飞。
+description: 结庐在人境，心远地自偏。
 sitemap: false
 blockFromSearchEngine: true
-preloadImageJpg: 
 ---
 
 <section id="index-list-wrapper" class="lens-index-list-wrapper">
-	
+	<ul class="grid-index-ul" style="display: none;">
+        {% for post in site.posts %}
+        {%- if post.categories contains "lens" and post.hideFromIndex != true and post.pinned == true %}
+        <li class="grid-index-li">
+            <a class="index-a mdc-card grid-index-card grid-index-card__ripple " href={{ post.url }}>
+                <section class="lens-index-container">
+                    <img class="grid-index-cover" loading="lazy" src={{ post.cover }} alt={{ post.actor }} />
+                    <div class="lens-index-text-container">
+                        <div class="lens-index-date" full-date="{{ post.date | date: "%Y年%m月%d日" }}">
+                            {{ post.date | date: "%Y%m" }}｜{{ post.actor }}
+                        </div>
+                    </div>
+                </section>
+            </a>
+            <hr class="grid-index-li-divider" />
+        </li>
+        {% endif -%}
+        {% endfor %}
+    </ul>
 </section>

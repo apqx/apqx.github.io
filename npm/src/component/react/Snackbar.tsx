@@ -21,7 +21,7 @@ export function Snackbar(props: props) {
         // 自动关闭时间，-1 表示不自动关闭
         // snackbar.current.timeoutMs = -1
         snackbar.current.open()
-    }, [props.text])
+    })
 
     return (
         <aside ref={containerRef} className="mdc-snackbar">

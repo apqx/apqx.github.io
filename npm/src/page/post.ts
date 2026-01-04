@@ -45,18 +45,27 @@ function initPageCheck() {
 
 function initImgJump() {
     const imgList = document.querySelectorAll(".clickShowOriginalImg")
-    let url = ""
+    let targetUrl = ""
     for (const img of imgList) {
         // 点击图片，跳转到原图
         img.addEventListener("click", () => {
             const hasCopyright = img.classList.contains("operaCopyright")
-            // 所有的图片，缩略图都加了_thumb后缀，删除后即为原图
-            url = img.getAttribute("src")!!.replace("_thumb", "")
-            consoleDebug("Click show original img, copyright = " + hasCopyright + ", => " + url)
+            // 所有的图片，缩略图都加了 _thumb 后缀，删除后即为原图
+            // 图片只有 2 种格式，jpg 和 webp
+            // 命名示例：abcd_thumb.jpg abcd_thumb_jpg.webp abcd_thumb_for_lens_jpg.webp
+            // _thumb: 缩略图标识
+            // _jpg: 原图后缀名标识，默认缩略图和原图为相同格式。若缩略图是 webp 原图是 jpg 需加此标识
+            // _for_lens: 透镜分区标识，表明此缩略图是为透镜分区准备的
+            let imgUrl = img.getAttribute("src")!!
+            if (imgUrl.includes("_jpg")) {
+                imgUrl = imgUrl.substring(0, imgUrl.lastIndexOf(".")) + ".jpg"
+            }
+            targetUrl = imgUrl.replace("_thumb", "").replace("_jpg", "").replace("_for_lens", "")
+            consoleDebug("Click show original img, copyright = " + hasCopyright + ", => " + targetUrl)
             if (hasCopyright) {
-                showCopyrightDialog(url);
+                showCopyrightDialog(targetUrl);
             } else {
-                window.open(url, "_blank")
+                window.open(targetUrl, "_blank")
             }
         })
     }

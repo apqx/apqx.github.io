@@ -16,6 +16,7 @@ import { showFooter } from "../footer"
 import { getInterSectionObserver } from "../animation/BaseAnimation"
 import { getSplittedDate } from "../../base/post"
 import { PostPaginateShowPresenter, type Post } from "./post/PostPaginateShowPresenter"
+import { start } from "repl"
 
 interface Props extends BasePaginateShowProps<Post> {
     pageDescriptionHtml: string
@@ -77,7 +78,7 @@ export class GridIndexList extends BasePaginateShow<Post,Props> {
                     }
                     {this.state.posts.map((item: Post, index: number) =>
                         // TODO: 有时候jekyll生成的path和paginate生成的path不一样，导致item重新加载，这种情况并不多
-                        !item.pinned && !item.hidden &&
+                        !item.hidden &&
                         <IndexItem key={item.path}
                             index={index}
                             title={item.title}
@@ -129,15 +130,14 @@ function IndexItem(props: IndexItemProps) {
         // 图片加载动画
         let imageLoadAnimator: ImageLoadAnimator | null = null
         if (imgE != null) {
-            imageLoadAnimator = new ImageLoadAnimator(imgE as HTMLImageElement, -1, false,
-                () => {
-                    // 仅在用户未滚动时的第一页执行动画，否则是不可见的无需动画
-                    return window.scrollY <= 0
-                },
-                () => {
-                    // 图片尺寸动画执行完成
-                    props.coverLoadedCallback()
-                })
+            // 前 2 个元素依次执行动画
+            if (props.index < 2) {
+                setTimeout(() => {
+                    imageLoadAnimator = startImageAnimation(imgE as HTMLImageElement)
+                }, 50 * props.index)
+            } else {
+                imageLoadAnimator = startImageAnimation(imgE as HTMLImageElement)
+            }
         }
 
         // 监听元素进入窗口初次显示
@@ -155,6 +155,18 @@ function IndexItem(props: IndexItemProps) {
             }
         }
     }, [])
+
+    function startImageAnimation(imgE: HTMLImageElement): ImageLoadAnimator | null {
+            return new ImageLoadAnimator(imgE, -1, false,
+                () => {
+                    // 仅在用户未滚动时的第一页执行动画，否则是不可见的无需动画
+                    return window.scrollY <= 0
+                },
+                () => {
+                    // 图片尺寸动画执行完成
+                    props.coverLoadedCallback()
+                })
+        }
 
     const actorStr = props.actor.join(" ")
     const animationClass = props.index == 0 ? "card-fade-in" : "card-slide-in-middle"

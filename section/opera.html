@@ -10,9 +10,9 @@ blockFromSearchEngine: false
 ---
 
 <!-- Jekyll生成的HTML列表默认隐藏，由React重新加载 -->
-<section id="index-list-wrapper">
-    <ul class="grid-index-ul">
-        <li class="grid-index-li grid-index-li--description" style="display: none;">
+<section id="index-list-wrapper" class="grid-index-list-wrapper">
+    <ul class="grid-index-ul" style="display: none;">
+        <li class="grid-index-li grid-index-li--description">
             <section class="mdc-card grid-index-card card-fade-in">
                 <div class="grid-index-text-container">
                     <p>2021年08月08日，我在博客里开辟这个分区来承载曾经在剧场看过的剧和拍过的剧照，以昆曲为主，使用<a
@@ -38,7 +38,7 @@ blockFromSearchEngine: false
         {%- break %}
         {% endif -%}
         {%- if post.categories contains "opera" and post.hideFromIndex != true %}
-        <li class="grid-index-li" style="display: none;">
+        <li class="grid-index-li">
             <a class="index-a mdc-card grid-index-card grid-index-card__ripple" href="{{ post.url }}">
                 <section>
                     {%- if post.cover-for-index != null %}

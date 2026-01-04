@@ -8,8 +8,6 @@ import { consoleDebug, consoleObjDebug } from "../../util/log"
 import { BasePaginateShow } from "./post/BasePaginateShow"
 import type { BasePaginateShowProps, BasePaginateShowState } from "./post/BasePaginateShow"
 import type { IPaginateShowPresenter } from "./post/IPaginateShowPresenter"
-import { BasePaginateShowPresenter } from "./post/BasePaginateShowPresenter"
-import { setupTagTrigger } from "../tag"
 import { ScrollLoader } from "../../base/ScrollLoader"
 import Masonry from 'react-masonry-css'
 import { showFooter } from "../footer"
@@ -66,8 +64,23 @@ export class LensIndexList extends BasePaginateShow<Post, BasePaginateShowProps<
                     breakpointCols={breakpointColumnsObj}
                     className="my-masonry-grid"
                     columnClassName="my-masonry-grid_column">
+                    {/* 置顶 */}
+                    {this.props.pinnedPosts.map((item: Post, index: number) =>
+                        <IndexItem key={item.path}
+                            index={index}
+                            title={item.title}
+                            actor={item.actor}
+                            date={item.date}
+                            path={item.path}
+                            cover={item.cover}
+                            last={false}
+                            fromPinnedList={true}
+                            pinned={true}
+                            pinnedListSize={this.props.pinnedPosts.length}
+                            coverLoadedCallback={() => { }} />)}
+                    {/* 普通 */}
                     {this.state.posts.map((item: Post, index: number) =>
-                        !item.pinned && !item.hidden &&
+                        !item.hidden &&
                         <IndexItem key={item.path}
                             index={index}
                             title={item.title}
@@ -76,6 +89,9 @@ export class LensIndexList extends BasePaginateShow<Post, BasePaginateShowProps<
                             path={item.path}
                             cover={item.cover}
                             last={index == this.state.posts.length - 1}
+                            fromPinnedList={false}
+                            pinned={item.pinned}
+                            pinnedListSize={this.props.pinnedPosts.length}
                             coverLoadedCallback={() => { }} />
                     )}
                 </Masonry>
@@ -95,6 +111,9 @@ type IndexItemProps = {
     path: string,
     cover: string,
     last: boolean,
+    fromPinnedList: boolean,
+    pinned: boolean,
+    pinnedListSize: number
     coverLoadedCallback: () => void
 }
 
@@ -111,29 +130,23 @@ function IndexItem(props: IndexItemProps) {
         // 图片加载动画
         let imageLoadAnimator: ImageLoadAnimator | null = null
         if (imgE != null) {
-            // 每行 3 个 item，第一行动画依次执行
-            if (props.index < 3) {
-                setInterval(() => {
-                    imageLoadAnimator = new ImageLoadAnimator(imgE as HTMLImageElement, -1, false,
-                        () => {
-                            // 仅在用户未滚动时的第一页执行动画，否则是不可见的无需动画
-                            return window.scrollY <= 0
-                        },
-                        () => {
-                            // 图片尺寸动画执行完成
-                            props.coverLoadedCallback()
-                        })
-                }, 50 * (props.index + 1))
+            // 计算栏数，前两行图片依次执行动画
+            // 3 栏为横屏大屏，前 2 行共 6 张图
+            // 2 栏为竖屏小屏，前 3 行共 6 张图
+            const parentWidth = rootE.parentElement?.parentElement?.clientWidth ?? 0
+            const columnCount = parentWidth >= 950 ? 3 : 2
+            consoleDebug("IndexItem parentWidth=" + parentWidth + " columnCount=" + columnCount)
+            // if (props.index < columnCount * 2) {
+            if (props.fromPinnedList && props.index < 6) {
+                setTimeout(() => {
+                    imageLoadAnimator = startImageAnimation(imgE as HTMLImageElement)
+                }, 50 * props.index)
+            } else if (!props.fromPinnedList && props.index + props.pinnedListSize < 6) {
+                setTimeout(() => {
+                    imageLoadAnimator = startImageAnimation(imgE as HTMLImageElement)
+                }, 50 * (props.index + props.pinnedListSize))
             } else {
-                imageLoadAnimator = new ImageLoadAnimator(imgE as HTMLImageElement, -1, false,
-                    () => {
-                        // 仅在用户未滚动时的第一页执行动画，否则是不可见的无需动画
-                        return window.scrollY <= 0
-                    },
-                    () => {
-                        // 图片尺寸动画执行完成
-                        props.coverLoadedCallback()
-                    })
+                imageLoadAnimator = startImageAnimation(imgE as HTMLImageElement)
             }
         }
 
@@ -153,6 +166,18 @@ function IndexItem(props: IndexItemProps) {
         }
     }, [])
 
+    function startImageAnimation(imgE: HTMLImageElement): ImageLoadAnimator | null {
+        return new ImageLoadAnimator(imgE, -1, false,
+            () => {
+                // 仅在用户未滚动时的第一页执行动画，否则是不可见的无需动画
+                return window.scrollY <= 0
+            },
+            () => {
+                // 图片尺寸动画执行完成
+                props.coverLoadedCallback()
+            })
+    }
+
     const actorStr = props.actor.join(" ")
     const animationClass = props.index == 0 ? "card-fade-in" : "card-slide-in-middle"
 
@@ -163,10 +188,13 @@ function IndexItem(props: IndexItemProps) {
             {/* 第一个元素使用 fade-in 动画，避免在小尺寸手机上因为 slide 距离在页面初次加载时不触发动画 */}
             <a className={"index-a mdc-card grid-index-card grid-index-card__ripple " + animationClass} href={props.path}>
                 <section className="lens-index-container">
-                    <img className="grid-index-cover image-height-animation" loading="lazy" src={props.cover} />
+                    <img className="grid-index-cover image-height-animation" loading="lazy" src={props.cover} alt={actorStr} />
+                    {props.pinned &&
+                        <span className="lens-index-pinned-icon-container"><i className="material-symbols-rounded-light">keep</i></span>
+                    }
                     <div className="lens-index-text-container">
                         <div className="lens-index-date">
-                            {date.year}{date.month}
+                            {date.year}{date.month}｜{actorStr}
                         </div>
                     </div>
                 </section>
