@@ -91,7 +91,7 @@ function getLinearLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
 }
 
 function getLensLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
-    // 仅读取置顶
+    // 读取置顶和预置
     const pinedPosts: Array<Post> = []
     const otherPosts: Array<Post> = []
     for (const liE of wrapperE.querySelectorAll(".grid-index-li")) {
@@ -105,6 +105,8 @@ function getLensLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
         const cover = coverE?.src
         const coverAlt = coverE?.alt
         const path = (liE.querySelector(".index-a") as HTMLAnchorElement).pathname
+        const pinned = liE.querySelector(".lens-index-pinned-icon-container") != null
+        const featured = liE.querySelector(".lens-index-featured-icon-container") != null
         const post = {
             title: dateActor.join("｜"),
             author: "",
@@ -116,11 +118,15 @@ function getLensLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
             description: "",
             cover: cover,
             coverAlt: coverAlt,
-            pinned: true,
-            featured: false,
+            pinned: pinned,
+            featured: featured,
             hidden: false
         }
-        pinedPosts.push(post)
+        if (pinned) {
+            pinedPosts.push(post)
+        } else {
+            otherPosts.push(post)
+        }
     }
     return [pinedPosts, otherPosts]
 }

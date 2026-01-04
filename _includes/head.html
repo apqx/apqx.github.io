@@ -8,6 +8,8 @@
 {% endif -%}
 {% if page.description != null -%}
 <meta name="description" content="{{ page.description }}"/>
+{% elsif page.categories contains "lens" %}
+<meta name="description" content="{{ page.date | date: "%Y年%m月%d日" }} {{ page.actor }}"/>
 {% endif -%}
 <!-- Open Graph protocol, define rich object for share -->
 <meta property="og:url" content="{{ page.url | prepend: site.url }}"/>
@@ -17,6 +19,8 @@
 <meta property="og:description" content="{{ page.share-description }}"/>
 {% elsif page.description != null -%}
 <meta property="og:description" content="{{ page.description }}"/>
+{% elsif page.categories contains "lens" %}
+<meta property="og:description" content="{{ page.date | date: "%Y年%m月%d日" }} {{ page.actor }}"/>
 {% endif -%}
 {% if page.cover != null -%}
 <meta data-pagefind-default-meta="image[content]" property="og:image" content="{{ page.cover }}"/>

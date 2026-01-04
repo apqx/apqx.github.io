@@ -76,6 +76,7 @@ export class LensIndexList extends BasePaginateShow<Post, BasePaginateShowProps<
                             last={false}
                             fromPinnedList={true}
                             pinned={true}
+                            featured={item.featured}
                             pinnedListSize={this.props.pinnedPosts.length}
                             coverLoadedCallback={() => { }} />)}
                     {/* 普通 */}
@@ -91,6 +92,7 @@ export class LensIndexList extends BasePaginateShow<Post, BasePaginateShowProps<
                             last={index == this.state.posts.length - 1}
                             fromPinnedList={false}
                             pinned={item.pinned}
+                            featured={item.featured}
                             pinnedListSize={this.props.pinnedPosts.length}
                             coverLoadedCallback={() => { }} />
                     )}
@@ -113,6 +115,7 @@ type IndexItemProps = {
     last: boolean,
     fromPinnedList: boolean,
     pinned: boolean,
+    featured: boolean,
     pinnedListSize: number
     coverLoadedCallback: () => void
 }
@@ -189,8 +192,11 @@ function IndexItem(props: IndexItemProps) {
             <a className={"index-a mdc-card grid-index-card grid-index-card__ripple " + animationClass} href={props.path}>
                 <section className="lens-index-container">
                     <img className="grid-index-cover image-height-animation" loading="lazy" src={props.cover} alt={actorStr} />
-                    {props.pinned &&
+                    {props.fromPinnedList && props.pinned &&
                         <span className="lens-index-pinned-icon-container"><i className="material-symbols-rounded-light">keep</i></span>
+                    }
+                    {!props.fromPinnedList && (props.pinned || props.featured) &&
+                        <span className="lens-index-featured-icon-container"><i className="material-symbols-rounded-light">editor_choice</i></span>
                     }
                     <div className="lens-index-text-container">
                         <div className="lens-index-date">

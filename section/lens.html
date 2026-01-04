@@ -9,15 +9,16 @@ blockFromSearchEngine: true
 ---
 
 <section id="index-list-wrapper" class="lens-index-list-wrapper">
-	<ul class="grid-index-ul" style="display: none;">
+    <ul class="grid-index-ul" style="display: none;">
         {% for post in site.posts %}
         {%- if post.categories contains "lens" and post.hideFromIndex != true and post.pinned == true %}
         <li class="grid-index-li">
             <a class="index-a mdc-card grid-index-card grid-index-card__ripple " href={{ post.url }}>
                 <section class="lens-index-container">
                     <img class="grid-index-cover" loading="lazy" src={{ post.cover }} alt={{ post.actor }} />
+                    <span class="lens-index-pinned-icon-container"><i class="material-symbols-rounded-light">keep</i></span>
                     <div class="lens-index-text-container">
-                        <div class="lens-index-date" full-date="{{ post.date | date: "%Y年%m月%d日" }}">
+                        <div class="lens-index-date" full-date="{{ post.date | date: " %Y年%m月%d日" }}">
                             {{ post.date | date: "%Y%m" }}｜{{ post.actor }}
                         </div>
                     </div>
@@ -25,6 +26,31 @@ blockFromSearchEngine: true
             </a>
             <hr class="grid-index-li-divider" />
         </li>
+        {% endif -%}
+        {% endfor %}
+        {%- assign count = 0 -%}
+        {% for post in site.posts %}
+        {%- if count == 10 %}
+        {%- break %}
+        {% endif -%}
+        {%- if post.categories contains "lens" and post.hideFromIndex != true %}
+        <li class="grid-index-li">
+            <a class="index-a mdc-card grid-index-card grid-index-card__ripple " href={{ post.url }}>
+                <section class="lens-index-container">
+                    <img class="grid-index-cover" loading="lazy" src={{ post.cover }} alt={{ post.actor }} />
+                    {%- if post.featured == true %}
+                    <span class="lens-index-featured-icon-container"><i class="material-symbols-rounded-light">editor_choice</i></span>
+                    {%- endif %}
+                    <div class="lens-index-text-container">
+                        <div class="lens-index-date" full-date="{{ post.date | date: " %Y年%m月%d日" }}">
+                            {{ post.date | date: "%Y%m" }}｜{{ post.actor }}
+                        </div>
+                    </div>
+                </section>
+            </a>
+            <hr class="grid-index-li-divider" />
+        </li>
+        {%- assign count = count | plus: 1 %}
         {% endif -%}
         {% endfor %}
     </ul>
