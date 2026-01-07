@@ -1,12 +1,12 @@
 // import "./drawer.scss"
-import {MDCDrawer} from "@material/drawer";
-import {MDCList} from "@material/list";
-import {consoleDebug, consoleError} from "../util/log";
-import {topAppBar} from "./topbar";
-import {MDCRipple} from "@material/ripple";
-import {showAboutMeDialog} from "./dialog/AboutMeDialog";
-import {showPreferenceDialog} from "./dialog/PreferenceDialog";
-import {showSearchDialog} from "./dialog/SearchDialog";
+import { MDCDrawer } from "@material/drawer";
+import { MDCList } from "@material/list";
+import { consoleDebug, consoleError } from "../util/log";
+import { topAppBar } from "./topbar";
+import { MDCRipple } from "@material/ripple";
+import { showAboutMeDialog } from "./dialog/AboutMeDialog";
+import { showPreferenceDialog } from "./dialog/PreferenceDialog";
+import { showSearchDialog } from "./dialog/SearchDialog";
 import { getSectionTypeByPath, SECTION_TYPE_LENS, SECTION_TYPE_OPERA, SECTION_TYPE_POETRY, SECTION_TYPE_REPOST, SECTION_TYPE_TAG } from "../base/constant";
 import { toggleClassWithEnable } from "../util/tools";
 
@@ -38,8 +38,21 @@ export function initDrawer() {
             drawer.open = !drawer.open
         })
     }
+    // drawer 中的 icon-button
+    const iconBtnE = document.querySelector("#drawer_btn_share")
+    if (iconBtnE != null) {
+        const iconBtnRipple = new MDCRipple(iconBtnE) 
+        iconBtnRipple.unbounded = false
+    }
+    iconBtnE?.addEventListener("click", () => {
+        consoleDebug("Click drawer share button")
+        import("./dialog/ShareDialog").then((component ) => {
+            component.showShareDialog()
+            drawer.open = false
+        })
+    })
 
-    // drawer中的list
+    // drawer 中的 list
     const listE = document.querySelector(".mdc-drawer .mdc-deprecated-list")
     if (listE == null) {
         consoleError("Drawer list not found")
@@ -82,18 +95,18 @@ export function initDrawer() {
         if (searchEHref == null || searchEHref == "") {
             consoleDebug("Click drawer list item " + DRAWER_ITEM_SEARCH_ID)
             showSearchDialog()
-            drawer.open = false;
+            drawer.open = false
         }
     })
     listE.querySelector("#" + DRAWER_ITEM_PREFERENCE_ID)?.addEventListener("click", () => {
         consoleDebug("Click drawer list item " + DRAWER_ITEM_PREFERENCE_ID)
         showPreferenceDialog()
-        drawer.open = false;
+        drawer.open = false
     })
     listE.querySelector("#" + DRAWER_ITEM_ABOUT_ME_ID)?.addEventListener("click", () => {
         consoleDebug("Click drawer list item " + DRAWER_ITEM_ABOUT_ME_ID)
         showAboutMeDialog()
-        drawer.open = false;
+        drawer.open = false
     })
 }
 

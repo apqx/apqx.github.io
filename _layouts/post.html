@@ -13,13 +13,12 @@
         <hr class="header-space mdc-theme--surface" />
         <main class="main-container">
             <!-- 不携带 data-pagefind-body 将不会被 pagefind 索引 -->
-            {%- if page.categories contains "original" or page.categories contains "opera" or page.categories contains "poetry" or page.categories contains "repost" %}
             <article data-pagefind-body class="mdc-card content-card">
-            {%- else %}
-            <article class="mdc-card content-card">
-            {%- endif %}
                 {% include script-content-card.html %}
-                <h1 data-pagefind-meta="title" class="post-title">{{ page.title }}</h1>
+                <!-- 仅透镜分区设置名为 tag 的搜索 Filter -->
+                <h1 data-pagefind-meta="title" 
+                    data-pagefind-filter="category:{{ page.categories }}"
+                    class="post-title">{{ page.title }}</h1>
                 <address class="post-author">
                     {% if page.moreDate != null %}{{ page.moreDate }} {% endif %}{{ page.author}}
                 </address>
@@ -30,7 +29,7 @@
                 </time>
 
                 <!-- tags -->
-                <section data-pagefind-ignore="all" style="margin-top: 3rem; margin-bottom: 0.3rem;">
+                <section data-pagefind-ignore="index" style="margin-top: 3rem; margin-bottom: 0.3rem;">
                     <!-- 如果用span创建mdc-button，则点击动画结束后才会触发点击事件，感觉明显会很慢 -->
                     {%- for tagInPage in page.tags %}
                     <button type="button" class="mdc-button tag-dialog-trigger btn-tag" id="chip_tag_{{ tagInPage }}">
@@ -41,7 +40,7 @@
                     {%- assign lensTags = page.lens-tags | split: " " %}
                     {%- for tagInPage in lensTags %}
                     <button type="button" class="mdc-button tag-dialog-trigger btn-tag" id="chip_tag_{{ tagInPage }}">
-                        <span class="mdc-button__label">{{ tagInPage }}</span>
+                        <span class="mdc-button__label" data-pagefind-filter="tag">{{ tagInPage }}</span>
                     </button>
                     {%- endfor %}
                     {%- endif %}
@@ -67,10 +66,10 @@
                 <p>
                     {{ page.date | date: "%Y%m%d %H:%M:%S" }}
                     {%- for actor in actors %}
-                    <a id="chip_tag_{{ actor }}" class="tag-dialog-trigger clickable-empty-link">{{ actor }}</a>
+                    <a id="chip_tag_{{ actor }}" class="tag-dialog-trigger clickable-empty-link" data-pagefind-filter="tag">{{ actor }}</a>
                     {%- endfor %}
                 </p>
-                <p><img src="{{ page.cover }}" loading="lazy" class="clickable clickShowOriginalImg operaCopyright" alt="{{ page.actor }}"></p>
+                <p><img src="{{ page.cover }}" loading="lazy" class="clickable clickShowOriginalImg operaCopyright" alt="{{ page.date | date: "%Y%m" }}｜{{ page.actor }}"></p>
                 {%- endif %}
 
                 <!-- main content -->

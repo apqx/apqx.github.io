@@ -12,7 +12,7 @@ mention: 昆曲 牡丹亭
 date: 2019-05-18 +0800
 description: 从昆曲《南柯梦》的「入梦」一折看到的这句词，浮想联翩，意犹不尽。
 cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20190518/kunqv_nankemeng_diexi.jpg
-tags: 碎碎念 戏剧 省昆
+tags: 碎碎念 看剧 省昆
 hideFromIndex: true
 blockFromSearchEngine: true
 sitemap: true

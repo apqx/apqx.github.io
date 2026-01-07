@@ -6,7 +6,7 @@ import type { BasicDialogProps } from "./BasicDialog"
 import { consoleDebug } from "../../util/log"
 import { Button } from "../react/Button"
 import { initListItem } from "../list"
-import React from "react"
+import React, { useEffect } from "react"
 
 class AboutMeDialog extends BasicDialog<BasicDialogProps, any> {
 
@@ -63,30 +63,26 @@ interface LinkItemProps {
     last: boolean
 }
 
-class LinkItem extends React.Component<LinkItemProps, any> {
-    private containerRef: React.RefObject<HTMLLIElement | null> = React.createRef()
-    componentDidMount(): void {
-        const rootE = this.containerRef.current as Element
-        this.initRipple(rootE.querySelector(".mdc-deprecated-list-item")!!)
-    }
+function LinkItem(props: LinkItemProps) {
+    const containerRef = React.useRef<HTMLLIElement>(null)
 
-    initRipple(e: HTMLElement) {
-        if (e == null) return
-        new MDCRipple(e)
-        initListItem(e, this.props.first, this.props.last)
-    }
+    useEffect(() => {
+        const rootE = containerRef.current as HTMLElement;
+        const rippleE = rootE.querySelector(".mdc-deprecated-list-item") as HTMLElement
+        new MDCRipple(rippleE)
+        initListItem(rippleE, props.first, props.last)
+    }, [])
 
-    render() {
-        return (
-            <li ref={this.containerRef}>
-                <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken" href={this.props.link} target="_blank" tabIndex={-1}>
-                    <span className="mdc-deprecated-list-item__text link-item">{this.props.title}</span>
-                </a>
-                {!this.props.last && <hr className="mdc-deprecated-list-divider" />}
-            </li>
-        )
-    }
+    return (
+        <li ref={containerRef}>
+            <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken" href={props.link} target="_blank" tabIndex={-1}>
+                <span className="mdc-deprecated-list-item__text link-item">{props.title}</span>
+            </a>
+            {!props.last && <hr className="mdc-deprecated-list-divider" />}
+        </li>
+    )
 }
+
 let openCount = 0
 export function showAboutMeDialog() {
     showDialog(<AboutMeDialog openCount={openCount++} fixedWidth={true} btnText={"关闭"}

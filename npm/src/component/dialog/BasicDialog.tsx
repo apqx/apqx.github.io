@@ -206,6 +206,7 @@ export const COMMON_DIALOG_WRAPPER_ID = "common-dialog-wrapper"
 export const TAG_DIALOG_WRAPPER_ID = "tag-dialog-wrapper"
 export const SEARCH_DIALOG_WRAPPER_ID = "search-dialog-wrapper"
 export const ABOUT_DIALOG_WRAPPER_ID = "about-dialog-wrapper"
+export const SHARE_DIALOG_WRAPPER_ID = "share-dialog-wrapper"
 export const PREFERENCE_DIALOG_WRAPPER_ID = "preference-dialog-wrapper"
 
 // 缓存每种dialog的root和dialog实例，即使该类型dialog的内容变化，其仍是同一个dialog对象

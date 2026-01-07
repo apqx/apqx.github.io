@@ -48,7 +48,13 @@ export class SearchDialogPresenter {
                     return
                 }
             }
-            this.pagefindResult = await this.pagefind.search(key)
+            const filters = await this.pagefind.filters();
+            consoleObjDebug("Pagefind filters => ", filters)
+            this.pagefindResult = await this.pagefind.search(key, {
+                filters: {
+                    category: { any: ["original", "repost", "poetry", "opera"] }
+                }
+            })
             if (signal.aborted) {
                 consoleDebug("SearchByPagefind aborted")
                 return
@@ -93,8 +99,8 @@ export class SearchDialogPresenter {
         // webpack会对所有import进行打包、拆分，对于src中不存在而在网站中存在的js，打包时会因为找不到而异常
         // 添加注释可以避免webpack对这里的import打包，而在运行时引入
         this.pagefind = await import(/*webpackIgnore: true*/ pagefindUrl)
-        // await pagefind.options({
-        //     bundlePath: "/npm/dist/pagefind/"
+        // await this.pagefind.options({
+        //     bundlePath: "/npm/",
         // })
         this.pagefind.init()
     }
@@ -161,6 +167,7 @@ export class SearchDialogPresenter {
     }
 
     showSearchResult(itemList: Array<Item>, clear: boolean, startTime: number) {
+        consoleObjDebug("showSearchResult pagefind", itemList)
         const resultSize = this.pagefindResult!!.results.length
         let results: ResultItemData[] = itemList.map(it =>
             new ResultItemData(it.meta.title, it.excerpt, getPostDateByUrl(it.raw_url), it.raw_url, getSectionTypeByPath(it.raw_url).name)
@@ -176,7 +183,7 @@ export class SearchDialogPresenter {
             results = tempResult
         }
         let loadHint = getLoadHint(results.length, resultSize)
-        consoleObjDebug("showSearchResult => ", results)
+        consoleObjDebug("showSearchResult converted", results)
         runAfterMinimalTime(startTime, () => {
             this.component.setState({
                 loading: false,
