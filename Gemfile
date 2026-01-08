@@ -1,5 +1,5 @@
-# source "https://rubygems.org"
-source "https://mirrors.aliyun.com/rubygems/"
+source "https://rubygems.org"
+# source "https://mirrors.aliyun.com/rubygems/"
 
 gem "jekyll"
 # 必要时用rbenv指定工程使用的ruby版本，与系统级版本分离

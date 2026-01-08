@@ -6,3 +6,6 @@ raft/
 
 # Mac file
 *.DS_Store
+
+# Bundler files
+Gemfile.lock
