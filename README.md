@@ -26,14 +26,14 @@
 
 ## 本地调试
 
-工程由`Webpack`和`Jekyll`组成，`Webpack`用于生成网站所需的`Javascript`和`CSS`资源，`Jekyll`则用来将`Markdown`文章转换为`HTML`网页，生成可部署的静态站点。
+工程由`Vite`和`Jekyll`组成，`Vite`用于生成网站所需的`Javascript`和`CSS`资源，`Jekyll`则用来将`Markdown`文章转换为`HTML`网页，生成可部署的静态站点。
 
-### Webpack
+### Vite
 
-切换到内部`Webpack`工程目录，编译生成`JS`、`CSS`：
+切换到内部`Vite`工程目录，编译生成`JS`、`CSS`：
 
 ```sh
-# 进入内部 Webpack 工程
+# 进入内部 Vite 工程
 cd npm
 # 安装所需依赖
 npm install
@@ -80,7 +80,7 @@ bundle exec jekyll build --trace
 
 ## 部署到GitHub Pages
 
-调试完成后，把`Webpack`生成的新`JS`和`CSS`文件上传到`OSS`中，然后在`_includes/configure.html`中关闭`debug`模式即可使用这些远程资源。
+调试完成后，把`Vite`生成的新`JS`和`CSS`文件上传到`OSS`中，然后在`_includes/configure.html`中关闭`debug`模式即可使用这些远程资源。
 
 ```html
 <!-- _includes/configure.html -->
