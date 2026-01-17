@@ -3,7 +3,7 @@ import { isChrome, isWriting, runOnHtmlDone, runOnPageBackFromCache, runOnPageDo
 import { blockTopbarKeyFrameAnimation, initTopbar } from "../component/topbar"
 import { initDrawer } from "../component/drawer"
 import { checkUserTheme, initTheme } from "../component/theme"
-import { initLocalRepository } from "../repository/LocalRepository"
+import { initLocalRepository } from "../repository/LocalDb"
 import { initFont, setNotoSansSCFont } from "../component/font/font"
 import { initFab } from "../component/fab"
 import { initTag, initTagTriggers } from "../component/tag"

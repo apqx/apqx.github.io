@@ -1,18 +1,8 @@
 import { ShortLinkDialog } from "./ShortLinkJumpDialog"
 import { consoleDebug, consoleError } from "../../util/log"
-import { isDebug, runAfterMinimalTime } from "../../util/tools"
-
-interface UrlMapJson {
-    map: UrlMapItem[]
-}
-
-interface UrlMapItem {
-    "id": string,
-    "target": {
-        "path": string,
-        "title": string
-    }
-}
+import { runAfterMinimalTime } from "../../util/tools"
+import type { ApiUrlMap } from "../../repository/bean/service/ApiUrlMap"
+import { getServiceInstance, SERVICE_DEBUG_MODE_AUTO } from "../../repository/Service"
 
 export class ShortLinkJumpDialogPresenter {
     component: ShortLinkDialog
@@ -22,21 +12,11 @@ export class ShortLinkJumpDialogPresenter {
     }
 
     /**
-     * 从url映射文件中查询pid
+     * 从 url 映射文件中查询 pid
      */
     findPage(pid: string) {
-        let urlPrefix: string
-        if (isDebug()) {
-            urlPrefix = window.location.origin
-        } else {
-            urlPrefix = "https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog"
-        }
-        const request = new Request(urlPrefix + "/api/url-map.json", {
-            method: "GET"
-        })
-        // fetch调用浏览器的网络请求，所以会有和浏览器一样的缓存策略
         let startTimeMs = Date.now()
-        fetch(request, {cache: "no-cache"})
+        getServiceInstance().getUrlMap({ debugMode: SERVICE_DEBUG_MODE_AUTO })
             .then(response => {
                 if (response.status === 200) {
                     return response.json()
@@ -44,11 +24,11 @@ export class ShortLinkJumpDialogPresenter {
                     throw new Error("Something went wrong on api server!")
                 }
             })
-            .then((response: UrlMapJson) => {
+            .then((response: ApiUrlMap) => {
                 for (const item of response.map) {
                     if (item.id === pid) {
                         consoleDebug("Find pid " + pid + " => " + item.target.path)
-                        // 跳转到目标页，不在浏览器中保留跳转记录，url可以是站内的相对path，也可以是站外http的绝对path
+                        // 跳转到目标页，不在浏览器中保留跳转记录，url 可以是站内的相对 path，也可以是站外 http 的绝对 path
                         var jumpUrl = item.target.path
                         if (!item.target.path.startsWith("http")) {
                             jumpUrl = window.location.origin + item.target.path
@@ -64,11 +44,11 @@ export class ShortLinkJumpDialogPresenter {
                 consoleError(error)
                 this.showJump(startTimeMs, window.location.origin + "/404.html", "解析映射表异常")
             }
-        )
+            )
     }
 
     showJump(startTimeMs: number, url: string, linkTitle: string) {
-        // “查询映射表”应至少显示1s，“正在跳转”应至少显示1s
+        // “查询映射表”应至少显示 1s，“正在跳转”应至少显示 1s
         let timeGapQueryingMs = 800
         runAfterMinimalTime(startTimeMs, () => {
             this.refreshHint(linkTitle, url)
@@ -85,7 +65,7 @@ export class ShortLinkJumpDialogPresenter {
             }
         })
         setTimeout(() => {
-            // 延时1秒再跳转，显示动画
+            // 延时 1s 再跳转，显示动画
             window.location.replace(url)
         }, 800)
     }

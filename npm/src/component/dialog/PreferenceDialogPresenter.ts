@@ -1,5 +1,5 @@
 import { PreferenceDialog } from "./PreferenceDialog"
-import { LocalRepository } from "../../repository/LocalRepository"
+import { LocalDb } from "../../repository/LocalDb"
 import { saveTheme, showThemeDark } from "../theme"
 import { refreshTopbar, setFixedTopbar } from "../topbar"
 import { setHandwrittenFont, setNotoSerifSCFont } from "../font/font"
@@ -8,7 +8,7 @@ import { consoleDebug } from "../../util/log"
 export class PreferenceDialogPresenter {
 
     component: PreferenceDialog
-    localRepository: LocalRepository = new LocalRepository()
+    localRepository: LocalDb = new LocalDb()
     darkClass: string = "dark"
 
     constructor(component: PreferenceDialog) {

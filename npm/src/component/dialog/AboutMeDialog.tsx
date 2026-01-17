@@ -1,11 +1,10 @@
 import "./AboutMeDialog.scss"
 import { MDCList } from "@material/list"
-import { MDCRipple } from "@material/ripple"
 import { ABOUT_DIALOG_WRAPPER_ID, BasicDialog, showDialog } from "./BasicDialog"
 import type { BasicDialogProps } from "./BasicDialog"
 import { consoleDebug } from "../../util/log"
 import { Button } from "../react/Button"
-import { initListItem } from "../list"
+import { initListItem, setupListItemRipple } from "../list"
 import React, { useEffect } from "react"
 
 class AboutMeDialog extends BasicDialog<BasicDialogProps, any> {
@@ -68,9 +67,9 @@ function LinkItem(props: LinkItemProps) {
 
     useEffect(() => {
         const rootE = containerRef.current as HTMLElement;
-        const rippleE = rootE.querySelector(".mdc-deprecated-list-item") as HTMLElement
-        new MDCRipple(rippleE)
-        initListItem(rippleE, props.first, props.last)
+        const liE = rootE.querySelector(".mdc-deprecated-list-item") as HTMLElement
+        setupListItemRipple(liE)
+        initListItem(liE, props.first, props.last)
     }, [])
 
     return (

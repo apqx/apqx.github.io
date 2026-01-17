@@ -202,6 +202,7 @@ b {
 strong {
     color: var(--strong-color);
     box-shadow: inset 0 calc(var(--mdc-typography-body1-font-size) / 2 * -1) 0 0 var(--strong-underline-color);
+    // text-decoration: var(--strong-underline-color) wavy underline;
 }
 
 .no-shadow {

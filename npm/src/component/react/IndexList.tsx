@@ -1,5 +1,4 @@
 // import "./IndexList.scss"
-import { MDCRipple } from "@material/ripple"
 import React, { useEffect, useRef } from "react"
 import type { RefObject } from "react"
 import { ERROR_HINT, LoadingHint } from "./LoadingHint"
@@ -7,12 +6,12 @@ import { consoleDebug, consoleObjDebug } from "../../util/log"
 import { ScrollLoader } from "../../base/ScrollLoader"
 import { BasePaginateShow } from "./post/BasePaginateShow"
 import type { BasePaginateShowProps, BasePaginateShowState } from "./post/BasePaginateShow"
-import { BasePaginateShowPresenter } from "./post/BasePaginateShowPresenter"
 import type { IPaginateShowPresenter } from "./post/IPaginateShowPresenter"
 import { showFooter } from "../footer"
 import { getInterSectionObserver } from "../animation/BaseAnimation"
 import { getSplittedDate } from "../../base/post"
 import { PostPaginateShowPresenter, type Post } from "./post/PostPaginateShowPresenter"
+import { setupCardRipple } from "../card"
 
 export class IndexList extends BasePaginateShow<Post, BasePaginateShowProps<Post>> {
 
@@ -92,7 +91,7 @@ function IndexItem(props: IndexItemProps) {
         const rootE = containerRef.current as HTMLElement;
         cardE.current = rootE.querySelector(".index-card")
 
-        new MDCRipple(cardE.current!!)
+        setupCardRipple(cardE.current)
         // 监听元素进入窗口初次显示
         // TODO: 执行动画后应该立即解除监听，避免不必要的性能开销
         if (cardE.current != null) {
@@ -144,8 +143,8 @@ class IndexItemWithDesc extends React.Component<IndexItemProps, any> {
         consoleObjDebug("IndexItemWithDescription componentDidMount", this.props)
         const rootE = this.containerRef.current as HTMLElement;
         this.cardE = rootE.querySelector(".index-card")
+        setupCardRipple(this.cardE)
 
-        new MDCRipple(this.cardE!!)
         // 监听元素进入窗口初次显示
         if (this.cardE != null) {
             getInterSectionObserver().observe(this.cardE)

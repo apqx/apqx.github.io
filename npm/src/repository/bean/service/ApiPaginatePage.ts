@@ -1,4 +1,4 @@
-import type { ApiPost } from "./Post"
+import type { ApiPost } from "./ApiPost"
 
 export type PaginatePage = {
     "data": {

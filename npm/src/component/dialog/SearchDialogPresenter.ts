@@ -1,38 +1,38 @@
 import { ResultItemData, SearchDialog } from "./SearchDialog"
 import { consoleDebug, consoleError, consoleObjDebug } from "../../util/log"
 import { isDebug, runAfterMinimalTime } from "../../util/tools"
-import type { Item, Result } from "./bean/search/PagefindResult"
+import type { PagefindResultItem, PagefindResult } from "../../repository/bean/pagefind/PagefindResult"
 import { getPostDateByUrl } from "../../base/post"
 import { ERROR_HINT, getLoadHint } from "../react/LoadingHint"
 import { getSectionTypeByPath } from "../../base/constant"
-
-const PAGE_SIZE: number = 10
+import { Pagefind } from "../../repository/Pagefind"
+import type { ApiPagefindSearch } from "../../repository/bean/pagefind/ApiPagefindSearch"
 
 export class SearchDialogPresenter {
     component: SearchDialog
-    pagefind: any = null
-    pagefindResult: Result | null = null
+    pagefind: Pagefind
     key: string | null = null
     abortController: AbortController | null = null
 
     constructor(component: SearchDialog) {
         this.component = component
+        this.pagefind = new Pagefind()
     }
 
     /**
      * 搜索
-     * @param _key 搜索关键字
+     * @param newKey 搜索关键字
      */
-    search(_key: string) {
-        if (_key == null || _key == "") {
+    search(newKey: string) {
+        if (newKey == null || newKey == "") {
             this.clearResult()
             return
         }
-        if (this.key == _key && this.component.state.loading) return
-        this.key = _key
+        if (this.key == newKey && this.component.state.loading) return
+        this.key = newKey
         if (this.abortController != null) this.abortController.abort()
         this.abortController = new AbortController()
-        this.searchByPagefind(_key, this.abortController.signal)
+        this.searchByPagefind(newKey, this.abortController.signal)
     }
 
     private async searchByPagefind(key: string, signal: AbortSignal) {
@@ -41,28 +41,14 @@ export class SearchDialogPresenter {
             loading: true,
         })
         try {
-            if (this.pagefind == null) {
-                await this.initPagefind()
-                if (signal.aborted) {
-                    consoleDebug("SearchByPagefind aborted")
-                    return
-                }
-            }
-            const filters = await this.pagefind.filters();
-            consoleObjDebug("Pagefind filters => ", filters)
-            this.pagefindResult = await this.pagefind.search(key, {
+            const pagefindOptions = {
                 filters: {
                     category: { any: ["original", "repost", "poetry", "opera"] }
                 }
-            })
-            if (signal.aborted) {
-                consoleDebug("SearchByPagefind aborted")
-                return
             }
-            const resultSize = this.pagefindResult!!.results.length
-            consoleObjDebug("Pagefind result => ", this.pagefindResult)
-            const firstPageSize = Math.min(resultSize, PAGE_SIZE)
-            if (firstPageSize == 0) {
+
+            const result = await this.pagefind.search(key, pagefindOptions, signal)
+            if (result.results.length == 0) {
                 runAfterMinimalTime(startTime, () => {
                     if (signal.aborted) {
                         consoleDebug("SearchByPagefind aborted")
@@ -72,12 +58,7 @@ export class SearchDialogPresenter {
                 })
                 return
             }
-            const itemList: Array<Item> = await Promise.all(this.pagefindResult!!.results.slice(0, firstPageSize).map(it => it.data()))
-            if (signal.aborted) {
-                consoleDebug("SearchByPagefind aborted")
-                return
-            }
-            this.showSearchResult(itemList, true, startTime)
+            this.showSearchResult(result, true, startTime)
         } catch (e: unknown) {
             if (e instanceof Error)
                 consoleError(e.message)
@@ -94,24 +75,10 @@ export class SearchDialogPresenter {
         }
     }
 
-    async initPagefind() {
-        let pagefindUrl: string = isDebug() ? "/npm/pagefind/pagefind.js" : "https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/pagefind/pagefind.js"
-        // webpack会对所有import进行打包、拆分，对于src中不存在而在网站中存在的js，打包时会因为找不到而异常
-        // 添加注释可以避免webpack对这里的import打包，而在运行时引入
-        this.pagefind = await import(/*webpackIgnore: true*/ pagefindUrl)
-        // await this.pagefind.options({
-        //     bundlePath: "/npm/",
-        // })
-        this.pagefind.init()
-    }
-
-    /**
-     * 加载更多
-    */
     loadMore() {
         if (this.component.state.loading) return
-        if (this.component.state.loadHint == ERROR_HINT) {
-            this.search(this.key!!)
+        if (this.component.state.loadHint == ERROR_HINT && this.component.state.results.length == 0) {
+            this.search(this.key ?? "")
             return
         }
         if (this.abortController != null) this.abortController.abort()
@@ -125,15 +92,12 @@ export class SearchDialogPresenter {
             loading: true,
         })
         try {
-            const remainingCount = this.pagefindResult!!.results.length - this.component.state.results.length
-            const loadCount = remainingCount < PAGE_SIZE ? remainingCount : PAGE_SIZE
-            const startIndex = this.component.state.results.length
-            const itemList: Array<Item> = await Promise.all(this.pagefindResult!!.results.slice(startIndex, startIndex + loadCount).map(it => it.data()))
+            const result = await this.pagefind.loadMore(signal)
             if (signal.aborted) {
                 consoleDebug("LoadMoreByPagefind aborted")
                 return
             }
-            this.showSearchResult(itemList, false, startTime)
+            this.showSearchResult(result, false, startTime)
         } catch (e: unknown) {
             if (e instanceof Error)
                 consoleError(e.message)
@@ -150,26 +114,9 @@ export class SearchDialogPresenter {
         }
     }
 
-    reduceResult() {
-        const resultSize = this.getTotalResultSize()
-        const loadSize = this.component.state.results.length
-        if (loadSize > PAGE_SIZE) {
-            const array = this.component.state.results.slice(0, PAGE_SIZE)
-            this.component.setState({
-                results: array,
-                loadHint: getLoadHint(PAGE_SIZE, resultSize)
-            })
-        }
-    }
-
-    private getTotalResultSize(): number {
-        return this.pagefindResult == null || this.pagefindResult.results == null ? 0 : this.pagefindResult.results.length
-    }
-
-    showSearchResult(itemList: Array<Item>, clear: boolean, startTime: number) {
-        consoleObjDebug("showSearchResult pagefind", itemList)
-        const resultSize = this.pagefindResult!!.results.length
-        let results: ResultItemData[] = itemList.map(it =>
+    showSearchResult(result: ApiPagefindSearch, clear: boolean, startTime: number) {
+        consoleObjDebug("showSearchResult pagefind", result)
+        let results: ResultItemData[] = result.results.map(it =>
             new ResultItemData(it.meta.title, it.excerpt, getPostDateByUrl(it.raw_url), it.raw_url, getSectionTypeByPath(it.raw_url).name)
         )
         if (!clear) {
@@ -182,8 +129,8 @@ export class SearchDialogPresenter {
             })
             results = tempResult
         }
-        let loadHint = getLoadHint(results.length, resultSize)
-        consoleObjDebug("showSearchResult converted", results)
+        let loadHint = getLoadHint(results.length, result.total)
+        consoleObjDebug("showSearchResult converted =>", results)
         runAfterMinimalTime(startTime, () => {
             this.component.setState({
                 loading: false,
@@ -210,7 +157,7 @@ export class SearchDialogPresenter {
     }
 
     /**
-     * 跳转到Google，指定网站搜索
+     * 跳转到 Google 站内搜索
      */
     searchJumpGoogle(input: string) {
         if (input !== "") {

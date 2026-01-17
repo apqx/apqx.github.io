@@ -1,13 +1,13 @@
-export type Result = {
+export type PagefindResult = {
     results: [
         {
             id: "",
-            data: () => Promise<Item>
+            data: () => Promise<PagefindResultItem>
         }
     ]
 }
 
-export type Item = {
+export type PagefindResultItem = {
     "meta": {
         "title": "",
         "date": "",

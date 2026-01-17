@@ -1,17 +1,17 @@
 import "./SearchDialog.scss"
 import { SearchDialogPresenter } from "./SearchDialogPresenter"
-import { MDCRipple } from "@material/ripple"
 import { MDCTextField } from "@material/textfield"
 import { MDCList } from "@material/list"
 import { clearFocusListener, createHtmlContent } from "../../util/tools"
 import { BasicDialog, SEARCH_DIALOG_WRAPPER_ID, showDialog } from "./BasicDialog"
 import type { BasicDialogProps } from "./BasicDialog"
-import { initListItem } from "../list"
+import { initListItem, setupListItemRipple } from "../list"
 import { ERROR_HINT, LoadingHint } from "../react/LoadingHint"
 import { HeightAnimationContainer } from "../animation/HeightAnimationContainer"
 import React from "react"
 import type { RefObject } from "react"
 import { getSplittedDate } from "../../base/post"
+import { setupButtonRipple } from "../button"
 
 interface SearchDialogState {
     loading: boolean
@@ -82,7 +82,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
 
     initBtn(e: HTMLElement) {
         if (e == null) return
-        new MDCRipple(e)
+        setupButtonRipple(e)
         e.addEventListener("focus", clearFocusListener)
     }
 
@@ -193,13 +193,8 @@ class ResultItem extends React.Component<ResultItemProps, any> {
     componentDidMount(): void {
         const rootE = this.containerRef.current as Element
         this.liE = rootE.querySelector(".mdc-deprecated-list-item") as HTMLElement
-        this.initRipple(this.liE)
+        setupListItemRipple(this.liE)
         initListItem(this.liE, this.props.first, this.props.last)
-    }
-
-    initRipple(e: HTMLElement) {
-        if (e == null) return
-        new MDCRipple(e)
     }
 
     componentDidUpdate(prevProps: Readonly<ResultItemProps>, prevState: Readonly<any>, snapshot?: any): void {

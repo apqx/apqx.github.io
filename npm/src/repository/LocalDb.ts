@@ -1,4 +1,4 @@
-export class LocalRepository {
+export class LocalDb {
     KEY_FIXED_TOPBAR = "fixedTopbar"
     KEY_HANDWRITTEN_FONT = "handwrittenFont"
     KEY_NOTO_SERIF_SC_FONT = "notoSerifSCFont"
@@ -67,13 +67,13 @@ export class LocalRepository {
     }
 }
 
-var localRepository: LocalRepository | undefined
+var localRepository: LocalDb | undefined
 
 export function initLocalRepository() {
-    localRepository = new LocalRepository()
+    localRepository = new LocalDb()
 }
 
-export function getLocalRepository(): LocalRepository {
+export function getLocalRepository(): LocalDb {
     if (localRepository == null) {
         initLocalRepository()
     }

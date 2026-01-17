@@ -1,19 +1,17 @@
-import { SECTION_TYPE_POETRY } from "../../../base/constant";
-import type { PaginatePage } from "../../../repository/service/bean/PaginatePage";
+import type { PaginatePage } from "../../../repository/bean/service/ApiPaginatePage";
 import { consoleError, consoleObjDebug } from "../../../util/log";
 import { isDebug, runAfterMinimalTime } from "../../../util/tools";
 import { BasePaginateShow } from "./BasePaginateShow";
 import type { BasePaginateShowProps } from "./BasePaginateShow";
 import type { IPaginateShowPresenter } from "./IPaginateShowPresenter";
 import { ERROR_HINT, getLoadHint } from "../LoadingHint";
-import type { ApiPost } from "../../../repository/service/bean/Post";
+import { getServiceInstance, SERVICE_DEBUG_MODE_AUTO, SERVICE_DEBUG_MODE_OFF } from "../../../repository/Service";
 
 /**
  * D, 要加载的数据类型
  */
 export abstract class BasePaginateShowPresenter<D> implements IPaginateShowPresenter {
     component: BasePaginateShow<D, BasePaginateShowProps<D>>
-    urlPrefix: string | null = null
     cachedPage: PaginatePage[] | null = null
     firstLoadingDelay: boolean = false
     abortController: AbortController | null = null
@@ -33,32 +31,13 @@ export abstract class BasePaginateShowPresenter<D> implements IPaginateShowPrese
         this.component.setState({
             loading: true
         })
-        // share 资源是由另一个工程输出到云端，本地没有，所以对它不能用调试链接
-        if (isDebug() && this.component.props.category != "share") {
-            this.urlPrefix = window.location.origin
-        } else {
-            this.urlPrefix = "https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog"
-        }
-        let url = ""
-        // Jekyll生成的分页文件名会把Tag、Category中一些字符替换为`-`，这里要做相应的处理
-        const regex = new RegExp("[·_]")
-        if (this.component.props.tag.length > 0) {
-            const tag = this.component.props.tag.replace(regex, "-").toLowerCase()
-            url = this.urlPrefix + "/api/paginate/tags/" + tag + "/page-1.json"
-        } else {
-            const category = this.component.props.category.replace(regex, "-").toLowerCase()
-            url = this.urlPrefix + "/api/paginate/categories/" + category + "/page-1.json"
-        }
-
-        const request = new Request(url, {
-            method: "GET"
-        })
         if (this.abortController != null) {
             // 终止之前的任务
             this.abortController.abort()
         }
         this.abortController = new AbortController()
-        fetch(request, { signal: this.abortController.signal, cache: "no-cache" })
+
+        this.getRequest(this.abortController.signal, 1)
             .then((response: Response) => {
                 if (response.status === 200) {
                     return response.json()
@@ -80,6 +59,27 @@ export abstract class BasePaginateShowPresenter<D> implements IPaginateShowPrese
                 })
             }
             )
+    }
+
+    /**
+     * 使用页码或直接 url 获取分页数据
+     */
+    getRequest(abortSignal: AbortSignal, page: number, url?: string): Promise<Response> {
+        let serviceConfig = { debugMode: SERVICE_DEBUG_MODE_AUTO, abortSignal: abortSignal }
+        // share 资源是由另一个工程输出到云端，本地没有，所以对它不能用调试链接
+        if (this.component.props.category == "share") {
+            serviceConfig = { debugMode: SERVICE_DEBUG_MODE_OFF, abortSignal: abortSignal }
+        }
+        if (url == null || url.length == 0) {
+            if (this.component.props.tag.length > 0) {
+                return getServiceInstance().getPostsByTag(serviceConfig, this.component.props.tag, page)
+            } else {
+                return getServiceInstance().getPostsByCategory(serviceConfig, this.component.props.category, page)
+            }
+        } else {
+            return getServiceInstance().getPostsByUrl(serviceConfig, url)
+        }
+
     }
 
     showPosts(page: PaginatePage, add: boolean, clickLoad: boolean, startTime: number) {
@@ -168,15 +168,13 @@ export abstract class BasePaginateShowPresenter<D> implements IPaginateShowPrese
         this.component.setState({
             loading: true
         })
-        const request = new Request(this.urlPrefix + nextPagePath, {
-            method: "GET"
-        })
+
         if (this.abortController != null) {
             // 终止之前的任务
             this.abortController.abort()
         }
         this.abortController = new AbortController()
-        fetch(request, { signal: this.abortController.signal, cache: "no-cache" })
+        this.getRequest(this.abortController.signal, -1, nextPagePath)
             .then((response: Response) => {
                 if (response.status === 200) {
                     return response.json()

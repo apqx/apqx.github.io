@@ -1,7 +1,6 @@
 // import "./LensIndexList.scss"
 import type { ReactNode } from "react"
 import React, { useEffect, useRef } from "react"
-import { MDCRipple } from "@material/ripple"
 import { ImageLoadAnimator } from "../animation/ImageLoadAnimator"
 import { ERROR_HINT, LoadingHint } from "./LoadingHint"
 import { consoleDebug, consoleObjDebug } from "../../util/log"
@@ -14,6 +13,7 @@ import { showFooter } from "../footer"
 import { getInterSectionObserver } from "../animation/BaseAnimation"
 import { getSplittedDate } from "../../base/post"
 import { PostPaginateShowPresenter, type Post } from "./post/PostPaginateShowPresenter"
+import { setupCardRipple } from "../card"
 
 
 
@@ -127,7 +127,7 @@ function IndexItem(props: IndexItemProps) {
         consoleObjDebug("IndexItem componentDidMount", props)
         const rootE = containerRef.current as HTMLElement;
         const cardE = rootE.querySelector(".grid-index-card")
-        new MDCRipple(cardE!!)
+        setupCardRipple(cardE)
 
         const imgE = rootE.querySelector(".grid-index-cover.image-height-animation")
         // 图片加载动画

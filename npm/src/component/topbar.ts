@@ -1,7 +1,7 @@
 // import "./topbar.scss"
 import { MDCIconButtonToggle } from "@material/icon-button"
 import { consoleDebug, consoleError, consoleObjDebug } from "../util/log"
-import { getLocalRepository } from "../repository/LocalRepository"
+import { getLocalRepository } from "../repository/LocalDb"
 import { MDCTopAppBar } from "@material/top-app-bar"
 import { clearFocusListener, toggleClassWithEnable } from "../util/tools"
 import { showAboutMeDialog } from "./dialog/AboutMeDialog"

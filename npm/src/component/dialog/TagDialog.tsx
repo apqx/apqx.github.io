@@ -1,10 +1,9 @@
 import "./TagDialog.scss"
 import { MDCList } from "@material/list"
-import { MDCRipple } from "@material/ripple"
 import { BasicDialog, TAG_DIALOG_WRAPPER_ID, showDialog } from "./BasicDialog"
 import type { BasicDialogProps } from "./BasicDialog"
 import { consoleDebug } from "../../util/log"
-import { initListItem } from "../list"
+import { initListItem, setupListItemRipple } from "../list"
 import { ERROR_HINT, LoadingHint } from "../react/LoadingHint"
 import { HeightAnimationContainer } from "../animation/HeightAnimationContainer"
 import { BasePaginateShow } from "../react/post/BasePaginateShow"
@@ -251,13 +250,8 @@ class PostItem extends React.Component<PostItemProps, any> {
     componentDidMount(): void {
         const rootE = this.containerRef.current as Element
         this.liE = rootE.querySelector(".mdc-deprecated-list-item") as HTMLElement
-        this.initRipple(this.liE)
+        setupListItemRipple(this.liE)
         initListItem(this.liE, this.props.first, this.props.last)
-    }
-
-    initRipple(e: HTMLElement) {
-        if (e == null) return
-        new MDCRipple(e)
     }
 
     componentDidUpdate(prevProps: Readonly<PostItemProps>, prevState: Readonly<any>, snapshot?: any): void {

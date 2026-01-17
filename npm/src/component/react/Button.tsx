@@ -1,7 +1,7 @@
 import "./Button.scss"
-import { MDCRipple } from "@material/ripple"
 import React, { useEffect } from "react"
 import { clearFocusListener } from "../../util/tools"
+import { setupButtonRipple } from "../button"
 
 export interface Props {
     text: string
@@ -15,7 +15,7 @@ export function Button(props: Props) {
     useEffect(() => {
         const ele = containerRef.current as HTMLElement
 
-        new MDCRipple(ele)
+        setupButtonRipple(ele)
         if (props.className != null && props.className.length > 0) {
             const classes = props.className.split(" ")
             classes.forEach((c) => {

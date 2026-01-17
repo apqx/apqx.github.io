@@ -1,10 +1,10 @@
 import "./BasicDialog.scss"
 import { consoleDebug } from "../../util/log"
 import { MDCDialog } from "@material/dialog"
-import { MDCRipple } from "@material/ripple"
 import React from "react"
 import { createRoot } from "react-dom/client"
 import type { Root } from "react-dom/client"
+import { setupButtonRipple } from "../button"
 
 export interface BasicDialogProps {
     // 用于启动dialog的计数，每次+1，用于弹出dialog
@@ -73,7 +73,7 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
         if (this.props.btnText != null) {
             this.btnCloseE = this.rootE.querySelector("#basic-dialog_btn_close")
             this.btnCloseE?.scroll
-            new MDCRipple(this.btnCloseE!!)
+            setupButtonRipple(this.btnCloseE)
         }
 
         if (!this.props.closeOnClickOutside) {

@@ -1,4 +1,4 @@
-import { getLocalRepository } from "../../repository/LocalRepository"
+import { getLocalRepository } from "../../repository/LocalDb"
 import { toggleClassWithEnable } from "../../util/tools"
 import { consoleError } from "../../util/log"
 

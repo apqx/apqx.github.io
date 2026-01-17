@@ -65,7 +65,7 @@ $drawer-nav-ripple: (
 $fab-bg: (
         backdrop-filter: 10px,
         light: rgba(color.adjust(map.get($surface, "light"), $lightness: -4%), 0.6),
-        dark: rgba(color.adjust(map.get($surface, "dark"), $lightness: +4%), 0.6),
+        dark: rgba(color.adjust(map.get($surface, "dark"), $lightness: -4%), 0.6),
 );
 
 $fab-ink: (
@@ -111,10 +111,16 @@ $card-elevation: (
 
 $dialog: (
         elevation: 0,
-        border-light: color.adjust(map.get($surface, "light"), $lightness: -3%),
+        border-light: color.adjust(map.get($surface, "light"), $lightness: -2%),
         shadow-light: color.adjust(map.get($surface, "light"), $lightness: -10%),
-        border-dark: color.adjust(map.get($surface, "dark"), $lightness: +3%),
+        border-dark: color.adjust(map.get($surface, "dark"), $lightness: +2%),
         shadow-dark: color.adjust(map.get($surface, "dark"), $lightness: +10%),
+);
+
+// 索引卡片的 Ripple 颜色
+$card-ripple: (
+        light: color.adjust(map.get($surface, "light"), $lightness: - variables.$ripple-gap-percent),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: + variables.$ripple-gap-percent),
 );
 
 $button-bg: (
@@ -126,7 +132,12 @@ $button-ink: (
         dark: color.adjust(map.get($button-bg, "dark"), $lightness: +65%),
 );
 $button-ripple: (
-        light: color.adjust(map.get($button-bg, "light"), $lightness: + variables.$ripple-gap-percent),
+        light: color.adjust(map.get($button-bg, "light"), $lightness: - variables.$ripple-gap-percent),
+        dark: color.adjust(map.get($button-bg, "dark"), $lightness: + variables.$ripple-gap-percent),
+);
+
+$icon-button-ripple: (
+        light: color.adjust(map.get($button-bg, "light"), $lightness: - variables.$ripple-gap-percent),
         dark: color.adjust(map.get($button-bg, "dark"), $lightness: + variables.$ripple-gap-percent),
 );
 

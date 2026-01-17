@@ -3,12 +3,13 @@ import { MDCDrawer } from "@material/drawer";
 import { MDCList } from "@material/list";
 import { consoleDebug, consoleError } from "../util/log";
 import { topAppBar } from "./topbar";
-import { MDCRipple } from "@material/ripple";
 import { showAboutMeDialog } from "./dialog/AboutMeDialog";
 import { showPreferenceDialog } from "./dialog/PreferenceDialog";
 import { showSearchDialog } from "./dialog/SearchDialog";
 import { getSectionTypeByPath, SECTION_TYPE_LENS, SECTION_TYPE_OPERA, SECTION_TYPE_POETRY, SECTION_TYPE_REPOST, SECTION_TYPE_TAG } from "../base/constant";
 import { toggleClassWithEnable } from "../util/tools";
+import { setupIconButtonRipple } from "./button";
+import { setupListItemRipple } from "./list";
 
 const DRAWER_ITEM_ORIGINAL_ID = "drawer-a-original"
 const DRAWER_ITEM_REPOST_ID = "drawer-a-repost"
@@ -40,13 +41,10 @@ export function initDrawer() {
     }
     // drawer 中的 icon-button
     const iconBtnE = document.querySelector("#drawer_btn_share")
-    if (iconBtnE != null) {
-        const iconBtnRipple = new MDCRipple(iconBtnE) 
-        iconBtnRipple.unbounded = false
-    }
+    setupIconButtonRipple(iconBtnE)
     iconBtnE?.addEventListener("click", () => {
         consoleDebug("Click drawer share button")
-        import("./dialog/ShareDialog").then((component ) => {
+        import("./dialog/ShareDialog").then((component) => {
             component.showShareDialog()
             drawer.open = false
         })
@@ -63,7 +61,7 @@ export function initDrawer() {
     drawerList.singleSelection = true;
     const currentPageIndex = getCurrentPageIndex(aEList)
     const currentSelectedAE = aEList[currentPageIndex] as HTMLElement
-    drawerList.listElements.map((listItemEl) => new MDCRipple(listItemEl))
+    drawerList.listElements.map(liE => setupListItemRipple(liE))
     drawerList.selectedIndex = currentPageIndex
     drawerE.addEventListener("MDCDrawer:opened", () => {
         // Drawer弹出时禁止body滚动

@@ -1,4 +1,4 @@
-import type { ApiShare } from "../../../repository/service/bean/Share";
+import type { ApiShare } from "../../../repository/bean/service/ApiShare";
 import { BasePaginateShowPresenter } from "./BasePaginateShowPresenter";
 
 export type Share = {

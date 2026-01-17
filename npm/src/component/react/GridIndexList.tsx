@@ -1,14 +1,12 @@
 // import "./GridIndexList.scss"
 import type { ReactNode } from "react"
 import React, { useEffect, useRef } from "react"
-import { MDCRipple } from "@material/ripple"
 import { ImageLoadAnimator } from "../animation/ImageLoadAnimator"
 import { ERROR_HINT, LoadingHint } from "./LoadingHint"
 import { consoleDebug, consoleObjDebug } from "../../util/log"
 import { BasePaginateShow } from "./post/BasePaginateShow"
 import type { BasePaginateShowProps, BasePaginateShowState } from "./post/BasePaginateShow"
 import type { IPaginateShowPresenter } from "./post/IPaginateShowPresenter"
-import { BasePaginateShowPresenter } from "./post/BasePaginateShowPresenter"
 import { setupTagTrigger } from "../tag"
 import { ScrollLoader } from "../../base/ScrollLoader"
 import Masonry from 'react-masonry-css'
@@ -16,7 +14,7 @@ import { showFooter } from "../footer"
 import { getInterSectionObserver } from "../animation/BaseAnimation"
 import { getSplittedDate } from "../../base/post"
 import { PostPaginateShowPresenter, type Post } from "./post/PostPaginateShowPresenter"
-import { start } from "repl"
+import { setupCardRipple } from "../card"
 
 interface Props extends BasePaginateShowProps<Post> {
     pageDescriptionHtml: string
@@ -124,7 +122,7 @@ function IndexItem(props: IndexItemProps) {
         consoleObjDebug("IndexItem componentDidMount", props)
         const rootE = containerRef.current as HTMLElement;
         const cardE = rootE.querySelector(".grid-index-card")
-        new MDCRipple(cardE!!)
+        setupCardRipple(cardE)
 
         const imgE = rootE.querySelector(".grid-index-cover.image-height-animation")
         // 图片加载动画

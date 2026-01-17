@@ -1,7 +1,7 @@
 // import "./theme.scss"
 import { isChrome, isMobileOrTablet, toggleClassWithEnable } from "../util/tools"
 import { consoleDebug } from "../util/log"
-import { getLocalRepository } from "../repository/LocalRepository"
+import { getLocalRepository } from "../repository/LocalDb"
 import { showToggleThemeIconDark, toggleTopbarGlass } from "./topbar"
 import { showSnackbar } from "./react/Snackbar"
 

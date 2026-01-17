@@ -6,9 +6,9 @@ import { IndexList } from "../component/react/IndexList"
 import { getSectionTypeByPath, SECTION_TYPE_OTHER } from "../base/constant"
 import { ImageLoadAnimator } from "../component/animation/ImageLoadAnimator"
 import { GridIndexList } from "../component/react/GridIndexList"
-import { MDCRipple } from "@material/ripple"
 import { LensIndexList } from "../component/react/LensIndexList"
 import type { Post } from "../component/react/post/PostPaginateShowPresenter"
+import { setupCardRipple } from "../component/card"
 
 export function initIndex() {
     runOnHtmlDone(() => {
@@ -197,6 +197,6 @@ function initIndexTopCover() {
     }
     // 索引卡片
     for (const ele of document.querySelectorAll(".index-top-card,.grid-index-card__ripple")) {
-        new MDCRipple(ele)
+        setupCardRipple(ele)
     }
 }

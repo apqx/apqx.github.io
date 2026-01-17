@@ -1,8 +1,8 @@
 // import "./tag.scss"
-import { MDCRipple } from "@material/ripple"
 import { consoleDebug } from "../util/log"
 import { showTagDialog } from "./dialog/TagDialog"
 import { clearFocusListener } from "../util/tools"
+import { setupButtonRipple } from "./button"
 
 /**
  * 初始化tag的点击事件
@@ -37,7 +37,7 @@ export function setupTagTrigger(trigger: HTMLElement) {
 
 export function initTag() {
     for (const ele of document.querySelectorAll(".mdc-button.btn-tag")) {
-        new MDCRipple(ele)
+        setupButtonRipple(ele)
         ele.addEventListener("focus", clearFocusListener)
     }
 }

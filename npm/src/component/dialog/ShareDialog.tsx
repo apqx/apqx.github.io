@@ -3,7 +3,6 @@ import { BasicDialog, SHARE_DIALOG_WRAPPER_ID, showDialog } from "./BasicDialog"
 import type { BasicDialogProps } from "./BasicDialog"
 import { consoleDebug } from "../../util/log"
 import React from "react"
-import { type QRCodeToDataURLOptions } from "qrcode"
 import QRCodeStyling from "qr-code-styling"
 
 interface ShareDialogStats {
@@ -24,21 +23,14 @@ class ShareDialog extends BasicDialog<BasicDialogProps, ShareDialogStats> {
     componentDidMount(): void {
         super.componentDidMount()
         consoleDebug("ShareDialog componentDidMount, title = " + document.title + ", url = " + window.location.href)
-        const qrcodeE = this.rootE?.querySelector(".share-qrcode-picture img") as HTMLImageElement
+        const qrcodeImageE = this.rootE?.querySelector("#qrcode") as HTMLImageElement
         const qrcodeContainer = this.rootE?.querySelector(".share-qrcode-picture") as HTMLElement
-        const options: QRCodeToDataURLOptions = {
-            width: 240,
-            margin: 5,
-            errorCorrectionLevel: 'M',
-        }
-        // QRCode.toDataURL(this.state.url, options)
-        //     .then((url: string) => {
-        //         qrcodeE.src = url
-        //     })
+
+        // 生成二维码，不要使用 svg，在浏览器中渲染时会出现点阵网格
         const qrCode = new QRCodeStyling({
             width: 300,
             height: 300,
-            type: "svg",
+            type: "canvas",
             data: this.state.url,
             image: "",
             qrOptions: {

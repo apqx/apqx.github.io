@@ -1,5 +1,5 @@
 import { SECTION_TYPE_POETRY } from "../../../base/constant";
-import type { ApiPost } from "../../../repository/service/bean/Post";
+import type { ApiPost } from "../../../repository/bean/service/ApiPost";
 import { BasePaginateShowPresenter } from "./BasePaginateShowPresenter";
 
 export type Post = {
