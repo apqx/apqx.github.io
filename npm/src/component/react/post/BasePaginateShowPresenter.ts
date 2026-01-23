@@ -1,6 +1,6 @@
 import type { PaginatePage } from "../../../repository/bean/service/ApiPaginatePage";
 import { consoleError, consoleObjDebug } from "../../../util/log";
-import { isDebug, runAfterMinimalTime } from "../../../util/tools";
+import { runAfterMinimalTime } from "../../../util/tools";
 import { BasePaginateShow } from "./BasePaginateShow";
 import type { BasePaginateShowProps } from "./BasePaginateShow";
 import type { IPaginateShowPresenter } from "./IPaginateShowPresenter";

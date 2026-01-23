@@ -15,8 +15,6 @@ import { getSplittedDate } from "../../base/post"
 import { PostPaginateShowPresenter, type Post } from "./post/PostPaginateShowPresenter"
 import { setupCardRipple } from "../card"
 
-
-
 export class LensIndexList extends BasePaginateShow<Post, BasePaginateShowProps<Post>> {
 
     constructor(props: BasePaginateShowProps<Post>) {

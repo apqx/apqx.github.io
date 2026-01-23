@@ -2,6 +2,7 @@
 // @use "../react/LoadingHint";
 // @use "../animation/HeightAnimationContainer";
 @use "../../style/global" as base;
+@use "./TagDialog" as tagDialog;
 @use "@material/textfield";
 @use "@material/textfield/mdc-text-field";
 @use "sass:map";
@@ -60,9 +61,8 @@ input {
 }
 
 .search-result-item-type {
-    font-size: calc(var(--mdc-typography-body1-font-size) - 0.2rem);
-    padding: 0.2rem 0.5rem;
-    border-radius: calc(var(--mdc-typography-body1-font-size) - 0.5rem);
+    @include tagDialog.block();
+    @include tagDialog.blockFirst();
     margin-right: 0.2rem;
     
     color: var(--list-chip-1-ink);

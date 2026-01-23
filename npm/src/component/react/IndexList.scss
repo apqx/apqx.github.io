@@ -155,13 +155,13 @@ body {
     position: absolute;
     bottom: calc(var(--index-card-padding-vertical) + 0.1rem);
     left: calc(var(--index-card-padding-horizontal) - 0.4rem);
-    width: 1.7rem;
-    height: 1.7rem;
+    width: 1.5rem;
+    height: 1.5rem;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: 45%;
-    font-size: 1.1rem;
+    border-radius: 50%;
+    font-size: 1rem;
     // background-color: var(--index-list-pin-icon-bg);
     color: var(--mdc-theme-text-secondary-on-background);
 
@@ -170,9 +170,9 @@ body {
         font-size: inherit;
     }
 }
-
+// 置顶图标和推荐图标宽度不同，需单独调整使视觉均衡
 .index-featured-icon-container {
-    left: calc(var(--index-card-padding-horizontal) - 0.32rem);
+    left: calc(var(--index-card-padding-horizontal) - 0.3rem);
 }
 
 // 索引链接
@@ -201,9 +201,14 @@ body {
 
     .index-pinned-icon-container,
     .index-featured-icon-container {
-        width: 1.6rem;
-        height: 1.6rem;
-        font-size: 1.05rem;
+        width: 1.5rem;
+        height: 1.5rem;
+        left: calc(var(--index-card-padding-horizontal) - 0.4rem);
+        font-size: 0.9rem;
+    }
+
+    .index-featured-icon-container {
+        left: calc(var(--index-card-padding-horizontal) - 0.32rem);
     }
 
     .index-top-card-container {

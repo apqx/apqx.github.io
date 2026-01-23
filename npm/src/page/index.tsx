@@ -143,7 +143,7 @@ function getGridLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
         const coverE = liE.querySelector(".grid-index-cover") as HTMLImageElement
         const cover = coverE?.src
         const coverAlt = coverE?.alt
-
+        // TODO: 暂不支持置顶和精选
         const pinned = liE.querySelector(".index-pinned-icon-container") != null
         const featured = liE.querySelector(".index-featured-icon-container") != null
         const post = {

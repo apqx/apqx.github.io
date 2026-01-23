@@ -14,7 +14,7 @@ import { getSectionTypeByPath, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL } from 
 import type { SectionType } from "../../base/constant"
 import { DialogState, DialogStateObservable, DialogStateObserver } from "./DialogStateObservable"
 import type { JSX } from "react"
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { getSplittedDate } from "../../base/post"
 import { PostPaginateShowPresenter, type Post } from "../react/post/PostPaginateShowPresenter"
 
@@ -267,24 +267,17 @@ class PostItem extends React.Component<PostItemProps, any> {
                     <span className="mdc-deprecated-list-item__text">
                         <span className="list-item__primary-text one-line">{this.props.data.title}</span>
                         <div className="list-item__secondary-text tag-list-item__secondary-container">
-                            {/* <span>{this.props.data.date}</span> */}
-                            <span>
-                                <span className="tag-list-item__post-type">
+                            <span className="tag-list-item__block-container">
+                                <span className="tag-list-item__post-type first">
                                     {date.year}<span className="year">年</span>
                                     {date.month}<span className="month">月</span>
                                     {date.day}<span className="day">日</span>
                                     ｜{this.props.data.type}</span>
-                            </span>
-                            <span className="tag-list-item__block-container">
-                                {this.props.data.block1Array.map(block =>
-                                    <span
-                                        key={block}
-                                        className="tag-list-item__post-block1">{block}</span>
+                                {this.props.data.block1Array.map((value, index) =>
+                                    <Block type={1} title={value} first={false} last={index == (this.props.data.block1Array.length + this.props.data.block2Array.length - 1)} />
                                 )}
-                                {this.props.data.block2Array.map(block =>
-                                    <span
-                                        key={block}
-                                        className="tag-list-item__post-block2">{block}</span>
+                                {this.props.data.block2Array.map((value, index) =>
+                                    <Block type={2} title={value} first={false} last={index == (this.props.data.block2Array.length - 1)} />
                                 )}
                             </span>
                         </div>
@@ -294,6 +287,38 @@ class PostItem extends React.Component<PostItemProps, any> {
             </li>
         )
     }
+}
+
+interface BlockProps {
+    type: number,
+    title: string,
+    first: boolean,
+    last: boolean
+}
+
+function Block(props: BlockProps) {
+    const { type, title, first, last } = props
+    const [classList, setClassList] = useState<string[]>([])
+
+    useEffect(() => {
+        const classes: string[] = []
+        if (type === 1) {
+            classes.push("tag-list-item__post-block1")
+        } else if (type === 2) {
+            classes.push("tag-list-item__post-block2")
+        }
+        if (first) {
+            classes.push("first")
+        }
+        if (last) {
+            classes.push("last")
+        }
+        setClassList(classes)
+    }, [type, title, first, last])
+
+    return (
+        <span className={classList.join(" ")}>{title}</span>
+    )
 }
 
 let openCount = 0
