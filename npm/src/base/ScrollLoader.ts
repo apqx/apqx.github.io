@@ -9,6 +9,7 @@ export class ScrollLoader {
 
     onScroll(clientHeight: number, scrollY: number, scrollHeight: number) {
         // consoleDebug("onScroll " + scrollY)
+        // 距离底部小于组件高度时加载更多
         if (scrollHeight - scrollY - clientHeight < clientHeight) {
             if (Date.now() - this.lastLoadTime < this.timeMsIgnore) return
             this.shouldLoad()

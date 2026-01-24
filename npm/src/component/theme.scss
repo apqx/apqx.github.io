@@ -156,10 +156,8 @@ body {
         --font-weight-normal: #{base.$font-weight-normal-noto-sans};
         --font-weight-medium: #{base.$font-weight-medium-noto-sans};
 
-        --text-font-size-base: 1rem;
-
-        --mdc-typography-body1-font-size: var(--text-font-size-base);
-        --mdc-typography-body1-line-height: calc(var(--mdc-typography-body1-font-size) + 0.8rem);
+        --mdc-typography-body1-font-size: #{base.$text-font-base};
+        --mdc-typography-body1-line-height: #{base.$text-line-height-base};
         // Chrome 设置 letter-spacing 为非 normal 会导致 OpenType 字体的连字功能失效
         --mdc-typography-body1-letter-spacing: normal;
         --mdc-typography-body1-font-weight: var(--font-weight-normal);

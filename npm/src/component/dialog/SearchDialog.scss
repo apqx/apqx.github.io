@@ -17,6 +17,8 @@
     color: var(--list-secondary-ink);
     line-break: normal;
     font-weight: var(--font-weight-light);
+    font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
+    line-height: calc(var(--mdc-typography-body1-line-height) - 0.3rem);
 
     strong, b {
         font-weight: var(--font-weight-normal);

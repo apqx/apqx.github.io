@@ -22,23 +22,29 @@
     display: none;
 }
 
+$blockRadius: 0.2rem;
+$blockRadiusSide: calc(var(--mdc-typography-body1-font-size) - 0.42rem);
+$blockPaddingHorizontal: 0.42rem;
+$blockPaddingHorizontalSide: 0.55rem;
+
 @mixin block {
     font-size: calc(var(--mdc-typography-body1-font-size) - 0.2rem);
-    padding: 0.2rem 0.4rem;
-    border-radius: 0.2rem;
-    margin-right: 0.15rem;
+    padding: 0.2rem $blockPaddingHorizontal;
+    border-radius: $blockRadius;
+    margin-right: 0.155rem;
 }
 
+
 @mixin blockFirst {
-    padding-left: 0.55rem;
-    border-top-left-radius: calc(var(--mdc-typography-body1-font-size) - 0.4rem);
-    border-bottom-left-radius: calc(var(--mdc-typography-body1-font-size) - 0.4rem);
+    padding-left: $blockPaddingHorizontalSide;
+    border-top-left-radius: $blockRadiusSide;
+    border-bottom-left-radius: $blockRadiusSide;
 }
 
 @mixin blockLast {
-    padding-right: 0.55rem;
-    border-top-right-radius: calc(var(--mdc-typography-body1-font-size) - 0.4rem);
-    border-bottom-right-radius: calc(var(--mdc-typography-body1-font-size) - 0.4rem);
+    padding-right: $blockPaddingHorizontalSide;
+    border-top-right-radius: $blockRadiusSide;
+    border-bottom-right-radius: $blockRadiusSide;
     margin-right: 0;
 }
 

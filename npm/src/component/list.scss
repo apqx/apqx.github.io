@@ -20,20 +20,31 @@
 }
 
 
-// 效果似乎是与原有__ripple叠加🤔
-// hover与press的透明度在点击的时候是叠加的，所以可以一致
+// 效果似乎是与原有 __ripple 叠加🤔
+// hover 与 press 的透明度在点击的时候是叠加的，所以可以一致
 .mdc-deprecated-list-item {
     overflow: hidden;
     @include ripple.surface;
     @include ripple.radius-bounded;
     @include ripple.states-base-color(map.get(base.$list-ripple, "light"));
     @include ripple.states-opacities((hover: .06, focus: .06, press: .06));
-    padding: 0.5rem 1rem;
+    padding: 0.6rem 1rem;
     height: fit-content;
+}
+
+.mdc-deprecated-list-item.mdc-deprecated-list-item__no-hover {
+    @include ripple.states-opacities((hover: 0, focus: 0, press: .06));
 }
 
 .dark .mdc-deprecated-list-item {
     @include ripple.states-base-color(map.get(base.$list-ripple, "dark"));
+}
+
+.mdc-deprecated-list-item:before, .mdc-deprecated-list-item:after {
+    top: 0;
+    left: 0;
+    width: 0rem;
+    height: 0rem;
 }
 
 .list-first {
@@ -47,7 +58,7 @@
 }
 
 .mdc-deprecated-list--one-line .mdc-deprecated-list-item {
-    padding: 0.75rem 1rem;
+    padding: 1rem 1rem;
     height: fit-content;
 }
 
@@ -71,7 +82,7 @@
 .list-item__secondary-text {
     color: var(--list-secondary-ink);
     font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
-    line-height: calc(var(--mdc-typography-body1-font-size) + 0.7rem);
+    line-height: calc(var(--mdc-typography-body1-line-height) - 0.3rem);
     font-weight: var(--font-weight-light);
     text-align: left;
 }

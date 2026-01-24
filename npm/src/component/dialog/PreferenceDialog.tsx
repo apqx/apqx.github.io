@@ -3,7 +3,11 @@ import { PreferenceDialogPresenter } from "./PreferenceDialogPresenter"
 import { consoleDebug } from "../../util/log"
 import { BasicDialog, PREFERENCE_DIALOG_WRAPPER_ID, showDialog } from "./BasicDialog"
 import type { BasicDialogProps } from "./BasicDialog"
-import { SettingsToggle } from "../react/SettingsToggle"
+import { NewMdSwitch } from "../react/SettingsToggle"
+import { MDCList } from "@material/list"
+import React, { useEffect } from "react"
+import { initListItem, setupListItemRipple } from "../list"
+import { createHtmlContent } from "../../util/tools"
 
 interface DialogContentState {
     fixedTopbarOn: boolean
@@ -84,11 +88,17 @@ export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogConten
     componentDidMount() {
         super.componentDidMount()
         consoleDebug("PreferenceDialogContent componentDidMount")
+        this.initList()
+    }
+
+    initList() {
+        if (this.rootE == null) return
+        new MDCList(this.rootE.querySelector("#preference-dialog__toggle-container")!!)
     }
 
     handwrittenFontTitle = "使用<a href=\"https://www.17font.com/font/detail/960a115089a711ee98da67ad58e0ec00.html\" target=\"_blank\">兰亭国风行楷</a>字体"
     notoSerifSCFontTitle = "使用<a href=\"https://source.typekit.com/source-han-serif/cn/\" target=\"_blank\">思源宋体</a>"
-    autoThemeTitle = "跟随系统切换<a href=\"/post/original/2021/08/03/为博客添加站内搜索和深色模式.html\">主题配色</a>"
+    autoThemeTitle = "自适应<a href=\"/post/original/2021/08/03/为博客添加站内搜索和深色模式.html\">主题颜色</a>"
 
     dialogContent(): React.JSX.Element {
         consoleDebug("PreferenceDialogContent render")
@@ -102,28 +112,60 @@ export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogConten
                             src="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/noto-animated-emoji/mouth-none/512.gif" />
                     </picture>
                 </div>
-                <div id="preference-dialog__toggle-container">
-                    <SettingsToggle titleHtml="固定顶部标题栏"
-                        on={this.state.fixedTopbarOn}
+                {/* TODO: 应用 Material Design 列表样式 */}
+                <ul className="mdc-deprecated-list mdc-deprecated-list--one-line dialog-link-list" id="preference-dialog__toggle-container">
+                    <SettingsToggle titleHtml="固定顶部导航栏"
+                        on={this.state.fixedTopbarOn} first={true} last={false}
                         onClickToggle={this.onClickFixedTopbarSwitch} />
                     {/* <SettingsToggle titleHtml={this.handwrittenFontTitle}
                         on={this.state.handwrittenFontOn}
                         onClickToggle={this.onClickHandwritingFontSwitch} /> */}
                     <SettingsToggle titleHtml={this.notoSerifSCFontTitle}
-                        on={this.state.notoSerifSCFontOn}
+                        on={this.state.notoSerifSCFontOn} first={false} last={false}
                         onClickToggle={this.onClickNotoSerifSCFontSwitch} />
                     <SettingsToggle titleHtml={this.autoThemeTitle}
-                        on={this.state.autoThemeOn}
+                        on={this.state.autoThemeOn} first={false} last={true}
                         onClickToggle={this.onClickAutoThemeSwitch} />
-                </div>
+                </ul>
             </>
         )
     }
 }
 
+interface SettingsToggleProps {
+    titleHtml: string
+    on: boolean
+    first: boolean
+    last: boolean
+    onClickToggle: () => void
+}
+
+export function SettingsToggle(props: SettingsToggleProps) {
+    const containerRef = React.useRef<HTMLLIElement>(null)
+
+    useEffect(() => {
+        const rootE = containerRef.current as HTMLElement;
+        const liE = rootE.querySelector(".mdc-deprecated-list-item") as HTMLElement
+        setupListItemRipple(liE)
+        initListItem(liE, props.first, props.last)
+    }, [])
+
+    return (
+        <li ref={containerRef}>
+            <div className="mdc-deprecated-list-item mdc-deprecated-list-item__no-hover mdc-deprecated-list-item__darken preference-item-toggle">
+                <span className="mdc-deprecated-list-item__text preference-item-toggle__title one-line"
+                    dangerouslySetInnerHTML={createHtmlContent(props.titleHtml)} />
+                {/* 会自动识别组建内定义的属性 */}
+                <NewMdSwitch selected={props.on} onClick={props.onClickToggle} />
+            </div>
+            {!props.last && <hr className="mdc-deprecated-list-divider" />}
+        </li>
+    )
+}
+
 let openCount = 0
 export function showPreferenceDialog() {
     consoleDebug("PreferenceDialogContent showPreferenceDialog")
-    showDialog(<PreferenceDialog openCount={openCount++} fixedWidth={true} btnText={"关闭"}
+    showDialog(<PreferenceDialog openCount={openCount++} fixedWidth={false} btnText={"关闭"}
         OnClickBtn={undefined} closeOnClickOutside={true} />, PREFERENCE_DIALOG_WRAPPER_ID)
 }

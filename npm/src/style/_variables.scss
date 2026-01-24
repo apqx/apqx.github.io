@@ -14,6 +14,9 @@ $text-font-handwritten: string.unquote("HYXuJingXingKaiW, LXGW WenKai GB, sans-s
 $text-font-code-block: string.unquote("Google Sans Code, Noto Sans SC, monospace, sans-serif");
 $text-font-code-block-jetbrains: string.unquote("Jetbrains Mono, Noto Sans SC, monospace, sans-serif");
 
+$text-font-base: 1rem;
+$text-line-height-base: $text-font-base + 0.8rem;
+
 // 中型屏幕宽度范围，定义为平板，小于此尺寸为手机，大于此尺寸为电脑
 $screen-middle-min-width: 600px;
 $screen-middle-max-width: 880px;
