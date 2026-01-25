@@ -24,7 +24,7 @@ export class SearchDialogPresenter {
      */
     search(newKey: string) {
         if (newKey == null || newKey == "") {
-            this.clearResult()
+            this.clearResults()
             return
         }
         if (this.key == newKey && this.component.state.loading) return
@@ -53,7 +53,7 @@ export class SearchDialogPresenter {
                         consoleDebug("SearchByPagefind aborted")
                         return
                     }
-                    this.clearResult()
+                    this.clearResults()
                 })
                 return
             }
@@ -139,7 +139,7 @@ export class SearchDialogPresenter {
         })
     }
 
-    clearResult() {
+    clearResults() {
         this.component.setState({
             loading: false,
             loadHint: null,

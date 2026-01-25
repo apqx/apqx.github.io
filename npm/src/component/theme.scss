@@ -49,6 +49,8 @@
         // Chip
         --chip-bg: #{map.get(base.$chip-bg, "light")};
         --chip-ink: #{map.get(base.$chip-ink, "light")};
+        --chip-checked-bg: #{map.get(base.$chip-bg, "dark")};
+        --chip-checked-ink: #{map.get(base.$chip-ink, "dark")};
         --list-chip-1-bg: #{map.get(base.$text-block-1-bg, "light")};
         --list-chip-1-ink: #{map.get(base.$text-block-1-ink, "light")};
         --list-chip-2-bg: #{map.get(base.$text-block-2-bg, "light")};
@@ -64,7 +66,7 @@
         --strong-underline-color: #{map.get(base.$strong-under-line, "light")};
         --tag-underline-color: #{map.get(base.$strong-under-line, "light")};
         --blockquote-border: #{map.get(base.$blockquote-border, "light")};
-        
+
         --surface-block-border: #{map.get(base.$surface-block-border, "light")};
         --surface-block-bg: #{map.get(base.$surface-block-bg, "light")};
         --surface-block-ink-strong: #{map.get(base.$surface-block-ink-strong, "light")};
@@ -115,6 +117,8 @@
         // Chip
         --chip-bg: #{map.get(base.$chip-bg, "dark")};
         --chip-ink: #{map.get(base.$chip-ink, "dark")};
+        --chip-checked-bg: #{map.get(base.$chip-bg, "light")};
+        --chip-checked-ink: #{map.get(base.$chip-ink, "light")};
         --list-chip-1-bg: #{map.get(base.$text-block-1-bg, "dark")};
         --list-chip-1-ink: #{map.get(base.$text-block-1-ink, "dark")};
         --list-chip-2-bg: #{map.get(base.$text-block-2-bg, "dark")};
@@ -130,7 +134,7 @@
         --strong-underline-color: #{map.get(base.$strong-under-line, "dark")};
         --tag-underline-color: #{map.get(base.$strong-under-line, "dark")};
         --blockquote-border: #{map.get(base.$blockquote-border, "dark")};
-        
+
         --surface-block-border: #{map.get(base.$surface-block-border, "dark")};
         --surface-block-bg: #{map.get(base.$surface-block-bg, "dark")};
         --surface-block-ink-strong: #{map.get(base.$surface-block-ink-strong, "dark")};
@@ -194,7 +198,7 @@ body {
 
         --mdc-typography-headline4-letter-spacing: normal;
         --mdc-typography-headline5-letter-spacing: normal;
-        
+
         --mdc-typography-headline6-font-size: calc(var(--mdc-typography-body1-font-size) + 0.25rem);
         --mdc-typography-headline6-font-weight: var(--mdc-typography-body1-font-weight);
         --mdc-typography-headline6-letter-spacing: normal;

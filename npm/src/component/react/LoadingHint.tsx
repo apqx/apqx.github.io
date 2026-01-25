@@ -2,7 +2,7 @@ import "./LoadingHint.scss"
 import { Button } from "./Button"
 import { ProgressCircular } from "./ProgressCircular"
 
-export const ERROR_HINT: string = "加载错误，点击重试"
+export const ERROR_HINT: string = "重试加载"
 
 interface Props {
     loading: boolean

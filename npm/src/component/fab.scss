@@ -7,7 +7,7 @@
 @use "sass:map";
 
 .mdc-fab, .mdc-fab:hover {
-    // TODO: 使用var设置的阴影是失效的
+    // TODO: 使用 var 设置的阴影是失效的
     @include elevation.elevation(map.get(base.$fab-elevation, "elevation"), map.get(base.$fab-elevation, "shadow-light"), 0);
 }
 
@@ -20,6 +20,8 @@
 .mdc-fab {
     backdrop-filter: blur(map.get(base.$fab-bg, "backdrop-filter"));
     -webkit-backdrop-filter: blur(map.get(base.$fab-bg, "backdrop-filter"));
+    // width: 3.5rem;
+    // height: 3.5rem;
 }
 
 .app-fab--absolute {

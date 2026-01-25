@@ -72,7 +72,5 @@ class ShareDialog extends BasicDialog<BasicDialogProps, ShareDialogStats> {
 
 let openCount = 0
 export function showShareDialog() {
-    showDialog(<ShareDialog openCount={openCount++} fixedWidth={false} btnText={"关闭"}
-        OnClickBtn={undefined}
-        closeOnClickOutside={true} />, SHARE_DIALOG_WRAPPER_ID)
+    showDialog(<ShareDialog openCount={openCount++} />, SHARE_DIALOG_WRAPPER_ID)
 }

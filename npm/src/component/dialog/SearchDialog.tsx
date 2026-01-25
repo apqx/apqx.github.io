@@ -4,7 +4,7 @@ import { MDCTextField } from "@material/textfield"
 import { MDCList } from "@material/list"
 import { clearFocusListener, createHtmlContent } from "../../util/tools"
 import { BasicDialog, SEARCH_DIALOG_WRAPPER_ID, showDialog } from "./BasicDialog"
-import type { BasicDialogProps } from "./BasicDialog"
+import type { ActionBtn, BasicDialogProps } from "./BasicDialog"
 import { setupListItemRipple } from "../list"
 import { ERROR_HINT, LoadingHint } from "../react/LoadingHint"
 import { HeightAnimationContainer } from "../animation/HeightAnimationContainer"
@@ -29,15 +29,29 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
     heightAnimationContainer: HeightAnimationContainer | null = null
     presenter: SearchDialogPresenter | null = null
     input: string = ""
+    inputE: HTMLInputElement | null = null
 
     constructor(props: any) {
         super(props)
+        this.fixedWidth = true
         // 需要显示搜素结果数目，节约带宽，不要滚动加载
         this.listenScroll = false
         this.presenter = new SearchDialogPresenter(this)
         this.onClickSearch = this.onClickSearch.bind(this)
         this.onInputChange = this.onInputChange.bind(this)
         this.onClickLoadMore = this.onClickLoadMore.bind(this)
+    }
+
+    configActionBtns(): ActionBtn[] {
+        return [{
+            text: "关闭", closeOnClick: true, onClick: () => {}
+        }, {
+            text: "清除", closeOnClick: false, onClick: () => {
+                this.presenter?.clearResults()
+                this.inputE!.value = ""
+                this.input = ""
+            }
+        }]
     }
 
     onClickSearch() {
@@ -93,6 +107,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
             if (event.key === "Enter")
                 this.onClickSearch()
         })
+        this.inputE = e.querySelector("input[name='search-dialog_input']") as HTMLInputElement
     }
 
     dialogContent(): React.JSX.Element {
@@ -219,6 +234,5 @@ class ResultItem extends React.Component<ResultItemProps, any> {
 
 let openCount = 0
 export function showSearchDialog() {
-    showDialog(<SearchDialog openCount={openCount++} fixedWidth={true} btnText={"关闭"} OnClickBtn={undefined}
-        closeOnClickOutside={true} />, SEARCH_DIALOG_WRAPPER_ID)
+    showDialog(<SearchDialog openCount={openCount++} />, SEARCH_DIALOG_WRAPPER_ID)
 }

@@ -163,6 +163,5 @@ export function SettingsToggle(props: SettingsToggleProps) {
 let openCount = 0
 export function showPreferenceDialog() {
     consoleDebug("PreferenceDialogContent showPreferenceDialog")
-    showDialog(<PreferenceDialog openCount={openCount++} fixedWidth={false} btnText={"关闭"}
-        OnClickBtn={undefined} closeOnClickOutside={true} />, PREFERENCE_DIALOG_WRAPPER_ID)
+    showDialog(<PreferenceDialog openCount={openCount++} />, PREFERENCE_DIALOG_WRAPPER_ID)
 }

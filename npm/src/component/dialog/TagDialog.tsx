@@ -31,6 +31,7 @@ export class TagDialog extends BasicDialog<DialogContentProps, DialogContentStat
     constructor(props: DialogContentProps) {
         super(props)
         consoleDebug("TagDialogContent constructor")
+        this.fixedWidth = true
         this.onListSizeChanged = this.onListSizeChanged.bind(this)
         // this.scrollToTopOnDialogOpen = false
         this.listenScroll = true
@@ -310,7 +311,6 @@ function Block(props: BlockProps) {
 let openCount = 0
 export function showTagDialog(_tag: string) {
     consoleDebug("TagDialogContent showTagEssayListDialog " + _tag)
-    showDialog(<TagDialog openCount={openCount++} tag={_tag} fixedWidth={true} btnText={"关闭"}
-        OnClickBtn={undefined} closeOnClickOutside={true} />, TAG_DIALOG_WRAPPER_ID + "-" + _tag)
+    showDialog(<TagDialog openCount={openCount++} tag={_tag} />, TAG_DIALOG_WRAPPER_ID + "-" + _tag)
     // OnClickBtn={null} closeOnClickOutside={true} />, TAG_DIALOG_WRAPPER_ID)
 }

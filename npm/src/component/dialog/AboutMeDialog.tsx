@@ -3,14 +3,15 @@ import { MDCList } from "@material/list"
 import { ABOUT_DIALOG_WRAPPER_ID, BasicDialog, showDialog } from "./BasicDialog"
 import type { BasicDialogProps } from "./BasicDialog"
 import { consoleDebug } from "../../util/log"
-import { Button } from "../react/Button"
 import { setupListItemRipple } from "../list"
 import React, { useEffect } from "react"
+import { Tag } from "../react/Tag"
 
 class AboutMeDialog extends BasicDialog<BasicDialogProps, any> {
 
     componentDidMount(): void {
         super.componentDidMount()
+        this.fixedWidth = true
         this.initList()
     }
 
@@ -35,11 +36,11 @@ class AboutMeDialog extends BasicDialog<BasicDialogProps, any> {
                 </picture>
                 <p className="about-me-name">立泉</p>
                 <section className="btn-tag-container about-me-tag-wrapper">
-                    <Button text="C++" onClick={null} className="btn-tag" />
-                    <Button text="Java" onClick={null} className="btn-tag" />
-                    <Button text="Kotlin" onClick={null} className="btn-tag" />
-                    <Button text="Android" onClick={null} className="btn-tag" />
-                    <Button text="Git" onClick={null} className="btn-tag" />
+                    <Tag text="C++" onClick={null} />
+                    <Tag text="Java" onClick={null} />
+                    <Tag text="Kotlin" onClick={null} />
+                    <Tag text="Android" onClick={null} />
+                    {/* <Tag text="Git" onClick={null} /> */}
                 </section>
                 <p className="about-me-description">九五后，旅居杭州，<a
                     href={this.getKunQvLink()}>昆虫</a>，野生散养攻城狮，“十分”“业余”摄影 Fans。联系我可以通过<a href="mailto:safari@mudan.me">电子邮件</a>，如果有必要也可用<a
@@ -81,7 +82,5 @@ function LinkItem(props: LinkItemProps) {
 
 let openCount = 0
 export function showAboutMeDialog() {
-    showDialog(<AboutMeDialog openCount={openCount++} fixedWidth={true} btnText={"关闭"}
-        OnClickBtn={undefined}
-        closeOnClickOutside={true} />, ABOUT_DIALOG_WRAPPER_ID)
+    showDialog(<AboutMeDialog openCount={openCount++} />, ABOUT_DIALOG_WRAPPER_ID)
 }

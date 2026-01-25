@@ -2,7 +2,7 @@ import "./ShortLinkJumpDialog.scss"
 import type { JSX } from "react"
 import { ProgressLinear } from "../react/ProgressLinear"
 import { BasicDialog, COMMON_DIALOG_WRAPPER_ID, showDialog } from "./BasicDialog"
-import type { BasicDialogProps } from "./BasicDialog"
+import type { ActionBtn, BasicDialogProps } from "./BasicDialog"
 import { ShortLinkJumpDialogPresenter } from "./ShortLinkJumpDialogPresenter"
 
 interface DialogContentState {
@@ -20,12 +20,17 @@ export class ShortLinkDialog extends BasicDialog<DialogContentProps, DialogConte
 
     constructor(props: DialogContentProps) {
         super(props)
+        this.closeOnClickOutside = false
         this.presenter = new ShortLinkJumpDialogPresenter(this)
         this.state = {
             title: "查询映射",
             content: this.props.pid,
             onClickLink: () => {}
         }
+    }
+
+    configActionBtns(): ActionBtn[] {
+        return []
     }
 
     componentDidMount() {
@@ -55,6 +60,5 @@ export class ShortLinkDialog extends BasicDialog<DialogContentProps, DialogConte
 
 let openCount = 0
 export function showShortLinkJumpDialog(_pid: string) {
-    showDialog(<ShortLinkDialog openCount={openCount++} pid={_pid} fixedWidth={false} btnText={undefined}
-        OnClickBtn={undefined} closeOnClickOutside={false} />, COMMON_DIALOG_WRAPPER_ID)
+    showDialog(<ShortLinkDialog openCount={openCount++} pid={_pid} />, COMMON_DIALOG_WRAPPER_ID)
 }

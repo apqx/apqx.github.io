@@ -87,11 +87,9 @@
 
 .basic-dialog_actions {
     justify-content: center;
-    // padding-top: 1rem;
-    // padding-bottom: 1rem;
-    // padding-left: var(--dialog-content-padding-left-right);
-    // padding-right: var(--dialog-content-padding-left-right);
     padding: 0;
+    display: flex;
+    flex-direction: row;
     height: fit-content;
     border: none;
     border-top: 1px solid;
@@ -99,14 +97,15 @@
 }
 
 .mdc-button.basic-dialog_btn_action {
-    width: 100%;
+    flex: 1;
+    width: fit-content;
     height: 3.2rem;
     padding: 0;
     border-radius: 0;
 
     @include button.container-fill-color(var(--dialog-action-btn-bg));
     @include button.ink-color(var(--dialog-action-btn-ink));
-    // 启用Ripple的radius-bounded可能导致某些东西溢出元素，导致整个页面宽度不正常可以横向滚动
+    // 启用 ripple 的 radius-bounded 可能导致某些东西溢出元素，导致整个页面宽度不正常可以横向滚动
     // 加上这个则可以解决🤔
     overflow: hidden;
     @include ripple.surface;

@@ -7,27 +7,47 @@ import type { Root } from "react-dom/client"
 import { setupButtonRipple } from "../button"
 
 export interface BasicDialogProps {
-    // 用于启动dialog的计数，每次+1，用于弹出dialog
+    // 用于启动 dialog 的计数，每次 +1，弹出 dialog
     openCount: number,
-    fixedWidth: boolean,
-    btnText: string | undefined,
-    OnClickBtn: ((e: React.MouseEvent<HTMLElement>) => void) | undefined,
-    closeOnClickOutside: boolean
+}
+
+export interface ActionBtn {
+    text: string,
+    closeOnClick: boolean,
+    onClick: ((e: React.MouseEvent<HTMLElement>) => void) | undefined
 }
 
 export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.Component<T, V> {
     protected containerRef: React.RefObject<HTMLDivElement | null> = React.createRef()
+    // 可由子类修改的配置项
+    protected closeOnClickOutside: boolean
+    protected fixedWidth: boolean
+    protected scrollToTopOnDialogOpen: boolean
+    protected listenScroll: boolean
+    protected actionBtns: ActionBtn[]
 
     mdcDialog: MDCDialog | null = null
     rootE: Element | null = null
     btnCloseE: HTMLElement | null = null
     dialogContentE: HTMLElement | null = null
-    scrollToTopOnDialogOpen: boolean = true
-    listenScroll: boolean = false
 
     constructor(props: T) {
         super(props)
         consoleDebug("BasicDialog constructor")
+        this.closeOnClickOutside = true
+        this.fixedWidth = false
+        this.scrollToTopOnDialogOpen = true
+        this.listenScroll = false
+        this.actionBtns = this.configActionBtns()
+    }
+
+    // 由子类覆写，配置 Action 按钮
+    /**
+     * 配置 Action 按钮，数量为 1 ～ 2 个，自左向右平分空间
+     * @returns 
+     */
+    configActionBtns(): ActionBtn[] {
+        return [{ text: "关闭", closeOnClick: true, onClick: () => { } }]
     }
 
     componentDidMount() {
@@ -70,21 +90,20 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
         this.dialogContentE = this.rootE.querySelector("#basic-dialog-content")
         this.initScrollListener()
         this.mdcDialog = new MDCDialog(this.rootE)
-        if (this.props.btnText != null) {
-            this.btnCloseE = this.rootE.querySelector("#basic-dialog_btn_close")
-            this.btnCloseE?.scroll
-            setupButtonRipple(this.btnCloseE)
-        }
 
-        if (!this.props.closeOnClickOutside) {
-            // 设置为空，点击Dialog外部，不取消
+        this.rootE.querySelectorAll(".basic-dialog_btn_action").forEach((ele) => {
+            setupButtonRipple(ele as HTMLElement)
+        })
+
+        if (!this.closeOnClickOutside) {
+            // 设置为空，点击 Dialog 外部，不取消
             this.mdcDialog.scrimClickAction = ""
         }
-        // 启动open动画
+        // 启动 open 动画
         this.mdcDialog.listen("MDCDialog:opening", () => {
             consoleDebug("Dialog opening")
         })
-        // open动画结束
+        // open 动画结束
         this.mdcDialog.listen("MDCDialog:opened", () => {
             consoleDebug("Dialog opened")
             this.onDialogOpen()
@@ -93,15 +112,15 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
                 this.scrollToTop()
             }
         })
-        // 启动close动画
+        // 启动 close 动画
         this.mdcDialog.listen("MDCDialog:closing", () => {
             consoleDebug("Dialog closing")
             this.onDialogClose()
         })
-        // close动画结束
+        // close 动画结束
         this.mdcDialog.listen("MDCDialog:closed", () => {
             consoleDebug("Dialog closed")
-            // dialog关闭之后，display会被设置为none，此时测量尺寸结果会是0
+            // dialog 关闭之后，display 会被设置为 none，此时测量尺寸结果会是 0
         })
         this.mdcDialog.open()
     }
@@ -170,7 +189,7 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
             <div ref={this.containerRef} className="mdc-dialog">
                 <div className="mdc-dialog__container">
                     <div
-                        className={this.props.fixedWidth ? "mdc-dialog__surface mdc-dialog__fixed-width" : "mdc-dialog__surface"}
+                        className={this.fixedWidth ? "mdc-dialog__surface mdc-dialog__fixed-width" : "mdc-dialog__surface"}
                         role="alertdialog" aria-modal="true"
                         aria-labelledby="basic-dialog-title"
                         aria-describedby="basic-dialog-content">
@@ -178,18 +197,18 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
                             id="basic-dialog-content">
                             {this.dialogContent()}
                         </div>
-                        {(this.props.btnText != null) &&
+                        {this.actionBtns.length > 0 &&
                             <div className="mdc-dialog__actions basic-dialog_actions">
-                                <button type="button"
-                                    className="mdc-button basic-dialog_btn_action"
-                                    data-mdc-dialog-action="cancel"
-                                    onClick={this.props.OnClickBtn}
-                                    id="basic-dialog_btn_close"
-                                    tabIndex={0}>
-                                    <span className="mdc-button__label"
-                                        id="basic-dialog_btn_close_label"
-                                    >{this.props.btnText}</span>
-                                </button>
+                                {this.actionBtns.map((btn, index) =>
+                                    <button type="button"
+                                        className="mdc-button basic-dialog_btn_action"
+                                        data-mdc-dialog-action={btn.closeOnClick ? "close" : ""}
+                                        onClick={btn.onClick}
+                                        tabIndex={0}>
+                                        <span className="mdc-button__label"
+                                        >{btn.text}</span>
+                                    </button>
+                                )}
                             </div>
                         }
                     </div>
@@ -209,25 +228,25 @@ export const ABOUT_DIALOG_WRAPPER_ID = "about-dialog-wrapper"
 export const SHARE_DIALOG_WRAPPER_ID = "share-dialog-wrapper"
 export const PREFERENCE_DIALOG_WRAPPER_ID = "preference-dialog-wrapper"
 
-// 缓存每种dialog的root和dialog实例，即使该类型dialog的内容变化，其仍是同一个dialog对象
-// 每个tag都使用自己单独的Dialog
+// 缓存每种 dialog 的 root 和 dialog 实例，即使该类型 dialog 的内容变化，其仍是同一个 dialog 对象
+// 每个 tag 都使用自己单独的 Dialog
 let dialogContainerE: HTMLElement | null = null
 let rootDialogMap = new Map<string, Root>()
 
 export function showDialog(_contentElement: React.JSX.Element, _dialogWrapperId: string) {
-    // 如果此时html还未加载完成，确实可能出现为null的情况
+    // 如果此时 html 还未加载完成，确实可能出现为 null 的情况
     if (document.readyState === "loading") return
     dialogContainerE = document.querySelector("#dialog_container")
     let root: Root | undefined
     if (rootDialogMap.has(_dialogWrapperId)) {
         root = rootDialogMap.get(_dialogWrapperId)
     } else {
-        // 创建wrapper节点
+        // 创建 wrapper 节点
         let rootE = document.createElement("div")
         rootE.setAttribute("id", _dialogWrapperId)
         dialogContainerE!!.appendChild(rootE)
         root = createRoot(rootE)
-        // root对应的dialog会在之后创建时添加
+        // root 对应的 dialog 会在之后创建时添加
         rootDialogMap.set(_dialogWrapperId, root)
     }
     root?.render(_contentElement)
