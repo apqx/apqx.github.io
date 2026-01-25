@@ -21,9 +21,8 @@
     background-color: var(--chip-bg);
 }
 
-.about-me-tag-wrapper .btn-tag {
-    margin-left: 0.1rem;
-    margin-right: 0.1rem;
+.btn-tag-container.about-me-tag-wrapper {
+    justify-content: center;
 }
 
 .link-item {

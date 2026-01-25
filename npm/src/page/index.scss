@@ -5,12 +5,15 @@
 @use "../component/react/LensIndexList";
 
 body {
+    // 列表卡片与左右边界的距离
     --index-card-to-container-border-horizontal: var(--main-container-padding-vertical);
+    // 列表卡片之间的距离
     --index-card-gap: 0.55rem;
-    // 列表顶部卡片与文章 content-card 圆角一致
-    --index-card-top-radius: var(--mdc-shape-medium);
-    // 内部卡片圆角参照 MD3 缩小
+    // 列表卡片圆角，指非边界的内部普通卡片，参照 MD3 较边界卡片缩小
     --index-card-radius: 0.5rem;
+    // 列表顶部卡片圆角，与文章 content-card 圆角一致
+    --index-card-top-radius: var(--mdc-shape-medium);
+    // 网格列表卡片之间的距离
     --grid-index-card-gap: 0.7rem; 
 }
 

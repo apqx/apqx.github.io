@@ -29,8 +29,8 @@
                 </time>
 
                 <!-- tags -->
-                <section data-pagefind-ignore="index" style="margin-top: 3rem; margin-bottom: 0.3rem;">
-                    <!-- 如果用span创建mdc-button，则点击动画结束后才会触发点击事件，感觉明显会很慢 -->
+                <section data-pagefind-ignore="index" class="btn-tag-container post-tag-container">
+                    <!-- 如果用 span 创建 mdc-button，则点击动画结束后才会触发点击事件，感觉明显会很慢 -->
                     {%- for tagInPage in page.tags %}
                     <button type="button" class="mdc-button tag-dialog-trigger btn-tag" id="chip_tag_{{ tagInPage }}">
                         <span class="mdc-button__label">{{ tagInPage }}</span>

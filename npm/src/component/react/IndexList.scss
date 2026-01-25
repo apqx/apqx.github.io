@@ -49,9 +49,15 @@ body {
     @include card.cardRippleDark();
 }
 
-.mdc-card.index-card.list-last {
-    border-bottom-left-radius: var(--index-card-top-radius);
-    border-bottom-right-radius: var(--index-card-top-radius);
+.index-li:last-child {
+    .mdc-card.index-card {
+        border-bottom-left-radius: var(--index-card-top-radius);
+        border-bottom-right-radius: var(--index-card-top-radius);
+    }
+
+    hr.index-li-divider {
+        display: none;
+    }
 }
 
 .index-top-cover {

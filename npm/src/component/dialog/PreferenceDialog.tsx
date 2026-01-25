@@ -6,7 +6,7 @@ import type { BasicDialogProps } from "./BasicDialog"
 import { NewMdSwitch } from "../react/SettingsToggle"
 import { MDCList } from "@material/list"
 import React, { useEffect } from "react"
-import { initListItem, setupListItemRipple } from "../list"
+import { setupListItemRipple } from "../list"
 import { createHtmlContent } from "../../util/tools"
 
 interface DialogContentState {
@@ -115,16 +115,16 @@ export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogConten
                 {/* TODO: 应用 Material Design 列表样式 */}
                 <ul className="mdc-deprecated-list mdc-deprecated-list--one-line dialog-link-list" id="preference-dialog__toggle-container">
                     <SettingsToggle titleHtml="固定顶部导航栏"
-                        on={this.state.fixedTopbarOn} first={true} last={false}
+                        on={this.state.fixedTopbarOn}
                         onClickToggle={this.onClickFixedTopbarSwitch} />
                     {/* <SettingsToggle titleHtml={this.handwrittenFontTitle}
                         on={this.state.handwrittenFontOn}
                         onClickToggle={this.onClickHandwritingFontSwitch} /> */}
                     <SettingsToggle titleHtml={this.notoSerifSCFontTitle}
-                        on={this.state.notoSerifSCFontOn} first={false} last={false}
+                        on={this.state.notoSerifSCFontOn}
                         onClickToggle={this.onClickNotoSerifSCFontSwitch} />
                     <SettingsToggle titleHtml={this.autoThemeTitle}
-                        on={this.state.autoThemeOn} first={false} last={true}
+                        on={this.state.autoThemeOn}
                         onClickToggle={this.onClickAutoThemeSwitch} />
                 </ul>
             </>
@@ -135,8 +135,6 @@ export class PreferenceDialog extends BasicDialog<BasicDialogProps, DialogConten
 interface SettingsToggleProps {
     titleHtml: string
     on: boolean
-    first: boolean
-    last: boolean
     onClickToggle: () => void
 }
 
@@ -147,7 +145,6 @@ export function SettingsToggle(props: SettingsToggleProps) {
         const rootE = containerRef.current as HTMLElement;
         const liE = rootE.querySelector(".mdc-deprecated-list-item") as HTMLElement
         setupListItemRipple(liE)
-        initListItem(liE, props.first, props.last)
     }, [])
 
     return (
@@ -158,7 +155,7 @@ export function SettingsToggle(props: SettingsToggleProps) {
                 {/* 会自动识别组建内定义的属性 */}
                 <NewMdSwitch selected={props.on} onClick={props.onClickToggle} />
             </div>
-            {!props.last && <hr className="mdc-deprecated-list-divider" />}
+            <hr className="mdc-deprecated-list-divider" />
         </li>
     )
 }

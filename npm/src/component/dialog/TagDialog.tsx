@@ -3,13 +3,12 @@ import { MDCList } from "@material/list"
 import { BasicDialog, TAG_DIALOG_WRAPPER_ID, showDialog } from "./BasicDialog"
 import type { BasicDialogProps } from "./BasicDialog"
 import { consoleDebug } from "../../util/log"
-import { initListItem, setupListItemRipple } from "../list"
+import { setupListItemRipple } from "../list"
 import { ERROR_HINT, LoadingHint } from "../react/LoadingHint"
 import { HeightAnimationContainer } from "../animation/HeightAnimationContainer"
 import { BasePaginateShow } from "../react/post/BasePaginateShow"
 import type { BasePaginateShowProps } from "../react/post/BasePaginateShow"
 import type { IPaginateShowPresenter } from "../react/post/IPaginateShowPresenter"
-import { BasePaginateShowPresenter } from "../react/post/BasePaginateShowPresenter"
 import { getSectionTypeByPath, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL } from "../../base/constant"
 import type { SectionType } from "../../base/constant"
 import { DialogState, DialogStateObservable, DialogStateObserver } from "./DialogStateObservable"
@@ -251,11 +250,6 @@ class PostItem extends React.Component<PostItemProps, any> {
         const rootE = this.containerRef.current as Element
         this.liE = rootE.querySelector(".mdc-deprecated-list-item") as HTMLElement
         setupListItemRipple(this.liE)
-        initListItem(this.liE, this.props.first, this.props.last)
-    }
-
-    componentDidUpdate(prevProps: Readonly<PostItemProps>, prevState: Readonly<any>, snapshot?: any): void {
-        initListItem(this.liE!!, this.props.first, this.props.last)
     }
 
     render() {
@@ -268,22 +262,22 @@ class PostItem extends React.Component<PostItemProps, any> {
                         <span className="list-item__primary-text one-line">{this.props.data.title}</span>
                         <div className="list-item__secondary-text tag-list-item__secondary-container">
                             <span className="tag-list-item__block-container">
-                                <span className="tag-list-item__post-type first">
+                                <span className="tag-list-item__post-type">
                                     {date.year}<span className="year">年</span>
                                     {date.month}<span className="month">月</span>
                                     {date.day}<span className="day">日</span>
                                     ｜{this.props.data.type}</span>
                                 {this.props.data.block1Array.map((value, index) =>
-                                    <Block type={1} title={value} first={false} last={index == (this.props.data.block1Array.length + this.props.data.block2Array.length - 1)} />
+                                    <Block type={1} title={value} />
                                 )}
                                 {this.props.data.block2Array.map((value, index) =>
-                                    <Block type={2} title={value} first={false} last={index == (this.props.data.block2Array.length - 1)} />
+                                    <Block type={2} title={value} />
                                 )}
                             </span>
                         </div>
                     </span>
                 </a>
-                {!this.props.last && <hr className="mdc-deprecated-list-divider" />}
+                <hr className="mdc-deprecated-list-divider" />
             </li>
         )
     }
@@ -292,12 +286,10 @@ class PostItem extends React.Component<PostItemProps, any> {
 interface BlockProps {
     type: number,
     title: string,
-    first: boolean,
-    last: boolean
 }
 
 function Block(props: BlockProps) {
-    const { type, title, first, last } = props
+    const { type, title } = props
     const [classList, setClassList] = useState<string[]>([])
 
     useEffect(() => {
@@ -307,14 +299,8 @@ function Block(props: BlockProps) {
         } else if (type === 2) {
             classes.push("tag-list-item__post-block2")
         }
-        if (first) {
-            classes.push("first")
-        }
-        if (last) {
-            classes.push("last")
-        }
         setClassList(classes)
-    }, [type, title, first, last])
+    }, [type, title])
 
     return (
         <span className={classList.join(" ")}>{title}</span>

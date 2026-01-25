@@ -5,7 +5,7 @@ import { MDCList } from "@material/list"
 import { clearFocusListener, createHtmlContent } from "../../util/tools"
 import { BasicDialog, SEARCH_DIALOG_WRAPPER_ID, showDialog } from "./BasicDialog"
 import type { BasicDialogProps } from "./BasicDialog"
-import { initListItem, setupListItemRipple } from "../list"
+import { setupListItemRipple } from "../list"
 import { ERROR_HINT, LoadingHint } from "../react/LoadingHint"
 import { HeightAnimationContainer } from "../animation/HeightAnimationContainer"
 import React from "react"
@@ -155,9 +155,7 @@ class SearchResult extends React.Component<SearchResultProps, any> {
             <ul ref={this.containerRef} className="mdc-deprecated-list">
                 {this.props.list.map((item, index) =>
                     <ResultItem key={item.url}
-                        data={item}
-                        first={index === 0}
-                        last={index === this.props.list.length - 1} />
+                        data={item} />
                 )}
             </ul>
         )
@@ -166,8 +164,6 @@ class SearchResult extends React.Component<SearchResultProps, any> {
 
 interface ResultItemProps {
     data: ResultItemData
-    first: boolean
-    last: boolean
 }
 
 export class ResultItemData {
@@ -194,11 +190,6 @@ class ResultItem extends React.Component<ResultItemProps, any> {
         const rootE = this.containerRef.current as Element
         this.liE = rootE.querySelector(".mdc-deprecated-list-item") as HTMLElement
         setupListItemRipple(this.liE)
-        initListItem(this.liE, this.props.first, this.props.last)
-    }
-
-    componentDidUpdate(prevProps: Readonly<ResultItemProps>, prevState: Readonly<any>, snapshot?: any): void {
-        initListItem(this.liE!!, this.props.first, this.props.last)
     }
 
     render() {
@@ -220,7 +211,7 @@ class ResultItem extends React.Component<ResultItemProps, any> {
                         </div>
                     </span>
                 </a>
-                {!this.props.last && <hr className="mdc-deprecated-list-divider" />}
+                <hr className="mdc-deprecated-list-divider" />
             </li>
         )
     }

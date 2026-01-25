@@ -209,6 +209,7 @@ body {
         --post-inner-shape-round: 1rem;
         // 列表圆角
         --table-list-border-radius: 1rem;
+        --table-list-border-radius__fit-ripple: calc(var(--table-list-border-radius) - 1px);
 
         --list-divider-height: 0.18rem;
 
@@ -246,7 +247,7 @@ body {
 
                 --mdc-shape-medium: 0.6rem;
 
-                --list-divider-height: 0.16rem;
+                --list-divider-height: 0.15rem;
         }
 }
 

@@ -31,7 +31,7 @@ $blockPaddingHorizontalSide: 0.55rem;
     font-size: calc(var(--mdc-typography-body1-font-size) - 0.2rem);
     padding: 0.2rem $blockPaddingHorizontal;
     border-radius: $blockRadius;
-    margin-right: 0.155rem;
+    margin-right: calc(var(--list-divider-height) - 0.01rem);
 }
 
 
@@ -46,6 +46,14 @@ $blockPaddingHorizontalSide: 0.55rem;
     border-top-right-radius: $blockRadiusSide;
     border-bottom-right-radius: $blockRadiusSide;
     margin-right: 0;
+}
+
+.tag-list-item__block-container > span:first-child {
+    @include blockFirst();
+}
+
+.tag-list-item__block-container > span:last-child {
+    @include blockLast();
 }
 
 .tag-list-item__post-type {
@@ -66,14 +74,14 @@ $blockPaddingHorizontalSide: 0.55rem;
     background: var(--list-chip-2-bg);
 }
 
-.tag-list-item__block-container {
-    .first {
-        @include blockFirst();
-    }
-    .last {
-        @include blockLast();
-    }
-}
+// .tag-list-item__block-container {
+//     .first {
+//         @include blockFirst();
+//     }
+//     .last {
+//         @include blockLast();
+//     }
+// }
 
 .font-noto-serif-sc {
     .tag-list-item__post-type,

@@ -1,7 +1,7 @@
 ---
 layout: post
 categories: original
-title: "Android 中的 Thread 和 Handler"
+title: "Android 中的 Thread 与 Handler"
 author: 立泉
 mention: Looper MessageQueue ANR
 date: 2018-11-20 +0800

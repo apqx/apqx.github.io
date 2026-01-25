@@ -5,9 +5,12 @@
 @use "sass:map";
 @use "sass:color";
 
+$listItemSideRadius: var(--table-list-border-radius);
+$listItemRadius: 0.2rem;
+
 .mdc-deprecated-list:not(.nav-list) {
-    border: 1px solid var(--list-divider-color);
-    border-radius: var(--table-list-border-radius);
+    // border: 1px solid var(--list-divider-color);
+    // border-radius: $list-item-side-radius;
 
     li {
         margin: 0;
@@ -16,6 +19,10 @@
     .mdc-deprecated-list-divider {
         border: none;
         border-top: var(--list-divider-height) solid var(--list-divider-color);
+    }
+
+    .mdc-deprecated-list-item {
+        border-radius: $listItemRadius;
     }
 }
 
@@ -40,21 +47,30 @@
     @include ripple.states-base-color(map.get(base.$list-ripple, "dark"));
 }
 
-.mdc-deprecated-list-item:before, .mdc-deprecated-list-item:after {
+.mdc-deprecated-list-item:before,
+.mdc-deprecated-list-item:after {
     top: 0;
     left: 0;
     width: 0rem;
     height: 0rem;
 }
 
-.list-first {
-    border-top-left-radius: calc(var(--table-list-border-radius) - 1px);
-    border-top-right-radius: calc(var(--table-list-border-radius) - 1px);
+.mdc-deprecated-list li:first-child {
+    .mdc-deprecated-list-item {
+        border-top-left-radius: $listItemSideRadius;
+        border-top-right-radius: $listItemSideRadius;
+    }
 }
 
-.list-last {
-    border-bottom-left-radius: calc(var(--table-list-border-radius) - 1px);
-    border-bottom-right-radius: calc(var(--table-list-border-radius) - 1px);
+.mdc-deprecated-list li:last-child {
+    .mdc-deprecated-list-item {
+        border-bottom-left-radius: $listItemSideRadius;
+        border-bottom-right-radius: $listItemSideRadius;
+    }
+
+    hr.mdc-deprecated-list-divider {
+        display: none;
+    }
 }
 
 .mdc-deprecated-list--one-line .mdc-deprecated-list-item {

@@ -51,7 +51,7 @@ export class IndexList extends BasePaginateShow<Post, BasePaginateShowProps<Post
                 {this.props.pinnedPosts.map((post) =>
                     <IndexItem key={post.title + post.date}
                         title={post.title} author={post.author} date={post.date} description={post.description} path={post.path}
-                        fromPinnedList={true} pinned={true} featured={post.featured} last={false} />
+                        fromPinnedList={true} pinned={true} featured={post.featured} />
                 )}
                 {/* 普通 */}
                 {this.state.posts.map((item, index) =>
@@ -59,7 +59,7 @@ export class IndexList extends BasePaginateShow<Post, BasePaginateShowProps<Post
                     // 有时候 jekyll 生成的 path 和 paginate 生成的 path 不一样，导致 item 重新加载
                     !item.hidden && <IndexItem key={item.path}
                         title={item.title} author={item.author} date={item.date} description={item.description} path={item.path}
-                        fromPinnedList={false} pinned={item.pinned} featured={item.featured} last={index == this.state.posts.length - 1} />
+                        fromPinnedList={false} pinned={item.pinned} featured={item.featured} />
                 )}
                 {(this.state.loading || this.state.loadHint != null) &&
                     <LoadingHint loading={this.state.loading} loadHint={this.state.loadHint} onClickHint={this.loadMoreByClick} />
@@ -78,7 +78,6 @@ type IndexItemProps = {
     fromPinnedList: boolean,
     pinned: boolean,
     featured: boolean,
-    last: boolean
 }
 
 function IndexItem(props: IndexItemProps) {
@@ -108,7 +107,7 @@ function IndexItem(props: IndexItemProps) {
 
     return (
         <li ref={containerRef} className="index-li">
-            <a className={`index-a mdc-card index-card card-slide-in ${props.last ? "list-last" : ""}`} href={props.path}>
+            <a className={`index-a mdc-card index-card card-slide-in`} href={props.path}>
                 <section>
                     <h1 className="index-title">{props.title}</h1>
                     <span className="index-author">{props.author}</span>
@@ -125,7 +124,7 @@ function IndexItem(props: IndexItemProps) {
                     }
                 </section>
             </a>
-            {!props.last && <hr className="index-li-divider" />}
+            <hr className="index-li-divider" />
         </li>
     )
 }
@@ -168,7 +167,7 @@ class IndexItemWithDesc extends React.Component<IndexItemProps, any> {
                         <span className="index-width-desc-desc">{this.props.description}</span>
                     </section>
                 </a>
-                {!this.props.last && <hr className="index-li-divider" />}
+                <hr className="index-li-divider" />
             </li>
         )
     }
