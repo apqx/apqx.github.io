@@ -6,7 +6,7 @@ var interSectionObserver: IntersectionObserver | null = null
 
 export function getInterSectionObserver() {
     if (interSectionObserver == null) {
-        // 创建一个新的IntersectionObserver实例
+        // 创建一个新的 IntersectionObserver 实例
         interSectionObserver = new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 // 元素进入视口，触发动画

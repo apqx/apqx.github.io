@@ -44,12 +44,21 @@
 }
 
 .lens-index-list-wrapper {
+    // 紧缩间隙，中屏、小屏使卡片与边界的距离与卡片间的距离相等
     --grid-index-card-gap: 0.2rem;
+    // 卡片圆角
     --mdc-shape-medium: 0.2rem;
 }
 
+// 平板中屏
+@media all and (min-width: (base.$screen-middle-width-start + 1px)) and (max-width: (base.$screen-middle-width-end - 1px)) {
+    body {
+        .lens-index-list-wrapper {}
+    }
+}
+
 // 手机小屏
-@media all and (max-width: base.$screen-middle-min-width) {
+@media all and (max-width: base.$screen-middle-width-start) {
     body {
         .lens-index-pinned-icon-container, .lens-index-featured-icon-container {
             left: 0.2rem;
@@ -75,8 +84,8 @@
             .grid-index-ul {
                 margin: 0 0.1rem;
             }
-
             --grid-index-card-gap: 0.16rem;
+            --index-card-to-container-border-horizontal: var(--grid-index-card-gap);
             --mdc-shape-medium: 0.16rem;
         }
     }

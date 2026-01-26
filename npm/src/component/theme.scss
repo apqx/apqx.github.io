@@ -221,7 +221,13 @@ body {
         --drawer-padding-horizontal: 0.55rem;
 
         --top-bar-height: 3.7rem;
+
+        // main container 为中央主体容器，设置最大宽度，水平居中，此为其顶部距 topbar 和底部距 footer 的距离
         --main-container-padding-vertical: 1.2rem;
+        // center card 为主体容器中的主体卡片，即文章卡片和列表卡片，居中显示，此为其左右距容器边界的距离
+        // 默认使中心卡片距四周边距相等，向上是与 topbar 的距离，向下是与 footer 的距离
+        // 在 index 和 post 页面酌情而定
+        --center-card-to-container-border-horizontal: var(--main-container-padding-vertical);
 
         --dialog-animation-duration: 0.4s;
         --dialog-animation-translate-y: 10rem;
@@ -238,8 +244,21 @@ body {
         @include dark;
 }
 
+// 平板中屏
+@media all and (min-width: (base.$screen-middle-width-start + 1px)) and (max-width: (base.$screen-middle-width-end - 1px)) {
+        body {
+                --main-container-padding-vertical: 1rem;
+                --center-card-to-container-border-horizontal: 0.8rem;
+
+                --image-height-animation-duration: 0.6s;
+                --content-card-animation-duration: 0.6s;
+                --content-card-animation-translate-y: 16rem;
+        }
+
+}
+
 // 小屏
-@media all and (max-width: base.$screen-middle-min-width) {
+@media all and (max-width: base.$screen-middle-width-start) {
         body {
                 --image-height-animation-duration: 0.6s;
                 --content-card-animation-duration: 0.6s;
@@ -247,7 +266,8 @@ body {
 
                 --drawer-padding-horizontal: 0.2rem;
 
-                --main-container-padding-vertical: 0.8rem;
+                --main-container-padding-vertical: 0.6rem;
+                --center-card-to-container-border-horizontal: 0.5rem;
 
                 --mdc-shape-medium: 0.6rem;
 
@@ -255,12 +275,3 @@ body {
         }
 }
 
-// 平板中屏
-@media all and (min-width: (base.$screen-middle-min-width + 1px)) and (max-width: (base.$screen-middle-max-width - 1px)) {
-        body {
-                --image-height-animation-duration: 0.6s;
-                --content-card-animation-duration: 0.6s;
-                --content-card-animation-translate-y: 16rem;
-        }
-
-}

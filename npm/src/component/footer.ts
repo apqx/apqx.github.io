@@ -3,7 +3,7 @@ import { isIndexPage } from "../base/constant"
 import { getInterSectionObserver } from "./animation/BaseAnimation"
 
 /**
- * 在Index页面Footer默认隐藏，首次加载完成后显示出来
+ * 在 Index 页面 Footer 默认隐藏，首次加载完成后显示出来
  */
 export function showFooter() {
     const footerE = document.querySelector("footer")

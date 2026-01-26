@@ -99,7 +99,7 @@
 }
 
 // 手机小屏
-@media all and (max-width: base.$screen-middle-min-width) {
+@media all and (max-width: base.$screen-middle-width-start) {
 
     .grid-index-text-container {
         padding: 1rem 1.5rem 1.2rem 1.5rem;
@@ -107,7 +107,7 @@
 }
 
 // 平板中屏
-@media all and (min-width: (base.$screen-middle-min-width + 1px)) and (max-width: (base.$screen-middle-max-width - 1px)) {
+@media all and (min-width: (base.$screen-middle-width-start + 1px)) and (max-width: (base.$screen-middle-width-end - 1px)) {
 
     .grid-index-text-container {
         padding: 1rem 1.8rem 1.3rem 1.8rem;

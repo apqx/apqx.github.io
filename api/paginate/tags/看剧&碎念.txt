@@ -1,11 +1,11 @@
 ---
 layout: paginate-posts-json
 sitemap: false
-permalink: /api/paginate/tags/看剧&碎碎念
+permalink: /api/paginate/tags/看剧&碎念
 pagination:
     permalink: ""
     enabled: true
-    tag: "看剧,碎碎念"
+    tag: "看剧,碎念"
     extension: .json
     indexpage: 'page-:num'
 ---

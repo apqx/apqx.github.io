@@ -41,10 +41,8 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
         this.actionBtns = this.configActionBtns()
     }
 
-    // 由子类覆写，配置 Action 按钮
     /**
      * 配置 Action 按钮，数量为 1 ～ 2 个，自左向右平分空间
-     * @returns 
      */
     configActionBtns(): ActionBtn[] {
         return [{ text: "关闭", closeOnClick: true, onClick: () => { } }]
@@ -92,6 +90,9 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
         this.mdcDialog = new MDCDialog(this.rootE)
 
         this.rootE.querySelectorAll(".basic-dialog_btn_action").forEach((ele) => {
+            if (this.btnCloseE == null && ele.getAttribute("data-mdc-dialog-action") == "close") {
+                this.btnCloseE = ele as HTMLElement
+            }
             setupButtonRipple(ele as HTMLElement)
         })
 
@@ -185,6 +186,7 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
 
     render() {
         consoleDebug("BasicDialog render")
+        this.actionBtns = this.configActionBtns()
         return (
             <div ref={this.containerRef} className="mdc-dialog">
                 <div className="mdc-dialog__container">

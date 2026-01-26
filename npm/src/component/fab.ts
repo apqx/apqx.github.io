@@ -1,41 +1,40 @@
 // import "./fab.scss"
-import { consoleDebug } from "../util/log"
-import { showAlertDialog } from "./dialog/CommonAlertDialog"
+
+import { getSectionTypeByPath, isIndexPage, SECTION_TYPE_LENS } from "../base/constant"
+import { getInterSectionObserver } from "./animation/BaseAnimation"
+import { setupIconButtonRipple } from "./button"
+import { showSnackbar } from "./react/Snackbar"
 
 export function initFab() {
-    // 为fab添加ripple动画
-    const fabE: HTMLElement | null = document.querySelector(".mdc-fab")
-    // setupButtonRipple(fabE)
-    // topAppBar监听长按，把当前页编码后的URL复制到剪切板上
-    fabE?.addEventListener("long-press", () => {
-        consoleDebug("Long-press fab")
-        showEncodedUrl()
-    })
-    fabE?.addEventListener("click", () => {
-        scrollToTop()
-        // window.location.replace("#top")
-    })
-    // 在触控模式下无法让fab自动失去焦点
-    // fabE.addEventListener("hover", () => {
-    //     fabE.blur()
-    // })
-}
+    // 仅在 Index 透镜分区页面显示搜索 Fab
+    const path = document.location.pathname
+    const keepFabSearch = isIndexPage(path) && getSectionTypeByPath(path).identifier == SECTION_TYPE_LENS.identifier
+    if (!keepFabSearch) {
+        const fabSearchWrapperE = document.querySelector("#fabSearchWrapper")
+        if (fabSearchWrapperE != null) {
+            fabSearchWrapperE?.parentElement?.removeChild(fabSearchWrapperE)
+        }
+    } else {
+        const fabSearchE = document.querySelector("#fabSearch")
+        if (fabSearchE != null) {
+            setupIconButtonRipple(fabSearchE)
+            getInterSectionObserver().observe(fabSearchE.parentElement as HTMLElement)
+            fabSearchE?.addEventListener("click", () => {
+                showSnackbar("功能建设中")
+            })
+        }
+    }
 
-function showEncodedUrl() {
-    const url = window.location.href
-    const urlLink = `
-    <span>当前页面的编码URL为：<span><br/>
-    <span style="color: var(--mdc-theme-on-surface-secondary); margin: 0; padding: 0.5rem 0; line-break: anywhere">${url}</span>
-    `
-    showAlertDialog("提示", urlLink, "关闭", () => {
-    })
-    // navigator.clipboard.writeText(url).then(() => {
-    //     consoleDebug("Copy url to clipboard: " + url)
-    //     alert("编码URL已复制到剪切板")
-    // }).catch(err => {
-    //     consoleError("Copy url to clipboard failed: " + err)
-    //     alert("编码URL复制到剪切失败： " + err)
-    // })
+    // Fab 默认隐藏，使用 Intersection Observer 监听显示动画
+    const fabUpE = document.querySelector("#fabUp")
+    if (fabUpE != null) {
+        setupIconButtonRipple(fabUpE)
+        getInterSectionObserver().observe(fabUpE.parentElement as HTMLElement)
+        fabUpE?.addEventListener("click", () => {
+            scrollToTop()
+            // window.location.replace("#top")
+        })
+    }
 }
 
 let lastScrollY = -1

@@ -17,7 +17,7 @@ import { initFooter } from "../component/footer"
 import { initCard } from "../component/card"
 import { is404Page, isIndexPage, isPostPage } from "../base/constant"
 import supportsWebP from "supports-webp"
-import { showAlertDialog } from "../component/dialog/CommonAlertDialog"
+import { showSimpleAlertDialog } from "../component/dialog/CommonAlertDialog"
 import { ResizeWidthObserver } from "../base/ResizeWidthObserver"
 
 initScaffold()
@@ -116,7 +116,7 @@ function checkWebpSupport() {
             const urlLink = `
             当前浏览器不支持<a href="https://caniuse.com/?search=webp" target="_blank">WebP</a>格式，部分图片可能无法显示，请更新浏览器版本。
             `
-            showAlertDialog("提示", urlLink, "关闭", () => {
+            showSimpleAlertDialog("提示", urlLink, "关闭", () => {
 
             })
         }

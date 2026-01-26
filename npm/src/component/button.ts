@@ -2,7 +2,7 @@
 import { MDCRipple } from "@material/ripple";
 
 export function initButton() {
-    // 为所有的button添加ripple动画
+    // 为所有 button 添加 ripple 动画
     for (const ele of document.querySelectorAll(".mdc-button:not(.btn-tag)")) {
         setupButtonRipple(ele)
     }

@@ -35,7 +35,7 @@
 }
 
 // 小屏
-@media all and (max-width: base.$screen-middle-min-width) {
+@media all and (max-width: base.$screen-middle-width-start) {
     #preference-dialog__top-container {
         margin: 0.5rem 0rem;
         text-align: center;

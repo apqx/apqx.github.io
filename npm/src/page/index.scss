@@ -4,9 +4,11 @@
 @use "../component/react/GridIndexList";
 @use "../component/react/LensIndexList";
 
+// LensIndexList 是 GridIndexList 的一种特殊形式，变量由其单独控制
+
 body {
     // 列表卡片与左右边界的距离
-    --index-card-to-container-border-horizontal: var(--main-container-padding-vertical);
+    --index-card-to-container-border-horizontal: var(--center-card-to-container-border-horizontal);
     // 列表卡片之间的距离
     --index-card-gap: 0.55rem;
     // 列表卡片圆角，指非边界的内部普通卡片，参照 MD3 较边界卡片缩小
@@ -17,17 +19,18 @@ body {
     --grid-index-card-gap: 0.7rem; 
 }
 
+// 平板中屏
+@media all and (min-width: (base.$screen-middle-width-start + 1px)) and (max-width: (base.$screen-middle-width-end - 1px)) {
+    body {}
+}
+
 // 手机小屏
-@media all and (max-width: base.$screen-middle-min-width) {
+@media all and (max-width: base.$screen-middle-width-start) {
     body {
-        --index-card-to-container-border-horizontal: 0.5rem;
+        // --index-card-to-container-border-horizontal: 0.5rem;
         --index-card-gap: 0.45rem;
         --index-card-radius: 0.45rem;
         --grid-index-card-gap: 0.6rem;
     }
 }
 
-// 平板中屏
-@media all and (min-width: (base.$screen-middle-min-width + 1px)) and (max-width: (base.$screen-middle-max-width - 1px)) {
-
-}

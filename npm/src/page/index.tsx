@@ -36,7 +36,8 @@ function initIndexList() {
             onMount={() => { initIndexTopCover() }} onUpdate={() => { }} />)
     } else if (wrapperE.classList.contains("grid-index-list-wrapper")) {
         // 看剧
-        const descriptionE = document.querySelector(".grid-index-li--description")
+        // 读取描述，为 card 的内容
+        const descriptionE = document.querySelector(".grid-index-li--description .grid-index-card")
         let descriptionHtml = ""
         if (descriptionE != null)
             descriptionHtml = descriptionE.innerHTML

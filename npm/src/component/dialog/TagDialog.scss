@@ -1,7 +1,7 @@
 // @use "../react/LoadingHint";
 // @use "../animation/HeightAnimationContainer";
 
-// 使用此class的标签，可以通过id chip_tag_随笔 弹出对应 dialog_随笔 的dialog
+// 使用此 class 的标签，可以通过 id chip_tag_随笔 弹出对应 dialog_随笔 的 dialog
 .tag-dialog-trigger {
 }
 
@@ -73,15 +73,6 @@ $blockPaddingHorizontalSide: 0.55rem;
     color: var(--list-chip-2-ink);
     background: var(--list-chip-2-bg);
 }
-
-// .tag-list-item__block-container {
-//     .first {
-//         @include blockFirst();
-//     }
-//     .last {
-//         @include blockLast();
-//     }
-// }
 
 .font-noto-serif-sc {
     .tag-list-item__post-type,

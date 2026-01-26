@@ -18,8 +18,8 @@ $text-font-base: 1rem;
 $text-line-height-base: $text-font-base + 0.8rem;
 
 // 中型屏幕宽度范围，定义为平板，小于此尺寸为手机，大于此尺寸为电脑
-$screen-middle-min-width: 600px;
-$screen-middle-max-width: 880px;
+$screen-middle-width-start: 600px;
+$screen-middle-width-end: 880px;
 // 页面中部容器的最大宽度，普通索引页、文章页等都使用此宽度
 $center-container-max-width: 880px;
 // 更宽的页面中部容器的最大宽度，透镜索引页展示照片墙使用此宽度

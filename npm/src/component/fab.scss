@@ -6,33 +6,72 @@
 @use "@material/ripple";
 @use "sass:map";
 
-.mdc-fab, .mdc-fab:hover {
-    // TODO: 使用 var 设置的阴影是失效的
-    @include elevation.elevation(map.get(base.$fab-elevation, "elevation"), map.get(base.$fab-elevation, "shadow-light"), 0);
-}
+.floating-action-container .mdc-fab {
+    border-radius: 0.2rem;
+    @include ripple.surface;
+    @include ripple.radius-bounded;
+    @include ripple.states-base-color(map.get(base.$button-ripple, "light"));
+    @include ripple.states-opacities((hover: .0, focus: .0, press: .1));
 
-.dark {
-    .mdc-fab, .mdc-fab:hover {
-        @include elevation.elevation(map.get(base.$fab-elevation, "elevation"), map.get(base.$fab-elevation, "shadow-dark"), 0);
-    }
-}
-
-.mdc-fab {
     backdrop-filter: blur(map.get(base.$fab-bg, "backdrop-filter"));
     -webkit-backdrop-filter: blur(map.get(base.$fab-bg, "backdrop-filter"));
     // width: 3.5rem;
     // height: 3.5rem;
 }
 
-.app-fab--absolute {
-    position: fixed;
-    bottom: 1rem;
-    right: 1rem;
+.dark .floating-action-container .mdc-fab {
+    @include ripple.states-base-color(map.get(base.$button-ripple, "dark"));
+    @include ripple.states-opacities((hover: .0, focus: .0, press: .1));
 }
 
-@media(min-width: base.$screen-middle-min-width) {
-    .app-fab--absolute {
-        bottom: 1.5rem;
-        right: 1.5rem;
+.floating-action-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--list-divider-height);
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 0;
+
+    .mdc-touch-target-wrapper:first-child {
+        .mdc-fab {
+            border-top-left-radius: 50%;
+            border-top-right-radius: 50%;
+        }
+    }
+
+    .mdc-touch-target-wrapper:last-child {
+        .mdc-fab {
+            border-bottom-left-radius: 50%;
+            border-bottom-right-radius: 50%;
+        }
+    }
+}
+
+// ripple 伪元素形状由这里控制，只是为什么会是圆形？
+.floating-action-container .mdc-fab:before,
+.floating-action-container .mdc-fab:after {
+    // 默认计算出的是 50%，但实际效果并不是圆形，所以这里设为 inherit
+    border-radius: inherit;
+}
+
+.mdc-fab,
+.mdc-fab:hover {
+    // 消除阴影
+    // TODO: 使用 var 设置的阴影是失效的
+    @include elevation.elevation(map.get(base.$fab-elevation, "elevation"), map.get(base.$fab-elevation, "shadow-light"), 0);
+}
+
+// .dark {
+//     .mdc-fab,
+//     .mdc-fab:hover {
+//         @include elevation.elevation(map.get(base.$fab-elevation, "elevation"), map.get(base.$fab-elevation, "shadow-dark"), 0);
+//     }
+// }
+
+@media(max-width: base.$screen-middle-width-start) {
+    .floating-action-container {
+        bottom: 1rem;
+        right: 1rem;
     }
 }

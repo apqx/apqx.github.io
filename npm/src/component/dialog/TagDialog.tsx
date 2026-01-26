@@ -310,7 +310,7 @@ function Block(props: BlockProps) {
 
 let openCount = 0
 export function showTagDialog(_tag: string) {
-    consoleDebug("TagDialogContent showTagEssayListDialog " + _tag)
+    consoleDebug("ShowTagDialog " + _tag)
     showDialog(<TagDialog openCount={openCount++} tag={_tag} />, TAG_DIALOG_WRAPPER_ID + "-" + _tag)
     // OnClickBtn={null} closeOnClickOutside={true} />, TAG_DIALOG_WRAPPER_ID)
 }

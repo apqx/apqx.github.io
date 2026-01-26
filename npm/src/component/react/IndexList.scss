@@ -191,7 +191,7 @@ body {
 
 
 // 手机小屏
-@media all and (max-width: base.$screen-middle-min-width) {
+@media all and (max-width: base.$screen-middle-width-start) {
     body {
         --index-card-padding-vertical: 1rem;
         --index-card-padding-horizontal: 1.3rem;
@@ -224,7 +224,7 @@ body {
 }
 
 // 平板中屏
-@media all and (min-width: (base.$screen-middle-min-width + 1px)) and (max-width: (base.$screen-middle-max-width - 1px)) {
+@media all and (min-width: (base.$screen-middle-width-start + 1px)) and (max-width: (base.$screen-middle-width-end - 1px)) {
     body {
         --index-card-padding-vertical: 1.2rem;
         --index-card-padding-horizontal: 2rem;

@@ -53,8 +53,8 @@ export class LensIndexList extends BasePaginateShow<Post, BasePaginateShowProps<
     render(): ReactNode {
         const breakpointColumnsObj = {
             default: 3,
-            950: 2,
-            300: 1
+            600: 2,
+            350: 1
         }
         return (
             <ul className="grid-index-ul">

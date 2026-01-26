@@ -82,7 +82,7 @@ export function showToggleThemeIconDark(dark: boolean) {
     // 图标默认隐藏，避免切换页面时默认图标与主题不符引起的闪烁
     // 这样有时候仍会闪烁，但已经尽量避免了
     iconToggleTheme.on = dark
-    toggleClassWithEnable(iconToggleTheme!!.root, "display_none", false)
+    toggleClassWithEnable(iconToggleTheme!!.root, "display-none", false)
 }
 
 export function toggleTopbarGlass(on: boolean) {

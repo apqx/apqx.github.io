@@ -3,7 +3,7 @@
 @use "sass:map";
 
 body {
-    --content-card-to-container-border-horizontal: var(--main-container-padding-vertical);
+    --content-card-to-container-border-horizontal: var(--center-card-to-container-border-horizontal);
     --content-card-padding-vertical: 2.5rem;
     --content-card-padding-horizontal: 2.7rem;
 }
@@ -36,17 +36,20 @@ body {
     opacity: 1;
 }
 
+// 平板中屏
+@media all and (min-width: (base.$screen-middle-width-start + 1px)) and (max-width: (base.$screen-middle-width-end - 1px)) {
+    body {
+        --content-card-padding-horizontal: 2rem;
+    }
+}
+
 // 手机小屏
-@media all and (max-width: base.$screen-middle-min-width) {
+@media all and (max-width: base.$screen-middle-width-start) {
     body {
         --content-card-to-container-border-horizontal: 0;
+        
         --content-card-padding-vertical: 2rem;
         --content-card-padding-horizontal: 1.3rem;
     }
 }
 
-@media all and (min-width: (base.$screen-middle-min-width + 1px)) and (max-width: (base.$screen-middle-max-width - 1px)) {
-    body {
-        --content-card-padding-horizontal: 2rem;
-    }
-}

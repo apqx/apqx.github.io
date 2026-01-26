@@ -73,6 +73,11 @@ $fab-ink: (
         dark: rgba(color.adjust(map.get($fab-bg, "dark"), $lightness: +70%), 1),
 );
 
+$fab-ripple: (
+        light: color.adjust(map.get($fab-bg, "light"), $lightness: - variables.$ripple-gap-percent),
+        dark: color.adjust(map.get($fab-bg, "dark"), $lightness: + variables.$ripple-gap-percent),
+);
+
 $snackbar-bg: (
         backdrop-filter: 10px,
         light: rgba(map.get($surface, "dark"), 0.7),

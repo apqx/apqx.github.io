@@ -7,7 +7,7 @@ import { consoleDebug, consoleObjDebug } from "../../util/log"
 import { BasePaginateShow } from "./post/BasePaginateShow"
 import type { BasePaginateShowProps, BasePaginateShowState } from "./post/BasePaginateShow"
 import type { IPaginateShowPresenter } from "./post/IPaginateShowPresenter"
-import { setupTagTrigger } from "../tag"
+import { onTagTriggerClick, setupTagTrigger } from "../tag"
 import { ScrollLoader } from "../../base/ScrollLoader"
 import Masonry from 'react-masonry-css'
 import { showFooter } from "../footer"
@@ -56,11 +56,6 @@ export class GridIndexList extends BasePaginateShow<Post,Props> {
     }
 
     render(): ReactNode {
-        // const breakpointColumnsObj = {
-        //     default: 3,
-        //     950: 2,
-        //     600: 1
-        // }
         const breakpointColumnsObj = {
             default: 2,
             600: 1
@@ -214,10 +209,22 @@ function IndexDescriptionItem(props: IndexDescriptionItemProps) {
             getInterSectionObserver().observe(cardE)
         }
 
-        const dialogsTriggers = rootE.querySelectorAll(".tag-dialog-trigger")
-        for (const trigger of dialogsTriggers) {
-            setupTagTrigger(trigger as HTMLElement)
-        }
+        // 组件内的点击事件都会上浮到容器被捕捉，在这里处理一些非标准 <a> 元素的点击事件
+        rootE.addEventListener("click", (event) => {
+            consoleObjDebug("IndexDescriptionItem click event ", event.target)
+            const targetE = event.target as HTMLElement
+            // 处理 tag 点击事件
+            if (targetE.classList.contains("tag-dialog-trigger")) {
+                onTagTriggerClick(targetE)
+            }
+        })
+
+        // 对于 dangerouslySetInnerHTML 插入的内容，状态不像普通 react 组件可控，这样设置 click 监听可能失效
+        // const dialogsTriggers = rootE.querySelectorAll(".tag-dialog-trigger")
+        // consoleDebug("Found tag dialog triggers: " + dialogsTriggers.length)
+        // for (const trigger of dialogsTriggers) {
+        //     setupTagTrigger(trigger as HTMLElement)
+        // }
         return () => {
             consoleDebug("IndexDescriptionItem componentWillUnmount")
             if (cardE != null) {
@@ -228,14 +235,15 @@ function IndexDescriptionItem(props: IndexDescriptionItemProps) {
 
     return (
         <li ref={containerRef} className="grid-index-li grid-index-li--description">
-            <section className="mdc-card grid-index-card card-fade-in">
-                <div className="grid-index-text-container">
+            <section className="mdc-card grid-index-card card-fade-in" dangerouslySetInnerHTML={{ __html: props.innerHtml }}>
+
+                {/* <div className="grid-index-text-container">
                     <p>2021 年 08 月 08 日，我在博客里开辟这个分区来承载曾经在剧场看过的剧和拍过的剧照，以昆曲为主，使用<a
                         href="/post/original/2021/09/01/基于Jekyll实现博客文章-标签化.html">标签</a>把每一场演出按剧种、剧团、剧目、演员、剧场分类归档。这里每一篇文章既是记录也是分享，亲手按下快门捕捉到的舞台瞬间，如此美丽的戏妆油彩，不应该只我一人看到。
                     </p>
                     <p>关于我与戏剧的渊源以及为什么会喜欢昆曲，参见之前的自述<a
                         href="/post/original/2019/05/18/槐安国内春生酒.html">《槐安国内春生酒》</a>，还有一些由看剧衍生的<a
-                            id="chip_tag_看剧&碎碎念" className="tag-dialog-trigger clickable-empty-link">碎碎念</a>。</p>
+                            id="chip_tag_看剧&碎念" className="tag-dialog-trigger clickable-empty-link">碎念</a>。</p>
                     <p>只是时常偷懒，日渐事繁，更新剧目不多，我会慢慢整理上传的。</p>
                     <div style={{ marginBottom: "0.2rem" }}>
                         <a id="chip_tag_看剧&杭州" className="tag-dialog-trigger clickable-empty-link tag-link grid-index-description-tag">@杭州</a>
@@ -244,7 +252,7 @@ function IndexDescriptionItem(props: IndexDescriptionItemProps) {
                         <a className="tag-link grid-index-description-tag" href="/section/lens.html" target="_self">@透镜</a>
                         <a className="tag-link grid-index-description-tag" href="https://space.bilibili.com/11037907" target="_blank">@哔哩</a>
                     </div>
-                </div>
+                </div> */}
             </section>
             <hr className="grid-index-li-divider" />
         </li>
