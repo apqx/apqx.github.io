@@ -23,9 +23,9 @@ sitemap: false
             "mention": "{{ post.mention }}",
             "location": "{{ post.location }}",
             "description": "{{ post.description}}",
-            "cover": "{{ post.cover }}",
-            "index-cover": "{{ post.cover-for-index }}",
-            "cover-alt": "{{ post.cover-alt-for-index }}",
+            "cover": "{{ post.image }}",
+            "index-cover": "{{ post.image-for-index }}",
+            "index-cover-alt": "{{ post.image-alt-for-index }}",
             "tags": [
             {%- for tag in post.tags -%}
             "{{ tag }}"

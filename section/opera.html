@@ -43,12 +43,12 @@ blockFromSearchEngine: false
         <li class="grid-index-li">
             <a class="index-a mdc-card grid-index-card grid-index-card__ripple" href="{{ post.url }}">
                 <section>
-                    {%- if post.cover-for-index != null %}
-                    <img class="grid-index-cover" loading="lazy" src="{{ post.cover-for-index }}"
-                        alt="{{ post.cover-alt }}" />
-                    {% elsif post.cover != null %}
-                    <img class="grid-index-cover" loading="lazy" src="{{ post.cover }}"
-                        alt="{{ post.cover-alt }}" />
+                    {%- if post.image-for-index != null %}
+                    <img class="grid-index-cover" loading="lazy" src="{{ post.image-for-index }}"
+                        alt="{{ post.image-alt-for-index }}" />
+                    {% elsif post.image != null %}
+                    <img class="grid-index-cover" loading="lazy" src="{{ post.image }}"
+                        alt="{{ post.image-alt-for-index }}" />
                     {% else %}
                     <div style="height: 0.5rem;"></div>
                     {%- endif %}

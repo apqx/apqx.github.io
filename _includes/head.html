@@ -22,8 +22,8 @@
 {% elsif page.categories contains "lens" %}
 <meta property="og:description" content="{{ page.date | date: "%Y年%m月%d日" }} {{ page.actor }}"/>
 {% endif -%}
-{% if page.cover != null -%}
-<meta data-pagefind-default-meta="image[content]" property="og:image" content="{{ page.cover }}"/>
+{% if page.image != null -%}
+<meta data-pagefind-default-meta="image[content]" property="og:image" content="{{ page.image }}"/>
 {% else -%}
 <meta data-pagefind-default-meta="image[content]" property="og:image" content="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/computer.jpg"/>
 {% endif -%}

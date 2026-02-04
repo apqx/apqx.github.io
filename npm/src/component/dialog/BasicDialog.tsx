@@ -21,6 +21,8 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
     protected containerRef: React.RefObject<HTMLDivElement | null> = React.createRef()
     // 可由子类修改的配置项
     protected closeOnClickOutside: boolean
+    // 是否固定宽度，默认宽度自适应内容
+    // 若设定，固定宽度为 560px，已限制最大宽度不超过屏幕宽度
     protected fixedWidth: boolean
     protected scrollToTopOnDialogOpen: boolean
     protected listenScroll: boolean

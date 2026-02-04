@@ -4,19 +4,19 @@ categories: original
 title: "Android 中的 Thread 与 Handler"
 author: 立泉
 mention: Looper MessageQueue ANR
-date: 2018-11-20 +0800
+date: 2018-11-20 19:30:00 +0800
 description: 其实很长一段时间我并不知道 Handler 是如何工作的，接触 RxJava 之前切换线程只是 handler.post(() -> {})，但随着项目更迭我需要知道关键组件的执行原理，不然无法为代码质量负责。
-cover: 
+image: 
 tags: Code Android Thread Handler SourceCode
 ---
 
 其实很长一段时间我并不知道`Handler`是如何工作的，接触 RxJava 之前切换线程只是`handler.post(() -> {})`，但随着项目更迭我需要知道关键组件的执行原理，不然无法为代码质量负责。
 
-习惯在 OneNote 中记录学习和工作笔记，这些文本容量已经累积到 57MB，是时候停下来整理一遍更精细的填充技术栈。这篇文章是一个开始，能描述清楚一个组件才意味着真正理解它。
+习惯在 OneNote 中记录学习和工作笔记，这些文本容量已经累积 57MB，是时候停下来整理一遍更精细的填充技术栈。这篇文章是一个开始，能描述清楚一个组件才意味着真正理解它。
 
 ## Main Thread
 
-Android 的 Thread 即是 Java 线程，系统会为启动的 App 创建一个 Linux Process 和一个 Execution Thread，默认此 App 的所有组件都会运行在这个进程的单一执行线程中，包括 UI 触控事件的分发处理，所以此线程又被称为 UI Thread 或 Main Thread。
+Android 的 Thread 即是 Java 线程，系统会为启动的 App 创建一个 Linux Process 和一个 Execution Thread，默认 App 所有组件都会运行在这个进程的单一执行线程中，包括 UI 触控事件的分发处理，所以该线程又被称为 UI Thread 或 Main Thread。
 
 ## Called from wrong thread
 

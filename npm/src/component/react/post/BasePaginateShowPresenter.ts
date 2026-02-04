@@ -131,7 +131,7 @@ export abstract class BasePaginateShowPresenter<D> implements IPaginateShowPrese
     //         path: item.path,
     //         description: item.description,
     //         cover: cover,
-    //         coverAlt: item["cover-alt"],
+    //         coverAlt: item["index-cover-alt"],
     //         pinned: item.pinned == "true",
     //         featured: item.featured == "true",
     //         hidden: item.hidden == "true"

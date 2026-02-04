@@ -4,9 +4,9 @@ categories: original
 title: "Jekyll 博客的索引分页与静态 API"
 author: 立泉
 mention: AutoPages Pagination Scroll
-date: 2024-09-05 +0800
+date: 2024-09-05 19:30:00 +0800
 description: 博客首页一般显示文章索引，当文章数量很多时为优化性能不应该一次加载整个列表，而是先加载一段再按需逐渐加载剩余内容，即 Pagination 分页。
-cover: 
+image: 
 tags: Code Blog Jekyll Pagination Scroll
 ---
 
@@ -105,7 +105,7 @@ autopages:
             "path": "{{ post.url }}",
             "author": "{{ post.author }}",
             "description": "{{ post.description}}",
-            "cover": "{{ post.cover }}"
+            "cover": "{{ post.image }}"
         }{% unless forloop.last %},{% endunless %}
         {%- endfor %}
     ]

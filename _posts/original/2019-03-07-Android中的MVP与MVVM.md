@@ -4,9 +4,9 @@ categories: original
 title: "Android 中的 MVP 与 MVVM"
 author: 立泉
 mention: 架构 生命周期 Jetpack
-date: 2019-03-07 +0800
+date: 2019-03-07 19:30:00 +0800
 description: 我在工作中大量使用过 MVP，对 MVC 和 MVVM 只是有所耳闻，接触 Kotlin 和 Jetpack 后开始尝试在自己的练习中使用这些新东西，编程不再是入门时枯燥的堆砌代码，而是像打造艺术品一样津津有味，这样的变化真实而有趣。
-cover: 
+image: 
 tags: Code Android MVP MVVM
 ---
 

@@ -10,7 +10,7 @@ export type ApiPost = {
     "description": string,
     "cover": string,
     "index-cover": string,
-    "cover-alt": string,
+    "index-cover-alt": string,
     "tags": Array<string>,
     "categories": string,
     "pinned": string,

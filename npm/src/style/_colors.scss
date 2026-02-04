@@ -64,8 +64,8 @@ $drawer-nav-ripple: (
 
 $fab-bg: (
         backdrop-filter: 10px,
-        light: rgba(color.adjust(map.get($surface, "light"), $lightness: -4%), 0.6),
-        dark: rgba(color.adjust(map.get($surface, "dark"), $lightness: -4%), 0.6),
+        light: rgba(color.adjust(map.get($background, "light"), $lightness: -3%), 0.5),
+        dark: rgba(color.adjust(map.get($background, "dark"), $lightness: -3%), 0.5),
 );
 
 $fab-ink: (

@@ -4,9 +4,9 @@ categories: original
 title: "发布 Android 包到 GitHub Packages"
 author: 立泉
 mention: Gradle Maven AAR Flavor
-date: 2020-12-04 +0800
+date: 2020-12-04 19:30:00 +0800
 description: 成为全职 Android 开发者已有三年，在经手项目里积累了很多常用代码工具，也会在业余项目中使用。但是每次都为它们重复创建 Module 很繁琐，直接打包为 AAR 则会出现依赖问题。与 JAR 一样，Gradle 默认不把外部依赖塞进 AAR ，需在使用时手动引入，否则会因为依赖缺失无法通过编译。
-cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20201204/github_packages_jettools.jpg
+image: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20201204/github_packages_jettools.jpg
 tags: Code Android Gradle Build Maven GitHub
 ---
 

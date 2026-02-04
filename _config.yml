@@ -35,8 +35,17 @@ kramdown:
 
 plugins:
   - jekyll-sitemap
+  - jekyll-feed
   - jekyll-redirect-from
   - jekyll-paginate-v2
+
+feed:
+  posts_limit: 20
+  categories:
+    - original
+    - opera
+    - poetry
+    - repost
 
 pagination:
   enabled: true
