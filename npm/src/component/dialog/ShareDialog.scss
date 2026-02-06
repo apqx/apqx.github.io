@@ -1,3 +1,5 @@
+@use "../../style/global" as base;
+
 .share-qrcode-picture {
     display: block;
     width: 7rem;
@@ -9,7 +11,9 @@
     // background-color: var(--pre-code-bg);
     background-color: #ffffff;
 
-    img, svg, canvas {
+    img,
+    svg,
+    canvas {
         width: 100%;
         height: 100%;
     }
@@ -18,4 +22,42 @@
 .share-title {
     text-align: center;
     margin: 1rem 0;
+}
+
+.share-url-item {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+
+    border-radius: var(--post-inner-shape-round);
+    border: 1px solid var(--pre-code-border);
+    background: var(--pre-code-bg);
+
+    .share-url-span-wrapper {
+        flex: 1;
+        overflow-x: scroll;
+        display: flex;
+        align-items: center;
+    }
+
+    .share-url-span {
+        font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
+        font-family: var(--text-code-font-family);
+        font-weight: base.$font-weight-normal-default;
+        margin: 0 1.2rem;
+        white-space: nowrap;
+    }
+
+    .mdc-icon-button.btn-copy-url {
+        border-top-right-radius: var(--post-inner-shape-round);
+        border-bottom-right-radius: var(--post-inner-shape-round);
+        border-left: 1px solid var(--pre-code-border);
+        height: 3.4rem;
+        width: 3.5rem;
+
+        i {
+            font-size: 1.5rem;
+            // color: var(--mdc-theme-text-secondary-on-background);
+        }
+    }
 }

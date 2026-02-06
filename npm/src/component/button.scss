@@ -54,6 +54,9 @@
     // border-radius: 20%;
     color: var(--mdc-theme-on-surface);
     @include icon-button-ripple;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center
 }
 
 .dark .mdc-icon-button {

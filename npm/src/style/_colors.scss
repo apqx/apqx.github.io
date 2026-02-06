@@ -142,8 +142,8 @@ $button-ripple: (
 );
 
 $icon-button-ripple: (
-        light: color.adjust(map.get($button-bg, "light"), $lightness: - variables.$ripple-gap-percent),
-        dark: color.adjust(map.get($button-bg, "dark"), $lightness: + variables.$ripple-gap-percent),
+        light: color.adjust(map.get($surface, "light"), $lightness: - variables.$ripple-gap-percent),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: + variables.$ripple-gap-percent),
 );
 
 $dialog-action-btn-bg: (
