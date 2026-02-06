@@ -5,6 +5,7 @@ export class ResizeHeightObserver {
     lastTimeout: NodeJS.Timeout | null = null
     lastHeight = -1
     resizeObserver = new ResizeObserver((entries) => {
+        // 只取最后一个，理论上应该只有一个
         const entry = entries.pop()
         if (entry!!.contentRect.height == this.lastHeight) {
             // 高度没有变化

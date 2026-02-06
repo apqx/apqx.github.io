@@ -29,7 +29,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
     heightAnimationContainer: HeightAnimationContainer | null = null
     presenter: SearchDialogPresenter | null = null
     input: string = ""
-    inputE: HTMLInputElement | null = null
+    textField: MDCTextField | null = null
 
     constructor(props: any) {
         super(props)
@@ -48,7 +48,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
         }, {
             text: "清除", closeOnClick: false, onClick: () => {
                 this.presenter?.clearResults()
-                this.inputE!.value = ""
+                this.textField!.value = ""
                 this.input = ""
             }
         }]
@@ -59,7 +59,6 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
     }
 
     onInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-
         this.input = e.target.value
     }
 
@@ -67,7 +66,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
         this.presenter?.loadMore()
     }
 
-    scrollNearToBottom(): void {
+    onScrollNearToBottom(): void {
         if (this.state.loadHint == ERROR_HINT) return
         this.presenter?.loadMore()
     }
@@ -102,12 +101,11 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
 
     initTextField(e: HTMLElement) {
         if (e == null) return
-        new MDCTextField(e)
+        this.textField = new MDCTextField(e)
         e.addEventListener("keyup", (event: KeyboardEvent) => {
             if (event.key === "Enter")
                 this.onClickSearch()
         })
-        this.inputE = e.querySelector("input[name='search-dialog_input']") as HTMLInputElement
     }
 
     dialogContent(): React.JSX.Element {

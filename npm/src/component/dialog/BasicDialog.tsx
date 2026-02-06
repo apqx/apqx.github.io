@@ -73,7 +73,6 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
 
     componentDidUpdate(prevProps: Readonly<BasicDialogProps>, prevState: Readonly<any>, snapshot?: any) {
         consoleDebug("BasicDialog componentDidUpdate")
-        // 检查搜索结果的尺寸，设置container尺寸，触发动画
     }
 
     onDialogOpen(): void {
@@ -170,18 +169,19 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
             if (this.dialogContentE!!.scrollHeight - this.dialogContentE!!.clientHeight - this.dialogContentE!!.scrollTop < this.dialogContentE!!.clientHeight / 2) {
                 if (Date.now() - lastFireTime < 100) return
                 consoleDebug("BasicDialog scroll near to bottom, should fire load more")
-                this.scrollNearToBottom()
+                this.onScrollNearToBottom()
                 lastFireTime = Date.now()
             }
         })
     }
 
-    scrollNearToBottom() { }
+    // 由子类覆写，监听滚动到接近底部事件，触发加载更多
+    onScrollNearToBottom() { }
 
     handleFocus() {
         if (this.btnCloseE == null) return
-        // Dialog弹出时应该让Button获取焦点，避免chip出现选中阴影
-        // 但是Button获取焦点后颜色会变化，所以立即取消焦点
+        // Dialog 弹出时应该让 Button 获取焦点，避免 chip 出现选中阴影
+        // 但是 Button 获取焦点后颜色会变化，所以立即取消焦点
         this.btnCloseE.focus()
         this.btnCloseE.blur()
     }

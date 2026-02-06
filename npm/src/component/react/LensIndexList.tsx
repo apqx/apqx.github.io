@@ -1,6 +1,6 @@
 // import "./LensIndexList.scss"
 import type { ReactNode } from "react"
-import React, { useEffect, useRef } from "react"
+import React, { useEffect, useMemo, useRef } from "react"
 import { ImageLoadAnimator } from "../animation/ImageLoadAnimator"
 import { ERROR_HINT, LoadingHint } from "./LoadingHint"
 import { consoleDebug, consoleObjDebug } from "../../util/log"
@@ -179,10 +179,10 @@ function IndexItem(props: IndexItemProps) {
             })
     }
 
-    const actorStr = props.actor.join(" ")
-    const animationClass = props.index == 0 ? "card-fade-in" : "card-slide-in-middle"
+    const actorStr = useMemo(() => props.actor.join(" "), [props.actor])
+    const animationClass = useMemo(() => props.index == 0 ? "card-fade-in" : "card-slide-in-middle", [props.index])
 
-    const date = getSplittedDate(props.date);
+    const date = useMemo(() => getSplittedDate(props.date), [props.date]);
 
     return (
         <li ref={containerRef} className="grid-index-li">
@@ -206,8 +206,4 @@ function IndexItem(props: IndexItemProps) {
             {!props.last && <hr className="grid-index-li-divider" />}
         </li>
     )
-}
-
-type IndexDescriptionItemProps = {
-    innerHtml: string,
 }

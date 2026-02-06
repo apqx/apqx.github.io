@@ -39,13 +39,16 @@ plugins:
   - jekyll-redirect-from
   - jekyll-paginate-v2
 
+# 为 随笔、转载、诗文、看剧 四个分类生成 RSS Feed
 feed:
+  disable_in_development: true
   posts_limit: 20
+  path: /feed/not-this.xml
   categories:
     - original
-    - opera
-    - poetry
     - repost
+    - poetry
+    - opera
 
 pagination:
   enabled: true

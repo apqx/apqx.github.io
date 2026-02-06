@@ -1,5 +1,5 @@
 // import "./IndexList.scss"
-import React, { useEffect, useRef } from "react"
+import React, { useEffect, useMemo, useRef } from "react"
 import type { RefObject } from "react"
 import { ERROR_HINT, LoadingHint } from "./LoadingHint"
 import { consoleDebug, consoleObjDebug } from "../../util/log"
@@ -83,7 +83,7 @@ type IndexItemProps = {
 function IndexItem(props: IndexItemProps) {
     const containerRef = useRef<HTMLLIElement>(null)
     const cardE = useRef<HTMLElement>(null)
-    const date = getSplittedDate(props.date);
+    const date = useMemo(() => getSplittedDate(props.date), [props.date]);
 
     useEffect(() => {
         consoleObjDebug("IndexItem component mounted", props)

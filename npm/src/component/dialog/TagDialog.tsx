@@ -47,7 +47,7 @@ export class TagDialog extends BasicDialog<DialogContentProps, DialogContentStat
         this.dialogStateObservable.notify(DialogState.CLOSED)
     }
 
-    scrollNearToBottom(): void {
+    onScrollNearToBottom(): void {
         this.dialogStateObservable.notify(DialogState.LOAD_MORE)
     }
 

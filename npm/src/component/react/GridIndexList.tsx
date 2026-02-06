@@ -1,6 +1,6 @@
 // import "./GridIndexList.scss"
 import type { ReactNode } from "react"
-import React, { useEffect, useRef } from "react"
+import React, { useEffect, useMemo, useRef } from "react"
 import { ImageLoadAnimator } from "../animation/ImageLoadAnimator"
 import { ERROR_HINT, LoadingHint } from "./LoadingHint"
 import { consoleDebug, consoleObjDebug } from "../../util/log"
@@ -20,7 +20,7 @@ interface Props extends BasePaginateShowProps<Post> {
     pageDescriptionHtml: string
 }
 
-export class GridIndexList extends BasePaginateShow<Post,Props> {
+export class GridIndexList extends BasePaginateShow<Post, Props> {
 
     constructor(props: Props) {
         super(props)
@@ -150,21 +150,21 @@ function IndexItem(props: IndexItemProps) {
     }, [])
 
     function startImageAnimation(imgE: HTMLImageElement): ImageLoadAnimator | null {
-            return new ImageLoadAnimator(imgE, -1, false,
-                () => {
-                    // 仅在用户未滚动时的第一页执行动画，否则是不可见的无需动画
-                    return window.scrollY <= 0
-                },
-                () => {
-                    // 图片尺寸动画执行完成
-                    props.coverLoadedCallback()
-                })
-        }
+        return new ImageLoadAnimator(imgE, -1, false,
+            () => {
+                // 仅在用户未滚动时的第一页执行动画，否则是不可见的无需动画
+                return window.scrollY <= 0
+            },
+            () => {
+                // 图片尺寸动画执行完成
+                props.coverLoadedCallback()
+            })
+    }
 
-    const actorStr = props.actor.join(" ")
-    const animationClass = props.index == 0 ? "card-fade-in" : "card-slide-in-middle"
+    const actorStr = useMemo(() => props.actor.join(" "), [props.actor])
+    const animationClass = useMemo(() => props.index == 0 ? "card-fade-in" : "card-slide-in-middle", [props.index])
 
-    const date = getSplittedDate(props.date);
+    const date = useMemo(() => getSplittedDate(props.date), [props.date]);
 
     return (
         <li ref={containerRef} className="grid-index-li">

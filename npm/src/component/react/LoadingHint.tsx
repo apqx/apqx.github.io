@@ -12,13 +12,13 @@ interface Props {
 
 export function LoadingHint(props: Props) {
     return (
-            <div className="loading-hint-wrapper center-items">
-                {props.loading && <ProgressCircular loading={true} />}
-                {(!props.loading && props.loadHint != null) &&
-                    <Button text={props.loadHint} onClick={props.onClickHint} className="loading-hint-btn" />
-                }
-            </div>
-        )
+        <div className="loading-hint-wrapper center-items">
+            {props.loading && <ProgressCircular loading={true} />}
+            {(!props.loading && props.loadHint != null) &&
+                <Button text={props.loadHint} onClick={props.onClickHint} className="loading-hint-btn" />
+            }
+        </div>
+    )
 }
 
 export function getLoadHint(loadSize: number, resultSize: number): string | null {

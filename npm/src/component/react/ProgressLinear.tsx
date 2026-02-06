@@ -1,6 +1,6 @@
 import "./ProgressLinear.scss"
 import React, { useEffect } from "react"
-import {MDCLinearProgress} from "@material/linear-progress"
+import { MDCLinearProgress } from "@material/linear-progress"
 
 interface Props {
     loading: boolean
@@ -28,17 +28,17 @@ export function ProgressLinear(props: Props) {
     }
 
     return (
-            <div ref={containerRef} role="progressbar" className="mdc-linear-progress">
-                <div className="mdc-linear-progress__buffer">
-                    <div className="mdc-linear-progress__buffer-bar"></div>
-                    <div className="mdc-linear-progress__buffer-dots"></div>
-                </div>
-                <div className="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
-                    <span className="mdc-linear-progress__bar-inner"></span>
-                </div>
-                <div className="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
-                    <span className="mdc-linear-progress__bar-inner"></span>
-                </div>
+        <div ref={containerRef} role="progressbar" className="mdc-linear-progress">
+            <div className="mdc-linear-progress__buffer">
+                <div className="mdc-linear-progress__buffer-bar"></div>
+                <div className="mdc-linear-progress__buffer-dots"></div>
             </div>
-        )
+            <div className="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
+                <span className="mdc-linear-progress__bar-inner"></span>
+            </div>
+            <div className="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
+                <span className="mdc-linear-progress__bar-inner"></span>
+            </div>
+        </div>
+    )
 }
