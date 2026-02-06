@@ -5,7 +5,6 @@ import type { BasicDialogProps } from "./BasicDialog"
 import { consoleDebug } from "../../util/log"
 import { setupListItemRipple } from "../list"
 import { ERROR_HINT, LoadingHint } from "../react/LoadingHint"
-import { HeightAnimationContainer } from "../animation/HeightAnimationContainer"
 import { BasePaginateShow } from "../react/post/BasePaginateShow"
 import type { BasePaginateShowProps } from "../react/post/BasePaginateShow"
 import type { IPaginateShowPresenter } from "../react/post/IPaginateShowPresenter"
@@ -16,6 +15,7 @@ import type { JSX } from "react"
 import React, { useEffect, useState } from "react"
 import { getSplittedDate } from "../../base/post"
 import { PostPaginateShowPresenter, type Post } from "../react/post/PostPaginateShowPresenter"
+import { SmoothCollapse } from "../animation/SmoothCollapse"
 
 interface DialogContentProps extends BasicDialogProps {
     tag: string,
@@ -25,7 +25,6 @@ interface DialogContentState {
 }
 
 export class TagDialog extends BasicDialog<DialogContentProps, DialogContentState> {
-    heightAnimationContainer: HeightAnimationContainer | undefined
     dialogStateObservable: DialogStateObservable
 
     constructor(props: DialogContentProps) {
@@ -52,27 +51,24 @@ export class TagDialog extends BasicDialog<DialogContentProps, DialogContentStat
     }
 
     onListSizeChanged() {
-        this.heightAnimationContainer?.update()
     }
 
     componentDidMount() {
         super.componentDidMount()
         consoleDebug("TagDialogContent componentDidMount")
-        this.heightAnimationContainer = new HeightAnimationContainer(this.rootE!!.querySelector(".height-animation-container")!!)
     }
 
     componentWillUnmount(): void {
-        if (this.heightAnimationContainer != null) this.heightAnimationContainer.destroy()
     }
 
     dialogContent(): JSX.Element {
         consoleDebug("TagDialogContent render")
 
         return (
-            <div className="height-animation-container">
+            <SmoothCollapse>
                 <ResultWrapper category={""} tag={this.props.tag} pinnedPosts={[]} loadedPosts={[]}
                     onUpdate={this.onListSizeChanged} dialogStateObservable={this.dialogStateObservable} />
-            </div>
+            </SmoothCollapse>
         )
     }
 }

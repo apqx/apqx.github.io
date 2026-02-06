@@ -3,7 +3,7 @@ import { consoleDebug } from "../../util/log"
 import { getElementAttribute, toggleClassWithEnable } from "../../util/tools"
 
 /**
- * 图片加载动画，需要自己添加transition属性和初始height，否则不会有动画
+ * 图片加载动画，需要自己添加 transition 属性和初始 height，否则不会有动画
  */
 export class ImageLoadAnimator {
     imgE: HTMLImageElement

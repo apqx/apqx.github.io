@@ -1,0 +1,15 @@
+.smooth-collapse {
+    // 初始高度会自动根据内容确定，之后监听子元素尺寸再修改这个值
+    // height: 0px;
+    transition: height 0.2s ease;
+    overflow: hidden;
+}
+
+.smooth-collapse-wrapper {
+    // border-top: 1px solid transparent;
+    // ResizeObserver 获得的尺寸是 Box 尺寸，不包含边界 margin，这里需要的是包含 margin 的完整尺寸
+    // 这样可以阻止外边距折叠，使 ResizeObserver 能获得包含 margin 的元素尺寸变化
+    // 否则获得的尺寸会比实际少去 margin 的部分
+    overflow: hidden;
+    display: flow-root;
+}

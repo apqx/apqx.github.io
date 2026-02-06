@@ -7,11 +7,11 @@ import { BasicDialog, SEARCH_DIALOG_WRAPPER_ID, showDialog } from "./BasicDialog
 import type { ActionBtn, BasicDialogProps } from "./BasicDialog"
 import { setupListItemRipple } from "../list"
 import { ERROR_HINT, LoadingHint } from "../react/LoadingHint"
-import { HeightAnimationContainer } from "../animation/HeightAnimationContainer"
 import React from "react"
 import type { RefObject } from "react"
 import { getSplittedDate } from "../../base/post"
 import { setupButtonRipple } from "../button"
+import { SmoothCollapse } from "../animation/SmoothCollapse"
 
 interface SearchDialogState {
     loading: boolean
@@ -26,7 +26,6 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
         results: [],
     }
 
-    heightAnimationContainer: HeightAnimationContainer | null = null
     presenter: SearchDialogPresenter | null = null
     input: string = ""
     textField: MDCTextField | null = null
@@ -44,7 +43,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
 
     configActionBtns(): ActionBtn[] {
         return [{
-            text: "关闭", closeOnClick: true, onClick: () => {}
+            text: "关闭", closeOnClick: true, onClick: () => { }
         }, {
             text: "清除", closeOnClick: false, onClick: () => {
                 this.presenter?.clearResults()
@@ -79,18 +78,15 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
 
     componentDidMount(): void {
         super.componentDidMount()
-        this.heightAnimationContainer = new HeightAnimationContainer(this.rootE!!.querySelector(".height-animation-container")!!)
         this.initBtn(this.rootE!!.querySelector("#btn-search")!!)
         this.initTextField(this.rootE!!.querySelector("#search-dialog_label")!!)
     }
 
     componentDidUpdate(prevProps: Readonly<BasicDialogProps>, prevState: Readonly<any>, snapshot?: any): void {
         super.componentDidUpdate(prevProps, prevState, snapshot)
-        this.heightAnimationContainer?.update()
     }
 
     componentWillUnmount(): void {
-        if (this.heightAnimationContainer != null) this.heightAnimationContainer.destroy()
     }
 
     initBtn(e: HTMLElement) {
@@ -130,7 +126,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
 
                 <p id="search-dialog_tips"><b>TIPS：</b>中文低频词组用空格分隔会有更好匹配，比如名字「施夏明」改为「施 夏 明」。若网络通畅可使用 <a
                     href="https://cse.google.com/cse?cx=757420b6b2f3d47d2" target="_blank">Google 站内搜索</a>。</p>
-                <div className="height-animation-container">
+                <SmoothCollapse>
                     <div>
                         {(this.state.results != null && this.state.results.length > 0) &&
                             <SearchResult list={this.state.results} />
@@ -139,8 +135,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
                             <LoadingHint loading={this.state.loading} loadHint={this.state.loadHint} onClickHint={this.onClickLoadMore} />
                         }
                     </div>
-                </div>
-
+                </SmoothCollapse>
             </div>
         )
     }
