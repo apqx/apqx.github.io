@@ -57,7 +57,7 @@ export class IndexList extends BasePaginateShow<Post, BasePaginateShowProps<Post
                 {this.state.posts.map((item, index) =>
                     // 隐藏部分 post
                     // 有时候 jekyll 生成的 path 和 paginate 生成的 path 不一样，导致 item 重新加载
-                    !item.hidden && <IndexItem key={item.path}
+                    <IndexItem key={item.path}
                         title={item.title} author={item.author} date={item.date} description={item.description} path={item.path}
                         fromPinnedList={false} pinned={item.pinned} featured={item.featured} />
                 )}

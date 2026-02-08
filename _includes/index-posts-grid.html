@@ -6,7 +6,7 @@
         {%- if count == 10 %}
         {%- break %}
         {% endif -%}
-        {%- if post.categories contains index-category and post.hideFromIndex != true %}
+        {%- if post.categories contains index-category %}
         <li class="grid-index-li">
             <a class="index-a mdc-card grid-index-card grid-index-card__ripple" href="{{ post.url }}">
                 <section>

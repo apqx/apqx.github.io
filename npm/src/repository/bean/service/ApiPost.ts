@@ -14,6 +14,5 @@ export type ApiPost = {
     "tags": Array<string>,
     "categories": string,
     "pinned": string,
-    "featured": string,
-    "hidden": string,
+    "featured": string
 }

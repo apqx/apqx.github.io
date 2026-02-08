@@ -14,9 +14,10 @@
         --mdc-theme-on-secondary: #{map.get(base.$fab-ink, "light")};
         --mdc-theme-background: #{map.get(base.$background, "light")};
         --mdc-theme-surface: #{map.get(base.$surface, "light")};
-        // 默认字体颜色，段落p
+        // 默认字体颜色，段落 p
         --mdc-theme-on-surface: #{map.get(base.$text-content, "light")};
         --mdc-theme-on-surface-secondary: #{map.get(base.$text-content-secondary, "light")};
+        --mdc-theme-on-surface-vivid: #{map.get(base.$text-content-vivid, "light")};
         // 标题字体色
         --mdc-theme-text-primary-on-background: #{map.get(base.$text-title, "light")};
         // 小标题字体色
@@ -69,11 +70,10 @@
 
         --surface-block-border: #{map.get(base.$surface-block-border, "light")};
         --surface-block-bg: #{map.get(base.$surface-block-bg, "light")};
-        --surface-block-ink-strong: #{map.get(base.$surface-block-ink-strong, "light")};
+
 
         --list-border: #{map.get(base.$list-border, "light")};
         --list-bg: #{map.get(base.$list-bg, "light")};
-        --list-ink-strong: #{map.get(base.$list-ink-strong, "light")};
         --list-divider-color: #{map.get(base.$list-border, "light")};
         --list-divider-dashed-color: #{map.get(base.$list-border-dashed, "light")};
 
@@ -93,6 +93,7 @@
         --mdc-theme-surface: #{map.get(base.$surface, "dark")};
         --mdc-theme-on-surface: #{map.get(base.$text-content, "dark")};
         --mdc-theme-on-surface-secondary: #{map.get(base.$text-content-secondary, "dark")};
+        --mdc-theme-on-surface-vivid: #{map.get(base.$text-content-vivid, "dark")};
         --mdc-theme-text-primary-on-background: #{map.get(base.$text-title, "dark")};
         --mdc-theme-text-secondary-on-background: #{map.get(base.$text-subtitle, "dark")};
 
@@ -137,11 +138,9 @@
 
         --surface-block-border: #{map.get(base.$surface-block-border, "dark")};
         --surface-block-bg: #{map.get(base.$surface-block-bg, "dark")};
-        --surface-block-ink-strong: #{map.get(base.$surface-block-ink-strong, "dark")};
 
         --list-border: #{map.get(base.$list-border, "dark")};
         --list-bg: #{map.get(base.$list-bg, "dark")};
-        --list-ink-strong: #{map.get(base.$list-ink-strong, "dark")};
         --list-divider-color: #{map.get(base.$list-border, "dark")};
         --list-divider-dashed-color: #{map.get(base.$list-border-dashed, "dark")};
 

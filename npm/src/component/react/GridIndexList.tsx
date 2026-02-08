@@ -71,7 +71,6 @@ export class GridIndexList extends BasePaginateShow<Post, Props> {
                     }
                     {this.state.posts.map((item: Post, index: number) =>
                         // TODO: 有时候jekyll生成的path和paginate生成的path不一样，导致item重新加载，这种情况并不多
-                        !item.hidden &&
                         <IndexItem key={item.path}
                             index={index}
                             title={item.title}

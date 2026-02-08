@@ -79,7 +79,6 @@ export class LensIndexList extends BasePaginateShow<Post, BasePaginateShowProps<
                             coverLoadedCallback={() => { }} />)}
                     {/* 普通 */}
                     {this.state.posts.map((item: Post, index: number) =>
-                        !item.hidden &&
                         <IndexItem key={item.path}
                             index={index}
                             title={item.title}

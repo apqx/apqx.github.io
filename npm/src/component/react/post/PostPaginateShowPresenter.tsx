@@ -14,8 +14,7 @@ export type Post = {
     cover: string,
     coverAlt: string,
     pinned: boolean,
-    featured: boolean,
-    hidden: boolean
+    featured: boolean
 }
 
 export class PostPaginateShowPresenter extends BasePaginateShowPresenter<Post> {
@@ -46,8 +45,7 @@ export class PostPaginateShowPresenter extends BasePaginateShowPresenter<Post> {
             cover: cover,
             coverAlt: item["index-cover-alt"],
             pinned: item.pinned == "true",
-            featured: item.featured == "true",
-            hidden: item.hidden == "true"
+            featured: item.featured == "true"
         };
         return post;
     }

@@ -133,8 +133,7 @@ export abstract class BasePaginateShowPresenter<D> implements IPaginateShowPrese
     //         cover: cover,
     //         coverAlt: item["index-cover-alt"],
     //         pinned: item.pinned == "true",
-    //         featured: item.featured == "true",
-    //         hidden: item.hidden == "true"
+    //         featured: item.featured == "true"
     //     };
     //     return post;
     // }

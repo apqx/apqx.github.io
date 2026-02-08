@@ -13,8 +13,8 @@ date: 2019-05-18 +0800
 description: 从昆曲《南柯梦》的「入梦」一折看到的这句词，浮想联翩，意犹不尽。
 cover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20190518/kunqv_nankemeng_diexi.jpg
 tags: 碎念 看剧 省昆
-hideFromIndex: true
-blockFromSearchEngine: true
+published: true
+searchEngine: false
 sitemap: true
 redirect_from:
     - /essy/2019/05/18/槐安国内春生酒
@@ -114,13 +114,9 @@ redirect_from:
 
 [剧种]，[剧团]，[剧名]，[折子（全场戏除外）]，[演员]，[剧院]
 
-## hideFromIndex
+## searchEngine
 
-部分文章可能不想显示在博客的文章列表中，设置此字段为`true`，默认为`false`。
-
-## blockFromSearchEngine
-
-部分页面可能不想被`搜索引擎`索引，设置此字段为`true`，默认为`false`。
+部分页面可能不想被`搜索引擎`索引，设置此字段为`false`，默认为`true`。
 
 ## sitemap
 

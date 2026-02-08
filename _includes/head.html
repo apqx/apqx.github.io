@@ -27,7 +27,7 @@
 {% else -%}
 <meta data-pagefind-default-meta="image[content]" property="og:image" content="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/computer.jpg"/>
 {% endif -%}
-{% if page.blockFromSearchEngine == true -%}
+{% if page.searchEngine == false -%}
 <!-- Let search engine not index this page -->
 <meta name="robots" content="noindex">
 {% endif -%}

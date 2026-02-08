@@ -34,8 +34,7 @@ sitemap: false
             ],
             "categories": "{{ post.categories }}",
             "pinned": "{{ post.pinned }}",
-            "featured": "{{ post.featured }}",
-            "hidden": "{{ post.hideFromIndex }}"
+            "featured": "{{ post.featured }}"
         }{% unless forloop.last %},{% endunless %}
         {%- endfor %}
     ]

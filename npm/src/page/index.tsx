@@ -77,7 +77,6 @@ function getLinearLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
             coverAlt: "",
             pinned: pinned,
             featured: featured,
-            hidden: false
         }
         if (pinned) {
             pinedPosts.push(post)
@@ -121,7 +120,6 @@ function getLensLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
             coverAlt: coverAlt,
             pinned: pinned,
             featured: featured,
-            hidden: false
         }
         if (pinned) {
             pinedPosts.push(post)
@@ -160,7 +158,6 @@ function getGridLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
             coverAlt: coverAlt,
             pinned: pinned,
             featured: featured,
-            hidden: false
         }
         if (pinned) {
             pinedPosts.push(post)

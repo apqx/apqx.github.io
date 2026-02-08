@@ -6,7 +6,7 @@ topbar-title: Lift the camera
 description: 2021年08月08日，我在博客里开辟这个分区来承载曾经在剧场看过的剧和拍过的剧照，以昆曲为主，使用标签把每一场演出按剧种、剧团、剧目、演员、剧场分类归档。
 share-description: 结庐在人境，心远地自偏。
 sitemap: true
-blockFromSearchEngine: false
+searchEngine: false
 ---
 
 <!-- Jekyll生成的HTML列表默认隐藏，由React重新加载 -->
@@ -39,7 +39,7 @@ blockFromSearchEngine: false
         {%- if count == 10 %}
         {%- break %}
         {% endif -%}
-        {%- if post.categories contains "opera" and post.hideFromIndex != true %}
+        {%- if post.categories contains "opera" %}
         <li class="grid-index-li">
             <a class="index-a mdc-card grid-index-card grid-index-card__ripple" href="{{ post.url }}">
                 <section>

@@ -94,7 +94,7 @@
     min-height: unset;
     border: none;
     border-top: 1px solid;
-    border-color: var(--common-divider-color);
+    border-color: var(--common-divider-color) !important;
 }
 
 .mdc-button.basic-dialog_btn_action {

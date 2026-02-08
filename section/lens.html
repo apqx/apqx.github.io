@@ -5,13 +5,13 @@ title: 立泉落落｜透镜
 topbar-title: Just pictures
 description: 结庐在人境，心远地自偏。
 sitemap: false
-blockFromSearchEngine: true
+searchEngine: false
 ---
 
 <section id="index-list-wrapper" class="lens-index-list-wrapper">
     <ul class="grid-index-ul" style="display: none;">
         {% for post in site.posts %}
-        {%- if post.categories contains "lens" and post.hideFromIndex != true and post.pinned == true %}
+        {%- if post.categories contains "lens" and post.pinned == true %}
         <li class="grid-index-li">
             <a class="index-a mdc-card grid-index-card grid-index-card__ripple " href={{ post.url }}>
                 <section class="lens-index-container">
@@ -33,7 +33,7 @@ blockFromSearchEngine: true
         {%- if count == 10 %}
         {%- break %}
         {% endif -%}
-        {%- if post.categories contains "lens" and post.hideFromIndex != true %}
+        {%- if post.categories contains "lens" %}
         <li class="grid-index-li">
             <a class="index-a mdc-card grid-index-card grid-index-card__ripple " href={{ post.url }}>
                 <section class="lens-index-container">
