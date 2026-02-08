@@ -75,7 +75,6 @@
         --list-border: #{map.get(base.$list-border, "light")};
         --list-bg: #{map.get(base.$list-bg, "light")};
         --list-divider-color: #{map.get(base.$list-border, "light")};
-        --list-divider-dashed-color: #{map.get(base.$list-border-dashed, "light")};
 
         --textfield-border: #{map.get(base.$textfield-border, "light")};
         --common-divider-color: #{map.get(base.$common-divider-color, "light")};
@@ -142,7 +141,6 @@
         --list-border: #{map.get(base.$list-border, "dark")};
         --list-bg: #{map.get(base.$list-bg, "dark")};
         --list-divider-color: #{map.get(base.$list-border, "dark")};
-        --list-divider-dashed-color: #{map.get(base.$list-border-dashed, "dark")};
 
         --textfield-border: #{map.get(base.$textfield-border, "dark")};
         --common-divider-color: #{map.get(base.$common-divider-color, "dark")};

@@ -1,40 +1,33 @@
 import "./ShareDialog.scss"
-import { BasicDialog, SHARE_DIALOG_WRAPPER_ID, showDialog } from "./BasicDialog"
-import type { BasicDialogProps } from "./BasicDialog"
+import { BaseDialog, SHARE_DIALOG_WRAPPER_ID, showDialog } from "./BaseDialog"
+import type { BaseDialogOpenProps } from "./BaseDialog"
 import { consoleDebug } from "../../util/log"
-import React from "react"
+import { useEffect, useMemo, useRef } from "react"
 import QRCodeStyling from "qr-code-styling"
 import { showSnackbar } from "../react/Snackbar"
 import { IconButton } from "../react/Button"
 
-interface ShareDialogStats {
-    title: string,
-    url: string
-}
+function ShareDialog(props: BaseDialogOpenProps) {
+    const containerRef = useRef<HTMLDivElement>(null)
 
-class ShareDialog extends BasicDialog<BasicDialogProps, ShareDialogStats> {
+    const title = useMemo(() => {
+        return document.title
+    }, [])
 
-    constructor(props: BasicDialogProps) {
-        super(props)
+    const url = useMemo(() => {
         const encodedUrl = window.location.href
-        this.state = {
-            title: document.title,
-            url: encodedUrl.endsWith("/") ? encodedUrl.substring(0, encodedUrl.length - 1) : encodedUrl
-        }
-    }
+        return encodedUrl.endsWith("/") ? encodedUrl.substring(0, encodedUrl.length - 1) : encodedUrl
+    }, [])
 
-    componentDidMount(): void {
-        super.componentDidMount()
-        consoleDebug("ShareDialog componentDidMount, title = " + document.title + ", url = " + window.location.href)
-
-        const qrcodeContainer = this.rootE?.querySelector(".share-qrcode-picture") as HTMLElement
+    useEffect(() => {
+        const qrcodeContainer = containerRef.current?.querySelector(".share-qrcode-picture") as HTMLElement
 
         // 生成二维码，不要使用 svg，在浏览器中渲染时会出现点阵网格
         const qrCode = new QRCodeStyling({
             width: 300,
             height: 300,
             type: "canvas",
-            data: this.state.url,
+            data: url,
             image: "",
             qrOptions: {
                 errorCorrectionLevel: "M"
@@ -55,19 +48,18 @@ class ShareDialog extends BasicDialog<BasicDialogProps, ShareDialogStats> {
             }
         });
         qrCode.append(qrcodeContainer)
-    }
+    }, [])
 
-    dialogContent(): React.JSX.Element {
-        consoleDebug("ShareDialog render")
-        return (
-            <div className="center-items">
+    return (
+        <BaseDialog openCount={openCount++}>
+            <div ref={containerRef} className="center-items">
                 <div className="share-qrcode-picture">
                 </div>
-                <p className="share-title">{this.state.title}</p>
-                <ShareUrlItem url={this.state.url} />
+                <p className="share-title">{title}</p>
+                <ShareUrlItem url={url} />
             </div>
-        )
-    }
+        </BaseDialog>
+    )
 }
 
 interface ShareUrlItemProps {

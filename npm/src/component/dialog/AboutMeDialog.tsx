@@ -1,32 +1,18 @@
 import "./AboutMeDialog.scss"
-import { MDCList } from "@material/list"
-import { ABOUT_DIALOG_WRAPPER_ID, BasicDialog, showDialog } from "./BasicDialog"
-import type { BasicDialogProps } from "./BasicDialog"
-import { consoleDebug } from "../../util/log"
+import { ABOUT_DIALOG_WRAPPER_ID, BaseDialog, showDialog } from "./BaseDialog"
+import type { BaseDialogOpenProps } from "./BaseDialog"
 import { setupListItemRipple } from "../list"
-import React, { useEffect } from "react"
+import React, { useEffect, useMemo } from "react"
 import { Tag } from "../react/Tag"
 
-class AboutMeDialog extends BasicDialog<BasicDialogProps, any> {
+function AboutMeDialog(props: BaseDialogOpenProps) {
 
-    componentDidMount(): void {
-        super.componentDidMount()
-        this.fixedWidth = true
-        this.initList()
-    }
-
-    initList() {
-        if (this.rootE == null) return
-        new MDCList(this.rootE.querySelector("#about-me-dialog_link_list")!!)
-    }
-
-    getKunQvLink(): string {
+    const kunQvLink = useMemo(() => {
         return window.location.origin + "/post/original/2019/05/18/槐安国内春生酒.html"
-    }
+    }, [])
 
-    dialogContent(): React.JSX.Element {
-        consoleDebug("AboutMeDialog render")
-        return (
+    return (
+        <BaseDialog openCount={props.openCount}>
             <div className="center-items">
                 <picture>
                     <source srcSet="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me_emoji.webp"
@@ -43,7 +29,7 @@ class AboutMeDialog extends BasicDialog<BasicDialogProps, any> {
                     {/* <Tag text="Git" onClick={null} /> */}
                 </section>
                 <p className="about-me-description">九五后，旅居杭州，<a
-                    href={this.getKunQvLink()}>昆虫</a>，野生散养攻城狮，“十分”“业余”摄影 Fans。联系我可以通过<a href="mailto:safari@mudan.me">电子邮件</a>，如果有必要也可用<a
+                    href={kunQvLink}>昆虫</a>，野生散养攻城狮，“十分”“业余”摄影 Fans。联系我可以通过<a href="mailto:safari@mudan.me">电子邮件</a>，如果有必要也可用<a
                         href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/wechat.jpg" target="_blank">微信</a>。</p>
                 <ul className="mdc-deprecated-list mdc-deprecated-list--one-line dialog-link-list" id="about-me-dialog_link_list">
                     <LinkItem link="https://github.com/apqx" title="GitHub" />
@@ -52,8 +38,8 @@ class AboutMeDialog extends BasicDialog<BasicDialogProps, any> {
                     <LinkItem link="https://weibo.com/u/7026785047" title="Weibo" />
                 </ul>
             </div>
-        )
-    }
+        </BaseDialog>
+    )
 }
 
 interface LinkItemProps {

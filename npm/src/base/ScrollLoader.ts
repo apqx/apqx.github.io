@@ -2,6 +2,7 @@ export class ScrollLoader {
     timeMsIgnore: number
     shouldLoad: () => void
     lastLoadTime: number = 0
+
     constructor(shouldLoad: () => void, timeMsIgnore: number = 50) {
         this.shouldLoad = shouldLoad
         this.timeMsIgnore = timeMsIgnore

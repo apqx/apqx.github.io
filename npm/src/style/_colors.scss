@@ -282,11 +282,6 @@ $list-ripple: (
         dark: color.adjust(map.get($list-bg, "dark"), $lightness: + variables.$ripple-gap-percent),
 );
 
-$list-border-dashed: (
-        light: color.adjust(map.get($list-bg, "light"), $lightness: -10%),
-        dark: color.adjust(map.get($list-bg, "dark"), $lightness: +10%),
-);
-
 $list-border: (
         // light: color.adjust(map.get($list-bg, "light"), $lightness: -2.5%),
         light: map.get($surface, "light"),

@@ -3,12 +3,11 @@ import { SearchDialogPresenter } from "./SearchDialogPresenter"
 import { MDCTextField } from "@material/textfield"
 import { MDCList } from "@material/list"
 import { clearFocusListener, createHtmlContent } from "../../util/tools"
-import { BasicDialog, SEARCH_DIALOG_WRAPPER_ID, showDialog } from "./BasicDialog"
-import type { ActionBtn, BasicDialogProps } from "./BasicDialog"
+import { BasicDialog, SEARCH_DIALOG_WRAPPER_ID, showDialog } from "./BaseDialog"
+import type { ActionBtn, BasicDialogProps } from "./BaseDialog"
 import { setupListItemRipple } from "../list"
 import { ERROR_HINT, LoadingHint } from "../react/LoadingHint"
-import React from "react"
-import type { RefObject } from "react"
+import React, { useEffect, useMemo, useRef } from "react"
 import { getSplittedDate } from "../../base/post"
 import { setupButtonRipple } from "../button"
 import { SmoothCollapse } from "../animation/SmoothCollapse"
@@ -145,29 +144,22 @@ interface SearchResultProps {
     list: ResultItemData[]
 }
 
-class SearchResult extends React.Component<SearchResultProps, any> {
-    private containerRef: React.RefObject<HTMLUListElement | null> = React.createRef()
+function SearchResult(props: SearchResultProps) {
+    const containerRef = useRef<HTMLUListElement>(null)
 
-    componentDidMount(): void {
-        const rootE = this.containerRef.current as Element
-        this.initList(rootE)
-    }
+    useEffect(() => {
+        const rootE = containerRef.current as Element
+        new MDCList(rootE)
+    }, [])
 
-    initList(e: Element) {
-        if (e == null) return
-        new MDCList(e)
-    }
-
-    render() {
-        return (
-            <ul ref={this.containerRef} className="mdc-deprecated-list">
-                {this.props.list.map((item, index) =>
+    return (
+        <ul ref={containerRef} className="mdc-deprecated-list">
+                {props.list.map((item, index) =>
                     <ResultItem key={item.url}
                         data={item} />
                 )}
             </ul>
-        )
-    }
+    )
 }
 
 interface ResultItemProps {
@@ -190,39 +182,36 @@ export class ResultItemData {
     }
 }
 
-class ResultItem extends React.Component<ResultItemProps, any> {
-    private containerRef: RefObject<HTMLLIElement | null> = React.createRef()
-    private liE: HTMLElement | null = null
+function ResultItem(props: ResultItemProps) {
+    const containerRef = useRef<HTMLLIElement>(null)
+    const date = useMemo(() => getSplittedDate(props.data.date), [props.data.date])
 
-    componentDidMount(): void {
-        const rootE = this.containerRef.current as Element
-        this.liE = rootE.querySelector(".mdc-deprecated-list-item") as HTMLElement
-        setupListItemRipple(this.liE)
-    }
+    useEffect(() => {
+        const rootE = containerRef.current as Element
+        const liE = rootE.querySelector(".mdc-deprecated-list-item") as HTMLElement
+        setupListItemRipple(liE)
+    }, [])
 
-    render() {
-        const date = getSplittedDate(this.props.data.date);
-        return (
-            <li ref={this.containerRef}>
+    return (
+        <li ref={containerRef}>
                 <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken mdc-ripple-upgraded"
-                    tabIndex={-1} href={this.props.data.url}>
+                    tabIndex={-1} href={props.data.url}>
                     <span className="mdc-deprecated-list-item__text">
-                        <span className="list-item__primary-text one-line">{this.props.data.title}</span>
+                        <span className="list-item__primary-text one-line">{props.data.title}</span>
                         <div className="list-item__secondary-text">
                             <span className="search-result-item-type">
                                 {date.year}<span className="year">年</span>
                                 {date.month}<span className="month">月</span>
                                 {date.day}<span className="day">日</span>
-                                ｜{this.props.data.type}</span>
+                                ｜{props.data.type}</span>
                             <span className="search-result-item-snippet"
-                                dangerouslySetInnerHTML={createHtmlContent(this.props.data.description)} />
+                                dangerouslySetInnerHTML={createHtmlContent(props.data.description)} />
                         </div>
                     </span>
                 </a>
                 <hr className="mdc-deprecated-list-divider" />
             </li>
-        )
-    }
+    )
 }
 
 let openCount = 0

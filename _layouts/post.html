@@ -15,10 +15,9 @@
             <!-- 不携带 data-pagefind-body 将不会被 pagefind 索引 -->
             <article data-pagefind-body class="mdc-card content-card">
                 {% include script-content-card.html %}
-                <!-- 仅透镜分区设置名为 tag 的搜索 Filter -->
-                <h1 data-pagefind-meta="title" 
-                    data-pagefind-filter="category:{{ page.categories }}"
-                    class="post-title">{{ page.title }}</h1>
+                <!-- 为 pagefind 设置名为 category 的搜索 filter -->
+                <h1 data-pagefind-meta="title" data-pagefind-filter="category:{{ page.categories }}" class="post-title">
+                    {{ page.title }}</h1>
                 <address class="post-author">
                     {% if page.moreDate != null %}{{ page.moreDate }} {% endif %}{{ page.author}}
                 </address>
@@ -29,6 +28,7 @@
                 </time>
 
                 <!-- tags -->
+                <!-- 仅透镜分区设置名为 tag 的搜索 filter -->
                 <!-- <section data-pagefind-ignore="index" class="btn-tag-container-no-material post-tag-container"> -->
                 <section data-pagefind-ignore="index" class="btn-tag-container post-tag-container">
                     <!-- 如果用 span 创建 mdc-button，则点击动画结束后才会触发点击事件，感觉明显会很慢 -->
@@ -67,10 +67,14 @@
                 <p>
                     {{ page.date | date: "%Y%m%d %H:%M:%S" }}
                     {%- for actor in actors %}
-                    <a id="chip_tag_{{ actor }}" class="tag-dialog-trigger clickable-empty-link" data-pagefind-filter="tag">{{ actor }}</a>
+                    <a id="chip_tag_{{ actor }}" class="tag-dialog-trigger clickable-empty-link"
+                        data-pagefind-filter="tag">{{ actor }}</a>
                     {%- endfor %}
                 </p>
-                <p><img src="{{ page.image }}" loading="lazy" class="clickable clickShowOriginalImg operaCopyright" alt="{{ page.date | date: "%Y%m" }}｜{{ page.actor }}"></p>
+                <p>
+                    <img src="{{ page.image }}" loading="lazy" class="clickable clickShowOriginalImg operaCopyright"
+                        alt="{{ page.actor }}">
+                </p>
                 {%- endif %}
 
                 <!-- main content -->

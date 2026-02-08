@@ -1,50 +1,58 @@
-import { PreferenceDialog } from "./PreferenceDialog"
 import { LocalDb } from "../../repository/LocalDb"
 import { saveTheme, showThemeDark } from "../theme"
 import { refreshTopbar, setFixedTopbar } from "../topbar"
-import { setHandwrittenFont, setNotoSerifSCFont } from "../font/font"
+import { setNotoSerifSCFont } from "../font/font"
 import { consoleDebug } from "../../util/log"
+import { BaseExternalStore } from "../base/BasExternalStore"
 
-export class PreferenceDialogPresenter {
+export interface PreferenceDialogState {
+    fixedTopbarOn: boolean
+    notoSerifSCFontOn: boolean
+    autoThemeOn: boolean
+}
 
-    component: PreferenceDialog
+export class PreferenceDialogPresenter extends BaseExternalStore {
+    state = {
+        fixedTopbarOn: false,
+        notoSerifSCFontOn: false,
+        autoThemeOn: false
+    }
+
     localRepository: LocalDb = new LocalDb()
     darkClass: string = "dark"
 
-    constructor(component: PreferenceDialog) {
-        this.component = component
-    }
-
     initSettings() {
-        this.component?.setState({
+        this.state = {
             fixedTopbarOn: this.localFixedTopbarOn(),
-            handwrittenFontOn: this.localHandWritingFontOn(),
             notoSerifSCFontOn: this.localNotoSerifSCFontOn(),
             autoThemeOn: this.localAutoThemeOn()
-        })
-        consoleDebug("PreferenceDialogPresenter initSettings, state = " + JSON.stringify(this.component.state))
+        }
+        this.emitChange()
+        consoleDebug("PreferenceDialogPresenter initSettings, state = " + JSON.stringify(this.state))
     }
-    onClickFixedTopbarSwitch(on: boolean) {
-        this.localRepository.saveFixedTopbarOn(on)
-        setFixedTopbar(on)
-        setTimeout(() => {
-            refreshTopbar()
-        }, 500)
-    }
-
-    onClickHandwritingFontSwitch(on: boolean) {
-        this.localRepository.saveHandwritingFontOn(on)
-        setHandwrittenFont(on)
+    
+    onClickFixedTopbarSwitch = () => {
+        const newStateOn = !this.state.fixedTopbarOn
+        this.state.fixedTopbarOn = newStateOn
+        this.emitChange()
+        this.localRepository.saveFixedTopbarOn(newStateOn)
+        refreshTopbar()
     }
 
-    onClickNotoSerifSCFontSwitch(on: boolean) {
-        this.localRepository.saveNotoSerifSCFontOn(on)
-        setNotoSerifSCFont(on)
+    onClickNotoSerifSCFontSwitch = () => {
+        const newStateOn = !this.state.notoSerifSCFontOn
+        this.state.notoSerifSCFontOn = newStateOn
+        this.emitChange()
+        this.localRepository.saveNotoSerifSCFontOn(newStateOn)
+        setNotoSerifSCFont(newStateOn)
     }
 
-    onClickAutoThemeSwitch(on: boolean) {
+    onClickAutoThemeSwitch = () => {
+        const newStateOn = !this.state.autoThemeOn
+        this.state.autoThemeOn = newStateOn
+        this.emitChange()
         const bodyE = document.body
-        if (on) {
+        if (newStateOn) {
             // 启动了自适应主题，检测系统设置，更改当前主题
             const sysDarkTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
             const currentDarkTheme = bodyE.classList.contains(this.darkClass)

@@ -1,1 +1,0 @@
-class e{timeMsIgnore;shouldLoad;lastLoadTime=0;constructor(o,s=50){this.shouldLoad=o,this.timeMsIgnore=s}onScroll(o,s,t){if(t-s-o<o){if(Date.now()-this.lastLoadTime<this.timeMsIgnore)return;this.shouldLoad(),this.lastLoadTime=Date.now()}}}export{e as S};

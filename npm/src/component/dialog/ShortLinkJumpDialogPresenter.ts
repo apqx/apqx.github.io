@@ -3,13 +3,26 @@ import { consoleDebug, consoleError } from "../../util/log"
 import { runAfterMinimalTime } from "../../util/tools"
 import type { ApiUrlMap } from "../../repository/bean/service/ApiUrlMap"
 import { getServiceInstance, SERVICE_DEBUG_MODE_AUTO } from "../../repository/Service"
+import { BaseExternalStore } from "../base/BasExternalStore"
 
-export class ShortLinkJumpDialogPresenter {
-    component: ShortLinkDialog
+interface State {
+    title: string
+    content: string
+    onClickLink: () => void
+}
 
-    constructor(component: ShortLinkDialog) {
-        this.component = component
+export class ShortLinkJumpDialogPresenter extends BaseExternalStore {
+    state: State = {
+        title: "查询映射",
+        content: "",
+        onClickLink: () => { }
     }
+
+    constructor(pid: string) {
+        super()
+        this.state.content = pid
+    }
+
 
     /**
      * 从 url 映射文件中查询 pid
@@ -56,14 +69,15 @@ export class ShortLinkJumpDialogPresenter {
     }
 
     private refreshHint(linkTitle: string, url: string) {
-        this.component.setState({
+        this.state = {
             title: "正在跳转",
             content: linkTitle,
             onClickLink: () => {
                 // 监听点击，手动实现跳转，且不记入浏览器的跳转记录
                 window.location.replace(url)
             }
-        })
+        }
+        this.emitChange()
         setTimeout(() => {
             // 延时 1s 再跳转，显示动画
             window.location.replace(url)

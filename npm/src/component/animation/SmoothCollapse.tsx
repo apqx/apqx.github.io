@@ -11,19 +11,25 @@ type SmoothCollapseProps = {
 export function SmoothCollapse({ children }: SmoothCollapseProps) {
     const wrapperRef = useRef<HTMLDivElement>(null)
 
+    // TODO: 宽度变化时无法获取到正确的宽度值，需要排查
     useEffect(() => {
-        consoleDebug("SmoothCollapse useEffect")
         const wrapperE = wrapperRef.current as HTMLElement
         let preHeight = wrapperE.offsetHeight
+        let preWidth = wrapperE.offsetWidth
+        consoleDebug("SmoothCollapse useEffect init height = " + preHeight + ", width = " + preWidth)
         const resizeObserver = new ResizeObserver((entries) => {
             // 当元素的上级被设置为 display: none 时，offsetHeight 会变为 0，过滤掉这种情况
             if (isElementHidden(wrapperE)) return
             for (const entry of entries) {
                 const height = entry.contentRect.height
-                const duration = calculateDuration(height, preHeight)
+                const width = entry.contentRect.width
+                // const duration = Math.max(calculateDuration(height, preHeight, "height"), calculateDuration(width, preWidth, "width"))
+                const duration = calculateDuration(height, preHeight, "height")
                 preHeight = height
+                preWidth = width
                 wrapperE.parentElement!.style.transitionDuration = duration + "s"
                 wrapperE.parentElement!.style.height = height + "px"
+                // wrapperE.parentElement!.style.width = width + "px"
             }
         })
         resizeObserver.observe(wrapperE)
@@ -43,19 +49,18 @@ export function SmoothCollapse({ children }: SmoothCollapseProps) {
     )
 }
 
-function calculateDuration(height: number, preHeight: number) {
+function calculateDuration(newSize: number, preSize: number, propertyName: string): number {
     let duration = 0
-    const animationSize = Math.abs(height - preHeight)
+    const animationSize = Math.abs(newSize - preSize)
 
     duration = animationSize / 1800
-    consoleDebug("SmoothCollapse wrapper totalHeight = " + height + ", preHeight = " + preHeight +
-        ", animationSize = " + animationSize + ", duration = " + duration + "s")
+    consoleDebug(`SmoothCollapse wrapper ${propertyName} = ${preSize} -> ${newSize}, animationSize = ${animationSize}, duration = ${duration}s`)
     if (duration < 0.3) {
         duration = 0.3
-        consoleDebug("Actual duration = " + duration + "s")
+        consoleDebug(`Actual duration = ${duration}s`)
     } else if (duration > 0.5) {
         duration = 0.5
-        consoleDebug("Actual duration = " + duration + "s")
+        consoleDebug(`Actual duration = ${duration}s`)
     }
 
     return duration
