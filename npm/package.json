@@ -38,6 +38,7 @@
     "@types/react-dom": "^19.1.0",
     "highlight.js": "^11.11.1",
     "long-press-event": "^2.5.0",
+    "mitt": "^3.0.1",
     "prop-types": "^15.8.1",
     "qr-code-styling": "^1.9.2",
     "react": "^19.1.0",

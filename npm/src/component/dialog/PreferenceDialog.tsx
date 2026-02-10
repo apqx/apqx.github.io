@@ -7,6 +7,7 @@ import { NewMdSwitch } from "../react/Switch"
 import React, { useCallback, useEffect, useMemo, useSyncExternalStore } from "react"
 import { setupListItemRipple } from "../list"
 import { createHtmlContent } from "../../util/tools"
+import { EVENT_PAGE_BACK_FROM_CACHE, getEventEmitter, type Events } from "../base/EventBus"
 
 export function PreferenceDialog(props: BaseDialogOpenProps) {
     const presenter = useMemo(() => {
@@ -18,6 +19,17 @@ export function PreferenceDialog(props: BaseDialogOpenProps) {
     useEffect(() => {
         consoleDebug("PreferenceDialogContent useEffect, subscribe to presenter")
         // presenter.initSettings()
+        const emitter = getEventEmitter()
+        emitter.on("pageEvent", (type) => {
+            consoleDebug("PreferenceDialogContent receive event: " + type)
+            // 订阅页面从缓存中恢复的事件，加载最新的设置状态
+            if (type == EVENT_PAGE_BACK_FROM_CACHE) {
+                presenter.initSettings()
+            }
+        })
+        return () => {
+            emitter.off("pageEvent")
+        }
     }, [])
 
     const notoSerifSCFontTitle = useMemo(() => {

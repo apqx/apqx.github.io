@@ -11,30 +11,29 @@ export function initFont() {
     // setHandwrittenFont(localHandWritingFontOn)
     const localNotoSerifSCFontOn = getLocalRepository().getNotoSerifSCFontOn()
     setNotoSerifSCFont(localNotoSerifSCFontOn)
+    loadNecessaryFonts()
 }
 
 export function setHandwrittenFont(on: boolean) {
     const bodyE = document.body
     toggleClassWithEnable(bodyE, "font-handwritten", on)
-    checkFont()
 }
 
 export function setNotoSerifSCFont(on: boolean) {
     const bodyE = document.body
     toggleClassWithEnable(bodyE, "font-noto-serif-sc", on)
     // toggleClassWithEnable(bodyE, "font-wenkai", on)
-    checkFont()
 }
 
 export function setNotoSansSCFont(on: boolean) {
     const bodyE = document.body
     toggleClassWithEnable(bodyE, "font-noto-sans-sc", on)
-    checkFont()
 }
 
-export function checkFont() {
-    // 按需加载
-
+/**
+ * 按需加载其它字体
+ */
+export function loadNecessaryFonts() {
     // 汉仪许静行楷
     const handwrittenIndexElements = document.querySelectorAll(".font-handwritten")
     if (handwrittenIndexElements.length > 0)
