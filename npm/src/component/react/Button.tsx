@@ -26,15 +26,15 @@ export function Button(props: BtnProps) {
         }
 
         ele.addEventListener("click", onClickListener)
-        ele.addEventListener("focus", clearFocusListener)
+        // ele.addEventListener("focus", clearFocusListener)
         return () => {
             ele.removeEventListener("click", onClickListener)
-            ele.removeEventListener("focus", clearFocusListener)
+            // ele.removeEventListener("focus", clearFocusListener)
         }
     }, [])
 
     return (
-        <button ref={containerRef} type="button" className={`mdc-button ${props.classes.join(" ")}`} tabIndex={-1}>
+        <button ref={containerRef} type="button" className={`mdc-button ${props.classes.join(" ")}`} tabIndex={0}>
             <span className="mdc-button__label">{props.text}</span>
         </button>
     )
@@ -63,15 +63,15 @@ export function IconButton(props: IconBtnProps) {
         }
 
         ele.addEventListener("click", onClickListener)
-        ele.addEventListener("focus", clearFocusListener)
+        // ele.addEventListener("focus", clearFocusListener)
         return () => {
             ele.removeEventListener("click", onClickListener)
-            ele.removeEventListener("focus", clearFocusListener)
+            // ele.removeEventListener("focus", clearFocusListener)
         }
     }, [])
 
     return (
-        <button ref={containerRef} type="button" className={`mdc-icon-button ${props.classes.join(" ")}`} tabIndex={-1}>
+        <button ref={containerRef} type="button" className={`mdc-icon-button ${props.classes.join(" ")}`} tabIndex={0}>
             <i className="material-symbols-rounded-variable mdc-button__icon" aria-hidden="true">{props.icon}</i>
         </button>
     )

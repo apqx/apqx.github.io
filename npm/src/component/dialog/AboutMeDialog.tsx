@@ -58,7 +58,7 @@ function LinkItem(props: LinkItemProps) {
 
     return (
         <li ref={containerRef}>
-            <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken" href={props.link} target="_blank" tabIndex={-1}>
+            <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken" href={props.link} target="_blank" tabIndex={0}>
                 <span className="mdc-deprecated-list-item__text link-item">{props.title}</span>
             </a>
             <hr className="mdc-deprecated-list-divider" />

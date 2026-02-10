@@ -115,10 +115,10 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
                         <span className="mdc-notched-outline__trailing"></span>
                     </span>
                     <input type="search" className="mdc-text-field__input" aria-labelledby="search-label"
-                        name="search-dialog_input" tabIndex={-1} onChange={this.onInputChange} />
+                        name="search-dialog_input" tabIndex={0} onChange={this.onInputChange} />
                     <button id="btn-search" type="button"
                         className="mdc-icon-button"
-                        tabIndex={-1} onClick={this.onClickSearch}>
+                        tabIndex={0} onClick={this.onClickSearch}>
                         <i className="material-symbols-rounded-variable mdc-button__icon" aria-hidden="true">search</i>
                     </button>
                 </label>
@@ -195,7 +195,7 @@ function ResultItem(props: ResultItemProps) {
     return (
         <li ref={containerRef}>
                 <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken mdc-ripple-upgraded"
-                    tabIndex={-1} href={props.data.url}>
+                    tabIndex={0} href={props.data.url}>
                     <span className="mdc-deprecated-list-item__text">
                         <span className="list-item__primary-text one-line">{props.data.title}</span>
                         <div className="list-item__secondary-text">

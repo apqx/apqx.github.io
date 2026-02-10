@@ -211,7 +211,7 @@ function PostItem(props: PostItemProps) {
     return (
         <li ref={containerRef}>
             <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken tag-list-item mdc-ripple-upgraded"
-                tabIndex={-1} href={props.data.url}>
+                tabIndex={0} href={props.data.url}>
                 <span className="mdc-deprecated-list-item__text">
                     <span className="list-item__primary-text one-line">{props.data.title}</span>
                     <div className="list-item__secondary-text tag-list-item__secondary-container">
