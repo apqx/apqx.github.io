@@ -15,7 +15,6 @@ export interface ServiceConfig {
 
 
 class Service {
-
     /**
      * 获取指定 tag 的分页数据
      * @param tag 标签
@@ -64,6 +63,18 @@ class Service {
      */
     getUrlMap(config: ServiceConfig): Promise<Response> {
         const url = getBaseUrl(config) + "/api/url-map.json"
+        const request = new Request(url, {
+            method: "GET"
+        })
+        return fetch(request, { signal: config.abortSignal, cache: "no-cache" })
+    }
+
+    /**
+     * 获取短链映射
+     * @returns Response 成功 body 的数据类型是 ApiUrlMap 对应的 JSON
+     */
+    getLensSearchFilters(config: ServiceConfig): Promise<Response> {
+        const url = getBaseUrl(config) + "/api/lens-search-filter.json"
         const request = new Request(url, {
             method: "GET"
         })

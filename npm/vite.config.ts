@@ -17,7 +17,6 @@ export default defineConfig({
       input: {
         scaffold: path.resolve(__dirname, 'src/page/scaffold.ts'),
         font: path.resolve(__dirname, 'src/component/font/font.scss'),
-        fontNoto: path.resolve(__dirname, 'src/component/font/fontNoto.scss')
       },
       output: {
         entryFileNames: 'blog-[name].js',

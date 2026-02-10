@@ -14,13 +14,17 @@ export function Snackbar(props: props) {
     const snackbar = useRef<MDCSnackbar>(null)
 
     useEffect(() => {
-        if (snackbar.current == null) {
-            const rootE = containerRef.current as Element
-            snackbar.current = new MDCSnackbar(rootE)
+        const rootE = containerRef.current as Element
+        snackbar.current = new MDCSnackbar(rootE)
+        return () => {
+            snackbar.current?.destroy()
         }
+    }, [])
+
+    useEffect(() => {
         // 自动关闭时间，-1 表示不自动关闭
-        // snackbar.current.timeoutMs = -1
-        snackbar.current.open()
+        // snackbar.current?.timeoutMs = -1
+        snackbar.current?.open()
     })
 
     return (

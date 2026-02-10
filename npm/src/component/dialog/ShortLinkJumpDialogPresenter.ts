@@ -1,9 +1,8 @@
-import { ShortLinkDialog } from "./ShortLinkJumpDialog"
 import { consoleDebug, consoleError } from "../../util/log"
 import { runAfterMinimalTime } from "../../util/tools"
 import type { ApiUrlMap } from "../../repository/bean/service/ApiUrlMap"
 import { getServiceInstance, SERVICE_DEBUG_MODE_AUTO } from "../../repository/Service"
-import { BaseExternalStore } from "../base/BasExternalStore"
+import { BaseExternalStore } from "../base/BaseExternalStore"
 
 interface State {
     title: string

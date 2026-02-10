@@ -1,12 +1,22 @@
 // 中文字体普遍存在引号全角在排版时导致的标点挤压问题，解决方法是配合一个西文字体，优先使用西文字体的符号，比如省略号 ...
-// 与 Noto Sans SC 思源宋体配合的西文字体
-@use "Inter";
-// 与 Noto Serif SC 思源宋体配合的西文字体
+
+// Noto Serif SC，思源宋体
+@use "NotoSerifSC";
+// 与思源宋体配合的西文字体
 @use "IBMPlexSerif";
-// 霞鹜文楷
-// @use "LXGWWenKaiGBLiteLight";
-@use "LXGWWenKaiGBLiteRegular";
-// @use "LXGWWenKaiGBLiteMedium";
+
+// Noto Sans SC，思源黑体
+@use "NotoSansSC";
+// 与思源黑体配合的西文字体
+@use "Inter";
+
+// Noto Sans，西文思源黑体，部分字符 ʕ•ᴥ•ʔ
+@use "NotoSans";
+
+// Noto Color Emoji，彩色
+// 但是其使用的 CBDT/CBLC 色彩格式并不被 Safari 支持，导致渲染明显卡顿，不要使用 
+// @use "NotoColorEmojiRegular";
+
 // JetBrains Mono，代码字体
 @use "JetBrainsMono";
 // Google Sans Code，代码字体

@@ -157,7 +157,7 @@ body {
         --font-weight-normal: #{base.$font-weight-normal-noto-sans};
         --font-weight-medium: #{base.$font-weight-medium-noto-sans};
 
-        --mdc-typography-body1-font-size: #{base.$text-font-base};
+        --mdc-typography-body1-font-size: #{base.$text-size-base};
         --mdc-typography-body1-line-height: #{base.$text-line-height-base};
         // Chrome 设置 letter-spacing 为非 normal 会导致 OpenType 字体的连字功能失效
         --mdc-typography-body1-letter-spacing: normal;
@@ -180,17 +180,17 @@ body {
         --mdc-text-button-label-text-weight: var(--mdc-typography-body1-font-weight);
 
         --mdc-typography-headline1-font-size: calc(var(--mdc-typography-body1-font-size) + 0.6rem);
-        --mdc-typography-headline1-font-weight: var(--mdc-typography-body1-font-weight);
+        --mdc-typography-headline1-font-weight: calc(var(--mdc-typography-body1-font-weight) + 30);
         --mdc-typography-headline1-letter-spacing: normal;
 
-        --mdc-typography-headline2-font-size: calc(var(--mdc-typography-body1-font-size) + 0.6rem);
+        --mdc-typography-headline2-font-size: calc(var(--mdc-typography-body1-font-size) + 0.5rem);
         --mdc-typography-headline2-line-height: calc(var(--mdc-typography-body1-font-size) + 1.2rem);
-        --mdc-typography-headline2-font-weight: var(--mdc-typography-body1-font-weight);
+        --mdc-typography-headline2-font-weight: calc(var(--mdc-typography-body1-font-weight) + 20);
         --mdc-typography-headline2-letter-spacing: normal;
 
-        --mdc-typography-headline3-font-size: calc(var(--mdc-typography-body1-font-size) + 0.5rem);
+        --mdc-typography-headline3-font-size: calc(var(--mdc-typography-body1-font-size) + 0.3rem);
         --mdc-typography-headline3-line-height: calc(var(--mdc-typography-body1-font-size) + 1rem);
-        --mdc-typography-headline3-font-weight: var(--mdc-typography-body1-font-weight);
+        --mdc-typography-headline3-font-weight: calc(var(--mdc-typography-body1-font-weight) + 10);
         --mdc-typography-headline3-letter-spacing: normal;
 
         --mdc-typography-headline4-letter-spacing: normal;
@@ -204,8 +204,9 @@ body {
 
         // drawer list 圆角
         --mdc-shape-small: 0.5rem;
-        // card, dialog 圆角
+        // card 圆角
         --mdc-shape-medium: 0.8rem;
+        --dialog-border-radius: 1rem;
         // 文章内元素圆角，code block 和 description
         --post-inner-shape-round: 1rem;
         // 列表圆角

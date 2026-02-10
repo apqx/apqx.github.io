@@ -32,16 +32,41 @@
 .lens-index-text-container {
     position: absolute;
     left: 0.4rem;
+    right: 0.4rem;
     bottom: 0.4rem;
-    @include flow-text-bg();
-    border-radius: 0.4rem;
-    padding: 0.12rem 0.38rem;
+    display: inline-flex;
+    overflow-x: scroll;
+    --date-gap: 0.12rem;
+    --date-radius: 0.1rem;
+    --date-side-radius: 0.55rem;
+    --date-padding-vertical: 0.14rem;
+    --date-padding-horizontal: 0.3rem;
+    --date-side-padding-horizontal: 0.48rem;
 }
 
 .lens-index-date {
     font-size: 0.7rem;
     line-height: 1rem;
     color: rgb(230, 230, 230);
+    white-space: nowrap;
+    @include flow-text-bg();
+    border-radius: var(--date-radius);
+    margin-left: 0.1rem;
+    padding: var(--date-padding-vertical) var(--date-padding-horizontal);
+    margin-left: var(--date-gap);
+}
+
+.lens-index-date:first-child {
+    margin-left: 0;
+    padding-left: var(--date-side-padding-horizontal);
+    border-top-left-radius: var(--date-side-radius);
+    border-bottom-left-radius: var(--date-side-radius);
+}
+
+.lens-index-date:last-child {
+    padding-right: var(--date-side-padding-horizontal);
+    border-top-right-radius: var(--date-side-radius);
+    border-bottom-right-radius: var(--date-side-radius);
 }
 
 .lens-index-list-wrapper {
@@ -50,8 +75,6 @@
     // 卡片圆角
     --mdc-shape-medium: 0.18rem;
 }
-
-
 
 // .my-masonry-grid_column:first-child {
 //     .grid-index-li:first-child {
@@ -79,7 +102,6 @@
 // 手机小屏
 @media all and (max-width: base.$screen-middle-width-start) {
     body {
-
         .lens-index-pinned-icon-container,
         .lens-index-featured-icon-container {
             left: 0.2rem;
@@ -94,12 +116,19 @@
 
         .lens-index-text-container {
             left: 0.2rem;
+            right: 0.2rem;
             bottom: 0.2rem;
-            border-radius: 0.3rem;
-            padding: 0.05rem 0.32rem;
+            --date-gap: 0.08rem;
+            --date-radius: 0.08rem;
+            --date-side-radius: 0.4rem;
+            --date-padding-vertical: 0.03rem;
+            --date-padding-horizontal: 0.24rem;
+            --date-side-padding-horizontal: 0.35rem;
         }
-
+        
         .lens-index-date {
+            // border-radius: 0.3rem;
+            // padding: 0.05rem 0.32rem;
             font-size: 0.55rem;
         }
 

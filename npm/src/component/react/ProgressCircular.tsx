@@ -12,10 +12,14 @@ export function ProgressCircular(props: Props) {
 
     useEffect(() => {
         const ele = containerRef.current as Element
-        if (progressCircular.current == null) {
-            progressCircular.current = new MDCCircularProgress(ele)
-            progressCircular.current.determinate = false
+        progressCircular.current = new MDCCircularProgress(ele)
+        progressCircular.current.determinate = false
+        return () => {
+            progressCircular.current?.destroy()
         }
+    }, [])
+
+    useEffect(() => {
         showLoading(props.loading)
     }, [props.loading])
 

@@ -1,63 +1,66 @@
-// <!-- Material Symbols -->
+
 // 固定字重
 // <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
 // 可变字重
-// <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+// <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,100..700,0,0" />
+// 完整字体文件约 1mb，不能使用 cn-font-split 分割，无法识别分割后的字体
+// https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,100..700,0,0
+// 部分字体文件，icon_names 必须以字母表排序
+// 用到的图标必须在这里列出，下载字体文件自托管，可由 AI 辅助排序
+// icon_names = arrow_upward,auto_awesome,content_paste,dark_mode,editor_choice,face,image_search,keep,light_mode,local_offer,manage_accounts,menu,palette,photo_camera,qr_code,search,translate,vrpano
+// https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,100..700,0,0&icon_names={icon_names}&display=block
+@use "sass:string";
 
+// 可变字重，只包含有限图标
 @font-face {
-  font-family: 'Material Symbols Rounded';
+  font-family: "Material Symbols Rounded Variable";
+  font-style: normal;
+  font-weight: 100 700;
+  src: url(https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/MaterialSymbolsRounded/v315/font-variable.woff2) format("woff2");
+}
+
+// 固定字重，包含所有图标
+@font-face {
+  font-family: "Material Symbols Rounded";
   font-style: normal;
   font-weight: 400;
-  src: url(https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/MaterialSymbolsRounded/v267/jOcbTCVpeRL2w5rwZu2rIelXxGJKJBiCa8.woff) format('woff');
+  src: url(https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/MaterialSymbolsRounded/v267/jOcbTCVpeRL2w5rwZu2rIelXxGJKJBiCa8.woff) format("woff");
 }
 
 @font-face {
-  font-family: 'Material Symbols Rounded';
+  font-family: "Material Symbols Rounded";
   font-style: normal;
   font-weight: 300;
-  src: url(https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/MaterialSymbolsRounded/v267/jOcbTCVpeRL2w5rwZu2rNmlXxGJKJBiCa8.woff) format('woff');
-}
-
-@font-face {
-  font-family: 'Material Symbols Rounded';
-  font-style: normal;
-  font-weight: 200;
-  src: url(https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/MaterialSymbolsRounded/v267/jOcbTCVpeRL2w5rwZu2rAelXxGJKJBiCa8.woff) format('woff');
+  src: url(https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/MaterialSymbolsRounded/v267/jOcbTCVpeRL2w5rwZu2rNmlXxGJKJBiCa8.woff) format("woff");
 }
 
 @mixin font() {
-    font-style: normal;
-    font-size: 1.65rem;
-    line-height: 1;
-    letter-spacing: normal;
-    text-transform: none;
-    display: inline-block;
-    white-space: nowrap;
-    word-wrap: normal;
-    direction: ltr;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    // chrome
-    -webkit-font-feature-settings: 'liga';
-    // firefox
-    -moz-font-feature-settings: 'liga';
-    -moz-osx-font-smoothing: grayscale;
+  font-style: normal;
+  font-size: 1.65rem;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  // chrome
+  -webkit-font-feature-settings: 'liga';
+  // firefox
+  -moz-font-feature-settings: 'liga';
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.material-symbols-rounded-regular {
-    font-family: 'Material Symbols Rounded';
-    font-weight: 400;
-    @include font;
+// 默认字重 300
+.material-symbols-rounded-variable {
+  font-family: string.unquote("Material Symbols Rounded Variable, Material Symbols Rounded");
+  font-weight: 300;
+  @include font;
 }
 
-.material-symbols-rounded-light {
-    font-family: 'Material Symbols Rounded';
-    font-weight: 300;
-    @include font;
-}
-
-.material-symbols-rounded-ultra-light {
-    font-family: 'Material Symbols Rounded';
-    font-weight: 200;
-    @include font;
+.font-noto-serif-sc .material-symbols-rounded-variable {
+    // 思源宋体字体较细，设置图标字重细一点以适应字体粗细
+    font-weight: 280;
 }

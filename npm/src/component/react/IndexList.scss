@@ -176,6 +176,7 @@ body {
         font-size: inherit;
     }
 }
+
 // 置顶图标和推荐图标宽度不同，需单独调整使视觉均衡
 .index-featured-icon-container {
     left: calc(var(--index-card-padding-horizontal) - 0.3rem);

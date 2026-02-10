@@ -1,9 +1,9 @@
 @use "sass:string";
 
 // 思源黑体，西文采用 Inter，默认字体
-$text-font-noto-sans: string.unquote("Inter, Noto Sans SC, sans-serif;");
+$text-font-noto-sans: string.unquote("Noto Sans Sub, Inter, Noto Sans SC, sans-serif;");
 // 思源宋体，西文采用 IBM Plex Serif
-$text-font-noto-serif: string.unquote("IBM Plex Serif, Noto Serif SC, sans-serif");
+$text-font-noto-serif: string.unquote("Noto Sans Sub, IBM Plex Serif, Noto Serif SC, sans-serif");
 // 思源宋体段落中的代码块字体
 $text-font-noto-serif-code: string.unquote("Google Sans Code, Noto Serif SC, monospace, sans-serif");
 // 霞鹜文楷GB
@@ -14,8 +14,8 @@ $text-font-handwritten: string.unquote("HYXuJingXingKaiW, LXGW WenKai GB, sans-s
 $text-font-code-block: string.unquote("Google Sans Code, Noto Sans SC, monospace, sans-serif");
 $text-font-code-block-jetbrains: string.unquote("Jetbrains Mono, Noto Sans SC, monospace, sans-serif");
 
-$text-font-base: 1rem;
-$text-line-height-base: $text-font-base + 0.8rem;
+$text-size-base: 1rem;
+$text-line-height-base: $text-size-base + 0.8rem;
 
 // 中型屏幕宽度范围，定义为平板，小于此尺寸为手机，大于此尺寸为电脑
 $screen-middle-width-start: 600px;
@@ -30,11 +30,11 @@ $ripple-gap-percent: 25%;
 // 思源黑体和思源宋体都是可变字体，但与其配合的西文字体不一定是可变的，应调整字重与之匹配
 $font-weight-light-noto-sans: 320;
 $font-weight-normal-noto-sans: 380;
-$font-weight-medium-noto-sans: 500;
+$font-weight-medium-noto-sans: 480;
 
 $font-weight-light-noto-serif: 360;
 $font-weight-normal-noto-serif: 480;
-$font-weight-medium-noto-serif: 600;
+$font-weight-medium-noto-serif: 580;
 
 // 与思源宋配合的 Google Code Mono 代码块字体，在段落中同时显示时应该更细一些
 $font-weight-light-noto-serif-code: 310;

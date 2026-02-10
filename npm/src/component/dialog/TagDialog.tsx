@@ -132,8 +132,6 @@ function PostResult(props: PostResultProps) {
                 <PostItem
                     key={item.title + item.date}
                     data={item}
-                    first={index === 0}
-                    last={index === (items.length - 1)}
                 />
             )}
         </ul>
@@ -196,8 +194,6 @@ export class PostItemData {
 
 interface PostItemProps {
     data: PostItemData
-    first: boolean
-    last: boolean
 }
 
 function PostItem(props: PostItemProps) {
@@ -247,20 +243,18 @@ interface BlockProps {
 
 function Block(props: BlockProps) {
     const { type, title } = props
-    const [classList, setClassList] = useState<string[]>([])
-
-    useEffect(() => {
+    const classes = useMemo(() => {
         const classes: string[] = []
         if (type === 1) {
             classes.push("tag-list-item__post-block1")
         } else if (type === 2) {
             classes.push("tag-list-item__post-block2")
         }
-        setClassList(classes)
-    }, [type, title])
+        return classes
+    }, [type])
 
     return (
-        <span className={classList.join(" ")}>{title}</span>
+        <span className={classes.join(" ")}>{title}</span>
     )
 }
 

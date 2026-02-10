@@ -33,15 +33,20 @@ export function setNotoSansSCFont(on: boolean) {
 }
 
 export function checkFont() {
-    // 默认加载：霞鹜文楷，思源宋体，避免切换字体时动态加载的延迟
-
     // 按需加载
 
-    // 手写字体，汉仪许静行楷
+    // 汉仪许静行楷
     const handwrittenIndexElements = document.querySelectorAll(".font-handwritten")
     if (handwrittenIndexElements.length > 0)
         import("./fontHandwritten").then().catch((e) => {
             consoleError("Load handwritten font error: " + e)
+        })
+
+    // 霞鹜文楷
+    const wenKaiIndexElements = document.querySelectorAll(".font-wenkai")
+    if (wenKaiIndexElements.length > 0)
+        import("./fontWenKai").then().catch((e) => {
+            consoleError("Load WenKai font error: " + e)
         })
 }
 

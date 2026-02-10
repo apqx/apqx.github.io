@@ -73,16 +73,19 @@
 
 .mdc-drawer__header {
     display: flex;
-    align-items: center;;
+    align-items: center;
+    ;
 
     .drawer-header-text-container {
         flex: 1;
+
         .mdc-drawer__title {
             display: flex;
             align-items: center;
             margin: 0;
             padding: 0;
         }
+
         .mdc-drawer__subtitle {
             display: flex;
             align-items: center;
@@ -90,6 +93,7 @@
             padding: 0;
         }
     }
+
     .drawer-header-share-icon {
         color: var(--mdc-theme-on-primary);
     }

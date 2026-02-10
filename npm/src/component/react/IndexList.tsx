@@ -117,10 +117,10 @@ function IndexItem(props: IndexItemProps) {
                         {date.day}<span className="day">日</span>
                     </span>
                     {props.fromPinnedList &&
-                        <span className="index-pinned-icon-container"><i className="material-symbols-rounded-light">keep</i></span>
+                        <span className="index-pinned-icon-container"><i className="material-symbols-rounded-variable">keep</i></span>
                     }
                     {!props.fromPinnedList && (props.pinned || props.featured) &&
-                        <span className="index-featured-icon-container"><i className="material-symbols-rounded-light">editor_choice</i></span>
+                        <span className="index-featured-icon-container"><i className="material-symbols-rounded-variable">editor_choice</i></span>
                     }
                 </section>
             </a>

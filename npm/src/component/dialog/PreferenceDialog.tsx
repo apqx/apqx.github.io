@@ -3,7 +3,7 @@ import { PreferenceDialogPresenter } from "./PreferenceDialogPresenter"
 import { consoleDebug } from "../../util/log"
 import { BaseDialog, PREFERENCE_DIALOG_WRAPPER_ID, showDialog } from "./BaseDialog"
 import type { BaseDialogOpenProps } from "./BaseDialog"
-import { NewMdSwitch } from "../react/SettingsToggle"
+import { NewMdSwitch } from "../react/Switch"
 import React, { useCallback, useEffect, useMemo, useSyncExternalStore } from "react"
 import { setupListItemRipple } from "../list"
 import { createHtmlContent } from "../../util/tools"
@@ -17,7 +17,7 @@ export function PreferenceDialog(props: BaseDialogOpenProps) {
 
     useEffect(() => {
         consoleDebug("PreferenceDialogContent useEffect, subscribe to presenter")
-        presenter.initSettings()
+        // presenter.initSettings()
     }, [])
 
     const notoSerifSCFontTitle = useMemo(() => {

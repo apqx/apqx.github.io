@@ -15,7 +15,7 @@ export function LoadingHint(props: Props) {
         <div className="loading-hint-wrapper center-items">
             {props.loading && <ProgressCircular loading={true} />}
             {(!props.loading && props.loadHint != null) &&
-                <Button text={props.loadHint} onClick={props.onClickHint} className="loading-hint-btn" />
+                <Button text={props.loadHint} onClick={props.onClickHint} classes={["loading-hint-btn"]} />
             }
         </div>
     )

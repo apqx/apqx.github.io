@@ -12,10 +12,14 @@ export function ProgressLinear(props: Props) {
 
     useEffect(() => {
         const ele = containerRef.current as Element
-        if (progressLinear.current == null) {
-            progressLinear.current = new MDCLinearProgress(ele)
-            progressLinear.current.determinate = false
+        progressLinear.current = new MDCLinearProgress(ele)
+        progressLinear.current.determinate = false
+        return () => {
+            progressLinear.current?.destroy()
         }
+    }, [])
+
+    useEffect(() => {
         showLoading(props.loading)
     }, [props.loading])
 

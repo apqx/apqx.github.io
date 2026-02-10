@@ -119,7 +119,7 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
                     <button id="btn-search" type="button"
                         className="mdc-icon-button"
                         tabIndex={-1} onClick={this.onClickSearch}>
-                        <i className="material-symbols-rounded-light mdc-button__icon" aria-hidden="true">search</i>
+                        <i className="material-symbols-rounded-variable mdc-button__icon" aria-hidden="true">search</i>
                     </button>
                 </label>
 

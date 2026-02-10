@@ -2,8 +2,15 @@ import { consoleDebug, consoleObjDebug } from "../util/log"
 import { isDebug } from "../util/tools"
 import type { ApiPagefindSearch } from "./bean/pagefind/ApiPagefindSearch"
 import type { PagefindResult, PagefindResultItem } from "./bean/pagefind/PagefindResult"
-import type { ApiPost } from "./bean/service/ApiPost"
 import { SERVICE_BASE_URL } from "./Service"
+
+export type PagefindOptions = {
+    filters?: {
+        category?: {
+            any: string[]
+        }
+    }
+}
 
 export class Pagefind {
     PAGE_SIZE: number
@@ -12,11 +19,12 @@ export class Pagefind {
     pagefindResult: PagefindResult | null = null
     loadedCount: number = 0
 
+
     constructor(pageSize: number = 10) {
         this.PAGE_SIZE = pageSize
     }
 
-    async search(newKey: string, options: any, abortSignal?: AbortSignal): Promise<ApiPagefindSearch> {
+    async search(newKey: string, options: PagefindOptions, abortSignal?: AbortSignal): Promise<ApiPagefindSearch> {
         consoleDebug("Pagefind search key => " + newKey)
         consoleObjDebug("Pagefind search options => ", options)
 

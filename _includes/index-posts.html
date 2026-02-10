@@ -9,7 +9,7 @@
                     <h1 class="index-title">{{ post.title }}</h1>
                     <span class="index-author">{% if post.moreDate != null %}{{ post.moreDate }}{% endif %} {{ post.author }}</span>
                     <span class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
-                    <span class="index-pinned-icon-container"><i class="material-symbols-rounded-light">keep</i></span>
+                    <span class="index-pinned-icon-container"><i class="material-symbols-rounded-variable">keep</i></span>
                 </section>
             </a>
             <hr class="index-li-divider" />
@@ -29,7 +29,7 @@
                         <span class="index-author">{% if post.moreDate != null %}{{ post.moreDate }}{% endif %} {{ post.author }}</span>
                         <span class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
                         {%- if post.featured == true %}
-                        <span class="index-featured-icon-container"><i class="material-symbols-rounded-light">editor_choice</i></span>
+                        <span class="index-featured-icon-container"><i class="material-symbols-rounded-variable">editor_choice</i></span>
                         {%- endif %}
                     </section>
                 </a>

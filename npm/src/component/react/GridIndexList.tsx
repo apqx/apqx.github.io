@@ -111,6 +111,8 @@ type IndexItemProps = {
 
 function IndexItem(props: IndexItemProps) {
     const containerRef = useRef<HTMLLIElement>(null)
+    // 缓存最新的回调
+    const coverLoadedCallback = useMemo(() => props.coverLoadedCallback, [props.coverLoadedCallback])
 
     useEffect(() => {
         consoleObjDebug("IndexItem componentDidMount", props)
@@ -146,7 +148,7 @@ function IndexItem(props: IndexItemProps) {
                 getInterSectionObserver().unobserve(cardE)
             }
         }
-    }, [])
+    }, [props.path])
 
     function startImageAnimation(imgE: HTMLImageElement): ImageLoadAnimator | null {
         return new ImageLoadAnimator(imgE, -1, false,
@@ -156,7 +158,7 @@ function IndexItem(props: IndexItemProps) {
             },
             () => {
                 // 图片尺寸动画执行完成
-                props.coverLoadedCallback()
+                coverLoadedCallback()
             })
     }
 
@@ -202,7 +204,7 @@ function IndexDescriptionItem(props: IndexDescriptionItemProps) {
 
     useEffect(() => {
         const rootE = containerRef.current as HTMLElement
-        consoleObjDebug("IndexDescriptionItem componentDidMount", rootE)
+        consoleObjDebug("IndexDescriptionItem useEffect", rootE)
         const cardE = rootE.querySelector(".grid-index-card")
         if (cardE != null) {
             getInterSectionObserver().observe(cardE)
@@ -225,7 +227,7 @@ function IndexDescriptionItem(props: IndexDescriptionItemProps) {
         //     setupTagTrigger(trigger as HTMLElement)
         // }
         return () => {
-            consoleDebug("IndexDescriptionItem componentWillUnmount")
+            consoleDebug("IndexDescriptionItem useEffect cleanup")
             if (cardE != null) {
                 getInterSectionObserver().unobserve(cardE)
             }
@@ -235,23 +237,6 @@ function IndexDescriptionItem(props: IndexDescriptionItemProps) {
     return (
         <li ref={containerRef} className="grid-index-li grid-index-li--description">
             <section className="mdc-card grid-index-card card-fade-in" dangerouslySetInnerHTML={{ __html: props.innerHtml }}>
-
-                {/* <div className="grid-index-text-container">
-                    <p>2021 年 08 月 08 日，我在博客里开辟这个分区来承载曾经在剧场看过的剧和拍过的剧照，以昆曲为主，使用<a
-                        href="/post/original/2021/09/01/基于Jekyll实现博客文章-标签化.html">标签</a>把每一场演出按剧种、剧团、剧目、演员、剧场分类归档。这里每一篇文章既是记录也是分享，亲手按下快门捕捉到的舞台瞬间，如此美丽的戏妆油彩，不应该只我一人看到。
-                    </p>
-                    <p>关于我与戏剧的渊源以及为什么会喜欢昆曲，参见之前的自述<a
-                        href="/post/original/2019/05/18/槐安国内春生酒.html">《槐安国内春生酒》</a>，还有一些由看剧衍生的<a
-                            id="chip_tag_看剧&碎念" className="tag-dialog-trigger clickable-empty-link">碎念</a>。</p>
-                    <p>只是时常偷懒，日渐事繁，更新剧目不多，我会慢慢整理上传的。</p>
-                    <div style={{ marginBottom: "0.2rem" }}>
-                        <a id="chip_tag_看剧&杭州" className="tag-dialog-trigger clickable-empty-link tag-link grid-index-description-tag">@杭州</a>
-                        <a id="chip_tag_看剧&南京" className="tag-dialog-trigger clickable-empty-link tag-link grid-index-description-tag">@南京</a>
-                        <a id="chip_tag_看剧&上海" className="tag-dialog-trigger clickable-empty-link tag-link grid-index-description-tag">@上海</a>
-                        <a className="tag-link grid-index-description-tag" href="/section/lens.html" target="_self">@透镜</a>
-                        <a className="tag-link grid-index-description-tag" href="https://space.bilibili.com/11037907" target="_blank">@哔哩</a>
-                    </div>
-                </div> */}
             </section>
             <hr className="grid-index-li-divider" />
         </li>

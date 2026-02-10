@@ -1,35 +1,40 @@
 import "./Button.scss"
-import React, { useEffect } from "react"
+import React, { useEffect, useMemo } from "react"
 import { clearFocusListener } from "../../util/tools"
 import { setupButtonRipple } from "../button"
 
 export interface BtnProps {
     text: string
     onClick: (() => void) | null;
-    className: string;
+    classes: string[];
 }
 
 export function Button(props: BtnProps) {
     const containerRef = React.useRef<HTMLButtonElement>(null)
+    const onClick = useMemo(() => {
+        return props.onClick
+    }, [props.onClick])
 
     useEffect(() => {
         const ele = containerRef.current as HTMLElement
-
         setupButtonRipple(ele)
-        if (props.className != null && props.className.length > 0) {
-            const classes = props.className.split(" ")
-            classes.forEach((c) => {
-                ele.classList.add(c)
-            })
+
+        const onClickListener = () => {
+            if (onClick != null) {
+                onClick()
+            }
         }
-        if (props.onClick != null) {
-            ele.addEventListener("click", props.onClick)
-        }
+
+        ele.addEventListener("click", onClickListener)
         ele.addEventListener("focus", clearFocusListener)
+        return () => {
+            ele.removeEventListener("click", onClickListener)
+            ele.removeEventListener("focus", clearFocusListener)
+        }
     }, [])
 
     return (
-        <button ref={containerRef} type="button" className="mdc-button" tabIndex={-1}>
+        <button ref={containerRef} type="button" className={`mdc-button ${props.classes.join(" ")}`} tabIndex={-1}>
             <span className="mdc-button__label">{props.text}</span>
         </button>
     )
@@ -38,31 +43,36 @@ export function Button(props: BtnProps) {
 export interface IconBtnProps {
     icon: string
     onClick: (() => void) | null;
-    className: string;
+    classes: string[];
 }
 
 export function IconButton(props: IconBtnProps) {
     const containerRef = React.useRef<HTMLButtonElement>(null)
+    const onClick = useMemo(() => {
+        return props.onClick
+    }, [props.onClick])
 
     useEffect(() => {
         const ele = containerRef.current as HTMLElement
 
         setupButtonRipple(ele)
-        if (props.className != null && props.className.length > 0) {
-            const classes = props.className.split(" ")
-            classes.forEach((c) => {
-                ele.classList.add(c)
-            })
+        const onClickListener = () => {
+            if (onClick != null) {
+                onClick()
+            }
         }
-        if (props.onClick != null) {
-            ele.addEventListener("click", props.onClick)
-        }
+
+        ele.addEventListener("click", onClickListener)
         ele.addEventListener("focus", clearFocusListener)
+        return () => {
+            ele.removeEventListener("click", onClickListener)
+            ele.removeEventListener("focus", clearFocusListener)
+        }
     }, [])
 
     return (
-        <button ref={containerRef} type="button" className="mdc-icon-button" tabIndex={-1}>
-            <i className="material-symbols-rounded-light mdc-button__icon" aria-hidden="true">{props.icon}</i>
+        <button ref={containerRef} type="button" className={`mdc-icon-button ${props.classes.join(" ")}`} tabIndex={-1}>
+            <i className="material-symbols-rounded-variable mdc-button__icon" aria-hidden="true">{props.icon}</i>
         </button>
     )
 }

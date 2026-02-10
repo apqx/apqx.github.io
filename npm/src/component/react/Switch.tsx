@@ -1,4 +1,4 @@
-import "./SettingsToggle.scss"
+import "./Switch.scss"
 import { createComponent } from '@lit/react'
 import { MdSwitch } from '@material/web/switch/switch.js'
 import React from "react"

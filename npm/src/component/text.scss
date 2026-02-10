@@ -50,7 +50,7 @@
     --font-weight-light: #{base.$font-weight-light-default};
     --font-weight-normal: #{base.$font-weight-normal-default};
     --font-weight-medium: #{base.$font-weight-medium-default};
-    --mdc-typography-body1-font-size: calc(#{base.$text-font-base} + 0.02rem);
+    --mdc-typography-body1-font-size: calc(#{base.$text-size-base} + 0.02rem);
     --mdc-typography-body1-font-weight: var(--font-weight-normal);
 }
 
@@ -78,7 +78,6 @@ h1 {
 
 h2 {
     @include typography.typography(headline2);
-    font-size: calc(var(--mdc-typography-body1-font-size) + 0.5rem);
 }
 
 h2::before {
@@ -88,14 +87,8 @@ h2::before {
     color: var(--mdc-theme-on-surface-secondary);
 }
 
-h2.h2-mini {
-    @include typography.typography(headline3);
-    margin: calc(var(--mdc-typography-body1-font-size) - 0.2rem) 0;
-}
-
 h3 {
     @include typography.typography(headline3);
-    font-size: calc(var(--mdc-typography-body1-font-size) + 0.3rem);
 }
 
 h3::before {
@@ -269,7 +262,7 @@ time {
     // 颜色减淡，字体减小
     --mdc-theme-on-surface: var(--mdc-theme-on-surface-secondary);
     // --strong-color: var(--mdc-theme-on-surface);
-    --mdc-typography-body1-font-size: calc(#{base.$text-font-base} - 0.05rem);
+    --mdc-typography-body1-font-size: calc(#{base.$text-size-base} - 0.05rem);
 
     // --mdc-typography-body1-font-weight: var(--font-weight-light);
     // 当组件字重为 light 时，设置其中的代码、加粗字重为合适的值

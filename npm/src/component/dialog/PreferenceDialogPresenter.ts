@@ -1,9 +1,9 @@
 import { LocalDb } from "../../repository/LocalDb"
 import { saveTheme, showThemeDark } from "../theme"
-import { refreshTopbar, setFixedTopbar } from "../topbar"
+import { refreshTopbar } from "../topbar"
 import { setNotoSerifSCFont } from "../font/font"
 import { consoleDebug } from "../../util/log"
-import { BaseExternalStore } from "../base/BasExternalStore"
+import { BaseExternalStore } from "../base/BaseExternalStore"
 
 export interface PreferenceDialogState {
     fixedTopbarOn: boolean
@@ -30,7 +30,7 @@ export class PreferenceDialogPresenter extends BaseExternalStore {
         this.emitChange()
         consoleDebug("PreferenceDialogPresenter initSettings, state = " + JSON.stringify(this.state))
     }
-    
+
     onClickFixedTopbarSwitch = () => {
         const newStateOn = !this.state.fixedTopbarOn
         this.state.fixedTopbarOn = newStateOn

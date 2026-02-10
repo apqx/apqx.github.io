@@ -1,4 +1,5 @@
 @use '../../style/global' as base;
+@use "sass:math";
 
 @font-face {
     font-family: "IBM Plex Serif";
@@ -16,11 +17,15 @@
     font-display: swap;
 }
 
+// 定义 normal 字重的范围
+$font-weight-normal-min: base.$font-weight-normal-noto-serif - math.div(base.$font-weight-normal-noto-serif - base.$font-weight-light-noto-serif, 2);
+$font-weight-normal-max: base.$font-weight-normal-noto-serif + math.div(base.$font-weight-medium-noto-serif - base.$font-weight-normal-noto-serif, 2);
+
 @font-face {
     font-family: "IBM Plex Serif";
     src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/IBMPlexSerif/v1.1.0/IBMPlexSerif-Regular.woff2") format('woff2');
     font-style: normal;
-    font-weight: base.$font-weight-normal-noto-serif;
+    font-weight: $font-weight-normal-min $font-weight-normal-max;
     font-display: swap;
 }
 
@@ -28,7 +33,7 @@
     font-family: "IBM Plex Serif";
     src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/IBMPlexSerif/v1.1.0/IBMPlexSerif-Italic.woff2") format('woff2');
     font-style: italic;
-    font-weight: base.$font-weight-normal-noto-serif;
+    font-weight: $font-weight-normal-min $font-weight-normal-max;
     font-display: swap;
 }
 

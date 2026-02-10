@@ -8,6 +8,6 @@ export interface Props {
 export function Tag(props: Props) {
 
     return (
-        <Button text={props.text} onClick={props.onClick} className="btn-tag" />
+        <Button text={props.text} onClick={props.onClick} classes={["btn-tag"]} />
     )
 }

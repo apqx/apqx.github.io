@@ -1,7 +1,8 @@
 .smooth-collapse {
     // 初始高度会自动根据内容确定，之后监听子元素尺寸再修改这个值
     // height: 0px;
-    transition: height 0.2s ease, width 0.2s ease;
+    transition: height 0.2s ease;
+    // transition: height 0.2s ease, width 0.2s ease;
     overflow: hidden;
 }
 
@@ -12,7 +13,7 @@
     // 否则获得的尺寸会比实际少去 margin 的部分
     overflow: hidden;
     display: flow-root;
-    
+
     // width: fit-content;
     // max-width: 100%;
 }

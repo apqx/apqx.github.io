@@ -67,7 +67,7 @@ export class LensIndexList extends BasePaginateShow<Post, BasePaginateShowProps<
                         <IndexItem key={item.path}
                             index={index}
                             title={item.title}
-                            actor={item.actor}
+                            actors={item.actor}
                             date={item.date}
                             path={item.path}
                             cover={item.cover}
@@ -82,7 +82,7 @@ export class LensIndexList extends BasePaginateShow<Post, BasePaginateShowProps<
                         <IndexItem key={item.path}
                             index={index}
                             title={item.title}
-                            actor={item.actor}
+                            actors={item.actor}
                             date={item.date}
                             path={item.path}
                             cover={item.cover}
@@ -105,7 +105,7 @@ export class LensIndexList extends BasePaginateShow<Post, BasePaginateShowProps<
 type IndexItemProps = {
     index: number,
     title: string,
-    actor: Array<string>,
+    actors: Array<string>,
     date: string,
     path: string,
     cover: string,
@@ -178,7 +178,7 @@ function IndexItem(props: IndexItemProps) {
             })
     }
 
-    const actorStr = useMemo(() => props.actor.join(" "), [props.actor])
+    const actorStr = useMemo(() => props.actors.join(" "), [props.actors])
     const animationClass = useMemo(() => props.index == 0 ? "card-fade-in" : "card-slide-in-middle", [props.index])
 
     const date = useMemo(() => getSplittedDate(props.date), [props.date]);
@@ -190,15 +190,21 @@ function IndexItem(props: IndexItemProps) {
                 <section className="lens-index-container">
                     <img className="grid-index-cover image-height-animation" loading="lazy" src={props.cover} alt={actorStr} />
                     {props.fromPinnedList && props.pinned &&
-                        <span className="lens-index-pinned-icon-container"><i className="material-symbols-rounded-light">keep</i></span>
+                        <span className="lens-index-pinned-icon-container"><i className="material-symbols-rounded-variable">keep</i></span>
                     }
                     {!props.fromPinnedList && (props.pinned || props.featured) &&
-                        <span className="lens-index-featured-icon-container"><i className="material-symbols-rounded-light">editor_choice</i></span>
+                        <span className="lens-index-featured-icon-container"><i className="material-symbols-rounded-variable">editor_choice</i></span>
                     }
                     <div className="lens-index-text-container">
-                        <div className="lens-index-date">
-                            {date.year}{date.month}｜{actorStr}
-                        </div>
+                        <span className="lens-index-date">
+                            {date.year}{date.month}
+                        </span>
+                        {/* <span className="lens-index-date">{actorStr}</span> */}
+                        {
+                            props.actors.length > 0 && props.actors.map((actor, index) =>
+                                <span key={index} className="lens-index-date">{actor}</span>
+                            )
+                        }
                     </div>
                 </section>
             </a>

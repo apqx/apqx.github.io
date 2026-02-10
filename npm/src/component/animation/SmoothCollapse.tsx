@@ -1,5 +1,5 @@
 import "./SmoothCollapse.scss"
-import { useEffect, useRef } from "react"
+import { useLayoutEffect, useRef } from "react"
 import { consoleDebug } from "../../util/log"
 
 type SmoothCollapseProps = {
@@ -12,7 +12,7 @@ export function SmoothCollapse({ children }: SmoothCollapseProps) {
     const wrapperRef = useRef<HTMLDivElement>(null)
 
     // TODO: 宽度变化时无法获取到正确的宽度值，需要排查
-    useEffect(() => {
+    useLayoutEffect(() => {
         const wrapperE = wrapperRef.current as HTMLElement
         let preHeight = wrapperE.offsetHeight
         let preWidth = wrapperE.offsetWidth
@@ -25,6 +25,7 @@ export function SmoothCollapse({ children }: SmoothCollapseProps) {
                 const width = entry.contentRect.width
                 // const duration = Math.max(calculateDuration(height, preHeight, "height"), calculateDuration(width, preWidth, "width"))
                 const duration = calculateDuration(height, preHeight, "height")
+                // calculateDuration(width, preWidth, "width")
                 preHeight = height
                 preWidth = width
                 wrapperE.parentElement!.style.transitionDuration = duration + "s"
