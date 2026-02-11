@@ -14,20 +14,20 @@ import { SmoothCollapse } from "../animation/SmoothCollapse"
 
 interface SearchDialogState {
     loading: boolean
-    loadHint: string | null
+    loadHint?: string
     results: ResultItemData[]
 }
 
 export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogState> {
     state: SearchDialogState = {
         loading: false,
-        loadHint: null,
+        loadHint: undefined,
         results: [],
     }
 
-    presenter: SearchDialogPresenter | null = null
+    presenter: SearchDialogPresenter
     input: string = ""
-    textField: MDCTextField | null = null
+    textField?: MDCTextField
 
     constructor(props: any) {
         super(props)
@@ -114,17 +114,18 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
                         </span>
                         <span className="mdc-notched-outline__trailing"></span>
                     </span>
+                    {/* 这里禁止自动获取焦点，可能导致 dialog 意外滚动到焦点位置 */}
                     <input type="search" className="mdc-text-field__input" aria-labelledby="search-label"
-                        name="search-dialog_input" tabIndex={0} onChange={this.onInputChange} />
+                        name="search-dialog_input" tabIndex={-1} onChange={this.onInputChange} />
                     <button id="btn-search" type="button"
                         className="mdc-icon-button"
-                        tabIndex={0} onClick={this.onClickSearch}>
+                        tabIndex={-1} onClick={this.onClickSearch}>
                         <i className="material-symbols-rounded-variable mdc-button__icon" aria-hidden="true">search</i>
                     </button>
                 </label>
 
                 <p id="search-dialog_tips"><b>TIPS：</b>中文低频词组用空格分隔会有更好匹配，比如名字「施夏明」改为「施 夏 明」。若网络通畅可使用 <a
-                    href="https://cse.google.com/cse?cx=757420b6b2f3d47d2" target="_blank">Google 站内搜索</a>。</p>
+                    href="https://cse.google.com/cse?cx=757420b6b2f3d47d2" target="_blank" tabIndex={-1}>Google 站内搜索</a>。</p>
                 <SmoothCollapse>
                     <div>
                         {(this.state.results != null && this.state.results.length > 0) &&
@@ -194,8 +195,7 @@ function ResultItem(props: ResultItemProps) {
 
     return (
         <li ref={containerRef}>
-                <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken mdc-ripple-upgraded"
-                    tabIndex={0} href={props.data.url}>
+                <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken mdc-ripple-upgraded" href={props.data.url} tabIndex={-1}>
                     <span className="mdc-deprecated-list-item__text">
                         <span className="list-item__primary-text one-line">{props.data.title}</span>
                         <div className="list-item__secondary-text">

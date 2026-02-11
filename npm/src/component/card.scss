@@ -11,11 +11,11 @@
 @mixin cardElevation {
     @include elevation.elevation(map.get(base.$card-elevation, "elevation"),
         map.get(base.$card-elevation, "shadow-light"), 0);
-}
 
-@mixin cardElevationDark {
-    @include elevation.elevation(map.get(base.$card-elevation, "elevation"),
-        map.get(base.$card-elevation, "shadow-dark"), 0);
+    .dark & {
+        @include elevation.elevation(map.get(base.$card-elevation, "elevation"),
+            map.get(base.$card-elevation, "shadow-dark"), 0);
+    }
 }
 
 @mixin cardRipple {
@@ -24,9 +24,9 @@
     @include ripple.radius-bounded;
     @include ripple.states-base-color(map.get(base.$card-ripple, "light"));
     @include ripple.states-opacities((hover: .0, focus: .0, press: .2));
-}
 
-@mixin cardRippleDark {
-    @include ripple.states-base-color(map.get(base.$card-ripple, "dark"));
-    @include ripple.states-opacities((hover: .0, focus: .0, press: .2));
+    .dark & {
+        @include ripple.states-base-color(map.get(base.$card-ripple, "dark"));
+        @include ripple.states-opacities((hover: .0, focus: .0, press: .2));
+    }
 }

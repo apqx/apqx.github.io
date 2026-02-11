@@ -41,7 +41,7 @@ export function initDrawer() {
     }
     // drawer 中的 icon-button
     const iconBtnE = document.querySelector("#drawer_btn_share")
-    setupIconButtonRipple(iconBtnE)
+    setupIconButtonRipple(iconBtnE as HTMLElement)
     iconBtnE?.addEventListener("click", () => {
         consoleDebug("Click drawer share button")
         import("./dialog/ShareDialog").then((component) => {

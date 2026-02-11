@@ -8,7 +8,7 @@ interface Props {
 
 export function ProgressCircular(props: Props) {
     const containerRef = useRef<HTMLDivElement>(null)
-    const progressCircular = useRef<MDCCircularProgress | null>(null)
+    const progressCircular = useRef<MDCCircularProgress>(null)
 
     useEffect(() => {
         const ele = containerRef.current as Element

@@ -13,12 +13,18 @@ $top-bar: (
         backdrop-filter: 30px,
         bg-light: map.get($surface, "light"),
         bg-blur-light: rgba(map.get($surface, "light"), 0.8),
+        bg-light-colorful: #556a3b,
+        bg-blur-light-colorful: rgba(#556a3b, 0.8),
         bg-dark: map.get($surface, "dark"),
         bg-blur-dark: rgba(map.get($surface, "dark"), 0.8),
+        bg-dark-colorful: #556a3b,
+        bg-blur-dark-colorful: rgba(#556a3b, 0.8),
 );
 $top-bar-ink: (
         light: color.adjust(map.get($top-bar, "bg-light"), $lightness: -80%),
+        light-colorful: white,
         dark: color.adjust(map.get($top-bar, "bg-dark"), $lightness: +80%),
+        dark-colorful: white,
 );
 
 $footer-ink: (
@@ -245,6 +251,11 @@ $pre-code-border: (
         dark: color.adjust(map.get($pre-code-bg, "dark"), $lightness: +1.5%),
 );
 
+$pre-code-border-heavy: (
+        light: color.adjust(map.get($pre-code-border, "light"), $lightness: -0.8%),
+        dark: color.adjust(map.get($pre-code-border, "dark"), $lightness: +0.8%),
+);
+
 // 强调颜色，注意相比基准色不越界，应不强于标题颜色
 $strong: (
         light: color.adjust(map.get($text-content, "light"), $lightness: -15%),
@@ -270,6 +281,11 @@ $surface-block-ripple: (
 $surface-block-border: (
         light: color.adjust(map.get($surface-block-bg, "light"), $lightness: -1.8%),
         dark: color.adjust(map.get($surface-block-bg, "dark"), $lightness: +1.8%),
+);
+
+$surface-block-border-heavy: (
+        light: color.adjust(map.get($surface-block-border, "light"), $lightness: -0.6%),
+        dark: color.adjust(map.get($surface-block-border, "dark"), $lightness: +0.6%),
 );
 
 $list-bg: (

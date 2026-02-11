@@ -22,11 +22,11 @@ function AboutMeDialog(props: BaseDialogOpenProps) {
                 </picture>
                 <p className="about-me-name">立泉</p>
                 <section className="btn-tag-container about-me-tag-wrapper">
-                    <Tag text="C++" onClick={null} />
-                    <Tag text="Java" onClick={null} />
-                    <Tag text="Kotlin" onClick={null} />
-                    <Tag text="Android" onClick={null} />
-                    {/* <Tag text="Git" onClick={null} /> */}
+                    <Tag text="C++" />
+                    <Tag text="Java" />
+                    <Tag text="Kotlin" />
+                    <Tag text="Android" />
+                    {/* <Tag text="Git" /> */}
                 </section>
                 <p className="about-me-description">九五后，旅居杭州，<a
                     href={kunQvLink}>昆虫</a>，野生散养攻城狮，“十分”“业余”摄影 Fans。联系我可以通过<a href="mailto:safari@mudan.me">电子邮件</a>，如果有必要也可用<a
@@ -58,7 +58,8 @@ function LinkItem(props: LinkItemProps) {
 
     return (
         <li ref={containerRef}>
-            <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken" href={props.link} target="_blank" tabIndex={0}>
+            {/* 列表元素禁止自动获取焦点，可能导致 dialog 意外滚动到焦点位置 */}
+            <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken" href={props.link} target="_blank" tabIndex={-1}>
                 <span className="mdc-deprecated-list-item__text link-item">{props.title}</span>
             </a>
             <hr className="mdc-deprecated-list-divider" />

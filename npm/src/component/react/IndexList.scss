@@ -20,11 +20,6 @@ body {
     @include card.cardRipple();
 }
 
-.dark .mdc-card.index-top-card {
-    @include card.cardElevationDark();
-    @include card.cardRippleDark();
-}
-
 .index-top-card-container {
     padding-top: 0.1rem;
     padding-bottom: 0.18rem;
@@ -42,11 +37,6 @@ body {
     @include card.cardElevation();
     // 添加Ripple动画
     @include card.cardRipple();
-}
-
-.dark .mdc-card.index-card {
-    @include card.cardElevationDark();
-    @include card.cardRippleDark();
 }
 
 .index-li:last-child {

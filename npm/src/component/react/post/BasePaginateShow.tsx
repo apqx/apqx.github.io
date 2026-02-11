@@ -15,7 +15,7 @@ export interface BasePaginateShowProps<T> {
 
 export interface BasePaginateShowState<T> {
     loading: boolean,
-    loadHint: string | null,
+    loadHint?: string,
     posts: Array<T>,
     totalPostsSize: number
 }
@@ -35,7 +35,7 @@ export abstract class BasePaginateShow<D, P extends BasePaginateShowProps<D>>
         this.presenter = this.createPresenter()
         this.state = {
             loading: true,
-            loadHint: null,
+            loadHint: undefined,
             posts: this.props.loadedPosts,
             totalPostsSize: 0
         }

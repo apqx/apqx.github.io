@@ -88,7 +88,7 @@ function IndexItem(props: IndexItemProps) {
     useEffect(() => {
         consoleObjDebug("IndexItem component mounted", props)
         const rootE = containerRef.current as HTMLElement;
-        cardE.current = rootE.querySelector(".index-card")
+        cardE.current = rootE.querySelector(".index-card") as HTMLElement
 
         setupCardRipple(cardE.current)
         // 监听元素进入窗口初次显示
@@ -132,7 +132,7 @@ function IndexItem(props: IndexItemProps) {
 class IndexItemWithDesc extends React.Component<IndexItemProps, any> {
     private containerRef: RefObject<HTMLLIElement | null> = React.createRef()
 
-    cardE: HTMLElement | null = null
+    cardE?: HTMLElement
 
     constructor(props: IndexItemProps) {
         super(props);
@@ -141,7 +141,7 @@ class IndexItemWithDesc extends React.Component<IndexItemProps, any> {
     componentDidMount(): void {
         consoleObjDebug("IndexItemWithDescription componentDidMount", this.props)
         const rootE = this.containerRef.current as HTMLElement;
-        this.cardE = rootE.querySelector(".index-card")
+        this.cardE = rootE.querySelector(".index-card") as HTMLElement
         setupCardRipple(this.cardE)
 
         // 监听元素进入窗口初次显示

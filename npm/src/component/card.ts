@@ -3,7 +3,7 @@ import { MDCRipple } from "@material/ripple";
 
 export function initCard() {}
 
-export function setupCardRipple(ele: Element | null) {
+export function setupCardRipple(ele?: Element) {
     if (ele != null) {
         new MDCRipple(ele)
     }

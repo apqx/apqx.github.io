@@ -43,11 +43,11 @@
     @include ripple.radius-bounded;
     @include ripple.states-base-color(map.get(base.$icon-button-ripple, "light"));
     @include ripple.states-opacities((hover: .0, focus: .0, press: .15));
-}
 
-@mixin icon-button-dark-ripple {
-    @include ripple.states-base-color(map.get(base.$icon-button-ripple, "dark"));
-    @include ripple.states-opacities((hover: .0, focus: .0, press: .15));
+    .dark & {
+        @include ripple.states-base-color(map.get(base.$icon-button-ripple, "dark"));
+        @include ripple.states-opacities((hover: .0, focus: .0, press: .15));
+    }
 }
 
 .mdc-icon-button {
@@ -56,9 +56,5 @@
     @include icon-button-ripple;
     display: inline-flex;
     align-items: center;
-    justify-content: center
-}
-
-.dark .mdc-icon-button {
-    @include icon-button-dark-ripple;
+    justify-content: center;
 }

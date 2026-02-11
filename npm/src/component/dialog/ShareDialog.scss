@@ -30,7 +30,7 @@
     align-items: stretch;
 
     border-radius: var(--post-inner-shape-round);
-    border: 1px solid var(--pre-code-border);
+    border: 1px solid var(--pre-code-border-heavy);
     background: var(--pre-code-bg);
 
     .share-url-span-wrapper {
@@ -51,14 +51,14 @@
     .mdc-icon-button.btn-copy-url {
         border-top-right-radius: var(--post-inner-shape-round);
         border-bottom-right-radius: var(--post-inner-shape-round);
-        border-left: 1px solid var(--pre-code-border);
+        border-left: 1px solid var(--pre-code-border-heavy);
         height: 3.4rem;
         width: 3.5rem;
 
         i {
             font-size: 1.5rem;
             font-weight: 300;
-            // color: var(--mdc-theme-text-secondary-on-background);
+            color: var(--mdc-theme-text-secondary-on-background);
         }
     }
 }

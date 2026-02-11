@@ -15,10 +15,6 @@ body {
     @include card.cardElevation();
 }
 
-.dark .content-card {
-    @include card.cardElevationDark();
-}
-
 // 文章卡片的默认位置向下偏移，且变为透明
 .content-card-slide-in {
     transform: translateY(var(--content-card-animation-translate-y));

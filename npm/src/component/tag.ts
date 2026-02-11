@@ -26,13 +26,14 @@ export function setupTagTrigger(trigger: HTMLElement) {
 export function onTagTriggerClick(trigger: HTMLElement) {
     // TODO: 如果 tag 是 button，弹出的 dialog 消失后会重新获取焦点
     // (event.target as HTMLElement).blur()
-    const chipId = trigger.id
+    const tagId = trigger.id
+    const nickname = trigger.getAttribute("nickname") ?? undefined
     // chip_tag_随笔 dialog_tag_随笔 dialog_tag_list_随笔
     // chip_tag_碎念&看剧 可以指定多个 tag，用 & 分隔
-    consoleDebug("Click tag " + chipId)
+    consoleDebug("Click tag " + tagId)
     // 这里的 tag 可能是由&连接的多个 tag
-    const tag = chipId.replace("chip_tag_", "")
-    showTagDialog(tag)
+    const tag = tagId.replace("chip_tag_", "")
+    showTagDialog(tag, nickname)
 }
 
 export function initTag() {

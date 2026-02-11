@@ -7,9 +7,9 @@ import { getElementAttribute, toggleClassWithEnable } from "../../util/tools"
  */
 export class ImageLoadAnimator {
     imgE: HTMLImageElement
-    id: string | null
-    widthResizeObserver: ResizeWidthObserver | null = null
-    animationBeforeStart: (() => boolean) | null = null
+    id?: string
+    widthResizeObserver?: ResizeWidthObserver
+    animationBeforeStart?: (() => boolean)
 
     /**
      * 为图片加载添加高度变化动画
@@ -19,9 +19,9 @@ export class ImageLoadAnimator {
      * @param [animationBeforeStart=null] 动画开始前的回调函数，返回true表示继续执行动画，false表示不执行动画
      * @param [animationEndCallback=null] 动画结束后的回调函数
      */
-    constructor(imgE: HTMLImageElement, ratio: number = -1, monitorResize: boolean = false, animationBeforeStart: (() => boolean) | null = null, animationEndCallback: (() => void) | null = null) {
+    constructor(imgE: HTMLImageElement, ratio: number = -1, monitorResize: boolean = false, animationBeforeStart?: (() => boolean), animationEndCallback?: (() => void)) {
         this.imgE = imgE
-        this.id = getElementAttribute(imgE, "alt")
+        this.id = getElementAttribute(imgE, "alt") ?? undefined
         this.animationBeforeStart = animationBeforeStart
 
         // 图片有可能已经加载、显示完成
@@ -70,7 +70,7 @@ export class ImageLoadAnimator {
         })
     }
 
-    private animationDone(monitorResize: boolean, imgE: HTMLImageElement, animationEndCallback: (() => void) | null) {
+    private animationDone(monitorResize: boolean, imgE: HTMLImageElement, animationEndCallback?: (() => void)) {
         if (!monitorResize) {
             toggleClassWithEnable(imgE, "image-height-animation", false)
             imgE.style.height = "auto"

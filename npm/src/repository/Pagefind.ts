@@ -15,8 +15,8 @@ export type PagefindOptions = {
 export class Pagefind {
     PAGE_SIZE: number
     key: string = ""
-    pagefind: any | null = null
-    pagefindResult: PagefindResult | null = null
+    pagefind?: any
+    pagefindResult?: PagefindResult
     loadedCount: number = 0
 
 
@@ -29,7 +29,7 @@ export class Pagefind {
         consoleObjDebug("Pagefind search options => ", options)
 
         if (newKey.length == 0) {
-            this.pagefindResult = null
+            this.pagefindResult = undefined
             this.loadedCount = 0
             return { total: 0, results: [] }
         }
@@ -48,7 +48,7 @@ export class Pagefind {
         consoleObjDebug("Pagefind result => ", pagefindResult)
         const firstPageSize = Math.min(resultSize, this.PAGE_SIZE)
         if (firstPageSize == 0) {
-            this.pagefindResult = null
+            this.pagefindResult = undefined
             this.loadedCount = 0
             return { total: 0, results: [] }
         }

@@ -29,10 +29,10 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
     protected listenScroll: boolean
     protected actionBtns: ActionBtn[]
 
-    mdcDialog: MDCDialog | null = null
-    rootE: Element | null = null
-    btnCloseE: HTMLElement | null = null
-    dialogContentE: HTMLElement | null = null
+    mdcDialog?: MDCDialog
+    rootE?: Element
+    btnCloseE?: HTMLElement
+    dialogContentE?: HTMLElement
 
     constructor(props: T) {
         super(props)
@@ -60,7 +60,7 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
 
     componentWillUnmount() {
         consoleDebug("BasicDialog componentWillUnmount")
-        this.mdcDialog = null
+        this.mdcDialog = undefined
     }
 
     shouldComponentUpdate(nextProps: Readonly<T>, nextState: Readonly<V>, nextContext: any): boolean {
@@ -87,7 +87,7 @@ export abstract class BasicDialog<T extends BasicDialogProps, V> extends React.C
     initDialog() {
         consoleDebug("BasicDialog initDialog " + this.rootE)
         if (this.rootE == null) return
-        this.dialogContentE = this.rootE.querySelector("#basic-dialog-content")
+        this.dialogContentE = this.rootE.querySelector("#basic-dialog-content") ?? undefined
         this.initScrollListener()
         this.mdcDialog = new MDCDialog(this.rootE)
 
@@ -256,13 +256,13 @@ export function BaseDialog({ openCount, fixedWidth = false, closeOnClickOutside 
     const onDialogCloseRef = useRef(onDialogClose)
     const scrollToTopOnDialogOpenRef = useRef(scrollToTopOnDialogOpen)
 
-    // 更新 ref 中的函数引用
+    // 更新 ref 中的函数引用，这些引用会在初始化的监听器中使用
     useEffect(() => {
         onLoadMoreRef.current = onLoadMore
         onDialogOpenRef.current = onDialogOpen
         onDialogCloseRef.current = onDialogClose
         scrollToTopOnDialogOpenRef.current = scrollToTopOnDialogOpen
-    })
+    }, [onLoadMore, onDialogOpen, onDialogClose, scrollToTopOnDialogOpen])
 
     useEffect(() => {
         consoleDebug("BaseDialog useEffect")

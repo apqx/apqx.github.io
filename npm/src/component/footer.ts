@@ -15,7 +15,7 @@ export function initFooter() {
         // 索引页有单独处理，在内容加载后再设置渐进动画
 
         // 标签索引页单独处理
-        if (document.location.pathname.includes("/section/tag")) {
+        if (document.location.pathname.includes("/section/tags")) {
             showFooter()
         }
     } else {

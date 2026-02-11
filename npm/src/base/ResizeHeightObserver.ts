@@ -2,7 +2,7 @@ import { consoleDebug } from "../util/log"
 
 export class ResizeHeightObserver {
     callback: (width: number) => void
-    lastTimeout: NodeJS.Timeout | null = null
+    lastTimeout?: NodeJS.Timeout
     lastHeight = -1
     resizeObserver = new ResizeObserver((entries) => {
         // 只取最后一个，理论上应该只有一个

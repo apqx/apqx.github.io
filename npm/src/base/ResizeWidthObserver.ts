@@ -2,7 +2,7 @@ import { consoleDebug } from "../util/log"
 
 export class ResizeWidthObserver {
     callback: (width: number) => void
-    lastTimeout: NodeJS.Timeout | null = null
+    lastTimeout?: NodeJS.Timeout
     lastWidth = -1
     resizeObserver = new ResizeObserver((entries) => {
         const entry = entries.pop()

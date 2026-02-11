@@ -30,9 +30,9 @@ export const SECTION_TYPE_OPERA: SectionType = {
 export const SECTION_TYPE_TAG: SectionType = {
     identifier: "tag",
     name: "标签",
-    indexPath: "/section/tag.html",
-    // /section/tag /section/tag.html
-    pathRegex: "^(\\/section/tag.*)$"
+    indexPath: "/section/tags.html",
+    // /section/tags /section/tags.html
+    pathRegex: "^(\\/section/tags.*)$"
 }
 
 export const SECTION_TYPE_LENS: SectionType = {
@@ -96,7 +96,8 @@ export function getSectionTypeByPath(path: string): SectionType {
 }
 
 export function isIndexPage(path: string): boolean {
-    return path.match("^((\\/)|(\\/index.*)|(\\/section/(?!tag).*))$") != null 
+    // /， /index，/index.html，/section/中非 tags 开头的页面都算作 Index 页面
+    return path.match("^((\\/)|(\\/index.*)|(\\/section/(?!tags).*))$") != null 
 }
 
 export function isPostPage(path: string): boolean {

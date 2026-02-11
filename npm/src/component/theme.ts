@@ -27,7 +27,8 @@ export function initTheme() {
 }
 
 const metaThemeColor = {
-    colorful: "#556a3b",
+    lightColorful: "#556a3b",
+    darkColorful: "#556a3b",
     light: "#ffffff",
     dark: "#161616"
 }
@@ -44,17 +45,13 @@ const colorfulToolbar = false
 
 function checkMetaThemeColor(dark: boolean, show: boolean) {
     if (show) {
-        if (dark) {
-            setMetaThemeColor(metaThemeColor.dark)
+        if (document.querySelector(".colorful") != null) {
+            setMetaThemeColor(dark ? metaThemeColor.darkColorful : metaThemeColor.lightColorful)
         } else {
-            if (document.querySelector(".colorful") != null) {
-                setMetaThemeColor(metaThemeColor.colorful)
-            } else {
-                setMetaThemeColor(metaThemeColor.light)
-            }
+            setMetaThemeColor(dark ? metaThemeColor.dark : metaThemeColor.light)
         }
     } else {
-        setMetaThemeColor(null)
+        setMetaThemeColor(undefined)
     }
     if (isMobileOrTablet()) {
         toggleTopbarGlass(topbarBlur.mobile)
@@ -64,16 +61,16 @@ function checkMetaThemeColor(dark: boolean, show: boolean) {
 }
 
 function checkColorfulToolbar() {
-    if (colorfulToolbar && isChrome() && isMobileOrTablet()) {
-        toggleClassWithEnable(document.querySelector(".mdc-top-app-bar"), "colorful", true)
+    if (colorfulToolbar) {
+        toggleClassWithEnable(document.querySelector(".mdc-top-app-bar") as HTMLElement, "colorful", true)
     }
 }
 
 /**
- * 设置浏览器的theme-color属性
- * @param {String} color 如果为null则删除属性
+ * 设置浏览器 theme-color 属性
+ * @param {String} color 如果为 undefined 则删除属性
  */
-export function setMetaThemeColor(color: string | null) {
+export function setMetaThemeColor(color?: string) {
     consoleDebug("SetThemeColor " + color)
     let themeColorE = null
     for (const metaE of document.getElementsByTagName("meta")) {

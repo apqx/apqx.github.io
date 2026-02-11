@@ -26,16 +26,8 @@
     @include card.cardElevation();
 }
 
-.dark .mdc-card.grid-index-card {
-    @include card.cardElevationDark();
-}
-
 .mdc-card.grid-index-card__ripple {
     @include card.cardRipple();
-}
-
-.dark .mdc-card.grid-index-card__ripple {
-    @include card.cardRippleDark();
 }
 
 .grid-index-ul {
@@ -67,6 +59,7 @@
 }
 
 .grid-index-title {
+    font-weight: var(--mdc-typography-body1-font-weight);
     font-size: calc(var(--mdc-typography-body1-font-size) + 0.2rem);
     line-height: 1.75rem;
     letter-spacing: var(--mdc-typography-body1-letter-spacing);

@@ -71,9 +71,9 @@ export function setFixedTopbar(on: boolean) {
     // }
 
     if (on) {
-        toggleClassWithEnable(topAppBarE, "mdc-top-app-bar--no-sticky", false)
+        toggleClassWithEnable(topAppBarE!!, "mdc-top-app-bar--no-sticky", false)
     } else {
-        toggleClassWithEnable(topAppBarE, "mdc-top-app-bar--no-sticky", true)
+        toggleClassWithEnable(topAppBarE!!, "mdc-top-app-bar--no-sticky", true)
     }
 }
 
@@ -86,17 +86,17 @@ export function showToggleThemeIconDark(dark: boolean) {
 }
 
 export function toggleTopbarGlass(on: boolean) {
-    toggleClassWithEnable(topAppBarE, "top-app-bar--blur", on)
+    toggleClassWithEnable(topAppBarE!!, "top-app-bar--blur", on)
 }
 
 const animationDoneListener = () => {
     consoleDebug("Topbar animation done")
     // topAppBarE.style.animationPlayState = "initial"
     if (topAppBarE!!.classList.contains("top-app-bar--moving-up")) {
-        toggleClassWithEnable(topAppBarE, "top-app-bar--up", true)
+        toggleClassWithEnable(topAppBarE!!, "top-app-bar--up", true)
         // toggleClassWithEnable(topAppBarE, "top-app-bar--moving-up", false)
     } else if (topAppBarE!!.classList.contains("top-app-bar--moving-down")) {
-        toggleClassWithEnable(topAppBarE, "top-app-bar--down", true)
+        toggleClassWithEnable(topAppBarE!!, "top-app-bar--down", true)
         // toggleClassWithEnable(topAppBarE, "top-app-bar--moving-down", false)
     }
 }
@@ -177,18 +177,18 @@ function toggleShowTopbar(show: boolean) {
             }
             consoleDebug("ToggleShowTopbar " + show)
             blockTopbarKeyFrameAnimation(false)
-            toggleClassWithEnable(topAppBarE, "top-app-bar--moving-down", true)
-            toggleClassWithEnable(topAppBarE, "top-app-bar--moving-up", false)
-            toggleClassWithEnable(topAppBarE, "top-app-bar--up", false)
+            toggleClassWithEnable(topAppBarE!!, "top-app-bar--moving-down", true)
+            toggleClassWithEnable(topAppBarE!!, "top-app-bar--moving-up", false)
+            toggleClassWithEnable(topAppBarE!!, "top-app-bar--up", false)
         }
     } else {
         // 隐藏，向上移动
         if (!topAppBarE!!.classList.contains("top-app-bar--up") && !topAppBarE!!.classList.contains("top-app-bar--moving-up")) {
             consoleDebug("ToggleShowTopbar " + show)
             blockTopbarKeyFrameAnimation(false)
-            toggleClassWithEnable(topAppBarE, "top-app-bar--moving-up", true)
-            toggleClassWithEnable(topAppBarE, "top-app-bar--moving-down", false)
-            toggleClassWithEnable(topAppBarE, "top-app-bar--down", false)
+            toggleClassWithEnable(topAppBarE!!, "top-app-bar--moving-up", true)
+            toggleClassWithEnable(topAppBarE!!, "top-app-bar--moving-down", false)
+            toggleClassWithEnable(topAppBarE!!, "top-app-bar--down", false)
         }
     }
 }

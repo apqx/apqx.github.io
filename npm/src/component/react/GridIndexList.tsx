@@ -118,7 +118,7 @@ function IndexItem(props: IndexItemProps) {
         consoleObjDebug("IndexItem componentDidMount", props)
         const rootE = containerRef.current as HTMLElement;
         const cardE = rootE.querySelector(".grid-index-card")
-        setupCardRipple(cardE)
+        setupCardRipple(cardE as HTMLElement)
 
         const imgE = rootE.querySelector(".grid-index-cover.image-height-animation")
         // 图片加载动画
@@ -150,7 +150,7 @@ function IndexItem(props: IndexItemProps) {
         }
     }, [props.path])
 
-    function startImageAnimation(imgE: HTMLImageElement): ImageLoadAnimator | null {
+    function startImageAnimation(imgE: HTMLImageElement): ImageLoadAnimator {
         return new ImageLoadAnimator(imgE, -1, false,
             () => {
                 // 仅在用户未滚动时的第一页执行动画，否则是不可见的无需动画

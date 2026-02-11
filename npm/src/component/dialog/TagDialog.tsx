@@ -18,7 +18,8 @@ import { PostPaginateShowPresenter, type Post } from "../react/post/PostPaginate
 import { SmoothCollapse } from "../animation/SmoothCollapse"
 
 interface TagDialogProps extends BaseDialogOpenProps {
-    tag: string
+    tag: string,
+    nickname?: string,
 }
 
 function TagDialog(props: TagDialogProps) {
@@ -37,7 +38,7 @@ function TagDialog(props: TagDialogProps) {
     return (
         <BaseDialog openCount={props.openCount} fixedWidth={true} onDialogOpen={onDialogOpen} onDialogClose={onDialogClose} onLoadMore={onLoadMore}>
             <SmoothCollapse>
-                <ResultWrapper category={""} tag={props.tag} pinnedPosts={[]} loadedPosts={[]}
+                <ResultWrapper category={""} tag={props.tag} tagNickname={props.nickname} pinnedPosts={[]} loadedPosts={[]}
                     onUpdate={undefined} dialogStateObservable={dialogStateObservable} />
             </SmoothCollapse>
         </BaseDialog>
@@ -45,7 +46,8 @@ function TagDialog(props: TagDialogProps) {
 }
 
 interface ResultWrapperProps extends BasePaginateShowProps<Post> {
-    dialogStateObservable: DialogStateObservable
+    dialogStateObservable: DialogStateObservable,
+    tagNickname?: string,
 }
 
 class ResultWrapper extends BasePaginateShow<Post, ResultWrapperProps> {
@@ -93,7 +95,7 @@ class ResultWrapper extends BasePaginateShow<Post, ResultWrapperProps> {
         }
         return (
             <>
-                <p>标记 {this.props.tag} 的 {count} 篇博文</p>
+                <p>标记 {this.props.tagNickname ?? this.props.tag} 的 {count} 篇博文</p>
                 {this.state.posts != null && this.state.posts.length != 0 &&
                     <PostResult list={this.state.posts} />
                 }
@@ -210,8 +212,8 @@ function PostItem(props: PostItemProps) {
 
     return (
         <li ref={containerRef}>
-            <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken tag-list-item mdc-ripple-upgraded"
-                tabIndex={0} href={props.data.url}>
+            {/* 禁止列表自动获取焦点，可能导致 dialog 关闭时意外滚动到焦点位置 */}
+            <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken tag-list-item mdc-ripple-upgraded" href={props.data.url} tabIndex={-1}>
                 <span className="mdc-deprecated-list-item__text">
                     <span className="list-item__primary-text one-line">{props.data.title}</span>
                     <div className="list-item__secondary-text tag-list-item__secondary-container">
@@ -259,8 +261,9 @@ function Block(props: BlockProps) {
 }
 
 let openCount = 0
-export function showTagDialog(_tag: string) {
+// nickname 是 tag 的别名，如果存在则在 dialog 标题显示别名，否则显示 tag 原文
+export function showTagDialog(_tag: string, _tagNickname?: string) {
     consoleDebug("ShowTagDialog " + _tag)
-    showDialog(<TagDialog openCount={openCount++} tag={_tag} />, TAG_DIALOG_WRAPPER_ID + "-" + _tag)
+    showDialog(<TagDialog openCount={openCount++} tag={_tag} nickname={_tagNickname} />, TAG_DIALOG_WRAPPER_ID + "-" + _tag)
     // OnClickBtn={null} closeOnClickOutside={true} />, TAG_DIALOG_WRAPPER_ID)
 }

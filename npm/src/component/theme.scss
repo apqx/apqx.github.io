@@ -46,6 +46,7 @@
         // --pre-code-bg: #151515;
         --pre-code-bg: #{map.get(base.$pre-code-bg, "light")};
         --pre-code-border: #{map.get(base.$pre-code-border, "light")};
+        --pre-code-border-heavy: #{map.get(base.$pre-code-border-heavy, "light")};
 
         // Chip
         --chip-bg: #{map.get(base.$chip-bg, "light")};
@@ -69,6 +70,7 @@
         --blockquote-border: #{map.get(base.$blockquote-border, "light")};
 
         --surface-block-border: #{map.get(base.$surface-block-border, "light")};
+        --surface-block-border-heavy: #{map.get(base.$surface-block-border-heavy, "light")};
         --surface-block-bg: #{map.get(base.$surface-block-bg, "light")};
 
 
@@ -113,6 +115,7 @@
         --code-highlight-ink: #{map.get(base.$code-highlight-ink, "dark")};
         --pre-code-bg: #{map.get(base.$pre-code-bg, "dark")};
         --pre-code-border: #{map.get(base.$pre-code-border, "dark")};
+        --pre-code-border-heavy: #{map.get(base.$pre-code-border-heavy, "dark")};
 
         // Chip
         --chip-bg: #{map.get(base.$chip-bg, "dark")};
@@ -136,6 +139,7 @@
         --blockquote-border: #{map.get(base.$blockquote-border, "dark")};
 
         --surface-block-border: #{map.get(base.$surface-block-border, "dark")};
+        --surface-block-border-heavy: #{map.get(base.$surface-block-border-heavy, "dark")};
         --surface-block-bg: #{map.get(base.$surface-block-bg, "dark")};
 
         --list-border: #{map.get(base.$list-border, "dark")};
@@ -271,4 +275,3 @@ body {
                 --list-divider-height: 0.15rem;
         }
 }
-

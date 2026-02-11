@@ -10,8 +10,8 @@ import type { ApiPagefindSearch } from "../../repository/bean/pagefind/ApiPagefi
 export class SearchDialogPresenter {
     component: SearchDialog
     pagefind: Pagefind
-    key: string | null = null
-    abortController: AbortController | null = null
+    key?: string
+    abortController?: AbortController
 
     constructor(component: SearchDialog) {
         this.component = component
@@ -142,7 +142,7 @@ export class SearchDialogPresenter {
     clearResults() {
         this.component.setState({
             loading: false,
-            loadHint: null,
+            loadHint: undefined,
             results: [],
         })
     }

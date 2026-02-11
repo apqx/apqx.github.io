@@ -26,12 +26,13 @@ export function initFab() {
     }
 
     // Fab 默认隐藏，使用 Intersection Observer 监听显示动画
-    const fabUpE = document.querySelector("#fabUp")
+    const fabUpE = document.querySelector("#fabUp") as HTMLElement
     if (fabUpE != null) {
         setupIconButtonRipple(fabUpE)
         getInterSectionObserver().observe(fabUpE.parentElement as HTMLElement)
         fabUpE?.addEventListener("click", () => {
             scrollToTop()
+            fabUpE.focus()
             // window.location.replace("#top")
         })
     }

@@ -8,13 +8,13 @@ export function initButton() {
     }
 }
 
-export function setupButtonRipple(ele: Element | null) {
+export function setupButtonRipple(ele?: Element) {
     if (ele != null) {
         new MDCRipple(ele)
     }
 }
 
-export function setupIconButtonRipple(ele: Element | null) {
+export function setupIconButtonRipple(ele?: Element) {
     if (ele != null) {
         const ripple = new MDCRipple(ele)
         ripple.unbounded = true

@@ -15,18 +15,18 @@ body {
 }
 
 .mdc-top-app-bar.colorful {
-    background-color: #556a3b;
+    background-color: #{map.get(base.$top-bar, "bg-light-colorful")};
 
     * {
-        color: white;
+        color: #{map.get(base.$top-bar-ink, "light-colorful")};
     }
 }
 
 .dark .mdc-top-app-bar.colorful {
-    background-color: var(--mdc-theme-primary);
+    background-color: #{map.get(base.$top-bar, "bg-dark-colorful")};
 
     * {
-        color: var(--mdc-theme-on-primary);
+        color: #{map.get(base.$top-bar-ink, "dark-colorful")};
     }
 }
 
@@ -42,15 +42,30 @@ body {
         color: var(--mdc-theme-on-primary);
     }
 
+    // 标题栏图标和字体的字重以字体为准，图标适应字体
+    // 默认思源黑体，可切换为稍细的思源宋体
+    // 标题栏字体字重默认为正文字重
     i {
         // 标题栏图标字重适应字体粗细
         font-weight: 330;
     }
+
+    // 首页标题使用了颜文字，是特殊情况，单独设置字重配合图标字重，保持视觉平衡
+    .mdc-top-app-bar__title.title-home * {
+        letter-spacing: 0.08rem;
+        font-weight: 390;
+    }
 }
 
+// 思源宋体字体更细，标题栏图标字重适应字体粗细
 .font-noto-serif-sc {
     .mdc-top-app-bar i {
         font-weight: 300;
+    }
+
+    // 首页标题字重单独调整
+    .mdc-top-app-bar__title.title-home * {
+        font-weight: 360;
     }
 }
 
@@ -71,11 +86,6 @@ body {
     @include button.icon-button-ripple;
 }
 
-.dark .mdc-top-app-bar__action-item.mdc-icon-button,
-.dark .mdc-top-app-bar__navigation-icon.mdc-icon-button {
-    @include button.icon-button-dark-ripple;
-}
-
 .mdc-top-app-bar__navigation-icon.mdc-icon-button,
 .mdc-top-app-bar__action-item.mdc-icon-button {
     display: flex;
@@ -94,18 +104,6 @@ body {
         text-decoration: none;
     }
 
-}
-
-.mdc-top-app-bar__title.title-home * {
-    letter-spacing: 0.08rem;
-    font-weight: 400;
-}
-
-.font-noto-serif-sc {
-    // 标题栏标题字重适应字体粗细，首页使用单独的字体，单独调整
-    .mdc-top-app-bar__title.title-home * {
-        font-weight: 360;
-    }
 }
 
 .mdc-top-app-bar__row {

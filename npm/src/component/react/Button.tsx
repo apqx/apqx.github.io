@@ -5,8 +5,9 @@ import { setupButtonRipple } from "../button"
 
 export interface BtnProps {
     text: string
-    onClick: (() => void) | null;
-    classes: string[];
+    onClick?: (() => void);
+    classes: string[],
+    tabIndex?: number;
 }
 
 export function Button(props: BtnProps) {
@@ -34,7 +35,7 @@ export function Button(props: BtnProps) {
     }, [])
 
     return (
-        <button ref={containerRef} type="button" className={`mdc-button ${props.classes.join(" ")}`} tabIndex={0}>
+        <button ref={containerRef} type="button" className={`mdc-button ${props.classes.join(" ")}`} tabIndex={props.tabIndex == null ? 0 : props.tabIndex}>
             <span className="mdc-button__label">{props.text}</span>
         </button>
     )
@@ -44,6 +45,7 @@ export interface IconBtnProps {
     icon: string
     onClick: (() => void) | null;
     classes: string[];
+    tabIndex?: number;
 }
 
 export function IconButton(props: IconBtnProps) {
@@ -71,7 +73,7 @@ export function IconButton(props: IconBtnProps) {
     }, [])
 
     return (
-        <button ref={containerRef} type="button" className={`mdc-icon-button ${props.classes.join(" ")}`} tabIndex={0}>
+        <button ref={containerRef} type="button" className={`mdc-icon-button ${props.classes.join(" ")}`} tabIndex={props.tabIndex == null ? 0 : props.tabIndex}>
             <i className="material-symbols-rounded-variable mdc-button__icon" aria-hidden="true">{props.icon}</i>
         </button>
     )

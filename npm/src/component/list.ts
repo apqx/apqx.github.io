@@ -9,7 +9,7 @@ export function initListItem(e: HTMLElement, first: boolean, last: boolean) {
     toggleClassWithEnable(e, "list-last", last)
 }
 
-export function setupListItemRipple(ele: Element | null) { 
+export function setupListItemRipple(ele?: Element) { 
     if (ele != null) {
         new MDCRipple(ele)
     }

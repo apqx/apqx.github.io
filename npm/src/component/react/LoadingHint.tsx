@@ -6,7 +6,7 @@ export const ERROR_HINT: string = "重试加载"
 
 interface Props {
     loading: boolean
-    loadHint: string | null
+    loadHint?: string
     onClickHint: () => void
 }
 
@@ -15,14 +15,14 @@ export function LoadingHint(props: Props) {
         <div className="loading-hint-wrapper center-items">
             {props.loading && <ProgressCircular loading={true} />}
             {(!props.loading && props.loadHint != null) &&
-                <Button text={props.loadHint} onClick={props.onClickHint} classes={["loading-hint-btn"]} />
+                <Button text={props.loadHint} onClick={props.onClickHint} classes={["loading-hint-btn"]} tabIndex={-1} />
             }
         </div>
     )
 }
 
-export function getLoadHint(loadSize: number, resultSize: number): string | null {
-    if (loadSize >= resultSize) return null
+export function getLoadHint(loadSize: number, resultSize: number): string | undefined {
+    if (loadSize >= resultSize) return undefined
     return loadSize + "/" + resultSize + " MORE"
 }
 

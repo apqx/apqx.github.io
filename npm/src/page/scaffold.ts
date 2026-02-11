@@ -1,5 +1,5 @@
 import "./scaffold.scss"
-import { isChrome, isWriting, runOnHtmlDone, runOnPageBackFromCache, runOnPageDone, toggleClassWithEnable } from "../util/tools"
+import { isChrome, isWriting, runOnHtmlDone, runOnPageBackFromCache, runOnPageDone } from "../util/tools"
 import { blockTopbarKeyFrameAnimation, initTopbar, refreshTopbar } from "../component/topbar"
 import { initDrawer } from "../component/drawer"
 import { checkUserTheme, initTheme } from "../component/theme"

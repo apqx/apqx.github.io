@@ -12,9 +12,9 @@ import { getServiceInstance, SERVICE_DEBUG_MODE_AUTO, SERVICE_DEBUG_MODE_OFF } f
  */
 export abstract class BasePaginateShowPresenter<D> implements IPaginateShowPresenter {
     component: BasePaginateShow<D, BasePaginateShowProps<D>>
-    cachedPage: PaginatePage[] | null = null
+    cachedPage?: PaginatePage[]
     firstLoadingDelay: boolean = false
-    abortController: AbortController | null = null
+    abortController?: AbortController
 
     constructor(component: BasePaginateShow<D, BasePaginateShowProps<D>>, firstLoadingDelay: boolean = false) {
         this.component = component
@@ -158,7 +158,7 @@ export abstract class BasePaginateShowPresenter<D> implements IPaginateShowPrese
             if (this.component.state.loading != false || this.component.state.loadHint != null) {
                 this.component.setState({
                     loading: false,
-                    loadHint: null
+                    loadHint: undefined
                 })
             }
             return
