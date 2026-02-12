@@ -8,8 +8,8 @@
 @use "sass:color";
 
 @mixin light {
-        --mdc-theme-primary: #{map.get(base.$top-bar, "bg-light")};
-        --mdc-theme-on-primary: #{map.get(base.$top-bar-ink, "light")};
+        --mdc-theme-primary: #{map.get(base.$topbar, "bg-light")};
+        --mdc-theme-on-primary: #{map.get(base.$topbar-ink, "light")};
         --mdc-theme-secondary: #{map.get(base.$fab-bg, "light")};
         --mdc-theme-on-secondary: #{map.get(base.$fab-ink, "light")};
         --mdc-theme-background: #{map.get(base.$background, "light")};
@@ -23,7 +23,7 @@
         // 小标题字体色
         --mdc-theme-text-secondary-on-background: #{map.get(base.$text-subtitle, "light")};
 
-        --top-bar-blur: #{map.get(base.$top-bar, "bg-blur-light")};
+        --topbar-blur: #{map.get(base.$topbar, "bg-blur-light")};
         --footer-ink:#{map.get(base.$footer-ink, "light")};
 
         // Drawer
@@ -86,8 +86,8 @@
 }
 
 @mixin dark {
-        --mdc-theme-primary: #{map.get(base.$top-bar, "bg-dark")};
-        --mdc-theme-on-primary: #{map.get(base.$top-bar-ink, "dark")};
+        --mdc-theme-primary: #{map.get(base.$topbar, "bg-dark")};
+        --mdc-theme-on-primary: #{map.get(base.$topbar-ink, "dark")};
         --mdc-theme-secondary: #{map.get(base.$fab-bg, "dark")};
         --mdc-theme-on-secondary: #{map.get(base.$fab-ink, "dark")};
         --mdc-theme-background: #{map.get(base.$background, "dark")};
@@ -98,7 +98,7 @@
         --mdc-theme-text-primary-on-background: #{map.get(base.$text-title, "dark")};
         --mdc-theme-text-secondary-on-background: #{map.get(base.$text-subtitle, "dark")};
 
-        --top-bar-blur: #{map.get(base.$top-bar, "bg-blur-dark")};
+        --topbar-blur: #{map.get(base.$topbar, "bg-blur-dark")};
         --footer-ink:#{map.get(base.$footer-ink, "dark")};
 
         // Drawer
@@ -221,7 +221,7 @@ body {
 
         --drawer-padding-horizontal: 0.55rem;
 
-        --top-bar-height: 3.7rem;
+        --topbar-height: 3.7rem;
 
         // main container 为中央主体容器，设置最大宽度，水平居中，此为其顶部距 topbar 和底部距 footer 的距离
         --main-container-padding-vertical: 1.2rem;

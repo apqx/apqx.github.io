@@ -9,7 +9,7 @@ $surface: (
 
 // 黑白配色
 // blur 30px 0.8 可与 Safari 的 frosted glass 效果相似
-$top-bar: (
+$topbar: (
         backdrop-filter: 30px,
         bg-light: map.get($surface, "light"),
         bg-blur-light: rgba(map.get($surface, "light"), 0.8),
@@ -20,16 +20,16 @@ $top-bar: (
         bg-dark-colorful: #556a3b,
         bg-blur-dark-colorful: rgba(#556a3b, 0.8),
 );
-$top-bar-ink: (
-        light: color.adjust(map.get($top-bar, "bg-light"), $lightness: -80%),
+$topbar-ink: (
+        light: color.adjust(map.get($topbar, "bg-light"), $lightness: -80%),
         light-colorful: white,
-        dark: color.adjust(map.get($top-bar, "bg-dark"), $lightness: +80%),
+        dark: color.adjust(map.get($topbar, "bg-dark"), $lightness: +80%),
         dark-colorful: white,
 );
 
 $footer-ink: (
-        light: color.adjust(map.get($top-bar, "bg-light"), $lightness: -80%),
-        dark: color.adjust(map.get($top-bar, "bg-dark"), $lightness: +80%),
+        light: color.adjust(map.get($topbar, "bg-light"), $lightness: -80%),
+        dark: color.adjust(map.get($topbar, "bg-dark"), $lightness: +80%),
 );
 
 $background: (
@@ -76,12 +76,16 @@ $drawer-nav-ripple: (
 $fab-bg: (
         backdrop-filter: 10px,
         light: rgba(color.adjust(map.get($background, "light"), $lightness: -3%), 0.5),
+        // light: rgba(color.adjust(map.get($background, "light"), $lightness: -80%), 0.8),
         dark: rgba(color.adjust(map.get($background, "dark"), $lightness: -3%), 0.5),
+        // dark: rgba(color.adjust(map.get($background, "dark"), $lightness: +80%), 0.8),
 );
 
 $fab-ink: (
         light: rgba(color.adjust(map.get($fab-bg, "light"), $lightness: -70%), 1),
+        // light: rgba(color.adjust(map.get($fab-bg, "light"), $lightness: +70%), 1),
         dark: rgba(color.adjust(map.get($fab-bg, "dark"), $lightness: +70%), 1),
+        // dark: rgba(color.adjust(map.get($fab-bg, "dark"), $lightness: -70%), 1),
 );
 
 $fab-ripple: (
@@ -104,10 +108,10 @@ $scrim: (
         backdrop-blur: 5px,
 );
 
-$top-bar-elevation: (
+$topbar-elevation: (
         elevation: 0,
-        shadow-light: color.adjust(map.get($top-bar, "bg-light"), $lightness: -3%),
-        shadow-dark: color.adjust(map.get($top-bar, "bg-dark"), $lightness: +3%),
+        shadow-light: color.adjust(map.get($topbar, "bg-light"), $lightness: -3%),
+        shadow-dark: color.adjust(map.get($topbar, "bg-dark"), $lightness: +3%),
 );
 $fab-elevation: (
         elevation: 0,

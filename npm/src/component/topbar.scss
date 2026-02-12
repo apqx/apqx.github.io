@@ -11,22 +11,22 @@
 @use "sass:color";
 
 body {
-    --top-bar-slid-translateY: calc(0px - var(--top-bar-height) - 10px)
+    --topbar-slid-translateY: calc(0px - var(--topbar-height) - 10px)
 }
 
 .mdc-top-app-bar.colorful {
-    background-color: #{map.get(base.$top-bar, "bg-light-colorful")};
+    background-color: #{map.get(base.$topbar, "bg-light-colorful")};
 
     * {
-        color: #{map.get(base.$top-bar-ink, "light-colorful")};
+        color: #{map.get(base.$topbar-ink, "light-colorful")};
     }
 }
 
 .dark .mdc-top-app-bar.colorful {
-    background-color: #{map.get(base.$top-bar, "bg-dark-colorful")};
+    background-color: #{map.get(base.$topbar, "bg-dark-colorful")};
 
     * {
-        color: #{map.get(base.$top-bar-ink, "dark-colorful")};
+        color: #{map.get(base.$topbar-ink, "dark-colorful")};
     }
 }
 
@@ -34,8 +34,8 @@ body {
     // 颜色，默认为 primary
     background-color: var(--mdc-theme-primary);
     // 阴影
-    @include elevation.elevation(map.get(base.$top-bar-elevation, "elevation"), map.get(base.$top-bar-elevation, "shadow-light"), 0);
-    // border-bottom: 1px solid color.adjust(map.get(base.$top-bar, "bg-light"), $lightness: - 3%);
+    @include elevation.elevation(map.get(base.$topbar-elevation, "elevation"), map.get(base.$topbar-elevation, "shadow-light"), 0);
+    // border-bottom: 1px solid color.adjust(map.get(base.$topbar, "bg-light"), $lightness: - 3%);
     position: absolute;
 
     * {
@@ -71,14 +71,14 @@ body {
 
 .dark .mdc-top-app-bar {
     // 阴影
-    @include elevation.elevation(map.get(base.$top-bar-elevation, "elevation"), map.get(base.$top-bar-elevation, "shadow-dark"), 0);
-    // border-bottom: 1px solid color.adjust(map.get(base.$top-bar, "bg-dark"), $lightness: + 3%);
+    @include elevation.elevation(map.get(base.$topbar-elevation, "elevation"), map.get(base.$topbar-elevation, "shadow-dark"), 0);
+    // border-bottom: 1px solid color.adjust(map.get(base.$topbar, "bg-dark"), $lightness: + 3%);
 }
 
 .top-app-bar--blur {
-    backdrop-filter: blur(map.get(base.$top-bar, "backdrop-filter"));
-    -webkit-backdrop-filter: blur(map.get(base.$top-bar, "backdrop-filter"));
-    @include top-app-bar.fill-color(var(--top-bar-blur));
+    backdrop-filter: blur(map.get(base.$topbar, "backdrop-filter"));
+    -webkit-backdrop-filter: blur(map.get(base.$topbar, "backdrop-filter"));
+    @include top-app-bar.fill-color(var(--topbar-blur));
 }
 
 .mdc-top-app-bar__action-item.mdc-icon-button,
@@ -143,7 +143,7 @@ body {
 }
 
 .mdc-top-app-bar__row {
-    height: var(--top-bar-height);
+    height: var(--topbar-height);
 }
 
 // 添加此类以禁用mdc的滚动隐藏/显示逻辑
@@ -166,7 +166,7 @@ body {
 // 执行中的CSS动画可以被新动画打断，会从当前状态开始过渡，而非从原始状态
 
 .top-app-bar--up {
-    transform: translateY(var(--top-bar-slid-translateY));
+    transform: translateY(var(--topbar-slid-translateY));
     opacity: 0;
 }
 
@@ -195,18 +195,18 @@ body {
 
     50% {
         opacity: 1;
-        transform: translateY(var(--top-bar-slid-translateY));
+        transform: translateY(var(--topbar-slid-translateY));
     }
 
     100% {
-        transform: translateY(var(--top-bar-slid-translateY));
+        transform: translateY(var(--topbar-slid-translateY));
         opacity: 0;
     }
 }
 
 @keyframes moveDown {
     0% {
-        transform: translateY(var(--top-bar-slid-translateY));
+        transform: translateY(var(--topbar-slid-translateY));
         opacity: 0;
     }
 

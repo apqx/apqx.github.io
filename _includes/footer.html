@@ -16,13 +16,14 @@
 <!-- Floating Action Button -->
 <div class="floating-action-container">
   <div class="mdc-touch-target-wrapper card-fade-in" id="fabUpWrapper">
-    <a class="mdc-fab" aria-label="Up" id="fabUp">
-      <i class="mdc-fab__icon material-symbols-rounded-variable">arrow_upward</i>
-    </a>
+    <!-- 使用 button 而不是 a 标签，添加 ripple 的 a 在 safari 中必须等动画播放完成才会触发 onclick 事件，存在明显延迟。 -->
+    <button class="mdc-fab mdc-icon-button" aria-label="Up" id="fabUp" tabindex="0">
+      <i class="material-symbols-rounded-variable mdc-icon-button__icon">arrow_upward</i>
+    </button>
   </div>
   <div class="mdc-touch-target-wrapper card-fade-in" id="fabSearchWrapper">
-    <a class="mdc-fab" aria-label="Search" id="fabSearch">
-      <i class="mdc-fab__icon material-symbols-rounded-variable">image_search</i>
-    </a>
+    <button class="mdc-fab mdc-icon-button" aria-label="Search" id="fabSearch" tabindex="0">
+      <i class="material-symbols-rounded-variable mdc-icon-button__icon">image_search</i>
+    </button>
   </div>
 </div>

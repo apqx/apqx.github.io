@@ -89,12 +89,12 @@ footer * {
 // header 在 page-wrap 中的占位空间
 .header-space {
     width: 100%;
-    height: var(--top-bar-height);
+    height: var(--topbar-height);
     border: none;
     margin: 0;
 }
 
-// 内容最外层容器，高度为 100% - top-bar-height - footer-height 
+// 内容最外层容器，高度为 100% - topbar-height - footer-height 
 .main-container {
     width: 100%;
     max-width: base.$center-container-max-width;
@@ -148,15 +148,15 @@ footer * {
 }
 
 .mdc-top-app-bar--fixed-adjust {
-    // margin-top: var(--top-bar-height);
+    // margin-top: var(--topbar-height);
     // padding-top: 0;
     // top: 0;
-    padding-top: var(--top-bar-height);
+    padding-top: var(--topbar-height);
     top: 0;
 }
 
 .mdc-top-app-bar--fixed-adjust-by-padding {
-    padding-top: var(--top-bar-height);
+    padding-top: var(--topbar-height);
     top: 0;
 }
 

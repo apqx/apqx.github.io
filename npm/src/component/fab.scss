@@ -7,21 +7,20 @@
 @use "sass:map";
 
 .floating-action-container .mdc-fab {
-    border-radius: 0.2rem;
     @include ripple.surface;
     @include ripple.radius-bounded;
     @include ripple.states-base-color(map.get(base.$button-ripple, "light"));
-    @include ripple.states-opacities((hover: .0, focus: .0, press: .1));
-
+    @include ripple.states-opacities((hover: .0, focus: .0, press: .15));
+    .dark & {
+        @include ripple.states-base-color(map.get(base.$button-ripple, "dark"));
+        @include ripple.states-opacities((hover: .0, focus: .0, press: .15));
+    }
+    
+    border-radius: 0.2rem;
     backdrop-filter: blur(map.get(base.$fab-bg, "backdrop-filter"));
     -webkit-backdrop-filter: blur(map.get(base.$fab-bg, "backdrop-filter"));
     // width: 3.5rem;
     // height: 3.5rem;
-}
-
-.dark .floating-action-container .mdc-fab {
-    @include ripple.states-base-color(map.get(base.$button-ripple, "dark"));
-    @include ripple.states-opacities((hover: .0, focus: .0, press: .1));
 }
 
 .floating-action-container {
@@ -56,6 +55,9 @@
 }
 
 .mdc-fab,
+.mdc-fab.mdc-ripple-upgraded--background-focused,
+.mdc-fab:active,
+.mdc-fab:focus:active,
 .mdc-fab:hover {
     // 消除阴影
     // TODO: 使用 var 设置的阴影是失效的
