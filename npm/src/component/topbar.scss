@@ -96,6 +96,42 @@ body {
     }
 }
 
+// 图标变换动画，左右移动并淡入淡出，适用于主题切换和菜单切换按钮
+.mdc-icon-button.mdc-icon-button--toggle-animation  {
+    position: relative;
+
+    .mdc-icon-button__icon {
+        display: block !important;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        // 居中显示
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+        transition: opacity 0.4s ease, transform 0.4s ease;
+        will-change: opacity, transform;
+        pointer-events: none;
+    }
+
+    .mdc-icon-button__icon--on {
+        display: block !important;
+        opacity: 0;
+        transform: translate(-40%, -50%) scale(1);
+    }
+
+    &.mdc-icon-button--on {
+        .mdc-icon-button__icon {
+            opacity: 0;
+            transform: translate(-60%, -50%) scale(1);
+        }
+
+        .mdc-icon-button__icon--on {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+    }
+}
+
 .mdc-top-app-bar__title {
     padding-left: 0.3rem;
     font-weight: var(--font-weight-normal);

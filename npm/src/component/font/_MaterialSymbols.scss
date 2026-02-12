@@ -7,8 +7,9 @@
 // https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,100..700,0,0
 // 部分字体文件，icon_names 必须以字母表排序
 // 用到的图标必须在这里列出，下载字体文件自托管，可由 AI 辅助排序
-// icon_names = arrow_upward,auto_awesome,content_paste,dark_mode,editor_choice,face,image_search,keep,light_mode,local_offer,manage_accounts,menu,palette,photo_camera,qr_code,search,translate,vrpano
+// icon_names = arrow_upward,auto_awesome,content_paste,dark_mode,editor_choice,face,image_search,keep,light_mode,local_offer,manage_accounts,menu,menu_open,palette,photo_camera,qr_code,search,translate,vrpano
 // https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,100..700,0,0&icon_names={icon_names}&display=block
+// https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,100..700,0,0&icon_names=arrow_upward,auto_awesome,content_paste,dark_mode,editor_choice,face,image_search,keep,light_mode,local_offer,manage_accounts,menu,menu_open,palette,photo_camera,qr_code,search,translate,vrpano&display=block
 @use "sass:string";
 
 // 可变字重，只包含有限图标
@@ -16,7 +17,7 @@
   font-family: "Material Symbols Rounded Variable";
   font-style: normal;
   font-weight: 100 700;
-  src: url(https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/MaterialSymbolsRounded/v315/font-variable.woff2) format("woff2");
+  src: url(https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/MaterialSymbolsRounded/v315/font-variable-20260212.woff2) format("woff2");
 }
 
 // 固定字重，包含所有图标

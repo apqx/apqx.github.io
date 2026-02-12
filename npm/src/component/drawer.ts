@@ -2,11 +2,11 @@
 import { MDCDrawer } from "@material/drawer";
 import { MDCList } from "@material/list";
 import { consoleDebug, consoleError } from "../util/log";
-import { topAppBar } from "./topbar";
+import { setToggleMenuIconBtnFocused, setToggleMenuIconBtnOn, topAppBar } from "./topbar";
 import { showAboutMeDialog } from "./dialog/AboutMeDialog";
 import { showPreferenceDialog } from "./dialog/PreferenceDialog";
 import { showSearchDialog } from "./dialog/SearchDialog";
-import { getSectionTypeByPath, SECTION_TYPE_LENS, SECTION_TYPE_OPERA, SECTION_TYPE_POETRY, SECTION_TYPE_REPOST, SECTION_TYPE_TAG } from "../base/constant";
+import { getSectionTypeByPath, SECTION_TYPE_LENS, SECTION_TYPE_OPERA, SECTION_TYPE_POETRY, SECTION_TYPE_REPOST, SECTION_TYPE_TAGS } from "../base/constant";
 import { toggleClassWithEnable } from "../util/tools";
 import { setupIconButtonRipple } from "./button";
 import { setupListItemRipple } from "./list";
@@ -28,11 +28,11 @@ export function initDrawer() {
         return
     }
     let drawer = MDCDrawer.attachTo(drawerE)
-    // 监听menu按钮点击
+    // 监听 menu 按钮点击
     topAppBar?.listen("MDCTopAppBar:nav", () => {
         drawer.open = !drawer.open
     })
-    // 监听trigger弹出Drawer
+    // 监听 trigger 弹出 drawer
     const toggleDowers = document.querySelectorAll(".drawer-trigger")
     for (const toggle of toggleDowers) {
         toggle.addEventListener("click", () => {
@@ -40,9 +40,9 @@ export function initDrawer() {
         })
     }
     // drawer 中的 icon-button
-    const iconBtnE = document.querySelector("#drawer_btn_share")
-    setupIconButtonRipple(iconBtnE as HTMLElement)
-    iconBtnE?.addEventListener("click", () => {
+    const iconBtnShareE = document.querySelector("#drawer_btn_share")
+    setupIconButtonRipple(iconBtnShareE as HTMLElement)
+    iconBtnShareE?.addEventListener("click", () => {
         consoleDebug("Click drawer share button")
         import("./dialog/ShareDialog").then((component) => {
             component.showShareDialog()
@@ -56,21 +56,28 @@ export function initDrawer() {
         consoleError("Drawer list not found")
         return
     }
-    const aEList = listE.querySelectorAll("a.mdc-deprecated-list-item")
+    const liEList = listE.querySelectorAll("a.mdc-deprecated-list-item")
     const drawerList = MDCList.attachTo(listE)
     drawerList.singleSelection = true;
-    const currentPageIndex = getCurrentPageIndex(aEList)
-    const currentSelectedAE = aEList[currentPageIndex] as HTMLElement
+    const currentPageIndex = getCurrentPageIndex(liEList)
+    const currentSelectedLiE = liEList[currentPageIndex] as HTMLElement
     drawerList.listElements.map(liE => setupListItemRipple(liE))
+    // 初始化选中当前页面对应的板块 item
     drawerList.selectedIndex = currentPageIndex
+
     drawerE.addEventListener("MDCDrawer:opened", () => {
-        // Drawer弹出时禁止body滚动
+        // drawer 弹出时禁止 body 滚动
         toggleClassWithEnable(document.body, "mdc-drawer-scroll-lock", true)
-        currentSelectedAE.focus()
-        currentSelectedAE.blur()
+        setToggleMenuIconBtnOn(true)
+        currentSelectedLiE.focus()
+        currentSelectedLiE.blur()
     });
     drawerE.addEventListener("MDCDrawer:closed", () => {
         toggleClassWithEnable(document.body, "mdc-drawer-scroll-lock", false)
+        setToggleMenuIconBtnOn(false)
+        // drawer 关闭时恢复 menu 按钮焦点，或许能解决 android chrome 索引页和文章页在 drawer 关闭后点击 fab 出现文本选中问题
+        // 看起来没有效果，保留代码，后续如果发现有用再说
+        setToggleMenuIconBtnFocused(true)
         // 恢复选中
         // drawerList.selectedIndex = currentPageIndex
     });
@@ -79,8 +86,8 @@ export function initDrawer() {
     listE.addEventListener("click", () => {
         // 恢复选中
         drawerList.selectedIndex = currentPageIndex
-        currentSelectedAE.focus()
-        currentSelectedAE.blur()
+        currentSelectedLiE.focus()
+        currentSelectedLiE.blur()
     });
 
     const searchE = listE.querySelector("#" + DRAWER_ITEM_SEARCH_ID)
@@ -118,7 +125,7 @@ function getCurrentPageIndex(aEList: NodeListOf<Element>) {
         return findIndexById(aEList, DRAWER_ITEM_OPERA_ID)
     } else if (section.identifier == SECTION_TYPE_LENS.identifier) {
         return findIndexById(aEList, DRAWER_ITEM_LENS_ID)
-    } else if (section.identifier == SECTION_TYPE_TAG.identifier) {
+    } else if (section.identifier == SECTION_TYPE_TAGS.identifier) {
         return findIndexById(aEList, DRAWER_ITEM_TAG_ID)
     } else {
         // 其余所有页面都显示随笔板块

@@ -1,6 +1,7 @@
 // import "./fab.scss"
 
 import { getSectionTypeByPath, isIndexPage, SECTION_TYPE_LENS } from "../base/constant"
+import { isChrome, isSafari } from "../util/tools"
 import { getInterSectionObserver } from "./animation/BaseAnimation"
 import { setupIconButtonRipple } from "./button"
 import { showSnackbar } from "./react/Snackbar"
@@ -31,9 +32,13 @@ export function initFab() {
         setupIconButtonRipple(fabUpE)
         getInterSectionObserver().observe(fabUpE.parentElement as HTMLElement)
         fabUpE?.addEventListener("click", () => {
-            scrollToTop()
+            // if (isSafari()) {
+            //     scrollToTop()
+            // } else {
+            //     scrollToTopNative()
+            // }
+            scrollToTopNative()
             fabUpE.focus()
-            // window.location.replace("#top")
         })
     }
 }
@@ -53,4 +58,11 @@ function scrollToTop() {
     }
     lastScrollY = scrollY
     if (lastScrollY <= 0) lastScrollY = -1
+}
+
+/**
+ * 使用原生平滑滚动，但 smooth 在 2022 年的 iOS safari 15.4 中才开始支持
+ */
+function scrollToTopNative() {
+    window.scrollTo({ top: 0, behavior: "smooth" })
 }

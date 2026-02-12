@@ -29,8 +29,8 @@ function AboutMeDialog(props: BaseDialogOpenProps) {
                     {/* <Tag text="Git" /> */}
                 </section>
                 <p className="about-me-description">九五后，旅居杭州，<a
-                    href={kunQvLink}>昆虫</a>，野生散养攻城狮，“十分”“业余”摄影 Fans。联系我可以通过<a href="mailto:safari@mudan.me">电子邮件</a>，如果有必要也可用<a
-                        href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/wechat.jpg" target="_blank">微信</a>。</p>
+                    href={kunQvLink} tabIndex={-1}>昆虫</a>，野生散养攻城狮，“十分”“业余”摄影 Fans。联系我可以通过<a href="mailto:safari@mudan.me" tabIndex={-1}>电子邮件</a>，如果有必要也可用<a
+                        href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/wechat.jpg" target="_blank" tabIndex={-1}>微信</a>。</p>
                 <ul className="mdc-deprecated-list mdc-deprecated-list--one-line dialog-link-list" id="about-me-dialog_link_list">
                     <LinkItem link="https://github.com/apqx" title="GitHub" />
                     <LinkItem link="https://www.youtube.com/channel/UCF3Qv9tpULGL-CabxSEaCaQ" title="YouTube" />

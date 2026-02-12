@@ -1,18 +1,19 @@
 // import "./topbar.scss"
 import { MDCIconButtonToggle } from "@material/icon-button"
-import { consoleDebug, consoleError, consoleObjDebug } from "../util/log"
+import { consoleDebug, consoleError } from "../util/log"
 import { getLocalRepository } from "../repository/LocalDb"
 import { MDCTopAppBar } from "@material/top-app-bar"
-import { clearFocusListener, toggleClassWithEnable } from "../util/tools"
+import { toggleClassWithEnable } from "../util/tools"
 import { showAboutMeDialog } from "./dialog/AboutMeDialog"
-import { getSectionTypeByPath, isIndexPage, SECTION_TYPE_LENS, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL, SECTION_TYPE_POETRY, SECTION_TYPE_PRINT, SECTION_TYPE_REPOST, SECTION_TYPE_SHARE, SECTION_TYPE_TAG } from "../base/constant"
+import { getSectionTypeByPath, isIndexPage, SECTION_TYPE_LENS, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL, SECTION_TYPE_POETRY, SECTION_TYPE_PRINT, SECTION_TYPE_REPOST, SECTION_TYPE_SHARE, SECTION_TYPE_TAGS } from "../base/constant"
 import { toggleTheme } from "./theme"
 
 var iconToggleTheme: MDCIconButtonToggle | null = null
+var iconToggleMenu: MDCIconButtonToggle | null = null
 export var topAppBar: MDCTopAppBar | null = null
 export var topAppBarE: HTMLElement | null = null
 
-export function refreshTopbar() {
+export function checkTopbar() {
     const fixedTopbar = getLocalRepository().getFixedTopbarOn()
     setFixedTopbar(fixedTopbar)
 }
@@ -35,20 +36,21 @@ export function initTopbar() {
 
     topAppBar = new MDCTopAppBar(topAppBarE)
     iconToggleTheme = new MDCIconButtonToggle(btnThemeE)
+    iconToggleMenu = new MDCIconButtonToggle(btnMenuE)
 
-    // 监听topbar的主题切换按钮
+    // 监听 topbar 主题切换按钮
     btnThemeE?.addEventListener("click", () => {
-        // toggleButton会自动toggle图标
+        // toggleButton 会自动 toggle 图标
         toggleTheme()
     });
     btnAboutMeE?.addEventListener("click", () => {
         showAboutMeDialog()
     })
-    btnMenuE?.addEventListener("focus", clearFocusListener)
-    btnThemeE?.addEventListener("focus", clearFocusListener)
-    btnAboutMeE?.addEventListener("focus", clearFocusListener)
+    // btnMenuE?.addEventListener("focus", clearFocusListener)
+    // btnThemeE?.addEventListener("focus", clearFocusListener)
+    // btnAboutMeE?.addEventListener("focus", clearFocusListener)
 
-    refreshTopbar()
+    checkTopbar()
 }
 
 
@@ -77,12 +79,24 @@ export function setFixedTopbar(on: boolean) {
     }
 }
 
-export function showToggleThemeIconDark(dark: boolean) {
+export function setToggleThemeIconDarkOn(on: boolean) {
     if (iconToggleTheme == null) return
     // 图标默认隐藏，避免切换页面时默认图标与主题不符引起的闪烁
-    // 这样有时候仍会闪烁，但已经尽量避免了
-    iconToggleTheme.on = dark
+    // 这样有时候仍会闪烁，但已经尽量避免
+    iconToggleTheme.on = on
     toggleClassWithEnable(iconToggleTheme!!.root, "display-none", false)
+}
+
+export function setToggleMenuIconBtnOn(on: boolean) {
+    if (iconToggleMenu == null) return
+    iconToggleMenu.on = on
+}
+
+export function setToggleMenuIconBtnFocused(focused: boolean) {
+    if (iconToggleMenu == null) return
+    if (focused) {
+        (iconToggleMenu.root as HTMLElement).focus()
+    }
 }
 
 export function toggleTopbarGlass(on: boolean) {
@@ -235,7 +249,7 @@ function initTitle(topAppBarE: HTMLElement) {
             titleAE.href = isIndex ? "/" : section.indexPath
             break
         }
-        case SECTION_TYPE_TAG.identifier: {
+        case SECTION_TYPE_TAGS.identifier: {
             titleAE.innerText = "Tags"
             titleAE.href = "/"
             break

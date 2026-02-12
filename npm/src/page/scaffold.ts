@@ -1,6 +1,6 @@
 import "./scaffold.scss"
 import { isChrome, isWriting, runOnHtmlDone, runOnPageBackFromCache, runOnPageDone } from "../util/tools"
-import { blockTopbarKeyFrameAnimation, initTopbar, refreshTopbar } from "../component/topbar"
+import { blockTopbarKeyFrameAnimation, initTopbar, checkTopbar } from "../component/topbar"
 import { initDrawer } from "../component/drawer"
 import { checkUserTheme, initTheme } from "../component/theme"
 import { initLocalRepository } from "../repository/LocalDb"
@@ -53,7 +53,7 @@ export function initScaffold() {
     runOnPageBackFromCache(() => {
         blockTopbarKeyFrameAnimation(true)
         // 检查主题、字体变化，通知对应组件刷新
-        refreshTopbar()
+        checkTopbar()
         checkUserTheme()
         initFont()
         // 发出一个事件，通知其它组件页面已从缓存中加载，应该刷新数据

@@ -1,6 +1,6 @@
 import { LocalDb } from "../../repository/LocalDb"
 import { saveTheme, showThemeDark } from "../theme"
-import { refreshTopbar } from "../topbar"
+import { checkTopbar } from "../topbar"
 import { setNotoSerifSCFont } from "../font/font"
 import { consoleDebug } from "../../util/log"
 import { BaseExternalStore } from "../base/BaseExternalStore"
@@ -36,7 +36,7 @@ export class PreferenceDialogPresenter extends BaseExternalStore {
         this.state.fixedTopbarOn = newStateOn
         this.emitChange()
         this.localRepository.saveFixedTopbarOn(newStateOn)
-        refreshTopbar()
+        checkTopbar()
     }
 
     onClickNotoSerifSCFontSwitch = () => {

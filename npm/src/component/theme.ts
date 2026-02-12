@@ -2,7 +2,7 @@
 import { isChrome, isMobileOrTablet, toggleClassWithEnable } from "../util/tools"
 import { consoleDebug } from "../util/log"
 import { getLocalRepository } from "../repository/LocalDb"
-import { showToggleThemeIconDark, toggleTopbarGlass } from "./topbar"
+import { setToggleThemeIconDarkOn, toggleTopbarGlass } from "./topbar"
 import { showSnackbar } from "./react/Snackbar"
 
 export const darkClass = "dark"
@@ -138,7 +138,7 @@ export function toggleTheme() {
 export function showThemeDark(dark: boolean) {
     const bodyE = document.body
     toggleClassWithEnable(bodyE, darkClass, dark)
-    showToggleThemeIconDark(dark)
+    setToggleThemeIconDarkOn(dark)
     checkMetaThemeColor(dark, true)
     // 当切换主题的时候，检查是否需要修改theme-color
     // 目前不需要，只切换暗色、亮色主题，而设置的亮色theme-color在系统级暗色主题下无效，还不如直接交给浏览器去自动检测呢

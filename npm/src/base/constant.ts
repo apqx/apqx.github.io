@@ -27,8 +27,8 @@ export const SECTION_TYPE_OPERA: SectionType = {
     pathRegex: "^((\\/section/opera.*)|(\\/post\\/opera\\/.*))$"
 }
 
-export const SECTION_TYPE_TAG: SectionType = {
-    identifier: "tag",
+export const SECTION_TYPE_TAGS: SectionType = {
+    identifier: "tags",
     name: "标签",
     indexPath: "/section/tags.html",
     // /section/tags /section/tags.html
@@ -73,6 +73,11 @@ export type SectionType = {
     pathRegex: string
 }
 
+/**
+ * 获取页面类型，随笔、转载、诗文、看剧、透镜、标签、分享、印刷
+ * @param path 页面路径
+ * @returns 页面类型
+ */
 export function getSectionTypeByPath(path: string): SectionType {
     if (path.match(new RegExp(SECTION_TYPE_ORIGINAL.pathRegex))) {
         return SECTION_TYPE_ORIGINAL
@@ -84,8 +89,8 @@ export function getSectionTypeByPath(path: string): SectionType {
         return SECTION_TYPE_OPERA
     } else if (path.match(new RegExp(SECTION_TYPE_LENS.pathRegex))) {
         return SECTION_TYPE_LENS
-    } else if (path.match(new RegExp(SECTION_TYPE_TAG.pathRegex))) {
-        return SECTION_TYPE_TAG
+    } else if (path.match(new RegExp(SECTION_TYPE_TAGS.pathRegex))) {
+        return SECTION_TYPE_TAGS
     } else if (path.match(new RegExp(SECTION_TYPE_SHARE.pathRegex))) {
         return SECTION_TYPE_SHARE
     } else if (path.match(new RegExp(SECTION_TYPE_PRINT.pathRegex))) {
@@ -95,14 +100,17 @@ export function getSectionTypeByPath(path: string): SectionType {
     }
 }
 
+/**
+ * 是否是索引页，即随笔、转载、诗文、看剧、透镜
+ * @param path 页面路径
+ */
 export function isIndexPage(path: string): boolean {
     // /， /index，/index.html，/section/中非 tags 开头的页面都算作 Index 页面
     return path.match("^((\\/)|(\\/index.*)|(\\/section/(?!tags).*))$") != null 
 }
 
 export function isPostPage(path: string): boolean {
-    return !is404Page(path)
-        && (path.match("^\\/post\\/.*$") != null || document.querySelector(".content-card") != null)
+    return path.match("^\\/post\\/.*$") != null || (document.querySelector(".content-card") != null && !is404Page(path))
 }
 
 export function is404Page(path: string): boolean {
