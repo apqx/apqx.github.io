@@ -1,105 +1,125 @@
 // import "./LensIndexList.scss"
-import type { ReactNode } from "react"
-import React, { useEffect, useMemo, useRef } from "react"
+import { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from "react"
 import { ImageLoadAnimator } from "../animation/ImageLoadAnimator"
-import { ERROR_HINT, LoadingHint } from "./LoadingHint"
+import { LoadingHint } from "./LoadingHint"
 import { consoleDebug, consoleObjDebug } from "../../util/log"
-import { BasePaginateShow } from "./post/BasePaginateShow"
-import type { BasePaginateShowProps, BasePaginateShowState } from "./post/BasePaginateShow"
-import type { IPaginateShowPresenter } from "./post/IPaginateShowPresenter"
 import { ScrollLoader } from "../../base/ScrollLoader"
 import Masonry from 'react-masonry-css'
-import { showFooter } from "../footer"
 import { getInterSectionObserver } from "../animation/BaseAnimation"
 import { getSplittedDate } from "../../base/post"
-import { PostPaginateShowPresenter, type Post } from "./post/PostPaginateShowPresenter"
 import { setupCardRipple } from "../card"
+import type { Post } from "../base/paginate/bean/Post"
+import { HttpPaginatorViewModel } from "../base/paginate/HttpPaginateViewModel"
+import type { ApiPost } from "../../repository/bean/service/ApiPost"
+import { PostHttpPaginator } from "../base/paginate/PostHttpPaginator"
+import { PagefindPaginateViewModel } from "../base/paginate/PagefindPaginateViewModel"
+import type { PagefindResultItem } from "../../repository/bean/pagefind/ApiPagefindSearch"
+import { PostPagefindPaginator } from "../base/paginate/PostPagefindPaginator"
+import type { BasePaginateViewProps } from "../base/paginate/bean/BasePaginateViewProps"
 
-export class LensIndexList extends BasePaginateShow<Post, BasePaginateShowProps<Post>> {
+export function IndexGridLens(props: BasePaginateViewProps<Post>) {
+    const httpPaginateViewModel = useMemo(() => {
+        const options = {
+            tag: props.tag,
+            category: props.category,
+        }
+        return new HttpPaginatorViewModel<ApiPost, PostHttpPaginator, Post>(new PostHttpPaginator(options))
+    }, [])
+    const pagefindPaginateViewModel = useMemo(() => {
+        return new PagefindPaginateViewModel<PagefindResultItem, Post, PostPagefindPaginator>(new PostPagefindPaginator())
+    }, [])
 
-    constructor(props: BasePaginateShowProps<Post>) {
-        super(props)
-    }
+    const httpState = useSyncExternalStore(httpPaginateViewModel.subscribe, () => httpPaginateViewModel.state)
+    const pagefindState = useSyncExternalStore(pagefindPaginateViewModel.subscribe, () => pagefindPaginateViewModel.state)
 
-    createPresenter(): IPaginateShowPresenter {
-        return new PostPaginateShowPresenter(this, false)
-    }
+    const onMount = useMemo(() => props.onMount, [props.onMount])
 
-    initScroll() {
+    useEffect(() => {
+        consoleDebug(`IndexGridLens useEffect, tag: ${props.tag}, category: ${props.category}`)
+        httpPaginateViewModel.load(false)
+
+        if (onMount != null) onMount()
+
         const scrollLoader = new ScrollLoader(() => {
-            consoleDebug("Index scroll should check load more")
-            if (this.state.loadHint == ERROR_HINT) return
-            this.loadMore()
+            httpPaginateViewModel.loadMore(false)
         })
-        window.addEventListener("scroll", () => {
+        const scrollListener = () => {
             scrollLoader.onScroll(document.body.clientHeight, window.scrollY, document.body.scrollHeight)
-        })
-    }
+        }
+        window.addEventListener("scroll", scrollListener)
 
-    componentDidMount(): void {
-        super.componentDidMount()
-        consoleDebug("LensIndex componentDidMount")
-        if (this.props.onUpdate != null) this.props.onUpdate()
-        this.initScroll()
-        // 显示footer，在索引页其被默认隐藏，需要在列表首次加载后显示出来
-        showFooter()
-    }
+        return () => {
+            consoleDebug("IndexGridLens useEffect cleanup")
+            window.removeEventListener("scroll", scrollListener)
+        }
+    }, [])
 
-    componentDidUpdate(prevProps: Readonly<BasePaginateShowProps<Post>>, prevState: Readonly<BasePaginateShowState<Post>>, snapshot?: any): void {
-        consoleDebug("LensIndex componentDidUpdate")
-        if (this.props.onUpdate != null) this.props.onUpdate()
-    }
+    const onClickHint = useCallback(() => {
+        if (httpState.posts.length > 0) {
+            httpPaginateViewModel.loadMore(true)
+        } else {
+            httpPaginateViewModel.load(true)
+        }
+    }, [httpState.posts])
 
-    render(): ReactNode {
-        const breakpointColumnsObj = {
+    const breakPointColumnsObj = useMemo(() => {
+        return {
             default: 3,
             600: 2,
             350: 1
         }
-        return (
-            <ul className="grid-index-ul">
-                <Masonry
-                    breakpointCols={breakpointColumnsObj}
-                    className="my-masonry-grid"
-                    columnClassName="my-masonry-grid_column">
-                    {/* 置顶 */}
-                    {this.props.pinnedPosts.map((item: Post, index: number) =>
-                        <IndexItem key={item.path}
-                            index={index}
-                            title={item.title}
-                            actors={item.actor}
-                            date={item.date}
-                            path={item.path}
-                            cover={item.cover}
-                            last={false}
-                            fromPinnedList={true}
-                            pinned={true}
-                            featured={item.featured}
-                            pinnedListSize={this.props.pinnedPosts.length}
-                            coverLoadedCallback={() => { }} />)}
-                    {/* 普通 */}
-                    {this.state.posts.map((item: Post, index: number) =>
-                        <IndexItem key={item.path}
-                            index={index}
-                            title={item.title}
-                            actors={item.actor}
-                            date={item.date}
-                            path={item.path}
-                            cover={item.cover}
-                            last={index == this.state.posts.length - 1}
-                            fromPinnedList={false}
-                            pinned={item.pinned}
-                            featured={item.featured}
-                            pinnedListSize={this.props.pinnedPosts.length}
-                            coverLoadedCallback={() => { }} />
-                    )}
-                </Masonry>
-                {(this.state.loading || this.state.loadHint != null) &&
-                    <LoadingHint loading={this.state.loading} loadHint={this.state.loadHint} onClickHint={this.loadMoreByClick} />
-                }
-            </ul>
-        )
-    }
+    }, [])
+
+    const showPosts = useMemo(() => {
+        if (httpState.posts.length == 0) {
+            return props.loadedPosts
+        }
+        return httpState.posts
+    }, [httpState.posts])
+
+    return (
+        <ul className="grid-index-ul">
+            <Masonry
+                breakpointCols={breakPointColumnsObj}
+                className="my-masonry-grid"
+                columnClassName="my-masonry-grid_column">
+                {/* 置顶 */}
+                {props.pinnedPosts.map((item: Post, index: number) =>
+                    <IndexItem key={item.path}
+                        index={index}
+                        title={item.title}
+                        actors={item.actors}
+                        date={item.date}
+                        path={item.path}
+                        cover={item.cover}
+                        last={false}
+                        fromPinnedList={true}
+                        pinned={true}
+                        featured={item.featured}
+                        pinnedListSize={props.pinnedPosts.length}
+                        coverLoadedCallback={() => { }} />)}
+                {/* 普通 */}
+                {showPosts.map((item: Post, index: number) =>
+                    <IndexItem key={item.path}
+                        index={index}
+                        title={item.title}
+                        actors={item.actors}
+                        date={item.date}
+                        path={item.path}
+                        cover={item.cover}
+                        last={index == showPosts.length - 1}
+                        fromPinnedList={false}
+                        pinned={item.pinned}
+                        featured={item.featured}
+                        pinnedListSize={props.pinnedPosts.length}
+                        coverLoadedCallback={() => { }} />
+                )}
+            </Masonry>
+            {(httpState.loading || httpState.loadingHint != null) &&
+                <LoadingHint loading={httpState.loading} loadHint={httpState.loadingHint} onClickHint={onClickHint} />
+            }
+        </ul>
+    )
 }
 
 type IndexItemProps = {
@@ -197,14 +217,14 @@ function IndexItem(props: IndexItemProps) {
                     }
                     <div className="lens-index-text-container">
                         <span className="lens-index-date">
-                            {date.year}{date.month}
+                            {date.year}{date.month}｜{actorStr}
                         </span>
                         {/* <span className="lens-index-date">{actorStr}</span> */}
-                        {
+                        {/* {
                             props.actors.length > 0 && props.actors.map((actor, index) =>
                                 <span key={index} className="lens-index-date">{actor}</span>
                             )
-                        }
+                        } */}
                     </div>
                 </section>
             </a>

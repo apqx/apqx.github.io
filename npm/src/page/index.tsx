@@ -2,13 +2,14 @@ import "./index.scss"
 import { runOnHtmlDone, toggleClassWithEnable } from "../util/tools"
 import { consoleDebug, consoleObjDebug } from "../util/log"
 import { createRoot } from "react-dom/client"
-import { IndexList } from "../component/react/IndexList"
+import { IndexLinearPosts } from "../component/react/IndexLinearPosts"
 import { getSectionTypeByPath, SECTION_TYPE_OTHER } from "../base/constant"
 import { ImageLoadAnimator } from "../component/animation/ImageLoadAnimator"
-import { GridIndexList } from "../component/react/GridIndexList"
-import { LensIndexList } from "../component/react/LensIndexList"
-import type { Post } from "../component/react/post/PostPaginateShowPresenter"
+import { IndexGridLens } from "../component/react/IndexGridLens"
 import { setupCardRipple } from "../component/card"
+import type { Post } from "../component/base/paginate/bean/Post"
+import { showFooter } from "../component/footer"
+import { IndexGridPosts } from "../component/react/IndexGridPosts"
 
 export function initIndex() {
     runOnHtmlDone(() => {
@@ -21,6 +22,10 @@ function initIndexList() {
     if (wrapperE == null) {
         return
     }
+    const onMount = () => {
+        showFooter()
+        initIndexTopCover()
+    }
 
     const root = createRoot(wrapperE)
     const category = getSectionTypeByPath(window.location.pathname).identifier
@@ -29,11 +34,11 @@ function initIndexList() {
 
     if (wrapperE.classList.contains("index-list-wrapper")) {
         // 随笔、诗词、转载
-        // 获取已有的post，包括置顶和非置顶
+        // 获取已有 post，包括置顶和非置顶
         const loadedPosts = getLinearLoadedPosts(wrapperE)
-        consoleObjDebug("Index loaded posts", loadedPosts)
-        root.render(<IndexList tag={""} category={category} pinnedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
-            onMount={() => { initIndexTopCover() }} onUpdate={() => { }} />)
+        consoleObjDebug("Index loaded local posts", loadedPosts)
+        root.render(<IndexLinearPosts tag={""} category={category} pinnedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
+            onMount={onMount}/>)
     } else if (wrapperE.classList.contains("grid-index-list-wrapper")) {
         // 看剧
         // 读取描述，为 card 的内容
@@ -42,15 +47,15 @@ function initIndexList() {
         if (descriptionE != null)
             descriptionHtml = descriptionE.innerHTML
         const loadedPosts = getGridLoadedPosts(wrapperE)
-        consoleObjDebug("Index loaded posts", loadedPosts)
-        root.render(<GridIndexList tag={""} category={category} pinnedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
-            onMount={() => { }} onUpdate={() => { }} pageDescriptionHtml={descriptionHtml} />)
+        consoleObjDebug("Index loaded local posts", loadedPosts)
+        root.render(<IndexGridPosts tag={""} category={category} pinnedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
+            onMount={onMount} pageDescriptionHtml={descriptionHtml} />)
     } else if (wrapperE.classList.contains("lens-index-list-wrapper")) {
         // 透镜
         const loadedPosts = getLensLoadedPosts(wrapperE)
-        consoleObjDebug("Lens Index loaded posts", loadedPosts)
-        root.render(<LensIndexList tag={""} category={category} pinnedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
-            onMount={() => { }} onUpdate={() => { }} />)
+        consoleObjDebug("Index loaded local posts", loadedPosts)
+        root.render(<IndexGridLens tag={""} category={category} pinnedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
+            onMount={onMount} />)
     }
 }
 
@@ -66,15 +71,19 @@ function getLinearLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
         const featured = liE.querySelector(".index-featured-icon-container") != null
         const post = {
             title: title,
-            author: author,
-            actor: [],
             date: date,
-            mention: [],
-            location: "",
+            moreDate: "",
             path: path,
+            author: author,
+            actors: [],
+            mentions: [],
+            location: "",
             description: "",
             cover: "",
+            indexCover: "",
             coverAlt: "",
+            tags: [],
+            category: "",
             pinned: pinned,
             featured: featured,
         }
@@ -109,15 +118,19 @@ function getLensLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
         const featured = liE.querySelector(".lens-index-featured-icon-container") != null
         const post = {
             title: dateActor.join("｜"),
-            author: "",
-            actor: actors,
-            mention: [],
-            location: "",
             date: fullDate,
+            moreDate: "",
             path: path,
+            author: "",
+            actors: actors,
+            mentions: [],
+            location: "",
             description: "",
             cover: cover,
+            indexCover: "",
             coverAlt: coverAlt,
+            tags: [],
+            category: "",
             pinned: pinned,
             featured: featured,
         }
@@ -135,7 +148,7 @@ function getGridLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
     const otherPosts: Array<Post> = []
     for (const liE of wrapperE.querySelectorAll(".grid-index-li:not(.grid-index-li--description)")) {
         const title = (liE.querySelector(".grid-index-title") as HTMLElement).innerText
-        const actor = (liE.querySelector(".grid-index-author") as HTMLElement).innerText.split(" ")
+        const actors = (liE.querySelector(".grid-index-author") as HTMLElement).innerText.split(" ")
         const date = (liE.querySelector(".grid-index-date") as HTMLElement).innerText.trim()
         const path = (liE.querySelector(".index-a") as HTMLAnchorElement).pathname
         const description = (liE.querySelector(".grid-index-description") as HTMLElement).innerText
@@ -147,15 +160,19 @@ function getGridLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
         const featured = liE.querySelector(".index-featured-icon-container") != null
         const post = {
             title: title,
-            author: "",
-            actor: actor,
-            mention: [],
-            location: "",
             date: date,
+            moreDate: "",
             path: path,
+            author: "",
+            actors: actors,
+            mentions: [],
+            location: "",
             description: description,
             cover: cover,
+            indexCover: "",
             coverAlt: coverAlt,
+            tags: [],
+            category: "",
             pinned: pinned,
             featured: featured,
         }

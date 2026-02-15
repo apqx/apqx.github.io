@@ -4,18 +4,16 @@ import { BaseDialog, TAG_DIALOG_WRAPPER_ID, showDialog } from "./BaseDialog"
 import type { BaseDialogOpenProps } from "./BaseDialog"
 import { consoleDebug } from "../../util/log"
 import { setupListItemRipple } from "../list"
-import { ERROR_HINT, LoadingHint } from "../react/LoadingHint"
-import { BasePaginateShow } from "../react/post/BasePaginateShow"
-import type { BasePaginateShowProps } from "../react/post/BasePaginateShow"
-import type { IPaginateShowPresenter } from "../react/post/IPaginateShowPresenter"
+import { LoadingHint } from "../react/LoadingHint"
 import { getSectionTypeByPath, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL } from "../../base/constant"
 import type { SectionType } from "../../base/constant"
-import { DialogState, DialogStateObservable, DialogStateObserver } from "./DialogStateObservable"
-import type { JSX } from "react"
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from "react"
 import { getSplittedDate } from "../../base/post"
-import { PostPaginateShowPresenter, type Post } from "../react/post/PostPaginateShowPresenter"
 import { SmoothCollapse } from "../animation/SmoothCollapse"
+import { HttpPaginatorViewModel } from "../base/paginate/HttpPaginateViewModel"
+import type { ApiPost } from "../../repository/bean/service/ApiPost"
+import type { Post } from "../base/paginate/bean/Post"
+import { PostHttpPaginator } from "../base/paginate/PostHttpPaginator"
 
 interface TagDialogProps extends BaseDialogOpenProps {
     tag: string,
@@ -23,90 +21,53 @@ interface TagDialogProps extends BaseDialogOpenProps {
 }
 
 function TagDialog(props: TagDialogProps) {
-    const dialogStateObservable = useMemo(() => new DialogStateObservable(), [])
+    const paginateViewModel = useMemo(() => {
+        const options = {
+            tag: props.tag,
+            category: "",
+        }
+        return new HttpPaginatorViewModel<ApiPost, PostHttpPaginator, Post>(new PostHttpPaginator(options))
+    }, [])
+    const state = useSyncExternalStore(paginateViewModel.subscribe, () => paginateViewModel.state)
+
+    useEffect(() => {
+        // paginatorViewModel.load(true)
+    }, [])
 
     const onDialogOpen = useCallback(() => {
-        dialogStateObservable.notify(DialogState.OPENED)
-    }, [])
+        if (state.posts.length == 0) {
+            paginateViewModel.load(true)
+        }
+    }, [state.posts])
     const onDialogClose = useCallback(() => {
-        dialogStateObservable.notify(DialogState.CLOSED)
+        paginateViewModel.abort()
     }, [])
     const onLoadMore = useCallback(() => {
-        dialogStateObservable.notify(DialogState.LOAD_MORE)
+        paginateViewModel.loadMore(false)
     }, [])
+
+    const onClickHint = useCallback(() => {
+        if (state.posts.length > 0) {
+            paginateViewModel.loadMore(true)
+        } else {
+            paginateViewModel.load(true)
+        }
+    }, [state.posts])
 
     return (
         <BaseDialog openCount={props.openCount} fixedWidth={true} onDialogOpen={onDialogOpen} onDialogClose={onDialogClose} onLoadMore={onLoadMore}>
             <SmoothCollapse>
-                <ResultWrapper category={""} tag={props.tag} tagNickname={props.nickname} pinnedPosts={[]} loadedPosts={[]}
-                    onUpdate={undefined} dialogStateObservable={dialogStateObservable} />
+                <p>标记 {props.nickname ?? props.tag} 的 {state.totalPostsSize} 篇博文</p>
+                {state.posts != null && state.posts.length != 0 &&
+                    <PostResult list={state.posts} />
+                }
+                {(state.loading || state.loadingHint != null) &&
+                    <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} />
+                }
             </SmoothCollapse>
         </BaseDialog>
     )
 }
-
-interface ResultWrapperProps extends BasePaginateShowProps<Post> {
-    dialogStateObservable: DialogStateObservable,
-    tagNickname?: string,
-}
-
-class ResultWrapper extends BasePaginateShow<Post, ResultWrapperProps> {
-    observer: DialogStateObserver = {
-        update: (dialogState: DialogState) => {
-            if (dialogState == DialogState.CLOSED) {
-                // Dialog 关闭时，取消加载
-                this.abortLoad()
-            } else if (dialogState == DialogState.OPENED) {
-                // Dialog 打开时，加载第一页
-                if (this.state.posts.length == 0) {
-                    this.loadFirstPage()
-                }
-            } else if (dialogState == DialogState.LOAD_MORE) {
-                // Dialog 加载更多
-                if (!this.presenter.isLastPage() && this.state.loadHint != ERROR_HINT) {
-                    // 不是最后一页，且没有错误提示，加载更多
-                    this.loadMore()
-                }
-            }
-        }
-    }
-
-    constructor(props: ResultWrapperProps) {
-        super(props)
-        this.loadFirstPageOnMount = false
-
-        this.props.dialogStateObservable.addObserver(this.observer)
-    }
-
-    componentWillUnmount() {
-        this.props.dialogStateObservable.removeObserver(this.observer)
-    }
-
-    createPresenter(): IPaginateShowPresenter {
-        return new PostPaginateShowPresenter(this, true)
-    }
-
-    render(): React.ReactNode {
-        let count: JSX.Element
-        if (this.state.posts.length == 0) {
-            count = <>0</>
-        } else {
-            count = <>{this.state.totalPostsSize}</>
-        }
-        return (
-            <>
-                <p>标记 {this.props.tagNickname ?? this.props.tag} 的 {count} 篇博文</p>
-                {this.state.posts != null && this.state.posts.length != 0 &&
-                    <PostResult list={this.state.posts} />
-                }
-                {(this.state.loading || this.state.loadHint != null) &&
-                    <LoadingHint loading={this.state.loading} loadHint={this.state.loadHint} onClickHint={this.loadMoreByClick} />
-                }
-            </>
-        )
-    }
-}
-
 
 interface PostResultProps {
     list: Post[]
@@ -117,9 +78,9 @@ function PostResult(props: PostResultProps) {
     const items = useMemo(() => {
         return props.list.map((item) => {
             const postType = getSectionTypeByPath(item.path)
-            const postBlocks = getPostBlocks(item.author, item.actor, item.mention, item.location, postType)
+            const postBlocks = getPostBlocks(item.author, item.actors, item.mentions, item.location, postType)
             // 两个 chip 列表
-            return new PostItemData(item.path, item.title, item.date, postType.name, postBlocks[0], postBlocks[1])
+            return { url: item.path, title: item.title, date: item.date, type: postType.name, block1Array: postBlocks[0], block2Array: postBlocks[1] }
         })
     }, [props.list])
 
@@ -141,57 +102,43 @@ function PostResult(props: PostResultProps) {
 }
 
 /**
- * 获取一个文章要显示的块，包括author作者、actor演员、mention提到
+ * 获取一个文章要显示的块，包括 author 作者、actor 演员、mention 提到
  * 显示，一共就2个block，用不同的颜色区分
  * @param author 作者
- * @param actor 演员
- * @param mention 提到
+ * @param actors 演员
+ * @param mentions 提到
  * @param location 地点
  * @param postType 文章类型
  * @returns [block1, block2]
  */
-function getPostBlocks(author: string, actor: Array<string>, mention: Array<string>, location: string, postType: SectionType): [string[], string[]] {
+function getPostBlocks(author: string, actors: Array<string>, mentions: Array<string>, location: string, postType: SectionType): [string[], string[]] {
     if (postType.identifier === SECTION_TYPE_ORIGINAL.identifier) {
         // 随笔，不显示 author，显示 actor、mention、location
         if (location.length > 0) {
-            return [actor, mention.concat(location)]
+            return [actors, mentions.concat(location)]
         } else {
-            return [actor, mention]
+            return [actors, mentions]
         }
     } else if (postType.identifier === SECTION_TYPE_OPERA.identifier) {
         // 看剧，显示 actor、mention、location
         if (location.length > 0) {
-            return [actor, mention.concat(location)]
+            return [actors, mentions.concat(location)]
         } else {
-            return [actor, mention]
+            return [actors, mentions]
         }
     } else {
         // 其它类型，显示 author、mention
-        return [[author], mention]
+        return [[author], mentions]
     }
 }
 
-export class PostItemData {
+interface PostItemData {
     url: string
     title: string
     date: string
     type: string
     block1Array: string[]
     block2Array: string[]
-
-    constructor(url: string,
-        title: string,
-        date: string,
-        type: string,
-        block1Array: string[],
-        block2Array: string[]) {
-        this.url = url
-        this.title = title
-        this.date = date
-        this.type = type
-        this.block1Array = block1Array
-        this.block2Array = block2Array
-    }
 }
 
 interface PostItemProps {

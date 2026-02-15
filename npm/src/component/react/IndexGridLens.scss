@@ -38,7 +38,8 @@
     overflow-x: scroll;
     --date-gap: 0.12rem;
     --date-radius: 0.1rem;
-    --date-side-radius: 0.55rem;
+    // --date-side-radius: 0.55rem;
+    --date-side-radius: 0.45rem;
     --date-padding-vertical: 0.14rem;
     --date-padding-horizontal: 0.3rem;
     --date-side-padding-horizontal: 0.48rem;
@@ -120,7 +121,8 @@
             bottom: 0.2rem;
             --date-gap: 0.08rem;
             --date-radius: 0.08rem;
-            --date-side-radius: 0.4rem;
+            // --date-side-radius: 0.4rem;
+            --date-side-radius: 0.3rem;
             --date-padding-vertical: 0.03rem;
             --date-padding-horizontal: 0.24rem;
             --date-side-padding-horizontal: 0.35rem;

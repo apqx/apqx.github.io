@@ -47,25 +47,25 @@ body {
     // 标题栏字体字重默认为正文字重
     i {
         // 标题栏图标字重适应字体粗细
-        font-weight: 330;
+        font-weight: calc(var(--font-weight-normal) - 50);
     }
 
     // 首页标题使用了颜文字，是特殊情况，单独设置字重配合图标字重，保持视觉平衡
     .mdc-top-app-bar__title.title-home * {
         letter-spacing: 0.08rem;
-        font-weight: 390;
+        font-weight: calc(var(--font-weight-normal) + 10);
     }
 }
 
 // 思源宋体字体更细，标题栏图标字重适应字体粗细
 .font-noto-serif-sc {
     .mdc-top-app-bar i {
-        font-weight: 300;
+        font-weight: calc(var(--font-weight-normal) - 180);
     }
 
     // 首页标题字重单独调整
     .mdc-top-app-bar__title.title-home * {
-        font-weight: 360;
+        font-weight: calc(var(--font-weight-normal) - 120);
     }
 }
 

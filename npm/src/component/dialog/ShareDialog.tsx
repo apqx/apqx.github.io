@@ -52,7 +52,7 @@ function ShareDialog(props: BaseDialogOpenProps) {
 
     return (
         <BaseDialog openCount={openCount++}>
-            <div ref={containerRef} className="center-items">
+            <div ref={containerRef} className="center-inline-items">
                 <div className="share-qrcode-picture">
                 </div>
                 <p className="share-title">{title}</p>

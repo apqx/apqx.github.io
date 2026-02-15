@@ -8,13 +8,17 @@
 
 #short-link-jump-dialog_title {
     text-align: center;
-    //margin-top: 2rem;
-    font-weight: var(--font-weight-normal);
+    color: var(--mdc-theme-on-surface-secondary);
 }
 
 #short-link-jump-dialog_link {
-    margin: 1rem 1rem;
     // a {
     //     white-space: nowrap;
     // }
+}
+
+.jump-dialog-container {
+    .mdc-linear-progress {
+        margin-top: 0.8rem;
+    }
 }

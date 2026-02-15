@@ -137,16 +137,30 @@ export function getElementAttribute(e: HTMLElement, property: string) {
     return e.getAttribute(property)
 }
 
-export const MINIMAL_LOADING_TIME_MS = 200
+export const MINIMAL_LOADING_TIME_MS = 300
 export const MINIMAL_LOADING_TIME_MS_SHORT = 100
-export function runAfterMinimalTime(startTime: number, func: () => void, _minimalTimeMs: number = -1) {
-    const minimalTimeMs = _minimalTimeMs == -1 ? MINIMAL_LOADING_TIME_MS : _minimalTimeMs
+export function runAfterMinimalTime(startTime: number, func: () => void, minimalTimeMs?: number, abortSignal?: AbortSignal) {
+    minimalTimeMs = minimalTimeMs ?? MINIMAL_LOADING_TIME_MS
     const usedTime = Date.now() - startTime
     if (usedTime < minimalTimeMs) {
-        setTimeout(func, minimalTimeMs - usedTime)
+        setTimeout(() => {
+            if (abortSignal != null && abortSignal.aborted) {
+                consoleDebug("runAfterMinimalTime aborted")
+                return
+            }
+            func()
+        }, minimalTimeMs - usedTime)
     } else {
         func()
     }
+}
+
+export async function sleep(ms: number): Promise<void> {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve()
+        }, ms)
+    })
 }
 
 export const clearFocusListener: (e: Event) => void = (e) => {

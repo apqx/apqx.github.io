@@ -75,9 +75,6 @@ export function initDrawer() {
     drawerE.addEventListener("MDCDrawer:closed", () => {
         toggleClassWithEnable(document.body, "mdc-drawer-scroll-lock", false)
         setToggleMenuIconBtnOn(false)
-        // drawer 关闭时恢复 menu 按钮焦点，或许能解决 android chrome 索引页和文章页在 drawer 关闭后点击 fab 出现文本选中问题
-        // 看起来没有效果，保留代码，后续如果发现有用再说
-        setToggleMenuIconBtnFocused(true)
         // 恢复选中
         // drawerList.selectedIndex = currentPageIndex
     });

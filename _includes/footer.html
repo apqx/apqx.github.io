@@ -14,9 +14,9 @@
 </footer>
 
 <!-- Floating Action Button -->
+<!-- 使用 button 而不是 a 标签，添加 ripple 的 a 在 safari 中必须等动画播放完成才会触发 onclick 事件，存在明显延迟。 -->
 <div class="floating-action-container">
   <div class="mdc-touch-target-wrapper card-fade-in" id="fabUpWrapper">
-    <!-- 使用 button 而不是 a 标签，添加 ripple 的 a 在 safari 中必须等动画播放完成才会触发 onclick 事件，存在明显延迟。 -->
     <button class="mdc-fab mdc-icon-button" aria-label="Up" id="fabUp" tabindex="0">
       <i class="material-symbols-rounded-variable mdc-icon-button__icon">arrow_upward</i>
     </button>

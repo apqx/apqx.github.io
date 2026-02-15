@@ -1,8 +1,8 @@
 @use "../style/global" as base;
 // 如果放到组件中加载时可能出现样式闪烁，放到这里有时候也会出现，因为这里也是根据页面类型动态加载的
-@use "../component/react/IndexList";
-@use "../component/react/GridIndexList";
-@use "../component/react/LensIndexList";
+@use "../component/react/IndexLinearPosts";
+@use "../component/react/IndexGridPosts";
+@use "../component/react/IndexGridLens";
 
 // LensIndexList 是 GridIndexList 的一种特殊形式，变量由其单独控制
 

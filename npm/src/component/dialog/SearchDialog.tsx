@@ -1,111 +1,91 @@
 import "./SearchDialog.scss"
-import { SearchDialogPresenter } from "./SearchDialogPresenter"
 import { MDCTextField } from "@material/textfield"
 import { MDCList } from "@material/list"
-import { clearFocusListener, createHtmlContent } from "../../util/tools"
-import { BasicDialog, SEARCH_DIALOG_WRAPPER_ID, showDialog } from "./BaseDialog"
-import type { ActionBtn, BasicDialogProps } from "./BaseDialog"
+import { createHtmlContent } from "../../util/tools"
+import { BaseDialog, SEARCH_DIALOG_WRAPPER_ID, showDialog } from "./BaseDialog"
+import type { ActionBtn, BaseDialogOpenProps } from "./BaseDialog"
 import { setupListItemRipple } from "../list"
-import { ERROR_HINT, LoadingHint } from "../react/LoadingHint"
-import React, { useEffect, useMemo, useRef } from "react"
+import { LoadingHint } from "../react/LoadingHint"
+import { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from "react"
 import { getSplittedDate } from "../../base/post"
 import { setupButtonRipple } from "../button"
 import { SmoothCollapse } from "../animation/SmoothCollapse"
+import { PagefindPaginateViewModel } from "../base/paginate/PagefindPaginateViewModel"
+import type { PagefindResultItem } from "../../repository/bean/pagefind/ApiPagefindSearch"
+import type { Post } from "../base/paginate/bean/Post"
+import { PostPagefindPaginator } from "../base/paginate/PostPagefindPaginator"
+import { getSectionTypeByPath } from "../../base/constant"
 
-interface SearchDialogState {
-    loading: boolean
-    loadHint?: string
-    results: ResultItemData[]
-}
+export function SearchDialog(props: BaseDialogOpenProps) {
+    const containerRef = useRef<HTMLDivElement>(null)
+    const textFieldRef = useRef<MDCTextField>(null)
 
-export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogState> {
-    state: SearchDialogState = {
-        loading: false,
-        loadHint: undefined,
-        results: [],
-    }
+    const paginateViewModel = useMemo(() => {
+        return new PagefindPaginateViewModel<PagefindResultItem, Post, PostPagefindPaginator>(new PostPagefindPaginator())
+    }, [])
+    const state = useSyncExternalStore(paginateViewModel.subscribe, () => paginateViewModel.state)
 
-    presenter: SearchDialogPresenter
-    input: string = ""
-    textField?: MDCTextField
+    useEffect(() => {
+        const textFiledE = containerRef.current!.querySelector("#search-dialog_label") as HTMLElement
+        textFieldRef.current = new MDCTextField(textFiledE)
+        const keyListener = (event: KeyboardEvent) => {
+            if (event.key === "Enter")
+                onClickSearch()
+        }
+        textFiledE.addEventListener("keyup", keyListener)
+        setupButtonRipple(containerRef.current!.querySelector("#btn-search") as Element)
 
-    constructor(props: any) {
-        super(props)
-        this.fixedWidth = true
-        // 需要显示搜素结果数目，节约带宽，不要滚动加载
-        this.listenScroll = false
-        this.presenter = new SearchDialogPresenter(this)
-        this.onClickSearch = this.onClickSearch.bind(this)
-        this.onInputChange = this.onInputChange.bind(this)
-        this.onClickLoadMore = this.onClickLoadMore.bind(this)
-    }
+        return () => {
+            textFiledE.removeEventListener("keyup", keyListener)
+        }
+    }, [])
 
-    configActionBtns(): ActionBtn[] {
+    const pagefindOptions = useMemo(() => {
+        return {
+            filters: {
+                category: { any: ["original", "repost", "poetry", "opera"] }
+            }
+        }
+    }, [])
+
+    const onClickSearch = useCallback(() => {
+        paginateViewModel.search(textFieldRef.current!.value, pagefindOptions, true)
+    }, [])
+
+    const onDialogOpen = useCallback(() => {
+
+    }, [])
+
+    const onDialogClose = useCallback(() => {
+        paginateViewModel.abort()
+    }, [])
+
+    const onLoadMore = useCallback(() => {
+        // paginateViewModel.loadMore(false)
+    }, [])
+
+    const onClickHint = useCallback(() => {
+        if (state.posts.length > 0) {
+            paginateViewModel.loadMore(true)
+        } else {
+            paginateViewModel.search(textFieldRef.current!.value, pagefindOptions, true)
+        }
+    }, [state.posts])
+
+    const actions = useMemo<ActionBtn[]>(() => {
         return [{
             text: "关闭", closeOnClick: true, onClick: () => { }
         }, {
             text: "清除", closeOnClick: false, onClick: () => {
-                this.presenter?.clearResults()
-                this.textField!.value = ""
-                this.input = ""
+                paginateViewModel.clear()
+                textFieldRef.current!.value = ""
+                // this.input = ""
             }
         }]
-    }
-
-    onClickSearch() {
-        this.presenter?.search(this.input)
-    }
-
-    onInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-        this.input = e.target.value
-    }
-
-    onClickLoadMore() {
-        this.presenter?.loadMore()
-    }
-
-    onScrollNearToBottom(): void {
-        if (this.state.loadHint == ERROR_HINT) return
-        this.presenter?.loadMore()
-    }
-
-    onDialogClose(): void {
-        super.onDialogClose()
-        this.presenter?.abortSearch()
-        // this.presenter.reduceResult()
-    }
-
-    componentDidMount(): void {
-        super.componentDidMount()
-        this.initBtn(this.rootE!!.querySelector("#btn-search")!!)
-        this.initTextField(this.rootE!!.querySelector("#search-dialog_label")!!)
-    }
-
-    componentDidUpdate(prevProps: Readonly<BasicDialogProps>, prevState: Readonly<any>, snapshot?: any): void {
-        super.componentDidUpdate(prevProps, prevState, snapshot)
-    }
-
-    componentWillUnmount(): void {
-    }
-
-    initBtn(e: HTMLElement) {
-        if (e == null) return
-        setupButtonRipple(e)
-        e.addEventListener("focus", clearFocusListener)
-    }
-
-    initTextField(e: HTMLElement) {
-        if (e == null) return
-        this.textField = new MDCTextField(e)
-        e.addEventListener("keyup", (event: KeyboardEvent) => {
-            if (event.key === "Enter")
-                this.onClickSearch()
-        })
-    }
-
-    dialogContent(): React.JSX.Element {
-        return (
-            <div className="center-items">
+    }, [])
+    return (
+        <BaseDialog openCount={props.openCount} onLoadMore={onLoadMore} onDialogOpen={onDialogOpen} onDialogClose={onDialogClose} actions={actions}>
+            <div ref={containerRef} className="center-inline-items">
                 <label className="mdc-text-field mdc-text-field--outlined" id="search-dialog_label">
                     <span className="mdc-notched-outline">
                         <span className="mdc-notched-outline__leading"></span>
@@ -116,10 +96,10 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
                     </span>
                     {/* 这里禁止自动获取焦点，可能导致 dialog 意外滚动到焦点位置 */}
                     <input type="search" className="mdc-text-field__input" aria-labelledby="search-label"
-                        name="search-dialog_input" tabIndex={-1} onChange={this.onInputChange} />
+                        name="search-dialog_input" tabIndex={-1} onChange={undefined} />
                     <button id="btn-search" type="button"
                         className="mdc-icon-button"
-                        tabIndex={-1} onClick={this.onClickSearch}>
+                        tabIndex={-1} onClick={onClickSearch}>
                         <i className="material-symbols-rounded-variable mdc-button__icon" aria-hidden="true">search</i>
                     </button>
                 </label>
@@ -128,21 +108,151 @@ export class SearchDialog extends BasicDialog<BasicDialogProps, SearchDialogStat
                     href="https://cse.google.com/cse?cx=757420b6b2f3d47d2" target="_blank" tabIndex={-1}>Google 站内搜索</a>。</p>
                 <SmoothCollapse>
                     <div>
-                        {(this.state.results != null && this.state.results.length > 0) &&
-                            <SearchResult list={this.state.results} />
+                        {(state.posts != null && state.posts.length > 0) &&
+                            <SearchResult list={state.posts} />
                         }
-                        {(this.state.loading || this.state.loadHint != null) &&
-                            <LoadingHint loading={this.state.loading} loadHint={this.state.loadHint} onClickHint={this.onClickLoadMore} />
+                        {(state.loading || state.loadingHint != null) &&
+                            <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} />
                         }
                     </div>
                 </SmoothCollapse>
             </div>
-        )
-    }
+        </BaseDialog>
+    )
 }
 
+
+// interface SearchDialogState {
+//     loading: boolean
+//     loadHint?: string
+//     results: ResultItemData[]
+// }
+
+// export class OldSearchDialog extends BasicDialog<BasicDialogProps, SearchDialogState> {
+//     state: SearchDialogState = {
+//         loading: false,
+//         loadHint: undefined,
+//         results: [],
+//     }
+
+//     presenter: SearchDialogViewModel
+//     input: string = ""
+//     textField?: MDCTextField
+
+//     constructor(props: any) {
+//         super(props)
+//         this.fixedWidth = true
+//         // 需要显示搜素结果数目，节约带宽，不要滚动加载
+//         this.listenScroll = false
+//         this.presenter = new SearchDialogViewModel(this)
+//         this.onClickSearch = this.onClickSearch.bind(this)
+//         this.onInputChange = this.onInputChange.bind(this)
+//         this.onClickLoadMore = this.onClickLoadMore.bind(this)
+//     }
+
+//     configActionBtns(): ActionBtn[] {
+//         return [{
+//             text: "关闭", closeOnClick: true, onClick: () => { }
+//         }, {
+//             text: "清除", closeOnClick: false, onClick: () => {
+//                 this.presenter?.clearResults()
+//                 this.textField!.value = ""
+//                 this.input = ""
+//             }
+//         }]
+//     }
+
+//     onClickSearch() {
+//         this.presenter?.search(this.input)
+//     }
+
+//     onInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+//         this.input = e.target.value
+//     }
+
+//     onClickLoadMore() {
+//         this.presenter?.loadMore()
+//     }
+
+//     onScrollNearToBottom(): void {
+//         if (this.state.loadHint == ERROR_HINT) return
+//         this.presenter?.loadMore()
+//     }
+
+//     onDialogClose(): void {
+//         super.onDialogClose()
+//         this.presenter?.abortSearch()
+//         // this.presenter.reduceResult()
+//     }
+
+//     componentDidMount(): void {
+//         super.componentDidMount()
+//         this.initBtn(this.rootE!!.querySelector("#btn-search")!!)
+//         this.initTextField(this.rootE!!.querySelector("#search-dialog_label")!!)
+//     }
+
+//     componentDidUpdate(prevProps: Readonly<BasicDialogProps>, prevState: Readonly<any>, snapshot?: any): void {
+//         super.componentDidUpdate(prevProps, prevState, snapshot)
+//     }
+
+//     componentWillUnmount(): void {
+//     }
+
+//     initBtn(e: HTMLElement) {
+//         if (e == null) return
+//         setupButtonRipple(e)
+//         e.addEventListener("focus", clearFocusListener)
+//     }
+
+//     initTextField(e: HTMLElement) {
+//         if (e == null) return
+//         this.textField = new MDCTextField(e)
+//         e.addEventListener("keyup", (event: KeyboardEvent) => {
+//             if (event.key === "Enter")
+//                 this.onClickSearch()
+//         })
+//     }
+
+//     dialogContent(): React.JSX.Element {
+//         return (
+//             <div className="center-inline-items">
+//                 <label className="mdc-text-field mdc-text-field--outlined" id="search-dialog_label">
+//                     <span className="mdc-notched-outline">
+//                         <span className="mdc-notched-outline__leading"></span>
+//                         <span className="mdc-notched-outline__notch">
+//                             <span className="mdc-floating-label" id="search-label">Words</span>
+//                         </span>
+//                         <span className="mdc-notched-outline__trailing"></span>
+//                     </span>
+//                     {/* 这里禁止自动获取焦点，可能导致 dialog 意外滚动到焦点位置 */}
+//                     <input type="search" className="mdc-text-field__input" aria-labelledby="search-label"
+//                         name="search-dialog_input" tabIndex={-1} onChange={this.onInputChange} />
+//                     <button id="btn-search" type="button"
+//                         className="mdc-icon-button"
+//                         tabIndex={-1} onClick={this.onClickSearch}>
+//                         <i className="material-symbols-rounded-variable mdc-button__icon" aria-hidden="true">search</i>
+//                     </button>
+//                 </label>
+
+//                 <p id="search-dialog_tips"><b>TIPS：</b>中文低频词组用空格分隔会有更好匹配，比如名字「施夏明」改为「施 夏 明」。若网络通畅可使用 <a
+//                     href="https://cse.google.com/cse?cx=757420b6b2f3d47d2" target="_blank" tabIndex={-1}>Google 站内搜索</a>。</p>
+//                 <SmoothCollapse>
+//                     <div>
+//                         {(this.state.results != null && this.state.results.length > 0) &&
+//                             <SearchResult list={this.state.results} />
+//                         }
+//                         {(this.state.loading || this.state.loadHint != null) &&
+//                             <LoadingHint loading={this.state.loading} loadHint={this.state.loadHint} onClickHint={this.onClickLoadMore} />
+//                         }
+//                     </div>
+//                 </SmoothCollapse>
+//             </div>
+//         )
+//     }
+// }
+
 interface SearchResultProps {
-    list: ResultItemData[]
+    list: Post[]
 }
 
 function SearchResult(props: SearchResultProps) {
@@ -155,37 +265,29 @@ function SearchResult(props: SearchResultProps) {
 
     return (
         <ul ref={containerRef} className="mdc-deprecated-list">
-                {props.list.map((item, index) =>
-                    <ResultItem key={item.url}
-                        data={item} />
-                )}
-            </ul>
+            {props.list.map((item, index) =>
+                <ResultItem key={item.path}
+                    title={item.title}
+                    description={item.description}
+                    date={item.date}
+                    path={item.path}
+                    type={getSectionTypeByPath(item.path).name} />
+            )}
+        </ul>
     )
 }
 
 interface ResultItemProps {
-    data: ResultItemData
-}
-
-export class ResultItemData {
     title: string
     description: string
     date: string
-    url: string
+    path: string
     type: string
-
-    constructor(title: string, description: string, date: string, url: string, type: string) {
-        this.title = title
-        this.description = description
-        this.date = date
-        this.url = url
-        this.type = type
-    }
 }
 
 function ResultItem(props: ResultItemProps) {
     const containerRef = useRef<HTMLLIElement>(null)
-    const date = useMemo(() => getSplittedDate(props.data.date), [props.data.date])
+    const date = useMemo(() => getSplittedDate(props.date), [props.date])
 
     useEffect(() => {
         const rootE = containerRef.current as Element
@@ -195,22 +297,22 @@ function ResultItem(props: ResultItemProps) {
 
     return (
         <li ref={containerRef}>
-                <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken mdc-ripple-upgraded" href={props.data.url} tabIndex={-1}>
-                    <span className="mdc-deprecated-list-item__text">
-                        <span className="list-item__primary-text one-line">{props.data.title}</span>
-                        <div className="list-item__secondary-text">
-                            <span className="search-result-item-type">
-                                {date.year}<span className="year">年</span>
-                                {date.month}<span className="month">月</span>
-                                {date.day}<span className="day">日</span>
-                                ｜{props.data.type}</span>
-                            <span className="search-result-item-snippet"
-                                dangerouslySetInnerHTML={createHtmlContent(props.data.description)} />
-                        </div>
-                    </span>
-                </a>
-                <hr className="mdc-deprecated-list-divider" />
-            </li>
+            <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken mdc-ripple-upgraded" href={props.path} tabIndex={-1}>
+                <span className="mdc-deprecated-list-item__text">
+                    <span className="list-item__primary-text one-line">{props.title}</span>
+                    <div className="list-item__secondary-text">
+                        <span className="search-result-item-type">
+                            {date.year}<span className="year">年</span>
+                            {date.month}<span className="month">月</span>
+                            {date.day}<span className="day">日</span>
+                            ｜{props.type}</span>
+                        <span className="search-result-item-snippet"
+                            dangerouslySetInnerHTML={createHtmlContent(props.description)} />
+                    </div>
+                </span>
+            </a>
+            <hr className="mdc-deprecated-list-divider" />
+        </li>
     )
 }
 

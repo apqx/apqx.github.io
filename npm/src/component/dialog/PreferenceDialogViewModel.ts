@@ -3,7 +3,7 @@ import { saveTheme, showThemeDark } from "../theme"
 import { checkTopbar } from "../topbar"
 import { setNotoSerifSCFont } from "../font/font"
 import { consoleDebug } from "../../util/log"
-import { BaseExternalStore } from "../base/BaseExternalStore"
+import { BaseExternalStore } from "../base/paginate/BaseExternalStore"
 
 export interface PreferenceDialogState {
     fixedTopbarOn: boolean
@@ -11,7 +11,7 @@ export interface PreferenceDialogState {
     autoThemeOn: boolean
 }
 
-export class PreferenceDialogPresenter extends BaseExternalStore {
+export class PreferenceDialogViewModel extends BaseExternalStore {
     state = {
         fixedTopbarOn: false,
         notoSerifSCFontOn: false,
@@ -28,12 +28,12 @@ export class PreferenceDialogPresenter extends BaseExternalStore {
             autoThemeOn: this.localAutoThemeOn()
         }
         this.emitChange()
-        consoleDebug("PreferenceDialogPresenter initSettings, state = " + JSON.stringify(this.state))
+        consoleDebug("PreferenceDialogViewModel initSettings, state = " + JSON.stringify(this.state))
     }
 
     onClickFixedTopbarSwitch = () => {
         const newStateOn = !this.state.fixedTopbarOn
-        this.state.fixedTopbarOn = newStateOn
+        this.state = { ...this.state, fixedTopbarOn: newStateOn }
         this.emitChange()
         this.localRepository.saveFixedTopbarOn(newStateOn)
         checkTopbar()
@@ -41,7 +41,7 @@ export class PreferenceDialogPresenter extends BaseExternalStore {
 
     onClickNotoSerifSCFontSwitch = () => {
         const newStateOn = !this.state.notoSerifSCFontOn
-        this.state.notoSerifSCFontOn = newStateOn
+        this.state = { ...this.state, notoSerifSCFontOn: newStateOn }
         this.emitChange()
         this.localRepository.saveNotoSerifSCFontOn(newStateOn)
         setNotoSerifSCFont(newStateOn)
@@ -49,7 +49,7 @@ export class PreferenceDialogPresenter extends BaseExternalStore {
 
     onClickAutoThemeSwitch = () => {
         const newStateOn = !this.state.autoThemeOn
-        this.state.autoThemeOn = newStateOn
+        this.state = { ...this.state, autoThemeOn: newStateOn }
         this.emitChange()
         const bodyE = document.body
         if (newStateOn) {

@@ -1,5 +1,5 @@
 import "./PreferenceDialog.scss"
-import { PreferenceDialogPresenter } from "./PreferenceDialogPresenter"
+import { PreferenceDialogViewModel } from "./PreferenceDialogViewModel"
 import { consoleDebug } from "../../util/log"
 import { BaseDialog, PREFERENCE_DIALOG_WRAPPER_ID, showDialog } from "./BaseDialog"
 import type { BaseDialogOpenProps } from "./BaseDialog"
@@ -10,21 +10,21 @@ import { createHtmlContent } from "../../util/tools"
 import { EVENT_PAGE_BACK_FROM_CACHE, getEventEmitter, type Events } from "../base/EventBus"
 
 export function PreferenceDialog(props: BaseDialogOpenProps) {
-    const presenter = useMemo(() => {
-        return new PreferenceDialogPresenter()
+    const viewModel = useMemo(() => {
+        return new PreferenceDialogViewModel()
     }, [])
 
-    const state = useSyncExternalStore(presenter.subscribe, () => presenter.state)
+    const state = useSyncExternalStore(viewModel.subscribe, () => viewModel.state)
 
     useEffect(() => {
-        consoleDebug("PreferenceDialogContent useEffect, subscribe to presenter")
-        // presenter.initSettings()
+        consoleDebug("PreferenceDialogContent useEffect, subscribe to viewModel")
+        // viewModel.initSettings()
         const emitter = getEventEmitter()
         emitter.on("pageEvent", (type) => {
             consoleDebug("PreferenceDialogContent receive event: " + type)
             // 订阅页面从缓存中恢复的事件，加载最新的设置状态
             if (type == EVENT_PAGE_BACK_FROM_CACHE) {
-                presenter.initSettings()
+                viewModel.initSettings()
             }
         })
         return () => {
@@ -42,7 +42,7 @@ export function PreferenceDialog(props: BaseDialogOpenProps) {
 
     const onDialogOpen = useCallback(() => {
         consoleDebug("PreferenceDialogContent onDialogOpen")
-        presenter.initSettings()
+        viewModel.initSettings()
     }, [])
 
     return (
@@ -59,13 +59,13 @@ export function PreferenceDialog(props: BaseDialogOpenProps) {
                 <ul className="mdc-deprecated-list mdc-deprecated-list--one-line dialog-link-list" id="preference-dialog__toggle-container">
                     <SettingsToggle titleHtml="固定顶部导航栏"
                         on={state.fixedTopbarOn}
-                        onClickToggle={presenter.onClickFixedTopbarSwitch} />
+                        onClickToggle={viewModel.onClickFixedTopbarSwitch} />
                     <SettingsToggle titleHtml={notoSerifSCFontTitle}
                         on={state.notoSerifSCFontOn}
-                        onClickToggle={presenter.onClickNotoSerifSCFontSwitch} />
+                        onClickToggle={viewModel.onClickNotoSerifSCFontSwitch} />
                     <SettingsToggle titleHtml={autoThemeTitle}
                         on={state.autoThemeOn}
-                        onClickToggle={presenter.onClickAutoThemeSwitch} />
+                        onClickToggle={viewModel.onClickAutoThemeSwitch} />
                 </ul>
             </>
         </BaseDialog>

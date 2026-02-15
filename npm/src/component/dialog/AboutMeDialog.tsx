@@ -13,7 +13,7 @@ function AboutMeDialog(props: BaseDialogOpenProps) {
 
     return (
         <BaseDialog openCount={props.openCount}>
-            <div className="center-items">
+            <div className="center-inline-items">
                 <picture>
                     <source srcSet="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me_emoji.webp"
                         type="image/webp" />

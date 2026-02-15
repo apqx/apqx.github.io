@@ -1,3 +1,4 @@
+import { consoleDebug } from "../util/log";
 import { isDebug } from "../util/tools";
 
 var service: Service | null = null;
@@ -27,6 +28,7 @@ class Service {
             method: "GET",
             signal: config.abortSignal
         })
+        consoleDebug("GetPostsByTag " + url)
         return fetch(request, { cache: "no-cache" })
     }
 
@@ -41,6 +43,7 @@ class Service {
         const request = new Request(url, {
             method: "GET",
         })
+        consoleDebug("GetPostsByCategory " + url)
         return fetch(request, { signal: config.abortSignal, cache: "no-cache" })
     }
 
@@ -54,6 +57,7 @@ class Service {
             method: "GET",
 
         })
+        consoleDebug("GetPostsByUrl " + url)
         return fetch(request, { signal: config.abortSignal, cache: "no-cache" })
     }
 
@@ -66,6 +70,7 @@ class Service {
         const request = new Request(url, {
             method: "GET"
         })
+        consoleDebug("GetUrlMap " + url)
         return fetch(request, { signal: config.abortSignal, cache: "no-cache" })
     }
 
@@ -78,6 +83,7 @@ class Service {
         const request = new Request(url, {
             method: "GET"
         })
+        consoleDebug("GetLensSearchFilters " + url)
         return fetch(request, { signal: config.abortSignal, cache: "no-cache" })
     }
 }

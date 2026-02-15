@@ -1,6 +1,5 @@
-import type { ApiPost } from "./ApiPost"
 
-export type PaginatePage = {
+export interface ApiPaginatePage<T> {
     "data": {
         "totalPosts": number,
         "totalPages": number,
@@ -9,5 +8,5 @@ export type PaginatePage = {
         "previousPagePath": string,
         "nextPagePath": string
     },
-    "posts": Array<ApiPost>
+    "posts": Array<T>
 }

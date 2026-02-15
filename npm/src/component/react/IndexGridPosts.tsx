@@ -1,98 +1,110 @@
 // import "./GridIndexList.scss"
 import type { ReactNode } from "react"
-import React, { useEffect, useMemo, useRef } from "react"
+import React, { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from "react"
 import { ImageLoadAnimator } from "../animation/ImageLoadAnimator"
 import { ERROR_HINT, LoadingHint } from "./LoadingHint"
 import { consoleDebug, consoleObjDebug } from "../../util/log"
-import { BasePaginateShow } from "./post/BasePaginateShow"
-import type { BasePaginateShowProps, BasePaginateShowState } from "./post/BasePaginateShow"
-import type { IPaginateShowPresenter } from "./post/IPaginateShowPresenter"
-import { onTagTriggerClick, setupTagTrigger } from "../tag"
+import { onTagTriggerClick } from "../tag"
 import { ScrollLoader } from "../../base/ScrollLoader"
 import Masonry from 'react-masonry-css'
-import { showFooter } from "../footer"
 import { getInterSectionObserver } from "../animation/BaseAnimation"
 import { getSplittedDate } from "../../base/post"
-import { PostPaginateShowPresenter, type Post } from "./post/PostPaginateShowPresenter"
 import { setupCardRipple } from "../card"
+import type { Post } from "../base/paginate/bean/Post"
+import { HttpPaginatorViewModel } from "../base/paginate/HttpPaginateViewModel"
+import { PostHttpPaginator } from "../base/paginate/PostHttpPaginator"
+import type { ApiPost } from "../../repository/bean/service/ApiPost"
+import type { BasePaginateViewProps } from "../base/paginate/bean/BasePaginateViewProps"
 
-interface Props extends BasePaginateShowProps<Post> {
+interface Props extends BasePaginateViewProps<Post> {
     pageDescriptionHtml: string
 }
 
-export class GridIndexList extends BasePaginateShow<Post, Props> {
+export function IndexGridPosts(props: Props) {
+    const paginateViewModel = useMemo(() => {
+        const options = {
+            tag: props.tag,
+            category: props.category,
+        }
+        return new HttpPaginatorViewModel<ApiPost, PostHttpPaginator, Post>(new PostHttpPaginator(options))
+    }, [])
+    const state = useSyncExternalStore(paginateViewModel.subscribe, () => paginateViewModel.state)
 
-    constructor(props: Props) {
-        super(props)
-    }
+    const onMount = useMemo(() => props.onMount, [props.onMount])
 
-    createPresenter(): IPaginateShowPresenter {
-        return new PostPaginateShowPresenter(this, false)
-    }
+    useEffect(() => {
+        consoleDebug(`IndexGridPosts useEffect, tag: ${props.tag}, category: ${props.category}`)
+        paginateViewModel.load(false)
 
-    initScroll() {
+        if (onMount != null) onMount()
+
         const scrollLoader = new ScrollLoader(() => {
-            consoleDebug("Index scroll should check load more")
-            if (this.state.loadHint == ERROR_HINT) return
-            this.loadMore()
+            paginateViewModel.loadMore(false)
         })
-        window.addEventListener("scroll", () => {
+        const scrollListener = () => {
             scrollLoader.onScroll(document.body.clientHeight, window.scrollY, document.body.scrollHeight)
-        })
-    }
+        }
+        window.addEventListener("scroll", scrollListener)
 
-    componentDidMount(): void {
-        super.componentDidMount()
-        consoleDebug("GridIndex componentDidMount")
-        if (this.props.onUpdate != null) this.props.onUpdate()
-        this.initScroll()
-        // 显示footer，在索引页其被默认隐藏，需要在列表首次加载后显示出来
-        showFooter()
-    }
+        return () => {
+            consoleDebug("IndexGridPosts useEffect cleanup")
+            window.removeEventListener("scroll", scrollListener)
+        }
+    }, [])
 
-    componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<BasePaginateShowState<Post>>, snapshot?: any): void {
-        consoleDebug("GridIndex componentDidUpdate")
-        if (this.props.onUpdate != null) this.props.onUpdate()
-    }
+    const onClickHint = useCallback(() => {
+        if (state.posts.length > 0) {
+            paginateViewModel.loadMore(true)
+        } else {
+            paginateViewModel.load(true)
+        }
+    }, [state.posts])
 
-    render(): ReactNode {
-        const breakpointColumnsObj = {
+    const breakPointColumnsObj = useMemo(() => {
+        return {
             default: 2,
             600: 1
         }
-        return (
-            <ul className="grid-index-ul">
-                <Masonry
-                    breakpointCols={breakpointColumnsObj}
-                    className="my-masonry-grid"
-                    columnClassName="my-masonry-grid_column">
-                    {this.props.pageDescriptionHtml != null && this.props.pageDescriptionHtml.length > 0 &&
-                        <IndexDescriptionItem innerHtml={this.props.pageDescriptionHtml} />
-                    }
-                    {this.state.posts.map((item: Post, index: number) =>
-                        // TODO: 有时候jekyll生成的path和paginate生成的path不一样，导致item重新加载，这种情况并不多
-                        <IndexItem key={item.path}
-                            index={index}
-                            title={item.title}
-                            author={item.author}
-                            actor={item.actor}
-                            date={item.date}
-                            path={item.path}
-                            description={item.description}
-                            cover={item.cover}
-                            coverAlt={item.coverAlt}
-                            last={index == this.state.posts.length - 1}
-                            coverLoadedCallback={() => { }} />
-                    )}
-                    {(this.state.loading || this.state.loadHint != null) &&
-                        <li className="grid-index-li">
-                            <LoadingHint loading={this.state.loading} loadHint={this.state.loadHint} onClickHint={this.loadMoreByClick} />
-                        </li>
-                    }
-                </Masonry>
-            </ul>
-        )
-    }
+    }, [])
+
+    const showPosts = useMemo(() => {
+        if (state.posts.length == 0) {
+            return props.loadedPosts
+        }
+        return state.posts
+    }, [state.posts])
+
+    return (
+        <ul className="grid-index-ul">
+            <Masonry
+                breakpointCols={breakPointColumnsObj}
+                className="my-masonry-grid"
+                columnClassName="my-masonry-grid_column">
+                {props.pageDescriptionHtml != null && props.pageDescriptionHtml.length > 0 &&
+                    <IndexDescriptionItem innerHtml={props.pageDescriptionHtml} />
+                }
+                {showPosts.map((item: Post, index: number) =>
+                    // TODO: 有时候jekyll生成的path和paginate生成的path不一样，导致item重新加载，这种情况并不多
+                    <IndexItem key={item.path}
+                        index={index}
+                        title={item.title}
+                        author={item.author}
+                        actor={item.actors}
+                        date={item.date}
+                        path={item.path}
+                        description={item.description}
+                        cover={item.indexCover != null && item.indexCover.length > 0 ? item.indexCover : item.cover}
+                        coverAlt={item.coverAlt}
+                        last={index == showPosts.length - 1} />
+                )}
+                {(state.loading || state.loadingHint != null) &&
+                    <li className="grid-index-li">
+                        <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} />
+                    </li>
+                }
+            </Masonry>
+        </ul>
+    )
 }
 
 type IndexItemProps = {
@@ -106,13 +118,11 @@ type IndexItemProps = {
     cover: string,
     coverAlt: string,
     last: boolean,
-    coverLoadedCallback: () => void
 }
 
 function IndexItem(props: IndexItemProps) {
     const containerRef = useRef<HTMLLIElement>(null)
     // 缓存最新的回调
-    const coverLoadedCallback = useMemo(() => props.coverLoadedCallback, [props.coverLoadedCallback])
 
     useEffect(() => {
         consoleObjDebug("IndexItem componentDidMount", props)
@@ -158,7 +168,7 @@ function IndexItem(props: IndexItemProps) {
             },
             () => {
                 // 图片尺寸动画执行完成
-                coverLoadedCallback()
+                // coverLoadedCallback()
             })
     }
 

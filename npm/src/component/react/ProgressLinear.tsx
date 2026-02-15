@@ -4,6 +4,7 @@ import { MDCLinearProgress } from "@material/linear-progress"
 
 interface Props {
     loading: boolean
+    classes?: string[]
 }
 
 export function ProgressLinear(props: Props) {
@@ -32,7 +33,7 @@ export function ProgressLinear(props: Props) {
     }
 
     return (
-        <div ref={containerRef} role="progressbar" className="mdc-linear-progress">
+        <div ref={containerRef} role="progressbar" className={`mdc-linear-progress ${props.classes?.join(" ") ?? ""}`.trimEnd()}>
             <div className="mdc-linear-progress__buffer">
                 <div className="mdc-linear-progress__buffer-bar"></div>
                 <div className="mdc-linear-progress__buffer-dots"></div>

@@ -20,18 +20,14 @@
     @include drawer.item-icon-ink-color(var(--mdc-theme-on-surface));
     @include drawer.item-activated-text-ink-color(var(--mdc-theme-on-surface));
     @include drawer.item-activated-icon-ink-color(var(--mdc-theme-on-surface));
+    .dark & {
+        @include elevation.elevation(map.get(base.$drawer-elevation, "elevation"), map.get(base.$drawer-elevation, "shadow-dark"), 0);
+    }
+
     // transition: transform 0.2s ease-out !important;
     border: none;
     padding-left: var(--drawer-padding-horizontal);
     padding-right: var(--drawer-padding-horizontal);
-    // background-color: rgba($color: map.get(base.$surface, "light"), $alpha: 0.8);
-    // backdrop-filter: blur(30px);
-    // -webkit-backdrop-filter: blur(30px);
-}
-
-.dark .mdc-drawer {
-    @include elevation.elevation(map.get(base.$drawer-elevation, "elevation"), map.get(base.$drawer-elevation, "shadow-dark"), 0);
-    // background-color: rgba($color: map.get(base.$surface, "dark"), $alpha: 0.8);
 }
 
 .mdc-drawer-scroll-lock {
@@ -93,10 +89,6 @@
             padding: 0;
         }
     }
-
-    .drawer-header-share-icon {
-        color: var(--mdc-theme-on-primary);
-    }
 }
 
 
@@ -105,11 +97,10 @@
 }
 
 .nav-list .mdc-deprecated-list-item.mdc-deprecated-list-item--selected {
-    background-color: rgba($color: map.get(base.$drawer-nav-ripple, "light"), $alpha: 0.15)
-}
-
-.dark .nav-list .mdc-deprecated-list-item.mdc-deprecated-list-item--selected {
-    background-color: rgba($color: map.get(base.$drawer-nav-ripple, "dark"), $alpha: 0.15)
+    background-color: rgba($color: map.get(base.$drawer-nav-ripple, "light"), $alpha: 0.15);
+    .dark & {
+        background-color: rgba($color: map.get(base.$drawer-nav-ripple, "dark"), $alpha: 0.15);
+    }
 }
 
 .nav-list {
@@ -120,11 +111,13 @@
         @include ripple.states-base-color(map.get(base.$drawer-nav-ripple, "light"));
         @include ripple.states-opacities((hover: .1, focus: .1, press: .1));
     }
-}
 
-.dark .nav-list .mdc-deprecated-list-item {
-    @include ripple.states-base-color(map.get(base.$drawer-nav-ripple, "dark"));
-    @include ripple.states-opacities((hover: .1, focus: .1, press: .1));
+    .dark & {
+        .mdc-deprecated-list-item {
+            @include ripple.states-base-color(map.get(base.$drawer-nav-ripple, "dark"));
+            @include ripple.states-opacities((hover: .1, focus: .1, press: .1));
+        }
+    }
 }
 
 .nav-bottom {
