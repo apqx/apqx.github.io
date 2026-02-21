@@ -1,8 +1,7 @@
-import type { SearchPost } from "./bean/SearchPost"
 import type { ISearchPaginator } from "./interface/ISearchPaginator"
 import { consoleDebug, consoleObjDebug } from "../../../util/log"
-import { isDebug, MINIMAL_LOADING_TIME_MS, sleep } from "../../../util/tools"
-import type { ApiPagefindSearch, PagefindResult, PagefindResultItem } from "../../../repository/bean/pagefind/ApiPagefindSearch"
+import { isDebug, sleepUntilMinimalTime } from "../../../util/tools"
+import type { PagefindResult } from "../../../repository/bean/pagefind/ApiPagefindSearch"
 import { SERVICE_BASE_URL } from "../../../repository/Service"
 
 export type BasePagefindPaginatorOptions = {
@@ -46,10 +45,8 @@ export abstract class BasePagefindPaginator<P, T> implements ISearchPaginator<P,
         const filters = await this.pagefind.filters();
         consoleObjDebug("Get pagefind filters", filters)
         let pagefindResult: PagefindResult = await this.pagefind.search(newKey, options)
-        if (this.abortController?.signal.aborted) {
-            throw new Error("Pagefind search aborted")
-        }
         const resultSize = pagefindResult?.results.length ?? 0
+
         consoleObjDebug("Pagefind results", pagefindResult)
         const firstPageSize = Math.min(resultSize, this.PAGE_SIZE)
         if (firstPageSize == 0) {
@@ -64,12 +61,8 @@ export abstract class BasePagefindPaginator<P, T> implements ISearchPaginator<P,
         this.pagefindResult = pagefindResult
         this.cachedData = []
         this.cachedData.push(...results)
-        if (this.abortController?.signal.aborted) {
-            throw new Error("Pagefind search aborted")
-        }
-        const usedTime = Date.now() - startTime
-        if (delay == true && usedTime < MINIMAL_LOADING_TIME_MS) {
-            await sleep(MINIMAL_LOADING_TIME_MS - usedTime)
+        if (delay) {
+            await sleepUntilMinimalTime(startTime, this.abortController?.signal)
         }
         return this.cachedData
     }
@@ -98,12 +91,8 @@ export abstract class BasePagefindPaginator<P, T> implements ISearchPaginator<P,
         consoleObjDebug("Load more page data", apiResults)
         const results = apiResults.map(it => this.convertToShowData(it as P))
         this.cachedData.push(...results)
-        if (this.abortController?.signal.aborted) {
-            throw new Error("Pagefind search aborted")
-        }
-        const usedTime = Date.now() - startTime
-        if (delay == true && usedTime < MINIMAL_LOADING_TIME_MS) {
-            await sleep(MINIMAL_LOADING_TIME_MS - usedTime)
+        if (delay) {
+            await sleepUntilMinimalTime(startTime, this.abortController?.signal)
         }
         return this.cachedData.slice()
     }

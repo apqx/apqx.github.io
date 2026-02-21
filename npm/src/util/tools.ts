@@ -163,6 +163,22 @@ export async function sleep(ms: number): Promise<void> {
     })
 }
 
+/**
+ * 确保自指定时间起至少经过最小加载时间后才继续执行，期间如果 abortSignal 被触发则抛出异常
+ * @param startTime 其实时间，单位毫秒
+ * @param abortSignal 中断信号
+ */
+export async function sleepUntilMinimalTime(startTime: number, abortSignal?: AbortSignal): Promise<void> {
+    const usedTime = Date.now() - startTime
+    if (usedTime < MINIMAL_LOADING_TIME_MS) {
+        await sleep(MINIMAL_LOADING_TIME_MS - usedTime)
+    }
+    if (abortSignal != null && abortSignal.aborted) {
+        consoleDebug("sleepUntilMinimalTime aborted")
+        throw new Error("Aborted")
+    }
+}
+
 export const clearFocusListener: (e: Event) => void = (e) => {
     const target = e.target as HTMLElement
     target.blur()

@@ -1,47 +1,45 @@
 {
-    "short_name": "立泉落落",
-    "name": "立泉落落",
-    "icons": [
-      {
-        "purpose": "maskable",
-        "sizes": "192x192",
-        "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/icon/old_man_white_bg_maskable_192.png",
-        "type": "image/png"
-      },
-      {
-        "purpose": "maskable",
-        "sizes": "384x384",
-        "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/icon/old_man_white_bg_maskable_384.png",
-        "type": "image/png"
-      },
-      {
-        "purpose": "maskable",
-        "sizes": "512x512",
-        "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/icon/old_man_white_bg_maskable_512.png",
-        "type": "image/png"
-      },
-      {
-        "purpose": "any",
-        "sizes": "192x192",
-        "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/icon/old_man_rounded_white_bg_192.png",
-        "type": "image/png"
-      },
-      {
-        "purpose": "any",
-        "sizes": "384x384",
-        "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/icon/old_man_rounded_white_bg_384.png",
-        "type": "image/png"
-      },
-      {
-        "purpose": "any",
-        "sizes": "512x512",
-        "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/icon/old_man_rounded_white_bg_512.png",
-        "type": "image/png"
-      }
-
-    ],
-    "start_url": "/",
-    "display": "standalone",
-    "background_color": "#ffffff"
-  }
-  
+  "short_name": "立泉落落",
+  "name": "立泉落落",
+  "icons": [
+    {
+      "purpose": "maskable",
+      "sizes": "96x96",
+      "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/reading/icon_maskable_96.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "maskable",
+      "sizes": "192x192",
+      "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/reading/icon_maskable_192.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "maskable",
+      "sizes": "1024x1024",
+      "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/reading/icon_maskable_1024.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "any",
+      "sizes": "96x96",
+      "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/reading/icon_corner_96.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "any",
+      "sizes": "192x192",
+      "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/reading/icon_corner_192.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "any",
+      "sizes": "1024x1024",
+      "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/reading/icon_corner_1024.png",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff"
+}

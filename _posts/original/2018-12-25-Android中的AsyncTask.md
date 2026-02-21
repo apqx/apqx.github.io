@@ -190,7 +190,7 @@ public final AsyncTask<Params, Progress, Result> executeOnExecutor(Executor exec
                 throw new IllegalStateException("Cannot execute task:"
                         + " the task is already running.");
             case FINISHED:
-                // 如果此 AsyncTas k实例已经执行过，抛出异常
+                // 如果此 AsyncTask实例已经执行过，抛出异常
                 throw new IllegalStateException("Cannot execute task:"
                         + " the task has already been executed "
                         + "(a task can be executed only once)");
@@ -209,7 +209,7 @@ public final AsyncTask<Params, Progress, Result> executeOnExecutor(Executor exec
 }
 ```
 
-可以看到，同一个`AsyncTask`实例只能执行一次，任务可以在指定`线程池`中执行，否则运行在默认`线程池`，这个默认`Executor`是这样的：
+可以看到，同一个`AsyncTask`实例只能执行一次，如果不指定任务运行的线程池则使用这个默认的`Executor`：
 
 ```java
 private static class SerialExecutor implements Executor {
@@ -254,9 +254,9 @@ threadPoolExecutor.allowCoreThreadTimeOut(true);
 THREAD_POOL_EXECUTOR = threadPoolExecutor;
 ```
 
-因为默认`Executor`是`静态`的，且只会`串行`执行任务，所以虽然同一个`AsyncTask`可以创建多个实例同时调用`execute()`开始任务，但它们实际使用的是同一个`Executor`，后台任务执行时是`串行`而非`并行`。
+因为默认`Executor`是`static`且只会串行执行任务，所以同一个`AsyncTask`类创建多个实例调用`execute()`启动任务实际使用的是同一个`Executor`，后台任务串行执行而非并行。
 
-`mFuture`应该是实际执行的后台任务，它在`构造器`中创建：
+`mFuture`应该是实际执行的后台任务，它在构造器中创建：
 
 ```java
 public AsyncTask(@Nullable Looper callbackLooper) {

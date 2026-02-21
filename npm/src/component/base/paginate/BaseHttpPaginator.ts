@@ -1,8 +1,7 @@
-import { start } from "repl";
 import type { ApiPaginatePage } from "../../../repository/bean/service/ApiPaginatePage";
 import { getServiceInstance, SERVICE_DEBUG_MODE_AUTO, SERVICE_DEBUG_MODE_OFF } from "../../../repository/Service";
 import { consoleDebug, consoleObjDebug } from "../../../util/log";
-import { MINIMAL_LOADING_TIME_MS, runAfterMinimalTime, sleep } from "../../../util/tools";
+import { sleepUntilMinimalTime } from "../../../util/tools";
 import type { IHttpPaginator } from "./interface/IHttpPaginator";
 
 /**
@@ -36,10 +35,13 @@ export abstract class BaseHttpPaginator<H, T> implements IHttpPaginator<H, T> {
         this.abortController = new AbortController()
         const startTime = Date.now()
         return this.getRequest(this.abortController.signal, 1)
-            .then((response: Response) => {
+            .then(async (response: Response) => {
                 if (response.status === 200) {
                     return response.json()
                 } else {
+                    if (delay) {
+                        await sleepUntilMinimalTime(startTime, this.abortController?.signal)
+                    }
                     throw new Error("Something went wrong on api server!")
                 }
             }).then(async (page: ApiPaginatePage<H>) => {
@@ -48,9 +50,8 @@ export abstract class BaseHttpPaginator<H, T> implements IHttpPaginator<H, T> {
                 this.cachedPage.push(page)
                 this.cachedData = []
                 this.cachedData.push(...page.posts.map(item => this.convertToShowData(item)))
-                const usedTime = Date.now() - startTime
-                if (delay == true && usedTime < MINIMAL_LOADING_TIME_MS) {
-                    await sleep(MINIMAL_LOADING_TIME_MS - usedTime)
+                if (delay) {
+                    await sleepUntilMinimalTime(startTime, this.abortController?.signal)
                 }
                 return this.cachedData
             })
@@ -97,29 +98,33 @@ export abstract class BaseHttpPaginator<H, T> implements IHttpPaginator<H, T> {
         }
         const startTime = Date.now()
         return this.getRequest(this.abortController.signal, undefined, nextPagePath)
-            .then((response: Response) => {
+            .then(async (response: Response) => {
                 if (response.status === 200) {
                     return response.json()
+                }
+                if (delay) {
+                    await sleepUntilMinimalTime(startTime, this.abortController?.signal)
                 }
                 throw new Error("Something went wrong on api server!")
             }).then(async (page: ApiPaginatePage<H>) => {
                 consoleObjDebug("Http paginator more page", page)
                 this.cachedPage.push(page)
                 this.cachedData.push(...page.posts.map(item => this.convertToShowData(item)))
-                const usedTime = Date.now() - startTime
-                if (delay == true && usedTime < MINIMAL_LOADING_TIME_MS) {
-                    await sleep(MINIMAL_LOADING_TIME_MS - usedTime)
+                if (delay) {
+                    await sleepUntilMinimalTime(startTime, this.abortController?.signal)
                 }
                 return this.cachedData.slice()
             })
     }
+
+
 
     hasMore(): boolean {
         let hasMore = false
         // 首页加载完毕但下一页链接为空，没有更多
         const nextPagePath = this.cachedPage[this.cachedPage.length - 1].data.nextPagePath
         if (nextPagePath != null && nextPagePath.length > 0) {
-            hasMore =  true
+            hasMore = true
         }
         consoleDebug("Http paginator has more ? " + hasMore)
         return hasMore

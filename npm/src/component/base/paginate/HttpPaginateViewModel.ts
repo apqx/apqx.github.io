@@ -3,7 +3,6 @@ import { ERROR_HINT, getLoadHint } from "../../react/LoadingHint"
 import { BaseExternalStore } from "./BaseExternalStore"
 import type { BaseHttpPaginator } from "./BaseHttpPaginator"
 import type { BasePaginateViewModelState } from "./bean/BasePaginateViewModelState"
-import type { IHttpPaginator } from "./interface/IHttpPaginator"
 
 /**
  * H, 从接口获取的原始数据类型；P，分页加载器类型，必须继承自 BaseHttpPaginator；T，转换后供组件显示的数据类型

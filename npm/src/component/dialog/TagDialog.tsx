@@ -31,7 +31,7 @@ function TagDialog(props: TagDialogProps) {
     const state = useSyncExternalStore(paginateViewModel.subscribe, () => paginateViewModel.state)
 
     useEffect(() => {
-        // paginatorViewModel.load(true)
+        paginateViewModel.load(true)
     }, [])
 
     const onDialogOpen = useCallback(() => {
@@ -39,9 +39,11 @@ function TagDialog(props: TagDialogProps) {
             paginateViewModel.load(true)
         }
     }, [state.posts])
+
     const onDialogClose = useCallback(() => {
         paginateViewModel.abort()
     }, [])
+    
     const onLoadMore = useCallback(() => {
         paginateViewModel.loadMore(false)
     }, [])

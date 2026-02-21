@@ -29,12 +29,12 @@ $ripple-gap-percent: 25%;
 
 // 思源黑体和思源宋体都是可变字体，但与其配合的西文字体不一定是可变的，应调整字重与之匹配
 $font-weight-light-noto-sans: 320;
-$font-weight-normal-noto-sans: 380;
-$font-weight-medium-noto-sans: 480;
+$font-weight-normal-noto-sans: 390;
+$font-weight-medium-noto-sans: 490;
 
 $font-weight-light-noto-serif: 360;
 $font-weight-normal-noto-serif: 480;
-$font-weight-medium-noto-serif: 580;
+$font-weight-medium-noto-serif: 600;
 
 // 与思源宋配合的 Google Code Mono 代码块字体，在段落中同时显示时应该更细一些
 $font-weight-light-noto-serif-code: 310;
