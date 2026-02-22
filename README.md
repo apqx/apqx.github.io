@@ -28,6 +28,19 @@
 
 ![立泉落落](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/screenshots/blog_post_relative.webp)
 
+## Pagefind
+
+站内搜索功能基于 Pagefind 实现，需要先扫描站点生成索引文件：
+
+```sh
+# 进入博客根目录
+# 删除旧索引
+rm -rf npm/pagefind
+# 在 Jekyll 生成网站后扫描博客文章生成新索引
+# 扫描目录为 Jekyll 的站点目录 _site/，输出目录为 npm/pagefind/
+pagefind --site _site --output-path npm/pagefind
+```
+
 ## 本地调试
 
 工程由 Vite 和 Jekyll 组成，Vite 用于生成网站所需的 Javascript 和 CSS 资源，Jekyll 则用来将 Markdown 文章转换为 HTML 网页，生成可部署的静态站点。
@@ -45,15 +58,19 @@ npm install
 npm run build
 ```
 
-网站部署时这些资源文件被托管在阿里云 OSS 上以提高中国大陆的访问速度，在`_includes/head.html`中可以看到对它们的引用。
+网站部署时这些资源文件被托管到阿里云 OSS 上以提高中国大陆的访问速度，在`_includes/configure.html`和`_includes/head.html`中定义。
 
-调试时将`_includes/configure.html`中的`debug`参数设为`true`，Jekyll 即会在`<header></header>`中引用本地资源，进入`debug`模式 JS 日志也会输出到浏览器 Console 中。
+环境变量`JEKYLL_ENV`可控制工程处于`Development`或`Production`模式。`Development`模式下 Jekyll 生成的网页会在`<header></header>`中引用本地资源，JS 日志也会输出到浏览器 Console 中。`Production`模式下则使用托管在云上的资源并关闭 JS 日志输出。
 
 ```html
 <!-- _includes/configure.html -->
 
-<!-- 设置 debug 为 true，使用本地资源 -->
-{% assign debug = true %}
+<!-- Jekyll 编译时的模版文件 -->
+<!-- 检测 JEKYLL_ENV 环境变量写入网页 <head>，从而控制整个站点是否处于生产模式 -->
+{% assign debug = true -%}
+{% if jekyll.environment == "production" -%}
+  {% assign debug = false -%}
+{% endif -%}
 ```
 
 ### Jekyll
@@ -74,24 +91,22 @@ Jekyll 会在`_site/`目录下生成静态网站，并 serve 到本地 4000 端�
 http://localhost:4000
 ```
 
-`jekyll serve`是以开发模式生成站点，一些插件比如`jekyll-sitemap`并不会使用`_config.yml`中配置的域名，生成可部署站点需执行`jekyll build`：
+`JEKYLL_ENV`未设置时`jekyll serve`和`jekyll build`均以开发模式生成站点，一些插件为减少构建时间可能不会执行完整功能，需设置`JEKYLL_ENV`的值为`production`：
 
 ```sh
-bundle exec jekyll build --trace
+# 生产模式 serve
+JEKYLL_ENV=production bundle exec jekyll serve -l -o --trace --draft
+# 生产模式 build
+JEKYLL_ENV=production bundle exec jekyll build --trace
 ```
+
+具体命令在`.vscode/tasks.json`中均有定义。
 
 ## 部署到 GitHub Pages
 
-调试完成后，把 Vite 生成的新 JS 和 CSS 文件上传到 OSS 中，然后在`_includes/configure.html`中关闭`debug`模式即可使用这些远程资源：
+调试完成后，把 Vite 生成的新 JS 和 CSS 文件上传到 OSS 中，以生产模式生成站点。
 
-```html
-<!-- _includes/configure.html -->
-
-<!-- 设置 debug 为 false -->
-{% assign debug = false %}
-```
-
-工程`push`到自己的 repository，GitHub Pages 会自动执行`jekyll build`生成静态网站：
+工程`push`到自己的 repository，GitHub Pages 会自动设置`JEKYLL_ENV=production`执行`jekyll build`生成静态网站：
 
 ```sh
 git push

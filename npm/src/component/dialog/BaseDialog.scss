@@ -14,7 +14,7 @@
     transform: translateY(var(--dialog-animation-translate-y));
     opacity: 0;
     transition: transform var(--dialog-animation-duration) ease,
-        opacity calc(var(--dialog-animation-duration) / 2) ease !important;
+        opacity calc(var(--dialog-animation-duration) / 2.5) ease !important;
     // will-change: transform, opacity;
 }
 

@@ -1,4 +1,7 @@
-{% assign debug = false -%}
+{% assign debug = true -%}
+{% if jekyll.environment == "production" -%}
+  {% assign debug = false -%}
+{% endif -%}
 {% assign writing = false -%}
 {% assign version = "2.0.0" -%}
 {% if debug == true -%}

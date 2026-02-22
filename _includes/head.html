@@ -25,7 +25,7 @@
 {% if page.image != null -%}
 <meta data-pagefind-default-meta="image[content]" property="og:image" content="{{ page.image }}"/>
 {% else -%}
-<meta data-pagefind-default-meta="image[content]" property="og:image" content="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/computer.jpg"/>
+<meta data-pagefind-default-meta="image[content]" property="og:image" content="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/friendship.jpg"/>
 {% endif -%}
 {% if page.searchEngine == false -%}
 <!-- Let search engine not index this page -->
@@ -36,11 +36,11 @@
 <!-- Site icon -->
  <!-- PWA, Chrome 添加到桌面图标 -->
 <link rel="manifest" href="/manifest.json" />
-<!-- Chrome 的 Tab 图标，如果尺寸太大可能不被使用 -->
-<link rel="shortcut icon" href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/reading/icon_corner_192.png"/>
+<!-- Chrome Safari 的 Tab 图标，如果尺寸太大可能不被使用 -->
+<link rel="shortcut icon" href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/reading/icon_corner_48.png"/>
 <!-- Safari 的 Tab 图标和添加到桌面图标 -->
-<!-- <link rel="apple-touch-icon" href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/reading/icon_1024.png"/> -->
-{% comment %} js和css由内部webpack工程输出，debug模式下使用localhost版本，release模式下使用托管在阿里云上的版本 {% endcomment -%}
+<link rel="apple-touch-icon" href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/reading/icon_corner_192.png"/>
+{% comment %} JS 和 CSS 由内部 Vite development 模式下使用 localhost production 模式下使用托管在阿里云上的版本 {% endcomment -%}
 <script async type="module" crossorigin src="{{ resUrlPrefix }}blog-scaffold.js"></script>
 <link rel="stylesheet" href="{{ resUrlPrefix }}assets/blog-scaffold.css"/>
 <link rel="stylesheet" href="{{ resUrlPrefix }}assets/blog-font.css"/>
