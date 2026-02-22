@@ -17,8 +17,8 @@ export function initTagTriggers(containerE: HTMLElement = document.body) {
 export function setupTagTrigger(trigger: HTMLElement) {
     // 获取每一个 trigger 的 id，找到它对应的 dialogId，和 dialog 里的 listId
     consoleDebug("SetupTagTrigger " + trigger.id)
-    // 监听 trigger 的点击事件
-    trigger.addEventListener("click", (event) => {
+    // 监听 trigger 的点击事件，如果发现 iOS safari 的 a 点击事件有延迟，可用 pointerup 代替 click
+    trigger.addEventListener("click", () => {
         onTagTriggerClick(trigger)
     })
 }

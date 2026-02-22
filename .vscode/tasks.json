@@ -2,31 +2,31 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Jekyll: Serve in Development",
+            "label": "jekyll: serve in development",
             "type": "shell",
             "command": "bundle exec jekyll serve -l -o --trace --draft",
             "group": "test",
-            "problemMatcher": [],
+            "problemMatcher": []
         },
         {
-            "label": "Jekyll: Serve in Production",
+            "label": "jekyll: serve in production",
             "type": "shell",
             "command": "JEKYLL_ENV=production bundle exec jekyll serve -l -o --trace --draft",
             "windows": {
                 "command": "set JEKYLL_ENV=production && bundle exec jekyll serve -l -o --trace --draft"
             },
             "group": "test",
-            "problemMatcher": [],
+            "problemMatcher": []
         },
         {
-            "label": "Jekyll: Build in Production",
+            "label": "jekyll: build in production",
             "type": "shell",
             "command": "JEKYLL_ENV=production bundle exec jekyll build --trace",
             "windows": {
                 "command": "set JEKYLL_ENV=production && bundle exec jekyll build --trace"
             },
             "group": "build",
-            "problemMatcher": [],
-        },
+            "problemMatcher": []
+        }
     ]
 }

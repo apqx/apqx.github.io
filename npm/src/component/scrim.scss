@@ -1,0 +1,27 @@
+@use "../style/global" as base;
+@use "sass:map";
+
+@mixin baseScrim {
+    background-color: var(--dialog-scrim-bg);
+    transition: opacity var(--dialog-animation-duration) ease;
+    // 大面积 blur 会导致性能问题，尽量不用
+    // -webkit-backdrop-filter: blur(map.get(base.$scrim, "backdrop-blur"));
+    // backdrop-filter: blur(map.get(base.$scrim, "backdrop-blur"));
+}
+
+.common-scrim {
+    z-index: 4;
+    position: absolute;
+    inset: 0;
+    display: none;
+    opacity: 0;
+    @include baseScrim;
+
+    &.common-scrim--visible {
+        display: block;
+    }
+
+    &.common-scrim--active {
+        opacity: 1;
+    }
+}

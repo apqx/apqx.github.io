@@ -21,78 +21,49 @@
 // @use "../component/dialog/TagDialog";
 // @use "../component/react/Snackbar";
 @use "@material/animation";
+@use "sass:map";
 
-
-// <body class="mdc-typography mdc-theme--surface">
-//     {% include header.html %}
-//     {% include aside.html %}
-//     <div class="page-wrap mdc-theme--background">
-//         <hr class="header-space mdc-theme--surface" />
-//         <main class="main-container">
-//             {{ content }}
-//         </main>
-//         {% include footer.html %}
-//     </div>
-// </body>
-
-// 通过 js 给 body 添加 dark class，实现对 mac-theme 参数更改
-// 大部分组件都会正确响应颜色变化，但是 list 和 chip 却无效
-// 且 theme.$property 引用的值也没有动态变化
-body {
-    // 消除 topbar 左侧的 margin
-    margin: 0;
-}
-
-html,
-body {
+html {
     // 设置 html 和 body 高度为浏览器窗口高度
     // 如果内部 content 高度超过窗口高度则处于 overflow 状态
     height: 100%;
 }
+// body {
+// }
 
-// 包含 main 和 footer，以及顶部的 header 空间
-// header 内容不在这里，悬浮在独立层级
-.page-wrap {
+body {
+    // 消除 topbar 左侧的 margin
+    margin: 0;
     min-height: 100%;
+    height: fit-content;
+    // 内容竖向排列
     display: flex;
     flex-direction: column;
-    box-sizing: border-box;
-}
+    position: relative;
 
-main {
-    flex: 1;
-}
+    .header-space {
+        width: 100%;
+        height: var(--topbar-height);
+        flex-shrink: 0;
+        border: none;
+        margin: 0;
+    }
 
-// footer 吸附在页面底部
-footer {
-    background-color: var(--mdc-theme-primary);
-    display: flex;
-    flex-direction: column;
-}
+    // 包含 main 和 footer，以及顶部的 header 空间
+    // header 内容不在这里，悬浮在独立层级
+    main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+    }
 
-footer.footer--hidden {
-    opacity: 0;
-}
-
-footer * {
-    color: var(--footer-ink);
-}
-
-.copyright {
-    padding: 1rem;
-
-    p {
-        font-style: normal;
+    footer {
+        display: flex;
+        flex-direction: column;
     }
 }
 
-// header 在 page-wrap 中的占位空间
-.header-space {
-    width: 100%;
-    height: var(--topbar-height);
-    border: none;
-    margin: 0;
-}
 
 // 内容最外层容器，高度为 100% - topbar-height - footer-height 
 .main-container {

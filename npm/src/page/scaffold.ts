@@ -20,6 +20,7 @@ import supportsWebP from "supports-webp"
 import { showSimpleAlertDialog } from "../component/dialog/CommonAlertDialog"
 import { ResizeWidthObserver } from "../base/ResizeWidthObserver"
 import { EVENT_PAGE_BACK_FROM_CACHE, getEventEmitter, type Events } from "../component/base/EventBus"
+import { initScrim } from "../component/scrim"
 
 initScaffold()
 
@@ -33,6 +34,7 @@ export function initScaffold() {
         initFooter()
         initTheme()
         initDrawer()
+        initScrim()
         initFab()
         initTag()
         initButton()

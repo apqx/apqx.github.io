@@ -104,8 +104,9 @@ $snackbar-ink: (
 );
 
 $scrim: (
-        color: rgba(0, 0, 0, 0.05),
-        backdrop-blur: 5px,
+        light: rgba(color.adjust(map.get($background, "light"), $lightness: -80%), 0.3),
+        dark: rgba(color.adjust(map.get($background, "dark"), $lightness: -80%), 0.3),
+        backdrop-blur: 4px,
 );
 
 $topbar-elevation: (

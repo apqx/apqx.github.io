@@ -1,4 +1,5 @@
 @use "../style/global" as base;
+@use "../component/scrim.scss" as scrim;
 @use "@material/drawer";
 @use "@material/drawer/mdc-drawer";
 @use "@material/drawer/modal/mdc-drawer-modal";
@@ -20,6 +21,7 @@
     @include drawer.item-icon-ink-color(var(--mdc-theme-on-surface));
     @include drawer.item-activated-text-ink-color(var(--mdc-theme-on-surface));
     @include drawer.item-activated-icon-ink-color(var(--mdc-theme-on-surface));
+
     .dark & {
         @include elevation.elevation(map.get(base.$drawer-elevation, "elevation"), map.get(base.$drawer-elevation, "shadow-dark"), 0);
     }
@@ -34,12 +36,14 @@
     overflow: hidden;
 }
 
+.mdc-drawer.mdc-drawer--modal {
+    position: absolute;
+}
+
 .mdc-drawer--modal+.mdc-drawer-scrim {
     z-index: 2;
-    background-color: var(--drawer-scrim-bg);
-    transition: opacity var(--dialog-animation-duration) ease !important;
-    -webkit-backdrop-filter: blur(map.get(base.$scrim, "backdrop-blur"));
-    backdrop-filter: blur(map.get(base.$scrim, "backdrop-blur"));
+    @include scrim.baseScrim;
+    position: absolute;
 }
 
 .mdc-drawer {
@@ -70,7 +74,6 @@
 .mdc-drawer__header {
     display: flex;
     align-items: center;
-    ;
 
     .drawer-header-text-container {
         flex: 1;
@@ -94,28 +97,25 @@
 
 .nav-list {
     flex: 1;
-}
 
-.nav-list .mdc-deprecated-list-item.mdc-deprecated-list-item--selected {
-    background-color: rgba($color: map.get(base.$drawer-nav-ripple, "light"), $alpha: 0.15);
-    .dark & {
-        background-color: rgba($color: map.get(base.$drawer-nav-ripple, "dark"), $alpha: 0.15);
-    }
-}
-
-.nav-list {
     .mdc-deprecated-list-item {
         overflow: hidden;
         @include ripple.surface;
         @include ripple.radius-bounded;
         @include ripple.states-base-color(map.get(base.$drawer-nav-ripple, "light"));
         @include ripple.states-opacities((hover: .1, focus: .1, press: .1));
-    }
 
-    .dark & {
-        .mdc-deprecated-list-item {
+        .dark & {
             @include ripple.states-base-color(map.get(base.$drawer-nav-ripple, "dark"));
             @include ripple.states-opacities((hover: .1, focus: .1, press: .1));
+        }
+    }
+
+    .mdc-deprecated-list-item.mdc-deprecated-list-item--selected {
+        background-color: rgba($color: map.get(base.$drawer-nav-ripple, "light"), $alpha: 0.15);
+
+        .dark & {
+            background-color: rgba($color: map.get(base.$drawer-nav-ripple, "dark"), $alpha: 0.15);
         }
     }
 }

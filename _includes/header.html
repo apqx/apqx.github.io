@@ -1,22 +1,26 @@
-<!-- top app bar -->
 <header class="mdc-top-app-bar mdc-top-app-bar--fixed mdc-top-app-bar--no-sticky" id="top_app_bar">
     <div class="mdc-top-app-bar__row">
         <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
             <!-- 用 <span> 会导致 js 更换 icon 明显变慢 -->
-            <button class="mdc-top-app-bar__navigation-icon mdc-icon-button mdc-icon-button--toggle-animation " aria-label="Menu" id="topbar_btn_menu" tabindex="0">
+            <button class="mdc-top-app-bar__navigation-icon mdc-icon-button mdc-icon-button--toggle-animation "
+                aria-label="Menu" id="topbar_btn_menu" tabindex="0">
                 <i class="material-symbols-rounded-variable mdc-icon-button__icon">menu</i>
                 <i class="material-symbols-rounded-variable mdc-icon-button__icon mdc-icon-button__icon--on">menu_open</i>
             </button>
             <span class="mdc-top-app-bar__title"><a href=""></a></span>
         </section>
         <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
-            <button class="mdc-top-app-bar__action-item mdc-icon-button mdc-icon-button--toggle-animation display-none" aria-label="Theme" id="topbar_btn_theme" tabindex="0">
+            <button class="mdc-top-app-bar__action-item mdc-icon-button mdc-icon-button--toggle-animation display-none"
+                aria-label="Theme" id="topbar_btn_theme" tabindex="0">
                 <i class="material-symbols-rounded-variable mdc-icon-button__icon mdc-icon-button__icon--on">light_mode</i>
                 <i class="material-symbols-rounded-variable mdc-icon-button__icon">dark_mode</i>
             </button>
-            <button class="mdc-top-app-bar__action-item mdc-icon-button" aria-label="About me" id="topbar_btn_about_me" tabindex="0">
+            <button class="mdc-top-app-bar__action-item mdc-icon-button" aria-label="About me" id="topbar_btn_about_me"
+                tabindex="0">
                 <i class="material-symbols-rounded-variable mdc-icon-button__icon">face</i>
             </button>
         </section>
     </div>
 </header>
+
+<hr class="header-space mdc-theme--surface" />

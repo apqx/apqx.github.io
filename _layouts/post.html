@@ -9,9 +9,8 @@
     {% include script-theme.html %}
     {% include header.html %}
     {% include aside.html %}
-    <div class="page-wrap mdc-theme--background">
-        <hr class="header-space mdc-theme--surface" />
-        <main class="main-container">
+    <main class="mdc-theme--background">
+        <div class="main-container">
             <!-- 不携带 data-pagefind-body 将不会被 pagefind 索引 -->
             <article data-pagefind-body class="mdc-card content-card">
                 {% include script-content-card.html %}
@@ -80,9 +79,9 @@
                 <!-- main content -->
                 {{ content }}
             </article>
-        </main>
-        {% include footer.html %}
-    </div>
+        </div>
+    </main>
+    {% include footer.html %}
 </body>
 
 </html>

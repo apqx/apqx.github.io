@@ -7,7 +7,7 @@ import { showAboutMeDialog } from "./dialog/AboutMeDialog";
 import { showPreferenceDialog } from "./dialog/PreferenceDialog";
 import { showSearchDialog } from "./dialog/SearchDialog";
 import { getSectionTypeByPath, SECTION_TYPE_LENS, SECTION_TYPE_OPERA, SECTION_TYPE_POETRY, SECTION_TYPE_REPOST, SECTION_TYPE_TAGS } from "../base/constant";
-import { toggleClassWithEnable } from "../util/tools";
+import { isSafari, toggleClassWithEnable } from "../util/tools";
 import { setupIconButtonRipple } from "./button";
 import { setupListItemRipple } from "./list";
 
@@ -93,19 +93,25 @@ export function initDrawer() {
         return
     }
     const searchEHref = searchE.getAttribute("href")
-    searchE.addEventListener("click", () => {
+
+    // iOS 端 safari 对 a 链接的 click 事件会有延迟，使用 pointerup 事件可避免这个问题
+    const eventType = isSafari() ? "pointerup" : "click";
+
+    searchE.addEventListener(eventType, () => {
         if (searchEHref == null || searchEHref == "") {
             consoleDebug("Click drawer list item " + DRAWER_ITEM_SEARCH_ID)
             showSearchDialog()
             drawer.open = false
         }
     })
-    listE.querySelector("#" + DRAWER_ITEM_PREFERENCE_ID)?.addEventListener("click", () => {
+
+    listE.querySelector("#" + DRAWER_ITEM_PREFERENCE_ID)?.addEventListener(eventType, () => {
         consoleDebug("Click drawer list item " + DRAWER_ITEM_PREFERENCE_ID)
         showPreferenceDialog()
         drawer.open = false
     })
-    listE.querySelector("#" + DRAWER_ITEM_ABOUT_ME_ID)?.addEventListener("click", () => {
+
+    listE.querySelector("#" + DRAWER_ITEM_ABOUT_ME_ID)?.addEventListener(eventType, () => {
         consoleDebug("Click drawer list item " + DRAWER_ITEM_ABOUT_ME_ID)
         showAboutMeDialog()
         drawer.open = false

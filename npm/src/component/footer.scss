@@ -1,1 +1,19 @@
 @use "../component/animation/BaseAnimation";
+
+footer {
+    .footer--hidden {
+        opacity: 0;
+    }
+
+    * {
+        color: var(--footer-ink);
+    }
+
+    .copyright {
+        padding: 1rem;
+    
+        p {
+            font-style: normal;
+        }
+    }
+}

@@ -20,23 +20,28 @@ body {
     * {
         color: #{map.get(base.$topbar-ink, "light-colorful")};
     }
-}
 
-.dark .mdc-top-app-bar.colorful {
-    background-color: #{map.get(base.$topbar, "bg-dark-colorful")};
+    .dark & {
+        background-color: #{map.get(base.$topbar, "bg-dark-colorful")};
 
-    * {
-        color: #{map.get(base.$topbar-ink, "dark-colorful")};
+        * {
+            color: #{map.get(base.$topbar-ink, "dark-colorful")};
+        }
     }
 }
 
 .mdc-top-app-bar {
+    position: absolute;
     // 颜色，默认为 primary
     background-color: var(--mdc-theme-primary);
     // 阴影
     @include elevation.elevation(map.get(base.$topbar-elevation, "elevation"), map.get(base.$topbar-elevation, "shadow-light"), 0);
     // border-bottom: 1px solid color.adjust(map.get(base.$topbar, "bg-light"), $lightness: - 3%);
-    position: absolute;
+
+    .dark & {
+        @include elevation.elevation(map.get(base.$topbar-elevation, "elevation"), map.get(base.$topbar-elevation, "shadow-dark"), 0);
+        // border-bottom: 1px solid color.adjust(map.get(base.$topbar, "bg-dark"), $lightness: + 3%);
+    }
 
     * {
         color: var(--mdc-theme-on-primary);
@@ -48,31 +53,23 @@ body {
     i {
         // 标题栏图标字重适应字体粗细
         font-weight: calc(var(--font-weight-normal) - 50);
+
+        // 思源宋体字体更细，标题栏图标字重适应字体粗细
+        .font-noto-serif-sc & {
+            font-weight: calc(var(--font-weight-normal) - 180);
+        }
     }
 
     // 首页标题使用了颜文字，是特殊情况，单独设置字重配合图标字重，保持视觉平衡
     .mdc-top-app-bar__title.title-home * {
         letter-spacing: 0.08rem;
         font-weight: calc(var(--font-weight-normal) + 10);
-    }
-}
 
-// 思源宋体字体更细，标题栏图标字重适应字体粗细
-.font-noto-serif-sc {
-    .mdc-top-app-bar i {
-        font-weight: calc(var(--font-weight-normal) - 180);
+        // 首页标题字重单独调整
+        .font-noto-serif-sc & {
+            font-weight: calc(var(--font-weight-normal) - 120);
+        }
     }
-
-    // 首页标题字重单独调整
-    .mdc-top-app-bar__title.title-home * {
-        font-weight: calc(var(--font-weight-normal) - 120);
-    }
-}
-
-.dark .mdc-top-app-bar {
-    // 阴影
-    @include elevation.elevation(map.get(base.$topbar-elevation, "elevation"), map.get(base.$topbar-elevation, "shadow-dark"), 0);
-    // border-bottom: 1px solid color.adjust(map.get(base.$topbar, "bg-dark"), $lightness: + 3%);
 }
 
 .top-app-bar--blur {
@@ -97,7 +94,7 @@ body {
 }
 
 // 图标变换动画，左右移动并淡入淡出，适用于主题切换和菜单切换按钮
-.mdc-icon-button.mdc-icon-button--toggle-animation  {
+.mdc-icon-button.mdc-icon-button--toggle-animation {
     position: relative;
 
     .mdc-icon-button__icon {
@@ -147,7 +144,7 @@ body {
     height: var(--topbar-height);
 }
 
-// 添加此类以禁用mdc的滚动隐藏/显示逻辑
+// 添加此类以禁用 mdc 的滚动隐藏/显示逻辑
 .mdc-top-app-bar--fixed {
     // 默认固定，需要时监测滚动启动隐藏、展示动画
     // transform: translateY(0px);

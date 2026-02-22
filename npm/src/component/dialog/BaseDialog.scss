@@ -1,4 +1,5 @@
 @use "../../style/global" as base;
+@use "../scrim.scss" as scrim;
 @use "@material/dialog";
 @use "@material/dialog/mdc-dialog";
 @use "@material/elevation";
@@ -10,11 +11,11 @@
 @use "sass:map";
 @use "sass:color";
 
-.mdc-dialog__container {
+.mdc-dialog .mdc-dialog__container {
     transform: translateY(var(--dialog-animation-translate-y));
     opacity: 0;
     transition: transform var(--dialog-animation-duration) ease,
-        opacity calc(var(--dialog-animation-duration) / 2.5) ease !important;
+        opacity calc(var(--dialog-animation-duration) / 2.5) ease;
     // will-change: transform, opacity;
 }
 
@@ -26,27 +27,31 @@
 //     opacity: 1;
 // }
 
-.mdc-dialog--open .mdc-dialog__container {
+.mdc-dialog.mdc-dialog--open .mdc-dialog__container {
     transform: translateY(0);
     opacity: 1;
 }
 
 // closing -> null
-.mdc-dialog--closing .mdc-dialog__container {
+.mdc-dialog.mdc-dialog--closing .mdc-dialog__container {
     transform: translateY(0);
     opacity: 1;
 }
 
 .mdc-dialog .mdc-dialog__scrim {
-    background-color: var(--dialog-scrim-bg);
-    opacity: 0 !important;
-    transition: opacity var(--dialog-animation-duration) ease !important;
-    -webkit-backdrop-filter: blur(map.get(base.$scrim, "backdrop-blur"));
-    backdrop-filter: blur(map.get(base.$scrim, "backdrop-blur"));
+    opacity: 0;
+    // 原 dialog 的 scrim 遮罩动画
+    @include scrim.baseScrim;
+
+    // 关闭 dialog 自身的 scrim 遮罩，使用全局的 common-scrim 实现，适配 iOS 26 中 safari 工具栏压缩 viewport 导致的 scrim 遮罩被裁剪问题
+    background-color: transparent;
+    transition: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
 }
 
-.mdc-dialog--open .mdc-dialog__scrim {
-    opacity: 1 !important;
+.mdc-dialog.mdc-dialog--open .mdc-dialog__scrim {
+    opacity: 1;
 }
 
 .mdc-dialog {
@@ -61,11 +66,11 @@
     border-radius: var(--dialog-border-radius);
     // surface 不滚动，content 滚动
     overflow-x: hidden;
-}
 
-.dark .mdc-dialog__surface {
-    @include elevation.elevation(map.get(base.$dialog, "elevation"), map.get(base.$dialog, "shadow-dark"), 0);
-    // border: 2px solid map.get(base.$dialog, "border-dark");
+    .dark & {
+        @include elevation.elevation(map.get(base.$dialog, "elevation"), map.get(base.$dialog, "shadow-dark"), 0);
+        // border: 2px solid map.get(base.$dialog, "border-dark");
+    }
 }
 
 .mdc-dialog .mdc-dialog__content {

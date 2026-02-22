@@ -27,10 +27,10 @@
         --footer-ink:#{map.get(base.$footer-ink, "light")};
 
         // Drawer
-        --drawer-scrim-bg: #{map.get(base.$scrim, "color")};
+        --drawer-scrim-bg: #{map.get(base.$scrim, "light")};
 
         // Dialog
-        --dialog-scrim-bg: #{map.get(base.$scrim, "color")};
+        --dialog-scrim-bg: #{map.get(base.$scrim, "light")};
         --dialog-action-btn-bg: #{map.get(base.$dialog-action-btn-bg, "light")};
         --dialog-action-btn-ink: #{map.get(base.$dialog-action-btn-ink, "light")};
 
@@ -102,6 +102,10 @@
         --footer-ink:#{map.get(base.$footer-ink, "dark")};
 
         // Drawer
+        --drawer-scrim-bg: #{map.get(base.$scrim, "dark")};
+        
+        // Dialog
+        --dialog-scrim-bg: #{map.get(base.$scrim, "dark")};
         --dialog-action-btn-bg: #{map.get(base.$dialog-action-btn-bg, "dark")};
         --dialog-action-btn-ink: #{map.get(base.$dialog-action-btn-ink, "dark")};
 
@@ -230,7 +234,7 @@ body {
         // 在 index 和 post 页面酌情而定
         --center-card-to-container-border-horizontal: var(--main-container-padding-vertical);
 
-        --dialog-animation-duration: 0.35s;
+        --dialog-animation-duration: 0.32s;
         --dialog-animation-translate-y: 8rem;
         --image-height-animation-duration: 0.8s;
         --index-card-animation-duration: 0.4s;

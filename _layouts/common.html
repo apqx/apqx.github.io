@@ -9,13 +9,12 @@
     {% include script-theme.html %}
     {% include header.html %}
     {% include aside.html %}
-    <div class="page-wrap mdc-theme--background">
-        <hr class="header-space mdc-theme--surface" />
-        <main class="main-container">
+    <main class="mdc-theme--background">
+        <div class="main-container">
             {{ content }}
-        </main>
-        {% include footer.html %}
-    </div>
+        </div>
+    </main>
+    {% include footer.html %}
 </body>
 
 </html>
