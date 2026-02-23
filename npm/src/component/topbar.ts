@@ -3,7 +3,7 @@ import { MDCIconButtonToggle } from "@material/icon-button"
 import { consoleDebug, consoleError } from "../util/log"
 import { getLocalRepository } from "../repository/LocalDb"
 import { MDCTopAppBar } from "@material/top-app-bar"
-import { toggleClassWithEnable } from "../util/tools"
+import { toggleElementClass } from "../util/tools"
 import { showAboutMeDialog } from "./dialog/AboutMeDialog"
 import { getSectionTypeByPath, isIndexPage, SECTION_TYPE_LENS, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL, SECTION_TYPE_POETRY, SECTION_TYPE_PRINT, SECTION_TYPE_REPOST, SECTION_TYPE_SHARE, SECTION_TYPE_TAGS } from "../base/constant"
 import { toggleTheme } from "./theme"
@@ -73,9 +73,9 @@ export function setFixedTopbar(on: boolean) {
     // }
 
     if (on) {
-        toggleClassWithEnable(topAppBarE!!, "mdc-top-app-bar--no-sticky", false)
+        toggleElementClass(topAppBarE!!, "mdc-top-app-bar--no-sticky", false)
     } else {
-        toggleClassWithEnable(topAppBarE!!, "mdc-top-app-bar--no-sticky", true)
+        toggleElementClass(topAppBarE!!, "mdc-top-app-bar--no-sticky", true)
     }
 }
 
@@ -84,7 +84,7 @@ export function setToggleThemeIconDarkOn(on: boolean) {
     // 图标默认隐藏，避免切换页面时默认图标与主题不符引起的闪烁
     // 这样有时候仍会闪烁，但已经尽量避免
     iconToggleTheme.on = on
-    toggleClassWithEnable(iconToggleTheme!!.root, "display-none", false)
+    toggleElementClass(iconToggleTheme!!.root, "display-none", false)
 }
 
 export function setToggleMenuIconBtnOn(on: boolean) {
@@ -100,17 +100,17 @@ export function setToggleMenuIconBtnFocused(focused: boolean) {
 }
 
 export function toggleTopbarGlass(on: boolean) {
-    toggleClassWithEnable(topAppBarE!!, "top-app-bar--blur", on)
+    toggleElementClass(topAppBarE!!, "top-app-bar--blur", on)
 }
 
 const animationDoneListener = () => {
     consoleDebug("Topbar animation done")
     // topAppBarE.style.animationPlayState = "initial"
     if (topAppBarE!!.classList.contains("top-app-bar--moving-up")) {
-        toggleClassWithEnable(topAppBarE!!, "top-app-bar--up", true)
+        toggleElementClass(topAppBarE!!, "top-app-bar--up", true)
         // toggleClassWithEnable(topAppBarE, "top-app-bar--moving-up", false)
     } else if (topAppBarE!!.classList.contains("top-app-bar--moving-down")) {
-        toggleClassWithEnable(topAppBarE!!, "top-app-bar--down", true)
+        toggleElementClass(topAppBarE!!, "top-app-bar--down", true)
         // toggleClassWithEnable(topAppBarE, "top-app-bar--moving-down", false)
     }
 }
@@ -191,18 +191,18 @@ function toggleShowTopbar(show: boolean) {
             }
             consoleDebug("ToggleShowTopbar " + show)
             blockTopbarKeyFrameAnimation(false)
-            toggleClassWithEnable(topAppBarE!!, "top-app-bar--moving-down", true)
-            toggleClassWithEnable(topAppBarE!!, "top-app-bar--moving-up", false)
-            toggleClassWithEnable(topAppBarE!!, "top-app-bar--up", false)
+            toggleElementClass(topAppBarE!!, "top-app-bar--moving-down", true)
+            toggleElementClass(topAppBarE!!, "top-app-bar--moving-up", false)
+            toggleElementClass(topAppBarE!!, "top-app-bar--up", false)
         }
     } else {
         // 隐藏，向上移动
         if (!topAppBarE!!.classList.contains("top-app-bar--up") && !topAppBarE!!.classList.contains("top-app-bar--moving-up")) {
             consoleDebug("ToggleShowTopbar " + show)
             blockTopbarKeyFrameAnimation(false)
-            toggleClassWithEnable(topAppBarE!!, "top-app-bar--moving-up", true)
-            toggleClassWithEnable(topAppBarE!!, "top-app-bar--moving-down", false)
-            toggleClassWithEnable(topAppBarE!!, "top-app-bar--down", false)
+            toggleElementClass(topAppBarE!!, "top-app-bar--moving-up", true)
+            toggleElementClass(topAppBarE!!, "top-app-bar--moving-down", false)
+            toggleElementClass(topAppBarE!!, "top-app-bar--down", false)
         }
     }
 }

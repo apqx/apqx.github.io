@@ -103,12 +103,6 @@ $snackbar-ink: (
         dark: map.get($text-title, "light"),
 );
 
-$scrim: (
-        light: rgba(color.adjust(map.get($background, "light"), $lightness: -80%), 0.3),
-        dark: rgba(color.adjust(map.get($background, "dark"), $lightness: -80%), 0.3),
-        backdrop-blur: 4px,
-);
-
 $topbar-elevation: (
         elevation: 0,
         shadow-light: color.adjust(map.get($topbar, "bg-light"), $lightness: -3%),
@@ -130,15 +124,23 @@ $card-elevation: (
         shadow-dark: color.adjust(map.get($surface, "dark"), $lightness: +3%),
 );
 
+$scrim: (
+        light: rgba(color.adjust(map.get($background, "light"), $lightness: -80%), 0.2),
+        light-blur: rgba(color.adjust(map.get($background, "light"), $lightness: -80%), 0.03),
+        dark: rgba(color.adjust(map.get($background, "dark"), $lightness: -80%), 0.2),
+        dark-blur: rgba(color.adjust(map.get($background, "dark"), $lightness: -80%), 0.03),
+        backdrop-blur: 6px,
+);
+
 $dialog: (
         elevation: 0,
-        border-light: color.adjust(map.get($surface, "light"), $lightness: -2%),
+        border-light: color.adjust(map.get($surface, "light"), $lightness: -2.5%),
         shadow-light: color.adjust(map.get($surface, "light"), $lightness: -10%),
-        border-dark: color.adjust(map.get($surface, "dark"), $lightness: +2%),
+        border-dark: color.adjust(map.get($surface, "dark"), $lightness: +2.5%),
         shadow-dark: color.adjust(map.get($surface, "dark"), $lightness: +10%),
 );
 
-// 索引卡片的 Ripple 颜色
+// 索引卡片的 ripple 颜色
 $card-ripple: (
         light: color.adjust(map.get($surface, "light"), $lightness: - variables.$ripple-gap-percent),
         dark: color.adjust(map.get($surface, "dark"), $lightness: + variables.$ripple-gap-percent),

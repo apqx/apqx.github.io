@@ -1,12 +1,12 @@
 // import "./list.scss"
 import { MDCRipple } from "@material/ripple"
-import { toggleClassWithEnable } from "../util/tools"
+import { toggleElementClass } from "../util/tools"
 
 export function initList() { }
 
 export function initListItem(e: HTMLElement, first: boolean, last: boolean) {
-    toggleClassWithEnable(e, "list-first", first)
-    toggleClassWithEnable(e, "list-last", last)
+    toggleElementClass(e, "list-first", first)
+    toggleElementClass(e, "list-last", last)
 }
 
 export function setupListItemRipple(ele?: Element) { 

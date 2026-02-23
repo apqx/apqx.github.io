@@ -37,13 +37,25 @@
 }
 
 .mdc-drawer.mdc-drawer--modal {
+    // 尺寸相对 body 整个页面，适配 iOS 26 中 safari 对 viewport 的变化，避免被底部工具栏裁剪
     position: absolute;
+
+    // 启用 blur 时改为 fixed 定位，尺寸相对 viewport，减少性能消耗
+    .scrim-blur & {
+        position: fixed;
+    }
 }
 
 .mdc-drawer--modal+.mdc-drawer-scrim {
     z-index: 2;
     @include scrim.baseScrim;
+    // 尺寸相对 body 整个页面，适配 iOS 26 中 safari 对 viewport 的变化，避免被底部工具栏裁剪
     position: absolute;
+
+    .scrim-blur & {
+        position: fixed;
+        @include scrim.scrimBlur;
+    }
 }
 
 .mdc-drawer {

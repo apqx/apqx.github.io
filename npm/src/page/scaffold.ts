@@ -20,7 +20,7 @@ import supportsWebP from "supports-webp"
 import { showSimpleAlertDialog } from "../component/dialog/CommonAlertDialog"
 import { ResizeWidthObserver } from "../base/ResizeWidthObserver"
 import { EVENT_PAGE_BACK_FROM_CACHE, getEventEmitter, type Events } from "../component/base/EventBus"
-import { initScrim } from "../component/scrim"
+import { checkScrimBlur, initScrim } from "../component/scrim"
 
 initScaffold()
 
@@ -57,6 +57,7 @@ export function initScaffold() {
         // 检查主题、字体变化，通知对应组件刷新
         checkTopbar()
         checkUserTheme()
+        checkScrimBlur()
         initFont()
         // 发出一个事件，通知其它组件页面已从缓存中加载，应该刷新数据
         getEventEmitter().emit("pageEvent", EVENT_PAGE_BACK_FROM_CACHE)

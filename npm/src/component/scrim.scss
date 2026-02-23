@@ -4,13 +4,19 @@
 @mixin baseScrim {
     background-color: var(--dialog-scrim-bg);
     transition: opacity var(--dialog-animation-duration) ease;
-    // 大面积 blur 会导致性能问题，尽量不用
-    // -webkit-backdrop-filter: blur(map.get(base.$scrim, "backdrop-blur"));
-    // backdrop-filter: blur(map.get(base.$scrim, "backdrop-blur"));
 }
 
+// 大面积 blur 会导致性能问题，使用时应控制模糊范围
+@mixin scrimBlur {
+    background-color: var(--dialog-scrim-bg-blur);
+    -webkit-backdrop-filter: blur(map.get(base.$scrim, "backdrop-blur"));
+    backdrop-filter: blur(map.get(base.$scrim, "backdrop-blur"));
+}
+
+// dialog 弹出时的背景遮罩
 .common-scrim {
     z-index: 4;
+    // 尺寸相对 body 整个页面，适配 iOS 26 中 safari 对 viewport 的变化，避免被底部工具栏裁剪
     position: absolute;
     inset: 0;
     display: none;
@@ -23,5 +29,11 @@
 
     &.common-scrim--active {
         opacity: 1;
+    }
+
+    .scrim-blur & {
+        // 启用 blur 时改为 fixed 定位，尺寸相对 viewport，减少性能消耗
+        position: fixed;
+        @include scrimBlur;
     }
 }

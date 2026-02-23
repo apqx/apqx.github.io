@@ -1,6 +1,6 @@
 import "./BaseAnimation.scss"
 import { consoleObjDebug } from "../../util/log"
-import { toggleClassWithEnable } from "../../util/tools"
+import { toggleElementClass } from "../../util/tools"
 
 var interSectionObserver: IntersectionObserver | null = null
 
@@ -20,11 +20,11 @@ export function getInterSectionObserver() {
                     } else if (entry.target.classList.contains("card-fade-in")) {
                         // 透明度动画，不包括垂直移动
                         consoleObjDebug("Card fade-in", entry.target)
-                        toggleClassWithEnable(entry.target, "card-fade-in-start", true)
+                        toggleElementClass(entry.target, "card-fade-in-start", true)
                     } else if (entry.target.classList.contains("content-card-slide-in")) {
                         // 内容卡片的滑入动画，包括透明度和垂直移动
                         consoleObjDebug("Content card slide-in", entry.target)
-                        toggleClassWithEnable(entry.target, "content-card-slide-in-start", true)
+                        toggleElementClass(entry.target, "content-card-slide-in-start", true)
                     }
                 }
             })
@@ -42,17 +42,17 @@ function handleSlideIn(entry: IntersectionObserverEntry, slideInAnimationBaseCla
         if (window.scrollY > 0) {
             // 用户滚动之后，使用滑入动画，更灵动
             consoleObjDebug("Card slide-in", entry.target)
-            toggleClassWithEnable(entry.target, slideInAnimationStartClass, true)
+            toggleElementClass(entry.target, slideInAnimationStartClass, true)
         } else {
             // 用户滚动之前，使用透明度动画，防止与顶部封面展开动画冲突
             consoleObjDebug("Card fade-in", entry.target)
-            toggleClassWithEnable(entry.target, "card-fade-in", true)
-            toggleClassWithEnable(entry.target, slideInAnimationBaseClass, false)
-            toggleClassWithEnable(entry.target, "card-fade-in-start", true)
+            toggleElementClass(entry.target, "card-fade-in", true)
+            toggleElementClass(entry.target, slideInAnimationBaseClass, false)
+            toggleElementClass(entry.target, "card-fade-in-start", true)
         }
     } else {
         // 非索引元素，启动滑入动画
         consoleObjDebug("Card slide-in", entry.target)
-        toggleClassWithEnable(entry.target, slideInAnimationStartClass, true)
+        toggleElementClass(entry.target, slideInAnimationStartClass, true)
     }
 }

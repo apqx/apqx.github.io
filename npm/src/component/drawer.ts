@@ -7,7 +7,7 @@ import { showAboutMeDialog } from "./dialog/AboutMeDialog";
 import { showPreferenceDialog } from "./dialog/PreferenceDialog";
 import { showSearchDialog } from "./dialog/SearchDialog";
 import { getSectionTypeByPath, SECTION_TYPE_LENS, SECTION_TYPE_OPERA, SECTION_TYPE_POETRY, SECTION_TYPE_REPOST, SECTION_TYPE_TAGS } from "../base/constant";
-import { isSafari, toggleClassWithEnable } from "../util/tools";
+import { isSafari, toggleElementClass } from "../util/tools";
 import { setupIconButtonRipple } from "./button";
 import { setupListItemRipple } from "./list";
 
@@ -35,7 +35,10 @@ export function initDrawer() {
     // 监听 trigger 弹出 drawer
     const toggleDowers = document.querySelectorAll(".drawer-trigger")
     for (const toggle of toggleDowers) {
-        toggle.addEventListener("click", () => {
+        let eventType = "click"
+        if (!(toggle instanceof HTMLButtonElement) && isSafari())
+            eventType = "pointerup"
+        toggle.addEventListener(eventType, () => {
             drawer.open = !drawer.open
         })
     }
@@ -67,13 +70,13 @@ export function initDrawer() {
 
     drawerE.addEventListener("MDCDrawer:opened", () => {
         // drawer 弹出时禁止 body 滚动
-        toggleClassWithEnable(document.body, "mdc-drawer-scroll-lock", true)
+        toggleElementClass(document.body, "mdc-drawer-scroll-lock", true)
         setToggleMenuIconBtnOn(true)
         currentSelectedLiE.focus()
         currentSelectedLiE.blur()
     });
     drawerE.addEventListener("MDCDrawer:closed", () => {
-        toggleClassWithEnable(document.body, "mdc-drawer-scroll-lock", false)
+        toggleElementClass(document.body, "mdc-drawer-scroll-lock", false)
         setToggleMenuIconBtnOn(false)
         // 恢复选中
         // drawerList.selectedIndex = currentPageIndex

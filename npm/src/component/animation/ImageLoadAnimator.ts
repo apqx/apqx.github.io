@@ -1,6 +1,6 @@
 import { ResizeWidthObserver } from "../../base/ResizeWidthObserver"
 import { consoleDebug } from "../../util/log"
-import { getElementAttribute, toggleClassWithEnable } from "../../util/tools"
+import { getElementAttribute, toggleElementClass } from "../../util/tools"
 
 /**
  * 图片加载动画，需要自己添加 transition 属性和初始 height，否则不会有动画
@@ -72,7 +72,7 @@ export class ImageLoadAnimator {
 
     private animationDone(monitorResize: boolean, imgE: HTMLImageElement, animationEndCallback?: (() => void)) {
         if (!monitorResize) {
-            toggleClassWithEnable(imgE, "image-height-animation", false)
+            toggleElementClass(imgE, "image-height-animation", false)
             imgE.style.height = "auto"
         }
         if (animationEndCallback != null) animationEndCallback()
@@ -83,7 +83,7 @@ export class ImageLoadAnimator {
         if (this.animationBeforeStart != null && !this.animationBeforeStart()) {
             consoleDebug("ImageLoadAnimator animationBeforeStart returned false, not animating " + this.id)
             // 删除动画类，Img高度自动变为图片实际高度
-            toggleClassWithEnable(imgE, "image-height-animation", false)
+            toggleElementClass(imgE, "image-height-animation", false)
             imgE.style.height = "auto"
             return
         }

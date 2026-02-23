@@ -1,9 +1,12 @@
 import "./scrim.scss"
 import { consoleDebug, consoleError, consoleObjDebug } from "../util/log"
-import { toggleClassWithEnable } from "../util/tools"
+import { toggleElementClass } from "../util/tools"
+import { getLocalRepository } from "../repository/LocalDb"
 
 var scrimE: HTMLElement | null = null
 var showRafId: number | null = null
+
+const SCRIM_BLUR_CLASS = "scrim-blur"
 
 function cancelPendingShowFrame() {
     if (showRafId != null) {
@@ -13,6 +16,7 @@ function cancelPendingShowFrame() {
 }
 
 export function initScrim() {
+    checkScrimBlur()
     scrimE = document.querySelector(".common-scrim") as HTMLElement
     if (scrimE == null) {
         consoleError("Scrim element not found")
@@ -25,16 +29,16 @@ export function initScrim() {
         if (event.target !== scrimE || event.propertyName !== "opacity") return
         if (scrimE == null) return
         if (scrimE.classList.contains("common-scrim--active")) {
-            toggleClassWithEnable(scrimE, "common-scrim--visible", true)
+            toggleElementClass(scrimE, "common-scrim--visible", true)
         } else {
-            toggleClassWithEnable(scrimE, "common-scrim--visible", false)
+            toggleElementClass(scrimE, "common-scrim--visible", false)
         }
     })
     scrimE.addEventListener("transitioncancel", (event: TransitionEvent) => {
         if (event.target !== scrimE || event.propertyName !== "opacity") return
         if (scrimE == null) return
         if (!scrimE.classList.contains("common-scrim--active")) {
-            toggleClassWithEnable(scrimE, "common-scrim--visible", false)
+            toggleElementClass(scrimE, "common-scrim--visible", false)
         }
     })
 }
@@ -44,13 +48,19 @@ export function toggleScrimActive(on: boolean) {
     if (scrimE == null) return
     cancelPendingShowFrame()
     if (on) {
-        toggleClassWithEnable(scrimE, "common-scrim--visible", true)
+        toggleElementClass(scrimE, "common-scrim--visible", true)
         showRafId = requestAnimationFrame(() => {
             showRafId = null
             if (scrimE == null) return
-            toggleClassWithEnable(scrimE, "common-scrim--active", true)
+            toggleElementClass(scrimE, "common-scrim--active", true)
         })
     } else {
-        toggleClassWithEnable(scrimE, "common-scrim--active", false)
+        toggleElementClass(scrimE, "common-scrim--active", false)
     }
+}
+
+export function checkScrimBlur() {
+    const enabled = getLocalRepository().getScrimBlurOn()
+    consoleDebug("Scrim blur enabled: " + enabled)
+    toggleElementClass(document.body, SCRIM_BLUR_CLASS, enabled)
 }

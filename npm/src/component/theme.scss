@@ -31,6 +31,7 @@
 
         // Dialog
         --dialog-scrim-bg: #{map.get(base.$scrim, "light")};
+        --dialog-scrim-bg-blur: #{map.get(base.$scrim, "light-blur")};
         --dialog-action-btn-bg: #{map.get(base.$dialog-action-btn-bg, "light")};
         --dialog-action-btn-ink: #{map.get(base.$dialog-action-btn-ink, "light")};
 
@@ -106,6 +107,7 @@
         
         // Dialog
         --dialog-scrim-bg: #{map.get(base.$scrim, "dark")};
+        --dialog-scrim-bg-blur: #{map.get(base.$scrim, "dark-blur")};
         --dialog-action-btn-bg: #{map.get(base.$dialog-action-btn-bg, "dark")};
         --dialog-action-btn-ink: #{map.get(base.$dialog-action-btn-ink, "dark")};
 

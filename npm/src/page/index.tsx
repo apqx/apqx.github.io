@@ -1,5 +1,5 @@
 import "./index.scss"
-import { runOnHtmlDone, toggleClassWithEnable } from "../util/tools"
+import { runOnHtmlDone, toggleElementClass } from "../util/tools"
 import { consoleDebug, consoleObjDebug } from "../util/log"
 import { createRoot } from "react-dom/client"
 import { IndexLinearPosts } from "../component/react/IndexLinearPosts"
@@ -196,7 +196,7 @@ const INDEX_TOP_COVER_RATIO = 844 / 295
 function initIndexTopCover() {
     // 顶部卡片，透明度动画
     for (const ele of document.querySelectorAll(".index-top-card.card-fade-in")) {
-        toggleClassWithEnable(ele, "card-fade-in-start", true)
+        toggleElementClass(ele, "card-fade-in-start", true)
     }
     // 顶部封面图片，高度动画
     for (const ele of document.querySelectorAll(".index-top-cover.image-height-animation")) {

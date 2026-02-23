@@ -4,6 +4,7 @@ import { checkTopbar } from "../topbar"
 import { setNotoSerifSCFont } from "../font/font"
 import { consoleDebug } from "../../util/log"
 import { BaseExternalStore } from "../base/paginate/BaseExternalStore"
+import { checkScrimBlur } from "../scrim"
 
 export interface PreferenceDialogState {
     fixedTopbarOn: boolean
@@ -15,16 +16,19 @@ export class PreferenceDialogViewModel extends BaseExternalStore {
     state = {
         fixedTopbarOn: false,
         notoSerifSCFontOn: false,
+        scrimBlurOn: false,
         autoThemeOn: false
     }
 
     localRepository: LocalDb = new LocalDb()
     darkClass: string = "dark"
+    
 
     initSettings() {
         this.state = {
             fixedTopbarOn: this.localFixedTopbarOn(),
             notoSerifSCFontOn: this.localNotoSerifSCFontOn(),
+            scrimBlurOn: this.localScrimBlurOn(),
             autoThemeOn: this.localAutoThemeOn()
         }
         this.emitChange()
@@ -45,6 +49,14 @@ export class PreferenceDialogViewModel extends BaseExternalStore {
         this.emitChange()
         this.localRepository.saveNotoSerifSCFontOn(newStateOn)
         setNotoSerifSCFont(newStateOn)
+    }
+
+    onClickScrimBlurSwitch = () => {
+        const newStateOn = !this.state.scrimBlurOn
+        this.state = { ...this.state, scrimBlurOn: newStateOn}
+        this.emitChange()
+        this.localRepository.saveScrimBlurOn(newStateOn)
+        checkScrimBlur()
     }
 
     onClickAutoThemeSwitch = () => {
@@ -82,6 +94,10 @@ export class PreferenceDialogViewModel extends BaseExternalStore {
 
     localNotoSerifSCFontOn(): boolean {
         return this.localRepository.getNotoSerifSCFontOn()
+    }
+
+    localScrimBlurOn(): boolean {
+        return this.localRepository.getScrimBlurOn()
     }
 
     localAutoThemeOn(): boolean {

@@ -1,5 +1,5 @@
 // import "./theme.scss"
-import { isChrome, isMobileOrTablet, toggleClassWithEnable } from "../util/tools"
+import { isChrome, isMobileOrTablet, toggleElementClass } from "../util/tools"
 import { consoleDebug } from "../util/log"
 import { getLocalRepository } from "../repository/LocalDb"
 import { setToggleThemeIconDarkOn, toggleTopbarGlass } from "./topbar"
@@ -62,7 +62,7 @@ function checkMetaThemeColor(dark: boolean, show: boolean) {
 
 function checkColorfulToolbar() {
     if (colorfulToolbar) {
-        toggleClassWithEnable(document.querySelector(".mdc-top-app-bar") as HTMLElement, "colorful", true)
+        toggleElementClass(document.querySelector(".mdc-top-app-bar") as HTMLElement, "colorful", true)
     }
 }
 
@@ -137,7 +137,7 @@ export function toggleTheme() {
  */
 export function showThemeDark(dark: boolean) {
     const bodyE = document.body
-    toggleClassWithEnable(bodyE, darkClass, dark)
+    toggleElementClass(bodyE, darkClass, dark)
     setToggleThemeIconDarkOn(dark)
     checkMetaThemeColor(dark, true)
     // 当切换主题的时候，检查是否需要修改theme-color

@@ -3,6 +3,7 @@ export class LocalDb {
     KEY_HANDWRITTEN_FONT = "handwrittenFont"
     KEY_NOTO_SERIF_SC_FONT = "notoSerifSCFont"
     KEY_THEME = "theme"
+    KEY_SCRIM_BLUR = "scrimBlur"
 
     VALUE_THEME_DARK = "dark"
     VALUE_THEME_LIGHT = "light"
@@ -64,6 +65,14 @@ export class LocalDb {
 
     getAutoThemeOn(): boolean {
         return this.getTheme() === this.VALUE_THEME_AUTO
+    }
+
+    saveScrimBlurOn(on: boolean) {
+        this.saveBoolean(this.KEY_SCRIM_BLUR, on)
+    }
+
+    getScrimBlurOn(): boolean {
+        return this.getBoolean(this.KEY_SCRIM_BLUR) ?? false
     }
 }
 

@@ -1,5 +1,5 @@
 import { getLocalRepository } from "../../repository/LocalDb"
-import { toggleClassWithEnable } from "../../util/tools"
+import { toggleElementClass } from "../../util/tools"
 import { consoleError } from "../../util/log"
 
 /**
@@ -16,18 +16,18 @@ export function initFont() {
 
 export function setHandwrittenFont(on: boolean) {
     const bodyE = document.body
-    toggleClassWithEnable(bodyE, "font-handwritten", on)
+    toggleElementClass(bodyE, "font-handwritten", on)
 }
 
 export function setNotoSerifSCFont(on: boolean) {
     const bodyE = document.body
-    toggleClassWithEnable(bodyE, "font-noto-serif-sc", on)
+    toggleElementClass(bodyE, "font-noto-serif-sc", on)
     // toggleClassWithEnable(bodyE, "font-wenkai", on)
 }
 
 export function setNotoSansSCFont(on: boolean) {
     const bodyE = document.body
-    toggleClassWithEnable(bodyE, "font-noto-sans-sc", on)
+    toggleElementClass(bodyE, "font-noto-sans-sc", on)
 }
 
 /**

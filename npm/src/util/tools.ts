@@ -53,7 +53,7 @@ export function createHtmlContent(html: string) {
     return { __html: html }
 }
 
-export function toggleClassWithEnable(e: Element, className: string, enable: boolean) {
+export function toggleElementClass(e: Element, className: string, enable: boolean) {
     if (e == null) {
         consoleDebug("Element is null")
         return
