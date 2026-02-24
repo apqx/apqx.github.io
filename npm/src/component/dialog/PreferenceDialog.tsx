@@ -60,12 +60,12 @@ export function PreferenceDialog(props: BaseDialogOpenProps) {
                     <SettingsToggle titleHtml="固定顶部导航栏"
                         on={state.fixedTopbarOn}
                         onClickToggle={viewModel.onClickFixedTopbarSwitch} />
-                    <SettingsToggle titleHtml={notoSerifSCFontTitle}
-                        on={state.notoSerifSCFontOn}
-                        onClickToggle={viewModel.onClickNotoSerifSCFontSwitch} />
                     <SettingsToggle titleHtml={"模糊对话框背景"}
                         on={state.scrimBlurOn}
                         onClickToggle={viewModel.onClickScrimBlurSwitch} />
+                    <SettingsToggle titleHtml={notoSerifSCFontTitle}
+                        on={state.notoSerifSCFontOn}
+                        onClickToggle={viewModel.onClickNotoSerifSCFontSwitch} />
                     <SettingsToggle titleHtml={autoThemeTitle}
                         on={state.autoThemeOn}
                         onClickToggle={viewModel.onClickAutoThemeSwitch} />

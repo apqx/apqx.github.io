@@ -56,9 +56,9 @@
         width: 3.5rem;
 
         i {
-            font-size: 1.5rem;
+            font-size: calc(var(--mdc-typography-body1-font-size) + 0.4rem);
             font-weight: 300;
-            color: var(--mdc-theme-text-secondary-on-background);
+            color: var(--mdc-theme-on-surface-secondary);
         }
     }
 }

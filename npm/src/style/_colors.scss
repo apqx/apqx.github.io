@@ -129,7 +129,7 @@ $scrim: (
         light-blur: rgba(color.adjust(map.get($background, "light"), $lightness: -80%), 0.03),
         dark: rgba(color.adjust(map.get($background, "dark"), $lightness: -80%), 0.2),
         dark-blur: rgba(color.adjust(map.get($background, "dark"), $lightness: -80%), 0.03),
-        backdrop-blur: 6px,
+        backdrop-blur: 4px,
 );
 
 $dialog: (

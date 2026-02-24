@@ -58,16 +58,36 @@
     }
 }
 
-.mdc-drawer {
-    .mdc-drawer__title {
-        // 与 section title 一致
-        font-weight: var(--mdc-typography-subtitle2-font-weight);
-        color: var(--mdc-theme-text-primary-on-background);
-    }
+$header-gap-left: 1rem;
+$list-item-padding-left: 0.8rem;
 
-    .mdc-drawer__subtitle {
-        font-weight: var(--font-weight-normal);
-        color: var(--mdc-theme-text-secondary-on-background);
+.mdc-drawer {
+    .mdc-drawer__header {
+        display: flex;
+        align-items: center;
+        padding: 0 $header-gap-left 0.4rem $header-gap-left;
+
+        .drawer-header-text-container {
+            flex: 1;
+
+            .mdc-drawer__title {
+                font-weight: var(--mdc-typography-subtitle2-font-weight);
+                color: var(--mdc-theme-text-primary-on-background);
+                display: flex;
+                align-items: center;
+                margin: 0;
+                padding: 0;
+            }
+
+            .mdc-drawer__subtitle {
+                font-weight: var(--font-weight-normal);
+                color: var(--mdc-theme-text-secondary-on-background);
+                display: flex;
+                align-items: center;
+                margin: -5px 0 0 0;
+                padding: 0;
+            }
+        }
     }
 
     .mdc-drawer__content {
@@ -76,41 +96,22 @@
     }
 }
 
-
-// .mdc-drawer__title,
-// .mdc-drawer__subtitle,
-// .mdc-drawer__content .mdc-deprecated-list-item--activated .mdc-deprecated-list-item__text {
-//     font-weight: var(--font-weight-normal);
-// }
-
-.mdc-drawer__header {
-    display: flex;
-    align-items: center;
-
-    .drawer-header-text-container {
-        flex: 1;
-
-        .mdc-drawer__title {
-            display: flex;
-            align-items: center;
-            margin: 0;
-            padding: 0;
-        }
-
-        .mdc-drawer__subtitle {
-            display: flex;
-            align-items: center;
-            margin: -5px 0 0 0;
-            padding: 0;
-        }
-    }
-}
-
-
-.nav-list {
+.mdc-drawer .nav-list {
     flex: 1;
 
     .mdc-deprecated-list-item {
+        margin: 0.4rem 0.6rem 0.4rem ($header-gap-left - $list-item-padding-left);
+        padding: 0.2rem $list-item-padding-left;
+        border-radius: 1.3rem;
+
+        &:first-child {
+            margin-top: 0;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
         overflow: hidden;
         @include ripple.surface;
         @include ripple.radius-bounded;
