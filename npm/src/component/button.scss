@@ -26,11 +26,11 @@
     @include ripple.radius-bounded;
     @include ripple.states-base-color(map.get(base.$button-ripple, "light"));
     @include ripple.states-opacities((hover: .0, focus: .0, press: .1));
-}
 
-.dark .mdc-button {
-    @include ripple.states-base-color(map.get(base.$button-ripple, "dark"));
-    @include ripple.states-opacities((hover: .0, focus: .0, press: .1));
+    .dark & {
+        @include ripple.states-base-color(map.get(base.$button-ripple, "dark"));
+        @include ripple.states-opacities((hover: .0, focus: .0, press: .1));
+    }
 }
 
 .mdc-button.btn-round {

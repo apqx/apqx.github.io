@@ -23,6 +23,6 @@ export function CheckableTag(props: Props) {
     }, [checked, props.onClick])
 
     return (
-        <Button text={props.text} onClick={onClick} classes={checked ? ["btn-tag", "btn-tag-checked"] : ["btn-tag"]} />
+        <Button text={props.text} onClick={onClick} classes={checked ? ["btn-tag", "btn-tag-checkable", "btn-tag-checked"] : ["btn-tag", "btn-tag-checkable"]} />
     )
 }

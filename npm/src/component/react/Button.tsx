@@ -17,7 +17,9 @@ export function Button(props: BtnProps) {
 
     useEffect(() => {
         const ele = containerRef.current as HTMLElement
-        setupButtonRipple(ele)
+        if (!ele.classList.contains("btn-tag-checkable")) {
+            setupButtonRipple(ele)
+        }
 
         const onClickListener = () => {
             if (onClick != null) {

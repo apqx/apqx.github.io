@@ -16,7 +16,10 @@ export interface PagefindResultItem {
     meta: {
         title: string,
         date: string,
-        image: string
+        image: string,
+        author: string,
+        actors: string,
+        mentions: string,
     },
     url: string,
     raw_url: string,

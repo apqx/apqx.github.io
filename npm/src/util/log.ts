@@ -23,3 +23,10 @@ export function consoleError(str: string) {
     if (isDebug())
         console.error(str)
 }
+
+export function consoleObjError(hint: string, obj: any) {
+    if (isDebug()) {
+        console.error(hint)
+        console.error(obj)
+    }
+}

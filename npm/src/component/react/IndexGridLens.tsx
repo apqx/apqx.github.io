@@ -1,5 +1,5 @@
 // import "./LensIndexList.scss"
-import { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
 import { ImageLoadAnimator } from "../animation/ImageLoadAnimator"
 import { LoadingHint } from "./LoadingHint"
 import { consoleDebug, consoleObjDebug } from "../../util/log"
@@ -16,8 +16,11 @@ import { PagefindPaginateViewModel } from "../base/paginate/PagefindPaginateView
 import type { PagefindResultItem } from "../../repository/bean/pagefind/ApiPagefindSearch"
 import { PostPagefindPaginator } from "../base/paginate/PostPagefindPaginator"
 import type { BasePaginateViewProps } from "../base/paginate/bean/BasePaginateViewProps"
+import { getEventEmitter } from "../base/EventBus"
 
 export function IndexGridLens(props: BasePaginateViewProps<Post>) {
+    const [filterTags, setFilterTags] = useState<Array<string>>([])
+
     const httpPaginateViewModel = useMemo(() => {
         const options = {
             tag: props.tag,
@@ -35,13 +38,31 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
     const onMount = useMemo(() => props.onMount, [props.onMount])
 
     useEffect(() => {
-        consoleDebug(`IndexGridLens useEffect, tag: ${props.tag}, category: ${props.category}`)
+        consoleDebug(`IndexGridLens useEffect, tag: ${props.tag}, category: ${props.category}, filterTags: ${filterTags.toString()} `)
         httpPaginateViewModel.load(false)
 
         if (onMount != null) onMount()
 
+        const emitter = getEventEmitter()
+        emitter.on("lensFilterChange", (data) => {
+            consoleDebug("IndexGridLens receive lensFilterChange event, selectedTags = " + data.selectedTags.toString())
+            setFilterTags(data.selectedTags)
+        })
+
+        return () => {
+            consoleDebug("IndexGridLens useEffect cleanup")
+            emitter.off("lensFilterChange")
+        }
+    }, [])
+
+    // 监听滚动加载更多
+    useEffect(() => {
         const scrollLoader = new ScrollLoader(() => {
-            httpPaginateViewModel.loadMore(false)
+            if (filterTags.length > 0) {
+                pagefindPaginateViewModel.loadMore(false)
+            } else {
+                httpPaginateViewModel.loadMore(false)
+            }
         })
         const scrollListener = () => {
             scrollLoader.onScroll(document.body.clientHeight, window.scrollY, document.body.scrollHeight)
@@ -49,18 +70,49 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
         window.addEventListener("scroll", scrollListener)
 
         return () => {
-            consoleDebug("IndexGridLens useEffect cleanup")
             window.removeEventListener("scroll", scrollListener)
         }
-    }, [])
+    }, [filterTags])
 
-    const onClickHint = useCallback(() => {
-        if (httpState.posts.length > 0) {
-            httpPaginateViewModel.loadMore(true)
+    const pagefindOptions = useMemo(() => {
+        return {
+            filters: {
+                category: { any: ["lens"] },
+                tag: [...filterTags],
+            },
+            sort: {
+                "precise-date": "desc"
+            }
+        }
+    }, [filterTags])
+
+    useEffect(() => {
+        // 筛选标签变化时，清除旧数据并加载新数据
+        if (filterTags.length > 0) {
+            pagefindPaginateViewModel.clear()
+            pagefindPaginateViewModel.search(null, pagefindOptions, true)
         } else {
+            httpPaginateViewModel.clear()
             httpPaginateViewModel.load(true)
         }
-    }, [httpState.posts])
+
+    }, [filterTags])
+
+    const onClickHint = useCallback(() => {
+        if (filterTags.length > 0) {
+            if (pagefindState.posts.length > 0) {
+                pagefindPaginateViewModel.loadMore(true)
+            } else {
+                pagefindPaginateViewModel.search(null, pagefindOptions, true)
+            }
+        } else {
+            if (httpState.posts.length > 0) {
+                httpPaginateViewModel.loadMore(true)
+            } else {
+                httpPaginateViewModel.load(true)
+            }
+        }
+    }, [httpState.posts, pagefindState.posts, filterTags])
 
     const breakPointColumnsObj = useMemo(() => {
         return {
@@ -71,11 +123,29 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
     }, [])
 
     const showPosts = useMemo(() => {
-        if (httpState.posts.length == 0) {
-            return props.loadedPosts
+        if (filterTags.length > 0) {
+            return pagefindState.posts
+        } else {
+            if (httpState.posts.length == 0) {
+                return props.loadedPosts
+            }
+            return httpState.posts
         }
-        return httpState.posts
-    }, [httpState.posts])
+    }, [httpState.posts, pagefindState.posts, filterTags])
+
+    const loadingState = useMemo(() => {
+        if (filterTags.length > 0) {
+            return {
+                loading: pagefindState.loading,
+                loadingHint: pagefindState.loadingHint
+            }
+        } else {
+            return {
+                loading: httpState.loading,
+                loadingHint: httpState.loadingHint
+            }
+        }
+    }, [httpState.loading, httpState.loadingHint, pagefindState.loading, pagefindState.loadingHint])
 
     return (
         <ul className="grid-index-ul">
@@ -83,8 +153,8 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
                 breakpointCols={breakPointColumnsObj}
                 className="my-masonry-grid"
                 columnClassName="my-masonry-grid_column">
-                {/* 置顶 */}
-                {props.pinnedPosts.map((item: Post, index: number) =>
+                {/* 置顶，仅在非筛选模式下显示 */}
+                {filterTags.length == 0 && props.pinnedPosts.map((item: Post, index: number) =>
                     <IndexItem key={item.path}
                         index={index}
                         title={item.title}
@@ -115,8 +185,8 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
                         coverLoadedCallback={() => { }} />
                 )}
             </Masonry>
-            {(httpState.loading || httpState.loadingHint != null) &&
-                <LoadingHint loading={httpState.loading} loadHint={httpState.loadingHint} onClickHint={onClickHint} />
+            {(loadingState.loading || loadingState.loadingHint != null) &&
+                <LoadingHint loading={loadingState.loading} loadHint={loadingState.loadingHint} onClickHint={onClickHint} />
             }
         </ul>
     )

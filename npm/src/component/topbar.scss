@@ -56,7 +56,7 @@ body {
 
         // 思源宋体字体更细，标题栏图标字重适应字体粗细
         .font-noto-serif-sc & {
-            font-weight: calc(var(--font-weight-normal) - 180);
+            font-weight: calc(var(--font-weight-normal) - 170);
         }
     }
 

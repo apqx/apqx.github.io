@@ -117,8 +117,6 @@ export abstract class BaseHttpPaginator<H, T> implements IHttpPaginator<H, T> {
             })
     }
 
-
-
     hasMore(): boolean {
         let hasMore = false
         // 首页加载完毕但下一页链接为空，没有更多

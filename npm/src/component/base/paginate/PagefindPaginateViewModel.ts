@@ -22,10 +22,11 @@ export class PagefindPaginateViewModel<P, T, O extends BasePagefindPaginator<P, 
         }
     }
 
-    async search(keywords: string, options: BasePagefindPaginatorOptions, delay: boolean = false): Promise<void> {
+    async search(keywords: string | null, options: BasePagefindPaginatorOptions, delay: boolean = false): Promise<void> {
         try {
             if (this.state.loading) return
-            if (keywords.length == 0) {
+            // 应过滤搜索词为空的搜索行为，当词为 null 字符时，pagefind 会返回全部数据
+            if (keywords?.length == 0) {
                 this.state = {
                     loading: false,
                     loadingHint: undefined,
@@ -92,7 +93,13 @@ export class PagefindPaginateViewModel<P, T, O extends BasePagefindPaginator<P, 
     }
 
     clear(): void {
-        this.search("", {}, false)
+        this.state = {
+            loading: false,
+            loadingHint: undefined,
+            posts: [],
+            totalPostsSize: 0
+        }
+        this.emitChange()
     }
 
     abort(): void {

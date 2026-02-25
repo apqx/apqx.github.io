@@ -8,7 +8,11 @@ export const EVENT_PAGE_BACK_FROM_CACHE = "pageBackFromCache"
 
 export type Events = {
     pageEvent: string
+    lensFilterChange: {
+        selectedTags: string[]
+    }
 }
+
 
 var emitter: Emitter<Events> | null = null
 

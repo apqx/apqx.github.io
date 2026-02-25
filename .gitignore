@@ -1,5 +1,6 @@
 # ignore generated site
 _site/
+assets/pagefind/
 raft/
 .idea/
 .jekyll-cache/

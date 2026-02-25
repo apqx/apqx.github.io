@@ -15,6 +15,7 @@
 @use "sass:color";
 
 .mdc-drawer {
+    width: 16rem;
     z-index: 3;
     @include elevation.elevation(map.get(base.$drawer-elevation, "elevation"), map.get(base.$drawer-elevation, "shadow-light"), 0);
     @include drawer.item-text-ink-color(var(--mdc-theme-on-surface));
@@ -65,7 +66,7 @@ $list-item-padding-left: 0.8rem;
     .mdc-drawer__header {
         display: flex;
         align-items: center;
-        padding: 0 $header-gap-left 0.4rem $header-gap-left;
+        padding: 0 0.8rem 0.4rem $header-gap-left;
 
         .drawer-header-text-container {
             flex: 1;
@@ -97,10 +98,11 @@ $list-item-padding-left: 0.8rem;
 }
 
 .mdc-drawer .nav-list {
+    padding: 0.2rem 0;
     flex: 1;
 
     .mdc-deprecated-list-item {
-        margin: 0.4rem 0.6rem 0.4rem ($header-gap-left - $list-item-padding-left);
+        margin: 0.3rem 0.5rem 0.3rem ($header-gap-left - $list-item-padding-left);
         padding: 0.2rem $list-item-padding-left;
         border-radius: 1.3rem;
 
@@ -121,6 +123,15 @@ $list-item-padding-left: 0.8rem;
         .dark & {
             @include ripple.states-base-color(map.get(base.$drawer-nav-ripple, "dark"));
             @include ripple.states-opacities((hover: .1, focus: .1, press: .1));
+        }
+
+        .mdc-deprecated-list-item__graphic {
+            margin-right: 1.8rem;
+            font-size: 1.5rem;
+        }
+
+        .mdc-deprecated-list-item__text {
+
         }
     }
 

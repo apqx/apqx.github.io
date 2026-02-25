@@ -9,7 +9,7 @@ import type { BasePaginateViewModelState } from "./bean/BasePaginateViewModelSta
  */
 export class HttpPaginatorViewModel<H, P extends BaseHttpPaginator<H, T>, T> extends BaseExternalStore {
     paginator: P
-    state: BasePaginateViewModelState<T> 
+    state: BasePaginateViewModelState<T>
 
     constructor(paginator: P) {
         super()
@@ -80,6 +80,16 @@ export class HttpPaginatorViewModel<H, P extends BaseHttpPaginator<H, T>, T> ext
             }
             this.emitChange()
         }
+    }
+
+    clear() {
+        this.state = {
+            loading: false,
+            loadingHint: undefined,
+            posts: [],
+            totalPostsSize: 0
+        }
+        this.emitChange()
     }
 
     abort() {

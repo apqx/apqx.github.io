@@ -17,14 +17,19 @@
                 <!-- 为 pagefind 设置名为 category 的搜索 filter -->
                 <h1 data-pagefind-meta="title" data-pagefind-filter="category:{{ page.categories }}" class="post-title">
                     {{ page.title }}</h1>
-                <address class="post-author">
+                <address data-pagefind-meta="author" class="post-author">
                     {% if page.moreDate != null %}{{ page.moreDate }} {% endif %}{{ page.author}}
                 </address>
-                <time data-pagefind-meta="date" class="post-date" datetime="{{ page.date | date: " %Y-%m-%d" }}">
+                <time data-pagefind-meta="date" datetime="{{ page.date | date: '%Y-%m-%d' }}" data-pagefind-sort="precise-date:{{ page.date | date: '%Y-%m-%d %H:%M:%S' }}" class="post-date">
                     {{- page.date | date: "%Y" }}<span class="year">年</span>
                     {{- page.date | date: "%m" }}<span class="month">月</span>
                     {{- page.date | date: "%d" }}<span class="day">日</span>
                 </time>
+
+                <div style="display: none;">
+                    <span data-pagefind-meta="actors">{{ page.actor }}</span>
+                    <span data-pagefind-meta="mentions">{{ page.mention }}</span>
+                </div>
 
                 <!-- tags -->
                 <!-- 仅透镜分区设置名为 tag 的搜索 filter -->

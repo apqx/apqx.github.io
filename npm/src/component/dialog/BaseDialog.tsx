@@ -213,6 +213,7 @@ export const SEARCH_DIALOG_WRAPPER_ID = "search-dialog-wrapper"
 export const ABOUT_DIALOG_WRAPPER_ID = "about-dialog-wrapper"
 export const SHARE_DIALOG_WRAPPER_ID = "share-dialog-wrapper"
 export const PREFERENCE_DIALOG_WRAPPER_ID = "preference-dialog-wrapper"
+export const LENS_FILTER_DIALOG_WRAPPER_ID = "lens-filter-dialog-wrapper"
 
 // 缓存每种 dialog 的 root 容器
 // 每个 tag 都使用单独的 dialog

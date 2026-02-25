@@ -80,11 +80,10 @@ body {
     margin: var(--main-container-padding-vertical) auto;
 }
 
-.foot-container {
+footer .footer-container {
     width: 100%;
     max-width: base.$center-container-max-width;
     margin: 0 auto;
-    flex: 1;
     padding: 0;
 }
 

@@ -27,6 +27,13 @@
             },
             "group": "build",
             "problemMatcher": []
+        },
+        {
+            "label": "pagefind: build index",
+            "type": "shell",
+            "command": "pagefind --site _site --output-path assets/pagefind",
+            "group": "build",
+            "problemMatcher": []
         }
     ]
 }

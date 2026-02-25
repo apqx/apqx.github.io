@@ -2,13 +2,21 @@ import type { ISearchPaginator } from "./interface/ISearchPaginator"
 import { consoleDebug, consoleObjDebug } from "../../../util/log"
 import { isDebug, sleepUntilMinimalTime } from "../../../util/tools"
 import type { PagefindResult } from "../../../repository/bean/pagefind/ApiPagefindSearch"
-import { SERVICE_BASE_URL } from "../../../repository/Service"
+import { PagefindFactory } from "../../../repository/Pagefind"
+import type { ApiPagefindFilter } from "../../../repository/bean/pagefind/ApiPagefindFilter"
 
+// pagefind 的筛选器，可筛选 category 和 tag。
+// any 表示满足任一条件即可，否则满足所有条件才行
+// 排序可选 asc 或 desc，默认以相关度排序
 export type BasePagefindPaginatorOptions = {
     filters?: {
         category?: {
             any: string[]
-        }
+        },
+        tag?: string[],
+    },
+    sort?: {
+        "precise-date": string
     }
 }
 
@@ -25,7 +33,7 @@ export abstract class BasePagefindPaginator<P, T> implements ISearchPaginator<P,
         this.PAGE_SIZE = pageSize
     }
 
-    async search(newKey: string, options: BasePagefindPaginatorOptions, delay?: boolean): Promise<T[]> {
+    async search(newKey: string | null, options: BasePagefindPaginatorOptions, delay?: boolean): Promise<T[]> {
         consoleDebug("Search by pagefind paginator key => " + newKey)
         consoleObjDebug("Search options => ", options)
         if (this.abortController != null) {
@@ -35,14 +43,14 @@ export abstract class BasePagefindPaginator<P, T> implements ISearchPaginator<P,
         this.cachedKey = ""
         this.cachedOptions = undefined
         this.abortController = new AbortController()
-        if (newKey.length == 0) {
+        if (newKey?.length == 0) {
             this.pagefindResult = undefined
             this.cachedData = []
             return this.cachedData
         }
         const startTime = Date.now()
         await this.checkPagefindReady()
-        const filters = await this.pagefind.filters();
+        const filters: ApiPagefindFilter = await this.pagefind.filters();
         consoleObjDebug("Get pagefind filters", filters)
         let pagefindResult: PagefindResult = await this.pagefind.search(newKey, options)
         const resultSize = pagefindResult?.results.length ?? 0
@@ -99,22 +107,7 @@ export abstract class BasePagefindPaginator<P, T> implements ISearchPaginator<P,
 
     async checkPagefindReady() {
         if (this.pagefind != null) return
-        let pagefindUrl: string = this.getBaseUrl() + "/pagefind/pagefind.js"
-        // vite 会对所有 import 进行打包、拆分，对于 src 中不存在而在网站中存在的 js，打包时会因为找不到而异常
-        // 添加此注释可以避免 vite 对这里的 import 打包，而是在运行时引入
-        this.pagefind = await import(/*webpackIgnore: true*/ pagefindUrl)
-        // await this.pagefind.options({
-        //     bundlePath: "/npm/",
-        // })
-        this.pagefind.init()
-    }
-
-    getBaseUrl(): string {
-        if (isDebug()) {
-            return window.location.origin + "/npm"
-        } else {
-            return SERVICE_BASE_URL
-        }
+        this.pagefind = await new PagefindFactory().getPagefind()
     }
 
     totalPostsSize(): number {

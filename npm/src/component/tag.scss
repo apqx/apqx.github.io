@@ -44,7 +44,11 @@ $btnTagPaddingHorizontal: 0.8rem;
     font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
     margin: 0;
     border-radius: $btnTagRadius;
-    @include btnChipRipple();
+    &:not(.btn-tag-checkable) {
+        @include btnChipRipple();
+    }
+
+    transition: border-radius 0.2s ease, background-color 0.2s ease, color 0.2s ease;
 
     // @include text.notoSerifText();
 }
@@ -53,7 +57,7 @@ $btnTagPaddingHorizontal: 0.8rem;
     @include button.ink-color(var(--chip-checked-ink));
     @include button.container-fill-color(var(--chip-checked-bg));
     @include btnChipRippleReverse();
-    border-radius: $btnTagSideRadius;
+    border-radius: calc($btnTagSideRadius / 2);
 }
 
 .btn-tag-container-no-material {

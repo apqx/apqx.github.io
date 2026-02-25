@@ -4,6 +4,7 @@ import { getSectionTypeByPath, isIndexPage, SECTION_TYPE_LENS } from "../base/co
 import { isChrome, isSafari } from "../util/tools"
 import { getInterSectionObserver } from "./animation/BaseAnimation"
 import { setupIconButtonRipple } from "./button"
+import { showLensFilterDialog } from "./dialog/LensFilterDialog"
 import { showSnackbar } from "./react/Snackbar"
 
 export function initFab() {
@@ -21,7 +22,7 @@ export function initFab() {
             setupIconButtonRipple(fabSearchE)
             getInterSectionObserver().observe(fabSearchE.parentElement as HTMLElement)
             fabSearchE?.addEventListener("click", () => {
-                showSnackbar("功能建设中")
+                showLensFilterDialog()
             })
         }
     }

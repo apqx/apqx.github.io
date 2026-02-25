@@ -6,12 +6,12 @@ import type { BasePagefindPaginatorOptions } from "../BasePagefindPaginator"
 export interface ISearchPaginator<P, T> {
         /**
          * 搜索
-         * @param keywords 关键字
+         * @param keywords 关键字，为 null 表示返回所有符合 filter 的数据
          * @param options 搜索参数 TODO: 若之后支持更多搜索方式，接口参数需要变化
          * @param delay 是否延迟加载，默认为 false
          * returns 返回完整数组
          */
-        search(keywords: string, options: BasePagefindPaginatorOptions, delay?: boolean): Promise<T[]>
+        search(keywords: string | null, options: BasePagefindPaginatorOptions, delay?: boolean): Promise<T[]>
 
         /**
          * 加载下一页数据，如果在没有加载首页的情况下调用，则加载首页数据，调用之前应先调用 hasMore() 判断是否还有更多数据
