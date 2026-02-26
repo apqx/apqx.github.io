@@ -4,39 +4,24 @@ import { setupButtonRipple } from "../button"
 
 export interface BtnProps {
     text: string
-    onClick?: (() => void);
+    onClick?: () => void;
     classes?: string[],
     tabIndex?: number;
 }
 
 export function Button(props: BtnProps) {
     const containerRef = React.useRef<HTMLButtonElement>(null)
-    const onClick = useMemo(() => {
-        return props.onClick
-    }, [props.onClick])
 
     useEffect(() => {
         const ele = containerRef.current as HTMLElement
         if (!ele.classList.contains("btn-tag-checkable")) {
             setupButtonRipple(ele)
         }
-
-        const onClickListener = () => {
-            if (onClick != null) {
-                onClick()
-            }
-        }
-
-        ele.addEventListener("click", onClickListener)
-        // ele.addEventListener("focus", clearFocusListener)
-        return () => {
-            ele.removeEventListener("click", onClickListener)
-            // ele.removeEventListener("focus", clearFocusListener)
-        }
     }, [])
 
     return (
-        <button ref={containerRef} type="button" className={`mdc-button ${props.classes?.join(" ") ?? ""}`.trimEnd()} tabIndex={props.tabIndex == null ? 0 : props.tabIndex}>
+        <button ref={containerRef} type="button" className={`mdc-button ${props.classes?.join(" ") ?? ""}`.trimEnd()} tabIndex={props.tabIndex == null ? 0 : props.tabIndex}
+            onClick={props.onClick}>
             <span className="mdc-button__label">{props.text}</span>
         </button>
     )
@@ -44,37 +29,23 @@ export function Button(props: BtnProps) {
 
 export interface IconBtnProps {
     icon: string
-    onClick: (() => void) | null;
+    onClick?: () => void;
     classes?: string[];
     tabIndex?: number;
 }
 
 export function IconButton(props: IconBtnProps) {
     const containerRef = React.useRef<HTMLButtonElement>(null)
-    const onClick = useMemo(() => {
-        return props.onClick
-    }, [props.onClick])
+
 
     useEffect(() => {
         const ele = containerRef.current as HTMLElement
-
         setupButtonRipple(ele)
-        const onClickListener = () => {
-            if (onClick != null) {
-                onClick()
-            }
-        }
-
-        ele.addEventListener("click", onClickListener)
-        // ele.addEventListener("focus", clearFocusListener)
-        return () => {
-            ele.removeEventListener("click", onClickListener)
-            // ele.removeEventListener("focus", clearFocusListener)
-        }
     }, [])
 
     return (
-        <button ref={containerRef} type="button" className={`mdc-icon-button ${props.classes?.join(" ") ?? ""}`.trimEnd()} tabIndex={props.tabIndex == null ? 0 : props.tabIndex}>
+        <button ref={containerRef} type="button" className={`mdc-icon-button ${props.classes?.join(" ") ?? ""}`.trimEnd()} tabIndex={props.tabIndex == null ? 0 : props.tabIndex}
+            onClick={props.onClick}>
             <i className="material-symbols-rounded-variable mdc-button__icon" aria-hidden="true">{props.icon}</i>
         </button>
     )

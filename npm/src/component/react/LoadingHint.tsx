@@ -10,13 +10,13 @@ interface Props {
     onClickHint: () => void
 }
 
+
 export function LoadingHint(props: Props) {
+
     return (
         <div className="loading-hint-wrapper center-inline-items">
-            {props.loading && <ProgressCircular loading={true} />}
-            {(!props.loading && props.loadHint != null) &&
-                <Button text={props.loadHint} onClick={props.onClickHint} classes={["loading-hint-btn"]} tabIndex={-1} />
-            }
+            <ProgressCircular loading={props.loading} classes={props.loading ? ["show"] : []} />
+            <Button text={props.loadHint ?? ""} onClick={props.loading ? undefined : props.onClickHint} tabIndex={-1} classes={!props.loading && props.loadHint != null ? ["show"] : []} />
         </div>
     )
 }

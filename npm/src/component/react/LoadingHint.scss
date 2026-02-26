@@ -4,19 +4,43 @@
 @use '@material/button/mdc-button';
 @use "@material/ripple";
 
+@mixin baseFadeIn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
 .loading-hint-wrapper {
-    display: grid;
-    place-items: center;
+    position: relative;
+    // place-items: center;
     height: 4.45rem;
-}
 
-.mdc-button.loading-hint-btn {
-    @include button.ink-color(var(--navigation));
-    @include button.container-fill-color(transparent);
-    @include ripple.states-base-color(transparent);
-}
+    .mdc-circular-progress {
+        @include baseFadeIn();
 
-.dark .mdc-button.loading-hint-btn {
-    @include button.container-fill-color(transparent);
-    @include ripple.states-base-color(transparent);
+        &.show {
+            opacity: 1;
+        }
+    }
+
+    .mdc-button {
+        @include baseFadeIn();
+
+        &.show {
+            opacity: 1;
+        }
+
+        @include button.ink-color(var(--navigation));
+        @include button.container-fill-color(transparent);
+        @include ripple.states-base-color(transparent);
+
+        .dark & {
+            @include button.container-fill-color(transparent);
+            @include ripple.states-base-color(transparent);
+        }
+    }
 }

@@ -22,11 +22,11 @@ export class HttpPaginatorViewModel<H, P extends BaseHttpPaginator<H, T>, T> ext
         }
     }
 
-    async load(delay: boolean = false): Promise<void> {
+    async load(delay: boolean = false, showLoading: boolean = true): Promise<void> {
         try {
             if (this.state.loading) return
             this.state = {
-                loading: true,
+                loading: showLoading,
                 loadingHint: undefined,
                 posts: [],
                 totalPostsSize: 0

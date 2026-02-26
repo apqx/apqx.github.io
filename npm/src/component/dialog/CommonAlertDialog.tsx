@@ -30,7 +30,7 @@ function NewCommonAlertDialog(props: CommonAlertDialogProps) {
     return (
         <BaseDialog openCount={openCount++} actions={actionBtns}>
             <div>
-                <p className="common-alert-dialog_title center-inline-items">{props.title}</p>
+                <p className="common-alert-dialog_title">{props.title}</p>
                 <p className="common-alert-dialog_content"
                     dangerouslySetInnerHTML={createHtmlContent(props.contentHTML)} />
             </div>

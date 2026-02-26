@@ -35,13 +35,10 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
     const httpState = useSyncExternalStore(httpPaginateViewModel.subscribe, () => httpPaginateViewModel.state)
     const pagefindState = useSyncExternalStore(pagefindPaginateViewModel.subscribe, () => pagefindPaginateViewModel.state)
 
-    const onMount = useMemo(() => props.onMount, [props.onMount])
 
     useEffect(() => {
         consoleDebug(`IndexGridLens useEffect, tag: ${props.tag}, category: ${props.category}, filterTags: ${filterTags.toString()} `)
-        httpPaginateViewModel.load(false)
-
-        if (onMount != null) onMount()
+        if (props.onMount != null) props.onMount()
 
         const emitter = getEventEmitter()
         emitter.on("lensFilterChange", (data) => {
@@ -72,7 +69,7 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
         return () => {
             window.removeEventListener("scroll", scrollListener)
         }
-    }, [filterTags])
+    }, [filterTags, httpState.posts, pagefindState.posts])
 
     const pagefindOptions = useMemo(() => {
         return {
@@ -86,6 +83,7 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
         }
     }, [filterTags])
 
+    // 初始化
     useEffect(() => {
         // 筛选标签变化时，清除旧数据并加载新数据
         if (filterTags.length > 0) {
@@ -145,7 +143,7 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
                 loadingHint: httpState.loadingHint
             }
         }
-    }, [httpState.loading, httpState.loadingHint, pagefindState.loading, pagefindState.loadingHint])
+    }, [httpState.loading, httpState.loadingHint, pagefindState.loading, pagefindState.loadingHint, filterTags])
 
     return (
         <ul className="grid-index-ul">

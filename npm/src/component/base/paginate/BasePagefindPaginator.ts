@@ -38,7 +38,6 @@ export abstract class BasePagefindPaginator<P, T> implements ISearchPaginator<P,
         consoleObjDebug("Search options => ", options)
         if (this.abortController != null) {
             this.abortController.abort()
-            consoleDebug("Abort previous pagefind search")
         }
         this.cachedKey = ""
         this.cachedOptions = undefined

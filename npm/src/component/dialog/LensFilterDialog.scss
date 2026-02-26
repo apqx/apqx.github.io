@@ -1,5 +1,12 @@
+@use "./BaseDialog.scss" as baseDialog;
+
 .lens-filter-dialog__title {
-    margin: 1.5rem 0 0.5rem 0.3rem;
+    @include baseDialog.baseDialogTitle();
+}
+
+.lens-filter-dialog__hint {
+    @include baseDialog.baseDialogHint();
+    margin: 1.2rem 0.7rem 1rem 0.7rem;
 }
 
 .lens-filter-dialog__tag-container {

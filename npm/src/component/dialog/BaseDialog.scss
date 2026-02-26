@@ -82,9 +82,27 @@
     width: 560px;
 }
 
-.common-alert-dialog_title {
+@mixin baseDialogTitle {
+    text-align: center;
     font-size: var(--mdc-typography-headline1-font-size);
     line-height: 3rem;
+}
+
+@mixin baseDialogHint {
+    margin: 1.2rem 1rem;
+    color: var(--mdc-theme-on-surface-secondary);
+    font-weight: var(--font-weight-light);
+    font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
+    line-height: calc(var(--mdc-typography-body1-line-height) - 0.3rem);
+
+    strong,
+    b {
+        font-weight: var(--font-weight-normal);
+    }
+}
+
+.common-alert-dialog_title {
+    @include baseDialogTitle();
 }
 
 .common-alert-dialog_content {

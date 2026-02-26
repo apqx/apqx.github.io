@@ -45,25 +45,27 @@ export function LensFilterDialog(props: BaseDialogOpenProps) {
     }, [])
 
     const actions = useMemo<ActionBtn[]>(() => {
-        return [{
-            text: "关闭", closeOnClick: true, onClick: () => {
-            }
-        }, {
-            text: "搜索", closeOnClick: true, onClick: () => {
-                viewModel.confirmSelection()
-                // 通知执行搜索
-                consoleDebug("LensFilterDialog selected tags = " + state.selectedTags.toString())
-                getEventEmitter().emit("lensFilterChange", {
-                    selectedTags: state.selectedTags
-                })
-            }
-        }]
+        return [
+            {
+                text: "关闭", closeOnClick: true, onClick: () => {
+                }
+            }, {
+                text: "搜索", closeOnClick: true, onClick: () => {
+                    viewModel.confirmSelection()
+                    // 通知执行搜索
+                    consoleDebug("LensFilterDialog selected tags = " + state.selectedTags.toString())
+                    getEventEmitter().emit("lensFilterChange", {
+                        selectedTags: state.selectedTags
+                    })
+                }
+            }]
     }, [state.selectedTags])
 
     return (
         <BaseDialog openCount={props.openCount} fixedWidth={true} onDialogOpen={onDialogOpen} onDialogClose={onDialogClose} actions={actions}>
             <SmoothCollapse>
-                <p className="lens-filter-dialog__title">请选择要搜索的标签：</p>
+                <p className="lens-filter-dialog__title">选择搜索标签</p>
+                <p className="lens-filter-dialog__hint">选中多个显示同时满足条件的结果，比如演员与剧目的组合，不选中则显示所有结果🕵🏻。</p>
                 {state.tags != null && state.tags.length != 0 &&
                     <div className="btn-tag-container lens-filter-dialog__tag-container">
                         {state.tags.map(category =>

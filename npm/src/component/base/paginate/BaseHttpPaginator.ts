@@ -30,7 +30,6 @@ export abstract class BaseHttpPaginator<H, T> implements IHttpPaginator<H, T> {
         // 是否处于加载状态由上层判断，这里直接中断旧请求，发起新请求
         if (this.abortController != null) {
             this.abortController.abort()
-            consoleDebug("Abort previous http paginate request")
         }
         this.abortController = new AbortController()
         const startTime = Date.now()
@@ -82,12 +81,10 @@ export abstract class BaseHttpPaginator<H, T> implements IHttpPaginator<H, T> {
     async loadMore(delay?: boolean): Promise<T[]> {
         consoleDebug("Load more by http paginator")
         if (this.cachedPage.length == 0) {
-            consoleDebug("Abort previous http paginate request")
             return this.load(delay)
         }
         if (this.abortController != null) {
             this.abortController.abort()
-            consoleDebug("Abort previous http paginate request")
         }
         this.abortController = new AbortController()
         const nextPagePath = this.cachedPage[this.cachedPage.length - 1].data.nextPagePath
@@ -97,7 +94,7 @@ export abstract class BaseHttpPaginator<H, T> implements IHttpPaginator<H, T> {
             })
         }
         const startTime = Date.now()
-        return this.getRequest(this.abortController.signal, undefined, nextPagePath)
+        return await this.getRequest(this.abortController.signal, undefined, nextPagePath)
             .then(async (response: Response) => {
                 if (response.status === 200) {
                     return response.json()

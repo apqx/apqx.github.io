@@ -30,13 +30,11 @@ export function IndexGridPosts(props: Props) {
     }, [])
     const state = useSyncExternalStore(paginateViewModel.subscribe, () => paginateViewModel.state)
 
-    const onMount = useMemo(() => props.onMount, [props.onMount])
-
     useEffect(() => {
         consoleDebug(`IndexGridPosts useEffect, tag: ${props.tag}, category: ${props.category}`)
         paginateViewModel.load(false)
 
-        if (onMount != null) onMount()
+        if (props.onMount != null) props.onMount()
 
         const scrollLoader = new ScrollLoader(() => {
             paginateViewModel.loadMore(false)

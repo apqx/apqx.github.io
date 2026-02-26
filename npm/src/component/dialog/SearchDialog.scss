@@ -2,6 +2,7 @@
 // @use "../react/LoadingHint";
 // @use "../animation/HeightAnimationContainer";
 @use "../../style/global" as base;
+@use "./BaseDialog.scss" as baseDialog;
 @use "./TagDialog" as tagDialog;
 @use "@material/textfield";
 @use "@material/textfield/mdc-text-field";
@@ -13,16 +14,7 @@
 }
 
 #search-dialog_tips {
-    margin: 1.2rem 1rem;
-    color: var(--mdc-theme-on-surface-secondary);
-    line-break: normal;
-    font-weight: var(--font-weight-light);
-    font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
-    line-height: calc(var(--mdc-typography-body1-line-height) - 0.3rem);
-
-    strong, b {
-        font-weight: var(--font-weight-normal);
-    }
+    @include baseDialog.baseDialogHint();
 }
 
 .mdc-text-field {

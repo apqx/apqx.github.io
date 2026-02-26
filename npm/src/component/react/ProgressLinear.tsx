@@ -14,23 +14,21 @@ export function ProgressLinear(props: Props) {
     useEffect(() => {
         const ele = containerRef.current as Element
         progressLinear.current = new MDCLinearProgress(ele)
-        progressLinear.current.determinate = false
         return () => {
             progressLinear.current?.destroy()
         }
     }, [])
 
     useEffect(() => {
-        showLoading(props.loading)
-    }, [props.loading])
-
-    function showLoading(show: boolean) {
-        if (show) {
+        if (props.loading) {
+            progressLinear.current!!.determinate = false
             progressLinear.current?.open()
         } else {
+            progressLinear.current!!.determinate = false
             progressLinear.current?.close()
         }
-    }
+    }, [props.loading])
+
 
     return (
         <div ref={containerRef} role="progressbar" className={`mdc-linear-progress ${props.classes?.join(" ") ?? ""}`.trimEnd()}>
