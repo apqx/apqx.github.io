@@ -68,7 +68,7 @@
                 {%- endif %}
                 {%- if page.categories contains "lens" %}
                 {%- assign actors = page.actor | split: " " %}
-                <p>
+                <p data-pagefind-filter="tag:{{ page.date | date: '%Y' }}">
                     {{ page.date | date: "%Y%m%d %H:%M:%S" }}
                     {%- for actor in actors %}
                     <a id="chip_tag_{{ actor }}" class="tag-dialog-trigger clickable-empty-link"

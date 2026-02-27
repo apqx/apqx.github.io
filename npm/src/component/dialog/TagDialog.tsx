@@ -45,7 +45,7 @@ function TagDialog(props: TagDialogProps) {
     }, [])
     
     const onLoadMore = useCallback(() => {
-        paginateViewModel.loadMore(false)
+        paginateViewModel.loadMore()
     }, [])
 
     const onClickHint = useCallback(() => {

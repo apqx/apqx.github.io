@@ -56,9 +56,9 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
     useEffect(() => {
         const scrollLoader = new ScrollLoader(() => {
             if (filterTags.length > 0) {
-                pagefindPaginateViewModel.loadMore(false)
+                pagefindPaginateViewModel.loadMore()
             } else {
-                httpPaginateViewModel.loadMore(false)
+                httpPaginateViewModel.loadMore()
             }
         })
         const scrollListener = () => {
@@ -88,10 +88,10 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
         // 筛选标签变化时，清除旧数据并加载新数据
         if (filterTags.length > 0) {
             pagefindPaginateViewModel.clear()
-            pagefindPaginateViewModel.search(null, pagefindOptions, true)
+            pagefindPaginateViewModel.search(null, pagefindOptions)
         } else {
             httpPaginateViewModel.clear()
-            httpPaginateViewModel.load(true)
+            httpPaginateViewModel.load()
         }
 
     }, [filterTags])

@@ -1,7 +1,7 @@
 import "./LensFilterDialog.scss"
 import { useCallback, useEffect, useMemo, useSyncExternalStore } from "react";
 import { BaseDialog, LENS_FILTER_DIALOG_WRAPPER_ID, showDialog, type ActionBtn, type BaseDialogOpenProps } from "./BaseDialog";
-import { LensFilterDialogViewModel } from "./LensFilterDialogViewModel";
+import { LensFilterDialogViewModel, type Category } from "./LensFilterDialogViewModel";
 import { SmoothCollapse } from "../animation/SmoothCollapse";
 import { CheckableTag } from "../react/CheckableTag";
 import { LoadingHint } from "../react/LoadingHint";
@@ -41,7 +41,7 @@ export function LensFilterDialog(props: BaseDialogOpenProps) {
     }, [])
 
     const onClickHint = useCallback(() => {
-        viewModel.init()
+        viewModel.init(true)
     }, [])
 
     const actions = useMemo<ActionBtn[]>(() => {
@@ -61,25 +61,84 @@ export function LensFilterDialog(props: BaseDialogOpenProps) {
             }]
     }, [state.selectedTags])
 
+    // 将模版中的 category 排列成适合展示的结构
+    const categoriesArray = useMemo(() => {
+        const commonCategories: Category[] = []
+        const actorCategories: Category[] = []
+        const repertoireCategories: Category[] = []
+        const otherCategories: Category[] = []
+        const notConfiguredCategory: Category[] = []
+        state.tags.forEach(category => {
+            switch (category.id) {
+                // 剧种
+                case "genre":
+                // 剧团
+                case "company":
+                // 演出城市
+                case "location_city":
+                // 演出剧院
+                case "location_theater": {
+                    commonCategories.push(category)
+                    break
+                }
+                // 演员
+                case "actor": {
+                    actorCategories.push(category)
+                    break
+                }
+                // 剧目
+                case "repertoire": {
+                    repertoireCategories.push(category)
+                    break
+                }
+                // 其它，包括模版中的 other 和未在模版中配置的标签
+                default: {
+                    otherCategories.push(category)
+                    break
+                }
+            }
+        })
+        return [commonCategories, actorCategories, repertoireCategories, otherCategories, notConfiguredCategory]
+    }, [state.tags])
+
     return (
         <BaseDialog openCount={props.openCount} fixedWidth={true} onDialogOpen={onDialogOpen} onDialogClose={onDialogClose} actions={actions}>
             <SmoothCollapse>
                 <p className="lens-filter-dialog__title">选择搜索标签</p>
-                <p className="lens-filter-dialog__hint">选中多个显示同时满足条件的结果，比如演员与剧目的组合，不选中则显示所有结果🕵🏻。</p>
-                {state.tags != null && state.tags.length != 0 &&
-                    <div className="btn-tag-container lens-filter-dialog__tag-container">
-                        {state.tags.map(category =>
-                            category.tags.map(tag =>
-                                <CheckableTag key={tag.title} text={tag.title + " " + tag.count} checked={state.selectedTags.includes(tag.title)} onClick={() => onTagClick(tag.title)} />
-                            )
-                        )}
-                    </div>
+                <p className="lens-filter-dialog__hint">多选会显示同时满足条件的结果，比如演员与剧目的组合，若无选中则显示所有结果🕵🏻。</p>
+                {
+                    categoriesArray.length > 0 && categoriesArray.map(categories => 
+                        <Categories categories={categories} selectedTags={state.selectedTags} onTagClick={onTagClick}/>
+                    )
                 }
                 {(state.loading || state.loadingHint != null) &&
                     <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} />
                 }
             </SmoothCollapse>
         </BaseDialog>
+    )
+}
+
+interface CategoriesProps {
+    categories: Array<Category>
+    selectedTags: Array<string>
+    onTagClick: (tag: string) => void
+}
+
+/**
+ * 一组 category 的 tag 合并显示
+ */
+function Categories(props: CategoriesProps) {
+    return (
+        <div className="btn-tag-container lens-filter-dialog__tag-container">
+            {
+                props.categories.map(category =>
+                    category.tags.map(tag =>
+                        <CheckableTag key={tag.title} text={tag.title + " " + tag.count} checked={props.selectedTags.includes(tag.title)} onClick={() => props.onTagClick(tag.title)} />
+                    )
+                )
+            }
+        </div>
     )
 }
 

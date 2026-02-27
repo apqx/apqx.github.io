@@ -31,7 +31,7 @@ export class LensFilterDialogViewModel extends BaseExternalStore {
         }
     }
 
-    async init() {
+    async init(delay: boolean = false) {
         if (this.state.loading) return
         if (this.abortController != null) {
             this.abortController.abort()
@@ -45,7 +45,7 @@ export class LensFilterDialogViewModel extends BaseExternalStore {
         }
         this.emitChange()
         try {
-            await this.loadTags(startTime, this.abortController.signal)
+            await this.loadTags(delay, startTime, this.abortController.signal)
         } catch (e) {
             consoleObjError("Failed to load lens filter options", e)
 
@@ -59,7 +59,7 @@ export class LensFilterDialogViewModel extends BaseExternalStore {
         }
     }
 
-    async loadTags(startTime: number, signal: AbortSignal) {
+    async loadTags(delay: boolean, startTime: number, signal: AbortSignal) {
         const filterTemplate: ApiLensFilterTemplate = await getServiceInstance().getLensSearchFilters({ debugMode: SERVICE_DEBUG_MODE_AUTO, abortSignal: signal })
             .then(response => {
                 if (response.status === 200) {
@@ -91,6 +91,7 @@ export class LensFilterDialogViewModel extends BaseExternalStore {
                 }
             })
             categoriesForShow.push({
+                id: category.id,
                 title: category.title,
                 tags: tagsForShow
             })
@@ -102,12 +103,15 @@ export class LensFilterDialogViewModel extends BaseExternalStore {
             })
         })
         categoriesForShow.push({
-            "title": "未配置分类",
-            "tags": tagsNotConfigured
+            id: "not_configured",
+            title: "未配置分类",
+            tags: tagsNotConfigured
         })
         consoleObjDebug("Categories for show", categoriesForShow)
         consoleObjDebug("Tags not configured", tagsNotConfigured)
-        await sleepUntilMinimalTime(startTime, signal)
+        if (delay) {
+            await sleepUntilMinimalTime(startTime, signal)
+        }
         this.state = {
             loading: false,
             loadingHint: undefined,
@@ -168,7 +172,8 @@ export class LensFilterDialogViewModel extends BaseExternalStore {
 }
 
 // tags 为包含 subTag 的扁平化标签列表
-type Category = {
+export type Category = {
+    id: string,
     title: string,
     tags: Array<Tag>
 }

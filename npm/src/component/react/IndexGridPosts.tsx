@@ -32,12 +32,12 @@ export function IndexGridPosts(props: Props) {
 
     useEffect(() => {
         consoleDebug(`IndexGridPosts useEffect, tag: ${props.tag}, category: ${props.category}`)
-        paginateViewModel.load(false)
+        paginateViewModel.load()
 
         if (props.onMount != null) props.onMount()
 
         const scrollLoader = new ScrollLoader(() => {
-            paginateViewModel.loadMore(false)
+            paginateViewModel.loadMore()
         })
         const scrollListener = () => {
             scrollLoader.onScroll(document.body.clientHeight, window.scrollY, document.body.scrollHeight)

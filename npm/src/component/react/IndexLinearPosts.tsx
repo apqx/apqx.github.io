@@ -24,12 +24,12 @@ export function IndexLinearPosts(props: BasePaginateViewProps<Post>) {
 
     useEffect(() => {
         consoleDebug(`IndexLinearPosts useEffect, tag: ${props.tag}, category: ${props.category}`)
-        paginateViewModel.load(false)
+        paginateViewModel.load()
 
         if (props.onMount != null) props.onMount()
 
         const scrollLoader = new ScrollLoader(() => {
-            paginateViewModel.loadMore(false)
+            paginateViewModel.loadMore()
         })
         const scrollListener = () => {
             scrollLoader.onScroll(document.body.clientHeight, window.scrollY, document.body.scrollHeight)

@@ -32,10 +32,10 @@ export function LinearShares(props: BasePaginateViewProps<Share>) {
 
     useEffect(() => {
         consoleDebug(`LinearShares useEffect, tag: ${props.tag}, category: ${props.category}`)
-        paginateViewModel.load(false)
+        paginateViewModel.load()
 
         const scrollLoader = new ScrollLoader(() => {
-            paginateViewModel.loadMore(false)
+            paginateViewModel.loadMore()
         })
         const scrollListener = () => {
             scrollLoader.onScroll(document.body.clientHeight, window.scrollY, document.body.scrollHeight)
@@ -69,52 +69,6 @@ export function LinearShares(props: BasePaginateViewProps<Share>) {
         </ul>
     )
 }
-
-// export class IndexLinearShares extends BasePaginateShow<Share, BasePaginateShowProps<Share>> {
-
-//     createPresenter(): IPaginateShowPresenter {
-//         return new SharePaginateShowPresenter(this, false)
-//     }
-
-//     componentDidMount(): void {
-//         super.componentDidMount()
-//         // 不使用高度动画
-//         // this.heightAnimationContainer = new HeightAnimationContainer(rootE)
-//         if (this.props.onUpdate != null) this.props.onUpdate()
-//         this.initScroll()
-//         // 显示footer，在索引页其被默认隐藏，需要在列表首次加载后显示出来
-//         // showFooter()
-//     }
-
-//     initScroll() {
-//         const scrollLoader = new ScrollLoader(() => {
-//             consoleDebug("Index scroll should load")
-//             if (this.state.loadHint == ERROR_HINT) return
-//             this.loadMore()
-//         })
-//         window.addEventListener("scroll", () => {
-//             scrollLoader.onScroll(document.body.clientHeight, window.scrollY, document.body.scrollHeight)
-//         })
-//     }
-
-//     componentDidUpdate(prevProps: Readonly<BasePaginateShowProps<Share>>, prevState: Readonly<BasePaginateShowState<Share>>, snapshot?: any): void {
-//         if (this.props.onUpdate != null) this.props.onUpdate()
-//     }
-
-//     render() {
-//         return (
-//             <ul className="share-ul">
-//                 {this.state.posts.map((item, index) =>
-//                     <IndexItem key={item.linkUrl}
-//                         title={item.title} titleNoDate={item.titleNoDate} date={item.date} actor={item.actor} location={item.location} linkTitle={item.linkTitle} linkUrl={item.linkUrl} linkPwd={item.linkPwd} archive={item.archive} last={index == this.state.posts.length - 1} />
-//                 )}
-//                 {(this.state.loading || this.state.loadHint != null) &&
-//                     <LoadingHint loading={this.state.loading} loadHint={this.state.loadHint} onClickHint={this.loadMoreByClick} />
-//                 }
-//             </ul>
-//         )
-//     }
-// }
 
 type IndexItemProps = {
     title: string,
