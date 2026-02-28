@@ -1,6 +1,6 @@
 ---
 # 文件名前缀，完整文件名加上 [title].md
-fileNamePrefix: 2023-11-04-
+fileNamePrefix: 2023-08-26-
 layout: post
 categories: lens
 title: "昆曲「玉簪记·琴挑」折子"
@@ -24,10 +24,14 @@ pinned: false
 
 ## 视频片段
 
-*[【王恒涛&吴心怡】昆曲-玉簪记·偷诗（滴溜子、鲍老催）4K](https://www.bilibili.com/video/BV1qN4y1S76c){: target="_blank" }*
+*[【罗轩&方莛玉】昆曲-玉簪记·琴挑（懒画眉）4K](https://www.bilibili.com/video/BV1Dj41127zc){: target="_blank" }*
 
 <div class="video-container">
-<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=875578060&bvid=BV1qN4y1S76c&cid=1322291266&p=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=447882066&bvid=BV1Dj41127zc&cid=1251502582&p=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
 </div>
 
+*[【罗轩&方莛玉】昆曲-玉簪记·琴挑（朝元歌）4K](https://www.bilibili.com/video/BV1V8411B7iM){: target="_blank" }*
 
+<div class="video-container">
+<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=233161401&bvid=BV1V8411B7iM&cid=1259143159&p=1&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+</div>
