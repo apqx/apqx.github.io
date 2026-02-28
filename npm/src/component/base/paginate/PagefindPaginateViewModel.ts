@@ -1,4 +1,4 @@
-import { consoleObjDebug } from "../../../util/log";
+import { consoleDebug, consoleObjDebug } from "../../../util/log";
 import { ERROR_HINT, getLoadHint } from "../../react/LoadingHint";
 import { BaseExternalStore } from "./BaseExternalStore";
 import type { BasePagefindPaginator, BasePagefindPaginatorOptions } from "./BasePagefindPaginator";
@@ -25,6 +25,7 @@ export class PagefindPaginateViewModel<P, T, O extends BasePagefindPaginator<P, 
     async search(keywords: string | null, options: BasePagefindPaginatorOptions, delay: boolean = false): Promise<void> {
         try {
             if (this.state.loading) return
+            consoleDebug("PagefindPaginateViewModel search, keywords = " + keywords)
             // 应过滤搜索词为空的搜索行为，当词为 null 字符时，pagefind 会返回全部数据
             if (keywords?.length == 0) {
                 this.state = {
@@ -65,6 +66,7 @@ export class PagefindPaginateViewModel<P, T, O extends BasePagefindPaginator<P, 
     async loadMore(delay: boolean = false): Promise<void> {
         if (this.state.loading) return
         if (!this.paginator.hasMore()) return
+        consoleDebug("PagefindPaginateViewModel loadMore")
         try {
             this.state = {
                 ...this.state,

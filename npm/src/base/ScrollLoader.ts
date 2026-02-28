@@ -1,10 +1,10 @@
 export class ScrollLoader {
     timeMsIgnore: number
-    shouldLoad: () => void
+    load: () => void
     lastLoadTime: number = 0
 
-    constructor(shouldLoad: () => void, timeMsIgnore: number = 50) {
-        this.shouldLoad = shouldLoad
+    constructor(load: () => void, timeMsIgnore: number = 50) {
+        this.load = load
         this.timeMsIgnore = timeMsIgnore
     }
 
@@ -13,7 +13,7 @@ export class ScrollLoader {
         // 距离底部小于组件高度时加载更多
         if (scrollHeight - scrollY - clientHeight < clientHeight) {
             if (Date.now() - this.lastLoadTime < this.timeMsIgnore) return
-            this.shouldLoad()
+            this.load()
             this.lastLoadTime = Date.now()
         }
     }

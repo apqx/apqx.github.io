@@ -18,6 +18,13 @@
     position: relative;
     // place-items: center;
     height: 4.45rem;
+    // transition: height 0.3s ease;
+    
+    &.hide {
+        height: 0;
+        // 如果不设置为 none 可能在 loading 消失时有残影
+        display: none;
+    }
 
     .mdc-circular-progress {
         @include baseFadeIn();

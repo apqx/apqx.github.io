@@ -55,13 +55,13 @@ function calculateDuration(newSize: number, preSize: number, propertyName: strin
     const animationSize = Math.abs(newSize - preSize)
 
     duration = animationSize / 1800
-    consoleDebug(`SmoothCollapse wrapper ${propertyName} = ${preSize} -> ${newSize}, animationSize = ${animationSize}, duration = ${duration}s`)
+    // consoleDebug(`SmoothCollapse wrapper ${propertyName} = ${preSize} -> ${newSize}, animationSize = ${animationSize}, duration = ${duration}s`)
     if (duration < 0.3) {
         duration = 0.3
-        consoleDebug(`Actual duration = ${duration}s`)
+        // consoleDebug(`Actual duration = ${duration}s`)
     } else if (duration > 0.5) {
         duration = 0.5
-        consoleDebug(`Actual duration = ${duration}s`)
+        // consoleDebug(`Actual duration = ${duration}s`)
     }
 
     return duration

@@ -67,7 +67,6 @@ export function LensFilterDialog(props: BaseDialogOpenProps) {
         const actorCategories: Category[] = []
         const repertoireCategories: Category[] = []
         const otherCategories: Category[] = []
-        const notConfiguredCategory: Category[] = []
         state.tags.forEach(category => {
             switch (category.id) {
                 // 剧种
@@ -98,7 +97,7 @@ export function LensFilterDialog(props: BaseDialogOpenProps) {
                 }
             }
         })
-        return [commonCategories, actorCategories, repertoireCategories, otherCategories, notConfiguredCategory]
+        return [commonCategories, actorCategories, repertoireCategories, otherCategories]
     }, [state.tags])
 
     return (
@@ -107,8 +106,8 @@ export function LensFilterDialog(props: BaseDialogOpenProps) {
                 <p className="lens-filter-dialog__title">选择搜索标签</p>
                 <p className="lens-filter-dialog__hint">多选会显示同时满足条件的结果，比如演员与剧目的组合，若无选中则显示所有结果🕵🏻。</p>
                 {
-                    categoriesArray.length > 0 && categoriesArray.map(categories => 
-                        <Categories categories={categories} selectedTags={state.selectedTags} onTagClick={onTagClick}/>
+                    categoriesArray.length > 0 && categoriesArray.map((categories, index) =>
+                        <Categories key={index} categories={categories} selectedTags={state.selectedTags} onTagClick={onTagClick} />
                     )
                 }
                 {(state.loading || state.loadingHint != null) &&
@@ -129,16 +128,29 @@ interface CategoriesProps {
  * 一组 category 的 tag 合并显示
  */
 function Categories(props: CategoriesProps) {
+    const tagsCount = useMemo(() => {
+        let count = 0
+        props.categories.forEach(category => {
+            count += category.tags.length
+        })
+        return count
+    }, [props.categories])
+    
     return (
-        <div className="btn-tag-container lens-filter-dialog__tag-container">
+        <>
             {
-                props.categories.map(category =>
-                    category.tags.map(tag =>
-                        <CheckableTag key={tag.title} text={tag.title + " " + tag.count} checked={props.selectedTags.includes(tag.title)} onClick={() => props.onTagClick(tag.title)} />
-                    )
-                )
+                tagsCount > 0 &&
+                <div className="btn-tag-container lens-filter-dialog__tag-container">
+                    {
+                        props.categories.map(category =>
+                            category.tags.map(tag =>
+                                <CheckableTag key={tag.title} text={tag.title + " " + tag.count} checked={props.selectedTags.includes(tag.title)} onClick={() => props.onTagClick(tag.title)} />
+                            )
+                        )
+                    }
+                </div>
             }
-        </div>
+        </>
     )
 }
 

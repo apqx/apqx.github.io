@@ -36,18 +36,13 @@ export function IndexGridPosts(props: Props) {
 
         if (props.onMount != null) props.onMount()
 
-        const scrollLoader = new ScrollLoader(() => {
-            paginateViewModel.loadMore()
-        })
-        const scrollListener = () => {
-            scrollLoader.onScroll(document.body.clientHeight, window.scrollY, document.body.scrollHeight)
-        }
-        window.addEventListener("scroll", scrollListener)
-
         return () => {
             consoleDebug("IndexGridPosts useEffect cleanup")
-            window.removeEventListener("scroll", scrollListener)
         }
+    }, [])
+
+    const onLoadMore = useCallback(() => {
+        paginateViewModel.loadMore()
     }, [])
 
     const onClickHint = useCallback(() => {
@@ -95,12 +90,8 @@ export function IndexGridPosts(props: Props) {
                         coverAlt={item.coverAlt}
                         last={index == showPosts.length - 1} />
                 )}
-                {(state.loading || state.loadingHint != null) &&
-                    <li className="grid-index-li">
-                        <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} />
-                    </li>
-                }
             </Masonry>
+            <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore} />
         </ul>
     )
 }

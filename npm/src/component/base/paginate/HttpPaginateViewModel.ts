@@ -1,4 +1,4 @@
-import { consoleObjDebug } from "../../../util/log"
+import { consoleDebug, consoleObjDebug } from "../../../util/log"
 import { ERROR_HINT, getLoadHint } from "../../react/LoadingHint"
 import { BaseExternalStore } from "./BaseExternalStore"
 import type { BaseHttpPaginator } from "./BaseHttpPaginator"
@@ -22,11 +22,12 @@ export class HttpPaginatorViewModel<H, P extends BaseHttpPaginator<H, T>, T> ext
         }
     }
 
-    async load(delay: boolean = false, showLoading: boolean = true): Promise<void> {
+    async load(delay: boolean = false): Promise<void> {
         try {
             if (this.state.loading) return
+            consoleDebug("HttpPaginatorViewModel load")
             this.state = {
-                loading: showLoading,
+                loading: true,
                 loadingHint: undefined,
                 posts: [],
                 totalPostsSize: 0
@@ -55,6 +56,7 @@ export class HttpPaginatorViewModel<H, P extends BaseHttpPaginator<H, T>, T> ext
     async loadMore(delay: boolean = false): Promise<void> {
         if (this.state.loading) return
         if (!this.paginator.hasMore()) return
+        consoleDebug("HttpPaginatorViewModel loadMore")
         try {
             this.state = {
                 ...this.state,

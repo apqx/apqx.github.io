@@ -84,7 +84,7 @@ export function SearchDialog(props: BaseDialogOpenProps) {
         }]
     }, [])
     return (
-        <BaseDialog openCount={props.openCount} onLoadMore={onLoadMore} onDialogOpen={onDialogOpen} onDialogClose={onDialogClose} actions={actions}>
+        <BaseDialog openCount={props.openCount} onDialogOpen={onDialogOpen} onDialogClose={onDialogClose} actions={actions}>
             <div ref={containerRef} className="center-inline-items">
                 <label className="mdc-text-field mdc-text-field--outlined" id="search-dialog_label">
                     <span className="mdc-notched-outline">
@@ -111,145 +111,13 @@ export function SearchDialog(props: BaseDialogOpenProps) {
                         {(state.posts != null && state.posts.length > 0) &&
                             <SearchResult list={state.posts} />
                         }
-                        {(state.loading || state.loadingHint != null) &&
-                            <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} />
-                        }
+                        <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore} />
                     </div>
                 </SmoothCollapse>
             </div>
         </BaseDialog>
     )
 }
-
-
-// interface SearchDialogState {
-//     loading: boolean
-//     loadHint?: string
-//     results: ResultItemData[]
-// }
-
-// export class OldSearchDialog extends BasicDialog<BasicDialogProps, SearchDialogState> {
-//     state: SearchDialogState = {
-//         loading: false,
-//         loadHint: undefined,
-//         results: [],
-//     }
-
-//     presenter: SearchDialogViewModel
-//     input: string = ""
-//     textField?: MDCTextField
-
-//     constructor(props: any) {
-//         super(props)
-//         this.fixedWidth = true
-//         // 需要显示搜素结果数目，节约带宽，不要滚动加载
-//         this.listenScroll = false
-//         this.presenter = new SearchDialogViewModel(this)
-//         this.onClickSearch = this.onClickSearch.bind(this)
-//         this.onInputChange = this.onInputChange.bind(this)
-//         this.onClickLoadMore = this.onClickLoadMore.bind(this)
-//     }
-
-//     configActionBtns(): ActionBtn[] {
-//         return [{
-//             text: "关闭", closeOnClick: true, onClick: () => { }
-//         }, {
-//             text: "清除", closeOnClick: false, onClick: () => {
-//                 this.presenter?.clearResults()
-//                 this.textField!.value = ""
-//                 this.input = ""
-//             }
-//         }]
-//     }
-
-//     onClickSearch() {
-//         this.presenter?.search(this.input)
-//     }
-
-//     onInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-//         this.input = e.target.value
-//     }
-
-//     onClickLoadMore() {
-//         this.presenter?.loadMore()
-//     }
-
-//     onScrollNearToBottom(): void {
-//         if (this.state.loadHint == ERROR_HINT) return
-//         this.presenter?.loadMore()
-//     }
-
-//     onDialogClose(): void {
-//         super.onDialogClose()
-//         this.presenter?.abortSearch()
-//         // this.presenter.reduceResult()
-//     }
-
-//     componentDidMount(): void {
-//         super.componentDidMount()
-//         this.initBtn(this.rootE!!.querySelector("#btn-search")!!)
-//         this.initTextField(this.rootE!!.querySelector("#search-dialog_label")!!)
-//     }
-
-//     componentDidUpdate(prevProps: Readonly<BasicDialogProps>, prevState: Readonly<any>, snapshot?: any): void {
-//         super.componentDidUpdate(prevProps, prevState, snapshot)
-//     }
-
-//     componentWillUnmount(): void {
-//     }
-
-//     initBtn(e: HTMLElement) {
-//         if (e == null) return
-//         setupButtonRipple(e)
-//         e.addEventListener("focus", clearFocusListener)
-//     }
-
-//     initTextField(e: HTMLElement) {
-//         if (e == null) return
-//         this.textField = new MDCTextField(e)
-//         e.addEventListener("keyup", (event: KeyboardEvent) => {
-//             if (event.key === "Enter")
-//                 this.onClickSearch()
-//         })
-//     }
-
-//     dialogContent(): React.JSX.Element {
-//         return (
-//             <div className="center-inline-items">
-//                 <label className="mdc-text-field mdc-text-field--outlined" id="search-dialog_label">
-//                     <span className="mdc-notched-outline">
-//                         <span className="mdc-notched-outline__leading"></span>
-//                         <span className="mdc-notched-outline__notch">
-//                             <span className="mdc-floating-label" id="search-label">Words</span>
-//                         </span>
-//                         <span className="mdc-notched-outline__trailing"></span>
-//                     </span>
-//                     {/* 这里禁止自动获取焦点，可能导致 dialog 意外滚动到焦点位置 */}
-//                     <input type="search" className="mdc-text-field__input" aria-labelledby="search-label"
-//                         name="search-dialog_input" tabIndex={-1} onChange={this.onInputChange} />
-//                     <button id="btn-search" type="button"
-//                         className="mdc-icon-button"
-//                         tabIndex={-1} onClick={this.onClickSearch}>
-//                         <i className="material-symbols-rounded-variable mdc-button__icon" aria-hidden="true">search</i>
-//                     </button>
-//                 </label>
-
-//                 <p id="search-dialog_tips"><b>TIPS：</b>中文低频词组用空格分隔会有更好匹配，比如名字「施夏明」改为「施 夏 明」。若网络通畅可使用 <a
-//                     href="https://cse.google.com/cse?cx=757420b6b2f3d47d2" target="_blank" tabIndex={-1}>Google 站内搜索</a>。</p>
-//                 <SmoothCollapse>
-//                     <div>
-//                         {(this.state.results != null && this.state.results.length > 0) &&
-//                             <SearchResult list={this.state.results} />
-//                         }
-//                         {(this.state.loading || this.state.loadHint != null) &&
-//                             <LoadingHint loading={this.state.loading} loadHint={this.state.loadHint} onClickHint={this.onClickLoadMore} />
-//                         }
-//                     </div>
-//                 </SmoothCollapse>
-//             </div>
-//         )
-//     }
-// }
 
 interface SearchResultProps {
     list: Post[]

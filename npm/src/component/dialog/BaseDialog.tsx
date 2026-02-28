@@ -39,18 +39,16 @@ export function BaseDialog({ openCount, fixedWidth = false, closeOnClickOutside 
     const btnCloseRef = useRef<HTMLElement>(null)
 
     // 使用 ref 存储回调函数的最新引用，避免因函数引用变化导致 useEffect 重新执行
-    const onLoadMoreRef = useRef(onLoadMore)
     const onDialogOpenRef = useRef(onDialogOpen)
     const onDialogCloseRef = useRef(onDialogClose)
     const scrollToTopOnDialogOpenRef = useRef(scrollToTopOnDialogOpen)
 
     // 更新 ref 中的函数引用，这些引用会在初始化的监听器中使用
     useEffect(() => {
-        onLoadMoreRef.current = onLoadMore
         onDialogOpenRef.current = onDialogOpen
         onDialogCloseRef.current = onDialogClose
         scrollToTopOnDialogOpenRef.current = scrollToTopOnDialogOpen
-    }, [onLoadMore, onDialogOpen, onDialogClose, scrollToTopOnDialogOpen])
+    }, [onDialogOpen, onDialogClose, scrollToTopOnDialogOpen])
 
     useEffect(() => {
         consoleDebug("BaseDialog useEffect")
@@ -66,9 +64,23 @@ export function BaseDialog({ openCount, fixedWidth = false, closeOnClickOutside 
 
         const clearListeners = initDialog(rootE)
 
+        dialogRef.current!.open()
+
+        return () => {
+            consoleDebug("BaseDialog useEffect cleanup")
+            
+            clearListeners()
+            dialogRef.current?.destroy()
+        }
+
+    }, [])
+
+    // 监听 dialog 内部滚动，触发加载更多
+    useEffect(() => {
+        if (onLoadMore == null) return
         const scrollLoader = new ScrollLoader(() => {
-            if (onLoadMoreRef.current != null) {
-                onLoadMoreRef.current()
+            if (onLoadMore != null) {
+                onLoadMore()
             }
         })
         const onScrollListener = () => {
@@ -76,16 +88,10 @@ export function BaseDialog({ openCount, fixedWidth = false, closeOnClickOutside 
         }
         dialogContentRef.current!!.addEventListener("scroll", onScrollListener)
 
-        dialogRef.current!.open()
-
         return () => {
-            consoleDebug("BaseDialog useEffect cleanup")
             dialogContentRef.current!!.removeEventListener("scroll", onScrollListener)
-            clearListeners()
-            dialogRef.current?.destroy()
         }
-
-    }, [])
+    }, [onLoadMore])
 
     // 这里会在上一个 useEffect 中的 dialogRef.current 被赋值后执行，确保 closeOnClickOutside 的修改能生效
     useEffect(() => {

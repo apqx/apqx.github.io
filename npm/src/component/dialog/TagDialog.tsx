@@ -43,7 +43,7 @@ function TagDialog(props: TagDialogProps) {
     const onDialogClose = useCallback(() => {
         paginateViewModel.abort()
     }, [])
-    
+
     const onLoadMore = useCallback(() => {
         paginateViewModel.loadMore()
     }, [])
@@ -57,15 +57,13 @@ function TagDialog(props: TagDialogProps) {
     }, [state.posts])
 
     return (
-        <BaseDialog openCount={props.openCount} fixedWidth={true} onDialogOpen={onDialogOpen} onDialogClose={onDialogClose} onLoadMore={onLoadMore}>
+        <BaseDialog openCount={props.openCount} fixedWidth={true} onDialogOpen={onDialogOpen} onDialogClose={onDialogClose}>
             <SmoothCollapse>
                 <p>标记 {props.nickname ?? props.tag} 的 {state.totalPostsSize} 篇博文</p>
                 {state.posts != null && state.posts.length != 0 &&
                     <PostResult list={state.posts} />
                 }
-                {(state.loading || state.loadingHint != null) &&
-                    <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} />
-                }
+                <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore} />
             </SmoothCollapse>
         </BaseDialog>
     )

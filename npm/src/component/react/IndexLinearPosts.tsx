@@ -28,18 +28,13 @@ export function IndexLinearPosts(props: BasePaginateViewProps<Post>) {
 
         if (props.onMount != null) props.onMount()
 
-        const scrollLoader = new ScrollLoader(() => {
-            paginateViewModel.loadMore()
-        })
-        const scrollListener = () => {
-            scrollLoader.onScroll(document.body.clientHeight, window.scrollY, document.body.scrollHeight)
-        }
-        window.addEventListener("scroll", scrollListener)
-
         return () => {
             consoleDebug("IndexLinearPosts useEffect cleanup")
-            window.removeEventListener("scroll", scrollListener)
         }
+    }, [])
+
+    const onLoadMore = useCallback(() => {
+        paginateViewModel.loadMore()
     }, [])
 
     const onClickHint = useCallback(() => {
@@ -72,9 +67,7 @@ export function IndexLinearPosts(props: BasePaginateViewProps<Post>) {
                     title={item.title} author={item.author} date={item.date} description={item.description} path={item.path}
                     fromPinnedList={false} pinned={item.pinned} featured={item.featured} />
             )}
-            {(state.loading || state.loadingHint != null) &&
-                <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} />
-            }
+            <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore} />
         </ul>
     )
 }

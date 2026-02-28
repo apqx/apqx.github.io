@@ -34,18 +34,13 @@ export function LinearShares(props: BasePaginateViewProps<Share>) {
         consoleDebug(`LinearShares useEffect, tag: ${props.tag}, category: ${props.category}`)
         paginateViewModel.load()
 
-        const scrollLoader = new ScrollLoader(() => {
-            paginateViewModel.loadMore()
-        })
-        const scrollListener = () => {
-            scrollLoader.onScroll(document.body.clientHeight, window.scrollY, document.body.scrollHeight)
-        }
-        window.addEventListener("scroll", scrollListener)
-
         return () => {
             consoleDebug("LinearShares useEffect cleanup")
-            window.removeEventListener("scroll", scrollListener)
         }
+    }, [])
+
+    const onLoadMore = useCallback(() => {
+        paginateViewModel.loadMore()
     }, [])
 
     const onClickHint = useCallback(() => {
@@ -63,9 +58,7 @@ export function LinearShares(props: BasePaginateViewProps<Share>) {
                     title={item.title} titleNoDate={item.titleNoDate} date={item.date} actor={item.actor} location={item.location}
                     linkTitle={item.linkTitle} linkUrl={item.linkUrl} linkPwd={item.linkPwd} archive={item.archive} />
             )}
-            {(state.loading || state.loadingHint != null) &&
-                <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} />
-            }
+            <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore} />
         </ul>
     )
 }

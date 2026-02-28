@@ -52,24 +52,32 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
         }
     }, [])
 
-    // 监听滚动加载更多
-    useEffect(() => {
-        const scrollLoader = new ScrollLoader(() => {
-            if (filterTags.length > 0) {
-                pagefindPaginateViewModel.loadMore()
-            } else {
-                httpPaginateViewModel.loadMore()
-            }
-        })
-        const scrollListener = () => {
-            scrollLoader.onScroll(document.body.clientHeight, window.scrollY, document.body.scrollHeight)
+    const onLoadMore = useCallback(() => {
+        if (filterTags.length > 0) {
+            pagefindPaginateViewModel.loadMore()
+        } else {
+            httpPaginateViewModel.loadMore()
         }
-        window.addEventListener("scroll", scrollListener)
+    }, [filterTags])
 
-        return () => {
-            window.removeEventListener("scroll", scrollListener)
-        }
-    }, [filterTags, httpState.posts, pagefindState.posts])
+    // 监听滚动加载更多
+    // useEffect(() => {
+    //     const scrollLoader = new ScrollLoader(() => {
+    //         if (filterTags.length > 0) {
+    //             pagefindPaginateViewModel.loadMore()
+    //         } else {
+    //             httpPaginateViewModel.loadMore()
+    //         }
+    //     })
+    //     const scrollListener = () => {
+    //         scrollLoader.onScroll(document.body.clientHeight, window.scrollY, document.body.scrollHeight)
+    //     }
+    //     window.addEventListener("scroll", scrollListener)
+
+    //     return () => {
+    //         window.removeEventListener("scroll", scrollListener)
+    //     }
+    // }, [filterTags, httpState.posts, pagefindState.posts])
 
     const pagefindOptions = useMemo(() => {
         return {
@@ -183,9 +191,7 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
                         coverLoadedCallback={() => { }} />
                 )}
             </Masonry>
-            {(loadingState.loading || loadingState.loadingHint != null) &&
-                <LoadingHint loading={loadingState.loading} loadHint={loadingState.loadingHint} onClickHint={onClickHint} />
-            }
+            <LoadingHint loading={loadingState.loading} loadHint={loadingState.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore} />
         </ul>
     )
 }
