@@ -1,8 +1,7 @@
+import "./LinearShares.scss";
 import { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from "react";
-import { ScrollLoader } from "../../base/ScrollLoader";
 import { consoleDebug, consoleObjDebug } from "../../util/log";
 import { LoadingHint } from "./LoadingHint";
-import "./LinearShares.scss";
 import { createRoot } from "react-dom/client";
 import { HttpPaginatorViewModel } from "../base/paginate/HttpPaginateViewModel";
 import { ShareHttpPaginator } from "../base/paginate/ShareHttpPaginator";

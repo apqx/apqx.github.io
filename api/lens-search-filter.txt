@@ -50,10 +50,8 @@ sitemap: false
             "title": "剧场",
             "tags": [
                 {
-                    "title": "杭州大剧院"
-                },
-                {
-                    "title": "杭州大剧院·可变剧场"
+                    "title": "杭州大剧院",
+                    "sub_tags": ["可变剧场"]
                 },
                 {
                     "title": "杭州红星剧院"
@@ -327,6 +325,9 @@ sitemap: false
             "tags": [
                 {
                     "title": "看剧"
+                },
+                {
+                    "title": "幕后"
                 }
             ]
         }

@@ -15,7 +15,7 @@ export class ImageLoadAnimator {
      * 为图片加载添加高度变化动画
      * @param imgE 目标图片元素
      * @param ratio 图片宽高比
-     * @param monitorResize 是否监听宽度变化，动画调整高度，false会在加载完成后设置高度为auto，之后不会再有动画
+     * @param monitorResize 是否监听宽度变化，动画调整高度，false 会在加载完成后设置高度为 auto，之后不会再有动画
      * @param [animationBeforeStart=null] 动画开始前的回调函数，返回true表示继续执行动画，false表示不执行动画
      * @param [animationEndCallback=null] 动画结束后的回调函数
      */
@@ -58,16 +58,28 @@ export class ImageLoadAnimator {
                 this.setImageHeight(imgE, ratio)
             })
         }
-        imgE.addEventListener("transitionend", () => {
+
+        const transitionEndListener = () => {
             consoleDebug("Image transitionend " + this.id)
-            // 动画完成后，删除动画类，设置高度为auto
+            // 动画完成后，删除动画类，设置高度为 auto
             this.animationDone(monitorResize, imgE, animationEndCallback)
-        })
-        // 监听动画失败
-        imgE.addEventListener("animationcancel", () => {
+            removeListeners()
+        }
+        const transitionCancelListener = () => {
             consoleDebug("Image animationcancel " + this.id)
             this.animationDone(monitorResize, imgE, animationEndCallback)
-        })
+            removeListeners()
+        }
+
+        const removeListeners = () => {
+            imgE.removeEventListener("transitionend", transitionEndListener)
+            imgE.removeEventListener("animationcancel", transitionCancelListener)
+        }
+
+        // 监听动画完成
+        imgE.addEventListener("transitionend", transitionEndListener)
+        // 监听动画失败
+        imgE.addEventListener("animationcancel", transitionCancelListener)
     }
 
     private animationDone(monitorResize: boolean, imgE: HTMLImageElement, animationEndCallback?: (() => void)) {
@@ -82,7 +94,7 @@ export class ImageLoadAnimator {
         // 检查是否需要执行动画
         if (this.animationBeforeStart != null && !this.animationBeforeStart()) {
             consoleDebug("ImageLoadAnimator animationBeforeStart returned false, not animating " + this.id)
-            // 删除动画类，Img高度自动变为图片实际高度
+            // 删除动画类，Img 高度自动变为图片实际高度
             toggleElementClass(imgE, "image-height-animation", false)
             imgE.style.height = "auto"
             return
@@ -91,7 +103,7 @@ export class ImageLoadAnimator {
         const height = imgE.width / ratio
         consoleDebug("SetImageHeight = " + height + ", " + this.id)
         imgE.style.height = height + "px"
-        // 如果使用了`will-change`，要及时关闭
+        // 如果使用了 will-change，要及时关闭
     }
 
     destroy() {

@@ -26,6 +26,8 @@ export function getInterSectionObserver() {
                         consoleObjDebug("Content card slide-in", entry.target)
                         toggleElementClass(entry.target, "content-card-slide-in-start", true)
                     }
+                    // 只触发一次动画，之后不再监听
+                    getInterSectionObserver().unobserve(entry.target)
                 }
             })
         }, {

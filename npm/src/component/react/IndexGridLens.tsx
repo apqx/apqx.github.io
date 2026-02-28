@@ -3,7 +3,6 @@ import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore
 import { ImageLoadAnimator } from "../animation/ImageLoadAnimator"
 import { LoadingHint } from "./LoadingHint"
 import { consoleDebug, consoleObjDebug } from "../../util/log"
-import { ScrollLoader } from "../../base/ScrollLoader"
 import Masonry from 'react-masonry-css'
 import { getInterSectionObserver } from "../animation/BaseAnimation"
 import { getSplittedDate } from "../../base/post"
@@ -52,14 +51,6 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
         }
     }, [])
 
-    const onLoadMore = useCallback(() => {
-        if (filterTags.length > 0) {
-            pagefindPaginateViewModel.loadMore()
-        } else {
-            httpPaginateViewModel.loadMore()
-        }
-    }, [filterTags])
-
     // 监听滚动加载更多
     // useEffect(() => {
     //     const scrollLoader = new ScrollLoader(() => {
@@ -102,6 +93,14 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
             httpPaginateViewModel.load()
         }
 
+    }, [filterTags])
+
+    const onLoadMore = useCallback(() => {
+        if (filterTags.length > 0) {
+            pagefindPaginateViewModel.loadMore()
+        } else {
+            httpPaginateViewModel.loadMore()
+        }
     }, [filterTags])
 
     const onClickHint = useCallback(() => {
@@ -245,9 +244,7 @@ function IndexItem(props: IndexItemProps) {
         }
 
         // 监听元素进入窗口初次显示
-        if (cardE != null) {
-            getInterSectionObserver().observe(cardE)
-        }
+        getInterSectionObserver().observe(cardE)
 
         return () => {
             consoleDebug("IndexItem componentWillUnmount " + props.title)

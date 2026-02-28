@@ -2,7 +2,6 @@
 import { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from "react"
 import { LoadingHint } from "./LoadingHint"
 import { consoleDebug, consoleObjDebug } from "../../util/log"
-import { ScrollLoader } from "../../base/ScrollLoader"
 import { getInterSectionObserver } from "../animation/BaseAnimation"
 import { getSplittedDate } from "../../base/post"
 import { setupCardRipple } from "../card"
