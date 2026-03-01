@@ -29,6 +29,7 @@
                 <div style="display: none;">
                     <span data-pagefind-meta="actors">{{ page.actor }}</span>
                     <span data-pagefind-meta="mentions">{{ page.mention }}</span>
+                    <span data-pagefind-meta="imageSize">{{ page.imageSize }}</span>
                 </div>
 
                 <!-- tags -->
@@ -42,7 +43,7 @@
                     </button>
                     {%- endfor %}
                     {%- if page.categories contains "lens" %}
-                    {%- assign lensTags = page.lens-tags | split: " " %}
+                    {%- assign lensTags = page.lensTags | split: " " %}
                     {%- for tagInPage in lensTags %}
                     <button type="button" class="mdc-button tag-dialog-trigger btn-tag" id="chip_tag_{{ tagInPage }}">
                         <span class="mdc-button__label" data-pagefind-filter="tag">{{ tagInPage }}</span>

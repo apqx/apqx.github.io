@@ -10,8 +10,9 @@ date: 2025-06-21 14:30:00 +0800
 location: 浙江非遗馆
 description: 2012 年的雯明组合对舞和曲的演绎已经炉火纯青，其中《瑶台》被偶尔提及的一点是单雯不擅长“大动作”做不了“下腰”，而我却并不在意，每个人都会以自身特点展现出独一无二的风格，这依然是我重温无数遍后最喜欢的一版。所以两次看到浙昆《瑶台》我不会拿她/他们和雯明版做对比，本来就处处不同，是一种新的风格。我喜欢看到不一样的风格，不一样的瑶芳公主，不一样的“粉将军把旗势摆”。
 image: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/opera/20250621/nankemeng_yaotai/DSC06855_thumb.jpg
-image-for-index: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/opera/20250621/nankemeng_yaotai/DSC06855_COVER_thumb.jpg
-image-alt-for-index: 昆曲 南柯梦 瑶台 李芊羽
+imageForIndex: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/opera/20250621/nankemeng_yaotai/DSC06855_COVER_thumb.jpg
+imageAlt: 昆曲 南柯梦 瑶台 李芊羽
+imageAspectRatio: 
 tags: 看剧 杭州 昆曲 浙昆 南柯梦 瑶台 李芊羽 王恒涛 张唐逍 胡立楠 倪润志 李诗佳 王俏瓅 施洋 钱华仪 杜鸿泽 浙江非遗馆
 ---
 

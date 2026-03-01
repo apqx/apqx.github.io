@@ -1,4 +1,5 @@
 import type { PagefindResultItem } from "../../../repository/bean/pagefind/ApiPagefindSearch";
+import { parseImageSize } from "../../../util/tools";
 import { BasePagefindPaginator } from "./BasePagefindPaginator";
 import type { Post } from "./bean/Post";
 
@@ -15,13 +16,13 @@ export class PostPagefindPaginator extends BasePagefindPaginator<PagefindResultI
             location: "",
             description: data.excerpt,
             cover: data.meta.image,
-            indexCover: "",
+            coverForIndex: "",
             coverAlt: "",
+            coverSize: parseImageSize(data.meta.imageSize),
             tags: [],
             category: "",
             pinned: false,
             featured: false
         }
     }
-
 }

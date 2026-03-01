@@ -9,8 +9,10 @@ export interface Post {
     location: string,
     description: string,
     cover: string,
-    indexCover: string,
+    coverForIndex: string,
     coverAlt: string,
+    // width, height
+    coverSize?: number[],
     tags: Array<string>,
     category: string,
     pinned: boolean,

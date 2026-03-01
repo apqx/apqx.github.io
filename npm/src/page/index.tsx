@@ -1,5 +1,5 @@
 import "./index.scss"
-import { runOnHtmlDone, toggleElementClass } from "../util/tools"
+import { parseImageSize, runOnHtmlDone, toggleElementClass } from "../util/tools"
 import { consoleDebug, consoleObjDebug } from "../util/log"
 import { createRoot } from "react-dom/client"
 import { IndexLinearPosts } from "../component/react/IndexLinearPosts"
@@ -38,7 +38,7 @@ function initIndexList() {
         const loadedPosts = getLinearLoadedPosts(wrapperE)
         consoleObjDebug("Index loaded local posts", loadedPosts)
         root.render(<IndexLinearPosts tag={""} category={category} pinnedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
-            onMount={onMount}/>)
+            onMount={onMount} />)
     } else if (wrapperE.classList.contains("grid-index-list-wrapper")) {
         // 看剧
         // 读取描述，为 card 的内容
@@ -80,7 +80,7 @@ function getLinearLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
             location: "",
             description: "",
             cover: "",
-            indexCover: "",
+            coverForIndex: "",
             coverAlt: "",
             tags: [],
             category: "",
@@ -113,6 +113,8 @@ function getLensLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
         const coverE = liE.querySelector(".grid-index-cover") as HTMLImageElement
         const cover = coverE?.src
         const coverAlt = coverE?.alt
+        const coverSizeAttr = coverE?.getAttribute("imageSize")
+        const coverSize = parseImageSize(coverSizeAttr)
         const path = (liE.querySelector(".index-a") as HTMLAnchorElement).pathname
         const pinned = liE.querySelector(".lens-index-pinned-icon-container") != null
         const featured = liE.querySelector(".lens-index-featured-icon-container") != null
@@ -127,8 +129,9 @@ function getLensLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
             location: "",
             description: "",
             cover: cover,
-            indexCover: "",
+            coverForIndex: "",
             coverAlt: coverAlt,
+            coverSize: coverSize,
             tags: [],
             category: "",
             pinned: pinned,
@@ -155,6 +158,8 @@ function getGridLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
         const coverE = liE.querySelector(".grid-index-cover") as HTMLImageElement
         const cover = coverE?.src
         const coverAlt = coverE?.alt
+        const coverSizeAttr = coverE?.getAttribute("imageSize")
+        const coverSize = parseImageSize(coverSizeAttr)
         // TODO: 暂不支持置顶和精选
         const pinned = liE.querySelector(".index-pinned-icon-container") != null
         const featured = liE.querySelector(".index-featured-icon-container") != null
@@ -169,8 +174,9 @@ function getGridLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
             location: "",
             description: description,
             cover: cover,
-            indexCover: "",
+            coverForIndex: "",
             coverAlt: coverAlt,
+            coverSize: coverSize,
             tags: [],
             category: "",
             pinned: pinned,

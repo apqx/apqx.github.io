@@ -183,3 +183,19 @@ export const clearFocusListener: (e: Event) => void = (e) => {
     const target = e.target as HTMLElement
     target.blur()
 }
+
+export function parseImageSize(sizeStr: string | null): number[] | undefined {
+    if (sizeStr == null || sizeStr.trim() == "") {
+        return undefined
+    }
+    const sizeArray = sizeStr.split("x")
+    if (sizeArray.length != 2) {
+        return undefined
+    }
+    const width = parseInt(sizeArray[0])
+    const height = parseInt(sizeArray[1])
+    if (isNaN(width) || isNaN(height)) {
+        return undefined
+    }
+    return [width, height]
+}

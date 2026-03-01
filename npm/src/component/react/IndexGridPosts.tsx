@@ -84,8 +84,9 @@ export function IndexGridPosts(props: Props) {
                         date={item.date}
                         path={item.path}
                         description={item.description}
-                        cover={item.indexCover != null && item.indexCover.length > 0 ? item.indexCover : item.cover}
+                        cover={item.coverForIndex != null && item.coverForIndex.length > 0 ? item.coverForIndex : item.cover}
                         coverAlt={item.coverAlt}
+                        coverSize={item.coverSize}
                         last={index == showPosts.length - 1} />
                 )}
             </Masonry>
@@ -104,6 +105,8 @@ type IndexItemProps = {
     description: string,
     cover: string,
     coverAlt: string,
+    // width, height
+    coverSize?: number[],
     last: boolean,
 }
 
@@ -164,13 +167,22 @@ function IndexItem(props: IndexItemProps) {
 
     const date = useMemo(() => getSplittedDate(props.date), [props.date]);
 
+    const aspectRatio = useMemo(() => {
+        if (props.coverSize != null && props.coverSize.length == 2) {
+            return props.coverSize[0] / props.coverSize[1]
+        }
+        return undefined
+    }, [props.coverSize])
+
     return (
         <li ref={containerRef} className="grid-index-li">
             {/* 第一个元素使用 fade-in 动画，避免在小尺寸手机上因为 slide 距离在页面初次加载时不触发动画 */}
             <a className={"index-a mdc-card grid-index-card grid-index-card__ripple " + animationClass} href={props.path}>
                 <section>
                     {props.cover != null && props.cover.length > 0 &&
-                        <img className="grid-index-cover image-height-animation" loading="lazy" src={props.cover} alt={props.coverAlt} />}
+                        <img className="grid-index-cover image-height-animation"
+                            style={aspectRatio ? { aspectRatio: aspectRatio } : {}}
+                            loading="lazy" src={props.cover} alt={props.coverAlt} />}
                     {props.cover == null || props.cover.length == 0 &&
                         <div style={{ height: "0.5rem" }}></div>}
                     <div className="grid-index-text-container">

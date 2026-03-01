@@ -24,8 +24,9 @@ sitemap: false
             "location": "{{ post.location }}",
             "description": "{{ post.description}}",
             "cover": "{{ post.image }}",
-            "index-cover": "{{ post.image-for-index }}",
-            "cover-alt": "{{ post.image-alt-for-index }}",
+            "coverForIndex": "{{ post.imageForIndex }}",
+            "coverAlt": "{{ post.imageAlt }}",
+            "coverSize": "{{ post.imageSize }}",
             "tags": [
             {%- for tag in post.tags -%}
             "{{ tag }}"

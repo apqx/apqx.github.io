@@ -17,6 +17,8 @@ export interface PagefindResultItem {
         title: string,
         date: string,
         image: string,
+        // 封面尺寸，格式为 6000x4000
+        imageSize: string,
         author: string,
         actors: string,
         mentions: string,

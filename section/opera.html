@@ -42,12 +42,12 @@ searchEngine: false
         <li class="grid-index-li">
             <a class="index-a mdc-card grid-index-card grid-index-card__ripple" href="{{ post.url }}">
                 <section>
-                    {%- if post.image-for-index != null %}
-                    <img class="grid-index-cover" loading="lazy" src="{{ post.image-for-index }}"
-                        alt="{{ post.image-alt-for-index }}" />
+                    {%- if post.imageForIndex != null %}
+                    <img class="grid-index-cover" loading="lazy" imageSize="{{ post.imageSize }}" src="{{ post.imageForIndex }}"
+                        alt="{{ post.imageAlt }}" />
                     {% elsif post.image != null %}
-                    <img class="grid-index-cover" loading="lazy" src="{{ post.image }}"
-                        alt="{{ post.image-alt-for-index }}" />
+                    <img class="grid-index-cover" loading="lazy" imageSize="{{ post.imageSize }}" src="{{ post.image }}"
+                        alt="{{ post.imageAlt }}" />
                     {% else %}
                     <div style="height: 0.5rem;"></div>
                     {%- endif %}

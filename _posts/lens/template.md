@@ -12,7 +12,9 @@ date:
 location: 杭州大剧院·可变剧场
 # 照片 URL
 image: 
-lens-tags: 看剧 杭州 昆曲 浙昆 玉簪记 琴挑 杭州大剧院 可变剧场
+# 照片的宽度和高度尺寸，6000x4000，用于 masonry 布局时确定元素高度，避免误差累积
+imageSize: 
+lensTags: 看剧 杭州 昆曲 浙昆 玉簪记 琴挑 杭州大剧院 可变剧场
 # 透镜照片不加入 sitemap，不被搜索引擎收录
 sitemap: false
 searchEngine: false

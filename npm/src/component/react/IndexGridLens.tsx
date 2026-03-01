@@ -51,25 +51,6 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
         }
     }, [])
 
-    // 监听滚动加载更多
-    // useEffect(() => {
-    //     const scrollLoader = new ScrollLoader(() => {
-    //         if (filterTags.length > 0) {
-    //             pagefindPaginateViewModel.loadMore()
-    //         } else {
-    //             httpPaginateViewModel.loadMore()
-    //         }
-    //     })
-    //     const scrollListener = () => {
-    //         scrollLoader.onScroll(document.body.clientHeight, window.scrollY, document.body.scrollHeight)
-    //     }
-    //     window.addEventListener("scroll", scrollListener)
-
-    //     return () => {
-    //         window.removeEventListener("scroll", scrollListener)
-    //     }
-    // }, [filterTags, httpState.posts, pagefindState.posts])
-
     const pagefindOptions = useMemo(() => {
         return {
             filters: {
@@ -167,6 +148,7 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
                         date={item.date}
                         path={item.path}
                         cover={item.cover}
+                        coverSize={item.coverSize}
                         last={false}
                         fromPinnedList={true}
                         pinned={true}
@@ -182,6 +164,7 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
                         date={item.date}
                         path={item.path}
                         cover={item.cover}
+                        coverSize={item.coverSize}
                         last={index == showPosts.length - 1}
                         fromPinnedList={false}
                         pinned={item.pinned}
@@ -202,6 +185,8 @@ type IndexItemProps = {
     date: string,
     path: string,
     cover: string,
+    // width, height
+    coverSize?: number[],
     last: boolean,
     fromPinnedList: boolean,
     pinned: boolean,
@@ -274,12 +259,21 @@ function IndexItem(props: IndexItemProps) {
 
     const date = useMemo(() => getSplittedDate(props.date), [props.date]);
 
+    const aspectRatio = useMemo(() => {
+        if (props.coverSize != null && props.coverSize.length == 2) {
+            return props.coverSize[0] / props.coverSize[1]
+        }
+        return undefined
+    }, [props.coverSize])
+
     return (
         <li ref={containerRef} className="grid-index-li">
             {/* 第一个元素使用 fade-in 动画，避免在小尺寸手机上因为 slide 距离在页面初次加载时不触发动画 */}
             <a className={"index-a mdc-card grid-index-card grid-index-card__ripple " + animationClass} href={props.path}>
                 <section className="lens-index-container">
-                    <img className="grid-index-cover image-height-animation" loading="lazy" src={props.cover} alt={actorStr} />
+                    <img className="grid-index-cover" 
+                    style={aspectRatio ? { aspectRatio: aspectRatio } : {}}
+                    loading="lazy" src={props.cover} alt={actorStr} />
                     {props.fromPinnedList && props.pinned &&
                         <span className="lens-index-pinned-icon-container"><i className="material-symbols-rounded-variable">keep</i></span>
                     }
