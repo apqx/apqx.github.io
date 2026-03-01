@@ -22,6 +22,8 @@ export interface PagefindResultItem {
         author: string,
         actors: string,
         mentions: string,
+        pinned: string,
+        featured: string
     },
     url: string,
     raw_url: string,

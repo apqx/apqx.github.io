@@ -21,8 +21,8 @@ export class PostPagefindPaginator extends BasePagefindPaginator<PagefindResultI
             coverSize: parseImageSize(data.meta.imageSize),
             tags: [],
             category: "",
-            pinned: false,
-            featured: false
+            pinned: data.meta.pinned ? data.meta.pinned == "true" : false,
+            featured: data.meta.featured ? data.meta.featured == "true" : false
         }
     }
 }

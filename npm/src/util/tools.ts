@@ -1,3 +1,4 @@
+import type { Post } from "../component/base/paginate/bean/Post"
 import { consoleDebug } from "./log"
 
 /**
@@ -198,4 +199,25 @@ export function parseImageSize(sizeStr: string | null): number[] | undefined {
         return undefined
     }
     return [width, height]
+}
+
+/**
+ * 将数组中指定数量的 pinned 改为 featured
+ * @param pinnedListSize 要查找的 pinned 数量
+ * @returns 修改后的原数组
+ */
+export function convertPinedToFeatured(pinnedListSize: number, posts: Array<Post>): Array<Post> {
+    let findCount = 0
+    for (const post of posts) {
+        if (post.pinned) {
+            findCount++
+            post.pinned = false
+            post.featured = true
+            if (findCount >= pinnedListSize) {
+                consoleDebug("Find pinned post " + post.title + " but already find enough pinned posts, stop converting")
+                break
+            }
+        }
+    }
+    return posts
 }

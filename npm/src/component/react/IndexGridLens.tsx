@@ -3,7 +3,6 @@ import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore
 import { ImageLoadAnimator } from "../animation/ImageLoadAnimator"
 import { LoadingHint } from "./LoadingHint"
 import { consoleDebug, consoleObjDebug } from "../../util/log"
-import Masonry from 'react-masonry-css'
 import { getInterSectionObserver } from "../animation/BaseAnimation"
 import { getSplittedDate } from "../../base/post"
 import { setupCardRipple } from "../card"
@@ -16,9 +15,14 @@ import type { PagefindResultItem } from "../../repository/bean/pagefind/ApiPagef
 import { PostPagefindPaginator } from "../base/paginate/PostPagefindPaginator"
 import type { BasePaginateViewProps } from "../base/paginate/bean/BasePaginateViewProps"
 import { getEventEmitter } from "../base/EventBus"
+// import { Masonry } from "./Masonry"
+import { Masonry } from 'react-plock';
+import { convertPinedToFeatured } from "../../util/tools"
 
 export function IndexGridLens(props: BasePaginateViewProps<Post>) {
+    const masonryContainerRef = useRef<HTMLUListElement>(null)
     const [filterTags, setFilterTags] = useState<Array<string>>([])
+    const [refreshId, setRefreshId] = useState(0)
 
     const httpPaginateViewModel = useMemo(() => {
         const options = {
@@ -37,7 +41,8 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
 
     useEffect(() => {
         consoleDebug(`IndexGridLens useEffect, tag: ${props.tag}, category: ${props.category}, filterTags: ${filterTags.toString()} `)
-        if (props.onMount != null) props.onMount()
+        if (props.onMount != null)
+            props.onMount()
 
         const emitter = getEventEmitter()
         emitter.on("lensFilterChange", (data) => {
@@ -51,6 +56,12 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
         }
     }, [])
 
+    useEffect(() => {
+        consoleDebug("IndexGridLens httpState or pagefindState changed, trigger layout")
+        // 必须通知 masonry 组件在数据变化时触发布局
+        setRefreshId(prev => prev + 1)
+    }, [httpState.posts, pagefindState.posts])
+
     const pagefindOptions = useMemo(() => {
         return {
             filters: {
@@ -63,7 +74,7 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
         }
     }, [filterTags])
 
-    // 初始化
+    // 初始化加载数据
     useEffect(() => {
         // 筛选标签变化时，清除旧数据并加载新数据
         if (filterTags.length > 0) {
@@ -100,22 +111,16 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
         }
     }, [httpState.posts, pagefindState.posts, filterTags])
 
-    const breakPointColumnsObj = useMemo(() => {
-        return {
-            default: 3,
-            600: 2,
-            350: 1
-        }
-    }, [])
-
     const showPosts = useMemo(() => {
         if (filterTags.length > 0) {
             return pagefindState.posts
         } else {
-            if (httpState.posts.length == 0) {
-                return props.loadedPosts
+            let posts = props.loadedPosts
+            if (httpState.posts.length > 0) {
+                posts = httpState.posts
             }
-            return httpState.posts
+            // 把 pinned 项目放在前面
+            return props.pinnedPosts.concat(convertPinedToFeatured(props.pinnedPosts.length, posts))
         }
     }, [httpState.posts, pagefindState.posts, filterTags])
 
@@ -134,29 +139,15 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
     }, [httpState.loading, httpState.loadingHint, pagefindState.loading, pagefindState.loadingHint, filterTags])
 
     return (
-        <ul className="grid-index-ul">
-            <Masonry
-                breakpointCols={breakPointColumnsObj}
-                className="my-masonry-grid"
-                columnClassName="my-masonry-grid_column">
-                {/* 置顶，仅在非筛选模式下显示 */}
-                {filterTags.length == 0 && props.pinnedPosts.map((item: Post, index: number) =>
-                    <IndexItem key={item.path}
-                        index={index}
-                        title={item.title}
-                        actors={item.actors}
-                        date={item.date}
-                        path={item.path}
-                        cover={item.cover}
-                        coverSize={item.coverSize}
-                        last={false}
-                        fromPinnedList={true}
-                        pinned={true}
-                        featured={item.featured}
-                        pinnedListSize={props.pinnedPosts.length}
-                        coverLoadedCallback={() => { }} />)}
-                {/* 普通 */}
-                {showPosts.map((item: Post, index: number) =>
+        <ul ref={masonryContainerRef} className="grid-index-ul">
+            <Masonry items={showPosts}
+                config={{
+                    columns: [1, 2, 3],
+                    gap: [0, 0, 0],
+                    media: [300, 600, 1400],
+                    useBalancedLayout: true
+                }}
+                render={(item, index) => (
                     <IndexItem key={item.path}
                         index={index}
                         title={item.title}
@@ -166,19 +157,73 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
                         cover={item.cover}
                         coverSize={item.coverSize}
                         last={index == showPosts.length - 1}
-                        fromPinnedList={false}
                         pinned={item.pinned}
                         featured={item.featured}
-                        pinnedListSize={props.pinnedPosts.length}
                         coverLoadedCallback={() => { }} />
                 )}
-            </Masonry>
+            />
             <LoadingHint loading={loadingState.loading} loadHint={loadingState.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore} />
         </ul>
     )
 }
 
+// return (
+//         <ul ref={masonryContainerRef} className="grid-index-ul">
+//             <Masonry items={showPosts}
+//                 config={{
+//                     columns: [1, 2, 3],
+//                     gap: [0, 0, 0],
+//                     media: [300, 600, 1400],
+//                     useBalancedLayout: true
+//                 }}
+//                 render={(item, index) => (
+//                     <IndexItem key={item.path}
+//                         index={index}
+//                         title={item.title}
+//                         actors={item.actors}
+//                         date={item.date}
+//                         path={item.path}
+//                         cover={item.cover}
+//                         coverSize={item.coverSize}
+//                         last={index == showPosts.length - 1}
+//                         pinned={item.pinned}
+//                         featured={item.featured}
+//                         coverLoadedCallback={() => { }} />
+//                 )}
+//             />
+//             <LoadingHint loading={loadingState.loading} loadHint={loadingState.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore} />
+//         </ul>
+//     )
+
+// return (
+//         <ul ref={masonryContainerRef} className="grid-index-ul">
+//             <Masonry defaultColumnCount={3}
+//                 columnConfig={[[600, 2]]}
+//                 refreshId={refreshId}>
+//                 {
+//                     showPosts.map((item: Post, index: number) =>
+//                         <IndexItem key={item.path}
+//                             index={index}
+//                             title={item.title}
+//                             actors={item.actors}
+//                             date={item.date}
+//                             path={item.path}
+//                             cover={item.cover}
+//                             coverSize={item.coverSize}
+//                             last={index == showPosts.length - 1}
+//                             pinned={item.pinned}
+//                             featured={item.featured}
+//                             coverLoadedCallback={() => { }} />
+//                     )
+//                 }
+//             </Masonry>
+//             <LoadingHint loading={loadingState.loading} loadHint={loadingState.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore} />
+//         </ul>
+//     )
+
+
 type IndexItemProps = {
+    // 在一些 masonry 布局中，这个 index 可能不是原数据列表中的 index
     index: number,
     title: string,
     actors: Array<string>,
@@ -188,10 +233,8 @@ type IndexItemProps = {
     // width, height
     coverSize?: number[],
     last: boolean,
-    fromPinnedList: boolean,
     pinned: boolean,
     featured: boolean,
-    pinnedListSize: number
     coverLoadedCallback: () => void
 }
 
@@ -199,7 +242,7 @@ function IndexItem(props: IndexItemProps) {
     const containerRef = useRef<HTMLLIElement>(null)
 
     useEffect(() => {
-        consoleObjDebug("IndexItem componentDidMount", props)
+        consoleObjDebug("IndexItem useEffect " + props.index + " : " + props.title, props)
         const rootE = containerRef.current as HTMLElement;
         const cardE = rootE.querySelector(".grid-index-card") as HTMLElement
         setupCardRipple(cardE)
@@ -215,14 +258,10 @@ function IndexItem(props: IndexItemProps) {
             const columnCount = parentWidth >= 950 ? 3 : 2
             consoleDebug("IndexItem parentWidth=" + parentWidth + " columnCount=" + columnCount)
             // if (props.index < columnCount * 2) {
-            if (props.fromPinnedList && props.index < 6) {
+            if (props.index < 6) {
                 setTimeout(() => {
                     imageLoadAnimator = startImageAnimation(imgE as HTMLImageElement)
                 }, 50 * props.index)
-            } else if (!props.fromPinnedList && props.index + props.pinnedListSize < 6) {
-                setTimeout(() => {
-                    imageLoadAnimator = startImageAnimation(imgE as HTMLImageElement)
-                }, 50 * (props.index + props.pinnedListSize))
             } else {
                 imageLoadAnimator = startImageAnimation(imgE as HTMLImageElement)
             }
@@ -232,7 +271,7 @@ function IndexItem(props: IndexItemProps) {
         getInterSectionObserver().observe(cardE)
 
         return () => {
-            consoleDebug("IndexItem componentWillUnmount " + props.title)
+            consoleDebug("IndexItem useEffect cleanup " + props.index + " : " + props.title)
             if (imageLoadAnimator != null) {
                 imageLoadAnimator.destroy()
             }
@@ -255,7 +294,8 @@ function IndexItem(props: IndexItemProps) {
     }
 
     const actorStr = useMemo(() => props.actors.join(" "), [props.actors])
-    const animationClass = useMemo(() => props.index == 0 ? "card-fade-in" : "card-slide-in-middle", [props.index])
+    // const animationClass = useMemo(() => props.index == 0 ? "card-fade-in" : "card-slide-in-middle", [props.index])
+    const animationClass = useMemo(() => "card-fade-in", [props.index])
 
     const date = useMemo(() => getSplittedDate(props.date), [props.date]);
 
@@ -271,13 +311,13 @@ function IndexItem(props: IndexItemProps) {
             {/* 第一个元素使用 fade-in 动画，避免在小尺寸手机上因为 slide 距离在页面初次加载时不触发动画 */}
             <a className={"index-a mdc-card grid-index-card grid-index-card__ripple " + animationClass} href={props.path}>
                 <section className="lens-index-container">
-                    <img className="grid-index-cover" 
-                    style={aspectRatio ? { aspectRatio: aspectRatio } : {}}
-                    loading="lazy" src={props.cover} alt={actorStr} />
-                    {props.fromPinnedList && props.pinned &&
+                    <img className="grid-index-cover"
+                        style={aspectRatio ? { aspectRatio: aspectRatio } : {}}
+                        loading="lazy" src={props.cover} alt={actorStr} />
+                    {props.pinned &&
                         <span className="lens-index-pinned-icon-container"><i className="material-symbols-rounded-variable">keep</i></span>
                     }
-                    {!props.fromPinnedList && (props.pinned || props.featured) &&
+                    {!props.pinned && props.featured &&
                         <span className="lens-index-featured-icon-container"><i className="material-symbols-rounded-variable">editor_choice</i></span>
                     }
                     <div className="lens-index-text-container">

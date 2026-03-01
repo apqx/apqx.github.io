@@ -1,0 +1,7 @@
+.masonry-container {
+    position: relative;
+
+    & > * {
+        position: absolute;
+    }
+}

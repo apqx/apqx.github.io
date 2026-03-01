@@ -77,22 +77,6 @@
     --mdc-shape-medium: 0.18rem;
 }
 
-// .my-masonry-grid_column:first-child {
-//     .grid-index-li:first-child {
-//         .grid-index-card {
-//             border-top-left-radius: var(--mdc-shape-medium);
-//         }
-//     }
-// }
-
-// .my-masonry-grid_column:last-child {
-//     .grid-index-li:first-child {
-//         .grid-index-card {
-//             border-top-right-radius: var(--mdc-shape-medium);
-//         }
-//     }
-// }
-
 // 平板中屏
 @media all and (min-width: (base.$screen-middle-width-start + 1px)) and (max-width: (base.$screen-middle-width-end - 1px)) {
     body {
