@@ -1,5 +1,5 @@
 import "./BaseAnimation.scss"
-import { consoleObjDebug } from "../../util/log"
+import { consoleDebug, consoleObjDebug } from "../../util/log"
 import { toggleElementClass } from "../../util/tools"
 
 var interSectionObserver: IntersectionObserver | null = null
@@ -13,7 +13,11 @@ export function getInterSectionObserver() {
                 if (entry.isIntersecting) {
                     // 判断元素是从下方进入还是上方进入，决定动画的方向
                     const slidFromBottom = entry.boundingClientRect.y > 0
-                    if (entry.target.classList.contains("card-slide-in")) {
+                    if (containsSlideInClass(entry.target)) {
+                        handleSlideInBase(entry, slidFromBottom)
+                    } else if (containsFadeInClass(entry.target)) {
+                        handleFadeIn(entry)
+                    } else if (entry.target.classList.contains("card-slide-in")) {
                         // 滑入动画，包括透明度和垂直移动，索引页要特殊处理，避免与图片的展开动画冲突
                         handleSlideIn(entry, "card-slide-in", "card-slide-in-start", slidFromBottom)
                     } else if (entry.target.classList.contains("card-slide-in-middle")) {
@@ -37,6 +41,92 @@ export function getInterSectionObserver() {
         })
     }
     return interSectionObserver
+}
+
+let prevSlideInTime = {
+    time: 0,
+    delay: 0
+}
+
+export function queryAnimatedElement(rootE?: Element) {
+    return rootE?.querySelector(".slide-in, .slide-in-offset, .slide-in-farer, .slide-in-farer-offset, .fade-in") as HTMLElement
+}
+
+const slideInClasses = ["slide-in", "slide-in-offset", "slide-in-farer", "slide-in-farer-offset"]
+
+const fadeInClasses = ["fade-in"]
+
+function containsSlideInClass(element: Element) {
+    return slideInClasses.some(className => element.classList.contains(className))
+}
+
+function containsFadeInClass(element: Element) {
+    return fadeInClasses.some(className => element.classList.contains(className))
+}
+
+function removeSlideInClasses(element: Element) {
+    slideInClasses.forEach(className => {
+        toggleElementClass(element, className, false)
+    })
+}
+
+function startSlideIn(element: Element, delay: number = 50) {
+    let readyClass = ""
+    let startClass = "slide-in--start"
+    if (element.classList.contains("slide-in")) {
+        readyClass = "slide-in--ready"
+    } else if (element.classList.contains("slide-in-offset")) {
+        readyClass = "slide-in-offset--ready"
+    } else if (element.classList.contains("slide-in-farer")) {
+        readyClass = "slide-in-farer--ready"
+    } else if (element.classList.contains("slide-in-farer-offset")) {
+        readyClass = "slide-in-farer-offset--ready"
+    }
+    if (readyClass) {
+        toggleElementClass(element, readyClass, true)
+        setTimeout(() => {
+            toggleElementClass(element, startClass, true)
+        }, delay)
+    }
+}
+
+function handleFadeIn(entry: IntersectionObserverEntry) {
+    toggleElementClass(entry.target, "fade-in--start", true)
+}
+
+function handleSlideInBase(entry: IntersectionObserverEntry, slidFromBottom: boolean) {
+    if ((entry.target.classList.contains("scroll-to-fade-in") && window.scrollY > 0) || !slidFromBottom) {
+        // 用户滚动之后，或者元素从上方进入，使用透明度动画
+        removeSlideInClasses(entry.target)
+        toggleElementClass(entry.target, "fade-in", true)
+        requestAnimationFrame(() => {
+            toggleElementClass(entry.target, "fade-in--start", true)
+        })
+    } else {
+        // 其余情况使用滑入动画
+        // slide-in 动画链式启动，保持 50 ms 间隔
+        const now = Date.now()
+        consoleDebug("Handle slide-in, now = " + now + ", prevSlideInTime = " + JSON.stringify(prevSlideInTime))
+        if (now - prevSlideInTime.time < 50) {
+            let delay = prevSlideInTime.time + prevSlideInTime.delay + 50 - now
+            if (delay < 50) {
+                delay = 50
+            }
+            prevSlideInTime = {
+                time: now,
+                delay: delay
+            }
+
+            startSlideIn(entry.target, delay)
+
+        } else {
+            prevSlideInTime = {
+                time: now,
+                delay: 50
+            }
+            startSlideIn(entry.target, prevSlideInTime.delay)
+        }
+    }
 }
 
 // 元素进入窗口初次显示时添加动画，部分页面需要将 slide-in 替换为 fade-in，避免与其它动画冲突

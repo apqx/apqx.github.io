@@ -1,9 +1,8 @@
 // import "./LensIndexList.scss"
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
-import { ImageLoadAnimator } from "../animation/ImageLoadAnimator"
 import { LoadingHint } from "./LoadingHint"
 import { consoleDebug, consoleObjDebug } from "../../util/log"
-import { getInterSectionObserver } from "../animation/BaseAnimation"
+import { getInterSectionObserver, queryAnimatedElement } from "../animation/BaseAnimation"
 import { getSplittedDate } from "../../base/post"
 import { setupCardRipple } from "../card"
 import type { Post } from "../base/paginate/bean/Post"
@@ -15,14 +14,14 @@ import type { PagefindResultItem } from "../../repository/bean/pagefind/ApiPagef
 import { PostPagefindPaginator } from "../base/paginate/PostPagefindPaginator"
 import type { BasePaginateViewProps } from "../base/paginate/bean/BasePaginateViewProps"
 import { getEventEmitter } from "../base/EventBus"
-// import { Masonry } from "./Masonry"
-import { Masonry } from 'react-plock';
-import { convertPinedToFeatured } from "../../util/tools"
+import { convertPinedToFeatured, toggleElementClass } from "../../util/tools"
+import { Masonry } from "./MasonryGe"
 
 export function IndexGridLens(props: BasePaginateViewProps<Post>) {
     const masonryContainerRef = useRef<HTMLUListElement>(null)
     const [filterTags, setFilterTags] = useState<Array<string>>([])
-    const [refreshId, setRefreshId] = useState(0)
+    const [refreshLayoutVersion, setRefreshLayoutVersion] = useState(0)
+    const [observeItemResize, setObserveItemResize] = useState(false)
 
     const httpPaginateViewModel = useMemo(() => {
         const options = {
@@ -59,7 +58,7 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
     useEffect(() => {
         consoleDebug("IndexGridLens httpState or pagefindState changed, trigger layout")
         // 必须通知 masonry 组件在数据变化时触发布局
-        setRefreshId(prev => prev + 1)
+        setRefreshLayoutVersion(prev => prev + 1)
     }, [httpState.posts, pagefindState.posts])
 
     const pagefindOptions = useMemo(() => {
@@ -138,16 +137,18 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
         }
     }, [httpState.loading, httpState.loadingHint, pagefindState.loading, pagefindState.loadingHint, filterTags])
 
+    const onAnimationComplete = useCallback(() => {
+        // 图片加载动画完成后，开启元素尺寸变化监听，适配用户在页面初次加载后滚动时才加载的图片
+        setRefreshLayoutVersion(prev => prev + 1)
+        setObserveItemResize(true)
+    }, [])
+
     return (
         <ul ref={masonryContainerRef} className="grid-index-ul">
-            <Masonry items={showPosts}
-                config={{
-                    columns: [1, 2, 3],
-                    gap: [0, 0, 0],
-                    media: [300, 600, 1400],
-                    useBalancedLayout: true
-                }}
-                render={(item, index) => (
+            <Masonry
+                items={showPosts}
+                getItemKey={item => item.path}
+                renderItem={(item, index) => (
                     <IndexItem key={item.path}
                         index={index}
                         title={item.title}
@@ -159,68 +160,25 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
                         last={index == showPosts.length - 1}
                         pinned={item.pinned}
                         featured={item.featured}
-                        coverLoadedCallback={() => { }} />
+                        coverLoadedCallback={onAnimationComplete} />
                 )}
+                defaultColumns={3}
+                breakpoints={[
+                    { maxWidth: 1400, columns: 3 },
+                    { maxWidth: 600, columns: 2 },
+                    { maxWidth: 300, columns: 1 },
+                ]}
+                measureItemOnMount={true}
+                observeItemResize={true}
+                layoutVersion={refreshLayoutVersion}
+                columnGap={0}
+                rowGap={0}
+                estimatedItemHeight={0}
             />
             <LoadingHint loading={loadingState.loading} loadHint={loadingState.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore} />
         </ul>
     )
 }
-
-// return (
-//         <ul ref={masonryContainerRef} className="grid-index-ul">
-//             <Masonry items={showPosts}
-//                 config={{
-//                     columns: [1, 2, 3],
-//                     gap: [0, 0, 0],
-//                     media: [300, 600, 1400],
-//                     useBalancedLayout: true
-//                 }}
-//                 render={(item, index) => (
-//                     <IndexItem key={item.path}
-//                         index={index}
-//                         title={item.title}
-//                         actors={item.actors}
-//                         date={item.date}
-//                         path={item.path}
-//                         cover={item.cover}
-//                         coverSize={item.coverSize}
-//                         last={index == showPosts.length - 1}
-//                         pinned={item.pinned}
-//                         featured={item.featured}
-//                         coverLoadedCallback={() => { }} />
-//                 )}
-//             />
-//             <LoadingHint loading={loadingState.loading} loadHint={loadingState.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore} />
-//         </ul>
-//     )
-
-// return (
-//         <ul ref={masonryContainerRef} className="grid-index-ul">
-//             <Masonry defaultColumnCount={3}
-//                 columnConfig={[[600, 2]]}
-//                 refreshId={refreshId}>
-//                 {
-//                     showPosts.map((item: Post, index: number) =>
-//                         <IndexItem key={item.path}
-//                             index={index}
-//                             title={item.title}
-//                             actors={item.actors}
-//                             date={item.date}
-//                             path={item.path}
-//                             cover={item.cover}
-//                             coverSize={item.coverSize}
-//                             last={index == showPosts.length - 1}
-//                             pinned={item.pinned}
-//                             featured={item.featured}
-//                             coverLoadedCallback={() => { }} />
-//                     )
-//                 }
-//             </Masonry>
-//             <LoadingHint loading={loadingState.loading} loadHint={loadingState.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore} />
-//         </ul>
-//     )
-
 
 type IndexItemProps = {
     // 在一些 masonry 布局中，这个 index 可能不是原数据列表中的 index
@@ -246,56 +204,32 @@ function IndexItem(props: IndexItemProps) {
         const rootE = containerRef.current as HTMLElement;
         const cardE = rootE.querySelector(".grid-index-card") as HTMLElement
         setupCardRipple(cardE)
-
-        const imgE = rootE.querySelector(".grid-index-cover.image-height-animation")
-        // 图片加载动画
-        let imageLoadAnimator: ImageLoadAnimator | null = null
-        if (imgE != null) {
-            // 计算栏数，前两行图片依次执行动画
-            // 3 栏为横屏大屏，前 2 行共 6 张图
-            // 2 栏为竖屏小屏，前 3 行共 6 张图
-            const parentWidth = rootE.parentElement?.parentElement?.clientWidth ?? 0
-            const columnCount = parentWidth >= 950 ? 3 : 2
-            consoleDebug("IndexItem parentWidth=" + parentWidth + " columnCount=" + columnCount)
-            // if (props.index < columnCount * 2) {
-            if (props.index < 6) {
-                setTimeout(() => {
-                    imageLoadAnimator = startImageAnimation(imgE as HTMLImageElement)
-                }, 50 * props.index)
-            } else {
-                imageLoadAnimator = startImageAnimation(imgE as HTMLImageElement)
-            }
+        const animationE = queryAnimatedElement(rootE)
+        if (animationE != null) {
+            // 元素进入 viewport 时检查距离上一个动画的时间差，如果很近则链式触发动画
+            getInterSectionObserver().observe(animationE)
         }
-
-        // 监听元素进入窗口初次显示
-        getInterSectionObserver().observe(cardE)
 
         return () => {
             consoleDebug("IndexItem useEffect cleanup " + props.index + " : " + props.title)
-            if (imageLoadAnimator != null) {
-                imageLoadAnimator.destroy()
-            }
-            if (cardE != null) {
-                getInterSectionObserver().unobserve(cardE)
+            if (animationE != null) {
+                getInterSectionObserver().unobserve(animationE)
             }
         }
     }, [])
 
-    function startImageAnimation(imgE: HTMLImageElement): ImageLoadAnimator {
-        return new ImageLoadAnimator(imgE, -1, false,
-            () => {
-                // 仅在用户未滚动时的第一页执行动画，否则是不可见的无需动画
-                return window.scrollY <= 0
-            },
-            () => {
-                // 图片尺寸动画执行完成
-                props.coverLoadedCallback()
-            })
-    }
+    /**
+     * 默认是滑入动画，检测区域为元素原始位置，如果用户滚动改为淡入动画
+     * scroll-to-fade-in 的作用是对于首批设置为 slide-in 的元素，进入 intersection 时检查是否已经滚动过，是则改为 fade-in
+     */
+    const animationClass = useMemo(() => {
+        if (window.scrollY > 0) {
+            return " fade-in"
+        }
+        return " slide-in scroll-to-fade-in"
+    }, [])
 
     const actorStr = useMemo(() => props.actors.join(" "), [props.actors])
-    // const animationClass = useMemo(() => props.index == 0 ? "card-fade-in" : "card-slide-in-middle", [props.index])
-    const animationClass = useMemo(() => "card-fade-in", [props.index])
 
     const date = useMemo(() => getSplittedDate(props.date), [props.date]);
 
@@ -309,7 +243,8 @@ function IndexItem(props: IndexItemProps) {
     return (
         <li ref={containerRef} className="grid-index-li">
             {/* 第一个元素使用 fade-in 动画，避免在小尺寸手机上因为 slide 距离在页面初次加载时不触发动画 */}
-            <a className={"index-a mdc-card grid-index-card grid-index-card__ripple " + animationClass} href={props.path}>
+            {/* 用户滚动之前进入 viewport 的全部使用 slide-in 动画 */}
+            <a className={"index-a mdc-card grid-index-card grid-index-card__ripple" + animationClass} href={props.path}>
                 <section className="lens-index-container">
                     <img className="grid-index-cover"
                         style={aspectRatio ? { aspectRatio: aspectRatio } : {}}

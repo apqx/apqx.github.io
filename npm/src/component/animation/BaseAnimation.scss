@@ -1,3 +1,127 @@
+// slide-in 动画起始状态有 2 种，slide-in-offset 位于 offsetY 位置，slide-in 位于原本位置，它们控制的是 item 进入 viewport 触发 intersection observer 回调的距离，即启动动画的距离。
+// 对于首屏加载的 item 应使用处于原本位置的 slide-in，当 item 原位置进入 viewport 时移动到 offsetY 位置，延时 50ms 执行 slide-in 动画，确保首页可见的元素都显示出来。
+// 对于滚动加载的 item 应使用处于 offsetY 位置的 slide-in-offset，当 item 原本位置进入 viewport 一段距离后触发 slide-in 动画显示出来。
+
+// 对于触发 intersection 回调的 slide-in 元素，此时动画尚未启动，如有需求可以改为 fade-in 或 slide-in-offset 动画，延时 50ms 执行。
+
+// 使用 intersection 监听器的动画有 3 个 class 组成，初始初始状态 class，进入 intersection 回调时添加包含动画参数的 ready class，延时 50ms 添加启动动画的 start class。
+// 这种结构使得进入 intersection 时可以灵活的改成其它类型的动画，比如 fade-in。
+
+// 初始位置为元素原本位置
+.slide-in {
+    opacity: 0;
+    transform: translateY(0);
+
+    // 进入 viewport 触发 intersection observer，手动移动到 offsetY 位置，设置动画参数
+    &.slide-in--ready {
+        transform: translateY(var(--index-card-animation-translate-y));
+        transition: transform var(--index-card-animation-duration) ease,
+            opacity calc(var(--index-card-animation-duration) / 2) ease;
+    }
+
+    // 延时 50ms 执行 slide-in 动画
+    &.slide-in--start {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// 初始位置为 offsetY 位置
+.slide-in-offset {
+    opacity: 0;
+    transform: translateY(var(--index-card-animation-translate-y));
+
+    // 进入 viewport 一段距离才会触发 intersection observer，设置动画参数
+    &.slide-in-offset--ready {
+        transition: transform var(--index-card-animation-duration) ease,
+            opacity calc(var(--index-card-animation-duration) / 2) ease;
+    }
+
+    // 延时 50ms 执行 slide-in 动画
+    &.slide-in--start {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// fade-in 动画不改变元素位置，进入 viewport 触发 intersection observer 后直接执行 fade-in 动画
+.fade-in {
+    opacity: 0;
+    transform: translateY(0);
+    transition: opacity var(--index-card-animation-duration) ease;
+
+    &.fade-in--start {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+// 标记此类，在元素进入 viewport 时检查用户是否滚动过，若滚动过则变为 fade-in
+// 同时，当元素是从上方滑入也改为 fade-in
+.scroll-to-fade-in {
+    
+}
+
+// 更长距离的 slide-in 动画
+
+
+.slide-in-farer {
+    opacity: 0;
+    transform: translateY(0);
+
+    &.slide-in-farer--ready {
+        transform: translateY(calc(var(--index-card-animation-translate-y) * 3));
+        transition: transform var(--index-card-animation-duration) ease,
+            opacity calc(var(--index-card-animation-duration) / 2) ease;
+    }
+
+    &.slide-in--start {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.slide-in-farer-offset {
+    opacity: 0;
+    transform: translateY(calc(var(--index-card-animation-translate-y) * 3));
+
+    &.slide-in-farer-offset--ready {
+        transition: transform var(--index-card-animation-duration) ease,
+            opacity calc(var(--index-card-animation-duration) / 2) ease;
+    }
+
+    &.slide-in--start {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+// 普通滑入动画
+.slide-in-base {
+    opacity: 0;
+    transform: translateY(var(--index-card-animation-translate-y));
+    transition: transform var(--index-card-animation-duration) ease,
+        opacity calc(var(--index-card-animation-duration) / 2) ease;
+}
+
+// 更远的滑入动画
+.slide-in-base-middle {
+    opacity: 0;
+    transform: translateY(calc(var(--index-card-animation-translate-y) * 3));
+    transition: transform var(--index-card-animation-duration) ease,
+        opacity calc(var(--index-card-animation-duration) / 2) ease;
+}
+
+// 启动动画
+.slide-in-base.slide-in-base--start,
+.slide-in-base-middle.slide-in-base--start {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+
 .card-slide-in {
     opacity: 0;
     transform: translateY(var(--index-card-animation-translate-y));
@@ -24,9 +148,11 @@
 
 .card-fade-in {
     opacity: 0;
+    transform: translateY(0);
     transition: opacity var(--index-card-animation-duration) ease;
 }
 
 .card-fade-in.card-fade-in-start {
+    transform: translateY(0);
     opacity: 1;
 }

@@ -1,11 +1,9 @@
 // import "./GridIndexList.scss"
-import { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from "react"
-import { ImageLoadAnimator } from "../animation/ImageLoadAnimator"
+import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
 import { LoadingHint } from "./LoadingHint"
 import { consoleDebug, consoleObjDebug } from "../../util/log"
 import { onTagTriggerClick } from "../tag"
-import Masonry from 'react-masonry-css'
-import { getInterSectionObserver } from "../animation/BaseAnimation"
+import { getInterSectionObserver, queryAnimatedElement } from "../animation/BaseAnimation"
 import { getSplittedDate } from "../../base/post"
 import { setupCardRipple } from "../card"
 import type { Post } from "../base/paginate/bean/Post"
@@ -13,12 +11,16 @@ import { HttpPaginatorViewModel } from "../base/paginate/HttpPaginateViewModel"
 import { PostHttpPaginator } from "../base/paginate/PostHttpPaginator"
 import type { ApiPost } from "../../repository/bean/service/ApiPost"
 import type { BasePaginateViewProps } from "../base/paginate/bean/BasePaginateViewProps"
+import { Masonry } from "./MasonryGe"
+import { toggleElementClass } from "../../util/tools"
 
 interface Props extends BasePaginateViewProps<Post> {
     pageDescriptionHtml: string
 }
 
 export function IndexGridPosts(props: Props) {
+    const [refreshLayoutVersion, setRefreshLayoutVersion] = useState(0)
+
     const paginateViewModel = useMemo(() => {
         const options = {
             tag: props.tag,
@@ -39,6 +41,15 @@ export function IndexGridPosts(props: Props) {
         }
     }, [])
 
+    useEffect(() => {
+        setRefreshLayoutVersion(v => v + 1)
+    }, [state.posts])
+
+    const coverLoadedCallback = useCallback(() => {
+        // 触发 masonry 重新布局，图片尺寸变化会导致布局变化
+        setRefreshLayoutVersion(v => v + 1)
+    }, [])
+
     const onLoadMore = useCallback(() => {
         paginateViewModel.loadMore()
     }, [])
@@ -51,45 +62,73 @@ export function IndexGridPosts(props: Props) {
         }
     }, [state.posts])
 
-    const breakPointColumnsObj = useMemo(() => {
+    const descriptionPost: Post = useMemo(() => {
         return {
-            default: 2,
-            600: 1
+            title: "",
+            date: "",
+            moreDate: "",
+            path: "description",
+            author: "",
+            actors: [],
+            mentions: [],
+            location: "",
+            description: "",
+            cover: "",
+            coverForIndex: "",
+            coverAlt: "",
+            // width, height
+            coverSize: [],
+            tags: [],
+            category: "",
+            pinned: false,
+            featured: false
         }
-    }, [])
+    }, [props.pageDescriptionHtml])
 
     const showPosts = useMemo(() => {
+        let posts = state.posts
         if (state.posts.length == 0) {
-            return props.loadedPosts
+            posts = props.loadedPosts
         }
-        return state.posts
-    }, [state.posts])
+        return [descriptionPost, ...posts]
+    }, [state.posts, props.pageDescriptionHtml])
 
     return (
         <ul className="grid-index-ul">
             <Masonry
-                breakpointCols={breakPointColumnsObj}
-                className="my-masonry-grid"
-                columnClassName="my-masonry-grid_column">
-                {props.pageDescriptionHtml != null && props.pageDescriptionHtml.length > 0 &&
-                    <IndexDescriptionItem innerHtml={props.pageDescriptionHtml} />
+                items={showPosts}
+                getItemKey={item => item.path}
+                renderItem={(item, index) =>
+                    item.path === "description" ? (
+                        <IndexDescriptionItem innerHtml={props.pageDescriptionHtml} />
+                    ) : (
+                        <IndexItem key={item.path}
+                            index={index}
+                            title={item.title}
+                            author={item.author}
+                            actor={item.actors}
+                            date={item.date}
+                            path={item.path}
+                            description={item.description}
+                            cover={item.coverForIndex != null && item.coverForIndex.length > 0 ? item.coverForIndex : item.cover}
+                            coverAlt={item.coverAlt}
+                            coverSize={item.coverSize}
+                            last={index == showPosts.length - 1}
+                            coverLoadedCallback={coverLoadedCallback} />)
                 }
-                {showPosts.map((item: Post, index: number) =>
-                    // TODO: 有时候jekyll生成的path和paginate生成的path不一样，导致item重新加载，这种情况并不多
-                    <IndexItem key={item.path}
-                        index={index}
-                        title={item.title}
-                        author={item.author}
-                        actor={item.actors}
-                        date={item.date}
-                        path={item.path}
-                        description={item.description}
-                        cover={item.coverForIndex != null && item.coverForIndex.length > 0 ? item.coverForIndex : item.cover}
-                        coverAlt={item.coverAlt}
-                        coverSize={item.coverSize}
-                        last={index == showPosts.length - 1} />
-                )}
-            </Masonry>
+                defaultColumns={2}
+                breakpoints={[
+                    { maxWidth: 880, columns: 2 },
+                    { maxWidth: 600, columns: 1 },
+                ]}
+                measureItemOnMount={true}
+                observeItemResize={true}
+                layoutVersion={refreshLayoutVersion}
+                columnGap={0}
+                rowGap={0}
+                estimatedItemHeight={0}
+            />
+
             <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore} />
         </ul>
     )
@@ -108,6 +147,7 @@ type IndexItemProps = {
     // width, height
     coverSize?: number[],
     last: boolean,
+    coverLoadedCallback?: () => void,
 }
 
 function IndexItem(props: IndexItemProps) {
@@ -115,55 +155,54 @@ function IndexItem(props: IndexItemProps) {
     // 缓存最新的回调
 
     useEffect(() => {
-        consoleObjDebug("IndexItem componentDidMount", props)
+        consoleObjDebug("IndexItem useEffect", props)
         const rootE = containerRef.current as HTMLElement;
         const cardE = rootE.querySelector(".grid-index-card")
         setupCardRipple(cardE as HTMLElement)
 
-        const imgE = rootE.querySelector(".grid-index-cover.image-height-animation")
-        // 图片加载动画
-        let imageLoadAnimator: ImageLoadAnimator | null = null
-        if (imgE != null) {
-            // 前 2 个元素依次执行动画
-            if (props.index < 2) {
-                setTimeout(() => {
-                    imageLoadAnimator = startImageAnimation(imgE as HTMLImageElement)
-                }, 50 * props.index)
-            } else {
-                imageLoadAnimator = startImageAnimation(imgE as HTMLImageElement)
-            }
+        const animationE = queryAnimatedElement(rootE)
+        if (animationE != null) {
+            getInterSectionObserver().observe(animationE)
         }
 
-        // 监听元素进入窗口初次显示
-        if (cardE != null) {
-            getInterSectionObserver().observe(cardE)
+        const scrollListener = () => {
+            if (animationE != null) {
+                // 对于首批设置为 slide-in 的元素，滚动时检查，若动画尚未启动，改为 slide-in-offset
+                if (window.scrollY <= 0) return
+                if (animationE.classList.contains("slide-in--start")) {
+                    window.removeEventListener("scroll", scrollListener)
+                    return
+                }
+                if (animationE.classList.contains("slide-in")) {
+                    toggleElementClass(animationE, "slide-in", false)
+                    toggleElementClass(animationE, "slide-in-offset", true)
+                } else if (animationE.classList.contains("slide-in-farer")) {
+                    toggleElementClass(animationE, "slide-in-farer", false)
+                    toggleElementClass(animationE, "slide-in-farer-offset", true)
+                }
+            }
         }
+        window.addEventListener("scroll", scrollListener)
 
         return () => {
-            consoleDebug("IndexItem componentWillUnmount " + props.title)
-            if (imageLoadAnimator != null) {
-                imageLoadAnimator.destroy()
+            consoleDebug("IndexItem useEffect cleanup " + props.title)
+            if (animationE != null) {
+                getInterSectionObserver().unobserve(animationE)
             }
-            if (cardE != null) {
-                getInterSectionObserver().unobserve(cardE)
-            }
+            window.removeEventListener("scroll", scrollListener)
         }
-    }, [props.path])
+    }, [])
 
-    function startImageAnimation(imgE: HTMLImageElement): ImageLoadAnimator {
-        return new ImageLoadAnimator(imgE, -1, false,
-            () => {
-                // 仅在用户未滚动时的第一页执行动画，否则是不可见的无需动画
-                return window.scrollY <= 0
-            },
-            () => {
-                // 图片尺寸动画执行完成
-                // coverLoadedCallback()
-            })
-    }
 
     const actorStr = useMemo(() => props.actor.join(" "), [props.actor])
-    const animationClass = useMemo(() => props.index == 0 ? "card-fade-in" : "card-slide-in-middle", [props.index])
+
+    // TODO：对于首批设置为 slide-in 的元素，滚动时检查，若动画尚未启动，改为 slide-in-offset
+    const animationClass = useMemo(() => {
+        if (window.scrollY > 0) {
+            return " slide-in-farer-offset"
+        }
+        return " slide-in-farer"
+    }, [])
 
     const date = useMemo(() => getSplittedDate(props.date), [props.date]);
 
@@ -176,11 +215,10 @@ function IndexItem(props: IndexItemProps) {
 
     return (
         <li ref={containerRef} className="grid-index-li">
-            {/* 第一个元素使用 fade-in 动画，避免在小尺寸手机上因为 slide 距离在页面初次加载时不触发动画 */}
-            <a className={"index-a mdc-card grid-index-card grid-index-card__ripple " + animationClass} href={props.path}>
+            <a className={"index-a mdc-card grid-index-card grid-index-card__ripple" + animationClass} href={props.path}>
                 <section>
                     {props.cover != null && props.cover.length > 0 &&
-                        <img className="grid-index-cover image-height-animation"
+                        <img className="grid-index-cover"
                             style={aspectRatio ? { aspectRatio: aspectRatio } : {}}
                             loading="lazy" src={props.cover} alt={props.coverAlt} />}
                     {props.cover == null || props.cover.length == 0 &&
@@ -214,9 +252,9 @@ function IndexDescriptionItem(props: IndexDescriptionItemProps) {
     useEffect(() => {
         const rootE = containerRef.current as HTMLElement
         consoleObjDebug("IndexDescriptionItem useEffect", rootE)
-        const cardE = rootE.querySelector(".grid-index-card")
-        if (cardE != null) {
-            getInterSectionObserver().observe(cardE)
+        const animationE = queryAnimatedElement(rootE)
+        if (animationE != null) {
+            getInterSectionObserver().observe(animationE)
         }
 
         // 组件内的点击事件都会上浮到容器被捕捉，在这里处理一些非标准 <a> 元素的点击事件
@@ -237,15 +275,15 @@ function IndexDescriptionItem(props: IndexDescriptionItemProps) {
         // }
         return () => {
             consoleDebug("IndexDescriptionItem useEffect cleanup")
-            if (cardE != null) {
-                getInterSectionObserver().unobserve(cardE)
+            if (animationE != null) {
+                getInterSectionObserver().unobserve(animationE)
             }
         }
     }, [])
 
     return (
         <li ref={containerRef} className="grid-index-li grid-index-li--description">
-            <section className="mdc-card grid-index-card card-fade-in" dangerouslySetInnerHTML={{ __html: props.innerHtml }}>
+            <section className="mdc-card grid-index-card fade-in" dangerouslySetInnerHTML={{ __html: props.innerHtml }}>
             </section>
             <hr className="grid-index-li-divider" />
         </li>
