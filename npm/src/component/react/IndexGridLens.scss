@@ -27,6 +27,13 @@
         font-size: 0.85rem;
         color: rgb(230, 230, 230);
     }
+
+    opacity: 0;
+
+    .image-loaded & {
+        opacity: 1;
+        transition: opacity var(--index-card-animation-duration) ease;
+    }
 }
 
 .lens-index-text-container {
@@ -43,6 +50,13 @@
     --date-padding-vertical: 0.14rem;
     --date-padding-horizontal: 0.3rem;
     --date-side-padding-horizontal: 0.48rem;
+
+    opacity: 0;
+
+    .image-loaded & {
+        opacity: 1;
+        transition: opacity var(--index-card-animation-duration) ease;
+    }
 }
 
 .lens-index-date {
@@ -87,6 +101,7 @@
 // 手机小屏
 @media all and (max-width: base.$screen-middle-width-start) {
     body {
+
         .lens-index-pinned-icon-container,
         .lens-index-featured-icon-container {
             left: 0.2rem;
@@ -111,7 +126,7 @@
             --date-padding-horizontal: 0.24rem;
             --date-side-padding-horizontal: 0.35rem;
         }
-        
+
         .lens-index-date {
             // border-radius: 0.3rem;
             // padding: 0.05rem 0.32rem;

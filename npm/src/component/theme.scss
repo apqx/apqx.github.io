@@ -241,8 +241,6 @@ body {
         --image-height-animation-duration: 0.8s;
         --index-card-animation-duration: 0.4s;
         --index-card-animation-translate-y: 2rem;
-        --content-card-animation-duration: 0.8s;
-        --content-card-animation-translate-y: 18rem;
 
         @include light;
 }
@@ -258,8 +256,6 @@ body {
                 --center-card-to-container-border-horizontal: 0.8rem;
 
                 --image-height-animation-duration: 0.6s;
-                --content-card-animation-duration: 0.6s;
-                --content-card-animation-translate-y: 16rem;
         }
 
 }
@@ -268,8 +264,6 @@ body {
 @media all and (max-width: base.$screen-middle-width-start) {
         body {
                 --image-height-animation-duration: 0.6s;
-                --content-card-animation-duration: 0.6s;
-                --content-card-animation-translate-y: 12rem;
 
                 --drawer-padding-horizontal: 0.2rem;
 

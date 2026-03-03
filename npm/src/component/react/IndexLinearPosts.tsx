@@ -108,9 +108,11 @@ function IndexItem(props: IndexItemProps) {
                     return
                 }
                 toggleElementClass(animationE, "slide-in-chained", false)
-                // 更改为较短的 slide-in-offset
                 if (animationE.classList.contains("slide-in-farer")) {
                     toggleElementClass(animationE, "slide-in-farer", false)
+                    toggleElementClass(animationE, "slide-in-offset", true)
+                } else if (animationE.classList.contains("slide-in")) {
+                    toggleElementClass(animationE, "slide-in", false)
                     toggleElementClass(animationE, "slide-in-offset", true)
                 }
             }

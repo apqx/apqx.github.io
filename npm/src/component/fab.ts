@@ -1,11 +1,9 @@
 // import "./fab.scss"
 
 import { getSectionTypeByPath, isIndexPage, SECTION_TYPE_LENS } from "../base/constant"
-import { isChrome, isSafari } from "../util/tools"
 import { getInterSectionObserver } from "./animation/BaseAnimation"
 import { setupIconButtonRipple } from "./button"
 import { showLensFilterDialog } from "./dialog/LensFilterDialog"
-import { showSnackbar } from "./react/Snackbar"
 
 export function initFab() {
     // 仅在 Index 透镜分区页面显示搜索 Fab

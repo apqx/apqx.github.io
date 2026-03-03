@@ -55,7 +55,7 @@ function initIndexList() {
         // 透镜
         const loadedPosts = getLensLoadedPosts(wrapperE)
         consoleObjDebug("Index loaded local posts", loadedPosts)
-        root.render(<IndexGridLens tag={""} category={category} pinnedPosts={[]} loadedPosts={[]}
+        root.render(<IndexGridLens tag={""} category={category} pinnedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
             onMount={onMount} />)
     }
 }

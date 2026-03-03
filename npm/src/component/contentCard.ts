@@ -19,6 +19,6 @@ export function initContentCard(withAnimation: boolean) {
         getInterSectionObserver().observe(cardE!!)
     } else {
         // 不启动动画，删除使卡片偏移、透明的动画class
-        toggleElementClass(cardE, "content-card-slide-in", false)
+        toggleElementClass(cardE, "slide-in-farer", false)
     }
 }

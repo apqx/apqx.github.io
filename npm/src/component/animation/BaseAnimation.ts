@@ -19,20 +19,6 @@ export function getInterSectionObserver() {
                     } else if (containsFadeInClass(entry.target)) {
                         consoleObjDebug("Content fade-in", entry.target)
                         handleFadeIn(entry)
-                    } else if (entry.target.classList.contains("card-slide-in")) {
-                        // 滑入动画，包括透明度和垂直移动，索引页要特殊处理，避免与图片的展开动画冲突
-                        handleSlideIn(entry, "card-slide-in", "card-slide-in-start", slidFromBottom)
-                    } else if (entry.target.classList.contains("card-slide-in-middle")) {
-                        // 滑入动画，包括透明度和垂直移动，索引页要特殊处理，避免与图片的展开动画冲突
-                        handleSlideIn(entry, "card-slide-in-middle", "card-slide-in-middle-start", slidFromBottom)
-                    } else if (entry.target.classList.contains("card-fade-in")) {
-                        // 透明度动画，不包括垂直移动
-                        consoleObjDebug("Card fade-in", entry.target)
-                        toggleElementClass(entry.target, "card-fade-in-start", true)
-                    } else if (entry.target.classList.contains("content-card-slide-in")) {
-                        // 内容卡片的滑入动画，包括透明度和垂直移动
-                        consoleObjDebug("Content card slide-in", entry.target)
-                        toggleElementClass(entry.target, "content-card-slide-in-start", true)
                     }
                     // 只触发一次动画，之后不再监听
                     getInterSectionObserver().unobserve(entry.target)
@@ -112,22 +98,9 @@ function startSlideIn(element: Element, delay: number = 0) {
     }
 }
 
-function getAnimationIndex(element: Element): number {
-    const data = (element as HTMLElement).dataset.animationIndex
-    if (data == null) {
-        return Number.POSITIVE_INFINITY
-    }
-    const index = Number.parseInt(data, 10)
-    if (Number.isNaN(index)) {
-        return Number.POSITIVE_INFINITY
-    }
-    return index
-}
-
 function enqueueChainedSlideIn(element: Element) {
     // 将元素加入链式动画队列，保持原有顺序
     chainedSlideInQueue.push(element)
-    chainedSlideInQueue.sort((left, right) => getAnimationIndex(left) - getAnimationIndex(right))
     scheduleNextChainedSlideIn()
 }
 
@@ -199,36 +172,5 @@ function handleSlideInBase(entry: IntersectionObserverEntry, slidFromBottom: boo
 
         startSlideIn(entry.target)
 
-    }
-}
-
-// 元素进入窗口初次显示时添加动画，部分页面需要将 slide-in 替换为 fade-in，避免与其它动画冲突
-function handleSlideIn(entry: IntersectionObserverEntry, slideInAnimationBaseClass: string, slideInAnimationStartClass: string, slidFromBottom: boolean) {
-    if (entry.target.classList.contains("index-card") || entry.target.classList.contains("grid-index-card")) {
-        // 线性索引 + 网格索引
-        if (window.scrollY > 0) {
-            // 用户滚动之后，使用滑入动画，更灵动
-            if (slidFromBottom) {
-                // item 从下方进入，正常滑入
-                consoleObjDebug("Card slide-in", entry.target)
-                toggleElementClass(entry.target, slideInAnimationStartClass, true)
-            } else {
-                // item 从上方进入，使用透明度动画
-                consoleObjDebug("Card fade-in", entry.target)
-                toggleElementClass(entry.target, "card-fade-in", true)
-                toggleElementClass(entry.target, slideInAnimationBaseClass, false)
-                toggleElementClass(entry.target, "card-fade-in-start", true)
-            }
-        } else {
-            // 用户滚动之前，使用透明度动画，防止与顶部封面展开动画冲突
-            consoleObjDebug("Card fade-in", entry.target)
-            toggleElementClass(entry.target, "card-fade-in", true)
-            toggleElementClass(entry.target, slideInAnimationBaseClass, false)
-            toggleElementClass(entry.target, "card-fade-in-start", true)
-        }
-    } else {
-        // 非索引元素，启动滑入动画
-        consoleObjDebug("Card slide-in", entry.target)
-        toggleElementClass(entry.target, slideInAnimationStartClass, true)
     }
 }

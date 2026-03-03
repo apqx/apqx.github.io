@@ -137,12 +137,6 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
         }
     }, [httpState.loading, httpState.loadingHint, pagefindState.loading, pagefindState.loadingHint, filterTags])
 
-    const onAnimationComplete = useCallback(() => {
-        // 图片加载动画完成后，开启元素尺寸变化监听，适配用户在页面初次加载后滚动时才加载的图片
-        setRefreshLayoutVersion(prev => prev + 1)
-        setObserveItemResize(true)
-    }, [])
-
     return (
         <ul ref={masonryContainerRef} className="grid-index-ul">
             <Masonry
@@ -160,7 +154,7 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
                         last={index == showPosts.length - 1}
                         pinned={item.pinned}
                         featured={item.featured}
-                        coverLoadedCallback={onAnimationComplete} />
+                        coverLoadedCallback={undefined} />
                 )}
                 defaultColumns={3}
                 breakpoints={[
@@ -193,7 +187,7 @@ type IndexItemProps = {
     last: boolean,
     pinned: boolean,
     featured: boolean,
-    coverLoadedCallback: () => void
+    coverLoadedCallback?: () => void
 }
 
 function IndexItem(props: IndexItemProps) {
@@ -204,6 +198,16 @@ function IndexItem(props: IndexItemProps) {
         const rootE = containerRef.current as HTMLElement;
         const cardE = rootE.querySelector(".grid-index-card") as HTMLElement
         setupCardRipple(cardE)
+        const coverE = rootE.querySelector(".grid-index-cover") as HTMLImageElement
+        if (coverE.complete) {
+            cardE.classList.add("image-loaded")
+        } else {
+            coverE.onload = () => {
+                cardE.classList.add("image-loaded")
+            }
+        }
+
+
         const animationE = queryAnimatedElement(rootE)
         if (animationE != null) {
             // 元素进入 viewport 时检查距离上一个动画的时间差，如果很近则链式触发动画
@@ -212,6 +216,7 @@ function IndexItem(props: IndexItemProps) {
 
         return () => {
             consoleDebug("IndexItem useEffect cleanup " + props.index + " : " + props.title)
+            coverE.onload = null
             if (animationE != null) {
                 getInterSectionObserver().unobserve(animationE)
             }

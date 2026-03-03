@@ -6,8 +6,8 @@ import { getInterSectionObserver } from "./animation/BaseAnimation"
  * 在 Index 页面 Footer 默认隐藏，首次加载完成后显示出来
  */
 export function showFooter() {
-    const footerContentE = document.querySelector("footer .card-fade-in")
-    getInterSectionObserver().observe(footerContentE!!)
+    const footerContentE = document.querySelector("footer .fade-in")
+    getInterSectionObserver().observe(footerContentE as Element)
 }
 
 export function initFooter() {

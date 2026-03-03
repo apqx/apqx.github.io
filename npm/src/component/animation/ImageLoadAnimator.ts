@@ -43,10 +43,11 @@ export class ImageLoadAnimator {
                     ratio = imgE.naturalWidth / imgE.naturalHeight
                 }
                 this.setImageHeight(imgE, ratio)
-                imgE.onerror = () => {
-                    if (ratio != -1)
-                        this.setImageHeight(imgE, ratio)
-                }
+            }
+            
+            imgE.onerror = () => {
+                if (ratio != -1)
+                    this.setImageHeight(imgE, ratio)
             }
         }
         if (monitorResize) {

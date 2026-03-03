@@ -126,7 +126,6 @@ export function IndexGridPosts(props: Props) {
                 layoutVersion={refreshLayoutVersion}
                 columnGap={0}
                 rowGap={0}
-                estimatedItemHeight={0}
             />
 
             <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore} />
