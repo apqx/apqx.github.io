@@ -15,12 +15,12 @@
     // 进入 viewport 触发 intersection observer，手动移动到 offsetY 位置，设置动画参数
     &.slide-in--ready {
         transform: translateY(var(--index-card-animation-translate-y));
-        transition: transform var(--index-card-animation-duration) ease,
-            opacity calc(var(--index-card-animation-duration) / 2) ease;
     }
-
+    
     // 延时 50ms 执行 slide-in 动画
     &.slide-in--start {
+        transition: transform var(--index-card-animation-duration) ease,
+            opacity calc(var(--index-card-animation-duration) / 2) ease;
         opacity: 1;
         transform: translateY(0);
     }
@@ -33,12 +33,12 @@
 
     // 进入 viewport 一段距离才会触发 intersection observer，设置动画参数
     &.slide-in-offset--ready {
-        transition: transform var(--index-card-animation-duration) ease,
-            opacity calc(var(--index-card-animation-duration) / 2) ease;
     }
-
+    
     // 延时 50ms 执行 slide-in 动画
     &.slide-in--start {
+        transition: transform var(--index-card-animation-duration) ease,
+            opacity calc(var(--index-card-animation-duration) / 2) ease;
         opacity: 1;
         transform: translateY(0);
     }
@@ -48,9 +48,9 @@
 .fade-in {
     opacity: 0;
     transform: translateY(0);
-    transition: opacity var(--index-card-animation-duration) ease;
-
+    
     &.fade-in--start {
+        transition: opacity var(--index-card-animation-duration) ease;
         transform: translateY(0);
         opacity: 1;
     }
@@ -62,6 +62,11 @@
     
 }
 
+// 标记此类，在元素进入 viewport 时检查上个 slide-in 动画的启动时间，保持间隔链式启动
+.slide-in-chained {
+
+}
+
 // 更长距离的 slide-in 动画
 
 
@@ -71,11 +76,11 @@
 
     &.slide-in-farer--ready {
         transform: translateY(calc(var(--index-card-animation-translate-y) * 3));
+    }
+    
+    &.slide-in--start {
         transition: transform var(--index-card-animation-duration) ease,
             opacity calc(var(--index-card-animation-duration) / 2) ease;
-    }
-
-    &.slide-in--start {
         opacity: 1;
         transform: translateY(0);
     }
@@ -86,11 +91,11 @@
     transform: translateY(calc(var(--index-card-animation-translate-y) * 3));
 
     &.slide-in-farer-offset--ready {
+    }
+    
+    &.slide-in--start {
         transition: transform var(--index-card-animation-duration) ease,
             opacity calc(var(--index-card-animation-duration) / 2) ease;
-    }
-
-    &.slide-in--start {
         opacity: 1;
         transform: translateY(0);
     }

@@ -10,6 +10,7 @@ import { setupCardRipple } from "../component/card"
 import type { Post } from "../component/base/paginate/bean/Post"
 import { showFooter } from "../component/footer"
 import { IndexGridPosts } from "../component/react/IndexGridPosts"
+import { getInterSectionObserver, queryAnimatedElement } from "../component/animation/BaseAnimation"
 
 export function initIndex() {
     runOnHtmlDone(() => {
@@ -24,17 +25,17 @@ function initIndexList() {
     }
     const onMount = () => {
         showFooter()
-        initIndexTopCover()
     }
-
+    
     const root = createRoot(wrapperE)
     const category = getSectionTypeByPath(window.location.pathname).identifier
     consoleDebug("Index category = " + category + ", path = " + window.location.pathname)
     if (category == SECTION_TYPE_OTHER.identifier) return
-
+    
     if (wrapperE.classList.contains("index-list-wrapper")) {
         // 随笔、诗词、转载
         // 获取已有 post，包括置顶和非置顶
+        initIndexTopCover()
         const loadedPosts = getLinearLoadedPosts(wrapperE)
         consoleObjDebug("Index loaded local posts", loadedPosts)
         root.render(<IndexLinearPosts tag={""} category={category} pinnedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
@@ -54,7 +55,7 @@ function initIndexList() {
         // 透镜
         const loadedPosts = getLensLoadedPosts(wrapperE)
         consoleObjDebug("Index loaded local posts", loadedPosts)
-        root.render(<IndexGridLens tag={""} category={category} pinnedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
+        root.render(<IndexGridLens tag={""} category={category} pinnedPosts={[]} loadedPosts={[]}
             onMount={onMount} />)
     }
 }
@@ -194,30 +195,33 @@ function getGridLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
     return array
 }
 
-const INDEX_TOP_COVER_RATIO = 844 / 295
-
 /**
  * 初始化首页封面，监听下载状态，启动高度变化动画
  */
 function initIndexTopCover() {
     // 顶部卡片，透明度动画
-    for (const ele of document.querySelectorAll(".index-top-card.card-fade-in")) {
-        toggleElementClass(ele, "card-fade-in-start", true)
+    const topCardE = document.querySelector(".index-top-card") as HTMLElement
+    // const animationE = queryAnimatedElement(topCardE)
+    const animationE = topCardE
+    if (animationE != null) {
+        getInterSectionObserver().observe(animationE)
     }
+    // TODO：image 加载完成后的透明度动画
+
     // 顶部封面图片，高度动画
-    for (const ele of document.querySelectorAll(".index-top-cover.image-height-animation")) {
-        const imgE = ele as HTMLImageElement
-        new ImageLoadAnimator(imgE, INDEX_TOP_COVER_RATIO, true,
-            () => {
-                // 仅在用户未滚动时的第一页执行动画，否则是不可见的无需动画
-                return window.scrollY <= 0
-            },
-            () => {
-                // 动画完成回调
-            })
-    }
+    // for (const ele of document.querySelectorAll(".index-top-cover.image-height-animation")) {
+    //     const imgE = ele as HTMLImageElement
+    //     new ImageLoadAnimator(imgE, INDEX_TOP_COVER_RATIO, true,
+    //         () => {
+    //             // 仅在用户未滚动时的第一页执行动画，否则是不可见的无需动画
+    //             return window.scrollY <= 0
+    //         },
+    //         () => {
+    //             // 动画完成回调
+    //         })
+    // }
     // 索引卡片
-    for (const ele of document.querySelectorAll(".index-top-card,.grid-index-card__ripple")) {
+    for (const ele of document.querySelectorAll(".index-top-card")) {
         setupCardRipple(ele)
     }
 }

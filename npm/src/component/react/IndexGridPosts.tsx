@@ -168,11 +168,13 @@ function IndexItem(props: IndexItemProps) {
         const scrollListener = () => {
             if (animationE != null) {
                 // 对于首批设置为 slide-in 的元素，滚动时检查，若动画尚未启动，改为 slide-in-offset
+                // 因为检测区域变了，所以不能在 intersection observer 里处理
                 if (window.scrollY <= 0) return
                 if (animationE.classList.contains("slide-in--start")) {
                     window.removeEventListener("scroll", scrollListener)
                     return
                 }
+                toggleElementClass(animationE, "slide-in-chained", false)
                 if (animationE.classList.contains("slide-in")) {
                     toggleElementClass(animationE, "slide-in", false)
                     toggleElementClass(animationE, "slide-in-offset", true)
@@ -193,15 +195,13 @@ function IndexItem(props: IndexItemProps) {
         }
     }, [])
 
-
     const actorStr = useMemo(() => props.actor.join(" "), [props.actor])
 
-    // TODO：对于首批设置为 slide-in 的元素，滚动时检查，若动画尚未启动，改为 slide-in-offset
     const animationClass = useMemo(() => {
         if (window.scrollY > 0) {
             return " slide-in-farer-offset"
         }
-        return " slide-in-farer"
+        return " slide-in-farer slide-in-chained"
     }, [])
 
     const date = useMemo(() => getSplittedDate(props.date), [props.date]);
@@ -215,7 +215,11 @@ function IndexItem(props: IndexItemProps) {
 
     return (
         <li ref={containerRef} className="grid-index-li">
-            <a className={"index-a mdc-card grid-index-card grid-index-card__ripple" + animationClass} href={props.path}>
+            <a
+                className={"index-a mdc-card grid-index-card grid-index-card__ripple" + animationClass}
+                data-animation-index={props.index}
+                href={props.path}
+            >
                 <section>
                     {props.cover != null && props.cover.length > 0 &&
                         <img className="grid-index-cover"
@@ -283,7 +287,7 @@ function IndexDescriptionItem(props: IndexDescriptionItemProps) {
 
     return (
         <li ref={containerRef} className="grid-index-li grid-index-li--description">
-            <section className="mdc-card grid-index-card fade-in" dangerouslySetInnerHTML={{ __html: props.innerHtml }}>
+            <section className="mdc-card grid-index-card slide-in-farer slide-in-chained" dangerouslySetInnerHTML={{ __html: props.innerHtml }}>
             </section>
             <hr className="grid-index-li-divider" />
         </li>

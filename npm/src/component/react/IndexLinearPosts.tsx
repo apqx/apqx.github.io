@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from "react"
 import { LoadingHint } from "./LoadingHint"
 import { consoleDebug, consoleObjDebug } from "../../util/log"
-import { getInterSectionObserver } from "../animation/BaseAnimation"
+import { getInterSectionObserver, queryAnimatedElement } from "../animation/BaseAnimation"
 import { getSplittedDate } from "../../base/post"
 import { setupCardRipple } from "../card"
 import type { Post } from "../base/paginate/bean/Post"
@@ -10,6 +10,7 @@ import { HttpPaginatorViewModel as HttpPaginateViewModel } from "../base/paginat
 import type { ApiPost } from "../../repository/bean/service/ApiPost"
 import { PostHttpPaginator } from "../base/paginate/PostHttpPaginator"
 import type { BasePaginateViewProps } from "../base/paginate/bean/BasePaginateViewProps"
+import { toggleElementClass } from "../../util/tools"
 
 export function IndexLinearPosts(props: BasePaginateViewProps<Post>) {
     const paginateViewModel = useMemo(() => {
@@ -84,32 +85,57 @@ type IndexItemProps = {
 
 function IndexItem(props: IndexItemProps) {
     const containerRef = useRef<HTMLLIElement>(null)
-    const cardE = useRef<HTMLElement>(null)
     const date = useMemo(() => getSplittedDate(props.date), [props.date]);
 
     useEffect(() => {
-        consoleObjDebug("IndexItem component mounted", props)
+        consoleObjDebug("IndexItem useEffect", props)
         const rootE = containerRef.current as HTMLElement;
-        cardE.current = rootE.querySelector(".index-card") as HTMLElement
+        const cardE = rootE.querySelector(".index-card") as HTMLElement
+        setupCardRipple(cardE)
 
-        setupCardRipple(cardE.current)
-        // 监听元素进入窗口初次显示
-        // TODO: 执行动画后应该立即解除监听，避免不必要的性能开销
-        if (cardE.current != null) {
-            getInterSectionObserver().observe(cardE.current)
+        const animationE = queryAnimatedElement(rootE)
+        if (animationE != null) {
+            getInterSectionObserver().observe(animationE)
         }
 
-        return () => {
-            consoleDebug("IndexItem component unmount " + props.title)
-            if (cardE.current != null) {
-                getInterSectionObserver().unobserve(cardE.current)
+        const scrollListener = () => {
+            if (animationE != null) {
+                // 对于首批设置为 slide-in 的元素，滚动时检查，若动画尚未启动，改为 slide-in-offset
+                // 因为检测区域变了，所以不能在 intersection observer 里处理
+                if (window.scrollY <= 0) return
+                if (animationE.classList.contains("slide-in--start")) {
+                    window.removeEventListener("scroll", scrollListener)
+                    return
+                }
+                toggleElementClass(animationE, "slide-in-chained", false)
+                // 更改为较短的 slide-in-offset
+                if (animationE.classList.contains("slide-in-farer")) {
+                    toggleElementClass(animationE, "slide-in-farer", false)
+                    toggleElementClass(animationE, "slide-in-offset", true)
+                }
             }
         }
+        window.addEventListener("scroll", scrollListener)
+
+        return () => {
+            consoleDebug("IndexItem useEffect cleanup " + props.title)
+            if (animationE != null) {
+                getInterSectionObserver().unobserve(animationE)
+            }
+            window.removeEventListener("scroll", scrollListener)
+        }
+    }, [])
+
+    const animationClass = useMemo(() => {
+        if (window.scrollY > 0) {
+            return " slide-in-offset"
+        }
+        return " slide-in-farer slide-in-chained"
     }, [])
 
     return (
         <li ref={containerRef} className="index-li">
-            <a className={`index-a mdc-card index-card card-slide-in`} href={props.path}>
+            <a className={"index-a mdc-card index-card" + animationClass} href={props.path}>
                 <section>
                     <h1 className="index-title">{props.title}</h1>
                     <span className="index-author">{props.author}</span>
