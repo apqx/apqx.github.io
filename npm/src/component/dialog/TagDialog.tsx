@@ -4,7 +4,7 @@ import { BaseDialog, TAG_DIALOG_WRAPPER_ID, showDialog } from "./BaseDialog"
 import type { BaseDialogOpenProps } from "./BaseDialog"
 import { consoleDebug } from "../../util/log"
 import { setupListItemRipple } from "../list"
-import { LoadingHint } from "../react/LoadingHint"
+import { ERROR_HINT, LoadingHint } from "../react/LoadingHint"
 import { getSectionTypeByPath, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL } from "../../base/constant"
 import type { SectionType } from "../../base/constant"
 import { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from "react"
@@ -26,7 +26,7 @@ function TagDialog(props: TagDialogProps) {
             tag: props.tag,
             category: "",
         }
-        return new HttpPaginatorViewModel<ApiPost, PostHttpPaginator, Post>(new PostHttpPaginator(options))
+        return new HttpPaginatorViewModel<ApiPost, PostHttpPaginator, Post>(new PostHttpPaginator(options), true)
     }, [])
     const state = useSyncExternalStore(paginateViewModel.subscribe, () => paginateViewModel.state)
 
@@ -45,8 +45,10 @@ function TagDialog(props: TagDialogProps) {
     }, [])
 
     const onLoadMore = useCallback(() => {
-        paginateViewModel.loadMore()
-    }, [])
+        if (state.loadingHint !== ERROR_HINT) {
+            paginateViewModel.loadMore()
+        }
+    }, [state.loadingHint])
 
     const onClickHint = useCallback(() => {
         if (state.posts.length > 0) {

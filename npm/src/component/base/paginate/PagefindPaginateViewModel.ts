@@ -10,10 +10,12 @@ import type { BasePaginateViewModelState } from "./bean/BasePaginateViewModelSta
 export class PagefindPaginateViewModel<P, T, O extends BasePagefindPaginator<P, T>> extends BaseExternalStore {
     paginator: O
     state: BasePaginateViewModelState<T>
+    onlyShowLoadingAndError: boolean
 
-    constructor(paginator: O) {
+    constructor(paginator: O, onlyShowLoadingAndError: boolean = false) {
         super()
         this.paginator = paginator
+        this.onlyShowLoadingAndError = onlyShowLoadingAndError
         this.state = {
             loading: false,
             loadingHint: undefined,
@@ -47,7 +49,7 @@ export class PagefindPaginateViewModel<P, T, O extends BasePagefindPaginator<P, 
             const totalPostsSize = this.paginator.totalPostsSize()
             this.state = {
                 loading: false,
-                loadingHint: getLoadHint(posts.length, totalPostsSize),
+                loadingHint: this.onlyShowLoadingAndError ? undefined : getLoadHint(posts.length, totalPostsSize),
                 posts: posts,
                 totalPostsSize: totalPostsSize
             }
@@ -78,7 +80,7 @@ export class PagefindPaginateViewModel<P, T, O extends BasePagefindPaginator<P, 
             const totalPostsSize = this.paginator.totalPostsSize()
             this.state = {
                 loading: false,
-                loadingHint: getLoadHint(posts.length, totalPostsSize),
+                loadingHint: this.onlyShowLoadingAndError ? undefined : getLoadHint(posts.length, totalPostsSize),
                 posts: posts,
                 totalPostsSize: totalPostsSize
             }

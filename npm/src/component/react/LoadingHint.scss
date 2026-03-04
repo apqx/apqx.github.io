@@ -23,7 +23,8 @@
     &.hide {
         height: 0;
         // 如果不设置为 none 可能在 loading 消失时有残影
-        display: none;
+        // 设置 display 为 none 会导致 intersection observer 无法正确监听元素的出现和消失
+        // display: none;
     }
 
     .mdc-circular-progress {

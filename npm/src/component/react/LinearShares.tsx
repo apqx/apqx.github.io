@@ -1,7 +1,7 @@
 import "./LinearShares.scss";
 import { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from "react";
 import { consoleDebug, consoleObjDebug } from "../../util/log";
-import { LoadingHint } from "./LoadingHint";
+import { ERROR_HINT, LoadingHint } from "./LoadingHint";
 import { createRoot } from "react-dom/client";
 import { HttpPaginatorViewModel } from "../base/paginate/HttpPaginateViewModel";
 import { ShareHttpPaginator } from "../base/paginate/ShareHttpPaginator";
@@ -25,7 +25,7 @@ export function LinearShares(props: BasePaginateViewProps<Share>) {
             tag: props.tag,
             category: props.category,
         }
-        return new HttpPaginatorViewModel<ApiShare, ShareHttpPaginator, Share>(new ShareHttpPaginator(options))
+        return new HttpPaginatorViewModel<ApiShare, ShareHttpPaginator, Share>(new ShareHttpPaginator(options), true)
     }, [])
     const state = useSyncExternalStore(paginateViewModel.subscribe, () => paginateViewModel.state)
 
@@ -39,8 +39,10 @@ export function LinearShares(props: BasePaginateViewProps<Share>) {
     }, [])
 
     const onLoadMore = useCallback(() => {
-        paginateViewModel.loadMore()
-    }, [])
+        if (state.loadingHint !== ERROR_HINT) {
+            paginateViewModel.loadMore()
+        }
+    }, [state.loadingHint])
 
     const onClickHint = useCallback(() => {
         if (state.posts.length > 0) {

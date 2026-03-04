@@ -1,6 +1,6 @@
 // import "./GridIndexList.scss"
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
-import { LoadingHint } from "./LoadingHint"
+import { ERROR_HINT, LoadingHint } from "./LoadingHint"
 import { consoleDebug, consoleObjDebug } from "../../util/log"
 import { onTagTriggerClick } from "../tag"
 import { getInterSectionObserver, queryAnimatedElement } from "../animation/BaseAnimation"
@@ -26,7 +26,7 @@ export function IndexGridPosts(props: Props) {
             tag: props.tag,
             category: props.category,
         }
-        return new HttpPaginatorViewModel<ApiPost, PostHttpPaginator, Post>(new PostHttpPaginator(options))
+        return new HttpPaginatorViewModel<ApiPost, PostHttpPaginator, Post>(new PostHttpPaginator(options), true)
     }, [])
     const state = useSyncExternalStore(paginateViewModel.subscribe, () => paginateViewModel.state)
 
@@ -51,8 +51,10 @@ export function IndexGridPosts(props: Props) {
     }, [])
 
     const onLoadMore = useCallback(() => {
-        paginateViewModel.loadMore()
-    }, [])
+        if (state.loadingHint !== ERROR_HINT) {
+            paginateViewModel.loadMore()
+        }
+    }, [state.loadingHint])
 
     const onClickHint = useCallback(() => {
         if (state.posts.length > 0) {

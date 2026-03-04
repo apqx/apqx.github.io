@@ -1,6 +1,6 @@
 // import "./LensIndexList.scss"
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
-import { LoadingHint } from "./LoadingHint"
+import { ERROR_HINT, LoadingHint } from "./LoadingHint"
 import { consoleDebug, consoleObjDebug } from "../../util/log"
 import { getInterSectionObserver, queryAnimatedElement } from "../animation/BaseAnimation"
 import { getSplittedDate } from "../../base/post"
@@ -28,10 +28,10 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
             tag: props.tag,
             category: props.category,
         }
-        return new HttpPaginatorViewModel<ApiPost, PostHttpPaginator, Post>(new PostHttpPaginator(options))
+        return new HttpPaginatorViewModel<ApiPost, PostHttpPaginator, Post>(new PostHttpPaginator(options), true)
     }, [])
     const pagefindPaginateViewModel = useMemo(() => {
-        return new PagefindPaginateViewModel<PagefindResultItem, Post, PostPagefindPaginator>(new PostPagefindPaginator())
+        return new PagefindPaginateViewModel<PagefindResultItem, Post, PostPagefindPaginator>(new PostPagefindPaginator(), true)
     }, [])
 
     const httpState = useSyncExternalStore(httpPaginateViewModel.subscribe, () => httpPaginateViewModel.state)
@@ -87,12 +87,12 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
     }, [filterTags])
 
     const onLoadMore = useCallback(() => {
-        if (filterTags.length > 0) {
+        if (filterTags.length > 0 && pagefindState.loadingHint != ERROR_HINT) {
             pagefindPaginateViewModel.loadMore()
-        } else {
+        } else if (filterTags.length == 0 && httpState.loadingHint != ERROR_HINT) {
             httpPaginateViewModel.loadMore()
         }
-    }, [filterTags])
+    }, [filterTags, httpState.loadingHint, pagefindState.loadingHint])
 
     const onClickHint = useCallback(() => {
         if (filterTags.length > 0) {

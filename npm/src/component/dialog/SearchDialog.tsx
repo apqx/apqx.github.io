@@ -5,7 +5,7 @@ import { createHtmlContent } from "../../util/tools"
 import { BaseDialog, SEARCH_DIALOG_WRAPPER_ID, showDialog } from "./BaseDialog"
 import type { ActionBtn, BaseDialogOpenProps } from "./BaseDialog"
 import { setupListItemRipple } from "../list"
-import { LoadingHint } from "../react/LoadingHint"
+import { ERROR_HINT, LoadingHint } from "../react/LoadingHint"
 import { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from "react"
 import { getSplittedDate } from "../../base/post"
 import { setupButtonRipple } from "../button"
@@ -61,8 +61,10 @@ export function SearchDialog(props: BaseDialogOpenProps) {
     }, [])
 
     const onLoadMore = useCallback(() => {
-        // paginateViewModel.loadMore(false)
-    }, [])
+        // if (state.loadingHint !== ERROR_HINT) {
+        //     paginateViewModel.loadMore()
+        // }
+    }, [state.loadingHint])
 
     const onClickHint = useCallback(() => {
         if (state.posts.length > 0) {
