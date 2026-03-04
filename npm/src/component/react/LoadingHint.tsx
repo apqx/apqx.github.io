@@ -16,7 +16,7 @@ interface Props {
 export function LoadingHint(props: Props) {
     const containerRef = useRef<HTMLDivElement>(null)
     const onLoadMoreRef = useRef(props.onLoadMore)
-    
+
     useEffect(() => {
         onLoadMoreRef.current = props.onLoadMore
     }, [props.onLoadMore])
@@ -42,11 +42,12 @@ export function LoadingHint(props: Props) {
             interSectionObserver.observe(containerRef.current)
         }
         return () => {
+            consoleDebug("LoadingHint useEffect cleanup")
             if (containerRef.current) {
                 interSectionObserver.unobserve(containerRef.current)
             }
         }
-        // 必要时这里可以锚定 loading 状态增加触发 intersection 事件的几率
+        // 这里锚定 loading 状态，确保一次加载完成后触发 intersection 检测
     }, [props.loading, props.loadHint])
 
     const hide = useMemo(() => {

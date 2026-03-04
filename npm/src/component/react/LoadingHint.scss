@@ -21,10 +21,13 @@
     // transition: height 0.3s ease;
     
     &.hide {
-        height: 0;
-        // 如果不设置为 none 可能在 loading 消失时有残影
-        // 设置 display 为 none 会导致 intersection observer 无法正确监听元素的出现和消失
-        // display: none;
+        // 隐藏元素，不能用 display: none 或 height: 0，否则 intersection observer 无法正确监听元素的进入和离开
+        // intersection observer 是通过计算相交面积判断元素是否进入和离开 viewport 的，高度为 0 相交面积永远为 0
+        height: 1px;
+        // 视觉隐藏
+        visibility: hidden;
+        // 避免溢出显示
+        overflow: hidden;
     }
 
     .mdc-circular-progress {
