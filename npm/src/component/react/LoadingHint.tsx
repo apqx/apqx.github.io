@@ -4,7 +4,8 @@ import { ProgressCircular } from "./ProgressCircular"
 import { useEffect, useMemo, useRef } from "react"
 import { consoleDebug } from "../../util/log"
 
-export const ERROR_HINT: string = "重试加载"
+export const LOADING_HINT_ERROR: string = "重试加载"
+export const LOADING_HINT_NO_RESULT: string = "暂无数据"
 
 interface Props {
     loading: boolean
@@ -64,7 +65,7 @@ export function LoadingHint(props: Props) {
 }
 
 export function getLoadHint(loadSize: number, resultSize: number): string | undefined {
+    if (resultSize === 0) return LOADING_HINT_NO_RESULT
     if (loadSize >= resultSize) return undefined
     return loadSize + "/" + resultSize + " MORE"
 }
-

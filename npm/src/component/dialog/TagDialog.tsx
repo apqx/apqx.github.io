@@ -4,7 +4,7 @@ import { BaseDialog, TAG_DIALOG_WRAPPER_ID, showDialog } from "./BaseDialog"
 import type { BaseDialogOpenProps } from "./BaseDialog"
 import { consoleDebug } from "../../util/log"
 import { setupListItemRipple } from "../list"
-import { ERROR_HINT, LoadingHint } from "../react/LoadingHint"
+import { LOADING_HINT_ERROR, LOADING_HINT_NO_RESULT, LoadingHint } from "../react/LoadingHint"
 import { getSectionTypeByPath, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL } from "../../base/constant"
 import type { SectionType } from "../../base/constant"
 import { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from "react"
@@ -45,7 +45,7 @@ function TagDialog(props: TagDialogProps) {
     }, [])
 
     const onLoadMore = useCallback(() => {
-        if (state.loadingHint !== ERROR_HINT) {
+        if (state.loadingHint != LOADING_HINT_ERROR && state.loadingHint != LOADING_HINT_NO_RESULT) {
             paginateViewModel.loadMore()
         }
     }, [state.loadingHint])

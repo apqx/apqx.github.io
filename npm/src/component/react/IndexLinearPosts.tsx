@@ -1,6 +1,6 @@
 // import "./IndexList.scss"
 import { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from "react"
-import { ERROR_HINT, LoadingHint } from "./LoadingHint"
+import { LOADING_HINT_ERROR, LOADING_HINT_NO_RESULT, LoadingHint } from "./LoadingHint"
 import { consoleDebug, consoleObjDebug } from "../../util/log"
 import { getInterSectionObserver, queryAnimatedElement } from "../animation/BaseAnimation"
 import { getSplittedDate } from "../../base/post"
@@ -34,7 +34,7 @@ export function IndexLinearPosts(props: BasePaginateViewProps<Post>) {
     }, [])
 
     const onLoadMore = useCallback(() => {
-        if (state.loadingHint !== ERROR_HINT) {
+        if (state.loadingHint != LOADING_HINT_ERROR && state.loadingHint != LOADING_HINT_NO_RESULT) {
             paginateViewModel.loadMore()
         }
     }, [state.loadingHint])

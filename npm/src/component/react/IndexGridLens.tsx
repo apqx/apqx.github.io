@@ -1,6 +1,6 @@
 // import "./LensIndexList.scss"
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
-import { ERROR_HINT, LoadingHint } from "./LoadingHint"
+import { LOADING_HINT_ERROR, LOADING_HINT_NO_RESULT, LoadingHint } from "./LoadingHint"
 import { consoleDebug, consoleObjDebug } from "../../util/log"
 import { getInterSectionObserver, queryAnimatedElement } from "../animation/BaseAnimation"
 import { getSplittedDate } from "../../base/post"
@@ -87,9 +87,9 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
     }, [filterTags])
 
     const onLoadMore = useCallback(() => {
-        if (filterTags.length > 0 && pagefindState.loadingHint != ERROR_HINT) {
+        if (filterTags.length > 0 && pagefindState.loadingHint != LOADING_HINT_ERROR && pagefindState.loadingHint != LOADING_HINT_NO_RESULT) {
             pagefindPaginateViewModel.loadMore()
-        } else if (filterTags.length == 0 && httpState.loadingHint != ERROR_HINT) {
+        } else if (filterTags.length == 0 && httpState.loadingHint != LOADING_HINT_ERROR && httpState.loadingHint != LOADING_HINT_NO_RESULT) {
             httpPaginateViewModel.loadMore()
         }
     }, [filterTags, httpState.loadingHint, pagefindState.loadingHint])

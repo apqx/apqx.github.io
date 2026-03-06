@@ -1,5 +1,5 @@
 import { consoleDebug, consoleObjDebug } from "../../../util/log"
-import { ERROR_HINT, getLoadHint } from "../../react/LoadingHint"
+import { LOADING_HINT_ERROR, getLoadHint } from "../../react/LoadingHint"
 import { BaseExternalStore } from "./BaseExternalStore"
 import type { BaseHttpPaginator } from "./BaseHttpPaginator"
 import type { BasePaginateViewModelState } from "./bean/BasePaginateViewModelState"
@@ -39,7 +39,7 @@ export class HttpPaginatorViewModel<H, P extends BaseHttpPaginator<H, T>, T> ext
             const totalPostsSize = this.paginator.totalPostsSize()
             this.state = {
                 loading: false,
-                loadingHint: this.onlyShowLoadingAndError ? undefined : getLoadHint(posts.length, totalPostsSize),
+                loadingHint: posts.length > 0 && this.onlyShowLoadingAndError ? undefined : getLoadHint(posts.length, totalPostsSize),
                 posts: posts,
                 totalPostsSize: totalPostsSize
             }
@@ -49,7 +49,7 @@ export class HttpPaginatorViewModel<H, P extends BaseHttpPaginator<H, T>, T> ext
             this.state = {
                 ...this.state,
                 loading: false,
-                loadingHint: ERROR_HINT
+                loadingHint: LOADING_HINT_ERROR
             }
             this.emitChange()
         }
@@ -70,7 +70,7 @@ export class HttpPaginatorViewModel<H, P extends BaseHttpPaginator<H, T>, T> ext
             const totalPostsSize = this.paginator.totalPostsSize()
             this.state = {
                 loading: false,
-                loadingHint: this.onlyShowLoadingAndError ? undefined : getLoadHint(posts.length, totalPostsSize),
+                loadingHint: posts.length > 0 && this.onlyShowLoadingAndError ? undefined : getLoadHint(posts.length, totalPostsSize),
                 posts: posts,
                 totalPostsSize: totalPostsSize
             }
@@ -80,7 +80,7 @@ export class HttpPaginatorViewModel<H, P extends BaseHttpPaginator<H, T>, T> ext
             this.state = {
                 ...this.state,
                 loading: false,
-                loadingHint: ERROR_HINT
+                loadingHint: LOADING_HINT_ERROR
             }
             this.emitChange()
         }

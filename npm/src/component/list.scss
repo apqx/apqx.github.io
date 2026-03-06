@@ -18,7 +18,7 @@ $listItemRadius: 0.2rem;
 
     .mdc-deprecated-list-divider {
         border: none;
-        border-top: var(--list-divider-height) solid var(--list-divider-color);
+        border-top: var(--list-divider-height) solid transparent;
     }
 
     .mdc-deprecated-list-item {

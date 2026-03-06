@@ -1,5 +1,5 @@
 import { consoleDebug, consoleObjDebug } from "../../../util/log";
-import { ERROR_HINT, getLoadHint } from "../../react/LoadingHint";
+import { LOADING_HINT_ERROR, getLoadHint } from "../../react/LoadingHint";
 import { BaseExternalStore } from "./BaseExternalStore";
 import type { BasePagefindPaginator, BasePagefindPaginatorOptions } from "./BasePagefindPaginator";
 import type { BasePaginateViewModelState } from "./bean/BasePaginateViewModelState";
@@ -49,7 +49,7 @@ export class PagefindPaginateViewModel<P, T, O extends BasePagefindPaginator<P, 
             const totalPostsSize = this.paginator.totalPostsSize()
             this.state = {
                 loading: false,
-                loadingHint: this.onlyShowLoadingAndError ? undefined : getLoadHint(posts.length, totalPostsSize),
+                loadingHint: posts.length > 0 && this.onlyShowLoadingAndError ? undefined : getLoadHint(posts.length, totalPostsSize),
                 posts: posts,
                 totalPostsSize: totalPostsSize
             }
@@ -59,7 +59,7 @@ export class PagefindPaginateViewModel<P, T, O extends BasePagefindPaginator<P, 
             this.state = {
                 ...this.state,
                 loading: false,
-                loadingHint: ERROR_HINT
+                loadingHint: LOADING_HINT_ERROR
             }
             this.emitChange()
         }
@@ -80,7 +80,7 @@ export class PagefindPaginateViewModel<P, T, O extends BasePagefindPaginator<P, 
             const totalPostsSize = this.paginator.totalPostsSize()
             this.state = {
                 loading: false,
-                loadingHint: this.onlyShowLoadingAndError ? undefined : getLoadHint(posts.length, totalPostsSize),
+                loadingHint: posts.length > 0 && this.onlyShowLoadingAndError ? undefined : getLoadHint(posts.length, totalPostsSize),
                 posts: posts,
                 totalPostsSize: totalPostsSize
             }
@@ -90,7 +90,7 @@ export class PagefindPaginateViewModel<P, T, O extends BasePagefindPaginator<P, 
             this.state = {
                 ...this.state,
                 loading: false,
-                loadingHint: ERROR_HINT
+                loadingHint: LOADING_HINT_ERROR
             }
             this.emitChange()
         }

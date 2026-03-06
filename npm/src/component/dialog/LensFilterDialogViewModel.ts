@@ -5,7 +5,7 @@ import { getServiceInstance, SERVICE_DEBUG_MODE_AUTO } from "../../repository/Se
 import { consoleError, consoleObjDebug, consoleObjError } from "../../util/log"
 import { sleepUntilMinimalTime } from "../../util/tools"
 import { BaseExternalStore } from "../base/paginate/BaseExternalStore"
-import { ERROR_HINT } from "../react/LoadingHint"
+import { LOADING_HINT_ERROR } from "../react/LoadingHint"
 
 interface LensFilterDialogState {
     loading: boolean,
@@ -53,7 +53,7 @@ export class LensFilterDialogViewModel extends BaseExternalStore {
             this.state = {
                 ...this.state,
                 loading: false,
-                loadingHint: ERROR_HINT
+                loadingHint: LOADING_HINT_ERROR
             }
             this.emitChange()
         }

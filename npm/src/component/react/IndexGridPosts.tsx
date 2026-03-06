@@ -1,6 +1,6 @@
 // import "./GridIndexList.scss"
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
-import { ERROR_HINT, LoadingHint } from "./LoadingHint"
+import { LOADING_HINT_ERROR, LOADING_HINT_NO_RESULT, LoadingHint } from "./LoadingHint"
 import { consoleDebug, consoleObjDebug } from "../../util/log"
 import { onTagTriggerClick } from "../tag"
 import { getInterSectionObserver, queryAnimatedElement } from "../animation/BaseAnimation"
@@ -51,7 +51,7 @@ export function IndexGridPosts(props: Props) {
     }, [])
 
     const onLoadMore = useCallback(() => {
-        if (state.loadingHint !== ERROR_HINT) {
+        if (state.loadingHint != LOADING_HINT_ERROR && state.loadingHint != LOADING_HINT_NO_RESULT) {
             paginateViewModel.loadMore()
         }
     }, [state.loadingHint])

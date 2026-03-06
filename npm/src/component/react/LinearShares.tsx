@@ -1,7 +1,7 @@
 import "./LinearShares.scss";
 import { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from "react";
 import { consoleDebug, consoleObjDebug } from "../../util/log";
-import { ERROR_HINT, LoadingHint } from "./LoadingHint";
+import { LOADING_HINT_ERROR, LOADING_HINT_NO_RESULT, LoadingHint } from "./LoadingHint";
 import { createRoot } from "react-dom/client";
 import { HttpPaginatorViewModel } from "../base/paginate/HttpPaginateViewModel";
 import { ShareHttpPaginator } from "../base/paginate/ShareHttpPaginator";
@@ -39,7 +39,7 @@ export function LinearShares(props: BasePaginateViewProps<Share>) {
     }, [])
 
     const onLoadMore = useCallback(() => {
-        if (state.loadingHint !== ERROR_HINT) {
+        if (state.loadingHint != LOADING_HINT_ERROR && state.loadingHint != LOADING_HINT_NO_RESULT) {
             paginateViewModel.loadMore()
         }
     }, [state.loadingHint])
