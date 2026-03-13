@@ -18,6 +18,10 @@
 
 ![立泉落落｜透镜](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/screenshots/blog_index_lens.webp)
 
+标签：
+
+![立泉落落｜透镜](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/screenshots/blog_tags.webp)
+
 ## Markdown
 
 博文以 Markdown 格式撰写，由 Jekyll 转换为 HTML 网页：
@@ -30,7 +34,11 @@
 
 ## Pagefind
 
-站内搜索功能基于 Pagefind 实现，需要先扫描站点生成索引文件：
+站内搜索功能基于 Pagefind 实现：
+
+![立泉落落](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/screenshots/blog_search.webp)
+
+需要先扫描站点生成索引文件：
 
 ```sh
 # 进入博客根目录
