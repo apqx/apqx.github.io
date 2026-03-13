@@ -3,7 +3,7 @@ layout: post
 categories: original
 title: "关于 Git 与 GitHub 的一些心得"
 author: 立泉
-mention: 身份验证 分支关联 SSH 
+mention: 身份验证 分支关联 主分支重命名 SSH 
 date: 2023-09-07 19:30:00 +0800
 description: 软件开发者对 Git 不会陌生，它是现代最受欢迎的开源分布式版本控制工具，典型使用场景下，多个客户端从中央仓库 pull 拉取代码副本，各自开发`commit`再`push`到中央仓库。“分布式”的意思是各个客户端的开发互相独立，分布进行，只在需要时与中央仓库同步。
 image: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20230605/github_url_ssh_thumb.jpg
@@ -111,7 +111,7 @@ git commit -m "First commit"
 
 在 GitHub 上创建远程仓库时不要选择添加`.gitignore`和`README.md`，会导致其自动为这两个文件的创建产生`commit`记录，没有必要，在本地仓库添加它们更合适。
 
-从某个时间节点开始 GitHub 创建的仓库默认是 main 分支，而本地创建则默认是 master，为保持一致建议在本地有过`commit`之后修改 master 分支名为 main：
+从某个时间节点开始 GitHub 创建的仓库默认是 main 分支，而本地创建默认是 master，为保持一致建议在本地有过`commit`之后修改 master 分支名为 main：
 
 ```sh
 # 本地有过 commit 记录后，master 分支是有效的
@@ -171,6 +171,31 @@ git push -u origin dev
 git branch -d <branch-name>
 # 删除指定的远程分支
 git push origin --delete <branch-name>
+```
+
+## 旧仓库主分支重命名
+
+对于已链接的 GitHub 旧仓库，如果主分支是 master，可通过以下几个步骤修改为 main：
+
+```sh
+# 列出本地分支
+git branch
+# 列出远程分支
+git branch -r
+
+# 重命名本地 master 分支为 main
+git branch -m master main
+# 将本地 main 分支推送到远程仓库，若不存在，则创建同名分支
+git push -u origin main
+```
+
+此时 GitHub 中已经有刚才 push 过去的 main 分支，在仓库 Settings 中将主分支修改为 main，然后即可删除 master 分支：
+
+```sh
+# 删除远程仓库中的 master 分支
+git push origin --delete master
+# 如果需要，拉取一下远程分支信息
+git fetch
 ```
 
 ## 尾声

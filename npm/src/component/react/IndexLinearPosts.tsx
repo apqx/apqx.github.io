@@ -10,7 +10,7 @@ import { HttpPaginatorViewModel } from "../base/paginate/HttpPaginateViewModel"
 import type { ApiPost } from "../../repository/bean/service/ApiPost"
 import { PostHttpPaginator } from "../base/paginate/PostHttpPaginator"
 import type { BasePaginateViewProps } from "../base/paginate/bean/BasePaginateViewProps"
-import { toggleElementClass } from "../../util/tools"
+import { convertPinedToFeatured, toggleElementClass } from "../../util/tools"
 
 export function IndexLinearPosts(props: BasePaginateViewProps<Post>) {
     const paginateViewModel = useMemo(() => {
@@ -48,26 +48,21 @@ export function IndexLinearPosts(props: BasePaginateViewProps<Post>) {
     }, [state.posts])
 
     const showPosts = useMemo(() => {
-        if (state.posts.length == 0) {
-            return props.loadedPosts
+        let posts = props.loadedPosts
+        if (state.posts.length > 0) {
+            posts = state.posts
         }
-        return state.posts
+        // 把 pinned 项目放在前面
+        return props.pinnedPosts.concat(convertPinedToFeatured(props.pinnedPosts.length, posts))
     }, [state.posts])
 
     return (
         <ul className="index-ul">
-            {/* 置顶 */}
-            {props.pinnedPosts.map((post) =>
-                <IndexItem key={post.title + post.date}
-                    title={post.title} author={post.author} date={post.date} description={post.description} path={post.path}
-                    fromPinnedList={true} pinned={true} featured={post.featured} />
-            )}
-            {/* 普通 */}
             {showPosts.map((item, index) =>
                 // 有时候 jekyll 生成的 path 和 paginate 生成的 path 不一样，导致 item 重新加载
                 <IndexItem key={item.path}
                     title={item.title} author={item.author} date={item.date} description={item.description} path={item.path}
-                    fromPinnedList={false} pinned={item.pinned} featured={item.featured} />
+                    pinned={item.pinned} featured={item.featured} last={index === showPosts.length - 1} />
             )}
             <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore} />
         </ul>
@@ -80,9 +75,9 @@ type IndexItemProps = {
     date: string,
     description: string,
     path: string,
-    fromPinnedList: boolean,
     pinned: boolean,
     featured: boolean,
+    last: boolean
 }
 
 function IndexItem(props: IndexItemProps) {
@@ -148,15 +143,15 @@ function IndexItem(props: IndexItemProps) {
                         {date.month}<span className="month">月</span>
                         {date.day}<span className="day">日</span>
                     </span>
-                    {props.fromPinnedList &&
+                    {props.pinned &&
                         <span className="index-pinned-icon-container"><i className="material-symbols-rounded-variable">keep</i></span>
                     }
-                    {!props.fromPinnedList && (props.pinned || props.featured) &&
+                    {!props.pinned && props.featured &&
                         <span className="index-featured-icon-container"><i className="material-symbols-rounded-variable">editor_choice</i></span>
                     }
                 </section>
             </a>
-            <hr className="index-li-divider" />
+            {!props.last && <hr className="index-li-divider" />}
         </li>
     )
 }

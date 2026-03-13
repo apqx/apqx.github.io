@@ -55,7 +55,8 @@
 
     .image-loaded & {
         opacity: 1;
-        transition: opacity var(--index-card-animation-duration) ease;
+        // 叠加 blur 的透明度动画会产生视觉闪烁，暂时去掉
+        // transition: opacity var(--index-card-animation-duration) ease;
     }
 }
 

@@ -4,12 +4,6 @@
   "icons": [
     {
       "purpose": "maskable",
-      "sizes": "96x96",
-      "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/reading/icon_maskable_96.png",
-      "type": "image/png"
-    },
-    {
-      "purpose": "maskable",
       "sizes": "192x192",
       "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/reading/icon_maskable_192.png",
       "type": "image/png"
@@ -18,12 +12,6 @@
       "purpose": "maskable",
       "sizes": "1024x1024",
       "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/reading/icon_maskable_1024.png",
-      "type": "image/png"
-    },
-    {
-      "purpose": "any",
-      "sizes": "96x96",
-      "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/reading/icon_corner_96.png",
       "type": "image/png"
     },
     {

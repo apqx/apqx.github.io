@@ -9,7 +9,7 @@ import { getSectionTypeByPath, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL } from 
 import type { SectionType } from "../../base/constant"
 import { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from "react"
 import { getSplittedDate } from "../../base/post"
-import { SmoothCollapse } from "../animation/SmoothCollapse"
+import { SmoothCollapse } from "../react/SmoothCollapse"
 import { HttpPaginatorViewModel } from "../base/paginate/HttpPaginateViewModel"
 import type { ApiPost } from "../../repository/bean/service/ApiPost"
 import type { Post } from "../base/paginate/bean/Post"

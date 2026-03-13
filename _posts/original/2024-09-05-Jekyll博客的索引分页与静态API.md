@@ -3,7 +3,7 @@ layout: post
 categories: original
 title: "Jekyll 博客的索引分页与静态 API"
 author: 立泉
-mention: AutoPages Pagination Scroll
+mention: AutoPages Pagination Scroll LoadIndicator
 date: 2024-09-05 19:30:00 +0800
 description: 博客首页一般显示文章索引，当文章数量很多时为优化性能不应该一次加载整个列表，而是先加载一段再按需逐渐加载剩余内容，即 Pagination 分页。
 image: 
@@ -169,7 +169,7 @@ pagination:
 
 ## 加载时机
 
-滚动加载新数据是一个常见交互，如何检测滚动判断加载时机也是一个常见话题。列表“滚动”是指其`height`高度超过`viewport`显示区域，处于`overflow`溢出的可滚动状态，只需检测列表的`scrollY`滚动距离，通过`height - viewport.height - scrollY`计算列表底部与`viewport`显示区域的距离，小于一个阈值即是触发加载新数据的时机。
+滚动加载新数据是一个常见交互，如何检测滚动判断加载时机也是一个常见话题。列表“滚动”是指其`height`高度超过`viewport`显示区域处于`overflow`溢出的可滚动状态，只需检测列表的`scrollY`滚动距离，通过`height - viewport.height - scrollY`计算列表底部与`viewport`显示区域的距离，小于一个`threshold`阈值即是触发加载新数据的时机。
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20240905/scroll_thumb.webp){: loading="lazy" class="clickable clickShowOriginalImg" alt="scroll" }
 

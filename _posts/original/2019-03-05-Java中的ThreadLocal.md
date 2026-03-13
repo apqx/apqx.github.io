@@ -3,7 +3,7 @@ layout: post
 categories: original
 title: "Java 中的 ThreadLocal"
 author: 立泉
-mention: 线程私有 源码 ThreadLocalMap
+mention: 线程私有 SourceCode ThreadLocalMap
 date: 2019-03-05 19:30:00 +0800
 description: 没怎么用过但很好奇它是如何实现的线程私有数据，阅读源码获得的答案远比预期简单。
 image: 

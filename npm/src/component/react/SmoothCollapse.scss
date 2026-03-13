@@ -7,11 +7,9 @@
 }
 
 .smooth-collapse-wrapper {
-    // border-top: 1px solid transparent;
     // ResizeObserver 获得的尺寸是 Box 尺寸，不包含边界 margin，这里需要的是包含 margin 的完整尺寸
     // 这样可以阻止外边距折叠，使 ResizeObserver 能获得包含 margin 的元素尺寸变化
     // 否则获得的尺寸会比实际少去 margin 的部分
-    overflow: hidden;
     display: flow-root;
 
     // width: fit-content;

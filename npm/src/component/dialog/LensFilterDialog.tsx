@@ -2,7 +2,7 @@ import "./LensFilterDialog.scss"
 import { useCallback, useEffect, useMemo, useSyncExternalStore } from "react";
 import { BaseDialog, LENS_FILTER_DIALOG_WRAPPER_ID, showDialog, type ActionBtn, type BaseDialogOpenProps } from "./BaseDialog";
 import { LensFilterDialogViewModel, type Category } from "./LensFilterDialogViewModel";
-import { SmoothCollapse } from "../animation/SmoothCollapse";
+import { SmoothCollapse } from "../react/SmoothCollapse";
 import { CheckableTag } from "../react/CheckableTag";
 import { LoadingHint } from "../react/LoadingHint";
 import { consoleDebug } from "../../util/log";
