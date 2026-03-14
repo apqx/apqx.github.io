@@ -3,16 +3,16 @@ layout: post
 categories: original
 title: "Android 中的 MVP 与 MVVM"
 author: 立泉
-mention: 架构 生命周期 Jetpack
+mention: 架构 生命周期 数据流动 Jetpack
 date: 2019-03-07 19:30:00 +0800
 description: 我在工作中大量使用过 MVP，对 MVC 和 MVVM 只是有所耳闻，接触 Kotlin 和 Jetpack 后开始尝试在自己的练习中使用这些新东西，编程不再是入门时枯燥的堆砌代码，而是像打造艺术品一样津津有味，这样的变化真实而有趣。
 image: 
 tags: Code Android MVP MVVM
 ---
 
-初学 Android 只知道`Activity`可以控制 UI，并不懂设计模式，也不知道操作数据的逻辑代码应该如何归类，索性全堆砌在`Activity`和`Fragment`里。但随着功能逻辑的复杂化，`Activity`结构开始变得混乱、臃肿、难以维护，在长文件里到处跳跃的感觉岂止酸爽。后来看到 MVP 顿时豁然开朗，原来可以这样，它将`View`和`Model`分离用`Presenter`连接，代码中 UI 驱动的逻辑立刻清晰整洁。
+初学 Android 只知道`Activity`可以控制 UI，并不懂设计模式，也不知道操作数据的逻辑代码应该如何归类，索性全堆砌在`Activity`和`Fragment`里。但随着功能逻辑复杂化，`Activity`结构开始变得混乱、臃肿、难以维护，在长文件里到处跳跃不是长久之计。后来看到 MVP 豁然开朗，原来可以这样，它将`View`和`Model`分离用`Presenter`连接，代码中 UI 驱动的逻辑立刻清晰整洁。
 
-我在工作中大量使用 MVP，之后接触 Jetpack，其`DataBinding`、`LiveData`和`ViewModel`向我预示一个新的设计模式： MVVM。它的`View`和`Model`概念与 MVP 一致，不同的是`ViewModel`，把视图和数据双向绑定，当数据发生变化时视图自动更新，而视图变化也会直接作用到数据上。这种比 MVP 更简洁的结构让我很感兴趣。
+我在工作中大量使用 MVP，之后接触 Jetpack，其`DataBinding`、`LiveData`和`ViewModel`预示着一个新的设计模式：MVVM。它的`View`和`Model`概念与 MVP 一致，不同的是`ViewModel`，把视图和数据双向绑定，当数据发生变化时视图自动更新，而视图变化也直接作用到数据上。这种比 MVP 更简洁的结构让我很感兴趣。
 
 ## 古老的 MVC
 
@@ -343,4 +343,4 @@ class WeatherViewModel : ViewModel() {
 
 ## 结语
 
-我在工作中大量使用 MVP，对 MVC 和 MVVM 只是耳闻，接触 Kotlin 和 Jetpack 后尝试在练习中使用这些新东西，编程不再是入门时枯燥的堆砌代码而是像打造艺术品一样津津有味，这样的变化真实而有趣。
+我在工作中大量使用 MVP，对 MVC 和 MVVM 只是耳闻，接触 Kotlin 和 Jetpack 后尝试使用这些新工具，编程不再是入门时枯燥的堆砌代码而是像打造艺术品一样津津有味，这样的变化真实而有趣。

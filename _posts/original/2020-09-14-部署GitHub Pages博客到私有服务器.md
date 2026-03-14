@@ -3,11 +3,11 @@ layout: post
 categories: original
 title: "部署 GitHub Pages 博客到私有服务器"
 author: 立泉
-mention: Jekyll Server Nginx HTTPS OSS
+mention: Jekyll GoogleCloud Server Nginx HTTPS OSS
 date: 2020-09-14 19:30:00 +0800
 description: 博客托管在 GitHub Pages 上，不是我的错觉，它在大陆的访问速度正变得越来越不稳定，有时甚至要等 5 秒以上才能打开，这让我无法接受。博客是沉淀知识阅历的地方，应该触手可及而非无意义等待。
 image: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20200914/jekyll_project.png
-tags: Code GitHub Jekyll Blog HTTPS 云计算 阿里云 OSS 对象存储
+tags: Code GitHub Jekyll Blog Nginx HTTPS 云计算 阿里云 OSS 对象存储
 ---
 
 博客托管在 GitHub Pages 上，不是我的错觉，它在大陆的访问速度正变得越来越不稳定，有时甚至要等 5 秒以上才能打开，这让我无法接受。博客是沉淀知识阅历的地方，应该触手可及而非无意义等待。

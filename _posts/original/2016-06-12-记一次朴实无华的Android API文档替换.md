@@ -3,7 +3,7 @@ layout: post
 categories: original
 title: "记一次朴实无华的 Android API 文档替换"
 author: 立泉
-mention: GFW Java GoogleAnalytics
+mention: GFW Java Stream GoogleAnalytics
 date: 2016-06-12 19:30:00 +0800
 description: 使用浏览器查看本机 Android SDK 里的 API 文档，发现其在联网状态下加载缓慢，而断开网络则正常🤔。
 image: 

@@ -43,10 +43,10 @@
 ```sh
 # 进入博客根目录
 # 删除旧索引
-rm -rf npm/pagefind
+rm -rf assets/pagefind
 # 在 Jekyll 生成网站后扫描博客文章生成新索引
-# 扫描目录为 Jekyll 的站点目录 _site/，输出目录为 npm/pagefind/
-pagefind --site _site --output-path npm/pagefind
+# 扫描目录为 Jekyll 的站点目录 _site/，输出目录为 assets/pagefind/
+pagefind --site _site --output-path assets/pagefind
 ```
 
 ## 本地调试

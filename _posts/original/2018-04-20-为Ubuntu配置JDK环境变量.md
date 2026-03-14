@@ -7,7 +7,7 @@ mention: JAVA_HOME Export Terminal OpenJDK
 date: 2018-04-20 19:30:00 +0800
 description: 经常对很多事情感到好奇，习惯图形化交互高度成熟的 Windows 10，有点想尝试传说中“纯手工”操作的 Linux。刚好要组装人生第一个台式机，Ubuntu 自然是首选操作系统。
 image: 
-tags: Code Ubuntu Linux Java JDK
+tags: Code Ubuntu Linux Java JDK 环境变量
 outdated: true
 ---
 
