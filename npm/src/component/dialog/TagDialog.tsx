@@ -163,10 +163,10 @@ function PostItem(props: PostItemProps) {
         <li ref={containerRef}>
             {/* 禁止列表自动获取焦点，可能导致 dialog 关闭时意外滚动到焦点位置 */}
             <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken tag-list-item mdc-ripple-upgraded" href={props.data.url} tabIndex={-1}>
-                <span className="mdc-deprecated-list-item__text">
+                <div className="mdc-deprecated-list-item__text">
                     <span className="list-item__primary-text one-line">{props.data.title}</span>
                     <div className="list-item__secondary-text tag-list-item__secondary-container">
-                        <span className="tag-list-item__block-container">
+                        <div className="tag-list-item__block-container">
                             <span className="tag-list-item__post-type">
                                 {date.year}<span className="year">年</span>
                                 {date.month}<span className="month">月</span>
@@ -178,9 +178,9 @@ function PostItem(props: PostItemProps) {
                             {props.data.block2Array.map((value, index) =>
                                 <Block key={value} type={2} title={value} />
                             )}
-                        </span>
+                        </div>
                     </div>
-                </span>
+                </div>
             </a>
             <hr className="mdc-deprecated-list-divider" />
         </li>

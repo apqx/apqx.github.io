@@ -7,7 +7,7 @@ mention: EC2 Nginx ReverseProxy 按量付费 配额限制
 date: 2024-10-14 +0800
 description: Gemini 的 API 域名无法在大陆直接访问，每次调用它做一些简单事情都要先启动系统代理。最近通过 AWS Free Tier 获得了 EC2 服务器一年的试用期，但除去做这个博客 Server 外并没有找到其它实际需求，对 Google API 做反向代理似乎是一个有价值的切入点。
 cover: 
-tags: Code Gemini AWS EC2 Proxy Nginx
+tags: Code AI Gemini AWS EC2 Proxy Nginx
 ---
 
 Gemini 的 API 域名`generativelanguage.googleapis.com`无法在大陆直接访问，每次调用它做一些简单事情都要先启动系统代理。最近通过 AWS Free Tier 获得了 EC2 服务器一年的试用期，但除去做这个博客 Server 外并没有找到其它实际需求，对 Google API 做反向代理似乎是一个有价值的切入点。

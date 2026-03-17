@@ -8,6 +8,7 @@ date: 2018-11-20 19:30:00 +0800
 description: 其实很长一段时间我并不知道 Handler 是如何工作的，接触 RxJava 之前切换线程只是 handler.post(() -> {})，但随着项目更迭我需要知道关键组件的执行原理，不然无法为代码质量负责。
 image: 
 tags: Code Android Thread Handler SourceCode
+featured: true
 ---
 
 其实很长一段时间我并不知道`Handler`是如何工作的，接触 RxJava 之前切换线程只是`handler.post(() -> {})`，但随着项目更迭我需要知道关键组件的执行原理，不然无法为代码质量负责。

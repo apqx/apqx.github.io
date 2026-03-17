@@ -117,7 +117,7 @@ ALL_PROXY:  socks5://127.0.0.1:7897
 
 若从 Gemini CLI 使用的 OAuth2 授权机制来看，其实可以清晰发现症结所在。
 
-在这一机制中，CLI 并不直接要求在终端输入账号密码，而是通过浏览器打开一个 Google 账号授权页面，同时本地启动一个 Web Server 服务等待浏览器传回授权结果，通常是一个授权码。用户在浏览器授权页面完成授权时触发重定向到 localhost 对应端口，CLI Server 获得授权码后向 Google 服务器换取代表用户身份的`access_token`，完成登录。
+在这一机制中，CLI 并不直接要求在终端输入账号密码，而是通过浏览器打开一个 Google 账号授权页面，同时本地启动一个 Web Server 服务等待浏览器传回授权结果，通常是一个授权码。用户在浏览器授权页完成授权时触发重定向到 localhost 对应端口，CLI Server 获得授权码后向 Google 服务器换取代表用户身份的`access_token`，完成登录。
 
 通过`lsof -nP -iTCP | grep LISTEN`可查看本地启动的 Web Server：
 

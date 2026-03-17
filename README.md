@@ -28,7 +28,7 @@
 
 ![立泉落落](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/screenshots/blog_post.webp)
 
-关联标签：
+关联博文：
 
 ![立泉落落](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/screenshots/blog_post_relative.webp)
 
