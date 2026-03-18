@@ -7,6 +7,7 @@ import type { Root } from "react-dom/client"
 import { setupButtonRipple } from "../button"
 import { ScrollLoader } from "../../base/ScrollLoader"
 import { toggleScrimActive } from "../scrim"
+import { ScrollContext } from "../react/LoadingHint"
 
 export interface ActionBtn {
     text: string,
@@ -34,6 +35,7 @@ const defaultActionBtn: ActionBtn = { text: "关闭", closeOnClick: true, onClic
 export function BaseDialog({ openCount, fixedWidth = false, closeOnClickOutside = true, scrollToTopOnDialogOpen = true,
     onLoadMore = undefined, onDialogOpen = undefined, onDialogClose = undefined, actions = [defaultActionBtn], children }: BaseDialogProps) {
     const containerRef = useRef<HTMLDivElement>(null)
+    const scrollContainerRef = useRef<HTMLDivElement>(null)
     const dialogContentRef = useRef<HTMLDivElement>(null)
     const dialogRef = useRef<MDCDialog>(null)
     const btnCloseRef = useRef<HTMLElement>(null)
@@ -68,7 +70,7 @@ export function BaseDialog({ openCount, fixedWidth = false, closeOnClickOutside 
 
         return () => {
             consoleDebug("BaseDialog useEffect cleanup")
-            
+
             clearListeners()
             dialogRef.current?.destroy()
         }
@@ -188,10 +190,13 @@ export function BaseDialog({ openCount, fixedWidth = false, closeOnClickOutside 
                     role="alertdialog" aria-modal="true"
                     aria-labelledby="basic-dialog-title"
                     aria-describedby="basic-dialog-content">
-                    <div className="mdc-dialog__content mdc-theme--on-surface"
-                        id="basic-dialog-content">
-                        {children}
-                    </div>
+                    <ScrollContext.Provider value={scrollContainerRef}>
+                        <div ref={scrollContainerRef} className="mdc-dialog__content mdc-theme--on-surface"
+                            id="basic-dialog-content">
+                            {children}
+                        </div>
+                    </ScrollContext.Provider>
+
                     {actions && actions.length > 0 &&
                         <div className="mdc-dialog__actions basic-dialog_actions">
                             {actions.map((btn, index) =>

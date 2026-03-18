@@ -5,6 +5,7 @@ import { consoleDebug } from "../../util/log"
 type SmoothCollapseProps = {
     children: React.ReactNode
 }
+
 /**
  * 根据子元素高度平滑改变容器高度的组件
  */
@@ -68,7 +69,7 @@ function calculateDuration(newSize: number, preSize: number, propertyName: strin
 }
 
 function isElementHidden(el: HTMLElement): boolean {
-  // 注意：这个判断对 position: fixed 的元素在某些浏览器下会有例外
-  // 但对于大多数布局场景，它是判断 display: none 的金标准
-  return el.offsetParent === null && el.tagName !== 'BODY';
+    // 注意：这个判断对 position: fixed 的元素在某些浏览器下会有例外
+    // 但对于大多数布局场景，它是判断 display: none 的金标准
+    return el.offsetParent === null && el.tagName !== 'BODY';
 };

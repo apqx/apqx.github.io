@@ -1,11 +1,18 @@
 import "./LoadingHint.scss"
 import { Button } from "./Button"
 import { ProgressCircular } from "./ProgressCircular"
-import { useEffect, useMemo, useRef } from "react"
-import { consoleDebug } from "../../util/log"
+import { createContext, useContext, useEffect, useMemo, useRef } from "react"
+import { consoleDebug, consoleObjDebug } from "../../util/log"
 
 export const LOADING_HINT_ERROR: string = "重试加载"
 export const LOADING_HINT_NO_RESULT: string = "暂无数据"
+
+/**
+ * 用于父级组件提供滚动容器的 Context，LoadingHint 组件会使用 IntersectionObserver 监听自身是否进入视口，从而触发加载更多的回调函数
+ */
+export const ScrollContext = createContext<React.RefObject<HTMLDivElement | null> | null>(null);
+
+export const useScrollRoot = () => useContext(ScrollContext);
 
 interface Props {
     loading: boolean
@@ -17,14 +24,22 @@ interface Props {
 export function LoadingHint(props: Props) {
     const containerRef = useRef<HTMLDivElement>(null)
     const onLoadMoreRef = useRef(props.onLoadMore)
+    const scrollRoot = useScrollRoot()
 
     useEffect(() => {
         onLoadMoreRef.current = props.onLoadMore
     }, [props.onLoadMore])
 
     useEffect(() => {
-        consoleDebug("LoadingHint useEffect window.innerHeight: " + window.innerHeight)
         let gap = window.innerHeight * 0.8
+        if (scrollRoot?.current) {
+            gap = scrollRoot.current.clientHeight * 0.8
+        }
+        if (gap == 0) {
+            gap = 400
+        }
+        consoleDebug("LoadingHint useEffect gap: " + gap)
+        consoleObjDebug("LoadingHint useEffect scrollRoot:", scrollRoot?.current)
         const interSectionObserver = new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 consoleDebug("LoadingHint IntersectionObserver isIntersection: " + entry.isIntersecting)
@@ -35,6 +50,7 @@ export function LoadingHint(props: Props) {
                 }
             })
         }, {
+            root: scrollRoot?.current ?? null,
             threshold: 0,
             rootMargin: `0px 0px ${gap}px 0px`
         })
