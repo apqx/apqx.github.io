@@ -32,6 +32,9 @@
                     <span data-pagefind-meta="imageSize">{{ page.imageSize }}</span>
                     <span data-pagefind-meta="pinned">{{ page.pinned }}</span>
                     <span data-pagefind-meta="featured">{{ page.featured }}</span>
+                    {%- if page.pinned == true or page.featured == true %}
+                        <span data-pagefind-filter="tag">精选</span>
+                    {%- endif %}
                 </div>
 
                 <!-- tags -->
