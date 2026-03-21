@@ -1,3 +1,7 @@
+# 配置 Ruby 的默认编码为 UTF-8，确保在处理文本时不会出现编码问题
+Encoding.default_external = Encoding::UTF_8
+Encoding.default_internal = Encoding::UTF_8
+
 source "https://rubygems.org"
 # source "https://mirrors.aliyun.com/rubygems/"
 
