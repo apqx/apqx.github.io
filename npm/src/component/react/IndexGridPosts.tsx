@@ -41,14 +41,10 @@ export function IndexGridPosts(props: Props) {
         }
     }, [])
 
-    useEffect(() => {
-        setRefreshLayoutVersion(v => v + 1)
-    }, [state.posts])
-
-    const coverLoadedCallback = useCallback(() => {
-        // 触发 masonry 重新布局，图片尺寸变化会导致布局变化
-        setRefreshLayoutVersion(v => v + 1)
-    }, [])
+    // useEffect(() => {
+    //     // 手动通知 masonry 组件在数据变化时触发布局
+    //     setRefreshLayoutVersion(v => v + 1)
+    // }, [state.posts])
 
     const onLoadMore = useCallback(() => {
         if (state.loadingHint != LOADING_HINT_ERROR && state.loadingHint != LOADING_HINT_NO_RESULT) {
@@ -92,6 +88,7 @@ export function IndexGridPosts(props: Props) {
         if (state.posts.length == 0) {
             posts = props.loadedPosts
         }
+        consoleObjDebug("Show posts in index grid", posts)
         return [descriptionPost, ...posts]
     }, [state.posts, props.pageDescriptionHtml])
 
@@ -116,7 +113,7 @@ export function IndexGridPosts(props: Props) {
                             coverAlt={item.coverAlt}
                             coverSize={item.coverSize}
                             last={index == showPosts.length - 1}
-                            coverLoadedCallback={coverLoadedCallback} />)
+                            coverLoadedCallback={undefined} />)
                 }
                 defaultColumns={2}
                 breakpoints={[

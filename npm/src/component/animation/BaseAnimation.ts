@@ -14,10 +14,10 @@ export function getInterSectionObserver() {
                     // 判断元素是从下方进入还是上方进入，决定动画的方向
                     const slidFromBottom = entry.boundingClientRect.y > 0
                     if (containsSlideInClass(entry.target)) {
-                        consoleObjDebug("Content slide-in", entry.target)
+                        // consoleObjDebug("Content slide-in", entry.target)
                         handleSlideInBase(entry, slidFromBottom)
                     } else if (containsFadeInClass(entry.target)) {
-                        consoleObjDebug("Content fade-in", entry.target)
+                        // consoleObjDebug("Content fade-in", entry.target)
                         handleFadeIn(entry)
                     }
                     // 只触发一次动画，之后不再监听

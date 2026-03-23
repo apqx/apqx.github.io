@@ -132,7 +132,8 @@ export function Masonry<T>({
 
     const scheduleRelayout = useCallback(() => {
         if (layoutRafRef.current !== null) {
-            return
+            window.cancelAnimationFrame(layoutRafRef.current)
+            layoutRafRef.current = null
         }
 
         layoutRafRef.current = window.requestAnimationFrame(() => {

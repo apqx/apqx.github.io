@@ -56,11 +56,12 @@ function initImgJump() {
             // _thumb: 缩略图标识
             // _jpg: 原图后缀名标识，默认缩略图和原图为相同格式。若缩略图是 webp 原图是 jpg 需加此标识
             // _for_lens: 透镜分区标识，表明此缩略图是为透镜分区准备的
+            // _for_cover: 封面标识，表明此缩略图是为封面准备的
             let imgUrl = img.getAttribute("src")!!
             if (imgUrl.includes("_jpg")) {
                 imgUrl = imgUrl.substring(0, imgUrl.lastIndexOf(".")) + ".jpg"
             }
-            targetUrl = imgUrl.replace("_thumb", "").replace("_jpg", "").replace("_for_lens", "")
+            targetUrl = imgUrl.replace("_thumb", "").replace("_jpg", "").replace("_for_lens", "").replace("_for_cover", "")
             consoleDebug("Click show original img, copyright = " + hasCopyright + ", => " + targetUrl)
             if (hasCopyright) {
                 showCopyrightDialog(targetUrl);

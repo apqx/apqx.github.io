@@ -55,11 +55,11 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
         }
     }, [])
 
-    useEffect(() => {
-        consoleDebug("IndexGridLens httpState or pagefindState changed, trigger layout")
-        // 必须通知 masonry 组件在数据变化时触发布局
-        setRefreshLayoutVersion(prev => prev + 1)
-    }, [httpState.posts, pagefindState.posts])
+    // useEffect(() => {
+    //     consoleDebug("IndexGridLens httpState or pagefindState changed, trigger layout")
+    //     // 手动通知 masonry 组件在数据变化时触发布局
+    //     setRefreshLayoutVersion(prev => prev + 1)
+    // }, [httpState.posts, pagefindState.posts])
 
     const pagefindOptions = useMemo(() => {
         return {
@@ -167,7 +167,6 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
                 layoutVersion={refreshLayoutVersion}
                 columnGap={0}
                 rowGap={0}
-                estimatedItemHeight={0}
             />
             <LoadingHint loading={loadingState.loading} loadHint={loadingState.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore} />
         </ul>
