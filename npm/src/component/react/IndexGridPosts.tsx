@@ -125,6 +125,8 @@ export function IndexGridPosts(props: Props) {
                 layoutVersion={refreshLayoutVersion}
                 columnGap={0}
                 rowGap={0}
+                // 若不设置初始预估尺寸为 0，可能出现首页顺序入场的顺序错乱
+                estimatedItemHeight={0}
             />
 
             <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore} />

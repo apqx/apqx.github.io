@@ -14,7 +14,7 @@ import type { PagefindResultItem } from "../../repository/bean/pagefind/ApiPagef
 import { PostPagefindPaginator } from "../base/paginate/PostPagefindPaginator"
 import type { BasePaginateViewProps } from "../base/paginate/bean/BasePaginateViewProps"
 import { getEventEmitter } from "../base/EventBus"
-import { convertPinedToFeatured, toggleElementClass } from "../../util/tools"
+import { convertPinedToFeatured } from "../../util/tools"
 import { Masonry } from "./MasonryGe"
 
 export function IndexGridLens(props: BasePaginateViewProps<Post>) {
@@ -167,6 +167,8 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
                 layoutVersion={refreshLayoutVersion}
                 columnGap={0}
                 rowGap={0}
+                // 若不设置初始预估尺寸为 0，可能出现首页顺序入场的顺序错乱
+                estimatedItemHeight={0}
             />
             <LoadingHint loading={loadingState.loading} loadHint={loadingState.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore} />
         </ul>
