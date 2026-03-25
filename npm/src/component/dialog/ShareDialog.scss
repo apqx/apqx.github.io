@@ -26,6 +26,7 @@
 
 .share-url-item {
     display: flex;
+    position: relative;
     flex-direction: row;
     align-items: stretch;
 
@@ -37,28 +38,56 @@
         flex: 1;
         overflow-x: scroll;
         display: flex;
-        align-items: center;
-    }
+        align-items: stretch;
+        // 消除 Firefox 的 scrollBar
+        scrollbar-width: none;
 
-    .share-url-span {
-        font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
-        font-family: var(--text-code-font-family);
-        font-weight: base.$font-weight-normal-default;
-        margin: 0 1.2rem;
-        white-space: nowrap;
-    }
+        // 移动端 Chrome 的 scrollBar 一直显示，需要消除，其它浏览器 scrollBar 都会自动隐藏
+        // 在保留滚动效果的同时，消除 Safari，Chrome 的 scrollBar
+        &::-webkit-scrollbar {
+            // 消除 scrollBar
+            display: none;
+        }
 
-    .mdc-icon-button.btn-copy-url {
-        border-top-right-radius: var(--post-inner-shape-round);
-        border-bottom-right-radius: var(--post-inner-shape-round);
-        border-left: 1px solid var(--pre-code-border-heavy);
-        height: 3.4rem;
-        width: 3.5rem;
-
-        i {
-            font-size: calc(var(--mdc-typography-body1-font-size) + 0.4rem);
-            font-weight: 300;
-            color: var(--mdc-theme-on-surface-secondary);
+        .share-url-span {
+            border-radius: var(--post-inner-shape-round);
+            font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
+            font-family: var(--text-code-font-family);
+            font-weight: base.$font-weight-normal-default;
+            margin: 0.8rem 0;
+            padding: 0 3.5rem 0 1rem;
+            white-space: nowrap;
         }
     }
+
+    .btn-wrapper {
+        position: absolute;
+        display: flex;
+        align-items: stretch;
+        right: 0;
+        height: 100%;
+        border-top-right-radius: var(--post-inner-shape-round);
+        border-bottom-right-radius: var(--post-inner-shape-round);
+        background: linear-gradient(to right, transparent, var(--pre-code-bg) 30%);
+
+        &::before {
+            content: "";
+            width: 1rem;
+            height: 100%;
+        }
+
+        .mdc-icon-button.btn-copy-url {
+            border-top-right-radius: var(--post-inner-shape-round);
+            border-bottom-right-radius: var(--post-inner-shape-round);
+            height: 100%;
+            width: 3.2rem;
+
+            i {
+                font-size: calc(var(--mdc-typography-body1-font-size) + 0.3rem);
+                font-weight: 300;
+                color: var(--mdc-theme-on-surface-secondary);
+            }
+        }
+    }
+
 }

@@ -82,7 +82,9 @@ function ShareUrlItem(props: ShareUrlItemProps) {
             <div className="share-url-span-wrapper">
                 <span className="share-url-span">{props.url}</span>
             </div>
-            <IconButton icon="content_paste" onClick={onClickCopyUrl} classes={["btn-copy-url"]} tabIndex={-1} />
+            <div className="btn-wrapper">
+                <IconButton icon="content_paste" onClick={onClickCopyUrl} classes={["btn-copy-url"]} tabIndex={-1} />
+            </div>
         </div>
     )
 }

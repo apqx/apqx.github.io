@@ -7,7 +7,7 @@ mention: AutoPages Pagination Scroll LoadIndicator
 date: 2024-09-05 19:30:00 +0800
 description: 博客首页一般显示文章索引，当文章数量很多时为优化性能不应该一次加载整个列表，而是先加载一段再按需逐渐加载剩余内容，即 Pagination 分页。
 image: 
-tags: Code Blog Jekyll Pagination Scroll
+tags: Code Web Blog Jekyll Pagination Scroll
 ---
 
 Jekyll 是一个从格式化文本生成静态站点的工具，所谓“静态”是指所有 HTML 页面都在编译时创建，部署后不能动态生成新页面。由 HTML 组成的静态网站可以不需要传统后端服务直接托管到免费的 Github Pages、Cloudflare Pages 或 OSS 对象存储上，非常适合博客这样的轻量用途。
@@ -173,4 +173,116 @@ pagination:
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20240905/scroll_thumb.webp){: loading="lazy" class="clickable clickShowOriginalImg" alt="scroll" }
 
-同时应注意过滤掉滚动时高频触发的重复加载事件。
+同时应注意过滤滚动时高频触发的重复加载事件，一种思路是记录最近一次“加载”的时间戳，忽略指定时间间隔内的后续事件。
+
+### IntersectionObserver
+
+监听滚动事件之外，另一种方式是在列表底部添加一个 Sentinel 哨兵元素，比如`LoadingHint`加载指示器，通过`IntersectionObserver`监听其是否进入指定的`Viewport`视口范围来触发加载事件。
+
+`IntersectionObserver`观察者仅在被观察元素进入或离开指定视口元素的指定区域时才会触发事件，相比“像素级”变化的滚动事件对性能影响更小。注意 Intersection 是以被观察元素和其指定父级元素视口区域的重叠尺寸为判断依据的，当被观察元素的尺寸为 0 或`display: none`，则重叠尺寸永远为 0，这种情况下即使进入显示区域也不会触发进入事件。
+
+隐藏作为哨兵的加载指示器时应避免这种情况：
+
+```scss
+.loading-hint-wrapper {
+    height: 4.45rem;
+    
+    &.hide {
+        // 隐藏元素，不能用 display: none 或 height: 0，否则 intersection observer 无法正确监听元素的进入和离开
+        // intersection observer 是通过计算相交面积判断元素是否进入和离开 viewport 的，高度为 0 相交面积永远为 0
+        height: 1px;
+        // 视觉隐藏
+        visibility: hidden;
+        // 避免溢出显示
+        overflow: hidden;
+    }
+```
+
+一个基于 React 的`LoadingHint`实现示例：
+
+```ts
+/**
+ * 用于父级组件提供滚动容器元素的 Context，LoadingHint 组件会使用 IntersectionObserver 监听自身是否进入该元素视口，从而触发加载更多的回调函数
+ */
+export const ScrollContext = createContext<React.RefObject<HTMLDivElement | null> | null>(null);
+
+export const useScrollRoot = () => useContext(ScrollContext);
+
+/**
+ * 控制 UI 的属性与回调函数
+ */
+interface Props {
+    loading: boolean
+    loadHint?: string
+    onClickHint: () => void
+    onLoadMore?: () => void
+}
+/**
+ * 加载指示器，同时也作为哨兵元素
+ */
+export function LoadingHint(props: Props) {
+    const containerRef = useRef<HTMLDivElement>(null)
+    const onLoadMoreRef = useRef(props.onLoadMore)
+    const scrollRoot = useScrollRoot()
+
+    useEffect(() => {
+        // 缓存最新的回调函数引用
+        onLoadMoreRef.current = props.onLoadMore
+    }, [props.onLoadMore])
+
+    useEffect(() => {
+        let gap = window.innerHeight * 0.8
+        if (scrollRoot?.current) {
+            // 从 Context 中获取父级组件设置的滚动视口元素，其尺寸作为 Intersection 检测的扩展区域尺寸
+            gap = scrollRoot.current.clientHeight * 0.8
+        }
+        if (gap == 0) {
+            gap = 400
+        }
+        consoleObjDebug("LoadingHint useEffect scrollRoot:", scrollRoot?.current)
+        const interSectionObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                consoleDebug("LoadingHint IntersectionObserver isIntersection: " + entry.isIntersecting)
+                if (entry.isIntersecting) {
+                    // 元素进入检测区域，触发加载更多回调
+                    if (onLoadMoreRef.current) {
+                        onLoadMoreRef.current()
+                    }
+                }
+            })
+        }, {
+            // 设置哨兵元素归属的 overflow 元素，精准判断是否进入其 viewport 显示区域
+            // null 默认为浏览器视口
+            root: scrollRoot?.current ?? null,
+            // 重叠尺寸阈值为 0 代表元素的任意部分进入 viewport 都会触发观察者事件
+            threshold: 0,
+            // 设置对检测视口的扩展尺寸，在元素进入视口之前的指定距离触发进入事件即是通过配置这里实现的
+            rootMargin: `0px 0px ${gap}px 0px`
+        })
+
+        if (containerRef.current) {
+            // 当前元素作为被观察者，即哨兵
+            interSectionObserver.observe(containerRef.current)
+        }
+        return () => {
+            consoleDebug("LoadingHint useEffect cleanup")
+            if (containerRef.current) {
+                interSectionObserver.unobserve(containerRef.current)
+            }
+        }
+        // 这里锚定 loading 状态，确保每次加载完成后触发 intersection 检测
+    }, [props.loading, props.loadHint])
+
+    const hide = useMemo(() => {
+        return !props.loading && props.loadHint == null
+    }, [props.loading, props.loadHint])
+
+    return (
+        <div ref={containerRef} className={`loading-hint-wrapper center-inline-items ${hide ? "hide" : ""}`.trim()}>
+            <ProgressCircular loading={props.loading} classes={props.loading ? ["show"] : []} />
+            <Button text={props.loadHint ?? ""} onClick={props.loading ? undefined : props.onClickHint} tabIndex={-1}
+                classes={!props.loading && props.loadHint != null ? ["show"] : []} />
+        </div>
+    )
+}
+```
