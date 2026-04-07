@@ -1,6 +1,6 @@
 import "./post.scss"
 import { consoleDebug, consoleError } from "../util/log"
-import { runOnHtmlDone } from "../util/tools"
+import { isAndroidModern, runOnHtmlDone } from "../util/tools"
 import { initContentCard } from "../component/contentCard"
 import { showAlertDialog } from "../component/dialog/CommonAlertDialog"
 import { showSnackbar } from "../component/react/Snackbar"
@@ -27,7 +27,7 @@ function initCodeHighlight() {
 }
 
 /**
- * 给所有opera文章添加opera-page类，它会影响<code>的样式
+ * 给所有 opera 文章添加 opera-page 类，它会影响 <code> 样式
  */
 function initPageCheck() {
     const urlPath = window.location.pathname
@@ -45,7 +45,6 @@ function initPageCheck() {
 
 function initImgJump() {
     const imgList = document.querySelectorAll(".clickShowOriginalImg")
-    let targetUrl = ""
     for (const img of imgList) {
         // 点击图片，跳转到原图
         img.addEventListener("click", () => {
@@ -86,7 +85,8 @@ function initImgJump() {
 }
 
 function showCopyrightDialog(url: string) {
-    showAlertDialog("版权声明", "点击“跳转”将打开无水印原图，注意图片版权归属作者及剧团演员所有，未经允许不可作商业用途🤫。",
+    const formatHint = url.endsWith(".avif") && isAndroidModern() ? "原图为 P3 色域 AVIF 文件，在部分 Android 设备的图库中可能颜色偏淡。<br/>" : ""
+    showAlertDialog("版权声明", formatHint + "点击“跳转”将打开无水印原图，注意图片版权归属作者及剧团演员所有，未经允许不可作商业用途🤫。",
         "取消", undefined,
         "跳转", () => {
             window.open(url, "_blank")
@@ -102,8 +102,4 @@ function initImg() {
             showSnackbar("节省数据文中是缩略图，点击图片可跳转到原图")
         }
     })
-}
-
-function inidShareList() {
-    throw new Error("Function not implemented.")
 }

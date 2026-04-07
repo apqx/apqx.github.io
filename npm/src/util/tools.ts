@@ -96,6 +96,29 @@ export function isSafari(): boolean {
     return check
 }
 
+// 扩展类型声明
+declare global {
+  interface Navigator {
+    userAgentData?: {
+      platform: string;
+      mobile: boolean;
+      brands: Array<{ brand: string; version: string }>;
+    };
+  }
+}
+
+export function isAndroidModern(): boolean {
+  if (typeof navigator === 'undefined') return false;
+
+  // 优先使用现代 API 判断
+  if (navigator.userAgentData) {
+    return navigator.userAgentData.platform?.toLowerCase() === 'android';
+  }
+
+  // 如果浏览器不支持 userAgentData，降级使用传统 UA 判断
+  return /Android/i.test(navigator.userAgent);
+}
+
 var debugMode: boolean | undefined
 var writingMode: boolean | undefined
 
