@@ -225,7 +225,7 @@ body {
 
         --list-divider-height: 0.18rem;
 
-        --drawer-padding-horizontal: 0.55rem;
+        --drawer-padding-horizontal: 0.8rem;
 
         --topbar-height: 3.7rem;
 
@@ -236,7 +236,7 @@ body {
         // 在 index 和 post 页面酌情而定
         --center-card-to-container-border-horizontal: var(--main-container-padding-vertical);
 
-        --dialog-animation-duration: 0.32s;
+        --dialog-animation-duration: 0.25s;
         --dialog-animation-translate-y: 8rem;
         --image-height-animation-duration: 0.8s;
         --index-card-animation-duration: 0.4s;
@@ -265,7 +265,7 @@ body {
         body {
                 --image-height-animation-duration: 0.6s;
 
-                --drawer-padding-horizontal: 0.2rem;
+                --drawer-padding-horizontal: 0.5rem;
 
                 --main-container-padding-vertical: 0.6rem;
                 --center-card-to-container-border-horizontal: 0.5rem;

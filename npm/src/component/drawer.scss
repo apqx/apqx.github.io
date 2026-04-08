@@ -14,9 +14,11 @@
 @use "sass:map";
 @use "sass:color";
 
+$drawer-width: 18rem;
+
 .mdc-drawer {
-    width: 16rem;
-    z-index: 3;
+    width: $drawer-width;
+    z-index: 5;
     @include elevation.elevation(map.get(base.$drawer-elevation, "elevation"), map.get(base.$drawer-elevation, "shadow-light"), 0);
     @include drawer.item-text-ink-color(var(--mdc-theme-on-surface));
     @include drawer.item-icon-ink-color(var(--mdc-theme-on-surface));
@@ -29,8 +31,6 @@
 
     // transition: transform 0.2s ease-out !important;
     border: none;
-    padding-left: var(--drawer-padding-horizontal);
-    padding-right: var(--drawer-padding-horizontal);
 }
 
 .mdc-drawer-scroll-lock {
@@ -48,7 +48,7 @@
 }
 
 .mdc-drawer--modal+.mdc-drawer-scrim {
-    z-index: 2;
+    z-index: 4;
     @include scrim.baseScrim;
     // 尺寸相对 body 整个页面，适配 iOS 26 中 safari 对 viewport 的变化，避免被底部工具栏裁剪
     position: absolute;
@@ -63,37 +63,63 @@ $header-gap-left: 1rem;
 $list-item-padding-left: 0.8rem;
 
 .mdc-drawer {
-    .mdc-drawer__header {
-        display: flex;
-        align-items: center;
-        padding: 0 0.8rem 0.4rem $header-gap-left;
+    padding: none;
 
-        .drawer-header-text-container {
-            flex: 1;
+    .mdc-drawer__wrapper {
+        position: fixed;
+        box-sizing: border-box;
+        padding: 1rem var(--drawer-padding-horizontal);
+        overflow: scroll;
+        width: $drawer-width;
+        max-height: 100%;
 
-            .mdc-drawer__title {
-                font-weight: var(--mdc-typography-subtitle2-font-weight);
-                color: var(--mdc-theme-text-primary-on-background);
-                display: flex;
-                align-items: center;
-                margin: 0;
-                padding: 0;
+        .mdc-drawer__header {
+            display: flex;
+            align-items: center;
+            padding: 0 0.2rem 0 $header-gap-left;
+
+            #drawer_btn_share {
+                i {
+                    font-size: 1.5rem;
+                    font-weight: 310;
+                }
             }
 
-            .mdc-drawer__subtitle {
-                font-weight: var(--font-weight-normal);
-                color: var(--mdc-theme-text-secondary-on-background);
-                display: flex;
-                align-items: center;
-                margin: -5px 0 0 0;
-                padding: 0;
+            #drawer_btn_close {
+                i {
+                    font-size: 2rem;
+                    font-weight: 250;
+                }
+            }
+
+            .drawer-header-text-container {
+                flex: 1;
+
+                .mdc-drawer__title {
+                    font-weight: var(--mdc-typography-subtitle2-font-weight);
+                    color: var(--mdc-theme-text-primary-on-background);
+                    display: flex;
+                    align-items: center;
+                    margin: 0;
+                    padding: 0;
+                }
+
+                .mdc-drawer__subtitle {
+                    font-weight: var(--font-weight-normal);
+                    color: var(--mdc-theme-text-secondary-on-background);
+                    display: flex;
+                    align-items: center;
+                    margin: -5px 0 0 0;
+                    padding: 0;
+                }
             }
         }
-    }
 
-    .mdc-drawer__content {
-        display: flex;
-        flex-direction: column;
+        .mdc-drawer__content {
+            display: flex;
+            flex-direction: column;
+            margin-top: 0.4rem;
+        }
     }
 }
 
@@ -130,9 +156,7 @@ $list-item-padding-left: 0.8rem;
             font-size: 1.5rem;
         }
 
-        .mdc-deprecated-list-item__text {
-
-        }
+        .mdc-deprecated-list-item__text {}
     }
 
     .mdc-deprecated-list-item.mdc-deprecated-list-item--selected {

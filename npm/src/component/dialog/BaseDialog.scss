@@ -12,10 +12,10 @@
 @use "sass:color";
 
 .mdc-dialog .mdc-dialog__container {
-    transform: translateY(var(--dialog-animation-translate-y));
+    transform: scale(0.9) translateY(0);
     opacity: 0;
     transition: transform var(--dialog-animation-duration) ease,
-        opacity calc(var(--dialog-animation-duration) / 2.5) ease;
+        opacity calc(var(--dialog-animation-duration) / 2) ease !important;
     // will-change: transform, opacity;
 }
 
@@ -28,14 +28,15 @@
 // }
 
 .mdc-dialog.mdc-dialog--open .mdc-dialog__container {
-    transform: translateY(0);
+    transform: scale(1) translateY(0);
     opacity: 1;
 }
 
 // closing -> null
+// 关闭 dialog 时先添加 closing，启动关闭动画，动画结束后移除 dialog 的显示属性
+// 关闭时仅透明度变化
 .mdc-dialog.mdc-dialog--closing .mdc-dialog__container {
-    transform: translateY(0);
-    opacity: 1;
+    transform: scale(1) translateY(0);
 }
 
 .mdc-dialog .mdc-dialog__scrim {

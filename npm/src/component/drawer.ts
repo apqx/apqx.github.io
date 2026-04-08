@@ -44,13 +44,19 @@ export function initDrawer() {
     }
     // drawer 中的 icon-button
     const iconBtnShareE = document.querySelector("#drawer_btn_share")
+    const iconBtnCloseE = document.querySelector("#drawer_btn_close")
     setupIconButtonRipple(iconBtnShareE as HTMLElement)
+    setupIconButtonRipple(iconBtnCloseE as HTMLElement)
     iconBtnShareE?.addEventListener("click", () => {
         consoleDebug("Click drawer share button")
         import("./dialog/ShareDialog").then((component) => {
             component.showShareDialog()
             drawer.open = false
         })
+    })
+    iconBtnCloseE?.addEventListener("click", () => {
+        consoleDebug("Click drawer close button")
+        drawer.open = false
     })
 
     // drawer 中的 list
@@ -71,7 +77,8 @@ export function initDrawer() {
     drawerE.addEventListener("MDCDrawer:opened", () => {
         // drawer 弹出时禁止 body 滚动
         toggleElementClass(document.body, "mdc-drawer-scroll-lock", true)
-        setToggleMenuIconBtnOn(true)
+        // 关闭 toggle menu 图标切换，正常切换时，这里应该是 true
+        setToggleMenuIconBtnOn(false)
         currentSelectedLiE.focus()
         currentSelectedLiE.blur()
     });
