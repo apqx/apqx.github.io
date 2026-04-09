@@ -53,8 +53,8 @@ export function initScaffold() {
     })
 
     runOnPageBackFromCache(() => {
-        blockTopbarKeyFrameAnimation(true)
-        // 检查主题、字体变化，通知对应组件刷新
+        // blockTopbarKeyFrameAnimation(true)
+        // 检查框架的主题、字体等配置变化，通知对应组件刷新
         checkTopbar()
         checkUserTheme()
         checkScrimBlur()

@@ -5,6 +5,7 @@ import { setNotoSerifSCFont } from "../font/font"
 import { consoleDebug } from "../../util/log"
 import { BaseExternalStore } from "../base/paginate/BaseExternalStore"
 import { checkScrimBlur } from "../scrim"
+import { getEventEmitter } from "../base/EventBus"
 
 export interface PreferenceDialogState {
     fixedTopbarOn: boolean
@@ -14,57 +15,71 @@ export interface PreferenceDialogState {
 
 export class PreferenceDialogViewModel extends BaseExternalStore {
     state = {
-        fixedTopbarOn: false,
-        notoSerifSCFontOn: false,
-        scrimBlurOn: false,
-        autoThemeOn: false
+        fixedTopbar: false,
+        notoSerifSCFont: false,
+        lensBiggerPicture: false,
+        scrimBlur: false,
+        autoTheme: false
     }
 
     localRepository: LocalDb = new LocalDb()
     darkClass: string = "dark"
-    
+
 
     initSettings() {
         this.state = {
-            fixedTopbarOn: this.localFixedTopbarOn(),
-            notoSerifSCFontOn: this.localNotoSerifSCFontOn(),
-            scrimBlurOn: this.localScrimBlurOn(),
-            autoThemeOn: this.localAutoThemeOn()
+            fixedTopbar: this.localFixedTopbar(),
+            notoSerifSCFont: this.localNotoSerifSCFont(),
+            lensBiggerPicture: this.localLensBiggerPicture(),
+            scrimBlur: this.localScrimBlur(),
+            autoTheme: this.localAutoTheme()
         }
         this.emitChange()
         consoleDebug("PreferenceDialogViewModel initSettings, state = " + JSON.stringify(this.state))
     }
 
     onClickFixedTopbarSwitch = () => {
-        const newStateOn = !this.state.fixedTopbarOn
-        this.state = { ...this.state, fixedTopbarOn: newStateOn }
+        const newState = !this.state.fixedTopbar
+        this.state = { ...this.state, fixedTopbar: newState }
         this.emitChange()
-        this.localRepository.saveFixedTopbarOn(newStateOn)
+        this.localRepository.saveFixedTopbar(newState)
         checkTopbar()
     }
 
     onClickNotoSerifSCFontSwitch = () => {
-        const newStateOn = !this.state.notoSerifSCFontOn
-        this.state = { ...this.state, notoSerifSCFontOn: newStateOn }
+        const newState = !this.state.notoSerifSCFont
+        this.state = { ...this.state, notoSerifSCFont: newState }
         this.emitChange()
-        this.localRepository.saveNotoSerifSCFontOn(newStateOn)
-        setNotoSerifSCFont(newStateOn)
+        this.localRepository.saveNotoSerifSCFont(newState)
+        setNotoSerifSCFont(newState)
     }
 
     onClickScrimBlurSwitch = () => {
-        const newStateOn = !this.state.scrimBlurOn
-        this.state = { ...this.state, scrimBlurOn: newStateOn}
+        const newState = !this.state.scrimBlur
+        this.state = { ...this.state, scrimBlur: newState }
         this.emitChange()
-        this.localRepository.saveScrimBlurOn(newStateOn)
+        this.localRepository.saveScrimBlur(newState)
         checkScrimBlur()
     }
 
+    onClickLensBiggerPictureSwitch = () => {
+        const newState = !this.state.lensBiggerPicture
+        this.state = { ...this.state, lensBiggerPicture: newState }
+        this.emitChange()
+        this.localRepository.saveLensBiggerPicture(newState)
+        // 通知透镜组件刷新布局
+        const emitter = getEventEmitter()
+        emitter.emit("lensBiggerPictureChange", {
+            enabled: newState
+        })
+    }
+
     onClickAutoThemeSwitch = () => {
-        const newStateOn = !this.state.autoThemeOn
-        this.state = { ...this.state, autoThemeOn: newStateOn }
+        const newState = !this.state.autoTheme
+        this.state = { ...this.state, autoTheme: newState }
         this.emitChange()
         const bodyE = document.body
-        if (newStateOn) {
+        if (newState) {
             // 启动了自适应主题，检测系统设置，更改当前主题
             const sysDarkTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
             const currentDarkTheme = bodyE.classList.contains(this.darkClass)
@@ -84,23 +99,27 @@ export class PreferenceDialogViewModel extends BaseExternalStore {
         }
     }
 
-    localFixedTopbarOn(): boolean {
-        return this.localRepository.getFixedTopbarOn()
+    localFixedTopbar(): boolean {
+        return this.localRepository.getFixedTopbar()
     }
 
     localHandWritingFontOn(): boolean {
-        return this.localRepository.getHandWritingFontOn()
+        return this.localRepository.getHandWritingFont()
     }
 
-    localNotoSerifSCFontOn(): boolean {
-        return this.localRepository.getNotoSerifSCFontOn()
+    localLensBiggerPicture(): boolean {
+        return this.localRepository.getLensBiggerPicture()
     }
 
-    localScrimBlurOn(): boolean {
-        return this.localRepository.getScrimBlurOn()
+    localNotoSerifSCFont(): boolean {
+        return this.localRepository.getNotoSerifSCFont()
     }
 
-    localAutoThemeOn(): boolean {
-        return this.localRepository.getAutoThemeOn()
+    localScrimBlur(): boolean {
+        return this.localRepository.getScrimBlur()
+    }
+
+    localAutoTheme(): boolean {
+        return this.localRepository.getAutoTheme()
     }
 }

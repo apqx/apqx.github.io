@@ -14,7 +14,7 @@ export var topAppBar: MDCTopAppBar | null = null
 export var topAppBarE: HTMLElement | null = null
 
 export function checkTopbar() {
-    const fixedTopbar = getLocalRepository().getFixedTopbarOn()
+    const fixedTopbar = getLocalRepository().getFixedTopbar()
     setFixedTopbar(fixedTopbar)
 }
 

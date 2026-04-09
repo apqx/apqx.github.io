@@ -58,16 +58,19 @@ export function PreferenceDialog(props: BaseDialogOpenProps) {
                 </div>
                 <ul className="mdc-deprecated-list mdc-deprecated-list--one-line dialog-link-list" id="preference-dialog__toggle-container">
                     <SettingsToggle titleHtml="固定顶部导航栏"
-                        on={state.fixedTopbarOn}
+                        on={state.fixedTopbar}
                         onClickToggle={viewModel.onClickFixedTopbarSwitch} />
                     <SettingsToggle titleHtml={"模糊对话框背景"}
-                        on={state.scrimBlurOn}
+                        on={state.scrimBlur}
                         onClickToggle={viewModel.onClickScrimBlurSwitch} />
+                    <SettingsToggle titleHtml={"透镜大图模式"}
+                        on={state.lensBiggerPicture}
+                        onClickToggle={viewModel.onClickLensBiggerPictureSwitch} />
                     <SettingsToggle titleHtml={notoSerifSCFontTitle}
-                        on={state.notoSerifSCFontOn}
+                        on={state.notoSerifSCFont}
                         onClickToggle={viewModel.onClickNotoSerifSCFontSwitch} />
                     <SettingsToggle titleHtml={autoThemeTitle}
-                        on={state.autoThemeOn}
+                        on={state.autoTheme}
                         onClickToggle={viewModel.onClickAutoThemeSwitch} />
                 </ul>
             </>

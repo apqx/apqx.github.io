@@ -8,8 +8,13 @@ export const EVENT_PAGE_BACK_FROM_CACHE = "pageBackFromCache"
 
 export type Events = {
     pageEvent: string
+    // 当用户更改透镜的标签过滤条件时触发，通知透镜组件刷新照片列表
     lensFilterChange: {
         selectedTags: string[]
+    }
+    // 当用户更改透镜照片大图模式时的设置时触发，通知透镜组件刷新布局
+    lensBiggerPictureChange: {
+        enabled: boolean
     }
 }
 

@@ -60,7 +60,7 @@ export function toggleScrimActive(on: boolean) {
 }
 
 export function checkScrimBlur() {
-    const enabled = getLocalRepository().getScrimBlurOn()
+    const enabled = getLocalRepository().getScrimBlur()
     consoleDebug("Scrim blur enabled: " + enabled)
     toggleElementClass(document.body, SCRIM_BLUR_CLASS, enabled)
 }

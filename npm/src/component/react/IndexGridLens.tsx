@@ -13,15 +13,18 @@ import { PagefindPaginateViewModel } from "../base/paginate/PagefindPaginateView
 import type { PagefindResultItem } from "../../repository/bean/pagefind/ApiPagefindSearch"
 import { PostPagefindPaginator } from "../base/paginate/PostPagefindPaginator"
 import type { BasePaginateViewProps } from "../base/paginate/bean/BasePaginateViewProps"
-import { getEventEmitter } from "../base/EventBus"
+import { EVENT_PAGE_BACK_FROM_CACHE, getEventEmitter } from "../base/EventBus"
 import { convertPinedToFeatured } from "../../util/tools"
 import { Masonry } from "./MasonryGe"
-
-export const LENS_FILTER_SORT_ASC = "时间升序排列"
+import { LENS_FILTER_SORT_ASC } from "../dialog/LensFilterDialogViewModel"
+import { getLocalRepository } from "../../repository/LocalDb"
 
 export function IndexGridLens(props: BasePaginateViewProps<Post>) {
     const masonryContainerRef = useRef<HTMLUListElement>(null)
     const [filterTags, setFilterTags] = useState<Array<string>>([])
+    const [lensBiggerPicture, setLensBiggerPicture] = useState(() => {
+        return getLocalRepository().getLensBiggerPicture()
+    })
     const [refreshLayoutVersion, setRefreshLayoutVersion] = useState(0)
     const [observeItemResize, setObserveItemResize] = useState(false)
 
@@ -39,7 +42,6 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
     const httpState = useSyncExternalStore(httpPaginateViewModel.subscribe, () => httpPaginateViewModel.state)
     const pagefindState = useSyncExternalStore(pagefindPaginateViewModel.subscribe, () => pagefindPaginateViewModel.state)
 
-
     useEffect(() => {
         consoleDebug(`IndexGridLens useEffect, tag: ${props.tag}, category: ${props.category}, filterTags: ${filterTags.toString()} `)
         if (props.onMount != null)
@@ -50,10 +52,24 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
             consoleDebug("IndexGridLens receive lensFilterChange event, selectedTags = " + data.selectedTags.toString())
             setFilterTags(data.selectedTags)
         })
+        emitter.on("lensBiggerPictureChange", (data) => {
+            consoleDebug("IndexGridLens receive lensBiggerPictureChange event, enabled = " + data.enabled)
+            setLensBiggerPicture(data.enabled)
+        })
+        // 监听从缓存中恢复设置的事件，更新单列显示设置
+        emitter.on("pageEvent", (data) => {
+            if (data == EVENT_PAGE_BACK_FROM_CACHE) {
+                const enabled = getLocalRepository().getLensBiggerPicture()
+                consoleDebug("IndexGridLens receive restoreSettingsFromCache event, restore lensBiggerPicture to " + enabled)
+                setLensBiggerPicture(enabled)
+            }
+        })
 
         return () => {
             consoleDebug("IndexGridLens useEffect cleanup")
             emitter.off("lensFilterChange")
+            emitter.off("lensBiggerPictureChange")
+            emitter.off("pageEvent")
         }
     }, [])
 
@@ -141,6 +157,23 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
         }
     }, [httpState.loading, httpState.loadingHint, pagefindState.loading, pagefindState.loadingHint, filterTags])
 
+    const breakpoints = useMemo(() => {
+        // TODO: 布局变化时是否需要清除数据重新加载？
+        if (lensBiggerPicture) {
+            return [
+                { maxWidth: 1400, columns: 3 },
+                { maxWidth: 880, columns: 2 },
+                { maxWidth: 600, columns: 1 }
+            ]
+        } else {
+            return [
+                { maxWidth: 1400, columns: 3 },
+                { maxWidth: 600, columns: 2 },
+                { maxWidth: 300, columns: 1 },
+            ]
+        }
+    }, [lensBiggerPicture])
+
     return (
         <ul ref={masonryContainerRef} className="grid-index-ul">
             <Masonry
@@ -161,11 +194,7 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
                         coverLoadedCallback={undefined} />
                 )}
                 defaultColumns={3}
-                breakpoints={[
-                    { maxWidth: 1400, columns: 3 },
-                    { maxWidth: 600, columns: 1 },
-                    { maxWidth: 300, columns: 1 },
-                ]}
+                breakpoints={breakpoints}
                 measureItemOnMount={true}
                 observeItemResize={true}
                 layoutVersion={refreshLayoutVersion}

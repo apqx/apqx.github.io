@@ -5,9 +5,9 @@ import { getServiceInstance, SERVICE_DEBUG_MODE_AUTO } from "../../repository/Se
 import { consoleError, consoleObjDebug, consoleObjError } from "../../util/log"
 import { sleepUntilMinimalTime } from "../../util/tools"
 import { BaseExternalStore } from "../base/paginate/BaseExternalStore"
-import { LENS_FILTER_SORT_ASC } from "../react/IndexGridLens"
 import { LOADING_HINT_ERROR } from "../react/LoadingHint"
-import { LENS_FILTER_DIALOG_WRAPPER_ID } from "./BaseDialog"
+
+export const LENS_FILTER_SORT_ASC = "时间升序排列"
 
 interface LensFilterDialogState {
     loading: boolean,

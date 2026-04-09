@@ -21,13 +21,20 @@
     height: 2.5rem;
     // ripple 动画会改变尺寸导致溢出，几秒钟后又自动恢复
     // overflow-x: scroll;
+
+    .preference-item-toggle__title {
+        font-size: var(--mdc-typography-body1-font-size);
+        flex: 1;
+        min-width: 0;
+        width: 20rem;
+        flex-shrink: 1;
+        overflow: hidden;
+
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
 }
 
-.preference-item-toggle__title {
-    font-size: var(--mdc-typography-body1-font-size);
-    flex: 1;
-    min-width: 20rem;
-}
 
 .emoji-preference {
     width: 4.5rem;
@@ -40,7 +47,10 @@
         margin: 0.5rem 0rem;
         text-align: center;
     }
-    .preference-item-toggle__title {
-        min-width: 14rem;
+
+    .preference-item-toggle {
+        .preference-item-toggle__title {
+            width: 16rem;
+        }
     }
 }

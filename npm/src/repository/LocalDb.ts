@@ -4,6 +4,7 @@ export class LocalDb {
     KEY_NOTO_SERIF_SC_FONT = "notoSerifSCFont"
     KEY_THEME = "theme"
     KEY_SCRIM_BLUR = "scrimBlur"
+    KEY_LENS_BIGGER_PICTURE = "lensBiggerPicture"
 
     VALUE_THEME_DARK = "dark"
     VALUE_THEME_LIGHT = "light"
@@ -28,30 +29,30 @@ export class LocalDb {
         return localStorage.getItem(key)
     }
 
-    saveFixedTopbarOn(on: boolean) {
+    saveFixedTopbar(on: boolean) {
         this.saveBoolean(this.KEY_FIXED_TOPBAR, on)
     }
 
-    getFixedTopbarOn(): boolean {
+    getFixedTopbar(): boolean {
         return this.getBoolean(this.KEY_FIXED_TOPBAR) ?? false
     }
 
-    saveHandwritingFontOn(on: boolean) {
+    saveHandwritingFont(on: boolean) {
         this.saveBoolean(this.KEY_HANDWRITTEN_FONT, on)
     }
 
-    getHandWritingFontOn(): boolean {
+    getHandWritingFont(): boolean {
         return this.getBoolean(this.KEY_HANDWRITTEN_FONT) ?? false
     }
 
-    saveNotoSerifSCFontOn(on: boolean) {
+    saveNotoSerifSCFont(on: boolean) {
         this.saveBoolean(this.KEY_NOTO_SERIF_SC_FONT, on)
     }
 
     /**
      * 获取思源宋体设置，默认开启
      */
-    getNotoSerifSCFontOn(): boolean {
+    getNotoSerifSCFont(): boolean {
         return this.getBoolean(this.KEY_NOTO_SERIF_SC_FONT) ?? false
     }
 
@@ -63,16 +64,24 @@ export class LocalDb {
         this.saveString(this.KEY_THEME, theme)
     }
 
-    getAutoThemeOn(): boolean {
+    getAutoTheme(): boolean {
         return this.getTheme() === this.VALUE_THEME_AUTO
     }
 
-    saveScrimBlurOn(on: boolean) {
+    saveScrimBlur(on: boolean) {
         this.saveBoolean(this.KEY_SCRIM_BLUR, on)
     }
 
-    getScrimBlurOn(): boolean {
+    getScrimBlur(): boolean {
         return this.getBoolean(this.KEY_SCRIM_BLUR) ?? false
+    }
+
+    saveLensBiggerPicture(on: boolean) {
+        this.saveBoolean(this.KEY_LENS_BIGGER_PICTURE, on)
+    }
+
+    getLensBiggerPicture(): boolean {
+        return this.getBoolean(this.KEY_LENS_BIGGER_PICTURE) ?? false
     }
 }
 
