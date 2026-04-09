@@ -1,7 +1,7 @@
 import "./LensFilterDialog.scss"
 import { useCallback, useEffect, useMemo, useSyncExternalStore } from "react";
 import { BaseDialog, LENS_FILTER_DIALOG_WRAPPER_ID, showDialog, type ActionBtn, type BaseDialogOpenProps } from "./BaseDialog";
-import { LensFilterDialogViewModel, type Category } from "./LensFilterDialogViewModel";
+import { LensFilterDialogViewModel, type Category, type Tag } from "./LensFilterDialogViewModel";
 import { SmoothCollapse } from "../react/SmoothCollapse";
 import { CheckableTag } from "../react/CheckableTag";
 import { LoadingHint } from "../react/LoadingHint";
@@ -142,9 +142,9 @@ function Categories(props: CategoriesProps) {
                 tagsCount > 0 &&
                 <div className="btn-tag-container lens-filter-dialog__tag-container">
                     {
-                        props.categories.map(category =>
+                        props.categories.map(category => 
                             category.tags.map(tag =>
-                                <CheckableTag key={tag.title} text={tag.title + " " + tag.count} checked={props.selectedTags.includes(tag.title)} onClick={() => props.onTagClick(tag.title)} />
+                                <CheckableTag key={tag.title} text={getTagTitle(tag)} checked={props.selectedTags.includes(tag.title)} onClick={() => props.onTagClick(tag.title)} />
                             )
                         )
                     }
@@ -152,6 +152,14 @@ function Categories(props: CategoriesProps) {
             }
         </>
     )
+}
+
+function getTagTitle(tag: Tag) {
+    if (tag.count >= 0) {
+        return tag.title + " " + tag.count
+    } else {
+        return tag.title
+    }
 }
 
 let openCount = 0

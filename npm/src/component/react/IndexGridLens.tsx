@@ -17,6 +17,8 @@ import { getEventEmitter } from "../base/EventBus"
 import { convertPinedToFeatured } from "../../util/tools"
 import { Masonry } from "./MasonryGe"
 
+export const LENS_FILTER_SORT_ASC = "时间升序排列"
+
 export function IndexGridLens(props: BasePaginateViewProps<Post>) {
     const masonryContainerRef = useRef<HTMLUListElement>(null)
     const [filterTags, setFilterTags] = useState<Array<string>>([])
@@ -62,13 +64,15 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
     // }, [httpState.posts, pagefindState.posts])
 
     const pagefindOptions = useMemo(() => {
+        const sort = filterTags.includes(LENS_FILTER_SORT_ASC) ? "asc" : "desc"
+        const filteredTags = filterTags.filter(tag => tag != LENS_FILTER_SORT_ASC)
         return {
             filters: {
                 category: { any: ["lens"] },
-                tag: [...filterTags],
+                tag: [...filteredTags],
             },
             sort: {
-                "precise-date": "desc"
+                "precise-date": sort
             }
         }
     }, [filterTags])
@@ -159,7 +163,7 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
                 defaultColumns={3}
                 breakpoints={[
                     { maxWidth: 1400, columns: 3 },
-                    { maxWidth: 600, columns: 2 },
+                    { maxWidth: 600, columns: 1 },
                     { maxWidth: 300, columns: 1 },
                 ]}
                 measureItemOnMount={true}

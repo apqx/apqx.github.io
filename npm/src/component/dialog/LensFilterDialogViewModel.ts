@@ -5,7 +5,9 @@ import { getServiceInstance, SERVICE_DEBUG_MODE_AUTO } from "../../repository/Se
 import { consoleError, consoleObjDebug, consoleObjError } from "../../util/log"
 import { sleepUntilMinimalTime } from "../../util/tools"
 import { BaseExternalStore } from "../base/paginate/BaseExternalStore"
+import { LENS_FILTER_SORT_ASC } from "../react/IndexGridLens"
 import { LOADING_HINT_ERROR } from "../react/LoadingHint"
+import { LENS_FILTER_DIALOG_WRAPPER_ID } from "./BaseDialog"
 
 interface LensFilterDialogState {
     loading: boolean,
@@ -102,6 +104,11 @@ export class LensFilterDialogViewModel extends BaseExternalStore {
                 count: count
             })
         })
+        // 在未配置标签的尾部添加一个特殊标签，用于控制搜索结果的排序，数量 -1 表示不参与过滤，仅作为一个开关使用
+        tagsNotConfigured.push({
+            title: LENS_FILTER_SORT_ASC,
+            count: -1
+        })
         categoriesForShow.push({
             id: "not_configured",
             title: "未配置分类",
@@ -178,7 +185,7 @@ export type Category = {
     tags: Array<Tag>
 }
 
-type Tag = {
+export type Tag = {
     title: string,
     count: number
 }
