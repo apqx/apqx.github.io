@@ -68,7 +68,7 @@ $list-item-padding-left: 0.8rem;
     .mdc-drawer__wrapper {
         position: fixed;
         box-sizing: border-box;
-        padding: 1rem var(--drawer-padding-horizontal);
+        padding: 0.4rem var(--drawer-padding-horizontal);
         overflow: scroll;
         width: $drawer-width;
         max-height: 100%;
@@ -76,7 +76,7 @@ $list-item-padding-left: 0.8rem;
         .mdc-drawer__header {
             display: flex;
             align-items: center;
-            padding: 0 0.2rem 0 $header-gap-left;
+            padding: 0 0 0 $header-gap-left;
 
             #drawer_btn_share {
                 i {
@@ -88,7 +88,7 @@ $list-item-padding-left: 0.8rem;
             #drawer_btn_close {
                 i {
                     font-size: 2rem;
-                    font-weight: 250;
+                    font-weight: 240;
                 }
             }
 
@@ -119,6 +119,7 @@ $list-item-padding-left: 0.8rem;
             display: flex;
             flex-direction: column;
             margin-top: 0.4rem;
+            overflow: visible;
         }
     }
 }

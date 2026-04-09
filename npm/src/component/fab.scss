@@ -34,15 +34,15 @@
 
     .mdc-touch-target-wrapper:first-child {
         .mdc-fab {
-            border-top-left-radius: 50%;
-            border-top-right-radius: 50%;
+            border-top-left-radius: 35%;
+            border-top-right-radius: 35%;
         }
     }
 
     .mdc-touch-target-wrapper:last-child {
         .mdc-fab {
-            border-bottom-left-radius: 50%;
-            border-bottom-right-radius: 50%;
+            border-bottom-left-radius: 35%;
+            border-bottom-right-radius: 35%;
         }
     }
 }
