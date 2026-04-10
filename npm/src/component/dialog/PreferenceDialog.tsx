@@ -33,11 +33,11 @@ export function PreferenceDialog(props: BaseDialogOpenProps) {
     }, [])
 
     const notoSerifSCFontTitle = useMemo(() => {
-        return "使用<a href=\"https://source.typekit.com/source-han-serif/cn/\" target=\"_blank\">思源宋体</a>"
+        return "使用<a href=\"https://source.typekit.com/source-han-serif/cn/\" target=\"_blank\" tabIndex=\"-1\">思源宋体</a>"
     }, [])
 
     const autoThemeTitle = useMemo(() => {
-        return "自适应<a href=\"/post/original/2021/08/03/为博客添加站内搜索和深色模式.html\">主题颜色</a>"
+        return "自适应<a href=\"/post/original/2021/08/03/为博客添加站内搜索和深色模式.html\" tabIndex=\"-1\">主题颜色</a>"
     }, [])
 
     const onDialogOpen = useCallback(() => {

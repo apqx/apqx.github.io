@@ -62,6 +62,6 @@ function scrollToTop() {
 /**
  * 使用原生平滑滚动，但 smooth 在 2022 年的 iOS safari 15.4 中才开始支持
  */
-function scrollToTopNative() {
-    window.scrollTo({ top: 0, behavior: "smooth" })
+export function scrollToTopNative(smooth: boolean = true) {
+    window.scrollTo({ top: 0, behavior: smooth ? "smooth" : "instant" })
 }

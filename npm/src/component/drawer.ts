@@ -10,6 +10,7 @@ import { getSectionTypeByPath, SECTION_TYPE_LENS, SECTION_TYPE_OPERA, SECTION_TY
 import { isSafari, toggleElementClass } from "../util/tools";
 import { setupIconButtonRipple } from "./button";
 import { setupListItemRipple } from "./list";
+import { scrollToTopNative } from "./fab";
 
 const DRAWER_ITEM_ORIGINAL_ID = "drawer-a-original"
 const DRAWER_ITEM_REPOST_ID = "drawer-a-repost"
@@ -31,11 +32,13 @@ export function initDrawer() {
     // 监听 menu 按钮点击
     topAppBar?.listen("MDCTopAppBar:nav", () => {
         drawer.open = !drawer.open
+        // 解决 drawer 弹出时只显示一部分的问题
+        scrollToTopNative(false)
     })
     // 监听 trigger 弹出 drawer
     const toggleDowers = document.querySelectorAll(".drawer-trigger")
     for (const toggle of toggleDowers) {
-        let eventType = "click"
+        let eventType = "click" 
         if (!(toggle instanceof HTMLButtonElement) && isSafari())
             eventType = "pointerup"
         toggle.addEventListener(eventType, () => {
@@ -73,6 +76,7 @@ export function initDrawer() {
     drawerList.listElements.map(liE => setupListItemRipple(liE))
     // 初始化选中当前页面对应的板块 item
     drawerList.selectedIndex = currentPageIndex
+    // TODO: 设置选中元素的 tabindex 为 -1，禁止列表获取焦点，可能触发 drawer 弹出时 chrome 自动滚动到焦点元素
 
     drawerE.addEventListener("MDCDrawer:opened", () => {
         // drawer 弹出时禁止 body 滚动

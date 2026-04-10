@@ -27,6 +27,7 @@ html {
     // 设置 html 和 body 高度为浏览器窗口高度
     // 如果内部 content 高度超过窗口高度则处于 overflow 状态
     height: 100%;
+    scroll-behavior: smooth;
 }
 // body {
 // }

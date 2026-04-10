@@ -2,8 +2,8 @@
 
 .share-qrcode-picture {
     display: block;
-    width: 7rem;
-    height: 7rem;
+    width: 8.5rem;
+    height: 8.5rem;
     margin: auto;
     margin-top: 2rem;
     padding: 0.5rem;
@@ -19,9 +19,12 @@
     }
 }
 
+$max-width: 20rem;
+
 .share-title {
     text-align: center;
-    margin: 1rem 0;
+    margin: 1rem auto;
+    max-width: $max-width;
 }
 
 .share-url-item {
@@ -29,6 +32,9 @@
     position: relative;
     flex-direction: row;
     align-items: stretch;
+    max-width: $max-width;
+    margin-left: auto;
+    margin-right: auto;
 
     border-radius: var(--post-inner-shape-round);
     border: 1px solid var(--pre-code-border-heavy);

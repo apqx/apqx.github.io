@@ -39,7 +39,13 @@ $drawer-width: 18rem;
 
 .mdc-drawer.mdc-drawer--modal {
     // 尺寸相对 body 整个页面，适配 iOS 26 中 safari 对 viewport 的变化，避免被底部工具栏裁剪
+    // TODO: 但这会导致固定 topbar 时滚动页面，此时弹出 drawer，页面会滚动到顶部，可能由列表选中元素的焦点引起，后续需要修复
+    // 暂时取消固定 topbar 的功能，等修复后再启用，优先保证 iOS 26 中的体验
     position: absolute;
+    height: 100%;
+    
+    // position: fixed;
+    // height: 100dvh;
 
     // 启用 blur 时改为 fixed 定位，尺寸相对 viewport，减少性能消耗
     .scrim-blur & {
@@ -66,12 +72,14 @@ $list-item-padding-left: 0.8rem;
     padding: none;
 
     .mdc-drawer__wrapper {
-        position: fixed;
+        // position: fixed;
         box-sizing: border-box;
         padding: 0.4rem var(--drawer-padding-horizontal);
         overflow: scroll;
         width: $drawer-width;
-        max-height: 100%;
+        height: fit-content;
+        max-height: 100dvh;
+        scroll-behavior: smooth;
 
         .mdc-drawer__header {
             display: flex;
@@ -120,6 +128,7 @@ $list-item-padding-left: 0.8rem;
             flex-direction: column;
             margin-top: 0.4rem;
             overflow: visible;
+            height: fit-content;
         }
     }
 }
