@@ -1,49 +1,49 @@
 {% include configure.html -%}
 <title>{{ page.title }}</title>
 <meta charset="UTF-8"/>
-<meta name="debug" content="{{ debug }}"/>
-<meta name="writing" content="{{ writing }}"/>
+<meta name="debug" content="{{ debug }}" />
+<meta name="writing" content="{{ writing }}" />
 {% if page.author != null -%}
-<meta name="author" content="{{ page.author }}"/>
+<meta name="author" content="{{ page.author }}" />
 {% endif -%}
 {% if page.description != null -%}
-<meta name="description" content="{{ page.description }}"/>
+<meta name="description" content="{{ page.description }}" />
 {% elsif page.categories contains "lens" %}
-<meta name="description" content="{{ page.date | date: "%Y年%m月%d日" }} {{ page.actor }} {{ page.location }}"/>
+<meta name="description" content="{{ page.date | date: "%Y年%m月%d日" }} {{ page.actor }} {{ page.location }}" />
 {% endif -%}
 <!-- Open Graph protocol, define rich object for share -->
-<meta property="og:url" content="{{ page.url | prepend: site.url }}"/>
+<meta property="og:url" content="{{ page.url | prepend: site.url }}" />
 <meta property="og:type" content="article"/>
 <meta property="og:title" content="{{ page.title }}"/>
 {% if page.share-description != null -%}
-<meta property="og:description" content="{{ page.share-description }}"/>
+<meta property="og:description" content="{{ page.share-description }}" />
 {% elsif page.description != null -%}
-<meta property="og:description" content="{{ page.description }}"/>
+<meta property="og:description" content="{{ page.description }}" />
 {% elsif page.categories contains "lens" %}
-<meta property="og:description" content="{{ page.date | date: "%Y年%m月%d日" }} {{ page.actor }} {{ page.location }}"/>
+<meta property="og:description" content="{{ page.date | date: "%Y年%m月%d日" }} {{ page.actor }} {{ page.location }}" />
 {% endif -%}
 {% if page.image != null -%}
-<meta data-pagefind-default-meta="image[content]" property="og:image" content="{{ page.image }}"/>
+<meta data-pagefind-default-meta="image[content]" property="og:image" content="{{ page.image }}" />
 {% else -%}
-<meta data-pagefind-default-meta="image[content]" property="og:image" content="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/friendship.jpg"/>
+<meta data-pagefind-default-meta="image[content]" property="og:image" content="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/friendship.jpg" />
 {% endif -%}
 {% if page.searchEngine == false -%}
 <!-- Let search engine not index this page -->
 <meta name="robots" content="noindex">
 {% endif -%}
 <!-- Let browser know website is optimized for mobile -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <!-- Site icon -->
  <!-- PWA, Chrome 添加到桌面图标 -->
 <link rel="manifest" href="/manifest.json" />
 <!-- Chrome Safari 的 Tab 图标，如果尺寸太大可能不被使用 -->
-<link rel="shortcut icon" href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/reading/icon_circle_96.png"/>
+<link rel="shortcut icon" href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/reading/icon_circle_96.png" />
 <!-- Safari 的 Tab 图标和添加到桌面图标 -->
-<link rel="apple-touch-icon" href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/reading/icon_corner_192.png"/>
+<link rel="apple-touch-icon" href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/reading/icon_corner_192.png" />
 {% comment %} JS 和 CSS 由内部 Vite development 模式下使用 localhost production 模式下使用托管在阿里云上的版本 {% endcomment -%}
 <script async type="module" crossorigin src="{{ resUrlPrefix }}blog-scaffold.js"></script>
-<link rel="stylesheet" href="{{ resUrlPrefix }}assets/blog-scaffold.css"/>
-<link rel="stylesheet" href="{{ resUrlPrefix }}assets/blog-font.css"/>
+<link rel="stylesheet" href="{{ resUrlPrefix }}assets/blog-scaffold.css" />
+<link rel="stylesheet" href="{{ resUrlPrefix }}assets/blog-font.css" />
 {% if page.preloadImageWebp != null -%}
 <link rel="preload" href="{{ page.preloadImageWebp }}" as="image" type="image/webp" />
 {% endif -%}

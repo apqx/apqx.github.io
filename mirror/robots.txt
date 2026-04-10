@@ -1,0 +1,3 @@
+# 镜像站和测试站使用的 robots 文件，禁止搜索引擎抓取
+User-agent: *
+Disallow: /

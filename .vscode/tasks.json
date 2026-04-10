@@ -19,6 +19,13 @@
             "problemMatcher": []
         },
         {
+            "label": "jekyll: build in development",
+            "type": "shell",
+            "command": "bundle exec jekyll build --trace",
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
             "label": "jekyll: build in production",
             "type": "shell",
             "command": "JEKYLL_ENV=production bundle exec jekyll build --trace",

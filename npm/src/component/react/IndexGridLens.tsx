@@ -18,6 +18,7 @@ import { convertPinedToFeatured } from "../../util/tools"
 import { Masonry } from "./MasonryGe"
 import { LENS_FILTER_SORT_ASC } from "../dialog/LensFilterDialogViewModel"
 import { getLocalRepository } from "../../repository/LocalDb"
+import { scrollToTopNative } from "../fab"
 
 export function IndexGridLens(props: BasePaginateViewProps<Post>) {
     const masonryContainerRef = useRef<HTMLUListElement>(null)
@@ -95,6 +96,7 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
 
     // 初始化加载数据
     useEffect(() => {
+        scrollToTopNative(false)
         // 筛选标签变化时，清除旧数据并加载新数据
         if (filterTags.length > 0) {
             pagefindPaginateViewModel.clear()

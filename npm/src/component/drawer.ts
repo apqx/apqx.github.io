@@ -83,8 +83,6 @@ export function initDrawer() {
         toggleElementClass(document.body, "mdc-drawer-scroll-lock", true)
         // 关闭 toggle menu 图标切换，正常切换时，这里应该是 true
         setToggleMenuIconBtnOn(false)
-        currentSelectedLiE.focus()
-        currentSelectedLiE.blur()
     });
     drawerE.addEventListener("MDCDrawer:closed", () => {
         toggleElementClass(document.body, "mdc-drawer-scroll-lock", false)

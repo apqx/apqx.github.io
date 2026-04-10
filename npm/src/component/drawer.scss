@@ -43,7 +43,7 @@ $drawer-width: 18rem;
     // 暂时取消固定 topbar 的功能，等修复后再启用，优先保证 iOS 26 中的体验
     position: absolute;
     height: 100%;
-    
+
     // position: fixed;
     // height: 100dvh;
 
@@ -72,9 +72,8 @@ $list-item-padding-left: 0.8rem;
     padding: none;
 
     .mdc-drawer__wrapper {
-        // position: fixed;
         box-sizing: border-box;
-        padding: 0.4rem var(--drawer-padding-horizontal);
+        padding: 0 var(--drawer-padding-horizontal);
         overflow: scroll;
         width: $drawer-width;
         height: fit-content;
@@ -85,11 +84,17 @@ $list-item-padding-left: 0.8rem;
             display: flex;
             align-items: center;
             padding: 0 0 0 $header-gap-left;
+            height: var(--topbar-height);
+            min-height: unset;
 
             #drawer_btn_share {
                 i {
                     font-size: 1.5rem;
                     font-weight: 310;
+
+                    .font-noto-serif-sc & {
+                        font-weight: 270;
+                    }
                 }
             }
 
@@ -97,14 +102,20 @@ $list-item-padding-left: 0.8rem;
                 i {
                     font-size: 2rem;
                     font-weight: 240;
+
+                    .font-noto-serif-sc & {
+                        font-weight: 200;
+                    }
                 }
             }
 
             .drawer-header-text-container {
                 flex: 1;
+                margin-top: 0.1rem;
 
                 .mdc-drawer__title {
-                    font-weight: var(--mdc-typography-subtitle2-font-weight);
+                    font-weight: calc(var(--font-weight-normal) + 40);
+                    font-size: 1.1rem;
                     color: var(--mdc-theme-text-primary-on-background);
                     display: flex;
                     align-items: center;
@@ -114,10 +125,11 @@ $list-item-padding-left: 0.8rem;
 
                 .mdc-drawer__subtitle {
                     font-weight: var(--font-weight-normal);
+                    font-size: 0.78rem;
                     color: var(--mdc-theme-text-secondary-on-background);
                     display: flex;
                     align-items: center;
-                    margin: -5px 0 0 0;
+                    margin: -0.45rem 0 0 0;
                     padding: 0;
                 }
             }
@@ -126,7 +138,7 @@ $list-item-padding-left: 0.8rem;
         .mdc-drawer__content {
             display: flex;
             flex-direction: column;
-            margin-top: 0.4rem;
+            margin-top: 0.2rem;
             overflow: visible;
             height: fit-content;
         }
@@ -187,4 +199,36 @@ $list-item-padding-left: 0.8rem;
     width: 100%;
     @include button.container-fill-color(var(--chip-bg));
     @include button.ink-color(var(--chip-ink));
+}
+
+// TODO: 在 scaffold 中为小尺寸单独设置了 font-size 以兼容红米手机
+// 这里针对这种情况单独调整
+@media screen and (max-width: 400px) {
+    .mdc-drawer {
+        .mdc-drawer__wrapper .mdc-drawer__header .drawer-header-text-container {
+            .mdc-drawer__subtitle {
+                margin-top: -0.68rem;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 400px) and (max-width: 410px) {
+    .mdc-drawer {
+        .mdc-drawer__wrapper .mdc-drawer__header .drawer-header-text-container {
+            .mdc-drawer__subtitle {
+                margin-top: -0.6rem;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 410px) and (max-width: 420px) {
+    .mdc-drawer {
+        .mdc-drawer__wrapper .mdc-drawer__header .drawer-header-text-container {
+            .mdc-drawer__subtitle {
+                margin-top: -0.48rem;
+            }
+        }
+    }
 }
