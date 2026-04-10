@@ -4,6 +4,7 @@ assets/pagefind/
 raft/
 .idea/
 .jekyll-cache/
+.wrangler/
 
 # Mac file
 *.DS_Store

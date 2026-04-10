@@ -21,7 +21,7 @@
         {
             "label": "jekyll: build in development",
             "type": "shell",
-            "command": "bundle exec jekyll build --trace",
+            "command": "bundle exec jekyll build --trace --draft",
             "group": "build",
             "problemMatcher": []
         },
@@ -39,6 +39,13 @@
             "label": "pagefind: build index",
             "type": "shell",
             "command": "rm -rf assets/pagefind && pagefind --site _site --output-path assets/pagefind",
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "wrangler: deploy to mudan.pages.dev for test",
+            "type": "shell",
+            "command": "wrangler pages deploy _site --project-name mudan",
             "group": "build",
             "problemMatcher": []
         }
