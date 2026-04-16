@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from "react"
 import { LOADING_HINT_ERROR, LOADING_HINT_NO_RESULT, LoadingHint } from "./LoadingHint"
 import { consoleDebug, consoleObjDebug } from "../../util/log"
-import { getInterSectionObserver, queryAnimatedElement } from "../animation/BaseAnimation"
+import { getWindowInterSectionObserver, queryAnimatedElement } from "../animation/BaseAnimation"
 import { getSplittedDate } from "../../base/post"
 import { setupCardRipple } from "../card"
 import type { Post } from "../base/paginate/bean/Post"
@@ -11,6 +11,7 @@ import type { ApiPost } from "../../repository/bean/service/ApiPost"
 import { PostHttpPaginator } from "../base/paginate/PostHttpPaginator"
 import type { BasePaginateViewProps } from "../base/paginate/bean/BasePaginateViewProps"
 import { convertPinedToFeatured, toggleElementClass } from "../../util/tools"
+import { getEventEmitter } from "../base/EventBus"
 
 export function IndexLinearPosts(props: BasePaginateViewProps<Post>) {
     const paginateViewModel = useMemo(() => {
@@ -32,6 +33,17 @@ export function IndexLinearPosts(props: BasePaginateViewProps<Post>) {
             consoleDebug("IndexLinearPosts useEffect cleanup")
         }
     }, [])
+
+    // 加载状态变化时，通知 Footer 显示或隐藏
+    // 加载时隐藏，有结果时（错误或加载完成）显示
+    useEffect(() => {
+        if (state.loading) {
+            getEventEmitter().emit("footerDisplayChange", { enabled: false })
+        } else {
+            getEventEmitter().emit("footerDisplayChange", { enabled: true })
+        }
+
+    }, [state.loading])
 
     const onLoadMore = useCallback(() => {
         if (state.loadingHint != LOADING_HINT_ERROR && state.loadingHint != LOADING_HINT_NO_RESULT) {
@@ -92,7 +104,7 @@ function IndexItem(props: IndexItemProps) {
 
         const animationE = queryAnimatedElement(rootE)
         if (animationE != null) {
-            getInterSectionObserver().observe(animationE)
+            getWindowInterSectionObserver().observe(animationE)
         }
 
         const scrollListener = () => {
@@ -119,7 +131,7 @@ function IndexItem(props: IndexItemProps) {
         return () => {
             consoleDebug("IndexItem useEffect cleanup " + props.title)
             if (animationE != null) {
-                getInterSectionObserver().unobserve(animationE)
+                getWindowInterSectionObserver().unobserve(animationE)
             }
             window.removeEventListener("scroll", scrollListener)
         }

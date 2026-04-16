@@ -1,7 +1,7 @@
 // import "./contentCard.scss"
 import { consoleDebug } from "../util/log"
 import { toggleElementClass } from "../util/tools"
-import { getInterSectionObserver } from "./animation/BaseAnimation"
+import { getWindowInterSectionObserver } from "./animation/BaseAnimation"
 
 /**
  * 卡片默认是偏移和透明的，初始化卡片使其恢复到原位置和不透明
@@ -16,7 +16,7 @@ export function initContentCard(withAnimation: boolean) {
     }
     if (withAnimation) {
         // 启动动画，卡片恢复到原位置和不透明度
-        getInterSectionObserver().observe(cardE!!)
+        getWindowInterSectionObserver().observe(cardE!!)
     } else {
         // 不启动动画，删除使卡片偏移、透明的动画class
         toggleElementClass(cardE, "slide-in-farer", false)

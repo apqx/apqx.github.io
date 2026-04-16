@@ -16,6 +16,10 @@ export type Events = {
     lensBiggerPictureChange: {
         enabled: boolean
     }
+    // 通知 Footer 显示或隐藏
+    footerDisplayChange: {
+        enabled: boolean
+    }
 }
 
 

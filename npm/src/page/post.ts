@@ -81,7 +81,7 @@ function initImgJump() {
                 window.open(imgUrl, "_blank")
             }
         })
-    }
+    }   
 }
 
 function showCopyrightDialog(url: string) {

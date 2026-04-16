@@ -1,7 +1,7 @@
 // import "./fab.scss"
 
 import { getSectionTypeByPath, isIndexPage, SECTION_TYPE_LENS } from "../base/constant"
-import { getInterSectionObserver } from "./animation/BaseAnimation"
+import { getWindowInterSectionObserver } from "./animation/BaseAnimation"
 import { setupIconButtonRipple } from "./button"
 import { showLensFilterDialog } from "./dialog/LensFilterDialog"
 
@@ -18,7 +18,7 @@ export function initFab() {
         const fabSearchE = document.querySelector("#fabSearch")
         if (fabSearchE != null) {
             setupIconButtonRipple(fabSearchE)
-            getInterSectionObserver().observe(fabSearchE.parentElement as HTMLElement)
+            getWindowInterSectionObserver().observe(fabSearchE.parentElement as HTMLElement)
             fabSearchE?.addEventListener("click", () => {
                 showLensFilterDialog()
             })
@@ -29,7 +29,7 @@ export function initFab() {
     const fabUpE = document.querySelector("#fabUp") as HTMLElement
     if (fabUpE != null) {
         setupIconButtonRipple(fabUpE)
-        getInterSectionObserver().observe(fabUpE.parentElement as HTMLElement)
+        getWindowInterSectionObserver().observe(fabUpE.parentElement as HTMLElement)
         fabUpE?.addEventListener("click", () => {
             // if (isSafari()) {
             //     scrollToTop()

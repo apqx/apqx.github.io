@@ -2,12 +2,15 @@ import "./BaseAnimation.scss"
 import { consoleDebug, consoleObjDebug } from "../../util/log"
 import { toggleElementClass } from "../../util/tools"
 
-var interSectionObserver: IntersectionObserver | null = null
+var windowInterSectionObserver: IntersectionObserver | null = null
 
-export function getInterSectionObserver() {
-    if (interSectionObserver == null) {
+/**
+ * 获取相对于 Window 的 IntersectionObserver 实例
+ */
+export function getWindowInterSectionObserver() {
+    if (windowInterSectionObserver == null) {
         // 创建一个新的 IntersectionObserver 实例
-        interSectionObserver = new IntersectionObserver(entries => {
+        windowInterSectionObserver = new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 // 元素进入视口，触发动画
                 if (entry.isIntersecting) {
@@ -21,14 +24,14 @@ export function getInterSectionObserver() {
                         handleFadeIn(entry)
                     }
                     // 只触发一次动画，之后不再监听
-                    getInterSectionObserver().unobserve(entry.target)
+                    getWindowInterSectionObserver().unobserve(entry.target)
                 }
             })
         }, {
             threshold: 0.0
         })
     }
-    return interSectionObserver
+    return windowInterSectionObserver
 }
 
 const CHAINED_SLIDE_IN_INTERVAL = 50

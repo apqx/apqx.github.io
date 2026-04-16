@@ -4,13 +4,12 @@ import { consoleDebug, consoleObjDebug } from "../util/log"
 import { createRoot } from "react-dom/client"
 import { IndexLinearPosts } from "../component/react/IndexLinearPosts"
 import { getSectionTypeByPath, SECTION_TYPE_OTHER } from "../base/constant"
-import { ImageLoadAnimator } from "../component/animation/ImageLoadAnimator"
 import { IndexGridLens } from "../component/react/IndexGridLens"
 import { setupCardRipple } from "../component/card"
 import type { Post } from "../component/base/paginate/bean/Post"
-import { showFooter } from "../component/footer"
 import { IndexGridPosts } from "../component/react/IndexGridPosts"
-import { getInterSectionObserver, queryAnimatedElement } from "../component/animation/BaseAnimation"
+import { getWindowInterSectionObserver, queryAnimatedElement } from "../component/animation/BaseAnimation"
+import { getEventEmitter } from "../component/base/EventBus"
 
 export function initIndex() {
     runOnHtmlDone(() => {
@@ -24,7 +23,9 @@ function initIndexList() {
         return
     }
     const onMount = () => {
-        showFooter()
+        // getEventEmitter().emit("footerDisplayChange", {
+        //     enabled: true
+        // })
     }
     
     const root = createRoot(wrapperE)
@@ -204,7 +205,7 @@ function initIndexTopCover() {
     // const animationE = queryAnimatedElement(topCardE)
     const animationE = topCardE
     if (animationE != null) {
-        getInterSectionObserver().observe(animationE)
+        getWindowInterSectionObserver().observe(animationE)
     }
     // TODO：image 加载完成后的透明度动画
 

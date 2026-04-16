@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
 import { LOADING_HINT_ERROR, LOADING_HINT_NO_RESULT, LoadingHint } from "./LoadingHint"
 import { consoleDebug, consoleObjDebug } from "../../util/log"
-import { getInterSectionObserver, queryAnimatedElement } from "../animation/BaseAnimation"
+import { getWindowInterSectionObserver, queryAnimatedElement } from "../animation/BaseAnimation"
 import { getSplittedDate } from "../../base/post"
 import { setupCardRipple } from "../card"
 import type { Post } from "../base/paginate/bean/Post"
@@ -107,6 +107,24 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
         }
 
     }, [filterTags])
+
+    // 加载状态变化时，通知 Footer 显示或隐藏
+    // 加载时隐藏，有结果时（错误或加载完成）显示
+    useEffect(() => {
+        if (filterTags.length > 0) {
+            if (pagefindState.loading) {
+                getEventEmitter().emit("footerDisplayChange", { enabled: false })
+            } else {
+                getEventEmitter().emit("footerDisplayChange", { enabled: true })
+            }
+        } else {
+            if (httpState.loading) {
+                getEventEmitter().emit("footerDisplayChange", { enabled: false })
+            } else {
+                getEventEmitter().emit("footerDisplayChange", { enabled: true })
+            }
+        }
+    }, [filterTags, httpState.loading, pagefindState.loading])
 
     const onLoadMore = useCallback(() => {
         if (filterTags.length > 0 && pagefindState.loadingHint != LOADING_HINT_ERROR && pagefindState.loadingHint != LOADING_HINT_NO_RESULT) {
@@ -247,14 +265,14 @@ function IndexItem(props: IndexItemProps) {
         const animationE = queryAnimatedElement(rootE)
         if (animationE != null) {
             // 元素进入 viewport 时检查距离上一个动画的时间差，如果很近则链式触发动画
-            getInterSectionObserver().observe(animationE)
+            getWindowInterSectionObserver().observe(animationE)
         }
 
         return () => {
             consoleDebug("IndexItem useEffect cleanup " + props.index + " : " + props.title)
             coverE.onload = null
             if (animationE != null) {
-                getInterSectionObserver().unobserve(animationE)
+                getWindowInterSectionObserver().unobserve(animationE)
             }
         }
     }, [])

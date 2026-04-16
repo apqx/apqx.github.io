@@ -121,6 +121,10 @@ $list-item-padding-left: 0.8rem;
                     align-items: center;
                     margin: 0;
                     padding: 0;
+
+                    .font-noto-serif-sc & {
+                        font-weight: calc(var(--font-weight-normal) + 60);
+                    }
                 }
 
                 .mdc-drawer__subtitle {
