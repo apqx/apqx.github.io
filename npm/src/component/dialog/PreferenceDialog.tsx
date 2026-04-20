@@ -1,6 +1,6 @@
 import "./PreferenceDialog.scss"
 import { PreferenceDialogViewModel } from "./PreferenceDialogViewModel"
-import { consoleDebug } from "../../util/log"
+import { consoleInfo } from "../../util/log"
 import { BaseDialog, PREFERENCE_DIALOG_WRAPPER_ID, showDialog } from "./BaseDialog"
 import type { BaseDialogOpenProps } from "./BaseDialog"
 import { NewMdSwitch } from "../react/Switch"
@@ -17,11 +17,11 @@ export function PreferenceDialog(props: BaseDialogOpenProps) {
     const state = useSyncExternalStore(viewModel.subscribe, () => viewModel.state)
 
     useEffect(() => {
-        consoleDebug("PreferenceDialogContent useEffect, subscribe to viewModel")
+        consoleInfo("PreferenceDialogContent useEffect, subscribe to viewModel")
         // viewModel.initSettings()
         const emitter = getEventEmitter()
         emitter.on("pageEvent", (type) => {
-            consoleDebug("PreferenceDialogContent receive event: " + type)
+            consoleInfo("PreferenceDialogContent receive event: " + type)
             // 订阅页面从缓存中恢复的事件，加载最新的设置状态
             if (type == EVENT_PAGE_BACK_FROM_CACHE) {
                 viewModel.initSettings()
@@ -41,7 +41,7 @@ export function PreferenceDialog(props: BaseDialogOpenProps) {
     }, [])
 
     const onDialogOpen = useCallback(() => {
-        consoleDebug("PreferenceDialogContent onDialogOpen")
+        consoleInfo("PreferenceDialogContent onDialogOpen")
         viewModel.initSettings()
     }, [])
 
@@ -108,6 +108,6 @@ export function SettingsToggle(props: SettingsToggleProps) {
 
 let openCount = 0
 export function showPreferenceDialog() {
-    consoleDebug("PreferenceDialogContent showPreferenceDialog")
+    consoleInfo("PreferenceDialogContent showPreferenceDialog")
     showDialog(<PreferenceDialog openCount={openCount++} />, PREFERENCE_DIALOG_WRAPPER_ID)
 }

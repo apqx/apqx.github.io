@@ -1,6 +1,6 @@
 import "./404.scss"
 import { showShortLinkJumpDialog } from "../component/dialog/ShortLinkJumpDialog";
-import { consoleDebug } from "../util/log";
+import { consoleInfo } from "../util/log";
 import { runOnHtmlDone, runOnPageDone } from "../util/tools";
 import { initContentCard } from "../component/contentCard";
 
@@ -24,7 +24,7 @@ export function init404() {
 function checkJump() {
     let pid = null
     const urlPath = window.location.pathname
-    consoleDebug("Url path = " + urlPath)
+    consoleInfo("Url path = " + urlPath)
     // https://mudan.me/op01
     // https://mudan.me/opera
     // og: original
@@ -33,7 +33,7 @@ function checkJump() {
     // pt: poetry
     // ot: other
     var matches = urlPath.match(RegExp("^/((og|rp|op|pt|ot)\\d\\d|index-opera|opera|lens|repost|poetry|share|print|kfc)$"))
-    consoleDebug("Url matches = " + matches)
+    consoleInfo("Url matches = " + matches)
     if (matches != null && matches.length > 0) {
         // 检查是否符合格式，取出pid
         // https://mudan.me/id

@@ -1,4 +1,4 @@
-import { consoleDebug, consoleError } from "../../util/log"
+import { consoleInfo, consoleError } from "../../util/log"
 import { runAfterMinimalTime } from "../../util/tools"
 import type { ApiUrlMap } from "../../repository/bean/service/ApiUrlMap"
 import { getServiceInstance, SERVICE_DEBUG_MODE_AUTO } from "../../repository/Service"
@@ -39,19 +39,19 @@ export class ShortLinkJumpDialogViewModel extends BaseExternalStore {
             .then((response: ApiUrlMap) => {
                 for (const item of response.map) {
                     if (item.id === pid) {
-                        consoleDebug("Find pid " + pid + " => " + item.target.path)
+                        consoleInfo("Find pid " + pid + " => " + item.target.path)
                         // 跳转到目标页，不在浏览器中保留跳转记录，url 可以是站内的相对 path，也可以是站外 http 的绝对 path
                         var jumpUrl = item.target.path
                         if (!item.target.path.startsWith("http")) {
                             jumpUrl = window.location.origin + item.target.path
                         }
-                        consoleDebug("JumpUrl is " + jumpUrl)
+                        consoleInfo("JumpUrl is " + jumpUrl)
                         this.showJump(startTimeMs, jumpUrl, item.target.title)
                         return
                     }
                 }
                 this.showJump(startTimeMs, window.location.origin + "/404.html", "未找到目标页面")
-                consoleDebug("Pid not exist, check url-map")
+                consoleInfo("Pid not exist, check url-map")
             }).catch(error => {
                 consoleError(error)
                 this.showJump(startTimeMs, window.location.origin + "/404.html", "解析映射表异常")

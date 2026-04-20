@@ -11,7 +11,7 @@ import { initButton } from "../component/button"
 import { initTable } from "../component/table"
 import { initList } from "../component/list"
 import { initText } from "../component/text"
-import { consoleDebug } from "../util/log"
+import { consoleInfo } from "../util/log"
 import { loadGoogleAnalytics } from "../util/gtag"
 import { initFooter } from "../component/footer"
 import { initCard } from "../component/card"
@@ -70,29 +70,29 @@ function checkPage() {
         import("./404").then((page) => {
             page.init404()
         }).catch((e) => {
-            consoleDebug("Error loading 404 page script: " + e)
+            consoleInfo("Error loading 404 page script: " + e)
         })
     } else if (isIndexPage(window.location.pathname)) {
         import("./index").then((page) => {
             page.initIndex()
         }).catch((e) => {
-            consoleDebug("Error loading index page script: " + e)
+            consoleInfo("Error loading index page script: " + e)
         })
     } else if (isPostPage(window.location.pathname)) {
         import("./post").then((page) => {
             page.initPost()
         }).catch((e) => {
-            consoleDebug("Error loading post page script: " + e)
+            consoleInfo("Error loading post page script: " + e)
         })
     }
 }
 
 
 window.addEventListener("pageshow", (event) => {
-    consoleDebug("Window event: pageshow, persisted = " + event.persisted)
+    consoleInfo("Window event: pageshow, persisted = " + event.persisted)
     // Writing 模式下为方便刷新时文章审阅，自动滚动到上次的位置
     if (isWriting()) {
-        consoleDebug("Writing mode, set scrollRestoration = auto")
+        consoleInfo("Writing mode, set scrollRestoration = auto")
         if ("scrollRestoration" in history) {
             history.scrollRestoration = "auto";
         }
@@ -102,21 +102,21 @@ window.addEventListener("pageshow", (event) => {
         // 从其它页返回，浏览器会保留 DOM 和 JS 状态，以及滚动位置，设置 scrollRestoration 为默认值 auto
         // 可以让浏览器恢复到离开时的位置，不需要做任何处理，除非 JS、DOM 丢失了，需要重新加载数据，再滚动到这个位置
         if ("scrollRestoration" in history) {
-            consoleDebug("Page restore, set scrollRestoration = auto")
+            consoleInfo("Page restore, set scrollRestoration = auto")
             history.scrollRestoration = "auto";
         }
     } else {
         // 并非从其它页返回，认为是页面刷新，不自动滚动到离开时的位置🤔
         // TODO: 如何获取这个位置呢，或许可以平滑滚动到那里
         if ("scrollRestoration" in history) {
-            consoleDebug("Page reload, set scrollRestoration = manual")
+            consoleInfo("Page reload, set scrollRestoration = manual")
             history.scrollRestoration = "manual";
         }
     }
 });
 
 window.addEventListener("pagehide", (event) => {
-    consoleDebug("Window event: pagehide")
+    consoleInfo("Window event: pagehide")
 });
 
 function checkWebpSupport() {
@@ -141,7 +141,7 @@ function checkTest() {
     const fontSans = urlParams.get("fontSans")
     if (fontSans === "true") {
         // 启用思源黑体的逻辑
-        consoleDebug("Enable Noto Sans SC font")
+        consoleInfo("Enable Noto Sans SC font")
         setNotoSansSCFont(true)
     }
 }
@@ -150,15 +150,15 @@ function checkBrowser() {
     // 解决移动端Chrome字体问题，在小米手机上可能字体过大，原因是窗口宽度过小，所以为小宽度设置一个合适的字体大小
     if (isChrome()) {
         const updateChromeClass = (width: number) => {
-            consoleDebug("Chrome detected, window width: " + width)
+            consoleInfo("Chrome detected, window width: " + width)
             if (width < 400) {
-                consoleDebug("Chrome windowWidth < 400px, set fontSize to 14.5px")
+                consoleInfo("Chrome windowWidth < 400px, set fontSize to 14.5px")
                 document.documentElement.style.fontSize = "14.5px"
             } else if (width >= 400 && width < 410) {
-                consoleDebug("Chrome windowWidth >= 400px, < 410px, set fontSize to 15px")
+                consoleInfo("Chrome windowWidth >= 400px, < 410px, set fontSize to 15px")
                 document.documentElement.style.fontSize = "15px"
             } else {
-                consoleDebug("Chrome windowWidth >= 410px, set fontSize to unset")
+                consoleInfo("Chrome windowWidth >= 410px, set fontSize to unset")
                 document.documentElement.style.fontSize = "unset"
             }
         }

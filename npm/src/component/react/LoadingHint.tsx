@@ -2,7 +2,7 @@ import "./LoadingHint.scss"
 import { Button } from "./Button"
 import { ProgressCircular } from "./ProgressCircular"
 import { createContext, useContext, useEffect, useMemo, useRef } from "react"
-import { consoleDebug, consoleObjDebug } from "../../util/log"
+import { consoleInfo, consoleInfoObj } from "../../util/log"
 
 export const LOADING_HINT_ERROR: string = "重试加载"
 export const LOADING_HINT_NO_RESULT: string = "暂无数据"
@@ -19,7 +19,12 @@ interface Props {
     loadHint?: string
     onClickHint: () => void
     onLoadMore?: () => void
+    /**
+     * 是否使用更长的 Intersection 判断距离，默认为 false
+     */
+    extendIntersectionThreshold?: boolean
 }
+
 
 export function LoadingHint(props: Props) {
     const containerRef = useRef<HTMLDivElement>(null)
@@ -31,18 +36,19 @@ export function LoadingHint(props: Props) {
     }, [props.onLoadMore])
 
     useEffect(() => {
-        let gap = window.innerHeight * 0.8
+        let viewportHeight = window.innerHeight
         if (scrollRoot?.current) {
-            gap = scrollRoot.current.clientHeight * 0.8
+            viewportHeight = scrollRoot.current.clientHeight
         }
+        let gap = props.extendIntersectionThreshold ? viewportHeight * 1.2 : viewportHeight * 0.8
         if (gap == 0) {
             gap = 400
         }
-        consoleDebug("LoadingHint useEffect gap: " + gap)
-        consoleObjDebug("LoadingHint useEffect scrollRoot:", scrollRoot?.current)
+        consoleInfo("LoadingHint useEffect gap: " + gap)
+        consoleInfoObj("LoadingHint useEffect scrollRoot:", scrollRoot?.current)
         const interSectionObserver = new IntersectionObserver(entries => {
             entries.forEach(entry => {
-                consoleDebug("LoadingHint IntersectionObserver isIntersection: " + entry.isIntersecting)
+                consoleInfo("LoadingHint IntersectionObserver isIntersection: " + entry.isIntersecting)
                 if (entry.isIntersecting) {
                     if (onLoadMoreRef.current) {
                         onLoadMoreRef.current()
@@ -58,14 +64,15 @@ export function LoadingHint(props: Props) {
         if (containerRef.current) {
             interSectionObserver.observe(containerRef.current)
         }
+        consoleInfo("LoadingHint useEffect loading: " + props.loading + ", loadHint: " + props.loadHint)
         return () => {
-            consoleDebug("LoadingHint useEffect cleanup")
+            consoleInfo("LoadingHint useEffect cleanup")
             if (containerRef.current) {
                 interSectionObserver.unobserve(containerRef.current)
             }
         }
         // 这里锚定 loading 状态，确保一次加载完成后触发 intersection 检测
-    }, [props.loading, props.loadHint])
+    }, [props.loading, props.loadHint, props.extendIntersectionThreshold])
 
     const hide = useMemo(() => {
         return !props.loading && props.loadHint == null

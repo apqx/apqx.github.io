@@ -1,4 +1,4 @@
-import { consoleDebug, consoleObjDebug } from "../../../util/log";
+import { consoleErrorObj, consoleInfo, consoleInfoObj } from "../../../util/log";
 import { LOADING_HINT_ERROR, getLoadHint } from "../../react/LoadingHint";
 import { BaseExternalStore } from "./BaseExternalStore";
 import type { BasePagefindPaginator, BasePagefindPaginatorOptions } from "./BasePagefindPaginator";
@@ -27,7 +27,7 @@ export class PagefindPaginateViewModel<P, T, O extends BasePagefindPaginator<P, 
     async search(keywords: string | null, options: BasePagefindPaginatorOptions, delay: boolean = false): Promise<void> {
         try {
             if (this.state.loading) return
-            consoleDebug("PagefindPaginateViewModel search, keywords = " + keywords)
+            consoleInfo("PagefindPaginateViewModel search, keywords = " + keywords)
             // 应过滤搜索词为空的搜索行为，当词为 null 字符时，pagefind 会返回全部数据
             if (keywords?.length == 0) {
                 this.state = {
@@ -55,7 +55,7 @@ export class PagefindPaginateViewModel<P, T, O extends BasePagefindPaginator<P, 
             }
             this.emitChange()
         } catch (e) {
-            consoleObjDebug("Error searching posts", e)
+            consoleInfoObj("Error searching posts", e)
             this.state = {
                 ...this.state,
                 loading: false,
@@ -68,7 +68,7 @@ export class PagefindPaginateViewModel<P, T, O extends BasePagefindPaginator<P, 
     async loadMore(delay: boolean = false): Promise<void> {
         if (this.state.loading) return
         if (!this.paginator.hasMore()) return
-        consoleDebug("PagefindPaginateViewModel loadMore")
+        consoleInfo("PagefindPaginateViewModel loadMore")
         try {
             this.state = {
                 ...this.state,
@@ -79,14 +79,24 @@ export class PagefindPaginateViewModel<P, T, O extends BasePagefindPaginator<P, 
             const posts = await this.paginator.loadMore(delay)
             const totalPostsSize = this.paginator.totalPostsSize()
             this.state = {
-                loading: false,
-                loadingHint: posts.length > 0 && this.onlyShowLoadingAndError ? undefined : getLoadHint(posts.length, totalPostsSize),
+                ...this.state,
                 posts: posts,
                 totalPostsSize: totalPostsSize
             }
             this.emitChange()
+            // loading 状态的解除延时一段时间，尽量在新数据的布局完成之后，避免 loading 组件的 intersection 过早触发，从而导致加载更多的请求过多
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    this.state = {
+                        ...this.state,
+                        loading: false,
+                        loadingHint: posts.length > 0 && this.onlyShowLoadingAndError ? undefined : getLoadHint(posts.length, totalPostsSize),
+                    }
+                    this.emitChange()
+                })
+            })
         } catch (e) {
-            consoleObjDebug("Error loading more posts", e)
+            consoleErrorObj("Error loading more posts", e)
             this.state = {
                 ...this.state,
                 loading: false,

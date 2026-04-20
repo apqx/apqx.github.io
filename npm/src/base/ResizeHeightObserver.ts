@@ -1,4 +1,4 @@
-import { consoleDebug } from "../util/log"
+import { consoleInfo } from "../util/log"
 
 export class ResizeHeightObserver {
     callback: (width: number) => void
@@ -16,7 +16,7 @@ export class ResizeHeightObserver {
             clearTimeout(this.lastTimeout)
         }
         this.lastTimeout = setTimeout(() => {
-            consoleDebug("ResizeHeightObserver height changed after delay " + entry!!.contentRect.height)
+            consoleInfo("ResizeHeightObserver height changed after delay " + entry!!.contentRect.height)
             this.callback(entry!!.contentRect.height)
         }, 200)
     })

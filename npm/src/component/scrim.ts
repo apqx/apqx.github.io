@@ -1,5 +1,5 @@
 import "./scrim.scss"
-import { consoleDebug, consoleError, consoleObjDebug } from "../util/log"
+import { consoleInfo, consoleError, consoleInfoObj } from "../util/log"
 import { toggleElementClass } from "../util/tools"
 import { getLocalRepository } from "../repository/LocalDb"
 
@@ -44,7 +44,7 @@ export function initScrim() {
 }
 
 export function toggleScrimActive(on: boolean) {
-    consoleDebug("Toggle scrim active " + on)
+    consoleInfo("Toggle scrim active " + on)
     if (scrimE == null) return
     cancelPendingShowFrame()
     if (on) {
@@ -61,6 +61,6 @@ export function toggleScrimActive(on: boolean) {
 
 export function checkScrimBlur() {
     const enabled = getLocalRepository().getScrimBlur()
-    consoleDebug("Scrim blur enabled: " + enabled)
+    consoleInfo("Scrim blur enabled: " + enabled)
     toggleElementClass(document.body, SCRIM_BLUR_CLASS, enabled)
 }

@@ -1,6 +1,6 @@
 import "./index.scss"
 import { parseImageSize, runOnHtmlDone, toggleElementClass } from "../util/tools"
-import { consoleDebug, consoleObjDebug } from "../util/log"
+import { consoleInfo, consoleInfoObj } from "../util/log"
 import { createRoot } from "react-dom/client"
 import { IndexLinearPosts } from "../component/react/IndexLinearPosts"
 import { getSectionTypeByPath, SECTION_TYPE_OTHER } from "../base/constant"
@@ -30,7 +30,7 @@ function initIndexList() {
     
     const root = createRoot(wrapperE)
     const category = getSectionTypeByPath(window.location.pathname).identifier
-    consoleDebug("Index category = " + category + ", path = " + window.location.pathname)
+    consoleInfo("Index category = " + category + ", path = " + window.location.pathname)
     if (category == SECTION_TYPE_OTHER.identifier) return
     
     if (wrapperE.classList.contains("index-list-wrapper")) {
@@ -38,7 +38,7 @@ function initIndexList() {
         // 获取已有 post，包括置顶和非置顶
         initIndexTopCover()
         const loadedPosts = getLinearLoadedPosts(wrapperE)
-        consoleObjDebug("Index loaded local posts", loadedPosts)
+        consoleInfoObj("Index loaded local posts", loadedPosts)
         root.render(<IndexLinearPosts tag={""} category={category} pinnedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
             onMount={onMount} />)
     } else if (wrapperE.classList.contains("grid-index-list-wrapper")) {
@@ -49,13 +49,13 @@ function initIndexList() {
         if (descriptionE != null)
             descriptionHtml = descriptionE.innerHTML
         const loadedPosts = getGridLoadedPosts(wrapperE)
-        consoleObjDebug("Index loaded local posts", loadedPosts)
+        consoleInfoObj("Index loaded local posts", loadedPosts)
         root.render(<IndexGridPosts tag={""} category={category} pinnedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
             onMount={onMount} pageDescriptionHtml={descriptionHtml} />)
     } else if (wrapperE.classList.contains("lens-index-list-wrapper")) {
         // 透镜
         const loadedPosts = getLensLoadedPosts(wrapperE)
-        consoleObjDebug("Index loaded local posts", loadedPosts)
+        consoleInfoObj("Index loaded local posts", loadedPosts)
         root.render(<IndexGridLens tag={""} category={category} pinnedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
             onMount={onMount} />)
     }

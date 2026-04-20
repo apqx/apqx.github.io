@@ -1,6 +1,7 @@
 import "./ProgressCircular.scss"
 import React, { useEffect, useRef } from "react"
 import { MDCCircularProgress } from '@material/circular-progress'
+import { consoleInfo } from "../../util/log"
 
 interface Props {
     loading: boolean,
@@ -18,7 +19,7 @@ export function ProgressCircular(props: Props) {
             progressCircular.current?.destroy()
         }
     }, [])
-    
+
     useEffect(() => {
         if (props.loading) {
             progressCircular.current!!.determinate = false

@@ -1,7 +1,7 @@
 // import "./LensIndexList.scss"
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
 import { LOADING_HINT_ERROR, LOADING_HINT_NO_RESULT, LoadingHint } from "./LoadingHint"
-import { consoleDebug, consoleObjDebug } from "../../util/log"
+import { consoleInfo, consoleInfoObj } from "../../util/log"
 import { getWindowInterSectionObserver, queryAnimatedElement } from "../animation/BaseAnimation"
 import { getSplittedDate } from "../../base/post"
 import { setupCardRipple } from "../card"
@@ -34,40 +34,40 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
             tag: props.tag,
             category: props.category,
         }
-        return new HttpPaginatorViewModel<ApiPost, PostHttpPaginator, Post>(new PostHttpPaginator(options), true)
+        return new HttpPaginatorViewModel<ApiPost, PostHttpPaginator, Post>(new PostHttpPaginator(options))
     }, [])
     const pagefindPaginateViewModel = useMemo(() => {
-        return new PagefindPaginateViewModel<PagefindResultItem, Post, PostPagefindPaginator>(new PostPagefindPaginator(), true)
+        return new PagefindPaginateViewModel<PagefindResultItem, Post, PostPagefindPaginator>(new PostPagefindPaginator())
     }, [])
 
     const httpState = useSyncExternalStore(httpPaginateViewModel.subscribe, () => httpPaginateViewModel.state)
     const pagefindState = useSyncExternalStore(pagefindPaginateViewModel.subscribe, () => pagefindPaginateViewModel.state)
 
     useEffect(() => {
-        consoleDebug(`IndexGridLens useEffect, tag: ${props.tag}, category: ${props.category}, filterTags: ${filterTags.toString()} `)
+        consoleInfo(`IndexGridLens useEffect, tag: ${props.tag}, category: ${props.category}, filterTags: ${filterTags.toString()} `)
         if (props.onMount != null)
             props.onMount()
 
         const emitter = getEventEmitter()
         emitter.on("lensFilterChange", (data) => {
-            consoleDebug("IndexGridLens receive lensFilterChange event, selectedTags = " + data.selectedTags.toString())
+            consoleInfo("IndexGridLens receive lensFilterChange event, selectedTags = " + data.selectedTags.toString())
             setFilterTags(data.selectedTags)
         })
         emitter.on("lensBiggerPictureChange", (data) => {
-            consoleDebug("IndexGridLens receive lensBiggerPictureChange event, enabled = " + data.enabled)
+            consoleInfo("IndexGridLens receive lensBiggerPictureChange event, enabled = " + data.enabled)
             setLensBiggerPicture(data.enabled)
         })
         // 监听从缓存中恢复设置的事件，更新单列显示设置
         emitter.on("pageEvent", (data) => {
             if (data == EVENT_PAGE_BACK_FROM_CACHE) {
                 const enabled = getLocalRepository().getLensBiggerPicture()
-                consoleDebug("IndexGridLens receive restoreSettingsFromCache event, restore lensBiggerPicture to " + enabled)
+                consoleInfo("IndexGridLens receive restoreSettingsFromCache event, restore lensBiggerPicture to " + enabled)
                 setLensBiggerPicture(enabled)
             }
         })
 
         return () => {
-            consoleDebug("IndexGridLens useEffect cleanup")
+            consoleInfo("IndexGridLens useEffect cleanup")
             emitter.off("lensFilterChange")
             emitter.off("lensBiggerPictureChange")
             emitter.off("pageEvent")
@@ -223,7 +223,8 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
                 // 若不设置初始预估尺寸为 0，可能出现首页顺序入场的顺序错乱
                 estimatedItemHeight={0}
             />
-            <LoadingHint loading={loadingState.loading} loadHint={loadingState.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore} />
+            <LoadingHint loading={loadingState.loading} loadHint={loadingState.loadingHint} onClickHint={onClickHint}
+                onLoadMore={onLoadMore} extendIntersectionThreshold={true} />
         </ul>
     )
 }
@@ -248,7 +249,7 @@ function IndexItem(props: IndexItemProps) {
     const containerRef = useRef<HTMLLIElement>(null)
 
     useEffect(() => {
-        consoleObjDebug("IndexItem useEffect " + props.index + " : " + props.title, props)
+        consoleInfoObj("IndexItem useEffect " + props.index + " : " + props.title, props)
         const rootE = containerRef.current as HTMLElement;
         const cardE = rootE.querySelector(".grid-index-card") as HTMLElement
         setupCardRipple(cardE)
@@ -269,7 +270,7 @@ function IndexItem(props: IndexItemProps) {
         }
 
         return () => {
-            consoleDebug("IndexItem useEffect cleanup " + props.index + " : " + props.title)
+            consoleInfo("IndexItem useEffect cleanup " + props.index + " : " + props.title)
             coverE.onload = null
             if (animationE != null) {
                 getWindowInterSectionObserver().unobserve(animationE)

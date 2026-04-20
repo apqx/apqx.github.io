@@ -1,5 +1,5 @@
 import "./BaseDialog.scss"
-import { consoleDebug } from "../../util/log"
+import { consoleInfo } from "../../util/log"
 import { MDCDialog } from "@material/dialog"
 import React, { useEffect, useRef } from "react"
 import { createRoot } from "react-dom/client"
@@ -53,7 +53,7 @@ export function BaseDialog({ openCount, fixedWidth = false, closeOnClickOutside 
     }, [onDialogOpen, onDialogClose, scrollToTopOnDialogOpen])
 
     useEffect(() => {
-        consoleDebug("BaseDialog useEffect")
+        consoleInfo("BaseDialog useEffect")
         const rootE = containerRef.current as Element
         dialogContentRef.current = rootE.querySelector("#basic-dialog-content") as HTMLDivElement
 
@@ -69,7 +69,7 @@ export function BaseDialog({ openCount, fixedWidth = false, closeOnClickOutside 
         dialogRef.current!.open()
 
         return () => {
-            consoleDebug("BaseDialog useEffect cleanup")
+            consoleInfo("BaseDialog useEffect cleanup")
 
             clearListeners()
             dialogRef.current?.destroy()
@@ -103,7 +103,7 @@ export function BaseDialog({ openCount, fixedWidth = false, closeOnClickOutside 
     }, [closeOnClickOutside])
 
     useEffect(() => {
-        consoleDebug("BaseDialog useEffect openCount = " + openCount)
+        consoleInfo("BaseDialog useEffect openCount = " + openCount)
         if (openCount > 0) {
             dialogRef.current?.open()
         }
@@ -113,11 +113,11 @@ export function BaseDialog({ openCount, fixedWidth = false, closeOnClickOutside 
         dialogRef.current = new MDCDialog(rootE)
 
         const onOpeningListener = () => {
-            consoleDebug("Dialog opening")
+            consoleInfo("Dialog opening")
             toggleScrimActive(true)
         }
         const onOpenedListener = () => {
-            consoleDebug("Dialog opened")
+            consoleInfo("Dialog opened")
             if (onDialogOpenRef.current != null) {
                 onDialogOpenRef.current()
             }
@@ -128,7 +128,7 @@ export function BaseDialog({ openCount, fixedWidth = false, closeOnClickOutside 
         }
 
         const onClosingListener = () => {
-            consoleDebug("Dialog closing")
+            consoleInfo("Dialog closing")
             toggleScrimActive(false)
             if (onDialogCloseRef.current != null) {
                 onDialogCloseRef.current()
@@ -136,7 +136,7 @@ export function BaseDialog({ openCount, fixedWidth = false, closeOnClickOutside 
         }
 
         const onClosedListener = () => {
-            consoleDebug("Dialog closed")
+            consoleInfo("Dialog closed")
         }
 
         // 启动 open 动画

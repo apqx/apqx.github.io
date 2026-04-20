@@ -46,11 +46,11 @@
 
 // fade-in 动画不改变元素位置，进入 viewport 触发 intersection observer 后直接执行 fade-in 动画
 .fade-in {
+    transition: opacity var(--index-card-animation-duration) ease;
     opacity: 0;
     transform: translateY(0);
     
     &.fade-in--start {
-        transition: opacity var(--index-card-animation-duration) ease;
         transform: translateY(0);
         opacity: 1;
     }

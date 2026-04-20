@@ -1,7 +1,7 @@
 import "./ShareDialog.scss"
 import { BaseDialog, SHARE_DIALOG_WRAPPER_ID, showDialog } from "./BaseDialog"
 import type { BaseDialogOpenProps } from "./BaseDialog"
-import { consoleDebug } from "../../util/log"
+import { consoleInfo } from "../../util/log"
 import { useEffect, useMemo, useRef } from "react"
 import QRCodeStyling from "qr-code-styling"
 import QRCode from "qrcode-generator"
@@ -32,14 +32,14 @@ function ShareDialog(props: BaseDialogOpenProps) {
 
         let qrCodeSize = modules * moduleSize + margin * 2
 
-        consoleDebug("QRCode calculate size: " + qrCodeSize + "px, margin: " + margin + "px")
+        consoleInfo("QRCode calculate size: " + qrCodeSize + "px, margin: " + margin + "px")
 
         if (qrCodeSize < 300) {
             // 最小尺寸为 300x300，否则放大会出现毛边
             qrCodeSize = 300
              // 设置固定 margin
             margin = 15
-            consoleDebug("QRCode calculate size < 300, use size: " + qrCodeSize + "px, margin: " + margin + "px")
+            consoleInfo("QRCode calculate size < 300, use size: " + qrCodeSize + "px, margin: " + margin + "px")
         }
 
         // 生成二维码，不要使用 svg，在浏览器中渲染时会出现点阵网格
@@ -98,10 +98,10 @@ function ShareUrlItem(props: ShareUrlItemProps) {
     function onClickCopyUrl() {
         navigator.clipboard.writeText(props.url).then(() => {
             showSnackbar("已复制链接到剪贴板")
-            consoleDebug("Copy url success: " + props.url)
+            consoleInfo("Copy url success: " + props.url)
         }).catch(err => {
             showSnackbar("复制链接失败")
-            consoleDebug("Copy url failed: " + err)
+            consoleInfo("Copy url failed: " + err)
         })
     }
 

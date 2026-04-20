@@ -2,7 +2,7 @@
 import { isIndexPage } from "../base/constant"
 import { getWindowInterSectionObserver } from "./animation/BaseAnimation"
 import { toggleElementClass } from "../util/tools"
-import { consoleDebug } from "../util/log"
+import { consoleInfo } from "../util/log"
 import { getEventEmitter } from "./base/EventBus"
 
 var footerContentE: Element | null = null
@@ -15,7 +15,7 @@ function getFooterContentElement() {
 }
 
 function showFooter(show: boolean = true) {
-    consoleDebug("Show footer: " + show)
+    consoleInfo("Show footer: " + show)
     const footerContentE = getFooterContentElement()
     if (footerContentE == null) return
     getWindowInterSectionObserver().unobserve(footerContentE as Element)

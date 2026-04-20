@@ -2,7 +2,7 @@ import { LocalDb } from "../../repository/LocalDb"
 import { saveTheme, showThemeDark } from "../theme"
 import { checkTopbar } from "../topbar"
 import { setNotoSerifSCFont } from "../font/font"
-import { consoleDebug } from "../../util/log"
+import { consoleInfo } from "../../util/log"
 import { BaseExternalStore } from "../base/paginate/BaseExternalStore"
 import { checkScrimBlur } from "../scrim"
 import { getEventEmitter } from "../base/EventBus"
@@ -35,7 +35,7 @@ export class PreferenceDialogViewModel extends BaseExternalStore {
             autoTheme: this.localAutoTheme()
         }
         this.emitChange()
-        consoleDebug("PreferenceDialogViewModel initSettings, state = " + JSON.stringify(this.state))
+        consoleInfo("PreferenceDialogViewModel initSettings, state = " + JSON.stringify(this.state))
     }
 
     onClickFixedTopbarSwitch = () => {

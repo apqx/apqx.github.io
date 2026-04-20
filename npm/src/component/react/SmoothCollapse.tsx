@@ -1,6 +1,6 @@
 import "./SmoothCollapse.scss"
 import { useLayoutEffect, useRef } from "react"
-import { consoleDebug } from "../../util/log"
+import { consoleInfo } from "../../util/log"
 
 type SmoothCollapseProps = {
     children: React.ReactNode
@@ -17,7 +17,7 @@ export function SmoothCollapse({ children }: SmoothCollapseProps) {
         const wrapperE = wrapperRef.current as HTMLElement
         let preHeight = wrapperE.offsetHeight
         let preWidth = wrapperE.offsetWidth
-        consoleDebug("SmoothCollapse useEffect init height = " + preHeight + ", width = " + preWidth)
+        consoleInfo("SmoothCollapse useEffect init height = " + preHeight + ", width = " + preWidth)
         const resizeObserver = new ResizeObserver((entries) => {
             // 当元素的上级被设置为 display: none 时，offsetHeight 会变为 0，过滤掉这种情况
             if (isElementHidden(wrapperE)) return
@@ -37,7 +37,7 @@ export function SmoothCollapse({ children }: SmoothCollapseProps) {
         resizeObserver.observe(wrapperE)
 
         return () => {
-            consoleDebug("SmoothCollapse useEffect cleanup")
+            consoleInfo("SmoothCollapse useEffect cleanup")
             resizeObserver.disconnect()
         }
     }, [])

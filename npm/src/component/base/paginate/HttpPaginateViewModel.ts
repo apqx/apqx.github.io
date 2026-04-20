@@ -1,4 +1,4 @@
-import { consoleDebug, consoleObjDebug } from "../../../util/log"
+import { consoleErrorObj, consoleInfo, consoleInfoObj } from "../../../util/log"
 import { LOADING_HINT_ERROR, getLoadHint } from "../../react/LoadingHint"
 import { BaseExternalStore } from "./BaseExternalStore"
 import type { BaseHttpPaginator } from "./BaseHttpPaginator"
@@ -27,7 +27,7 @@ export class HttpPaginatorViewModel<H, P extends BaseHttpPaginator<H, T>, T> ext
     async load(delay: boolean = false): Promise<void> {
         try {
             if (this.state.loading) return
-            consoleDebug("HttpPaginatorViewModel load")
+            consoleInfo("HttpPaginatorViewModel load")
             this.state = {
                 loading: true,
                 loadingHint: undefined,
@@ -45,7 +45,7 @@ export class HttpPaginatorViewModel<H, P extends BaseHttpPaginator<H, T>, T> ext
             }
             this.emitChange()
         } catch (e) {
-            consoleObjDebug("Error loading posts", e)
+            consoleInfoObj("Error loading posts", e)
             this.state = {
                 ...this.state,
                 loading: false,
@@ -58,7 +58,7 @@ export class HttpPaginatorViewModel<H, P extends BaseHttpPaginator<H, T>, T> ext
     async loadMore(delay: boolean = false): Promise<void> {
         if (this.state.loading) return
         if (!this.paginator.hasMore()) return
-        consoleDebug("HttpPaginatorViewModel loadMore")
+        consoleInfo("HttpPaginatorViewModel loadMore")
         try {
             this.state = {
                 ...this.state,
@@ -69,14 +69,25 @@ export class HttpPaginatorViewModel<H, P extends BaseHttpPaginator<H, T>, T> ext
             const posts = await this.paginator.loadMore(delay)
             const totalPostsSize = this.paginator.totalPostsSize()
             this.state = {
-                loading: false,
-                loadingHint: posts.length > 0 && this.onlyShowLoadingAndError ? undefined : getLoadHint(posts.length, totalPostsSize),
+                ...this.state,
                 posts: posts,
                 totalPostsSize: totalPostsSize
             }
             this.emitChange()
+            // loading 状态的解除延时一段时间，尽量在新数据的布局完成之后，避免 loading 组件的 intersection 过早触发，从而导致加载更多的请求过多
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    this.state = {
+                        ...this.state,
+                        loading: false,
+                        loadingHint: posts.length > 0 && this.onlyShowLoadingAndError ? undefined : getLoadHint(posts.length, totalPostsSize),
+                    }
+                    this.emitChange()
+                })
+            })
+            this.emitChange()
         } catch (e) {
-            consoleObjDebug("Error loading more posts", e)
+            consoleErrorObj("Error loading more posts", e)
             this.state = {
                 ...this.state,
                 loading: false,

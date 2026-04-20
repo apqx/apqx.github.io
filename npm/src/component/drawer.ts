@@ -1,7 +1,7 @@
 // import "./drawer.scss"
 import { MDCDrawer } from "@material/drawer";
 import { MDCList } from "@material/list";
-import { consoleDebug, consoleError } from "../util/log";
+import { consoleInfo, consoleError } from "../util/log";
 import { setToggleMenuIconBtnFocused, setToggleMenuIconBtnOn, topAppBar } from "./topbar";
 import { showAboutMeDialog } from "./dialog/AboutMeDialog";
 import { showPreferenceDialog } from "./dialog/PreferenceDialog";
@@ -51,14 +51,14 @@ export function initDrawer() {
     setupIconButtonRipple(iconBtnShareE as HTMLElement)
     setupIconButtonRipple(iconBtnCloseE as HTMLElement)
     iconBtnShareE?.addEventListener("click", () => {
-        consoleDebug("Click drawer share button")
+        consoleInfo("Click drawer share button")
         import("./dialog/ShareDialog").then((component) => {
             component.showShareDialog()
             drawer.open = false
         })
     })
     iconBtnCloseE?.addEventListener("click", () => {
-        consoleDebug("Click drawer close button")
+        consoleInfo("Click drawer close button")
         drawer.open = false
     })
 
@@ -91,7 +91,7 @@ export function initDrawer() {
         // drawerList.selectedIndex = currentPageIndex
     });
 
-    consoleDebug("Drawer currentPageIndex " + currentPageIndex)
+    consoleInfo("Drawer currentPageIndex " + currentPageIndex)
     listE.addEventListener("click", () => {
         // 恢复选中
         drawerList.selectedIndex = currentPageIndex
@@ -111,20 +111,20 @@ export function initDrawer() {
 
     searchE.addEventListener(eventType, () => {
         if (searchEHref == null || searchEHref == "") {
-            consoleDebug("Click drawer list item " + DRAWER_ITEM_SEARCH_ID)
+            consoleInfo("Click drawer list item " + DRAWER_ITEM_SEARCH_ID)
             showSearchDialog()
             drawer.open = false
         }
     })
 
     listE.querySelector("#" + DRAWER_ITEM_PREFERENCE_ID)?.addEventListener(eventType, () => {
-        consoleDebug("Click drawer list item " + DRAWER_ITEM_PREFERENCE_ID)
+        consoleInfo("Click drawer list item " + DRAWER_ITEM_PREFERENCE_ID)
         showPreferenceDialog()
         drawer.open = false
     })
 
     listE.querySelector("#" + DRAWER_ITEM_ABOUT_ME_ID)?.addEventListener(eventType, () => {
-        consoleDebug("Click drawer list item " + DRAWER_ITEM_ABOUT_ME_ID)
+        consoleInfo("Click drawer list item " + DRAWER_ITEM_ABOUT_ME_ID)
         showAboutMeDialog()
         drawer.open = false
     })

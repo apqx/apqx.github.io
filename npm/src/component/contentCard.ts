@@ -1,5 +1,5 @@
 // import "./contentCard.scss"
-import { consoleDebug } from "../util/log"
+import { consoleInfo } from "../util/log"
 import { toggleElementClass } from "../util/tools"
 import { getWindowInterSectionObserver } from "./animation/BaseAnimation"
 
@@ -9,9 +9,9 @@ import { getWindowInterSectionObserver } from "./animation/BaseAnimation"
  */
 export function initContentCard(withAnimation: boolean) {
     const cardE = document.querySelector(".content-card")
-    consoleDebug("Init content card " + cardE)
+    consoleInfo("Init content card " + cardE)
     if (cardE == null) {
-        consoleDebug("Content card not found, skip init")
+        consoleInfo("Content card not found, skip init")
         return
     }
     if (withAnimation) {

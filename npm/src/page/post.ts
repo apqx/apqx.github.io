@@ -1,5 +1,5 @@
 import "./post.scss"
-import { consoleDebug, consoleError } from "../util/log"
+import { consoleInfo, consoleError } from "../util/log"
 import { isAndroidModern, runOnHtmlDone } from "../util/tools"
 import { initContentCard } from "../component/contentCard"
 import { showAlertDialog } from "../component/dialog/CommonAlertDialog"
@@ -32,12 +32,12 @@ function initCodeHighlight() {
 function initPageCheck() {
     const urlPath = window.location.pathname
     var sectionIdentifier = getSectionTypeByPath(urlPath).identifier
-    consoleDebug("Post page section = " + sectionIdentifier + ", path = " + urlPath)
+    consoleInfo("Post page section = " + sectionIdentifier + ", path = " + urlPath)
     if (sectionIdentifier === SECTION_TYPE_OPERA.identifier) {
-        consoleDebug("Add opera-page to body")
+        consoleInfo("Add opera-page to body")
         document.body.classList.add("opera-page")
     } else if (sectionIdentifier === SECTION_TYPE_SHARE.identifier) {
-        consoleDebug("Init share page")
+        consoleInfo("Init share page")
         initShares()
     }
 
@@ -74,7 +74,7 @@ function initImgJump() {
                 imgUrl = imgUrl.replace("_thumb", "").replace("_for_lens", "").replace("_for_cover", "")
             }
             
-            consoleDebug("Click show original img, copyright = " + hasCopyright + ", => " + imgUrl)
+            consoleInfo("Click show original img, copyright = " + hasCopyright + ", => " + imgUrl)
             if (hasCopyright) {
                 showCopyrightDialog(imgUrl);
             } else {

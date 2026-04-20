@@ -5,7 +5,7 @@ import { LensFilterDialogViewModel, type Category, type Tag } from "./LensFilter
 import { SmoothCollapse } from "../react/SmoothCollapse";
 import { CheckableTag } from "../react/CheckableTag";
 import { LoadingHint } from "../react/LoadingHint";
-import { consoleDebug } from "../../util/log";
+import { consoleInfo } from "../../util/log";
 import { getEventEmitter } from "../base/EventBus";
 
 export function LensFilterDialog(props: BaseDialogOpenProps) {
@@ -14,11 +14,11 @@ export function LensFilterDialog(props: BaseDialogOpenProps) {
     const state = useSyncExternalStore(viewModel.subscribe, () => viewModel.state)
 
     useEffect(() => {
-        consoleDebug("LensFilterDialog useEffect")
+        consoleInfo("LensFilterDialog useEffect")
         viewModel.init()
 
         return () => {
-            consoleDebug("LensFilterDialog clearup")
+            consoleInfo("LensFilterDialog clearup")
             viewModel.abort()
         }
     }, [])
@@ -53,7 +53,7 @@ export function LensFilterDialog(props: BaseDialogOpenProps) {
                 text: "搜索", closeOnClick: true, onClick: () => {
                     viewModel.confirmSelection()
                     // 通知执行搜索
-                    consoleDebug("LensFilterDialog selected tags = " + state.selectedTags.toString())
+                    consoleInfo("LensFilterDialog selected tags = " + state.selectedTags.toString())
                     getEventEmitter().emit("lensFilterChange", {
                         selectedTags: state.selectedTags
                     })
@@ -164,6 +164,6 @@ function getTagTitle(tag: Tag) {
 
 let openCount = 0
 export function showLensFilterDialog() {
-    consoleDebug("ShowLensFilterDialog")
+    consoleInfo("ShowLensFilterDialog")
     showDialog(<LensFilterDialog openCount={openCount++} />, LENS_FILTER_DIALOG_WRAPPER_ID)
 }

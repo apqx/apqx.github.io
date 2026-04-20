@@ -1,7 +1,7 @@
 // import "./IndexList.scss"
 import { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from "react"
 import { LOADING_HINT_ERROR, LOADING_HINT_NO_RESULT, LoadingHint } from "./LoadingHint"
-import { consoleDebug, consoleObjDebug } from "../../util/log"
+import { consoleInfo, consoleInfoObj } from "../../util/log"
 import { getWindowInterSectionObserver, queryAnimatedElement } from "../animation/BaseAnimation"
 import { getSplittedDate } from "../../base/post"
 import { setupCardRipple } from "../card"
@@ -24,13 +24,13 @@ export function IndexLinearPosts(props: BasePaginateViewProps<Post>) {
     const state = useSyncExternalStore(paginateViewModel.subscribe, () => paginateViewModel.state)
 
     useEffect(() => {
-        consoleDebug(`IndexLinearPosts useEffect, tag: ${props.tag}, category: ${props.category}`)
+        consoleInfo(`IndexLinearPosts useEffect, tag: ${props.tag}, category: ${props.category}`)
         paginateViewModel.load()
 
         if (props.onMount != null) props.onMount()
 
         return () => {
-            consoleDebug("IndexLinearPosts useEffect cleanup")
+            consoleInfo("IndexLinearPosts useEffect cleanup")
         }
     }, [])
 
@@ -97,7 +97,7 @@ function IndexItem(props: IndexItemProps) {
     const date = useMemo(() => getSplittedDate(props.date), [props.date]);
 
     useEffect(() => {
-        consoleObjDebug("IndexItem useEffect", props)
+        consoleInfoObj("IndexItem useEffect", props)
         const rootE = containerRef.current as HTMLElement;
         const cardE = rootE.querySelector(".index-card") as HTMLElement
         setupCardRipple(cardE)
@@ -129,7 +129,7 @@ function IndexItem(props: IndexItemProps) {
         window.addEventListener("scroll", scrollListener)
 
         return () => {
-            consoleDebug("IndexItem useEffect cleanup " + props.title)
+            consoleInfo("IndexItem useEffect cleanup " + props.title)
             if (animationE != null) {
                 getWindowInterSectionObserver().unobserve(animationE)
             }

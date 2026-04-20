@@ -1,5 +1,5 @@
 // import "./tag.scss"
-import { consoleDebug } from "../util/log"
+import { consoleInfo } from "../util/log"
 import { showTagDialog } from "./dialog/TagDialog"
 import { clearFocusListener } from "../util/tools"
 import { setupButtonRipple } from "./button"
@@ -16,7 +16,7 @@ export function initTagTriggers(containerE: HTMLElement = document.body) {
 
 export function setupTagTrigger(trigger: HTMLElement) {
     // 获取每一个 trigger 的 id，找到它对应的 dialogId，和 dialog 里的 listId
-    consoleDebug("SetupTagTrigger " + trigger.id)
+    consoleInfo("SetupTagTrigger " + trigger.id)
     // 监听 trigger 的点击事件，如果发现 iOS safari 的 a 点击事件有延迟，可用 pointerup 代替 click
     trigger.addEventListener("click", () => {
         onTagTriggerClick(trigger)
@@ -30,7 +30,7 @@ export function onTagTriggerClick(trigger: HTMLElement) {
     const nickname = trigger.getAttribute("nickname") ?? undefined
     // chip_tag_随笔 dialog_tag_随笔 dialog_tag_list_随笔
     // chip_tag_碎念&看剧 可以指定多个 tag，用 & 分隔
-    consoleDebug("Click tag " + tagId)
+    consoleInfo("Click tag " + tagId)
     // 这里的 tag 可能是由&连接的多个 tag
     const tag = tagId.replace("chip_tag_", "")
     showTagDialog(tag, nickname)

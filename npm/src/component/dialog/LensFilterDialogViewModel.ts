@@ -2,7 +2,7 @@ import type { ApiPagefindFilter } from "../../repository/bean/pagefind/ApiPagefi
 import type { ApiLensFilterTemplate } from "../../repository/bean/service/ApiLensFilterTemplate"
 import { PagefindFactory } from "../../repository/Pagefind"
 import { getServiceInstance, SERVICE_DEBUG_MODE_AUTO } from "../../repository/Service"
-import { consoleError, consoleObjDebug, consoleObjError } from "../../util/log"
+import { consoleError, consoleInfoObj, consoleErrorObj } from "../../util/log"
 import { sleepUntilMinimalTime } from "../../util/tools"
 import { BaseExternalStore } from "../base/paginate/BaseExternalStore"
 import { LOADING_HINT_ERROR } from "../react/LoadingHint"
@@ -49,7 +49,7 @@ export class LensFilterDialogViewModel extends BaseExternalStore {
         try {
             await this.loadTags(delay, startTime, this.abortController.signal)
         } catch (e) {
-            consoleObjError("Failed to load lens filter options", e)
+            consoleErrorObj("Failed to load lens filter options", e)
 
             await sleepUntilMinimalTime(startTime)
             this.state = {
@@ -70,12 +70,12 @@ export class LensFilterDialogViewModel extends BaseExternalStore {
                     throw new Error("GetLensSearchFilters error : " + response.status)
                 }
             })
-        consoleObjDebug("Get lens filter template", filterTemplate)
+        consoleInfoObj("Get lens filter template", filterTemplate)
         if (this.pagefind == null) {
             this.pagefind = await new PagefindFactory().getPagefind()
         }
         const pagefindFilters: ApiPagefindFilter = await this.pagefind.filters()
-        consoleObjDebug("Get pagefind filters", pagefindFilters)
+        consoleInfoObj("Get pagefind filters", pagefindFilters)
 
         // pagefind 中的 filter 均为有效标签，但不一定在模版中有配置，需找出未在模版中配置的标签
         // 将 filterTemplate 中的分类和标签与 pagefind 中的过滤项进行对比，找出最终展示的过滤项和未在模版中配置分类的过滤项
@@ -114,8 +114,8 @@ export class LensFilterDialogViewModel extends BaseExternalStore {
             title: "未配置分类",
             tags: tagsNotConfigured
         })
-        consoleObjDebug("Categories for show", categoriesForShow)
-        consoleObjDebug("Tags not configured", tagsNotConfigured)
+        consoleInfoObj("Categories for show", categoriesForShow)
+        consoleInfoObj("Tags not configured", tagsNotConfigured)
         if (delay) {
             await sleepUntilMinimalTime(startTime, signal)
         }

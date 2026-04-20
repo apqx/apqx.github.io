@@ -1,6 +1,6 @@
 // import "./theme.scss"
 import { isChrome, isMobileOrTablet, toggleElementClass } from "../util/tools"
-import { consoleDebug } from "../util/log"
+import { consoleInfo } from "../util/log"
 import { getLocalRepository } from "../repository/LocalDb"
 import { setToggleThemeIconDarkOn, toggleTopbarGlass } from "./topbar"
 import { showSnackbar } from "./react/Snackbar"
@@ -13,7 +13,7 @@ export function initTheme() {
     // 监听系统级主题变化，即系统和导航栏都可以控制主题变化
     window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
         let newSysTheme = e.matches ? "dark" : "light";
-        consoleDebug("System theme change to " + newSysTheme)
+        consoleInfo("System theme change to " + newSysTheme)
         const autoThemeOn = getLocalRepository().getTheme() === getLocalRepository().VALUE_THEME_AUTO
         if (autoThemeOn) {
             const newSysThemeDark = newSysTheme === "dark"
@@ -71,7 +71,7 @@ function checkColorfulToolbar() {
  * @param {String} color 如果为 undefined 则删除属性
  */
 export function setMetaThemeColor(color?: string) {
-    consoleDebug("SetThemeColor " + color)
+    consoleInfo("SetThemeColor " + color)
     let themeColorE = null
     for (const metaE of document.getElementsByTagName("meta")) {
         if (metaE.getAttribute("name") === "theme-color") {
@@ -104,7 +104,7 @@ export function toggleTheme() {
     const currentThemeIndex = themeArray.indexOf(currentTheme)
     const nextThemeIndex = (currentThemeIndex + 1) % themeArray.length
     const nextTheme = themeArray[nextThemeIndex]
-    consoleDebug("Toggle theme, current = " + currentTheme + ", next = " + nextTheme)
+    consoleInfo("Toggle theme, current = " + currentTheme + ", next = " + nextTheme)
 
     switch (nextTheme) {
         case getLocalRepository().VALUE_THEME_AUTO: {
@@ -149,7 +149,7 @@ export function showThemeDark(dark: boolean) {
  * @param {string} theme 主题
  */
 export function saveTheme(theme: string) {
-    consoleDebug("Save theme = " + theme)
+    consoleInfo("Save theme = " + theme)
     getLocalRepository().setTheme(theme)
 }
 

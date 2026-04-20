@@ -1,5 +1,5 @@
 import { ResizeWidthObserver } from "../../base/ResizeWidthObserver"
-import { consoleDebug } from "../../util/log"
+import { consoleInfo } from "../../util/log"
 import { getElementAttribute, toggleElementClass } from "../../util/tools"
 
 /**
@@ -26,7 +26,7 @@ export class ImageLoadAnimator {
 
         // 图片有可能已经加载、显示完成
         if (imgE.complete) {
-            consoleDebug("Image complete " + this.id + ", " +
+            consoleInfo("Image complete " + this.id + ", " +
                 imgE.width + " : " + imgE.height + ", " + imgE.naturalWidth + " : " + imgE.naturalHeight)
             if (ratio == -1) {
                 ratio = imgE.naturalWidth / imgE.naturalHeight
@@ -36,7 +36,7 @@ export class ImageLoadAnimator {
             // 如何获取图片的原始尺寸
             // 懒加载完成监听
             imgE.onload = () => {
-                consoleDebug("Image onload " + this.id + ", " +
+                consoleInfo("Image onload " + this.id + ", " +
                     imgE.width + " : " + imgE.height + ", " + imgE.naturalWidth + " : " + imgE.naturalHeight)
                 // 浏览器下载完成，尚未显示出来，尺寸height已经计算出来了
                 if (ratio == -1) {
@@ -52,7 +52,7 @@ export class ImageLoadAnimator {
         }
         if (monitorResize) {
             this.widthResizeObserver = new ResizeWidthObserver(imgE, (width) => {
-                consoleDebug("Image widthResizeObserver " + this.id + ", width = " + width)
+                consoleInfo("Image widthResizeObserver " + this.id + ", width = " + width)
                 if (ratio == -1) {
                     ratio = imgE.naturalWidth / imgE.naturalHeight
                 }
@@ -61,13 +61,13 @@ export class ImageLoadAnimator {
         }
 
         const transitionEndListener = () => {
-            consoleDebug("Image transitionend " + this.id)
+            consoleInfo("Image transitionend " + this.id)
             // 动画完成后，删除动画类，设置高度为 auto
             this.animationDone(monitorResize, imgE, animationEndCallback)
             removeListeners()
         }
         const transitionCancelListener = () => {
-            consoleDebug("Image animationcancel " + this.id)
+            consoleInfo("Image animationcancel " + this.id)
             this.animationDone(monitorResize, imgE, animationEndCallback)
             removeListeners()
         }
@@ -94,7 +94,7 @@ export class ImageLoadAnimator {
     setImageHeight(imgE: HTMLImageElement, ratio: number) {
         // 检查是否需要执行动画
         if (this.animationBeforeStart != null && !this.animationBeforeStart()) {
-            consoleDebug("ImageLoadAnimator animationBeforeStart returned false, not animating " + this.id)
+            consoleInfo("ImageLoadAnimator animationBeforeStart returned false, not animating " + this.id)
             // 删除动画类，Img 高度自动变为图片实际高度
             toggleElementClass(imgE, "image-height-animation", false)
             imgE.style.height = "auto"
@@ -102,7 +102,7 @@ export class ImageLoadAnimator {
         }
 
         const height = imgE.width / ratio
-        consoleDebug("SetImageHeight = " + height + ", " + this.id)
+        consoleInfo("SetImageHeight = " + height + ", " + this.id)
         imgE.style.height = height + "px"
         // 如果使用了 will-change，要及时关闭
     }

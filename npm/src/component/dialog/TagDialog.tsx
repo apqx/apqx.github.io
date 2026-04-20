@@ -2,7 +2,7 @@ import "./TagDialog.scss"
 import { MDCList } from "@material/list"
 import { BaseDialog, TAG_DIALOG_WRAPPER_ID, showDialog } from "./BaseDialog"
 import type { BaseDialogOpenProps } from "./BaseDialog"
-import { consoleDebug } from "../../util/log"
+import { consoleInfo } from "../../util/log"
 import { setupListItemRipple } from "../list"
 import { LOADING_HINT_ERROR, LOADING_HINT_NO_RESULT, LoadingHint } from "../react/LoadingHint"
 import { getSectionTypeByPath, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL } from "../../base/constant"
@@ -212,7 +212,7 @@ function Block(props: BlockProps) {
 let openCount = 0
 // nickname 是 tag 的别名，如果存在则在 dialog 标题显示别名，否则显示 tag 原文
 export function showTagDialog(_tag: string, _tagNickname?: string) {
-    consoleDebug("ShowTagDialog " + _tag)
+    consoleInfo("ShowTagDialog " + _tag)
     showDialog(<TagDialog openCount={openCount++} tag={_tag} nickname={_tagNickname} />, TAG_DIALOG_WRAPPER_ID + "-" + _tag)
     // OnClickBtn={null} closeOnClickOutside={true} />, TAG_DIALOG_WRAPPER_ID)
 }

@@ -1,6 +1,6 @@
 import "./LinearShares.scss";
 import { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from "react";
-import { consoleDebug, consoleObjDebug } from "../../util/log";
+import { consoleInfo, consoleInfoObj } from "../../util/log";
 import { LOADING_HINT_ERROR, LOADING_HINT_NO_RESULT, LoadingHint } from "./LoadingHint";
 import { createRoot } from "react-dom/client";
 import { HttpPaginatorViewModel } from "../base/paginate/HttpPaginateViewModel";
@@ -30,11 +30,11 @@ export function LinearShares(props: BasePaginateViewProps<Share>) {
     const state = useSyncExternalStore(paginateViewModel.subscribe, () => paginateViewModel.state)
 
     useEffect(() => {
-        consoleDebug(`LinearShares useEffect, tag: ${props.tag}, category: ${props.category}`)
+        consoleInfo(`LinearShares useEffect, tag: ${props.tag}, category: ${props.category}`)
         paginateViewModel.load()
 
         return () => {
-            consoleDebug("LinearShares useEffect cleanup")
+            consoleInfo("LinearShares useEffect cleanup")
         }
     }, [])
 
@@ -80,8 +80,8 @@ function IndexItem(props: IndexItemProps) {
     const containerRef = useRef<HTMLLIElement>(null)
 
     useEffect(() => {
-        consoleObjDebug("ShareItem mounted", props)
-        consoleDebug("archive = " + props.archive)
+        consoleInfoObj("ShareItem mounted", props)
+        consoleInfo("archive = " + props.archive)
         const rootE = containerRef.current as HTMLElement;
 
     }, [])

@@ -1,7 +1,7 @@
 // import "./GridIndexList.scss"
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
 import { LOADING_HINT_ERROR, LOADING_HINT_NO_RESULT, LoadingHint } from "./LoadingHint"
-import { consoleDebug, consoleObjDebug } from "../../util/log"
+import { consoleInfo, consoleInfoObj } from "../../util/log"
 import { onTagTriggerClick } from "../tag"
 import { getWindowInterSectionObserver, queryAnimatedElement } from "../animation/BaseAnimation"
 import { getSplittedDate } from "../../base/post"
@@ -32,13 +32,13 @@ export function IndexGridPosts(props: Props) {
     const state = useSyncExternalStore(paginateViewModel.subscribe, () => paginateViewModel.state)
 
     useEffect(() => {
-        consoleDebug(`IndexGridPosts useEffect, tag: ${props.tag}, category: ${props.category}`)
+        consoleInfo(`IndexGridPosts useEffect, tag: ${props.tag}, category: ${props.category}`)
         paginateViewModel.load()
 
         if (props.onMount != null) props.onMount()
 
         return () => {
-            consoleDebug("IndexGridPosts useEffect cleanup")
+            consoleInfo("IndexGridPosts useEffect cleanup")
         }
     }, [])
 
@@ -100,7 +100,7 @@ export function IndexGridPosts(props: Props) {
         if (state.posts.length == 0) {
             posts = props.loadedPosts
         }
-        consoleObjDebug("Show posts in index grid", posts)
+        consoleInfoObj("Show posts in index grid", posts)
         return [descriptionPost, ...posts]
     }, [state.posts, props.pageDescriptionHtml])
 
@@ -167,7 +167,7 @@ function IndexItem(props: IndexItemProps) {
     // 缓存最新的回调
 
     useEffect(() => {
-        consoleObjDebug("IndexItem useEffect", props)
+        consoleInfoObj("IndexItem useEffect", props)
         const rootE = containerRef.current as HTMLElement;
         const cardE = rootE.querySelector(".grid-index-card")
         setupCardRipple(cardE as HTMLElement)
@@ -199,7 +199,7 @@ function IndexItem(props: IndexItemProps) {
         window.addEventListener("scroll", scrollListener)
 
         return () => {
-            consoleDebug("IndexItem useEffect cleanup " + props.title)
+            consoleInfo("IndexItem useEffect cleanup " + props.title)
             if (animationE != null) {
                 getWindowInterSectionObserver().unobserve(animationE)
             }
@@ -267,7 +267,7 @@ function IndexDescriptionItem(props: IndexDescriptionItemProps) {
 
     useEffect(() => {
         const rootE = containerRef.current as HTMLElement
-        consoleObjDebug("IndexDescriptionItem useEffect", rootE)
+        consoleInfoObj("IndexDescriptionItem useEffect", rootE)
         const animationE = queryAnimatedElement(rootE)
         if (animationE != null) {
             getWindowInterSectionObserver().observe(animationE)
@@ -275,7 +275,7 @@ function IndexDescriptionItem(props: IndexDescriptionItemProps) {
 
         // 组件内的点击事件都会上浮到容器被捕捉，在这里处理一些非标准 <a> 元素的点击事件
         rootE.addEventListener("click", (event) => {
-            consoleObjDebug("IndexDescriptionItem click event ", event.target)
+            consoleInfoObj("IndexDescriptionItem click event ", event.target)
             const targetE = event.target as HTMLElement
             // 处理 tag 点击事件
             if (targetE.classList.contains("tag-dialog-trigger")) {
@@ -290,7 +290,7 @@ function IndexDescriptionItem(props: IndexDescriptionItemProps) {
         //     setupTagTrigger(trigger as HTMLElement)
         // }
         return () => {
-            consoleDebug("IndexDescriptionItem useEffect cleanup")
+            consoleInfo("IndexDescriptionItem useEffect cleanup")
             if (animationE != null) {
                 getWindowInterSectionObserver().unobserve(animationE)
             }

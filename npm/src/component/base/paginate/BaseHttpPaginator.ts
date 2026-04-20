@@ -1,6 +1,6 @@
 import type { ApiPaginatePage } from "../../../repository/bean/service/ApiPaginatePage";
 import { getServiceInstance, SERVICE_DEBUG_MODE_AUTO, SERVICE_DEBUG_MODE_OFF } from "../../../repository/Service";
-import { consoleDebug, consoleObjDebug } from "../../../util/log";
+import { consoleInfo, consoleInfoObj } from "../../../util/log";
 import { sleepUntilMinimalTime } from "../../../util/tools";
 import type { IHttpPaginator } from "./interface/IHttpPaginator";
 
@@ -26,7 +26,7 @@ export abstract class BaseHttpPaginator<H, T> implements IHttpPaginator<H, T> {
     }
 
     async load(delay?: boolean): Promise<T[]> {
-        consoleDebug(`Load by http paginator, tag = ${this.options.tag}, category = ${this.options.category}`)
+        consoleInfo(`Load by http paginator, tag = ${this.options.tag}, category = ${this.options.category}`)
         // 是否处于加载状态由上层判断，这里直接中断旧请求，发起新请求
         if (this.abortController != null) {
             this.abortController.abort()
@@ -44,7 +44,7 @@ export abstract class BaseHttpPaginator<H, T> implements IHttpPaginator<H, T> {
                     throw new Error("Something went wrong on api server!")
                 }
             }).then(async (page: ApiPaginatePage<H>) => {
-                consoleObjDebug("Http paginator first page", page)
+                consoleInfoObj("Http paginator first page", page)
                 this.cachedPage = []
                 this.cachedPage.push(page)
                 this.cachedData = []
@@ -79,7 +79,7 @@ export abstract class BaseHttpPaginator<H, T> implements IHttpPaginator<H, T> {
     }
 
     async loadMore(delay?: boolean): Promise<T[]> {
-        consoleDebug("Load more by http paginator")
+        consoleInfo("Load more by http paginator")
         if (this.cachedPage.length == 0) {
             return this.load(delay)
         }
@@ -104,7 +104,7 @@ export abstract class BaseHttpPaginator<H, T> implements IHttpPaginator<H, T> {
                 }
                 throw new Error("Something went wrong on api server!")
             }).then(async (page: ApiPaginatePage<H>) => {
-                consoleObjDebug("Http paginator more page", page)
+                consoleInfoObj("Http paginator more page", page)
                 this.cachedPage.push(page)
                 this.cachedData.push(...page.posts.map(item => this.convertToShowData(item)))
                 if (delay) {
@@ -121,7 +121,7 @@ export abstract class BaseHttpPaginator<H, T> implements IHttpPaginator<H, T> {
         if (nextPagePath != null && nextPagePath.length > 0) {
             hasMore = true
         }
-        consoleDebug("Http paginator has more ? " + hasMore)
+        consoleInfo("Http paginator has more ? " + hasMore)
         return hasMore
     }
 
@@ -133,7 +133,7 @@ export abstract class BaseHttpPaginator<H, T> implements IHttpPaginator<H, T> {
     }
 
     abort(): void {
-        consoleDebug("Abort http paginator request")
+        consoleInfo("Abort http paginator request")
         if (this.abortController != null) {
             this.abortController.abort()
         }

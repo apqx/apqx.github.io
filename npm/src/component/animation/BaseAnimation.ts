@@ -1,5 +1,5 @@
 import "./BaseAnimation.scss"
-import { consoleDebug, consoleObjDebug } from "../../util/log"
+import { consoleInfo, consoleInfoObj } from "../../util/log"
 import { toggleElementClass } from "../../util/tools"
 
 var windowInterSectionObserver: IntersectionObserver | null = null
@@ -166,7 +166,7 @@ function handleSlideInBase(entry: IntersectionObserverEntry, slidFromBottom: boo
     } else {
         // 其余情况使用滑入动画
         const now = Date.now()
-        consoleDebug("Handle slide-in, now = " + now + ", queue = " + chainedSlideInQueue.length)
+        consoleInfo("Handle slide-in, now = " + now + ", queue = " + chainedSlideInQueue.length)
         if (entry.target.classList.contains("slide-in-chained")) {
             // slide-in 动画链式启动，保持短间隔。如果元素已卸载则不会占用后续延迟
             enqueueChainedSlideIn(entry.target)

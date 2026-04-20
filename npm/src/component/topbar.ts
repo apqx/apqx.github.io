@@ -1,6 +1,6 @@
 // import "./topbar.scss"
 import { MDCIconButtonToggle } from "@material/icon-button"
-import { consoleDebug, consoleError } from "../util/log"
+import { consoleInfo, consoleError } from "../util/log"
 import { getLocalRepository } from "../repository/LocalDb"
 import { MDCTopAppBar } from "@material/top-app-bar"
 import { toggleElementClass } from "../util/tools"
@@ -55,7 +55,7 @@ export function initTopbar() {
 
 
 export function setFixedTopbar(on: boolean) {
-    consoleDebug("setFixedTopbar " + on)
+    consoleInfo("setFixedTopbar " + on)
     // 监听滚动，平滑隐藏/显示
     // if (on) {
     //     toggleShowTopbar(true)
@@ -104,7 +104,7 @@ export function toggleTopbarGlass(on: boolean) {
 }
 
 const animationDoneListener = () => {
-    consoleDebug("Topbar animation done")
+    consoleInfo("Topbar animation done")
     // topAppBarE.style.animationPlayState = "initial"
     if (topAppBarE!!.classList.contains("top-app-bar--moving-up")) {
         toggleElementClass(topAppBarE!!, "top-app-bar--up", true)
@@ -189,7 +189,7 @@ function toggleShowTopbar(show: boolean) {
                 // topbar处于默认的显示状态，不必启动动画
                 return
             }
-            consoleDebug("ToggleShowTopbar " + show)
+            consoleInfo("ToggleShowTopbar " + show)
             blockTopbarKeyFrameAnimation(false)
             toggleElementClass(topAppBarE!!, "top-app-bar--moving-down", true)
             toggleElementClass(topAppBarE!!, "top-app-bar--moving-up", false)
@@ -198,7 +198,7 @@ function toggleShowTopbar(show: boolean) {
     } else {
         // 隐藏，向上移动
         if (!topAppBarE!!.classList.contains("top-app-bar--up") && !topAppBarE!!.classList.contains("top-app-bar--moving-up")) {
-            consoleDebug("ToggleShowTopbar " + show)
+            consoleInfo("ToggleShowTopbar " + show)
             blockTopbarKeyFrameAnimation(false)
             toggleElementClass(topAppBarE!!, "top-app-bar--moving-up", true)
             toggleElementClass(topAppBarE!!, "top-app-bar--moving-down", false)
