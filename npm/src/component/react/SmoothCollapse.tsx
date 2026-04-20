@@ -60,8 +60,8 @@ function calculateDuration(newSize: number, preSize: number, propertyName: strin
     if (duration < 0.3) {
         duration = 0.3
         // consoleDebug(`Actual duration = ${duration}s`)
-    } else if (duration > 0.5) {
-        duration = 0.5
+    } else if (duration > 0.6) {
+        duration = 0.6
         // consoleDebug(`Actual duration = ${duration}s`)
     }
 

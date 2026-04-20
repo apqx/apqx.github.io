@@ -11,7 +11,7 @@ import { HttpPaginatorViewModel } from "../base/paginate/HttpPaginateViewModel"
 import { PostHttpPaginator } from "../base/paginate/PostHttpPaginator"
 import type { ApiPost } from "../../repository/bean/service/ApiPost"
 import type { BasePaginateViewProps } from "../base/paginate/bean/BasePaginateViewProps"
-import { Masonry } from "./MasonryGe"
+import { Masonry } from "./Masonry"
 import { toggleElementClass } from "../../util/tools"
 import { getEventEmitter } from "../base/EventBus"
 
@@ -134,11 +134,8 @@ export function IndexGridPosts(props: Props) {
                 ]}
                 measureItemOnMount={true}
                 observeItemResize={true}
-                layoutVersion={refreshLayoutVersion}
                 columnGap={0}
                 rowGap={0}
-                // 若不设置初始预估尺寸为 0，可能出现首页顺序入场的顺序错乱
-                estimatedItemHeight={0}
             />
 
             <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore} />

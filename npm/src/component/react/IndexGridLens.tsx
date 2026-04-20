@@ -15,7 +15,7 @@ import { PostPagefindPaginator } from "../base/paginate/PostPagefindPaginator"
 import type { BasePaginateViewProps } from "../base/paginate/bean/BasePaginateViewProps"
 import { EVENT_PAGE_BACK_FROM_CACHE, getEventEmitter } from "../base/EventBus"
 import { convertPinedToFeatured } from "../../util/tools"
-import { Masonry } from "./MasonryGe"
+import { Masonry } from "./Masonry"
 import { LENS_FILTER_SORT_ASC } from "../dialog/LensFilterDialogViewModel"
 import { getLocalRepository } from "../../repository/LocalDb"
 import { scrollToTopNative } from "../fab"
@@ -26,18 +26,16 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
     const [lensBiggerPicture, setLensBiggerPicture] = useState(() => {
         return getLocalRepository().getLensBiggerPicture()
     })
-    const [refreshLayoutVersion, setRefreshLayoutVersion] = useState(0)
-    const [observeItemResize, setObserveItemResize] = useState(false)
 
     const httpPaginateViewModel = useMemo(() => {
         const options = {
             tag: props.tag,
             category: props.category,
         }
-        return new HttpPaginatorViewModel<ApiPost, PostHttpPaginator, Post>(new PostHttpPaginator(options))
+        return new HttpPaginatorViewModel<ApiPost, PostHttpPaginator, Post>(new PostHttpPaginator(options), true)
     }, [])
     const pagefindPaginateViewModel = useMemo(() => {
-        return new PagefindPaginateViewModel<PagefindResultItem, Post, PostPagefindPaginator>(new PostPagefindPaginator())
+        return new PagefindPaginateViewModel<PagefindResultItem, Post, PostPagefindPaginator>(new PostPagefindPaginator(), true)
     }, [])
 
     const httpState = useSyncExternalStore(httpPaginateViewModel.subscribe, () => httpPaginateViewModel.state)
@@ -73,12 +71,6 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
             emitter.off("pageEvent")
         }
     }, [])
-
-    // useEffect(() => {
-    //     consoleDebug("IndexGridLens httpState or pagefindState changed, trigger layout")
-    //     // 手动通知 masonry 组件在数据变化时触发布局
-    //     setRefreshLayoutVersion(prev => prev + 1)
-    // }, [httpState.posts, pagefindState.posts])
 
     const pagefindOptions = useMemo(() => {
         const sort = filterTags.includes(LENS_FILTER_SORT_ASC) ? "asc" : "desc"
@@ -154,11 +146,16 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
         if (filterTags.length > 0) {
             return pagefindState.posts
         } else {
-            let posts = props.loadedPosts
-            if (httpState.posts.length > 0) {
-                posts = httpState.posts
-            }
-            // 把 pinned 项目放在前面
+            // let posts = props.loadedPosts
+            // if (httpState.posts.length > 0) {
+            //     posts = httpState.posts
+            // }
+            // // 把 pinned 项目放在前面
+            // return props.pinnedPosts.concat(convertPinedToFeatured(props.pinnedPosts.length, posts))
+
+            // 云端数据与本地数据覆盖可能导致 masonry 短时间内多次重排，入场动画混乱
+            // 不再预加载要被覆盖的本地数据
+            let posts = httpState.posts
             return props.pinnedPosts.concat(convertPinedToFeatured(props.pinnedPosts.length, posts))
         }
     }, [httpState.posts, pagefindState.posts, filterTags])
@@ -178,7 +175,7 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
     }, [httpState.loading, httpState.loadingHint, pagefindState.loading, pagefindState.loadingHint, filterTags])
 
     const breakpoints = useMemo(() => {
-        // TODO: 布局变化时是否需要清除数据重新加载？
+        // 布局变化时无需要清除数据重新加载，masonry 组件会自动重排
         if (lensBiggerPicture) {
             return [
                 { maxWidth: 1400, columns: 3 },
@@ -217,11 +214,8 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
                 breakpoints={breakpoints}
                 measureItemOnMount={true}
                 observeItemResize={true}
-                layoutVersion={refreshLayoutVersion}
                 columnGap={0}
                 rowGap={0}
-                // 若不设置初始预估尺寸为 0，可能出现首页顺序入场的顺序错乱
-                estimatedItemHeight={0}
             />
             <LoadingHint loading={loadingState.loading} loadHint={loadingState.loadingHint} onClickHint={onClickHint}
                 onLoadMore={onLoadMore} extendIntersectionThreshold={true} />

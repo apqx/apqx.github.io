@@ -12,7 +12,7 @@
 @use "sass:color";
 
 .mdc-dialog .mdc-dialog__container {
-    transform: scale(0.9) translateY(0);
+    transform: scaleY(0.9) scaleX(0.95) translateY(0);
     opacity: 0;
     transition: transform var(--dialog-animation-duration) ease,
         opacity calc(var(--dialog-animation-duration) / 2) ease !important;

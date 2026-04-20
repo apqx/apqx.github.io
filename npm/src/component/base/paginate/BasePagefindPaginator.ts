@@ -32,7 +32,7 @@ export abstract class BasePagefindPaginator<P, T> implements ISearchPaginator<P,
     cachedOptions?: BasePagefindPaginatorOptions
     abortController?: AbortController
 
-    constructor(pageSize: number = 20) {
+    constructor(pageSize: number = 10) {
         this.PAGE_SIZE = pageSize
     }
 

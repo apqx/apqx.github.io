@@ -179,7 +179,7 @@ pagination:
 
 监听滚动事件之外，另一种方式是在列表底部添加一个 Sentinel 哨兵元素，比如`LoadingHint`加载指示器，通过`IntersectionObserver`监听其是否进入指定的`Viewport`视口范围来触发加载事件。
 
-`IntersectionObserver`观察者仅在被观察元素进入或离开指定视口元素的指定区域时才会触发事件，相比“像素级”变化的滚动事件对性能影响更小。注意 Intersection 是以被观察元素和其指定父级元素视口区域的重叠尺寸为判断依据的，当被观察元素的尺寸为 0 或`display: none`，则重叠尺寸永远为 0，这种情况下即使进入显示区域也不会触发进入事件。
+`IntersectionObserver`观察者仅在被观察元素进入或离开指定视口元素的指定区域时才会触发事件，相比“像素级”变化的滚动事件对性能影响更小。注意 Intersection 是以被观察元素和其指定父级元素视口区域的重叠尺寸为判断依据的，如果被观察元素的尺寸为 0 或`display: none`则重叠尺寸永远为 0，这种情况下即使进入显示区域也不会触发进入事件。
 
 隐藏作为哨兵的加载指示器时应避免这种情况：
 
@@ -188,8 +188,8 @@ pagination:
     height: 4.45rem;
     
     &.hide {
-        // 隐藏元素，不能用 display: none 或 height: 0，否则 intersection observer 无法正确监听元素的进入和离开
-        // intersection observer 是通过计算相交面积判断元素是否进入和离开 viewport 的，高度为 0 相交面积永远为 0
+        // 隐藏元素，不能用 display: none 或 height: 0，否则 IntersectionObserver 无法正确监听元素的进入和离开
+        // IntersectionObserver 是通过计算相交面积判断元素是否进入和离开 viewport 的，高度为 0 相交面积永远为 0
         height: 1px;
         // 视觉隐藏
         visibility: hidden;
@@ -270,7 +270,7 @@ export function LoadingHint(props: Props) {
                 interSectionObserver.unobserve(containerRef.current)
             }
         }
-        // 这里锚定 loading 状态，确保每次加载完成后触发 intersection 检测
+        // 这里锚定 loading 状态，确保每次加载完成后触发 Intersection 检测
     }, [props.loading, props.loadHint])
 
     const hide = useMemo(() => {
@@ -284,5 +284,31 @@ export function LoadingHint(props: Props) {
                 classes={!props.loading && props.loadHint != null ? ["show"] : []} />
         </div>
     )
+}
+```
+
+锚定`loading`状态重设监听器是为了确保在新数据加载之后能触发一次`Intersection`检测，决定是否需要再次加载新数据填充视口。理想情况下，加载的新数据会将`LoadingHint`组件推出视口，等待用户滚动时进入`Intersection`检测范围触发加载更多。但在复杂布局中新数据可能需要一定时间才能完成布局和绘制，此时要避免立即更新`loading`状态，`LoadingHint`组件还没有被新数据推出视口，会导致短时间内多次触发加载更多。
+
+实践中很难判断新数据是否完成布局，一种思路是延长状态锁的释放，等新数据加载一段时间后再解除`loading`状态，几百毫秒即可有效规避这种情况。
+
+```ts
+async function loadMore() {
+    const newPosts = await loadMoreData()
+    this.state = {
+        ...this.state,
+        posts: newPosts
+    }
+    this.emitChange()
+    // loading 状态的解除延时一段时间，尽量在新数据的布局完成之后，避免 loading 组件的 Intersection 过早触发，从而导致重复触发加载更多
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            this.state = {
+                ...this.state,
+                loading: false,
+                loadingHint: getLoadHint(posts.length, totalPostsSize),
+            }
+            this.emitChange()
+        })
+    })
 }
 ```

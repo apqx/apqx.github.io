@@ -74,7 +74,7 @@ export class HttpPaginatorViewModel<H, P extends BaseHttpPaginator<H, T>, T> ext
                 totalPostsSize: totalPostsSize
             }
             this.emitChange()
-            // loading 状态的解除延时一段时间，尽量在新数据的布局完成之后，避免 loading 组件的 intersection 过早触发，从而导致加载更多的请求过多
+            // loading 状态的解除延时一段时间，尽量在新数据的布局完成之后，避免 loading 组件的 intersection 过早触发，从而导致重复触发加载更多
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
                     this.state = {
@@ -85,7 +85,6 @@ export class HttpPaginatorViewModel<H, P extends BaseHttpPaginator<H, T>, T> ext
                     this.emitChange()
                 })
             })
-            this.emitChange()
         } catch (e) {
             consoleErrorObj("Error loading more posts", e)
             this.state = {
