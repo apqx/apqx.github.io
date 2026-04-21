@@ -11,14 +11,14 @@ export interface ISearchPaginator<P, T> {
          * @param delay 是否延迟加载，默认为 false
          * returns 返回完整数组
          */
-        search(keywords: string | null, options: BasePagefindPaginatorOptions, delay?: boolean): Promise<T[]>
+        search(keywords: string | null, options: BasePagefindPaginatorOptions, delay?: boolean, abortSignal?: AbortSignal): Promise<T[]>
 
         /**
          * 加载下一页数据，如果在没有加载首页的情况下调用，则加载首页数据，调用之前应先调用 hasMore() 判断是否还有更多数据
          * @param delay 是否延迟加载，默认为 false
          * @returns 返回完整数组
          */
-        loadMore(delay?: boolean): Promise<T[]>
+        loadMore(delay?: boolean, abortSignal?: AbortSignal): Promise<T[]>
 
         /**
          * 是否还有更多数据
@@ -29,11 +29,6 @@ export interface ISearchPaginator<P, T> {
          * 获取数据总数，只有在加载首页数据后才有值
          */
         totalPostsSize(): number
-
-        /**
-         * 中断加载
-         */
-        abort(): void
 
         /**
          * 将搜索获得的原始数据转换为要显示的数据

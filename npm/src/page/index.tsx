@@ -10,6 +10,7 @@ import type { Post } from "../component/base/paginate/bean/Post"
 import { IndexGridPosts } from "../component/react/IndexGridPosts"
 import { getWindowInterSectionObserver, queryAnimatedElement } from "../component/animation/BaseAnimation"
 import { getEventEmitter } from "../component/base/EventBus"
+import { StrictMode } from "react"
 
 export function initIndex() {
     runOnHtmlDone(() => {
@@ -27,20 +28,24 @@ function initIndexList() {
         //     enabled: true
         // })
     }
-    
+
     const root = createRoot(wrapperE)
     const category = getSectionTypeByPath(window.location.pathname).identifier
     consoleInfo("Index category = " + category + ", path = " + window.location.pathname)
     if (category == SECTION_TYPE_OTHER.identifier) return
-    
+
     if (wrapperE.classList.contains("index-list-wrapper")) {
         // 随笔、诗词、转载
         // 获取已有 post，包括置顶和非置顶
         initIndexTopCover()
         const loadedPosts = getLinearLoadedPosts(wrapperE)
         consoleInfoObj("Index loaded local posts", loadedPosts)
-        root.render(<IndexLinearPosts tag={""} category={category} pinnedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
-            onMount={onMount} />)
+        root.render(
+            <StrictMode>
+                <IndexLinearPosts tag={""} category={category} pinnedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
+                    onMount={onMount} />
+            </StrictMode>
+        )
     } else if (wrapperE.classList.contains("grid-index-list-wrapper")) {
         // 看剧
         // 读取描述，为 card 的内容
@@ -50,14 +55,22 @@ function initIndexList() {
             descriptionHtml = descriptionE.innerHTML
         const loadedPosts = getGridLoadedPosts(wrapperE)
         consoleInfoObj("Index loaded local posts", loadedPosts)
-        root.render(<IndexGridPosts tag={""} category={category} pinnedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
-            onMount={onMount} pageDescriptionHtml={descriptionHtml} />)
+        root.render(
+            <StrictMode>
+                <IndexGridPosts tag={""} category={category} pinnedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
+                    onMount={onMount} pageDescriptionHtml={descriptionHtml} />
+            </StrictMode>
+        )
     } else if (wrapperE.classList.contains("lens-index-list-wrapper")) {
         // 透镜
         const loadedPosts = getLensLoadedPosts(wrapperE)
         consoleInfoObj("Index loaded local posts", loadedPosts)
-        root.render(<IndexGridLens tag={""} category={category} pinnedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
-            onMount={onMount} />)
+        root.render(
+            <StrictMode>
+                <IndexGridLens tag={""} category={category} pinnedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
+                    onMount={onMount} />
+            </StrictMode>
+        )
     }
 }
 

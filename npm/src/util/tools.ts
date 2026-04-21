@@ -197,10 +197,7 @@ export async function sleepUntilMinimalTime(startTime: number, abortSignal?: Abo
     if (usedTime < MINIMAL_LOADING_TIME_MS) {
         await sleep(MINIMAL_LOADING_TIME_MS - usedTime)
     }
-    if (abortSignal != null && abortSignal.aborted) {
-        consoleInfo("sleepUntilMinimalTime aborted")
-        throw new Error("Aborted")
-    }
+    abortSignal?.throwIfAborted()
 }
 
 export const clearFocusListener: (e: Event) => void = (e) => {

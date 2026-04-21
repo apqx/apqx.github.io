@@ -25,7 +25,9 @@ export interface BaseDialogProps extends BaseDialogOpenProps {
     scrollToTopOnDialogOpen?: boolean,
     onLoadMore?: () => void,
     onDialogOpen?: () => void,
+    onDialogOpening?: () => void,
     onDialogClose?: () => void,
+    onDialogClosing?: () => void,
     actions?: ActionBtn[],
     children: React.ReactNode
 }
@@ -33,7 +35,7 @@ export interface BaseDialogProps extends BaseDialogOpenProps {
 const defaultActionBtn: ActionBtn = { text: "关闭", closeOnClick: true, onClick: () => { } }
 
 export function BaseDialog({ openCount, fixedWidth = false, closeOnClickOutside = true, scrollToTopOnDialogOpen = true,
-    onLoadMore = undefined, onDialogOpen = undefined, onDialogClose = undefined, actions = [defaultActionBtn], children }: BaseDialogProps) {
+    onLoadMore = undefined, onDialogOpen = undefined, onDialogOpening = undefined, onDialogClose = undefined, onDialogClosing = undefined, actions = [defaultActionBtn], children }: BaseDialogProps) {
     const containerRef = useRef<HTMLDivElement>(null)
     const scrollContainerRef = useRef<HTMLDivElement>(null)
     const dialogContentRef = useRef<HTMLDivElement>(null)
@@ -42,15 +44,19 @@ export function BaseDialog({ openCount, fixedWidth = false, closeOnClickOutside 
 
     // 使用 ref 存储回调函数的最新引用，避免因函数引用变化导致 useEffect 重新执行
     const onDialogOpenRef = useRef(onDialogOpen)
+    const onDialogOpeningRef = useRef(onDialogOpening)
     const onDialogCloseRef = useRef(onDialogClose)
+    const onDialogClosingRef = useRef(onDialogClosing)
     const scrollToTopOnDialogOpenRef = useRef(scrollToTopOnDialogOpen)
 
     // 更新 ref 中的函数引用，这些引用会在初始化的监听器中使用
     useEffect(() => {
         onDialogOpenRef.current = onDialogOpen
+        onDialogOpeningRef.current = onDialogOpening
         onDialogCloseRef.current = onDialogClose
+        onDialogClosingRef.current = onDialogClosing
         scrollToTopOnDialogOpenRef.current = scrollToTopOnDialogOpen
-    }, [onDialogOpen, onDialogClose, scrollToTopOnDialogOpen])
+    }, [onDialogOpen, onDialogOpening, onDialogClose, onDialogClosing, scrollToTopOnDialogOpen])
 
     useEffect(() => {
         consoleInfo("BaseDialog useEffect")
@@ -114,6 +120,9 @@ export function BaseDialog({ openCount, fixedWidth = false, closeOnClickOutside 
 
         const onOpeningListener = () => {
             consoleInfo("Dialog opening")
+            if (onDialogOpeningRef.current != null) {
+                onDialogOpeningRef.current()
+            }
             toggleScrimActive(true)
         }
         const onOpenedListener = () => {
@@ -129,6 +138,9 @@ export function BaseDialog({ openCount, fixedWidth = false, closeOnClickOutside 
 
         const onClosingListener = () => {
             consoleInfo("Dialog closing")
+            if (onDialogClosingRef.current != null) {
+                onDialogClosingRef.current()
+            }
             toggleScrimActive(false)
             if (onDialogCloseRef.current != null) {
                 onDialogCloseRef.current()

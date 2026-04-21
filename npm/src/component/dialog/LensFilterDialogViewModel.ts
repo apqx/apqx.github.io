@@ -2,7 +2,7 @@ import type { ApiPagefindFilter } from "../../repository/bean/pagefind/ApiPagefi
 import type { ApiLensFilterTemplate } from "../../repository/bean/service/ApiLensFilterTemplate"
 import { PagefindFactory } from "../../repository/Pagefind"
 import { getServiceInstance, SERVICE_DEBUG_MODE_AUTO } from "../../repository/Service"
-import { consoleError, consoleInfoObj, consoleErrorObj } from "../../util/log"
+import { consoleError, consoleInfoObj, consoleErrorObj, consoleInfo } from "../../util/log"
 import { sleepUntilMinimalTime } from "../../util/tools"
 import { BaseExternalStore } from "../base/paginate/BaseExternalStore"
 import { LOADING_HINT_ERROR } from "../react/LoadingHint"
@@ -35,9 +35,7 @@ export class LensFilterDialogViewModel extends BaseExternalStore {
 
     async init(delay: boolean = false) {
         if (this.state.loading) return
-        if (this.abortController != null) {
-            this.abortController.abort()
-        }
+        this.abortController?.abort()
         this.abortController = new AbortController()
         const startTime = Date.now()
         this.state = {
@@ -49,8 +47,11 @@ export class LensFilterDialogViewModel extends BaseExternalStore {
         try {
             await this.loadTags(delay, startTime, this.abortController.signal)
         } catch (e) {
+            if (e instanceof Error && e.name === "AbortError") {
+                consoleInfo("LensFilterDialogViewModel init aborted")
+                return
+            }
             consoleErrorObj("Failed to load lens filter options", e)
-
             await sleepUntilMinimalTime(startTime)
             this.state = {
                 ...this.state,
@@ -119,6 +120,7 @@ export class LensFilterDialogViewModel extends BaseExternalStore {
         if (delay) {
             await sleepUntilMinimalTime(startTime, signal)
         }
+        signal.throwIfAborted()
         this.state = {
             loading: false,
             loadingHint: undefined,
@@ -141,8 +143,13 @@ export class LensFilterDialogViewModel extends BaseExternalStore {
     }
 
     abort() {
-        if (this.abortController != null) {
-            this.abortController.abort()
+        this.abortController?.abort()
+        if (this.state.loading) {
+            this.state = {
+                ...this.state,
+                loading: false
+            }
+            this.emitChange()
         }
     }
 

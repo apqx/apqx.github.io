@@ -5,7 +5,7 @@ import { sleepUntilMinimalTime } from "../../../util/tools";
 import type { IHttpPaginator } from "./interface/IHttpPaginator";
 
 /**
- * Http 分页加载选项，以 tag 或 category 分页加载数据，按非空顺序选择
+ * HTTP 分页加载选项，以 tag 或 category 分页加载数据，按非空顺序选择
  */
 export interface BaseHttpPaginatorOptions {
     tag: string,
@@ -19,53 +19,49 @@ export abstract class BaseHttpPaginator<H, T> implements IHttpPaginator<H, T> {
     options: BaseHttpPaginatorOptions
     cachedPage: ApiPaginatePage<H>[] = []
     cachedData: T[] = []
-    abortController?: AbortController
 
     constructor(options: BaseHttpPaginatorOptions) {
         this.options = options
     }
 
-    async load(delay?: boolean): Promise<T[]> {
+    async load(delay?: boolean, abortSignal?: AbortSignal): Promise<T[]> {
         consoleInfo(`Load by http paginator, tag = ${this.options.tag}, category = ${this.options.category}`)
-        // 是否处于加载状态由上层判断，这里直接中断旧请求，发起新请求
-        if (this.abortController != null) {
-            this.abortController.abort()
-        }
-        this.abortController = new AbortController()
+        abortSignal?.throwIfAborted()
         const startTime = Date.now()
-        return this.getRequest(this.abortController.signal, 1)
+        return this.getRequest(abortSignal, 1)
             .then(async (response: Response) => {
                 if (response.status === 200) {
                     return response.json()
                 } else {
                     if (delay) {
-                        await sleepUntilMinimalTime(startTime, this.abortController?.signal)
+                        await sleepUntilMinimalTime(startTime, abortSignal)
                     }
                     throw new Error("Something went wrong on api server!")
                 }
             }).then(async (page: ApiPaginatePage<H>) => {
                 consoleInfoObj("Http paginator first page", page)
+                if (delay) {
+                    await sleepUntilMinimalTime(startTime, abortSignal)
+                }
+                abortSignal?.throwIfAborted()
                 this.cachedPage = []
                 this.cachedPage.push(page)
                 this.cachedData = []
                 this.cachedData.push(...page.posts.map(item => this.convertToShowData(item)))
-                if (delay) {
-                    await sleepUntilMinimalTime(startTime, this.abortController?.signal)
-                }
                 return this.cachedData
             })
     }
 
     /**
-    * 使用页码或直接 url 获取分页数据
+    * 使用页码或直接 URL 获取分页数据
     */
-    getRequest(abortSignal: AbortSignal, page?: number, url?: string): Promise<Response> {
+    getRequest(abortSignal?: AbortSignal, page?: number, url?: string): Promise<Response> {
         let serviceConfig = { debugMode: SERVICE_DEBUG_MODE_AUTO, abortSignal: abortSignal }
         // share 资源是由另一个工程输出到云端，本地没有，所以对它不能用调试链接
         if (this.options.category == "share") {
             serviceConfig = { debugMode: SERVICE_DEBUG_MODE_OFF, abortSignal: abortSignal }
         }
-        // 使用给定的 url，如果没有则根据 tag 或 category 分页加载
+        // 使用给定的 URL，如果没有则根据 tag 或 category 分页加载
         if (url == null || url.length == 0) {
             if (this.options.tag.length > 0) {
                 return getServiceInstance().getPostsByTag(serviceConfig, this.options.tag, page ?? 1)
@@ -78,15 +74,13 @@ export abstract class BaseHttpPaginator<H, T> implements IHttpPaginator<H, T> {
 
     }
 
-    async loadMore(delay?: boolean): Promise<T[]> {
+    async loadMore(delay?: boolean, abortSignal?: AbortSignal): Promise<T[]> {
         consoleInfo("Load more by http paginator")
+
         if (this.cachedPage.length == 0) {
-            return this.load(delay)
+            return this.load(delay, abortSignal)
         }
-        if (this.abortController != null) {
-            this.abortController.abort()
-        }
-        this.abortController = new AbortController()
+        abortSignal?.throwIfAborted()
         const nextPagePath = this.cachedPage[this.cachedPage.length - 1].data.nextPagePath
         if (nextPagePath == null || nextPagePath.length == 0) {
             return new Promise((resolve) => {
@@ -94,22 +88,23 @@ export abstract class BaseHttpPaginator<H, T> implements IHttpPaginator<H, T> {
             })
         }
         const startTime = Date.now()
-        return await this.getRequest(this.abortController.signal, undefined, nextPagePath)
+        return await this.getRequest(abortSignal, undefined, nextPagePath)
             .then(async (response: Response) => {
                 if (response.status === 200) {
                     return response.json()
                 }
                 if (delay) {
-                    await sleepUntilMinimalTime(startTime, this.abortController?.signal)
+                    await sleepUntilMinimalTime(startTime, abortSignal)
                 }
                 throw new Error("Something went wrong on api server!")
             }).then(async (page: ApiPaginatePage<H>) => {
                 consoleInfoObj("Http paginator more page", page)
+                if (delay) {
+                    await sleepUntilMinimalTime(startTime, abortSignal)
+                }
+                abortSignal?.throwIfAborted()
                 this.cachedPage.push(page)
                 this.cachedData.push(...page.posts.map(item => this.convertToShowData(item)))
-                if (delay) {
-                    await sleepUntilMinimalTime(startTime, this.abortController?.signal)
-                }
                 return this.cachedData.slice()
             })
     }
@@ -117,7 +112,7 @@ export abstract class BaseHttpPaginator<H, T> implements IHttpPaginator<H, T> {
     hasMore(): boolean {
         let hasMore = false
         // 首页加载完毕但下一页链接为空，没有更多
-        const nextPagePath = this.cachedPage[this.cachedPage.length - 1].data.nextPagePath
+        const nextPagePath = this.cachedPage[this.cachedPage.length - 1]?.data?.nextPagePath
         if (nextPagePath != null && nextPagePath.length > 0) {
             hasMore = true
         }
@@ -130,13 +125,6 @@ export abstract class BaseHttpPaginator<H, T> implements IHttpPaginator<H, T> {
             return 0
         }
         return this.cachedPage[0].data.totalPosts
-    }
-
-    abort(): void {
-        consoleInfo("Abort http paginator request")
-        if (this.abortController != null) {
-            this.abortController.abort()
-        }
     }
 
     abstract convertToShowData(data: H): T

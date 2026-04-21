@@ -30,8 +30,8 @@ export interface MasonryProps<T> {
     style?: CSSProperties
 }
 
-const DEFAULT_COLUMNS = 4
-const DEFAULT_ESTIMATED_HEIGHT = 240
+const DEFAULT_COLUMNS = 3
+const DEFAULT_ESTIMATED_HEIGHT = 300
 const HEIGHT_CHANGE_THRESHOLD = 1
 
 /**

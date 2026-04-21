@@ -72,9 +72,9 @@ export function IndexLinearPosts(props: BasePaginateViewProps<Post>) {
         <ul className="index-ul">
             {showPosts.map((item, index) =>
                 // 有时候 jekyll 生成的 path 和 paginate 生成的 path 不一样，导致 item 重新加载
-                <IndexItem key={item.path}
+                <IndexItem key={item.path + "?pinned=" + item.pinned}
                     title={item.title} author={item.author} date={item.date} description={item.description} path={item.path}
-                    pinned={item.pinned} featured={item.featured} last={index === showPosts.length - 1} />
+                    pinned={item.pinned} featured={item.featured} last={index === showPosts.length - 1} index={index} />
             )}
             <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore} />
         </ul>
@@ -89,7 +89,8 @@ type IndexItemProps = {
     path: string,
     pinned: boolean,
     featured: boolean,
-    last: boolean
+    last: boolean,
+    index: number
 }
 
 function IndexItem(props: IndexItemProps) {
@@ -97,7 +98,7 @@ function IndexItem(props: IndexItemProps) {
     const date = useMemo(() => getSplittedDate(props.date), [props.date]);
 
     useEffect(() => {
-        consoleInfoObj("IndexItem useEffect", props)
+        consoleInfoObj("IndexItem useEffect " + props.index + " : " + props.title, props)
         const rootE = containerRef.current as HTMLElement;
         const cardE = rootE.querySelector(".index-card") as HTMLElement
         setupCardRipple(cardE)

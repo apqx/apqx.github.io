@@ -7,7 +7,7 @@ import { setupListItemRipple } from "../list"
 import { LOADING_HINT_ERROR, LOADING_HINT_NO_RESULT, LoadingHint } from "../react/LoadingHint"
 import { getSectionTypeByPath, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL } from "../../base/constant"
 import type { SectionType } from "../../base/constant"
-import { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
 import { getSplittedDate } from "../../base/post"
 import { SmoothCollapse } from "../react/SmoothCollapse"
 import { HttpPaginatorViewModel } from "../base/paginate/HttpPaginateViewModel"
@@ -21,6 +21,9 @@ interface TagDialogProps extends BaseDialogOpenProps {
 }
 
 function TagDialog(props: TagDialogProps) {
+    const dialogOpened = useRef(false)
+    const [triggerIntersection, setTriggerIntersection] = useState(0)
+
     const paginateViewModel = useMemo(() => {
         const options = {
             tag: props.tag,
@@ -37,14 +40,27 @@ function TagDialog(props: TagDialogProps) {
     const onDialogOpen = useCallback(() => {
         if (state.posts.length == 0) {
             paginateViewModel.load(true)
+        } else {
+            setTriggerIntersection(prev => prev + 1)
         }
     }, [state.posts])
+
+    const onDialogOpening = useCallback(() => {
+        dialogOpened.current = true
+    }, [])
+
+    const onDialogClosing = useCallback(() => {
+        dialogOpened.current = false
+    }, [])
 
     const onDialogClose = useCallback(() => {
         paginateViewModel.abort()
     }, [])
 
     const onLoadMore = useCallback(() => {
+        if (!dialogOpened.current) {
+            return
+        }
         if (state.loadingHint != LOADING_HINT_ERROR && state.loadingHint != LOADING_HINT_NO_RESULT) {
             paginateViewModel.loadMore()
         }
@@ -59,13 +75,15 @@ function TagDialog(props: TagDialogProps) {
     }, [state.posts])
 
     return (
-        <BaseDialog openCount={props.openCount} fixedWidth={true} onDialogOpen={onDialogOpen} onDialogClose={onDialogClose}>
+        <BaseDialog openCount={props.openCount} fixedWidth={true} onDialogOpen={onDialogOpen} onDialogOpening={onDialogOpening}
+            onDialogClose={onDialogClose} onDialogClosing={onDialogClosing} >
             <SmoothCollapse>
                 <p>标记 {props.nickname ?? props.tag} 的 {state.totalPostsSize} 篇博文</p>
                 {state.posts != null && state.posts.length != 0 &&
                     <PostResult list={state.posts} />
                 }
-                <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore} />
+                <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore}
+                    triggerIntersectionCheckCount={triggerIntersection} />
             </SmoothCollapse>
         </BaseDialog>
     )

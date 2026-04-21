@@ -11,6 +11,7 @@ export class PagefindPaginateViewModel<P, T, O extends BasePagefindPaginator<P, 
     paginator: O
     state: BasePaginateViewModelState<T>
     onlyShowLoadingAndError: boolean
+    abortController?: AbortController
 
     constructor(paginator: O, onlyShowLoadingAndError: boolean = false) {
         super()
@@ -25,9 +26,12 @@ export class PagefindPaginateViewModel<P, T, O extends BasePagefindPaginator<P, 
     }
 
     async search(keywords: string | null, options: BasePagefindPaginatorOptions, delay: boolean = false): Promise<void> {
+        if (this.state.loading) return
+        consoleInfo("PagefindPaginateViewModel search, keywords = " + keywords)
+        this.abortController?.abort()
+        this.abortController = new AbortController()
+
         try {
-            if (this.state.loading) return
-            consoleInfo("PagefindPaginateViewModel search, keywords = " + keywords)
             // 应过滤搜索词为空的搜索行为，当词为 null 字符时，pagefind 会返回全部数据
             if (keywords?.length == 0) {
                 this.state = {
@@ -45,7 +49,7 @@ export class PagefindPaginateViewModel<P, T, O extends BasePagefindPaginator<P, 
                 loadingHint: undefined
             }
             this.emitChange()
-            const posts = await this.paginator.search(keywords, options, delay)
+            const posts = await this.paginator.search(keywords, options, delay, this.abortController.signal)
             const totalPostsSize = this.paginator.totalPostsSize()
             this.state = {
                 loading: false,
@@ -55,6 +59,10 @@ export class PagefindPaginateViewModel<P, T, O extends BasePagefindPaginator<P, 
             }
             this.emitChange()
         } catch (e) {
+            if (e instanceof Error && e.name === "AbortError") {
+                consoleInfo("PagefindPaginateViewModel search aborted")
+                return
+            }
             consoleInfoObj("Error searching posts", e)
             this.state = {
                 ...this.state,
@@ -69,6 +77,9 @@ export class PagefindPaginateViewModel<P, T, O extends BasePagefindPaginator<P, 
         if (this.state.loading) return
         if (!this.paginator.hasMore()) return
         consoleInfo("PagefindPaginateViewModel loadMore")
+        this.abortController?.abort()
+        this.abortController = new AbortController()
+
         try {
             this.state = {
                 ...this.state,
@@ -76,7 +87,7 @@ export class PagefindPaginateViewModel<P, T, O extends BasePagefindPaginator<P, 
                 loadingHint: undefined
             }
             this.emitChange()
-            const posts = await this.paginator.loadMore(delay)
+            const posts = await this.paginator.loadMore(delay, this.abortController.signal)
             const totalPostsSize = this.paginator.totalPostsSize()
             this.state = {
                 ...this.state,
@@ -96,6 +107,10 @@ export class PagefindPaginateViewModel<P, T, O extends BasePagefindPaginator<P, 
                 })
             })
         } catch (e) {
+            if (e instanceof Error && e.name === "AbortError") {
+                consoleInfo("PagefindPaginateViewModel loadMore aborted")
+                return
+            }
             consoleErrorObj("Error loading more posts", e)
             this.state = {
                 ...this.state,
@@ -117,7 +132,7 @@ export class PagefindPaginateViewModel<P, T, O extends BasePagefindPaginator<P, 
     }
 
     abort(): void {
-        this.paginator.abort()
+        this.abortController?.abort()
         if (this.state.loading) {
             this.state = {
                 ...this.state,

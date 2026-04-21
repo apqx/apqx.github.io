@@ -53,11 +53,6 @@ export function IndexGridPosts(props: Props) {
 
     }, [state.loading])
 
-    // useEffect(() => {
-    //     // 手动通知 masonry 组件在数据变化时触发布局
-    //     setRefreshLayoutVersion(v => v + 1)
-    // }, [state.posts])
-
     const onLoadMore = useCallback(() => {
         if (state.loadingHint != LOADING_HINT_ERROR && state.loadingHint != LOADING_HINT_NO_RESULT) {
             paginateViewModel.loadMore()
@@ -98,7 +93,8 @@ export function IndexGridPosts(props: Props) {
     const showPosts = useMemo(() => {
         let posts = state.posts
         if (state.posts.length == 0) {
-            posts = props.loadedPosts
+            // posts = props.loadedPosts
+            return posts
         }
         consoleInfoObj("Show posts in index grid", posts)
         return [descriptionPost, ...posts]
@@ -108,12 +104,12 @@ export function IndexGridPosts(props: Props) {
         <ul className="grid-index-ul">
             <Masonry
                 items={showPosts}
-                getItemKey={item => item.path}
+                getItemKey={item => item.path + "?pinned=" + item.pinned}
                 renderItem={(item, index) =>
                     item.path === "description" ? (
                         <IndexDescriptionItem innerHtml={props.pageDescriptionHtml} />
                     ) : (
-                        <IndexItem key={item.path}
+                        <IndexItem
                             index={index}
                             title={item.title}
                             author={item.author}
@@ -138,7 +134,8 @@ export function IndexGridPosts(props: Props) {
                 rowGap={0}
             />
 
-            <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore} />
+            <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint}
+                onLoadMore={onLoadMore} hide={showPosts.length == 0 && state.loading} />
         </ul>
     )
 }
@@ -164,7 +161,7 @@ function IndexItem(props: IndexItemProps) {
     // 缓存最新的回调
 
     useEffect(() => {
-        consoleInfoObj("IndexItem useEffect", props)
+        consoleInfoObj("IndexItem useEffect " + props.index + " : " + props.title, props)
         const rootE = containerRef.current as HTMLElement;
         const cardE = rootE.querySelector(".grid-index-card")
         setupCardRipple(cardE as HTMLElement)

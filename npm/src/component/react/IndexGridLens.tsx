@@ -23,9 +23,12 @@ import { scrollToTopNative } from "../fab"
 export function IndexGridLens(props: BasePaginateViewProps<Post>) {
     const masonryContainerRef = useRef<HTMLUListElement>(null)
     const [filterTags, setFilterTags] = useState<Array<string>>([])
+    const [searchCount, setSearchCount] = useState(0)
     const [lensBiggerPicture, setLensBiggerPicture] = useState(() => {
         return getLocalRepository().getLensBiggerPicture()
     })
+    // 记录是否已经进行过搜索
+    const haveSearchedRef = useRef(false)
 
     const httpPaginateViewModel = useMemo(() => {
         const options = {
@@ -50,6 +53,8 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
         emitter.on("lensFilterChange", (data) => {
             consoleInfo("IndexGridLens receive lensFilterChange event, selectedTags = " + data.selectedTags.toString())
             setFilterTags(data.selectedTags)
+            // 只要点击搜索，即触发搜索，不做重复检测
+            setSearchCount(count => count + 1)
         })
         emitter.on("lensBiggerPictureChange", (data) => {
             consoleInfo("IndexGridLens receive lensBiggerPictureChange event, enabled = " + data.enabled)
@@ -73,6 +78,10 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
     }, [])
 
     const pagefindOptions = useMemo(() => {
+        if (filterTags.length > 0) {
+            haveSearchedRef.current = true
+        }
+
         const sort = filterTags.includes(LENS_FILTER_SORT_ASC) ? "asc" : "desc"
         const filteredTags = filterTags.filter(tag => tag != LENS_FILTER_SORT_ASC)
         return {
@@ -86,10 +95,13 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
         }
     }, [filterTags])
 
-    // 初始化加载数据
+    // 加载初始数据，每次 searchCount 变化会触发搜索
     useEffect(() => {
         scrollToTopNative(false)
-        // 筛选标签变化时，清除旧数据并加载新数据
+        // 清除旧数据并加载新数据
+        httpPaginateViewModel.abort()
+        pagefindPaginateViewModel.abort()
+
         if (filterTags.length > 0) {
             pagefindPaginateViewModel.clear()
             pagefindPaginateViewModel.search(null, pagefindOptions)
@@ -97,8 +109,7 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
             httpPaginateViewModel.clear()
             httpPaginateViewModel.load()
         }
-
-    }, [filterTags])
+    }, [searchCount])
 
     // 加载状态变化时，通知 Footer 显示或隐藏
     // 加载时隐藏，有结果时（错误或加载完成）显示
@@ -155,7 +166,11 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
 
             // 云端数据与本地数据覆盖可能导致 masonry 短时间内多次重排，入场动画混乱
             // 不再预加载要被覆盖的本地数据
+            // TODO: 如果置顶足够多，可以考虑放开置顶预加载，首页相应更迅速，而且不被干扰
             let posts = httpState.posts
+            if (posts.length == 0) {
+                return posts
+            }
             return props.pinnedPosts.concat(convertPinedToFeatured(props.pinnedPosts.length, posts))
         }
     }, [httpState.posts, pagefindState.posts, filterTags])
@@ -191,13 +206,19 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
         }
     }, [lensBiggerPicture])
 
+    const hideLoading = useMemo(() => {
+        // 首页加载不显示 loading
+        // 这种机制只在首页加载失败需要用户点击重试时有点问题，不会显示 loading，但概率极低，没有 loading 动画也可接受
+        return !haveSearchedRef.current && showPosts.length == 0 && loadingState.loading
+    }, [haveSearchedRef.current, loadingState.loading, showPosts.length])
+
     return (
         <ul ref={masonryContainerRef} className="grid-index-ul">
             <Masonry
                 items={showPosts}
-                getItemKey={item => item.path}
+                getItemKey={item => item.path + "?pinned=" + item.pinned}
                 renderItem={(item, index) => (
-                    <IndexItem key={item.path}
+                    <IndexItem
                         index={index}
                         title={item.title}
                         actors={item.actors}
@@ -217,8 +238,10 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
                 columnGap={0}
                 rowGap={0}
             />
+
             <LoadingHint loading={loadingState.loading} loadHint={loadingState.loadingHint} onClickHint={onClickHint}
-                onLoadMore={onLoadMore} extendIntersectionThreshold={true} />
+                onLoadMore={onLoadMore} extendIntersectionThreshold={true}
+                hide={hideLoading} />
         </ul>
     )
 }

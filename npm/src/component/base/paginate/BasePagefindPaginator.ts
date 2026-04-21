@@ -30,21 +30,17 @@ export abstract class BasePagefindPaginator<P, T> implements ISearchPaginator<P,
     cachedData: T[] = []
     cachedKey: string = ""
     cachedOptions?: BasePagefindPaginatorOptions
-    abortController?: AbortController
 
     constructor(pageSize: number = 10) {
         this.PAGE_SIZE = pageSize
     }
 
-    async search(newKey: string | null, options: BasePagefindPaginatorOptions, delay?: boolean): Promise<T[]> {
+    async search(newKey: string | null, options: BasePagefindPaginatorOptions, delay?: boolean, abortSignal?: AbortSignal): Promise<T[]> {
         consoleInfo("Search by pagefind paginator key => " + newKey)
         consoleInfoObj("Search options => ", options)
-        if (this.abortController != null) {
-            this.abortController.abort()
-        }
+        abortSignal?.throwIfAborted()
         this.cachedKey = ""
         this.cachedOptions = undefined
-        this.abortController = new AbortController()
         if (newKey?.length == 0) {
             this.pagefindResult = undefined
             this.cachedData = []
@@ -55,8 +51,9 @@ export abstract class BasePagefindPaginator<P, T> implements ISearchPaginator<P,
         const filters: ApiPagefindFilter = await this.pagefind.filters();
         consoleInfoObj("Get pagefind filters", filters)
         let pagefindResult: PagefindResult = await this.pagefind.search(newKey, options)
-        const resultSize = pagefindResult?.results.length ?? 0
+        abortSignal?.throwIfAborted()
 
+        const resultSize = pagefindResult?.results.length ?? 0
         consoleInfoObj("Pagefind results", pagefindResult)
         const firstPageSize = Math.min(resultSize, this.PAGE_SIZE)
         if (firstPageSize == 0) {
@@ -68,42 +65,38 @@ export abstract class BasePagefindPaginator<P, T> implements ISearchPaginator<P,
             .map(async it => await it.data()))
         consoleInfoObj("First page data", apiResults)
         const results = apiResults.map(it => this.convertToShowData(it as P))
+        if (delay) {
+            await sleepUntilMinimalTime(startTime, abortSignal)
+        }
+        abortSignal?.throwIfAborted()
         this.pagefindResult = pagefindResult
         this.cachedData = []
         this.cachedData.push(...results)
-        if (delay) {
-            await sleepUntilMinimalTime(startTime, this.abortController?.signal)
-        }
         return this.cachedData
     }
 
-    async loadMore(delay?: boolean): Promise<T[]> {
+    async loadMore(delay?: boolean, abortSignal?: AbortSignal): Promise<T[]> {
         consoleInfo("Load more by pagefind paginator")
         if (this.pagefindResult == null) {
-            return this.search(this.cachedKey, this.cachedOptions ?? {}, delay)
+            return this.search(this.cachedKey, this.cachedOptions ?? {}, delay, abortSignal)
         }
-        if (this.abortController != null) {
-            this.abortController.abort()
-            consoleInfo("Abort previous pagefind load")
-        }
-        this.abortController = new AbortController()
+        abortSignal?.throwIfAborted()
         const startTime = Date.now()
         const remainingCount = this.pagefindResult.results.length - this.cachedData.length
         if (remainingCount <= 0) {
-            return new Promise((resolve) => {
-                resolve(this.cachedData.slice())
-            })
+            return this.cachedData.slice()
         }
         const loadCount = Math.min(remainingCount, this.PAGE_SIZE)
         const startIndex = this.cachedData.length
         const apiResults = await Promise.all(this.pagefindResult.results.slice(startIndex, startIndex + loadCount)
             .map(async it => await it.data()))
         consoleInfoObj("Load more page data", apiResults)
+        if (delay) {
+            await sleepUntilMinimalTime(startTime, abortSignal)
+        }
+        abortSignal?.throwIfAborted()
         const results = apiResults.map(it => this.convertToShowData(it as P))
         this.cachedData.push(...results)
-        if (delay) {
-            await sleepUntilMinimalTime(startTime, this.abortController?.signal)
-        }
         return this.cachedData.slice()
     }
 
@@ -126,13 +119,6 @@ export abstract class BasePagefindPaginator<P, T> implements ISearchPaginator<P,
         }
         consoleInfo("Pagefind paginator has more ? " + hasMore)
         return hasMore
-    }
-
-    abort(): void {
-        consoleInfo("Abort pagefind paginator request")
-        if (this.abortController != null) {
-            this.abortController.abort()
-        }
     }
 
     abstract convertToShowData(data: P): T

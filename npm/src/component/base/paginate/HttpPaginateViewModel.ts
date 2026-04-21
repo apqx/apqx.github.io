@@ -11,6 +11,7 @@ export class HttpPaginatorViewModel<H, P extends BaseHttpPaginator<H, T>, T> ext
     paginator: P
     state: BasePaginateViewModelState<T>
     onlyShowLoadingAndError: boolean
+    abortController?: AbortController
 
     constructor(paginator: P, onlyShowLoadingAndError: boolean = false) {
         super()
@@ -25,9 +26,12 @@ export class HttpPaginatorViewModel<H, P extends BaseHttpPaginator<H, T>, T> ext
     }
 
     async load(delay: boolean = false): Promise<void> {
+        if (this.state.loading) return
+        consoleInfo("HttpPaginatorViewModel load")
+        this.abortController?.abort()
+        this.abortController = new AbortController()
+
         try {
-            if (this.state.loading) return
-            consoleInfo("HttpPaginatorViewModel load")
             this.state = {
                 loading: true,
                 loadingHint: undefined,
@@ -35,7 +39,7 @@ export class HttpPaginatorViewModel<H, P extends BaseHttpPaginator<H, T>, T> ext
                 totalPostsSize: 0
             }
             this.emitChange()
-            const posts = await this.paginator.load(delay)
+            const posts = await this.paginator.load(delay, this.abortController.signal)
             const totalPostsSize = this.paginator.totalPostsSize()
             this.state = {
                 loading: false,
@@ -45,6 +49,10 @@ export class HttpPaginatorViewModel<H, P extends BaseHttpPaginator<H, T>, T> ext
             }
             this.emitChange()
         } catch (e) {
+            if (e instanceof Error && e.name === "AbortError") {
+                consoleInfo("HttpPaginatorViewModel load aborted")
+                return
+            }
             consoleInfoObj("Error loading posts", e)
             this.state = {
                 ...this.state,
@@ -59,14 +67,17 @@ export class HttpPaginatorViewModel<H, P extends BaseHttpPaginator<H, T>, T> ext
         if (this.state.loading) return
         if (!this.paginator.hasMore()) return
         consoleInfo("HttpPaginatorViewModel loadMore")
+        this.abortController?.abort()
+        this.abortController = new AbortController()
+
         try {
             this.state = {
                 ...this.state,
                 loading: true,
-                loadingHint: ""
+                loadingHint: undefined
             }
             this.emitChange()
-            const posts = await this.paginator.loadMore(delay)
+            const posts = await this.paginator.loadMore(delay, this.abortController.signal)
             const totalPostsSize = this.paginator.totalPostsSize()
             this.state = {
                 ...this.state,
@@ -86,6 +97,10 @@ export class HttpPaginatorViewModel<H, P extends BaseHttpPaginator<H, T>, T> ext
                 })
             })
         } catch (e) {
+            if (e instanceof Error && e.name === "AbortError") {
+                consoleInfo("HttpPaginatorViewModel loadMore aborted")
+                return
+            }
             consoleErrorObj("Error loading more posts", e)
             this.state = {
                 ...this.state,
@@ -107,7 +122,7 @@ export class HttpPaginatorViewModel<H, P extends BaseHttpPaginator<H, T>, T> ext
     }
 
     abort() {
-        this.paginator.abort()
+        this.abortController?.abort()
         if (this.state.loading) {
             this.state = {
                 ...this.state,

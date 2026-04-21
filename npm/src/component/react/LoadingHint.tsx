@@ -23,6 +23,14 @@ interface Props {
      * 是否使用更长的 Intersection 判断距离，默认为 false
      */
     extendIntersectionThreshold?: boolean
+    /**
+     * 是否隐藏组件
+     */
+    hide?: boolean,
+    /**
+     * 手动触发 IntersectionObserver 检测的次数，用于在某些场景下（如 dialog）手动触发检测
+     */
+    triggerIntersectionCheckCount?: number
 }
 
 
@@ -72,11 +80,11 @@ export function LoadingHint(props: Props) {
             }
         }
         // 这里锚定 loading 状态，确保一次加载完成后触发 intersection 检测
-    }, [props.loading, props.loadHint, props.extendIntersectionThreshold])
+    }, [props.loading, props.loadHint, props.extendIntersectionThreshold, props.triggerIntersectionCheckCount])
 
     const hide = useMemo(() => {
-        return !props.loading && props.loadHint == null
-    }, [props.loading, props.loadHint])
+        return props.hide || (!props.loading && props.loadHint == null)
+    }, [props.loading, props.loadHint, props.hide])
 
     return (
         <div ref={containerRef} className={`loading-hint-wrapper center-inline-items ${hide ? "hide" : ""}`.trim()}>
