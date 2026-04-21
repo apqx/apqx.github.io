@@ -44,6 +44,8 @@ $max-width: 20rem;
         align-items: stretch;
         // 消除 Firefox 的 scrollBar
         scrollbar-width: none;
+        // flex-shrink: 1;
+        // width: $max-width;
 
         // 移动端 Chrome 的 scrollBar 一直显示，需要消除，其它浏览器 scrollBar 都会自动隐藏
         // 在保留滚动效果的同时，消除 Safari，Chrome 的 scrollBar

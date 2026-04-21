@@ -2,10 +2,17 @@ import "./AboutMeDialog.scss"
 import { ABOUT_DIALOG_WRAPPER_ID, BaseDialog, showDialog } from "./BaseDialog"
 import type { BaseDialogOpenProps } from "./BaseDialog"
 import { setupListItemRipple } from "../list"
-import React, { useEffect, useMemo } from "react"
+import React, { useEffect, useMemo, useRef } from "react"
 import { Tag } from "../react/Tag"
 
 function AboutMeDialog(props: BaseDialogOpenProps) {
+    const avatarRef = useRef<HTMLImageElement>(null)
+
+    useEffect(() => {
+        avatarRef.current?.addEventListener("dblclick", (event) => {
+            // 双击头像，或许有用
+        })
+    },[])
 
     const kunQvLink = useMemo(() => {
         return window.location.origin + "/post/original/2019/05/18/槐安国内春生酒.html"
@@ -17,7 +24,7 @@ function AboutMeDialog(props: BaseDialogOpenProps) {
                 <picture>
                     <source srcSet="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me_emoji.webp"
                         type="image/webp" />
-                    <img className="circle-avatar inline-for-center" alt="avatar"
+                    <img className="circle-avatar inline-for-center" alt="avatar" ref={avatarRef}
                         src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me_emoji.png" />
                 </picture>
                 <p className="about-me-name">立泉</p>

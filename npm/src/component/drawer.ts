@@ -61,6 +61,12 @@ export function initDrawer() {
         consoleInfo("Click drawer close button")
         drawer.open = false
     })
+    drawerE.querySelector(".mdc-drawer__title")?.addEventListener("dblclick", (event) => {
+        import("./dialog/InfoDialog").then((component) => {
+            component.showInfoDialog()
+            drawer.open = false
+        })
+    })
 
     // drawer 中的 list
     const listE = document.querySelector(".mdc-drawer .mdc-deprecated-list")

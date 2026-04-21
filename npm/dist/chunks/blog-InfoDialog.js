@@ -1,0 +1,1 @@
+import{s as i,W as e,j as n,d as s}from"../blog-scaffold.js";function t(o){return n.jsx(s,{openCount:o.openCount,children:n.jsx("div",{children:n.jsxs("p",{children:["window.size : ",window.innerWidth," x ",window.innerHeight]})})})}let r=0;function d(){i(n.jsx(t,{openCount:r++}),e)}export{d as showInfoDialog};

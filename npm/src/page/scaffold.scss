@@ -29,8 +29,6 @@ html {
     height: 100%;
     scroll-behavior: smooth;
 }
-// body {
-// }
 
 body {
     // 消除 topbar 左侧的 margin
@@ -44,7 +42,7 @@ body {
 
     .header-space {
         width: 100%;
-        height: var(--topbar-height);
+        height: calc(var(--topbar-height) + env(safe-area-inset-top));
         flex-shrink: 0;
         border: none;
         margin: 0;
@@ -86,6 +84,7 @@ footer .footer-container {
     max-width: base.$center-container-max-width;
     margin: 0 auto;
     padding: 0;
+    padding-bottom: env(safe-area-inset-bottom);
 }
 
 @keyframes fade-in {

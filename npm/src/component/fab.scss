@@ -28,7 +28,7 @@
     flex-direction: column;
     gap: var(--list-divider-height);
     position: fixed;
-    bottom: 1.5rem;
+    bottom: calc(1.5rem + env(safe-area-inset-bottom));
     right: 1.5rem;
     z-index: 0;
 

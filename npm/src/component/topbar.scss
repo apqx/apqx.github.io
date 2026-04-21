@@ -34,6 +34,8 @@ body {
     position: absolute;
     // 颜色，默认为 primary
     background-color: var(--mdc-theme-primary);
+    padding-top: env(safe-area-inset-top);
+
     // 阴影
     @include elevation.elevation(map.get(base.$topbar-elevation, "elevation"), map.get(base.$topbar-elevation, "shadow-light"), 0);
     // border-bottom: 1px solid color.adjust(map.get(base.$topbar, "bg-light"), $lightness: - 3%);
