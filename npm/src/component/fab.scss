@@ -24,12 +24,14 @@
 }
 
 .floating-action-container {
+    --fab-right-gap: 1.5rem;
+    --fab-bottom-gap: 1.5rem;
     display: flex;
     flex-direction: column;
     gap: var(--list-divider-height);
     position: fixed;
-    bottom: calc(1.5rem + env(safe-area-inset-bottom));
-    right: 1.5rem;
+    bottom: calc(var(--fab-bottom-gap) + var(--safe-area-inset-bottom));
+    right: calc(var(--fab-right-gap) + var(--safe-area-inset-right));
     z-index: 0;
 
     .mdc-touch-target-wrapper:first-child {
@@ -73,7 +75,7 @@
 
 @media(max-width: base.$screen-middle-width-start) {
     .floating-action-container {
-        bottom: 1rem;
-        right: 1rem;
+        --fab-right-gap: 1rem;
+        --fab-bottom-gap: 1rem;
     }
 }

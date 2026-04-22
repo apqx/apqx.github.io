@@ -212,6 +212,12 @@ body {
 
         --mdc-typography-button-letter-spacing: normal;
 
+        --safe-area-inset-top: env(safe-area-inset-top, 0px);
+        --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+        // Android 设备中横屏左右安全区宽度不一致，取较大的值，保证对称性
+        --safe-area-inset-left: max(env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
+        --safe-area-inset-right: max(env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
+
         // drawer list 圆角
         --mdc-shape-small: 0.5rem;
         // card 圆角

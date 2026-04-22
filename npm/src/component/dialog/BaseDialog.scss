@@ -18,8 +18,8 @@
         opacity calc(var(--dialog-animation-duration) / 2) ease !important;
     // will-change: transform, opacity;
 
-    padding-top: env(safe-area-inset-top);
-    padding-bottom: env(safe-area-inset-bottom);
+    padding-top: var(--safe-area-inset-top);
+    padding-bottom: var(--safe-area-inset-bottom);
 }
 
 // opening -> open
@@ -70,7 +70,7 @@
     border-radius: var(--dialog-border-radius);
     // surface 不滚动，content 滚动
     overflow-x: hidden;
-    max-height: calc(100% - 32px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    max-height: calc(100% - 32px);
 
     .dark & {
         @include elevation.elevation(map.get(base.$dialog, "elevation"), map.get(base.$dialog, "shadow-dark"), 0);
