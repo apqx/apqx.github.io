@@ -22,27 +22,35 @@ const DRAWER_ITEM_SEARCH_ID = "drawer-a-search"
 const DRAWER_ITEM_PREFERENCE_ID = "drawer-a-preference"
 const DRAWER_ITEM_ABOUT_ME_ID = "drawer-a-about-me"
 
+let drawer: MDCDrawer | null = null
+let drawerWrapperE: HTMLElement | null = null
+
 export function initDrawer() {
     let drawerE = document.querySelector(".mdc-drawer")
     if (drawerE == null) {
         consoleError("Drawer not found")
         return
     }
-    let drawer = MDCDrawer.attachTo(drawerE)
+    drawerWrapperE = drawerE.querySelector(".mdc-drawer__wrapper") as HTMLElement
+    drawer = MDCDrawer.attachTo(drawerE)
     // 监听 menu 按钮点击
     topAppBar?.listen("MDCTopAppBar:nav", () => {
-        drawer.open = !drawer.open
         // 解决 drawer 弹出时只显示一部分的问题
-        scrollToTopNative(false)
+        // scrollToTopNative(false)
+        // 获取 body 滚动距离，为 drawer 设置 offset
+        setupDrawerContentOffset();
+
+        toggleDrawer(!drawer!!.open)
     })
     // 监听 trigger 弹出 drawer
-    const toggleDowers = document.querySelectorAll(".drawer-trigger")
-    for (const toggle of toggleDowers) {
-        let eventType = "click" 
+    const drawerTriggers = document.querySelectorAll(".drawer-trigger")
+    for (const toggle of drawerTriggers) {
+        let eventType = "click"
         if (!(toggle instanceof HTMLButtonElement) && isSafari())
             eventType = "pointerup"
         toggle.addEventListener(eventType, () => {
-            drawer.open = !drawer.open
+            setupDrawerContentOffset()
+            toggleDrawer(!drawer?.open)
         })
     }
     // drawer 中的 icon-button
@@ -54,17 +62,17 @@ export function initDrawer() {
         consoleInfo("Click drawer share button")
         import("./dialog/ShareDialog").then((component) => {
             component.showShareDialog()
-            drawer.open = false
+            toggleDrawer(false)
         })
     })
     iconBtnCloseE?.addEventListener("click", () => {
         consoleInfo("Click drawer close button")
-        drawer.open = false
+        toggleDrawer(false)
     })
     drawerE.querySelector(".mdc-drawer__title")?.addEventListener("dblclick", (event) => {
         import("./dialog/InfoDialog").then((component) => {
             component.showInfoDialog()
-            drawer.open = false
+            toggleDrawer(false)
         })
     })
 
@@ -119,21 +127,38 @@ export function initDrawer() {
         if (searchEHref == null || searchEHref == "") {
             consoleInfo("Click drawer list item " + DRAWER_ITEM_SEARCH_ID)
             showSearchDialog()
-            drawer.open = false
+            toggleDrawer(false)
         }
     })
 
     listE.querySelector("#" + DRAWER_ITEM_PREFERENCE_ID)?.addEventListener(eventType, () => {
         consoleInfo("Click drawer list item " + DRAWER_ITEM_PREFERENCE_ID)
         showPreferenceDialog()
-        drawer.open = false
+        toggleDrawer(false)
     })
 
     listE.querySelector("#" + DRAWER_ITEM_ABOUT_ME_ID)?.addEventListener(eventType, () => {
         consoleInfo("Click drawer list item " + DRAWER_ITEM_ABOUT_ME_ID)
         showAboutMeDialog()
-        drawer.open = false
+        toggleDrawer(false)
     })
+}
+
+/**
+ * 设置 drawer 内容的偏移量，因为 drawer 是相对于整个页面的 absolute 定位，内容需与页面滚动保持一致
+ */
+function setupDrawerContentOffset() {
+    if (drawer == null || drawerWrapperE == null) return
+    if (!drawer.open) {
+        const scrollY = window.scrollY;
+        consoleInfo("Open drawer, scrollY: " + scrollY);
+        drawerWrapperE.style.setProperty("transform", `translateY(${scrollY}px)`);
+    }
+}
+
+function toggleDrawer(on: boolean) {
+    if (drawer == null) return
+    drawer.open = on
 }
 
 function getCurrentPageIndex(aEList: NodeListOf<Element>) {

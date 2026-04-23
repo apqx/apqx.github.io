@@ -51,6 +51,19 @@ body {
         color: var(--mdc-theme-on-primary);
     }
 
+    .mdc-top-app-bar__title {
+        // font-family: "Irvin-Heading";
+        padding-left: 0.3rem;
+        font-weight: var(--font-weight-normal);
+
+        a {
+            text-decoration: none;
+        }
+
+        
+
+    }
+
     // 标题栏图标和字体的字重以字体为准，图标适应字体
     // 默认思源黑体，可切换为稍细的思源宋体
     // 标题栏字体字重默认为正文字重
@@ -133,16 +146,6 @@ body {
     }
 }
 
-.mdc-top-app-bar__title {
-    // font-family: "Irvin-Heading";
-    padding-left: 0.3rem;
-    font-weight: var(--font-weight-normal);
-
-    a {
-        text-decoration: none;
-    }
-
-}
 
 .mdc-top-app-bar__row {
     height: var(--topbar-height);

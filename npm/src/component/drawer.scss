@@ -19,9 +19,6 @@ $drawer-width: 18rem;
 .mdc-drawer {
     width: calc($drawer-width + var(--safe-area-inset-left));
     z-index: 5;
-    padding-top: var(--safe-area-inset-top);
-    padding-bottom: var(--safe-area-inset-bottom);
-    padding-left: var(--safe-area-inset-left);
 
     @include elevation.elevation(map.get(base.$drawer-elevation, "elevation"), map.get(base.$drawer-elevation, "shadow-light"), 0);
     @include drawer.item-text-ink-color(var(--mdc-theme-on-surface));
@@ -74,25 +71,28 @@ $drawer-width: 18rem;
     }
 }
 
-$header-gap-left: 1rem;
-$list-item-padding-left: 0.8rem;
+$drawer-content-padding-left: 0.2rem;
+$drawer-content-padding-right: 0.4rem;
+$list-item-padding-horizontal: 0.8rem;
 
 .mdc-drawer {
     padding: none;
 
     .mdc-drawer__wrapper {
         box-sizing: border-box;
-        padding: 0 var(--drawer-padding-horizontal);
         overflow: scroll;
         width: 100%;
-        height: fit-content;
-        max-height: 100dvh;
+        height: calc(100dvh + var(--safe-area-inset-top) + var(--safe-area-inset-bottom));
         scroll-behavior: smooth;
+        padding-top: var(--safe-area-inset-top);
+        padding-bottom: var(--safe-area-inset-bottom);
+        padding-left: calc(var(--safe-area-inset-left) + var(--drawer-padding-horizontal));
+        padding-right: var(--drawer-padding-horizontal);
 
         .mdc-drawer__header {
             display: flex;
             align-items: center;
-            padding: 0 0 0 $header-gap-left;
+            padding: 0 0 0 ($drawer-content-padding-left + $list-item-padding-horizontal);
             height: var(--topbar-height);
             min-height: unset;
 
@@ -113,7 +113,7 @@ $list-item-padding-left: 0.8rem;
                     font-weight: 240;
 
                     .font-noto-serif-sc & {
-                        font-weight: 200;
+                        font-weight: 205;
                     }
                 }
             }
@@ -151,20 +151,19 @@ $list-item-padding-left: 0.8rem;
         .mdc-drawer__content {
             display: flex;
             flex-direction: column;
-            margin-top: 0.2rem;
             overflow: visible;
             height: fit-content;
+            padding: 0.1rem $drawer-content-padding-right 0.2rem $drawer-content-padding-left;
         }
     }
 }
 
 .mdc-drawer .nav-list {
-    padding: 0.2rem 0;
     flex: 1;
 
     .mdc-deprecated-list-item {
-        margin: 0.3rem 0.5rem 0.3rem ($header-gap-left - $list-item-padding-left);
-        padding: 0.2rem $list-item-padding-left;
+        margin: 0.2rem 0;
+        padding: 0.2rem $list-item-padding-horizontal;
         border-radius: 1.3rem;
 
         &:first-child {
