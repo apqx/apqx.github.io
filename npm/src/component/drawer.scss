@@ -77,12 +77,19 @@ $list-item-padding-horizontal: 0.8rem;
 
 .mdc-drawer {
     padding: none;
+    // mdc 内置的 overflow: hidden 会导致 wrapper 内部元素的 position: sticky 失效
+    // sticky 定位的锚点是拥有 overflow 的最近祖先元素
+    overflow: unset;
 
     .mdc-drawer__wrapper {
         box-sizing: border-box;
+        position: sticky;
+        top: 0;
         overflow: scroll;
         width: 100%;
-        height: calc(100dvh + var(--safe-area-inset-top) + var(--safe-area-inset-bottom));
+        // 这样设置滚动到底部时弹出 drawer 有问题
+        // height: calc(100dvh + var(--safe-area-inset-top) + var(--safe-area-inset-bottom));
+        height: 100dvh;
         scroll-behavior: smooth;
         padding-top: var(--safe-area-inset-top);
         padding-bottom: var(--safe-area-inset-bottom);

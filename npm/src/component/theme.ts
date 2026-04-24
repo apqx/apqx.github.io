@@ -33,9 +33,10 @@ const metaThemeColor = {
     dark: "#161616"
 }
 
+// TODO: 根据是否启用 edge-to-edge 设置
 const topbarBlur = {
     default: true,
-    mobile: false,
+    mobile: true,
 }
 
 // 是否启用彩色标题栏

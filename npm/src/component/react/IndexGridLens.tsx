@@ -58,6 +58,7 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
         })
         emitter.on("lensBiggerPictureChange", (data) => {
             consoleInfo("IndexGridLens receive lensBiggerPictureChange event, enabled = " + data.enabled)
+            scrollToTopNative(false)
             setLensBiggerPicture(data.enabled)
         })
         // 监听从缓存中恢复设置的事件，更新单列显示设置
@@ -65,6 +66,7 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
             if (data == EVENT_PAGE_BACK_FROM_CACHE) {
                 const enabled = getLocalRepository().getLensBiggerPicture()
                 consoleInfo("IndexGridLens receive restoreSettingsFromCache event, restore lensBiggerPicture to " + enabled)
+                scrollToTopNative(false)
                 setLensBiggerPicture(enabled)
             }
         })

@@ -35,11 +35,6 @@ export function initDrawer() {
     drawer = MDCDrawer.attachTo(drawerE)
     // 监听 menu 按钮点击
     topAppBar?.listen("MDCTopAppBar:nav", () => {
-        // 解决 drawer 弹出时只显示一部分的问题
-        // scrollToTopNative(false)
-        // 获取 body 滚动距离，为 drawer 设置 offset
-        setupDrawerContentOffset();
-
         toggleDrawer(!drawer!!.open)
     })
     // 监听 trigger 弹出 drawer
@@ -49,7 +44,6 @@ export function initDrawer() {
         if (!(toggle instanceof HTMLButtonElement) && isSafari())
             eventType = "pointerup"
         toggle.addEventListener(eventType, () => {
-            setupDrawerContentOffset()
             toggleDrawer(!drawer?.open)
         })
     }
@@ -97,6 +91,8 @@ export function initDrawer() {
         toggleElementClass(document.body, "mdc-drawer-scroll-lock", true)
         // 关闭 toggle menu 图标切换，正常切换时，这里应该是 true
         setToggleMenuIconBtnOn(false)
+        // 监听尺寸变化，保持 drawer 内容的偏移量正确
+        // TODO: 支持手势关闭
     });
     drawerE.addEventListener("MDCDrawer:closed", () => {
         toggleElementClass(document.body, "mdc-drawer-scroll-lock", false)
@@ -142,18 +138,6 @@ export function initDrawer() {
         showAboutMeDialog()
         toggleDrawer(false)
     })
-}
-
-/**
- * 设置 drawer 内容的偏移量，因为 drawer 是相对于整个页面的 absolute 定位，内容需与页面滚动保持一致
- */
-function setupDrawerContentOffset() {
-    if (drawer == null || drawerWrapperE == null) return
-    if (!drawer.open) {
-        const scrollY = window.scrollY;
-        consoleInfo("Open drawer, scrollY: " + scrollY);
-        drawerWrapperE.style.setProperty("transform", `translateY(${scrollY}px)`);
-    }
 }
 
 function toggleDrawer(on: boolean) {
