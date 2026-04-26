@@ -2,7 +2,7 @@
 import { MDCDrawer } from "@material/drawer";
 import { MDCList } from "@material/list";
 import { consoleInfo, consoleError } from "../util/log";
-import { setToggleMenuIconBtnFocused, setToggleMenuIconBtnOn, topAppBar } from "./topbar";
+import { setToggleMenuIconBtnOn, topAppBar } from "./topbar";
 import { showAboutMeDialog } from "./dialog/AboutMeDialog";
 import { showPreferenceDialog } from "./dialog/PreferenceDialog";
 import { showSearchDialog } from "./dialog/SearchDialog";
@@ -10,7 +10,6 @@ import { getSectionTypeByPath, SECTION_TYPE_LENS, SECTION_TYPE_OPERA, SECTION_TY
 import { isSafari, toggleElementClass } from "../util/tools";
 import { setupIconButtonRipple } from "./button";
 import { setupListItemRipple } from "./list";
-import { scrollToTopNative } from "./fab";
 
 const DRAWER_ITEM_ORIGINAL_ID = "drawer-a-original"
 const DRAWER_ITEM_REPOST_ID = "drawer-a-repost"
@@ -63,7 +62,7 @@ export function initDrawer() {
         consoleInfo("Click drawer close button")
         toggleDrawer(false)
     })
-    drawerE.querySelector(".mdc-drawer__title")?.addEventListener("dblclick", (event) => {
+    drawerE.querySelector(".drawer-header-text-container")?.addEventListener("dblclick", (event) => {
         import("./dialog/InfoDialog").then((component) => {
             component.showInfoDialog()
             toggleDrawer(false)

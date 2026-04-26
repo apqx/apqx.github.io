@@ -32,7 +32,7 @@
     position: fixed;
     bottom: calc(var(--fab-bottom-gap) + var(--safe-area-inset-bottom));
     right: calc(var(--fab-right-gap) + var(--safe-area-inset-right));
-    z-index: 0;
+    z-index: var(--z-index-fab);
 
     .mdc-touch-target-wrapper:first-child {
         .mdc-fab {

@@ -22,6 +22,7 @@
 // @use "../component/react/Snackbar";
 @use "@material/animation";
 @use "sass:map";
+@use "sass:color";
 
 html {
     // 设置 html 和 body 高度为浏览器窗口高度
@@ -64,6 +65,34 @@ body {
         display: flex;
         flex-direction: column;
     }
+}
+
+.status-bar-protector {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100dvh;
+    height: var(--safe-area-inset-top);
+    // height: var(--topbar-height);
+    z-index: 10;
+
+    /* 基础半透明色 */
+    background: linear-gradient(to bottom, 
+    rgba($color: map.get(base.$surface, "light"), $alpha: 0.6) 0%, 
+    transparent 100%);
+
+    .dark & {
+        background: linear-gradient(to bottom, 
+        rgba($color: map.get(base.$surface, "dark"), $alpha: 0.6) 0%, 
+        transparent 100%);
+    }
+
+    /* 使用遮罩让元素（包括颜色和模糊效果）从上到下逐渐消失 */
+    mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
 }
 
 

@@ -233,7 +233,7 @@ body {
 
         --drawer-padding-horizontal: 0.8rem;
 
-        --topbar-height: 3.85rem;
+        --topbar-height: 3.9rem;
 
         // main container 为中央主体容器，设置最大宽度，水平居中，此为其顶部距 topbar 和底部距 footer 的距离
         --main-container-padding-vertical: 1.2rem;
@@ -248,6 +248,11 @@ body {
         --image-height-animation-duration: 0.8s;
         --index-card-animation-duration: 0.4s;
         --index-card-animation-translate-y: 2rem;
+
+        --z-index-dialog: 7;
+        --z-index-drawer: 5;
+        --z-index-topbar: 3;
+        --z-index-fab: auto;
 
         @include light;
 }

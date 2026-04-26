@@ -32,6 +32,7 @@ body {
 
 .mdc-top-app-bar {
     position: absolute;
+    z-index: var(--z-index-topbar);
     // 颜色，默认为 primary
     background-color: var(--mdc-theme-primary);
     padding-top: var(--safe-area-inset-top);
@@ -59,9 +60,6 @@ body {
         a {
             text-decoration: none;
         }
-
-        
-
     }
 
     // 标题栏图标和字体的字重以字体为准，图标适应字体

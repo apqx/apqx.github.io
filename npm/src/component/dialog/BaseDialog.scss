@@ -11,55 +11,73 @@
 @use "sass:map";
 @use "sass:color";
 
-.mdc-dialog .mdc-dialog__container {
-    transform: scaleY(0.9) scaleX(0.95) translateY(0);
-    opacity: 0;
-    transition: transform var(--dialog-animation-duration) ease,
-        opacity calc(var(--dialog-animation-duration) / 2) ease !important;
-    // will-change: transform, opacity;
+.mdc-dialog {
+    .mdc-dialog__container {
+        transform: scaleY(0.9) scaleX(0.95) translateY(0);
+        opacity: 0;
+        padding-top: var(--safe-area-inset-top);
+        padding-bottom: var(--safe-area-inset-bottom);
+    }
 
-    padding-top: var(--safe-area-inset-top);
-    padding-bottom: var(--safe-area-inset-bottom);
+    .mdc-dialog__scrim {
+        // 原 dialog 的 scrim 遮罩动画
+        @include scrim.baseScrim;
+        opacity: 0;
+
+        // 关闭 dialog 自身的 scrim 遮罩，使用全局的 common-scrim 实现，适配 iOS 26 中 safari 工具栏压缩 viewport 导致的 scrim 遮罩被裁剪问题
+        // 本 scrim 位于 dialog 内，position 无法相对于整个页面，因此弃用
+    }
 }
 
-// opening -> open
-// opening 只是设置 dialog 的显示属性，动画是由 open 触发的
-// js 控制先添加 opening，再立即添加 open，启动动画
-// .mdc-dialog--opening .mdc-dialog__container {
-//     transform: translateY(5rem);
-//     opacity: 1;
-// }
+// 弹出时，加 opening，然后加 open，动画结束后删除 opening
+// 关闭时, 加 closing，然后删除 open，动画结束后删除 closing
+// TODO: 不知为何对关闭动画的 transition 设置没有生效
 
-.mdc-dialog.mdc-dialog--open .mdc-dialog__container {
-    transform: scale(1) translateY(0);
-    opacity: 1;
+.mdc-dialog.mdc-dialog--opening {
+    .mdc-dialog__container {
+        transition: transform var(--dialog-animation-duration) ease,
+            opacity calc(var(--dialog-animation-duration) / 2) ease;
+    }
+
+    .mdc-dialog__scrim {
+        transition: opacity var(--dialog-animation-duration) ease;
+    }
 }
 
-// closing -> null
-// 关闭 dialog 时先添加 closing，启动关闭动画，动画结束后移除 dialog 的显示属性
-// 关闭时仅透明度变化
-.mdc-dialog.mdc-dialog--closing .mdc-dialog__container {
-    transform: scale(1) translateY(0);
+.mdc-dialog.mdc-dialog--open {
+    .mdc-dialog__container {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+
+    .mdc-dialog__scrim {
+        // opacity: 1;
+        // 关闭 scrim 动画
+        opacity: 0;
+    }
 }
 
-.mdc-dialog .mdc-dialog__scrim {
-    opacity: 0;
-    // 原 dialog 的 scrim 遮罩动画
-    @include scrim.baseScrim;
+.mdc-dialog.mdc-dialog--open.mdc-dialog--closing {
+    .mdc-dialog__container {
+        transition: opacity 2s ease;
+        transform: scale(1) translateY(0);
+    }
 
-    // 关闭 dialog 自身的 scrim 遮罩，使用全局的 common-scrim 实现，适配 iOS 26 中 safari 工具栏压缩 viewport 导致的 scrim 遮罩被裁剪问题
-    background-color: transparent;
-    transition: none;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
+    .mdc-dialog__scrim {
+        transition: opacity var(--dialog-animation-duration) ease;
+    }
 }
 
-.mdc-dialog.mdc-dialog--open .mdc-dialog__scrim {
-    opacity: 1;
+.mdc-dialog.mdc-dialog--closing {
+    .mdc-dialog__container {
+        transition: opacity 2s ease;
+        transform: scale(1) translateY(0);
+    }
 }
 
 .mdc-dialog {
-    --dialog-content-padding-left-right: 1.5rem
+    --dialog-content-padding-left-right: 1.5rem;
+    z-index: var(--z-index-dialog);
 }
 
 .mdc-dialog .mdc-dialog__surface {

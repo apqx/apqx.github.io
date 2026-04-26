@@ -142,7 +142,6 @@ body {
 
     .index-pinned-icon-container,
     .index-featured-icon-container {
-        z-index: 1;
         position: absolute;
         bottom: calc(var(--index-card-padding-vertical) + 0.1rem);
         left: calc(var(--index-card-padding-horizontal) - 0.4rem);
