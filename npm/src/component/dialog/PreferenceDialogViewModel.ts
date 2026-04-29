@@ -4,7 +4,6 @@ import { checkTopbar } from "../topbar"
 import { setNotoSerifSCFont } from "../font/font"
 import { consoleInfo } from "../../util/log"
 import { BaseExternalStore } from "../base/paginate/BaseExternalStore"
-import { checkScrimBlur } from "../scrim"
 import { getEventEmitter } from "../base/EventBus"
 
 export interface PreferenceDialogState {
@@ -18,7 +17,6 @@ export class PreferenceDialogViewModel extends BaseExternalStore {
         fixedTopbar: false,
         notoSerifSCFont: false,
         lensBiggerPicture: false,
-        scrimBlur: false,
         autoTheme: false
     }
 
@@ -31,7 +29,6 @@ export class PreferenceDialogViewModel extends BaseExternalStore {
             fixedTopbar: this.localFixedTopbar(),
             notoSerifSCFont: this.localNotoSerifSCFont(),
             lensBiggerPicture: this.localLensBiggerPicture(),
-            scrimBlur: this.localScrimBlur(),
             autoTheme: this.localAutoTheme()
         }
         this.emitChange()
@@ -52,14 +49,6 @@ export class PreferenceDialogViewModel extends BaseExternalStore {
         this.emitChange()
         this.localRepository.saveNotoSerifSCFont(newState)
         setNotoSerifSCFont(newState)
-    }
-
-    onClickScrimBlurSwitch = () => {
-        const newState = !this.state.scrimBlur
-        this.state = { ...this.state, scrimBlur: newState }
-        this.emitChange()
-        this.localRepository.saveScrimBlur(newState)
-        checkScrimBlur()
     }
 
     onClickLensBiggerPictureSwitch = () => {
@@ -113,10 +102,6 @@ export class PreferenceDialogViewModel extends BaseExternalStore {
 
     localNotoSerifSCFont(): boolean {
         return this.localRepository.getNotoSerifSCFont()
-    }
-
-    localScrimBlur(): boolean {
-        return this.localRepository.getScrimBlur()
     }
 
     localAutoTheme(): boolean {

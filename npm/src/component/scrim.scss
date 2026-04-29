@@ -30,10 +30,4 @@
     &.common-scrim--active {
         opacity: 1;
     }
-
-    .scrim-blur & {
-        // 启用 blur 时改为 fixed 定位，尺寸相对 viewport，减少性能消耗
-        position: fixed;
-        @include scrimBlur;
-    }
 }

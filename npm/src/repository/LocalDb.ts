@@ -3,7 +3,6 @@ export class LocalDb {
     KEY_HANDWRITTEN_FONT = "handwrittenFont"
     KEY_NOTO_SERIF_SC_FONT = "notoSerifSCFont"
     KEY_THEME = "theme"
-    KEY_SCRIM_BLUR = "scrimBlur"
     KEY_LENS_BIGGER_PICTURE = "lensBiggerPicture"
 
     VALUE_THEME_DARK = "dark"
@@ -66,14 +65,6 @@ export class LocalDb {
 
     getAutoTheme(): boolean {
         return this.getTheme() === this.VALUE_THEME_AUTO
-    }
-
-    saveScrimBlur(on: boolean) {
-        this.saveBoolean(this.KEY_SCRIM_BLUR, on)
-    }
-
-    getScrimBlur(): boolean {
-        return this.getBoolean(this.KEY_SCRIM_BLUR) ?? false
     }
 
     saveLensBiggerPicture(on: boolean) {

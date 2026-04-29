@@ -60,9 +60,6 @@ export function PreferenceDialog(props: BaseDialogOpenProps) {
                     <SettingsToggle titleHtml="固定顶部导航栏"
                         on={state.fixedTopbar}
                         onClickToggle={viewModel.onClickFixedTopbarSwitch} />
-                    {/* <SettingsToggle titleHtml={"模糊对话框背景"}
-                        on={state.scrimBlur}
-                        onClickToggle={viewModel.onClickScrimBlurSwitch} /> */}
                     <SettingsToggle titleHtml={"透镜大图模式"}
                         on={state.lensBiggerPicture}
                         onClickToggle={viewModel.onClickLensBiggerPictureSwitch} />

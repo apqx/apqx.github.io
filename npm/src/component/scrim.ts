@@ -1,12 +1,9 @@
 import "./scrim.scss"
-import { consoleInfo, consoleError, consoleInfoObj } from "../util/log"
+import { consoleInfo, consoleError } from "../util/log"
 import { toggleElementClass } from "../util/tools"
-import { getLocalRepository } from "../repository/LocalDb"
 
 var scrimE: HTMLElement | null = null
 var showRafId: number | null = null
-
-const SCRIM_BLUR_CLASS = "scrim-blur"
 
 function cancelPendingShowFrame() {
     if (showRafId != null) {
@@ -16,7 +13,6 @@ function cancelPendingShowFrame() {
 }
 
 export function initScrim() {
-    checkScrimBlur()
     scrimE = document.querySelector(".common-scrim") as HTMLElement
     if (scrimE == null) {
         consoleError("Scrim element not found")
@@ -57,10 +53,4 @@ export function toggleScrimActive(on: boolean) {
     } else {
         toggleElementClass(scrimE, "common-scrim--active", false)
     }
-}
-
-export function checkScrimBlur() {
-    const enabled = getLocalRepository().getScrimBlur()
-    consoleInfo("Scrim blur enabled: " + enabled)
-    toggleElementClass(document.body, SCRIM_BLUR_CLASS, enabled)
 }
