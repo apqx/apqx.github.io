@@ -73,9 +73,9 @@ export function setFixedTopbar(on: boolean) {
     // }
 
     if (on) {
-        toggleElementClass(topAppBarE!!, "mdc-top-app-bar--no-sticky", false)
+        toggleElementClass(topAppBarE!!, "custom-top-app-bar--no-fixed", false)
     } else {
-        toggleElementClass(topAppBarE!!, "mdc-top-app-bar--no-sticky", true)
+        toggleElementClass(topAppBarE!!, "custom-top-app-bar--no-fixed", true)
     }
 }
 

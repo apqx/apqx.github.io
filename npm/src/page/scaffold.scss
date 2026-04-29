@@ -67,34 +67,48 @@ body {
     }
 }
 
+// 顶部状态栏背景遮罩
 .status-bar-protector {
+    display: none;
+
+    // 仅在 header 非固定时，显示状态栏遮罩
+    .custom-top-app-bar--no-fixed+& {
+        display: block;
+    }
+
     position: fixed;
     top: 0;
     left: 0;
     width: 100dvw;
     height: var(--safe-area-inset-top);
     // height: var(--topbar-height);
-    z-index: 10;
+    z-index: calc(var(--z-index-topbar) + 1);
 
     /* 基础半透明色 */
-    background: linear-gradient(to bottom,
-            rgba($color: map.get(base.$surface, "light"), $alpha: 0.6) 0%,
-            transparent 100%);
+    // background: linear-gradient(to bottom,
+    //         rgba($color: map.get(base.$surface, "light"), $alpha: 0.6) 0%,
+    //         transparent 100%);
+
+    // .dark & {
+    //     background: linear-gradient(to bottom,
+    //             rgba($color: map.get(base.$surface, "dark"), $alpha: 0.6) 0%,
+    //             transparent 100%);
+    // }
+
+    // 颜色与模糊应与 fab 一致，保持视觉
+    background: rgba($color: map.get(base.$surface, "light"), $alpha: 0.5);
 
     .dark & {
-        background: linear-gradient(to bottom,
-                rgba($color: map.get(base.$surface, "dark"), $alpha: 0.6) 0%,
-                transparent 100%);
+        background: rgba($color: map.get(base.$surface, "dark"), $alpha: 0.5);
     }
 
     /* 使用遮罩让元素（包括颜色和模糊效果）从上到下逐渐消失 */
-    mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+    // mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+    // -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
 
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
-
 
 // 内容最外层容器，高度为 100% - topbar-height - footer-height 
 .main-container {

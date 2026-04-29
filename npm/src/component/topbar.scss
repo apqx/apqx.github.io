@@ -87,11 +87,29 @@ body {
     }
 }
 
-.top-app-bar--blur {
+.mdc-top-app-bar.top-app-bar--blur {
     backdrop-filter: blur(map.get(base.$topbar, "backdrop-filter"));
     -webkit-backdrop-filter: blur(map.get(base.$topbar, "backdrop-filter"));
     @include top-app-bar.fill-color(var(--topbar-blur));
 }
+
+// 添加此类以禁用 mdc 默认的滚动隐藏/显示逻辑，但会导致 topbar 固定显示
+.mdc-top-app-bar.mdc-top-app-bar--fixed {
+    // 默认固定，需要时监测滚动启动隐藏、展示动画
+    // transform: translateY(0px);
+    // opacity: 1;
+    // transition: all 0.4s ease;
+
+    // 固定显示在 Viewport 顶部
+    position: fixed;
+    top: 0;
+
+    // 取消 topbar 的固定显示，使其随页面向上滚动
+    &.custom-top-app-bar--no-fixed {
+        position: absolute;
+    }
+}
+
 
 .mdc-top-app-bar__action-item.mdc-icon-button,
 .mdc-top-app-bar__navigation-icon.mdc-icon-button {
@@ -149,22 +167,7 @@ body {
     height: var(--topbar-height);
 }
 
-// 添加此类以禁用 mdc 的滚动隐藏/显示逻辑
-.mdc-top-app-bar--fixed {
-    // 默认固定，需要时监测滚动启动隐藏、展示动画
-    // transform: translateY(0px);
-    // opacity: 1;
-    // transition: all 0.4s ease;
 
-    // 固定显示在Viewport顶部
-    position: fixed;
-    top: 0;
-}
-
-// 不固定在顶部
-.mdc-top-app-bar--fixed.mdc-top-app-bar--no-sticky {
-    position: absolute;
-}
 
 // 执行中的CSS动画可以被新动画打断，会从当前状态开始过渡，而非从原始状态
 
