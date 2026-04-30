@@ -20,6 +20,22 @@ export type Events = {
     footerDisplayChange: {
         enabled: boolean
     }
+    // 当用户更改隐藏状态栏背景的设置时触发，通知页面组件刷新状态栏样式
+    hideStatusBarBgChange: {
+        enabled: boolean
+    }
+    // 当用户更改主题设置时触发，通知检查主题设置
+    themeChange: {
+        theme: string
+    }
+    // 当用户更改固定顶部栏设置时触发，通知顶部栏组件刷新布局
+    topbarFixedChange: {
+        fixed: boolean
+    }
+    // 当用户更改字体设置时触发，通知页面组件刷新字体
+    fontChange: {
+        notoSerifSCFont: boolean
+    }
 }
 
 

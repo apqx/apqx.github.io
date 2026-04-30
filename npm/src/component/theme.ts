@@ -4,6 +4,7 @@ import { consoleInfo } from "../util/log"
 import { getLocalRepository } from "../repository/LocalDb"
 import { setToggleThemeIconDarkOn, toggleTopbarGlass } from "./topbar"
 import { showSnackbar } from "./react/Snackbar"
+import { EVENT_PAGE_BACK_FROM_CACHE, getEventEmitter, type Events } from "./base/EventBus"
 
 export const darkClass = "dark"
 
@@ -24,6 +25,18 @@ export function initTheme() {
             }
         }
     });
+    getEventEmitter().on("themeChange", (data: Events["themeChange"]) => {
+        consoleInfo("Received themeChange event, theme = " + data.theme)
+        checkColorfulToolbar()
+        checkUserTheme()
+    })
+    getEventEmitter().on("pageEvent", (data: Events["pageEvent"]) => {
+        consoleInfo("Received pageEvent, event = " + data)
+        if (data == EVENT_PAGE_BACK_FROM_CACHE) {
+            checkColorfulToolbar()
+            checkUserTheme()
+        }
+    })
 }
 
 const metaThemeColor = {
@@ -149,9 +162,9 @@ export function showThemeDark(dark: boolean) {
  * 保存用户设置的主题
  * @param {string} theme 主题
  */
-export function saveTheme(theme: string) {
+function saveTheme(theme: string) {
     consoleInfo("Save theme = " + theme)
-    getLocalRepository().setTheme(theme)
+    getLocalRepository().saveTheme(theme)
 }
 
 export function checkUserTheme() {

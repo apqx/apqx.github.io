@@ -8,4 +8,7 @@ export const NewMdSwitch = createComponent({
     tagName: 'md-switch',
     elementClass: MdSwitch,
     react: React,
+    events: {
+        onChange: 'change'
+    }
 })

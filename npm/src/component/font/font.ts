@@ -1,6 +1,8 @@
 import { getLocalRepository } from "../../repository/LocalDb"
 import { toggleElementClass } from "../../util/tools"
-import { consoleError } from "../../util/log"
+import { consoleError, consoleInfo } from "../../util/log"
+import { getEventEmitter, type Events } from "../base/EventBus"
+import { get } from "http"
 
 /**
  * 初始化主字体
@@ -9,9 +11,23 @@ export function initFont() {
     // 废弃handwritten设置，TODO: 注意旧版本可能启用了这个设置项
     // const localHandWritingFontOn = localRepository.getHandWritingFontOn()
     // setHandwrittenFont(localHandWritingFontOn)
+    checkNotoSerifSCFont()
+    loadNecessaryFonts()
+    getEventEmitter().on("fontChange", (data: Events["fontChange"]) => {
+        consoleInfo("Font receive fontChange event, data = " + JSON.stringify(data))
+        checkNotoSerifSCFont()
+    })
+    getEventEmitter().on("pageEvent", (data: Events["pageEvent"]) => {
+        consoleInfo("Font receive pageEvent, event = " + data)
+        if (data == "pageBackFromCache") {
+            checkNotoSerifSCFont()
+        }
+    }) 
+}
+
+function checkNotoSerifSCFont() {
     const localNotoSerifSCFontOn = getLocalRepository().getNotoSerifSCFont()
     setNotoSerifSCFont(localNotoSerifSCFontOn)
-    loadNecessaryFonts()
 }
 
 export function setHandwrittenFont(on: boolean) {

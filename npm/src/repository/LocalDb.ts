@@ -4,6 +4,7 @@ export class LocalDb {
     KEY_NOTO_SERIF_SC_FONT = "notoSerifSCFont"
     KEY_THEME = "theme"
     KEY_LENS_BIGGER_PICTURE = "lensBiggerPicture"
+    KEY_HIDE_STATUS_BAR_BG = "hideStatusBarBg"
 
     VALUE_THEME_DARK = "dark"
     VALUE_THEME_LIGHT = "light"
@@ -59,7 +60,7 @@ export class LocalDb {
         return this.getString(this.KEY_THEME) ?? this.VALUE_THEME_AUTO
     }
 
-    setTheme(theme: string) {
+    saveTheme(theme: string) {
         this.saveString(this.KEY_THEME, theme)
     }
 
@@ -73,6 +74,14 @@ export class LocalDb {
 
     getLensBiggerPicture(): boolean {
         return this.getBoolean(this.KEY_LENS_BIGGER_PICTURE) ?? false
+    }
+
+    saveHideStatusBarBg(on: boolean) {
+        this.saveBoolean(this.KEY_HIDE_STATUS_BAR_BG, on)
+    }
+
+    getHideStatusBarBg(): boolean {
+        return this.getBoolean(this.KEY_HIDE_STATUS_BAR_BG) ?? true
     }
 }
 

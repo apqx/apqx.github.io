@@ -20,10 +20,10 @@ export function PreferenceDialog(props: BaseDialogOpenProps) {
         consoleInfo("PreferenceDialogContent useEffect, subscribe to viewModel")
         // viewModel.initSettings()
         const emitter = getEventEmitter()
-        emitter.on("pageEvent", (type) => {
-            consoleInfo("PreferenceDialogContent receive event: " + type)
+        emitter.on("pageEvent", (pageEvent: Events["pageEvent"]) => {
+            consoleInfo("PreferenceDialogContent receive event: " + pageEvent)
             // 订阅页面从缓存中恢复的事件，加载最新的设置状态
-            if (type == EVENT_PAGE_BACK_FROM_CACHE) {
+            if (pageEvent == EVENT_PAGE_BACK_FROM_CACHE) {
                 viewModel.initSettings()
             }
         })
@@ -57,18 +57,21 @@ export function PreferenceDialog(props: BaseDialogOpenProps) {
                     </picture>
                 </div>
                 <ul className="mdc-deprecated-list mdc-deprecated-list--one-line dialog-link-list" id="preference-dialog__toggle-container">
-                    <SettingsToggle titleHtml="固定顶部导航栏"
+                    <SettingsToggle titleHtml="固定顶部导航栏" description="滚动时导航栏固定显示在顶部"
                         on={state.fixedTopbar}
-                        onClickToggle={viewModel.onClickFixedTopbarSwitch} />
-                    <SettingsToggle titleHtml={"透镜大图模式"}
+                        onChange={viewModel.onClickFixedTopbarSwitch} />
+                    <SettingsToggle titleHtml="隐藏状态栏背景" description="边到边模式下隐藏顶部状态栏背景"
+                        on={state.hideStatusBarBg}
+                        onChange={viewModel.onClickHideStatusBarBgSwitch} />
+                    <SettingsToggle titleHtml={"透镜大图模式"} description="减少透镜分区小尺寸屏幕的分栏数"
                         on={state.lensBiggerPicture}
-                        onClickToggle={viewModel.onClickLensBiggerPictureSwitch} />
-                    <SettingsToggle titleHtml={notoSerifSCFontTitle}
+                        onChange={viewModel.onClickLensBiggerPictureSwitch} />
+                    <SettingsToggle titleHtml={notoSerifSCFontTitle} description="全局字体从默认黑体改为衬线宋体"
                         on={state.notoSerifSCFont}
-                        onClickToggle={viewModel.onClickNotoSerifSCFontSwitch} />
-                    <SettingsToggle titleHtml={autoThemeTitle}
+                        onChange={viewModel.onClickNotoSerifSCFontSwitch} />
+                    <SettingsToggle titleHtml={autoThemeTitle} description="跟随系统设置自动切换明暗配色"
                         on={state.autoTheme}
-                        onClickToggle={viewModel.onClickAutoThemeSwitch} />
+                        onChange={viewModel.onClickAutoThemeSwitch} />
                 </ul>
             </>
         </BaseDialog>
@@ -77,8 +80,9 @@ export function PreferenceDialog(props: BaseDialogOpenProps) {
 
 interface SettingsToggleProps {
     titleHtml: string
+    description?: string
     on: boolean
-    onClickToggle: () => void
+    onChange: (event: Event) => void
 }
 
 export function SettingsToggle(props: SettingsToggleProps) {
@@ -93,10 +97,18 @@ export function SettingsToggle(props: SettingsToggleProps) {
     return (
         <li ref={containerRef}>
             <div className="mdc-deprecated-list-item mdc-deprecated-list-item__no-hover mdc-deprecated-list-item__darken preference-item-toggle">
-                <span className="mdc-deprecated-list-item__text preference-item-toggle__title one-line"
-                    dangerouslySetInnerHTML={createHtmlContent(props.titleHtml)} />
+                <div className="mdc-deprecated-list-item__text">
+                    <div className="list-item__primary-text preference-item-toggle__title one-line"
+                        dangerouslySetInnerHTML={createHtmlContent(props.titleHtml)} />
+                    {
+                        props.description &&
+                        <div className="list-item__secondary-text preference-item-toggle__description">
+                            {props.description}
+                        </div>
+                    }
+                </div>
                 {/* 会自动识别组建内定义的属性 */}
-                <NewMdSwitch selected={props.on} onClick={props.onClickToggle} />
+                <NewMdSwitch icons selected={props.on} onChange={props.onChange} />
             </div>
             <hr className="mdc-deprecated-list-divider" />
         </li>

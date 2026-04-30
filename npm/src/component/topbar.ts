@@ -7,13 +7,14 @@ import { toggleElementClass } from "../util/tools"
 import { showAboutMeDialog } from "./dialog/AboutMeDialog"
 import { getSectionTypeByPath, isIndexPage, SECTION_TYPE_LENS, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL, SECTION_TYPE_POETRY, SECTION_TYPE_PRINT, SECTION_TYPE_REPOST, SECTION_TYPE_SHARE, SECTION_TYPE_TAGS } from "../base/constant"
 import { toggleTheme } from "./theme"
+import { getEventEmitter, type Events } from "./base/EventBus"
 
 var iconToggleTheme: MDCIconButtonToggle | null = null
 var iconToggleMenu: MDCIconButtonToggle | null = null
 export var topAppBar: MDCTopAppBar | null = null
 export var topAppBarE: HTMLElement | null = null
 
-export function checkTopbar() {
+function checkTopbar() {
     const fixedTopbar = getLocalRepository().getFixedTopbar()
     setFixedTopbar(fixedTopbar)
 }
@@ -49,7 +50,16 @@ export function initTopbar() {
     // btnMenuE?.addEventListener("focus", clearFocusListener)
     // btnThemeE?.addEventListener("focus", clearFocusListener)
     // btnAboutMeE?.addEventListener("focus", clearFocusListener)
-
+    getEventEmitter().on("topbarFixedChange", (data: Events["topbarFixedChange"]) => {
+        consoleInfo("Received topbarFixedChange event, fixed = " + data.fixed)
+        checkTopbar()
+    })
+    getEventEmitter().on("pageEvent", (data: Events["pageEvent"]) => {
+        consoleInfo("Received pageEvent, event = " + data)
+        if (data == "pageBackFromCache") {
+            checkTopbar()
+        }
+    })
     checkTopbar()
 }
 

@@ -72,7 +72,7 @@ body {
     display: none;
 
     // 仅在 header 非固定时，显示状态栏遮罩
-    .custom-top-app-bar--no-fixed+& {
+    .custom-top-app-bar--no-fixed+&.status-bar-protector--show {
         display: block;
     }
 

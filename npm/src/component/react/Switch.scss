@@ -1,16 +1,24 @@
+$handleSize: 1.3rem;
+
 body {
     --md-switch-state-layer-size: 0rem;
-    --md-switch-handle-width: 0.7rem;
-    --md-switch-handle-height: 0.7rem;
-    --md-switch-selected-handle-width: 0.7rem;
-    --md-switch-selected-handle-height: 0.7rem;
-    --md-switch-track-width: 2.4rem;
-    --md-switch-track-height: 1.3rem;
+    --md-switch-handle-width: #{$handleSize};
+    --md-switch-handle-height: #{$handleSize};
+    --md-switch-selected-handle-width: #{$handleSize};
+    --md-switch-selected-handle-height: #{$handleSize};
+    --md-switch-track-width: 3.4rem;
+    --md-switch-track-height: 2.1rem;
 
-    // Switch默认颜色为primary
+    // Switch 默认颜色为 primary
     --md-sys-color-primary: #5a5fc1;
 }
 
 .dark {
     --md-sys-color-primary: #3a78c6;
+}
+
+.preference-item-toggle {
+    .mdc-deprecated-list-item__text {
+        padding-right: 1rem;
+    }
 }

@@ -3,7 +3,7 @@ import { isIndexPage } from "../base/constant"
 import { getWindowInterSectionObserver } from "./animation/BaseAnimation"
 import { toggleElementClass } from "../util/tools"
 import { consoleInfo } from "../util/log"
-import { getEventEmitter } from "./base/EventBus"
+import { getEventEmitter, type Events } from "./base/EventBus"
 
 var footerContentE: Element | null = null
 
@@ -31,8 +31,8 @@ export function initFooter() {
     if (isIndexPage(document.location.pathname)) {
         // 索引页从空白加载数据，有单独处理，在内容加载后再设置渐进动画，避免闪烁
         // 监听 EventBus 事件
-        getEventEmitter().on("footerDisplayChange", (event) => {
-            showFooter(event.enabled)
+        getEventEmitter().on("footerDisplayChange", (data: Events["footerDisplayChange"]) => {
+            showFooter(data.enabled)
         })
     } else {
         // 其它页面，Footer设置渐进动画

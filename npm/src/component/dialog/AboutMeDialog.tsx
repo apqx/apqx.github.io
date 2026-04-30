@@ -12,7 +12,7 @@ function AboutMeDialog(props: BaseDialogOpenProps) {
         avatarRef.current?.addEventListener("dblclick", (event) => {
             // 双击头像，或许有用
         })
-    },[])
+    }, [])
 
     const kunQvLink = useMemo(() => {
         return window.location.origin + "/post/original/2019/05/18/槐安国内春生酒.html"
@@ -67,7 +67,9 @@ function LinkItem(props: LinkItemProps) {
         <li ref={containerRef}>
             {/* 列表元素禁止自动获取焦点，可能导致 dialog 意外滚动到焦点位置 */}
             <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken" href={props.link} target="_blank" tabIndex={-1}>
-                <span className="mdc-deprecated-list-item__text link-item">{props.title}</span>
+                <div className="mdc-deprecated-list-item__text">
+                    <span className="list-item__primary-text link-item">{props.title}</span>
+                </div>
             </a>
             <hr className="mdc-deprecated-list-divider" />
         </li>

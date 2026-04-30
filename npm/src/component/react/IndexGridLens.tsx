@@ -13,7 +13,7 @@ import { PagefindPaginateViewModel } from "../base/paginate/PagefindPaginateView
 import type { PagefindResultItem } from "../../repository/bean/pagefind/ApiPagefindSearch"
 import { PostPagefindPaginator } from "../base/paginate/PostPagefindPaginator"
 import type { BasePaginateViewProps } from "../base/paginate/bean/BasePaginateViewProps"
-import { EVENT_PAGE_BACK_FROM_CACHE, getEventEmitter } from "../base/EventBus"
+import { EVENT_PAGE_BACK_FROM_CACHE, getEventEmitter, type Events } from "../base/EventBus"
 import { convertPinedToFeatured } from "../../util/tools"
 import { Masonry } from "./Masonry"
 import { LENS_FILTER_SORT_ASC } from "../dialog/LensFilterDialogViewModel"
@@ -50,19 +50,19 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
             props.onMount()
 
         const emitter = getEventEmitter()
-        emitter.on("lensFilterChange", (data) => {
+        emitter.on("lensFilterChange", (data: Events["lensFilterChange"]) => {
             consoleInfo("IndexGridLens receive lensFilterChange event, selectedTags = " + data.selectedTags.toString())
             setFilterTags(data.selectedTags)
             // 只要点击搜索，即触发搜索，不做重复检测
             setSearchCount(count => count + 1)
         })
-        emitter.on("lensBiggerPictureChange", (data) => {
+        emitter.on("lensBiggerPictureChange", (data: Events["lensBiggerPictureChange"]) => {
             consoleInfo("IndexGridLens receive lensBiggerPictureChange event, enabled = " + data.enabled)
             scrollToTopNative(false)
             setLensBiggerPicture(data.enabled)
         })
         // 监听从缓存中恢复设置的事件，更新单列显示设置
-        emitter.on("pageEvent", (data) => {
+        emitter.on("pageEvent", (data: Events["pageEvent"]) => {
             if (data == EVENT_PAGE_BACK_FROM_CACHE) {
                 const enabled = getLocalRepository().getLensBiggerPicture()
                 consoleInfo("IndexGridLens receive restoreSettingsFromCache event, restore lensBiggerPicture to " + enabled)

@@ -1,9 +1,9 @@
 import "./scaffold.scss"
-import { isChrome, isWriting, runOnHtmlDone, runOnPageBackFromCache, runOnPageDone } from "../util/tools"
-import { blockTopbarKeyFrameAnimation, initTopbar, checkTopbar } from "../component/topbar"
+import { isChrome, isWriting, runOnHtmlDone, runOnPageBackFromCache, runOnPageDone, toggleElementClass } from "../util/tools"
+import { initTopbar} from "../component/topbar"
 import { initDrawer } from "../component/drawer"
-import { checkUserTheme, initTheme } from "../component/theme"
-import { initLocalRepository } from "../repository/LocalDb"
+import { initTheme } from "../component/theme"
+import { getLocalRepository, initLocalRepository } from "../repository/LocalDb"
 import { initFont, setNotoSansSCFont } from "../component/font/font"
 import { initFab } from "../component/fab"
 import { initTag, initTagTriggers } from "../component/tag"
@@ -21,6 +21,7 @@ import { showSimpleAlertDialog } from "../component/dialog/CommonAlertDialog"
 import { ResizeWidthObserver } from "../base/ResizeWidthObserver"
 import { EVENT_PAGE_BACK_FROM_CACHE, getEventEmitter, type Events } from "../component/base/EventBus"
 import { initScrim } from "../component/scrim"
+import { get } from "http"
 
 initScaffold()
 
@@ -31,6 +32,7 @@ export function initScaffold() {
         initLocalRepository()
         initFont()
         initTopbar()
+        initStatusBarProtector()
         initFooter()
         initTheme()
         initDrawer()
@@ -55,9 +57,6 @@ export function initScaffold() {
     runOnPageBackFromCache(() => {
         // blockTopbarKeyFrameAnimation(true)
         // 检查框架的主题、字体等配置变化，通知对应组件刷新
-        checkTopbar()
-        checkUserTheme()
-        initFont()
         // 发出一个事件，通知其它组件页面已从缓存中加载，应该刷新数据
         getEventEmitter().emit("pageEvent", EVENT_PAGE_BACK_FROM_CACHE)
     })
@@ -129,6 +128,31 @@ function checkWebpSupport() {
             })
         }
     })
+}
+
+var statusBrProtectorE: HTMLElement | null = null
+
+function initStatusBarProtector() {
+    if (statusBrProtectorE == null) {
+        statusBrProtectorE = document.querySelector(".status-bar-protector") as HTMLElement
+    }
+    checkStatusBarProtector()
+    getEventEmitter().on("hideStatusBarBgChange", (data: Events["hideStatusBarBgChange"]) => {
+        consoleInfo("Scaffold receive hideStatusBarBgChange event, enabled = " + data.enabled)
+        checkStatusBarProtector()
+    })
+    getEventEmitter().on("pageEvent", (data: Events["pageEvent"]) => {
+        consoleInfo("Scaffold receive pageEvent, event = " + data)
+        if (data == EVENT_PAGE_BACK_FROM_CACHE) {
+            checkStatusBarProtector()
+        }
+    })
+}
+
+function checkStatusBarProtector() {
+    const localShow = !getLocalRepository().getHideStatusBarBg()
+    if (statusBrProtectorE == null) return
+    toggleElementClass(statusBrProtectorE, "status-bar-protector--show", localShow)
 }
 
 /**
