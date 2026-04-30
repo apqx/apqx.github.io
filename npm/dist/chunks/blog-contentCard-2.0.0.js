@@ -1,0 +1,1 @@
+import{c as n,p as o,t as r}from"../blog-scaffold-2.0.0.js";function s(t){const e=document.querySelector(".content-card");if(n("Init content card "+e),e==null){n("Content card not found, skip init");return}t?o().observe(e):r(e,"slide-in-farer",!1)}export{s as i};

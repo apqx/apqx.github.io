@@ -20,15 +20,16 @@ export function PreferenceDialog(props: BaseDialogOpenProps) {
         consoleInfo("PreferenceDialogContent useEffect, subscribe to viewModel")
         // viewModel.initSettings()
         const emitter = getEventEmitter()
-        emitter.on("pageEvent", (pageEvent: Events["pageEvent"]) => {
+        const pageEventListener = (pageEvent: Events["pageEvent"]) => {
             consoleInfo("PreferenceDialogContent receive event: " + pageEvent)
             // 订阅页面从缓存中恢复的事件，加载最新的设置状态
             if (pageEvent == EVENT_PAGE_BACK_FROM_CACHE) {
                 viewModel.initSettings()
             }
-        })
+        }
+        emitter.on("pageEvent", pageEventListener)
         return () => {
-            emitter.off("pageEvent")
+            emitter.off("pageEvent", pageEventListener)
         }
     }, [])
 

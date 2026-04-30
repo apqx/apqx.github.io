@@ -26,12 +26,12 @@ export function initTheme() {
         }
     });
     getEventEmitter().on("themeChange", (data: Events["themeChange"]) => {
-        consoleInfo("Received themeChange event, theme = " + data.theme)
+        consoleInfo("Theme receive themeChange event, theme = " + data.theme)
         checkColorfulToolbar()
         checkUserTheme()
     })
     getEventEmitter().on("pageEvent", (data: Events["pageEvent"]) => {
-        consoleInfo("Received pageEvent, event = " + data)
+        consoleInfo("Theme receive pageEvent, event = " + data)
         if (data == EVENT_PAGE_BACK_FROM_CACHE) {
             checkColorfulToolbar()
             checkUserTheme()

@@ -50,32 +50,35 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
             props.onMount()
 
         const emitter = getEventEmitter()
-        emitter.on("lensFilterChange", (data: Events["lensFilterChange"]) => {
+        const lensFilterChangeListener = (data: Events["lensFilterChange"]) => {
             consoleInfo("IndexGridLens receive lensFilterChange event, selectedTags = " + data.selectedTags.toString())
             setFilterTags(data.selectedTags)
             // 只要点击搜索，即触发搜索，不做重复检测
             setSearchCount(count => count + 1)
-        })
-        emitter.on("lensBiggerPictureChange", (data: Events["lensBiggerPictureChange"]) => {
+        }
+        const lensBiggerPictureChangeListener = (data: Events["lensBiggerPictureChange"]) => {
             consoleInfo("IndexGridLens receive lensBiggerPictureChange event, enabled = " + data.enabled)
             scrollToTopNative(false)
             setLensBiggerPicture(data.enabled)
-        })
-        // 监听从缓存中恢复设置的事件，更新单列显示设置
-        emitter.on("pageEvent", (data: Events["pageEvent"]) => {
+        }
+        const pageEventListener = (data: Events["pageEvent"]) => {
+            consoleInfo("IndexGridLens receive pageEvent, event = " + data)
             if (data == EVENT_PAGE_BACK_FROM_CACHE) {
                 const enabled = getLocalRepository().getLensBiggerPicture()
-                consoleInfo("IndexGridLens receive restoreSettingsFromCache event, restore lensBiggerPicture to " + enabled)
                 scrollToTopNative(false)
                 setLensBiggerPicture(enabled)
             }
-        })
+        }
+        emitter.on("lensFilterChange", lensFilterChangeListener)
+        emitter.on("lensBiggerPictureChange", lensBiggerPictureChangeListener)
+        // 监听从缓存中恢复设置的事件，更新单列显示设置
+        emitter.on("pageEvent", pageEventListener)
 
         return () => {
             consoleInfo("IndexGridLens useEffect cleanup")
-            emitter.off("lensFilterChange")
-            emitter.off("lensBiggerPictureChange")
-            emitter.off("pageEvent")
+            emitter.off("lensFilterChange", lensFilterChangeListener)
+            emitter.off("lensBiggerPictureChange", lensBiggerPictureChangeListener)
+            emitter.off("pageEvent", pageEventListener)
         }
     }, [])
 

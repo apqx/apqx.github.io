@@ -45,9 +45,9 @@
 <!-- Safari 的 Tab 图标和添加到桌面图标 -->
 <link rel="apple-touch-icon" href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/reading/icon_corner_192.png" />
 {% comment %} JS 和 CSS 由内部 Vite development 模式下使用 localhost production 模式下使用托管在阿里云上的版本 {% endcomment -%}
-<script async type="module" crossorigin src="{{ resUrlPrefix }}blog-scaffold.js"></script>
-<link rel="stylesheet" href="{{ resUrlPrefix }}assets/blog-scaffold.css" />
-<link rel="stylesheet" href="{{ resUrlPrefix }}assets/blog-font.css" />
+<script async type="module" crossorigin src="{{ resUrlPrefix }}blog-scaffold-{{ version }}.js"></script>
+<link rel="stylesheet" href="{{ resUrlPrefix }}assets/blog-scaffold-{{ version }}.css" />
+<link rel="stylesheet" href="{{ resUrlPrefix }}assets/blog-font-{{ version }}.css" />
 {% if page.preloadImageWebp != null -%}
 <link rel="preload" href="{{ page.preloadImageWebp }}" as="image" type="image/webp" />
 {% endif -%}

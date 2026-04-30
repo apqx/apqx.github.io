@@ -50,17 +50,18 @@ export function initTopbar() {
     // btnMenuE?.addEventListener("focus", clearFocusListener)
     // btnThemeE?.addEventListener("focus", clearFocusListener)
     // btnAboutMeE?.addEventListener("focus", clearFocusListener)
+    checkTopbar()
+
     getEventEmitter().on("topbarFixedChange", (data: Events["topbarFixedChange"]) => {
-        consoleInfo("Received topbarFixedChange event, fixed = " + data.fixed)
+        consoleInfo("Topbar receive topbarFixedChange event, fixed = " + data.fixed)
         checkTopbar()
     })
     getEventEmitter().on("pageEvent", (data: Events["pageEvent"]) => {
-        consoleInfo("Received pageEvent, event = " + data)
+        consoleInfo("Topbar receive pageEvent, event = " + data)
         if (data == "pageBackFromCache") {
             checkTopbar()
         }
     })
-    checkTopbar()
 }
 
 

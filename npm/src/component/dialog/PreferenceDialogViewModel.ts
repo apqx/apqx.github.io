@@ -1,5 +1,4 @@
 import { LocalDb } from "../../repository/LocalDb"
-import { setNotoSerifSCFont } from "../font/font"
 import { consoleInfo, consoleInfoObj } from "../../util/log"
 import { BaseExternalStore } from "../base/paginate/BaseExternalStore"
 import { getEventEmitter } from "../base/EventBus"
@@ -55,7 +54,6 @@ export class PreferenceDialogViewModel extends BaseExternalStore {
         this.state = { ...this.state, notoSerifSCFont: newState }
         this.emitChange()
         this.localRepository.saveNotoSerifSCFont(newState)
-        setNotoSerifSCFont(newState)
         getEventEmitter().emit("fontChange", {
             notoSerifSCFont: newState
         })

@@ -1,17 +1,17 @@
 import "./scaffold.scss"
 import { isChrome, isWriting, runOnHtmlDone, runOnPageBackFromCache, runOnPageDone, toggleElementClass } from "../util/tools"
-import { initTopbar} from "../component/topbar"
+import { initTopbar } from "../component/topbar"
 import { initDrawer } from "../component/drawer"
 import { initTheme } from "../component/theme"
 import { getLocalRepository, initLocalRepository } from "../repository/LocalDb"
-import { initFont, setNotoSansSCFont } from "../component/font/font"
+import { initFont } from "../component/font/font"
 import { initFab } from "../component/fab"
 import { initTag, initTagTriggers } from "../component/tag"
 import { initButton } from "../component/button"
 import { initTable } from "../component/table"
 import { initList } from "../component/list"
 import { initText } from "../component/text"
-import { consoleInfo } from "../util/log"
+import { consoleError, consoleInfo } from "../util/log"
 import { loadGoogleAnalytics } from "../util/gtag"
 import { initFooter } from "../component/footer"
 import { initCard } from "../component/card"
@@ -21,7 +21,6 @@ import { showSimpleAlertDialog } from "../component/dialog/CommonAlertDialog"
 import { ResizeWidthObserver } from "../base/ResizeWidthObserver"
 import { EVENT_PAGE_BACK_FROM_CACHE, getEventEmitter, type Events } from "../component/base/EventBus"
 import { initScrim } from "../component/scrim"
-import { get } from "http"
 
 initScaffold()
 
@@ -45,7 +44,7 @@ export function initScaffold() {
         initList()
         initText()
         initTagTriggers()
-        // 检查URL中的测试参数
+        // 检查 URL 中的测试参数
         checkTest()
     })
 
@@ -130,13 +129,20 @@ function checkWebpSupport() {
     })
 }
 
-var statusBrProtectorE: HTMLElement | null = null
+var statusBarProtectorE: HTMLElement | null = null
+
+// TODO: statusBarProtectorE 本来应该只获取一次，但在一种情况下会从对象变为 null，比如初始隐藏，init 时能获取到 element 对象
+// 但在设置中修改状态后原来有值的变量就变成 null 了，原因不明，暂时先每次都获取一次，后续有时间再调查
+function getStatusBarProtectorE() {
+    if (statusBarProtectorE == null) {
+        statusBarProtectorE = document.querySelector(".status-bar-protector") as HTMLElement
+    }
+    return statusBarProtectorE
+}
 
 function initStatusBarProtector() {
-    if (statusBrProtectorE == null) {
-        statusBrProtectorE = document.querySelector(".status-bar-protector") as HTMLElement
-    }
     checkStatusBarProtector()
+
     getEventEmitter().on("hideStatusBarBgChange", (data: Events["hideStatusBarBgChange"]) => {
         consoleInfo("Scaffold receive hideStatusBarBgChange event, enabled = " + data.enabled)
         checkStatusBarProtector()
@@ -150,9 +156,12 @@ function initStatusBarProtector() {
 }
 
 function checkStatusBarProtector() {
+    const statusBarProtectorE = getStatusBarProtectorE()
+    consoleInfo("Check status bar protector, statusBarProtectorE = " + statusBarProtectorE)
+    if (statusBarProtectorE == null) return
     const localShow = !getLocalRepository().getHideStatusBarBg()
-    if (statusBrProtectorE == null) return
-    toggleElementClass(statusBrProtectorE, "status-bar-protector--show", localShow)
+    consoleInfo("Check status bar protector, localShow = " + localShow)
+    toggleElementClass(statusBarProtectorE, "status-bar-protector--show", localShow)
 }
 
 /**
@@ -162,11 +171,7 @@ function checkTest() {
     // 如果url含有 ?fontSans=true, 启用思源黑体
     const urlParams = new URLSearchParams(window.location.search)
     const fontSans = urlParams.get("fontSans")
-    if (fontSans === "true") {
-        // 启用思源黑体的逻辑
-        consoleInfo("Enable Noto Sans SC font")
-        setNotoSansSCFont(true)
-    }
+
 }
 
 function checkBrowser() {

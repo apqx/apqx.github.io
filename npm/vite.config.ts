@@ -1,6 +1,14 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
+import fs from 'node:fs'
+
+const pkg = JSON.parse(
+  fs.readFileSync(path.resolve(__dirname, 'package.json'), 'utf-8')
+) as { version?: string }
+
+// 可选：清理版本号，避免特殊字符影响目录名
+const version = (pkg.version ?? '0.0.0').replace(/[^\w.-]/g, '_')
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -19,9 +27,9 @@ export default defineConfig({
         font: path.resolve(__dirname, 'src/component/font/font.scss'),
       },
       output: {
-        entryFileNames: 'blog-[name].js',
-        chunkFileNames: 'chunks/blog-[name].js',
-        assetFileNames: 'assets/blog-[name][extname]',
+        entryFileNames: `blog-[name]-${version}.js`,
+        chunkFileNames: `chunks/blog-[name]-${version}.js`,
+        assetFileNames: `assets/blog-[name]-${version}[extname]`,
       }
     }
   },

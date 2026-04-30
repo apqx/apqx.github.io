@@ -2,13 +2,12 @@ import { getLocalRepository } from "../../repository/LocalDb"
 import { toggleElementClass } from "../../util/tools"
 import { consoleError, consoleInfo } from "../../util/log"
 import { getEventEmitter, type Events } from "../base/EventBus"
-import { get } from "http"
 
 /**
  * 初始化主字体
  */
 export function initFont() {
-    // 废弃handwritten设置，TODO: 注意旧版本可能启用了这个设置项
+    // 废弃 handwritten 设置，TODO: 注意旧版本可能启用了这个设置项
     // const localHandWritingFontOn = localRepository.getHandWritingFontOn()
     // setHandwrittenFont(localHandWritingFontOn)
     checkNotoSerifSCFont()
@@ -49,7 +48,7 @@ export function setNotoSansSCFont(on: boolean) {
 /**
  * 按需加载其它字体
  */
-export function loadNecessaryFonts() {
+function loadNecessaryFonts() {
     // 汉仪许静行楷
     const handwrittenIndexElements = document.querySelectorAll(".font-handwritten")
     if (handwrittenIndexElements.length > 0)
