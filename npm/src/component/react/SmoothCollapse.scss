@@ -4,6 +4,8 @@
     transition: height 0.2s ease;
     // transition: height 0.2s ease, width 0.2s ease;
     overflow: hidden;
+
+    will-change: height;
 }
 
 .smooth-collapse-wrapper {

@@ -17,6 +17,8 @@
         opacity: 0;
         padding-top: var(--safe-area-inset-top);
         padding-bottom: var(--safe-area-inset-bottom);
+
+        will-change: transform, opacity;
     }
 
     .mdc-dialog__scrim {
