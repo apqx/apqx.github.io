@@ -167,9 +167,9 @@ function ResultItem(props: ResultItemProps) {
 
     return (
         <li ref={containerRef}>
-            <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken mdc-ripple-upgraded" href={props.path} tabIndex={-1}>
+            <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken" href={props.path} tabIndex={-1}>
                 <div className="mdc-deprecated-list-item__text">
-                    <div className="list-item__primary-text one-line">{props.title}</div>
+                    <div className="list-item__primary-text">{props.title}</div>
                     <div className="list-item__secondary-text">
                         <span className="search-result-item-type">
                             {date.year}<span className="year">年</span>

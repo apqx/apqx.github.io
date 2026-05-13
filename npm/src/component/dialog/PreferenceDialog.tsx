@@ -57,7 +57,7 @@ export function PreferenceDialog(props: BaseDialogOpenProps) {
                             src="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/noto-animated-emoji/mouth-none/512.gif" />
                     </picture>
                 </div>
-                <ul className="mdc-deprecated-list mdc-deprecated-list--one-line dialog-link-list" id="preference-dialog__toggle-container">
+                <ul className="mdc-deprecated-list" id="preference-dialog__toggle-container">
                     <SettingsToggle titleHtml="固定顶部导航栏" description="滚动时导航栏固定显示在顶部"
                         on={state.fixedTopbar}
                         onChange={viewModel.onClickFixedTopbarSwitch} />
@@ -99,7 +99,7 @@ export function SettingsToggle(props: SettingsToggleProps) {
         <li ref={containerRef}>
             <div className="mdc-deprecated-list-item mdc-deprecated-list-item__no-hover mdc-deprecated-list-item__darken preference-item-toggle">
                 <div className="mdc-deprecated-list-item__text">
-                    <div className="list-item__primary-text preference-item-toggle__title one-line"
+                    <div className="list-item__primary-text preference-item-toggle__title"
                         dangerouslySetInnerHTML={createHtmlContent(props.titleHtml)} />
                     {
                         props.description &&

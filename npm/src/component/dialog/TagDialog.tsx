@@ -180,7 +180,7 @@ function PostItem(props: PostItemProps) {
     return (
         <li ref={containerRef}>
             {/* 禁止列表自动获取焦点，可能导致 dialog 关闭时意外滚动到焦点位置 */}
-            <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken tag-list-item mdc-ripple-upgraded" href={props.data.url} tabIndex={-1}>
+            <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken tag-list-item" href={props.data.url} tabIndex={-1}>
                 <div className="mdc-deprecated-list-item__text">
                     <div className="list-item__primary-text">{props.data.title}</div>
                     <div className="list-item__secondary-text tag-list-item__secondary-container">

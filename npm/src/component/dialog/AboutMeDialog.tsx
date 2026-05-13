@@ -1,9 +1,9 @@
 import "./AboutMeDialog.scss"
 import { ABOUT_DIALOG_WRAPPER_ID, BaseDialog, showDialog } from "./BaseDialog"
 import type { BaseDialogOpenProps } from "./BaseDialog"
-import { setupListItemRipple } from "../list"
-import React, { useEffect, useMemo, useRef } from "react"
+import { useEffect, useMemo, useRef } from "react"
 import { Tag } from "../react/Tag"
+import { List } from "../react/List"
 
 function AboutMeDialog(props: BaseDialogOpenProps) {
     const avatarRef = useRef<HTMLImageElement>(null)
@@ -38,41 +38,14 @@ function AboutMeDialog(props: BaseDialogOpenProps) {
                 <p className="about-me-description">九五后，旅居杭州，<a
                     href={kunQvLink} tabIndex={-1}>昆虫</a>，野生散养攻城狮，“十分”“业余”摄影 Fans。联系我可以通过<a href="mailto:safari@mudan.me" tabIndex={-1}>电子邮件</a>，如果有必要也可用<a
                         href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/wechat.jpg" target="_blank" tabIndex={-1}>微信</a>。</p>
-                <ul className="mdc-deprecated-list mdc-deprecated-list--one-line dialog-link-list" id="about-me-dialog_link_list">
-                    <LinkItem link="https://github.com/apqx" title="GitHub" />
-                    <LinkItem link="https://www.youtube.com/channel/UCF3Qv9tpULGL-CabxSEaCaQ" title="YouTube" />
-                    <LinkItem link="https://space.bilibili.com/11037907" title="Bilibili" />
-                    <LinkItem link="https://weibo.com/u/7026785047" title="Weibo" />
-                </ul>
+                <List oneLine={true} items={[
+                    { title: "GitHub", link: "https://github.com/apqx", newPage: true },
+                    { title: "YouTube", link: "https://www.youtube.com/channel/UCF3Qv9tpULGL-CabxSEaCaQ", newPage: true },
+                    { title: "Bilibili", link: "https://space.bilibili.com/11037907", newPage: true },
+                    { title: "Weibo", link: "https://weibo.com/u/7026785047", newPage: true },
+                ]} />
             </div>
         </BaseDialog>
-    )
-}
-
-interface LinkItemProps {
-    title: string
-    link: string
-}
-
-function LinkItem(props: LinkItemProps) {
-    const containerRef = React.useRef<HTMLLIElement>(null)
-
-    useEffect(() => {
-        const rootE = containerRef.current as HTMLElement;
-        const liE = rootE.querySelector(".mdc-deprecated-list-item") as HTMLElement
-        setupListItemRipple(liE)
-    }, [])
-
-    return (
-        <li ref={containerRef}>
-            {/* 列表元素禁止自动获取焦点，可能导致 dialog 意外滚动到焦点位置 */}
-            <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken" href={props.link} target="_blank" tabIndex={-1}>
-                <div className="mdc-deprecated-list-item__text">
-                    <span className="list-item__primary-text link-item">{props.title}</span>
-                </div>
-            </a>
-            <hr className="mdc-deprecated-list-divider" />
-        </li>
     )
 }
 

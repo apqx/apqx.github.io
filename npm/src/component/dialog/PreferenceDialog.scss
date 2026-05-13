@@ -15,10 +15,9 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
     margin: 0;
-    height: 2.5rem;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
     // ripple 动画会改变尺寸导致溢出，几秒钟后又自动恢复
     // overflow-x: scroll;
 
