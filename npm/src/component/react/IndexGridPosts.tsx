@@ -20,7 +20,6 @@ interface Props extends BasePaginateViewProps<Post> {
 }
 
 export function IndexGridPosts(props: Props) {
-    const [refreshLayoutVersion, setRefreshLayoutVersion] = useState(0)
 
     const paginateViewModel = useMemo(() => {
         const options = {
@@ -93,7 +92,6 @@ export function IndexGridPosts(props: Props) {
     const showPosts = useMemo(() => {
         let posts = state.posts
         if (state.posts.length == 0) {
-            // posts = props.loadedPosts
             return posts
         }
         consoleInfoObj("Show posts in index grid", posts)

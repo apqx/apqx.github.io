@@ -12,8 +12,15 @@ import { PostHttpPaginator } from "../base/paginate/PostHttpPaginator"
 import type { BasePaginateViewProps } from "../base/paginate/bean/BasePaginateViewProps"
 import { convertPinedToFeatured, toggleElementClass } from "../../util/tools"
 import { getEventEmitter } from "../base/EventBus"
+import { toggleDrawer } from "../drawer"
 
-export function IndexLinearPosts(props: BasePaginateViewProps<Post>) {
+interface Props extends BasePaginateViewProps<Post> {
+    pageCover?: string,
+    pageCoverDescription?: string,
+    pageTitle?: string,
+}
+
+export function IndexLinearPosts(props: Props) {
     const paginateViewModel = useMemo(() => {
         const options = {
             tag: props.tag,
@@ -60,24 +67,66 @@ export function IndexLinearPosts(props: BasePaginateViewProps<Post>) {
     }, [state.posts])
 
     const showPosts = useMemo(() => {
-        let posts = props.loadedPosts
-        if (state.posts.length > 0) {
-            posts = state.posts
+        let posts = state.posts
+        if (state.posts.length == 0) {
+            return posts
         }
         // 把 pinned 项目放在前面
         return props.pinnedPosts.concat(convertPinedToFeatured(props.pinnedPosts.length, posts))
     }, [state.posts])
 
     return (
-        <ul className="index-ul">
-            {showPosts.map((item, index) =>
-                // 有时候 jekyll 生成的 path 和 paginate 生成的 path 不一样，导致 item 重新加载
-                <IndexItem key={item.path + "?pinned=" + item.pinned}
-                    title={item.title} author={item.author} date={item.date} description={item.description} path={item.path}
-                    pinned={item.pinned} featured={item.featured} last={index === showPosts.length - 1} index={index} />
-            )}
-            <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore} />
-        </ul>
+        <>
+            {
+                props.pageCover != null && showPosts.length > 0 &&
+                <PageCover pageCover={props.pageCover} pageCoverDescription={props.pageCoverDescription ?? ""} pageTitle={props.pageTitle ?? ""} />
+            }
+            <ul className="index-ul">
+                {showPosts.map((item, index) =>
+                    <IndexItem key={item.path + "?pinned=" + item.pinned}
+                        title={item.title} author={item.author} date={item.date} description={item.description} path={item.path}
+                        pinned={item.pinned} featured={item.featured} last={index === showPosts.length - 1} index={index} />
+                )}
+                <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore}
+                    hide={showPosts.length == 0 && state.loading} />
+            </ul>
+        </>
+    )
+}
+
+type PageCoverProps = {
+    pageCover: string,
+    pageCoverDescription: string,
+    pageTitle: string,
+}
+
+function PageCover(props: PageCoverProps) {
+    const containerRef = useRef<HTMLElement>(null)
+
+    const onCardClick = useCallback(() => {
+        toggleDrawer(true)
+    }, [])
+
+    useEffect(() => {
+        const topCardE = containerRef.current as HTMLElement
+        getWindowInterSectionObserver().observe(topCardE)
+        setupCardRipple(topCardE)
+        topCardE.addEventListener("click", onCardClick)
+
+        return () => {
+            getWindowInterSectionObserver().unobserve(topCardE)
+            topCardE.removeEventListener("click", onCardClick)
+        }
+    }, [])
+
+    return (
+        <section ref={containerRef} className="mdc-card index-top-card slide-in-farer slide-in-chained">
+            <img src={props.pageCover}
+                className="index-top-cover" alt={props.pageCoverDescription} id="main-index" draggable="false" />
+            <div className="index-top-card-container">
+                <p className="index-top-card-text font-handwritten">{props.pageTitle}</p>
+            </div>
+        </section>
     )
 }
 

@@ -51,8 +51,11 @@
 <link rel="stylesheet" href="{{ resUrlPrefix }}assets/blog-scaffold-{{ version }}.css" />
 <link rel="stylesheet" href="{{ resUrlPrefix }}assets/blog-font-{{ version }}.css" />
 {% if page.preloadImageWebp != null -%}
-<link rel="preload" href="{{ page.preloadImageWebp }}" as="image" type="image/webp" />
+{% assign imgs = page.preloadImageWebp | split: " " -%}
+{% for img in imgs -%}
+<link rel="preload" href="{{ img }}" as="image" type="image/webp" />
+{% endfor -%}
 {% endif -%}
-{% if page.preloadImageJpg != null -%}
-<link rel="preload" href="{{ page.preloadImageJpg }}" as="image" type="image/jpeg" />
+{% if page.indexCover != null -%}
+<link rel="preload" href="{{ page.indexCover }}" as="image" type="{{ page.indexCoverType }}" />
 {% endif -%}

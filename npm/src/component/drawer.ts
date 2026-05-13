@@ -139,7 +139,7 @@ export function initDrawer() {
     })
 }
 
-function toggleDrawer(on: boolean) {
+export function toggleDrawer(on: boolean) {
     if (drawer == null) return
     drawer.open = on
 }

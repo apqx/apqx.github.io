@@ -1,15 +1,12 @@
 import "./index.scss"
-import { parseImageSize, runOnHtmlDone, toggleElementClass } from "../util/tools"
+import { parseImageSize, runOnHtmlDone } from "../util/tools"
 import { consoleInfo, consoleInfoObj } from "../util/log"
 import { createRoot } from "react-dom/client"
 import { IndexLinearPosts } from "../component/react/IndexLinearPosts"
 import { getSectionTypeByPath, SECTION_TYPE_OTHER } from "../base/constant"
 import { IndexGridLens } from "../component/react/IndexGridLens"
-import { setupCardRipple } from "../component/card"
 import type { Post } from "../component/base/paginate/bean/Post"
 import { IndexGridPosts } from "../component/react/IndexGridPosts"
-import { getWindowInterSectionObserver, queryAnimatedElement } from "../component/animation/BaseAnimation"
-import { getEventEmitter } from "../component/base/EventBus"
 import { StrictMode } from "react"
 
 export function initIndex() {
@@ -36,13 +33,14 @@ function initIndexList() {
 
     if (wrapperE.classList.contains("index-list-wrapper")) {
         // 随笔、诗词、转载
+        const cover = getLinearLoadedCover(wrapperE)
         // 获取已有 post，包括置顶和非置顶
-        initIndexTopCover()
         const loadedPosts = getLinearLoadedPosts(wrapperE)
         consoleInfoObj("Index loaded local posts", loadedPosts)
         root.render(
             <StrictMode>
-                <IndexLinearPosts tag={""} category={category} pinnedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
+                <IndexLinearPosts pageCover={cover?.cover} pageCoverDescription={cover?.coverDescription} pageTitle={cover?.pageTitle}
+                    tag={""} category={category} pinnedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
                     onMount={onMount} />
             </StrictMode>
         )
@@ -72,6 +70,18 @@ function initIndexList() {
             </StrictMode>
         )
     }
+}
+
+function getLinearLoadedCover(wrapperE: HTMLElement) {
+    const coverE = wrapperE.querySelector(".index-top-cover") as HTMLImageElement
+    if (coverE != null) {
+        const cover = coverE.src
+        const coverDescription = coverE.alt
+        const pageTitleE = wrapperE.querySelector(".index-top-card-text") as HTMLElement
+        const pageTitle = pageTitleE?.innerText || ""
+        return { cover, coverDescription, pageTitle }
+    }
+    return null
 }
 
 function getLinearLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
@@ -207,35 +217,4 @@ function getGridLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
     array.push(pinedPosts)
     array.push(otherPosts)
     return array
-}
-
-/**
- * 初始化首页封面，监听下载状态，启动高度变化动画
- */
-function initIndexTopCover() {
-    // 顶部卡片，透明度动画
-    const topCardE = document.querySelector(".index-top-card") as HTMLElement
-    // const animationE = queryAnimatedElement(topCardE)
-    const animationE = topCardE
-    if (animationE != null) {
-        getWindowInterSectionObserver().observe(animationE)
-    }
-    // TODO：image 加载完成后的透明度动画
-
-    // 顶部封面图片，高度动画
-    // for (const ele of document.querySelectorAll(".index-top-cover.image-height-animation")) {
-    //     const imgE = ele as HTMLImageElement
-    //     new ImageLoadAnimator(imgE, INDEX_TOP_COVER_RATIO, true,
-    //         () => {
-    //             // 仅在用户未滚动时的第一页执行动画，否则是不可见的无需动画
-    //             return window.scrollY <= 0
-    //         },
-    //         () => {
-    //             // 动画完成回调
-    //         })
-    // }
-    // 索引卡片
-    for (const ele of document.querySelectorAll(".index-top-card")) {
-        setupCardRipple(ele)
-    }
 }

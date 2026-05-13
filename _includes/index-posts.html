@@ -1,42 +1,41 @@
-<!-- Jekyll生成的HTML列表默认隐藏，由React重新加载 -->
-<section id="index-list-wrapper" class="index-list-wrapper">
-    <ul class="index-ul" style="display: none;">
-        {% for post in site.posts %}
-        {%- if post.categories contains index-category and post.pinned == true %}
-        <li class="index-li">
-            <a class="index-a mdc-card index-card" href="{{ post.url }}">
-                <section>
-                    <h1 class="index-title">{{ post.title }}</h1>
-                    <span class="index-author">{% if post.moreDate != null %}{{ post.moreDate }}{% endif %} {{ post.author }}</span>
-                    <span class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
-                    <span class="index-pinned-icon-container"><i class="material-symbols-rounded-variable">keep</i></span>
-                </section>
-            </a>
-            <hr class="index-li-divider" />
-        </li>
-        {% endif -%}
-        {% endfor -%}
-        {%- assign count = 0 -%}
-        {%- for post in site.posts %}
-            {%- if count == 10 %}
-                {%- break %}
-            {% endif -%}
-            {%- if post.categories contains index-category -%}
-            <li class="index-li">
-                <a class="index-a mdc-card index-card" href="{{ post.url }}">
-                    <section>
-                        <h1 class="index-title">{{ post.title }}</h1>
-                        <span class="index-author">{% if post.moreDate != null %}{{ post.moreDate }}{% endif %} {{ post.author }}</span>
-                        <span class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
-                        {%- if post.featured == true %}
-                        <span class="index-featured-icon-container"><i class="material-symbols-rounded-variable">editor_choice</i></span>
-                        {%- endif %}
-                    </section>
-                </a>
-                <hr class="index-li-divider" />
-            </li>
-            {%- assign count = count | plus: 1 %}
-            {% endif -%}
-        {% endfor -%}
-    </ul>
-</section>
+<!-- Jekyll 生成的 HTML 列表默认隐藏，由 React 重新加载 -->
+<ul class="index-ul" style="display: none;">
+    {% for post in site.posts %}
+    {%- if post.categories contains index-category and post.pinned == true %}
+    <li class="index-li">
+        <a class="index-a mdc-card index-card" href="{{ post.url }}">
+            <section>
+                <h1 class="index-title">{{ post.title }}</h1>
+                <span class="index-author">{% if post.moreDate != null %}{{ post.moreDate }}{% endif %} {{ post.author }}</span>
+                <span class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
+                <span class="index-pinned-icon-container"><i class="material-symbols-rounded-variable">keep</i></span>
+            </section>
+        </a>
+        <hr class="index-li-divider" />
+    </li>
+    {% endif -%}
+    {% endfor -%}
+    {%- assign count = 0 -%}
+    {%- for post in site.posts %}
+    {%- if count == 10 %}
+    {%- break %}
+    {% endif -%}
+    {%- if post.categories contains index-category -%}
+    <li class="index-li">
+        <a class="index-a mdc-card index-card" href="{{ post.url }}">
+            <section>
+                <h1 class="index-title">{{ post.title }}</h1>
+                <span class="index-author">{% if post.moreDate != null %}{{ post.moreDate }}{% endif %} {{ post.author }}</span>
+                <span class="index-date">{{ post.date | date: "%Y年%m月%d日" }}</span>
+                {%- if post.featured == true %}
+                <span class="index-featured-icon-container"><i
+                        class="material-symbols-rounded-variable">editor_choice</i></span>
+                {%- endif %}
+            </section>
+        </a>
+        <hr class="index-li-divider" />
+    </li>
+    {%- assign count = count | plus: 1 %}
+    {% endif -%}
+    {% endfor -%}
+</ul>
