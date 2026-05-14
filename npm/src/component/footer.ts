@@ -39,4 +39,9 @@ export function initFooter() {
         // 监听元素进入窗口初次显示
         showFooter()
     }
+    document.querySelector("footer #link-material-design")?.addEventListener("click", () => {
+        import("./dialog/MaterialDialog").then(module => {
+            module.showMaterialDialog()
+        })
+    })
 }

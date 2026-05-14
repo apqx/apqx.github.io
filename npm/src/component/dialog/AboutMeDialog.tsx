@@ -40,7 +40,7 @@ function AboutMeDialog(props: BaseDialogOpenProps) {
                         href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/wechat.jpg" target="_blank" tabIndex={-1}>微信</a>。</p>
                 <List oneLine={true} items={[
                     { title: "GitHub", link: "https://github.com/apqx", newPage: true },
-                    { title: "YouTube", link: "https://www.youtube.com/channel/UCF3Qv9tpULGL-CabxSEaCaQ", newPage: true },
+                    { title: "YouTube", link: "https://www.youtube.com/@apqx", newPage: true },
                     { title: "Bilibili", link: "https://space.bilibili.com/11037907", newPage: true },
                     { title: "Weibo", link: "https://weibo.com/u/7026785047", newPage: true },
                 ]} />
