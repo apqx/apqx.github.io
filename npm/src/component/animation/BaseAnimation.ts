@@ -47,12 +47,18 @@ const slideInClasses = ["slide-in", "slide-in-offset", "slide-in-farer", "slide-
 
 const fadeInClasses = ["fade-in"]
 
+const fadeClasses = ["fade"]
+
 function containsSlideInClass(element: Element) {
     return slideInClasses.some(className => element.classList.contains(className))
 }
 
 function containsFadeInClass(element: Element) {
     return fadeInClasses.some(className => element.classList.contains(className))
+}
+
+function containsFadeClass(element: Element) {
+    return fadeClasses.some(className => element.classList.contains(className))
 }
 
 function removeSlideInClasses(element: Element) {
@@ -175,5 +181,55 @@ function handleSlideInBase(entry: IntersectionObserverEntry, slidFromBottom: boo
 
         startSlideIn(entry.target)
 
+    }
+}
+
+function fadeAnimationEndListener(event: TransitionEvent) {
+    const target = event.currentTarget as Element
+    if (!containsFadeClass(target)) return
+    if (target.classList.contains("fade--opening")) {
+        toggleElementClass(target, "fade--opening", false)
+        toggleElementClass(target, "fade--open", true)
+    } else if (target.classList.contains("fade--closing")) {
+        toggleElementClass(target, "fade--open", false)
+        toggleElementClass(target, "fade--closing", false)
+    }
+}
+
+const frameIds = new WeakMap<HTMLElement, number>()
+
+function cancelPendingShowFrame(element: HTMLElement) {
+    const rafId = frameIds.get(element)
+    if (rafId != null) {
+        cancelAnimationFrame(rafId)
+        frameIds.delete(element)
+    }
+}
+
+export function toggleFade(element: HTMLElement, show: boolean) {
+    element.removeEventListener("transitionend", fadeAnimationEndListener)
+    element.addEventListener("transitionend", fadeAnimationEndListener)
+    if (show) {
+        if (element.classList.contains("fade--open") || element.classList.contains("fade--opening")) {
+            return
+        }
+        toggleElementClass(element, "fade--closing", false)
+        toggleElementClass(element, "fade--opening", true)
+        cancelPendingShowFrame(element)
+        frameIds.set(element, requestAnimationFrame(() => {
+            frameIds.delete(element)
+            toggleElementClass(element, "fade--open", true)
+        }))
+    } else {
+        if (element.classList.contains("fade--closing")) {
+            return
+        }
+        toggleElementClass(element, "fade--opening", false)
+        toggleElementClass(element, "fade--closing", true)
+        cancelPendingShowFrame(element)
+        frameIds.set(element, requestAnimationFrame(() => {
+            frameIds.delete(element)
+            toggleElementClass(element, "fade--open", false)
+        }))
     }
 }

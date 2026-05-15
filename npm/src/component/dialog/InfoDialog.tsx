@@ -1,10 +1,17 @@
+import { useEffect, useState } from "react"
 import { consoleInfo } from "../../util/log"
 import { useDebouncedResize } from "../react/tools/useDebouncedResize"
 import { BaseDialog, INFO_DIALOG_WRAPPER_ID, showDialog, type BaseDialogOpenProps } from "./BaseDialog"
 import "./InfoDialog.scss"
+import { getChromeVersion } from "../../util/tools"
 
 
 function InfoDialog(props: BaseDialogOpenProps) {
+    const [chromeVersion, setChromeVersion] = useState<string | null>(null)
+
+    useEffect(() => {
+        getChromeVersion().then(version => setChromeVersion(version))
+    }, [])
 
     // 监听窗口尺寸变化，触发组件刷新
     useDebouncedResize(document.body)
@@ -12,6 +19,8 @@ function InfoDialog(props: BaseDialogOpenProps) {
     return (
         <BaseDialog openCount={props.openCount}>
             <div>
+                <p><strong className="no-shadow">Chromium</strong></p>
+                <p>version: {chromeVersion ?? "unknown"}</p>
                 <p><strong className="no-shadow">Window</strong></p>
                 <p>{window.innerWidth} x {window.innerHeight}</p>
                 <p><strong className="no-shadow">Insets</strong></p>

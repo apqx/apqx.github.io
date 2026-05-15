@@ -1,5 +1,6 @@
 @use "../../style/global" as base;
 @use "../scrim.scss" as scrim;
+@use "../animation/BaseAnimation.scss" as anim;
 @use "@material/dialog";
 @use "@material/dialog/mdc-dialog";
 @use "@material/elevation";
@@ -13,8 +14,9 @@
 
 .mdc-dialog {
     .mdc-dialog__container {
-        transform: scaleY(0.9) scaleX(0.95) translateY(0);
+        transform: scaleY(0.5) scaleX(0.95) translateY(-5rem);
         opacity: 0;
+
         padding-top: var(--safe-area-inset-top);
         padding-bottom: var(--safe-area-inset-bottom);
 
@@ -31,18 +33,20 @@
     }
 }
 
-// 弹出时，加 opening，然后加 open，动画结束后删除 opening
+// 弹出时，加 opening，然后加 open，动画结束后（实际是计时 150ms 后）删除 opening
 // 关闭时, 加 closing，然后删除 open，动画结束后删除 closing
-// TODO: 不知为何对关闭动画的 transition 设置没有生效
+// TODO: 不知为何对关闭动画的 transition 设置没有生效，可能是源码并不是监听动画结束，而是简单计时
 
-.mdc-dialog.mdc-dialog--opening {
+.mdc-dialog.mdc-dialog--opening,
+.mdc-dialog.mdc-dialog--opening.mdc-dialog--open,
+.mdc-dialog.mdc-dialog--open {
     .mdc-dialog__container {
-        transition: transform var(--dialog-animation-duration) ease,
-            opacity calc(var(--dialog-animation-duration) / 2) ease;
+        transition: transform var(--dialog-animation-duration) #{anim.$anim-in},
+            opacity calc(var(--dialog-animation-duration) / 1.5) #{anim.$anim-in};
     }
 
     .mdc-dialog__scrim {
-        transition: opacity var(--dialog-animation-duration) ease;
+        transition: opacity var(--dialog-animation-duration) #{anim.$anim-in};
     }
 }
 
@@ -59,21 +63,15 @@
     }
 }
 
+.mdc-dialog.mdc-dialog--closing,
 .mdc-dialog.mdc-dialog--open.mdc-dialog--closing {
     .mdc-dialog__container {
-        transition: opacity 2s ease;
+        transition: opacity 2s #{anim.$anim-out};
         transform: scale(1) translateY(0);
     }
 
     .mdc-dialog__scrim {
-        transition: opacity var(--dialog-animation-duration) ease;
-    }
-}
-
-.mdc-dialog.mdc-dialog--closing {
-    .mdc-dialog__container {
-        transition: opacity 2s ease;
-        transform: scale(1) translateY(0);
+        transition: opacity var(--dialog-animation-duration) #{anim.$anim-out};
     }
 }
 

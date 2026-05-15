@@ -1,8 +1,11 @@
+@use "../animation/BaseAnimation.scss" as anim;
+
 .smooth-collapse {
     // 初始高度会自动根据内容确定，之后监听子元素尺寸再修改这个值
     // height: 0px;
-    transition: height 0.2s ease;
-    // transition: height 0.2s ease, width 0.2s ease;
+    transition: height 0.35s #{anim.$anim-in-out};
+    // TODO: 尺寸增加时，先慢后快，尺寸减少时，先快后慢
+    // transition: height 0.35s ease;
     overflow: hidden;
 
     will-change: height;

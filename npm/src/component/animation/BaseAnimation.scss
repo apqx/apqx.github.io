@@ -1,3 +1,13 @@
+// 减速进入，前期比 ease-out 更快，后期则更慢
+$anim-in: cubic-bezier(0.0, 0.0, 0.2, 1);
+// $anim-in: ease-out;
+// 加速离开，相当于 ease-in
+$anim-out: cubic-bezier(0.4, 0.0, 1, 1);
+// $anim-out: ease-in;
+// 两边慢中间快，先加速再减速
+$anim-in-out: cubic-bezier(0.4, 0.0, 0.2, 1);
+// $anim-in-out: ease-in-out;
+
 // slide-in 动画起始状态有 2 种，slide-in-offset 位于 offsetY 位置，slide-in 位于原本位置，它们控制的是 item 进入 viewport 触发 intersection observer 回调的距离，即启动动画的距离。
 // 对于首屏加载的 item 应使用处于原本位置的 slide-in，当 item 原位置进入 viewport 时移动到 offsetY 位置，延时 50ms 执行 slide-in 动画，确保首页可见的元素都显示出来。
 // 对于滚动加载的 item 应使用处于 offsetY 位置的 slide-in-offset，当 item 原本位置进入 viewport 一段距离后触发 slide-in 动画显示出来。
@@ -19,8 +29,8 @@
     
     // 延时 50ms 执行 slide-in 动画
     &.slide-in--start {
-        transition: transform var(--index-card-animation-duration) ease,
-            opacity calc(var(--index-card-animation-duration) / 2) ease;
+        transition: transform var(--index-card-animation-duration) #{$anim-in},
+            opacity calc(var(--index-card-animation-duration) / 2) #{$anim-in};
         opacity: 1;
         transform: translateY(0);
     }
@@ -37,8 +47,8 @@
     
     // 延时 50ms 执行 slide-in 动画
     &.slide-in--start {
-        transition: transform var(--index-card-animation-duration) ease,
-            opacity calc(var(--index-card-animation-duration) / 2) ease;
+        transition: transform var(--index-card-animation-duration) #{$anim-in},
+            opacity calc(var(--index-card-animation-duration) / 2) #{$anim-in};
         opacity: 1;
         transform: translateY(0);
     }
@@ -46,7 +56,7 @@
 
 // fade-in 动画不改变元素位置，进入 viewport 触发 intersection observer 后直接执行 fade-in 动画
 .fade-in {
-    transition: opacity var(--index-card-animation-duration) ease;
+    transition: opacity var(--index-card-animation-duration) #{$anim-in};
     opacity: 0;
     transform: translateY(0);
     
@@ -79,8 +89,8 @@
     }
     
     &.slide-in--start {
-        transition: transform var(--index-card-animation-duration) ease,
-            opacity calc(var(--index-card-animation-duration) / 2) ease;
+        transition: transform var(--index-card-animation-duration) #{$anim-in},
+            opacity calc(var(--index-card-animation-duration) / 2) #{$anim-in};
         opacity: 1;
         transform: translateY(0);
     }
@@ -94,9 +104,29 @@
     }
     
     &.slide-in--start {
-        transition: transform var(--index-card-animation-duration) ease,
-            opacity calc(var(--index-card-animation-duration) / 2) ease;
+        transition: transform var(--index-card-animation-duration) #{$anim-in},
+            opacity calc(var(--index-card-animation-duration) / 2) #{$anim-in};
         opacity: 1;
         transform: translateY(0);
+    }
+}
+// 支持进入和退出的透明度动画
+.fade {
+    opacity: 0;
+    display: none;
+    // 启动时，先加 opening，再加 open，动画结束后删除 opening
+    &.fade--opening {
+        transition: opacity var(--dialog-animation-duration) linear;
+        display: block;
+    }
+    &.fade--open {
+        opacity: 1;
+        display: block;
+    }
+    // 关闭时，先加 closing，再删除 open，动画结束后删除 closing
+    &.fade--closing {
+        transition: opacity var(--dialog-animation-duration) linear;
+        opacity: 0;
+        display: block;
     }
 }

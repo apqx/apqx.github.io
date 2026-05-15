@@ -1,3 +1,4 @@
+import { get } from "http"
 import type { Post } from "../component/base/paginate/bean/Post"
 import { consoleInfo } from "./log"
 
@@ -98,25 +99,62 @@ export function isSafari(): boolean {
 
 // 扩展类型声明
 declare global {
-  interface Navigator {
-    userAgentData?: {
-      platform: string;
-      mobile: boolean;
-      brands: Array<{ brand: string; version: string }>;
-    };
-  }
+    interface Navigator {
+        userAgentData?: {
+            platform: string;
+            mobile: boolean;
+            brands: Array<{ brand: string; version: string }>;
+        };
+    }
 }
 
 export function isAndroidModern(): boolean {
-  if (typeof navigator === 'undefined') return false;
+    if (typeof navigator === 'undefined') return false;
 
-  // 优先使用现代 API 判断
-  if (navigator.userAgentData) {
-    return navigator.userAgentData.platform?.toLowerCase() === 'android';
-  }
+    // 优先使用现代 API 判断
+    if (navigator.userAgentData) {
+        return navigator.userAgentData.platform?.toLowerCase() === 'android';
+    }
 
-  // 如果浏览器不支持 userAgentData，降级使用传统 UA 判断
-  return /Android/i.test(navigator.userAgent);
+    // 如果浏览器不支持 userAgentData，降级使用传统 UA 判断
+    return /Android/i.test(navigator.userAgent);
+}
+
+interface NavigatorUADATA {
+    brands: { brand: string; version: string }[];
+    mobile: boolean;
+    platform: string;
+}
+
+export async function getChromeVersion(): Promise<string | null> {
+    // 通过 userAgentData 获取 Chrome 版本，使用现代 API 判断
+    // 该 API 目前在 Chrome 86+ 中可用，且需要在安全上下文（HTTPS）中使用
+    const uaData = (navigator as any).userAgentData as NavigatorUADATA | undefined
+    consoleInfo("Navigator userAgentData: " + JSON.stringify(uaData))
+
+    if (uaData?.brands) {
+        // 找到品牌为 "Google Chrome" 或 "Chromium" 的项
+        const chromium = uaData.brands.find(item => item.brand.toLowerCase() === 'chromium')
+        if (chromium) {
+            return chromium.version // 返回主版本号，如 "124"
+        }
+    }
+    // 作为降级方案，使用传统 UA 字符串解析版本号
+    return getChromeVersionFromUA() 
+}
+
+export function getChromeVersionFromUA(): string | null {
+    const ua = navigator.userAgent;
+
+    // 针对 Android Chrome 的匹配逻辑
+    // 格式通常包含: Chrome/124.0.0.0
+    const match = ua.match(/Chrome\/([0-9]+)/);
+
+    if (match && match[1]) {
+        return match[1];
+    }
+
+    return null;
 }
 
 var debugMode: boolean | undefined

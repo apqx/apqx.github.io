@@ -1,1 +1,2 @@
 import{c as e,n as o,u as r}from"../blog-scaffold-2.0.0.js";function s(t){const n=document.querySelector(".content-card");if(e("Init content card "+n),n==null){e("Content card not found, skip init");return}t?o().observe(n):r(n,"slide-in-farer",!1)}export{s as i};
+//# sourceMappingURL=blog-contentCard-2.0.0.js.map

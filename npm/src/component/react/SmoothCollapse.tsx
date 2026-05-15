@@ -11,6 +11,7 @@ type SmoothCollapseProps = {
  */
 export function SmoothCollapse({ children }: SmoothCollapseProps) {
     const wrapperRef = useRef<HTMLDivElement>(null)
+    const frameIdRef = useRef<number | null>(null)
 
     // TODO: 宽度变化时无法获取到正确的宽度值，需要排查
     useLayoutEffect(() => {
@@ -30,8 +31,14 @@ export function SmoothCollapse({ children }: SmoothCollapseProps) {
                 preHeight = height
                 preWidth = width
                 wrapperE.parentElement!.style.transitionDuration = duration + "s"
-                wrapperE.parentElement!.style.height = height + "px"
-                // wrapperE.parentElement!.style.width = width + "px"
+                if (frameIdRef.current !== null) {
+                    cancelAnimationFrame(frameIdRef.current)
+                }
+                frameIdRef.current = requestAnimationFrame(() => {
+                    frameIdRef.current = null
+                    wrapperE.parentElement!.style.height = height + "px"
+                    // wrapperE.parentElement!.style.width = width + "px"
+                })
             }
         })
         resizeObserver.observe(wrapperE)
@@ -55,14 +62,14 @@ function calculateDuration(newSize: number, preSize: number, propertyName: strin
     let duration = 0
     const animationSize = Math.abs(newSize - preSize)
 
-    duration = animationSize / 1800
-    // consoleDebug(`SmoothCollapse wrapper ${propertyName} = ${preSize} -> ${newSize}, animationSize = ${animationSize}, duration = ${duration}s`)
-    if (duration < 0.3) {
-        duration = 0.3
-        // consoleDebug(`Actual duration = ${duration}s`)
-    } else if (duration > 0.6) {
-        duration = 0.6
-        // consoleDebug(`Actual duration = ${duration}s`)
+    duration = animationSize / 500
+    consoleInfo(`SmoothCollapse wrapper ${propertyName} = ${preSize} -> ${newSize}, animationSize = ${animationSize}, duration = ${duration}s`)
+    if (duration < 0.35) {
+        duration = 0.35
+        consoleInfo(`Actual duration = ${duration}s`)
+    } else if (duration > 0.5) {
+        duration = 0.5
+        consoleInfo(`Actual duration = ${duration}s`)
     }
 
     return duration
