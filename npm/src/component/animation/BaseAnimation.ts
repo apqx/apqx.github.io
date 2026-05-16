@@ -185,7 +185,7 @@ function handleSlideInBase(entry: IntersectionObserverEntry, slidFromBottom: boo
 }
 
 function fadeAnimationEndListener(event: TransitionEvent) {
-    const target = event.currentTarget as Element
+    const target = event.target as Element
     if (!containsFadeClass(target)) return
     if (target.classList.contains("fade--opening")) {
         toggleElementClass(target, "fade--opening", false)

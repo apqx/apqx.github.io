@@ -8,6 +8,7 @@ import { setupButtonRipple } from "../button"
 import { ScrollLoader } from "../../base/ScrollLoader"
 import { toggleScrimActive } from "../scrim"
 import { ScrollContext } from "../react/LoadingHint"
+import { toggleElementClass } from "../../util/tools"
 
 export interface ActionBtn {
     text: string,
@@ -37,6 +38,7 @@ const defaultActionBtn: ActionBtn = { text: "关闭", closeOnClick: true, onClic
 export function BaseDialog({ openCount, fixedWidth = false, closeOnClickOutside = true, scrollToTopOnDialogOpen = true,
     onLoadMore = undefined, onDialogOpen = undefined, onDialogOpening = undefined, onDialogClose = undefined, onDialogClosing = undefined, actions = [defaultActionBtn], children }: BaseDialogProps) {
     const containerRef = useRef<HTMLDivElement>(null)
+    const animaERef = useRef<HTMLDivElement>(null)
     const scrollContainerRef = useRef<HTMLDivElement>(null)
     const dialogContentRef = useRef<HTMLDivElement>(null)
     const dialogRef = useRef<MDCDialog>(null)
@@ -70,7 +72,7 @@ export function BaseDialog({ openCount, fixedWidth = false, closeOnClickOutside 
             setupButtonRipple(ele as HTMLElement)
         })
 
-        const clearListeners = initDialog(rootE)
+        const clearListeners = initDialog(rootE as HTMLElement)
 
         dialogRef.current!.open()
 
@@ -115,8 +117,19 @@ export function BaseDialog({ openCount, fixedWidth = false, closeOnClickOutside 
         }
     }, [openCount])
 
-    function initDialog(rootE: Element) {
+    function initDialog(rootE: HTMLElement) {
         dialogRef.current = new MDCDialog(rootE)
+
+        rootE.addEventListener("transitionend", (event: TransitionEvent) => {
+             const target = event.target as Element
+             if (target != animaERef.current) return
+             const currentTarget = event.currentTarget as Element
+             consoleInfo("BaseDialog transitionend, target = " + target.className + ", currentTarget = " + currentTarget.className)
+            //  关闭动画结束后，删除动画类
+            if (currentTarget.classList.contains("mdc-dialog--my-closing")) {
+                toggleElementClass(currentTarget, "mdc-dialog--my-closing", false)
+            }
+        })
 
         const onOpeningListener = () => {
             consoleInfo("Dialog opening")
@@ -138,6 +151,7 @@ export function BaseDialog({ openCount, fixedWidth = false, closeOnClickOutside 
 
         const onClosingListener = () => {
             consoleInfo("Dialog closing")
+            toggleElementClass(rootE, "mdc-dialog--my-closing", true)
             if (onDialogClosingRef.current != null) {
                 onDialogClosingRef.current()
             }
@@ -196,7 +210,7 @@ export function BaseDialog({ openCount, fixedWidth = false, closeOnClickOutside 
 
     return (
         <div ref={containerRef} className="mdc-dialog">
-            <div className="mdc-dialog__container">
+            <div ref={animaERef} className="mdc-dialog__container">
                 <div
                     className={fixedWidth ? "mdc-dialog__surface mdc-dialog__fixed-width" : "mdc-dialog__surface"}
                     role="alertdialog" aria-modal="true"
