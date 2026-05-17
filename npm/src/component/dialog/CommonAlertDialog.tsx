@@ -28,7 +28,7 @@ function NewCommonAlertDialog(props: CommonAlertDialogProps) {
     }, [props.actionCancelBtnText, props.onClickActionCancelBtn, props.actionConfirmBtnText, props.onClickActionConfirmBtn])
 
     return (
-        <BaseDialog openCount={openCount++} actions={actionBtns}>
+        <BaseDialog openCount={props.openCount} actions={actionBtns}>
             <div>
                 <p className="common-alert-dialog_title">{props.title}</p>
                 <p className="common-alert-dialog_content"

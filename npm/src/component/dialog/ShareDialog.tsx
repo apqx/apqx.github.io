@@ -2,14 +2,17 @@ import "./ShareDialog.scss"
 import { BaseDialog, SHARE_DIALOG_WRAPPER_ID, showDialog } from "./BaseDialog"
 import type { BaseDialogOpenProps } from "./BaseDialog"
 import { consoleInfo } from "../../util/log"
-import { useEffect, useMemo, useRef } from "react"
+import { useCallback, useEffect, useMemo, useRef } from "react"
 import QRCodeStyling from "qr-code-styling"
 import QRCode from "qrcode-generator"
 import { showSnackbar } from "../react/Snackbar"
 import { IconButton } from "../react/Button"
+import { useDarkTheme } from "../react/tools/useDarkTheme"
 
 function ShareDialog(props: BaseDialogOpenProps) {
     const containerRef = useRef<HTMLDivElement>(null)
+
+    const [isDarkTheme, stopListening] = useDarkTheme(props.openCount)
 
     const title = useMemo(() => {
         return document.title
@@ -19,6 +22,10 @@ function ShareDialog(props: BaseDialogOpenProps) {
         const encodedUrl = window.location.href
         return encodedUrl.endsWith("/") ? encodedUrl.substring(0, encodedUrl.length - 1) : encodedUrl
     }, [])
+
+    const onDialogClose = useCallback(() => {
+        stopListening()
+    }, [stopListening])
 
     useEffect(() => {
         const qrcodeContainer = containerRef.current?.querySelector(".share-qrcode-picture") as HTMLElement
@@ -37,10 +44,15 @@ function ShareDialog(props: BaseDialogOpenProps) {
         if (qrCodeSize < 300) {
             // 最小尺寸为 300x300，否则放大会出现毛边
             qrCodeSize = 300
-             // 设置固定 margin
+            // 设置固定 margin
             margin = 15
             consoleInfo("QRCode calculate size < 300, use size: " + qrCodeSize + "px, margin: " + margin + "px")
         }
+
+        const bodyStyle = getComputedStyle(document.body)
+        const inkColor = bodyStyle.getPropertyValue("--mdc-theme-on-surface").trim()
+
+        consoleInfo("QRCode colors, inkColor: " + inkColor)
 
         // 生成二维码，不要使用 svg，在浏览器中渲染时会出现点阵网格
         const qrCode = new QRCodeStyling(
@@ -58,28 +70,29 @@ function ShareDialog(props: BaseDialogOpenProps) {
                 },
                 dotsOptions: {
                     type: "extra-rounded",
-                    color: "#000000",
+                    color: inkColor,
                     roundSize: true
                 },
                 backgroundOptions: {
                     round: 0,
-                    color: "#ffffff"
+                    color: "transparent"
                 },
                 cornersSquareOptions: {
                     type: "extra-rounded",
-                    color: "#000000"
+                    color: inkColor
                 },
                 cornersDotOptions: {
                     type: "dot",
-                    color: "#000000"
+                    color: inkColor
                 }
             }
         );
+        qrcodeContainer.innerHTML = ""
         qrCode.append(qrcodeContainer)
-    }, [])
+    }, [isDarkTheme])
 
     return (
-        <BaseDialog openCount={openCount++}>
+        <BaseDialog openCount={props.openCount} onDialogClose={onDialogClose}>
             <div ref={containerRef} className="center-inline-items">
                 <div className="share-qrcode-picture">
                 </div>

@@ -26,7 +26,8 @@ export type Events = {
     }
     // 当用户更改主题设置时触发，通知检查主题设置
     themeChange: {
-        theme: string
+        theme: string,
+        showToast: boolean
     }
     // 当用户更改固定顶部栏设置时触发，通知顶部栏组件刷新布局
     topbarFixedChange: {

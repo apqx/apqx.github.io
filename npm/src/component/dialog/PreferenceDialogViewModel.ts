@@ -101,7 +101,8 @@ export class PreferenceDialogViewModel extends BaseExternalStore {
         }
         this.localRepository.saveTheme(newTheme)
         getEventEmitter().emit("themeChange", {
-            theme: newTheme
+            theme: newTheme,
+            showToast: false
         })
     }
 

@@ -15,20 +15,12 @@ export function initTheme() {
     window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
         let newSysTheme = e.matches ? "dark" : "light";
         consoleInfo("System theme change to " + newSysTheme)
-        const autoThemeOn = getLocalRepository().getTheme() === getLocalRepository().VALUE_THEME_AUTO
-        if (autoThemeOn) {
-            const newSysThemeDark = newSysTheme === "dark"
-            const currentThemeDark = document.body.classList.contains(darkClass)
-            if (currentThemeDark != newSysThemeDark) {
-                // 响应系统的主题修改，即变化主题
-                showThemeDark(newSysThemeDark);
-            }
-        }
+        checkUserTheme()
     });
     getEventEmitter().on("themeChange", (data: Events["themeChange"]) => {
-        consoleInfo("Theme receive themeChange event, theme = " + data.theme)
+        consoleInfo("Theme receive themeChange event, theme = " + data.theme + ", showToast = " + data.showToast)
         checkColorfulToolbar()
-        checkUserTheme()
+        checkUserTheme(data.showToast)
     })
     getEventEmitter().on("pageEvent", (data: Events["pageEvent"]) => {
         consoleInfo("Theme receive pageEvent, event = " + data)
@@ -37,6 +29,20 @@ export function initTheme() {
             checkUserTheme()
         }
     })
+}
+
+export function isDarkThemeFromDocument(): boolean {
+    return document.body.classList.contains(darkClass)
+}
+
+export function isDarkThemeFromSysAndUserSettings(): boolean {
+    const sysDarkTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const savedTheme = getLocalRepository().getTheme()
+    if (savedTheme === getLocalRepository().VALUE_THEME_AUTO) {
+        return sysDarkTheme
+    } else {
+        return savedTheme === getLocalRepository().VALUE_THEME_DARK
+    }
 }
 
 const metaThemeColor = {
@@ -119,31 +125,11 @@ export function toggleTheme() {
     const nextThemeIndex = (currentThemeIndex + 1) % themeArray.length
     const nextTheme = themeArray[nextThemeIndex]
     consoleInfo("Toggle theme, current = " + currentTheme + ", next = " + nextTheme)
-
-    switch (nextTheme) {
-        case getLocalRepository().VALUE_THEME_AUTO: {
-            applySystemTheme()
-            showSnackbar("已设置主题跟随系统")
-            break
-        }
-        case getLocalRepository().VALUE_THEME_DARK: {
-            showThemeDark(true)
-            showSnackbar("已切换到暗色主题")
-            break
-        }
-        case getLocalRepository().VALUE_THEME_LIGHT: {
-            showThemeDark(false)
-            showSnackbar("已切换到亮色主题")
-            break
-        }
-        default: {
-            // 默认使用系统主题
-            applySystemTheme()
-            showSnackbar("主题跟随系统")
-            break
-        }
-    }
     saveTheme(nextTheme)
+    getEventEmitter().emit("themeChange", {
+        theme: nextTheme,
+        showToast: true
+    })
 }
 
 /**
@@ -167,36 +153,37 @@ function saveTheme(theme: string) {
     getLocalRepository().saveTheme(theme)
 }
 
-export function checkUserTheme() {
-    // 默认情况下 savedTheme 为 null
+export function checkUserTheme(showToast: boolean = false) {
+    const dark = isDarkThemeFromSysAndUserSettings()
+    showThemeDark(dark)
+    if (!showToast) return
+
     const savedTheme = getLocalRepository().getTheme()
     switch (savedTheme) {
         case getLocalRepository().VALUE_THEME_AUTO: {
-            applySystemTheme();
+            if (showToast) {
+                showSnackbar("已设置主题跟随系统")
+            }
             break
         }
         case getLocalRepository().VALUE_THEME_DARK: {
-            showThemeDark(true);
+            if (showToast) {
+                showSnackbar("已切换到暗色主题")
+            }
             break
         }
         case getLocalRepository().VALUE_THEME_LIGHT: {
-            showThemeDark(false);
+            if (showToast) {
+                showSnackbar("已切换到亮色主题")
+            }
             break
         }
         default: {
             // 默认使用系统主题
-            applySystemTheme();
+            if (showToast) {
+                showSnackbar("主题跟随系统")
+            }
             break
         }
     }
 }
-
-function applySystemTheme() {
-    const sysDarkTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    if (sysDarkTheme) {
-        showThemeDark(true);
-    } else {
-        showThemeDark(false);
-    }
-}
-

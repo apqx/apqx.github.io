@@ -124,7 +124,7 @@ export function BaseDialog({ openCount, fixedWidth = false, closeOnClickOutside 
              const target = event.target as Element
              if (target != animaERef.current) return
              const currentTarget = event.currentTarget as Element
-             consoleInfo("BaseDialog transitionend, target = " + target.className + ", currentTarget = " + currentTarget.className)
+            //  consoleInfo("BaseDialog transitionend, target = " + target.className + ", currentTarget = " + currentTarget.className)
             //  关闭动画结束后，删除动画类
             if (currentTarget.classList.contains("mdc-dialog--my-closing")) {
                 toggleElementClass(currentTarget, "mdc-dialog--my-closing", false)

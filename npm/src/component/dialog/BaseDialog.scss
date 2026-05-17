@@ -39,9 +39,10 @@
 .mdc-dialog.mdc-dialog--opening.mdc-dialog--open,
 .mdc-dialog.mdc-dialog--open {
     display: flex;
+
     .mdc-dialog__container {
         transition: transform var(--dialog-animation-duration) #{anim.$anim-in},
-            opacity calc(var(--dialog-animation-duration) / 1.5) #{anim.$anim-in};
+        opacity calc(var(--dialog-animation-duration) / 1.5) #{anim.$anim-in};
     }
 
     .mdc-dialog__scrim {
@@ -70,15 +71,36 @@
 .mdc-dialog.mdc-dialog--closing,
 .mdc-dialog.mdc-dialog--open.mdc-dialog--closing {
     display: flex;
+
     .mdc-dialog__container {
-        transition: opacity calc(var(--dialog-animation-duration) / 1.2) #{anim.$anim-out};
-        transform: scale(1) translateY(0);
+        transition: transform calc(var(--dialog-animation-duration) / 1.5) #{anim.$anim-in},
+        opacity calc(var(--dialog-animation-duration) / 1.5) #{anim.$anim-out};
+        // transform: scale(1) translateY(0);
     }
 
     .mdc-dialog__scrim {
-        transition: opacity calc(var(--dialog-animation-duration) / 1.2) #{anim.$anim-out};
+        transition: opacity calc(var(--dialog-animation-duration) / 1.5) #{anim.$anim-out};
     }
 }
+
+// 关闭动画起始状态
+.mdc-dialog.mdc-dialog--open.mdc-dialog--my-closing,
+.mdc-dialog.mdc-dialog--open.mdc-dialog--closing {
+    .mdc-dialog__container {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+
+// 关闭动画结束状态
+.mdc-dialog.mdc-dialog--closing,
+.mdc-dialog.mdc-dialog--my-closing {
+    .mdc-dialog__container {
+        transform: scaleY(1) scaleX(1) translateY(0);
+        opacity: 0;
+    }
+}
+
 
 .mdc-dialog {
     --dialog-content-padding-left-right: 1.5rem;
