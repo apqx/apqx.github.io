@@ -19,7 +19,7 @@ export function ShortLinkDialog(props: ShortLinkJumpDialogProps) {
     }, [])
 
     return (
-        <BaseDialog openCount={props.openCount} closeOnClickOutside={false} actions={[]}>
+        <BaseDialog openCounter={props.openCounter} closeOnClickOutside={false} actions={[]}>
             <div className="jump-dialog-container center-inline-items">
                 <picture>
                     <source srcSet="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/noto-animated-emoji/peacock/512.webp"
@@ -37,7 +37,7 @@ export function ShortLinkDialog(props: ShortLinkJumpDialogProps) {
     )
 }
 
-let openCount = 0
+let openCounter = 0
 export function showShortLinkJumpDialog(_pid: string) {
-    showDialog(<ShortLinkDialog openCount={openCount++} pid={_pid} />, COMMON_DIALOG_WRAPPER_ID)
+    showDialog(<ShortLinkDialog openCounter={openCounter++} pid={_pid} />, COMMON_DIALOG_WRAPPER_ID)
 }

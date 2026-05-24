@@ -75,7 +75,7 @@ function TagDialog(props: TagDialogProps) {
     }, [state.posts])
 
     return (
-        <BaseDialog openCount={props.openCount} fixedWidth={true} onDialogOpen={onDialogOpen} onDialogOpening={onDialogOpening}
+        <BaseDialog openCounter={props.openCounter} fixedWidth={true} onDialogOpen={onDialogOpen} onDialogOpening={onDialogOpening}
             onDialogClose={onDialogClose} onDialogClosing={onDialogClosing} >
             <SmoothCollapse>
                 <p>标记 {props.nickname ?? props.tag} 的 {state.totalPostsSize} 篇博文</p>
@@ -227,10 +227,10 @@ function Block(props: BlockProps) {
     )
 }
 
-let openCount = 0
+let openCounter = 0
 // nickname 是 tag 的别名，如果存在则在 dialog 标题显示别名，否则显示 tag 原文
 export function showTagDialog(_tag: string, _tagNickname?: string) {
     consoleInfo("ShowTagDialog " + _tag)
-    showDialog(<TagDialog openCount={openCount++} tag={_tag} nickname={_tagNickname} />, TAG_DIALOG_WRAPPER_ID + "-" + _tag)
+    showDialog(<TagDialog openCounter={openCounter++} tag={_tag} nickname={_tagNickname} />, TAG_DIALOG_WRAPPER_ID + "-" + _tag)
     // OnClickBtn={null} closeOnClickOutside={true} />, TAG_DIALOG_WRAPPER_ID)
 }

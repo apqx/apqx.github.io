@@ -10,6 +10,7 @@ import { getSectionTypeByPath, SECTION_TYPE_LENS, SECTION_TYPE_OPERA, SECTION_TY
 import { isSafari, toggleElementClass } from "../util/tools";
 import { setupIconButtonRipple } from "./button";
 import { setupListItemRipple } from "./list";
+import { showInfoDialogAsync, showShareDialogAsync } from "./dialog/AsyncDialogTrigger";
 
 const DRAWER_ITEM_ORIGINAL_ID = "drawer-a-original"
 const DRAWER_ITEM_REPOST_ID = "drawer-a-repost"
@@ -53,8 +54,7 @@ export function initDrawer() {
     setupIconButtonRipple(iconBtnCloseE as HTMLElement)
     iconBtnShareE?.addEventListener("click", () => {
         consoleInfo("Click drawer share button")
-        import("./dialog/ShareDialog").then((component) => {
-            component.showShareDialog()
+        showShareDialogAsync(() => {
             toggleDrawer(false)
         })
     })
@@ -63,8 +63,7 @@ export function initDrawer() {
         toggleDrawer(false)
     })
     drawerE.querySelector(".drawer-header-text-container")?.addEventListener("dblclick", (event) => {
-        import("./dialog/InfoDialog").then((component) => {
-            component.showInfoDialog()
+        showInfoDialogAsync(() => {
             toggleDrawer(false)
         })
     })

@@ -1,43 +1,32 @@
 import "./SearchDialog.scss"
-import { MDCTextField } from "@material/textfield"
 import { MDCList } from "@material/list"
 import { createHtmlContent } from "../../util/tools"
 import { BaseDialog, SEARCH_DIALOG_WRAPPER_ID, showDialog } from "./BaseDialog"
 import type { ActionBtn, BaseDialogOpenProps } from "./BaseDialog"
 import { setupListItemRipple } from "../list"
-import { LOADING_HINT_ERROR, LoadingHint } from "../react/LoadingHint"
-import { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from "react"
+import { LoadingHint } from "../react/LoadingHint"
+import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
 import { getSplittedDate } from "../../base/post"
-import { setupButtonRipple } from "../button"
 import { SmoothCollapse } from "../react/SmoothCollapse"
 import { PagefindPaginateViewModel } from "../base/paginate/PagefindPaginateViewModel"
 import type { PagefindResultItem } from "../../repository/bean/pagefind/ApiPagefindSearch"
 import type { Post } from "../base/paginate/bean/Post"
 import { PostPagefindPaginator } from "../base/paginate/PostPagefindPaginator"
 import { getSectionTypeByPath } from "../../base/constant"
+import { TextField } from "../react/TextField"
 
 export function SearchDialog(props: BaseDialogOpenProps) {
     const containerRef = useRef<HTMLDivElement>(null)
-    const textFieldRef = useRef<MDCTextField>(null)
+    const textInputRef = useRef<string>("")
+    const [clearInputCounter, setClearInputCounter] = useState(0)
 
     const paginateViewModel = useMemo(() => {
         return new PagefindPaginateViewModel<PagefindResultItem, Post, PostPagefindPaginator>(new PostPagefindPaginator())
     }, [])
     const state = useSyncExternalStore(paginateViewModel.subscribe, () => paginateViewModel.state)
 
-    useEffect(() => {
-        const textFiledE = containerRef.current!.querySelector("#search-dialog_label") as HTMLElement
-        textFieldRef.current = new MDCTextField(textFiledE)
-        const keyListener = (event: KeyboardEvent) => {
-            if (event.key === "Enter")
-                onClickSearch()
-        }
-        textFiledE.addEventListener("keyup", keyListener)
-        setupButtonRipple(containerRef.current!.querySelector("#btn-search") as Element)
-
-        return () => {
-            textFiledE.removeEventListener("keyup", keyListener)
-        }
+    const onTextChange = useCallback((value: string) => {
+        textInputRef.current = value
     }, [])
 
     const pagefindOptions = useMemo(() => {
@@ -49,7 +38,7 @@ export function SearchDialog(props: BaseDialogOpenProps) {
     }, [])
 
     const onClickSearch = useCallback(() => {
-        paginateViewModel.search(textFieldRef.current!.value, pagefindOptions, true)
+        paginateViewModel.search(textInputRef.current, pagefindOptions, true)
     }, [])
 
     const onDialogOpen = useCallback(() => {
@@ -70,7 +59,7 @@ export function SearchDialog(props: BaseDialogOpenProps) {
         if (state.posts.length > 0) {
             paginateViewModel.loadMore(true)
         } else {
-            paginateViewModel.search(textFieldRef.current!.value, pagefindOptions, true)
+            paginateViewModel.search(textInputRef.current, pagefindOptions, true)
         }
     }, [state.posts])
 
@@ -80,31 +69,14 @@ export function SearchDialog(props: BaseDialogOpenProps) {
         }, {
             text: "清除", closeOnClick: false, onClick: () => {
                 paginateViewModel.clear()
-                textFieldRef.current!.value = ""
-                // this.input = ""
+                setClearInputCounter(prev => prev + 1)
             }
         }]
     }, [])
     return (
-        <BaseDialog openCount={props.openCount} onDialogOpen={onDialogOpen} onDialogClose={onDialogClose} actions={actions}>
+        <BaseDialog openCounter={props.openCounter} onDialogOpen={onDialogOpen} onDialogClose={onDialogClose} actions={actions}>
             <div ref={containerRef} className="center-inline-items">
-                <label className="mdc-text-field mdc-text-field--outlined" id="search-dialog_label">
-                    <span className="mdc-notched-outline">
-                        <span className="mdc-notched-outline__leading"></span>
-                        <span className="mdc-notched-outline__notch">
-                            <span className="mdc-floating-label" id="search-label">Words</span>
-                        </span>
-                        <span className="mdc-notched-outline__trailing"></span>
-                    </span>
-                    {/* 这里禁止自动获取焦点，可能导致 dialog 意外滚动到焦点位置 */}
-                    <input type="search" className="mdc-text-field__input" aria-labelledby="search-label"
-                        name="search-dialog_input" tabIndex={-1} onChange={undefined} />
-                    <button id="btn-search" type="button"
-                        className="mdc-icon-button"
-                        tabIndex={-1} onClick={onClickSearch}>
-                        <i className="material-symbols-rounded-variable mdc-button__icon" aria-hidden="true">search</i>
-                    </button>
-                </label>
+                <TextField label="Words" hint="" classes={["search-dialog_label"]} onTextChange={onTextChange} tabIndex={-1} icon="search" onClickIcon={onClickSearch} clearInputCounter={clearInputCounter} />
 
                 <p id="search-dialog_tips"><b>TIPS：</b>中文低频词组用空格分隔会有更好匹配，比如名字「施夏明」改为「施 夏 明」。若网络通畅可使用 <a
                     href="https://cse.google.com/cse?cx=757420b6b2f3d47d2" target="_blank" tabIndex={-1}>Google 站内搜索</a>。</p>
@@ -186,7 +158,7 @@ function ResultItem(props: ResultItemProps) {
     )
 }
 
-let openCount = 0
+let openCounter = 0
 export function showSearchDialog() {
-    showDialog(<SearchDialog openCount={openCount++} />, SEARCH_DIALOG_WRAPPER_ID)
+    showDialog(<SearchDialog openCounter={openCounter++} />, SEARCH_DIALOG_WRAPPER_ID)
 }

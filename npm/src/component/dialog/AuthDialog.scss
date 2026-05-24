@@ -1,0 +1,10 @@
+@use "./BaseDialog.scss" as baseDialog;
+
+.auth-dialog_label {
+    width: 94%;
+    margin-top: 1.5rem;
+}
+
+#auth-dialog_tips {
+    @include baseDialog.baseDialogHint();
+}

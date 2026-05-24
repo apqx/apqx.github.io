@@ -7,7 +7,7 @@ function MaterialDialog(props: BaseDialogOpenProps) {
 
 
     return (
-        <BaseDialog openCount={props.openCount}>
+        <BaseDialog openCounter={props.openCounter}>
             <p>设计与资源列表</p>
             <List oneLine={false} items={[
                 { title: "Google Material Design", description: "https://m3.material.io", 
@@ -25,7 +25,7 @@ function MaterialDialog(props: BaseDialogOpenProps) {
     )
 }
 
-let openCount = 0
+let openCounter = 0
 export function showMaterialDialog() {
-    showDialog(<MaterialDialog openCount={openCount++} />, MATERIAL_DIALOG_WRAPPER_ID)
+    showDialog(<MaterialDialog openCounter={openCounter++} />, MATERIAL_DIALOG_WRAPPER_ID)
 }

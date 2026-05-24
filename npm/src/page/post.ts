@@ -6,6 +6,7 @@ import { showAlertDialog } from "../component/dialog/CommonAlertDialog"
 import { showSnackbar } from "../component/react/Snackbar"
 import { getSectionTypeByPath, SECTION_TYPE_OPERA, SECTION_TYPE_SHARE } from "../base/constant"
 import { initShares } from "../component/react/LinearShares"
+import { showAuthDialog } from "../component/dialog/AuthDialog"
 
 export function initPost() {
     runOnHtmlDone(() => {
@@ -73,7 +74,7 @@ function initImgJump() {
                 // 删除缩略图标记和缩略图用途标记
                 imgUrl = imgUrl.replace("_thumb", "").replace("_for_lens", "").replace("_for_cover", "")
             }
-            
+
             consoleInfo("Click show original img, copyright = " + hasCopyright + ", => " + imgUrl)
             if (hasCopyright) {
                 showCopyrightDialog(imgUrl);
@@ -81,7 +82,7 @@ function initImgJump() {
                 window.open(imgUrl, "_blank")
             }
         })
-    }   
+    }
 }
 
 function showCopyrightDialog(url: string) {
@@ -89,7 +90,13 @@ function showCopyrightDialog(url: string) {
     showAlertDialog("版权声明", formatHint + "点击“跳转”将打开无水印原图，注意图片版权归属作者及剧团演员所有，未经允许不可作商业用途🤫。",
         "取消", undefined,
         "跳转", () => {
-            window.open(url, "_blank")
+            showAuthDialog((success) => {
+                if (success) {
+                    window.open(url, "_blank")
+                } else {
+                    showSnackbar("验证失败，无法查看原图")
+                }
+            })
         })
 }
 

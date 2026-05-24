@@ -17,7 +17,8 @@ export interface ActionBtn {
 }
 
 export interface BaseDialogOpenProps {
-    openCount: number
+    openCounter: number
+    closeCounter?: number
 }
 
 export interface BaseDialogProps extends BaseDialogOpenProps {
@@ -35,7 +36,7 @@ export interface BaseDialogProps extends BaseDialogOpenProps {
 
 const defaultActionBtn: ActionBtn = { text: "关闭", closeOnClick: true, onClick: () => { } }
 
-export function BaseDialog({ openCount, fixedWidth = false, closeOnClickOutside = true, scrollToTopOnDialogOpen = true,
+export function BaseDialog({ openCounter = 0, closeCounter = 0, fixedWidth = false, closeOnClickOutside = true, scrollToTopOnDialogOpen = true,
     onLoadMore = undefined, onDialogOpen = undefined, onDialogOpening = undefined, onDialogClose = undefined, onDialogClosing = undefined, actions = [defaultActionBtn], children }: BaseDialogProps) {
     const containerRef = useRef<HTMLDivElement>(null)
     const animaERef = useRef<HTMLDivElement>(null)
@@ -111,11 +112,18 @@ export function BaseDialog({ openCount, fixedWidth = false, closeOnClickOutside 
     }, [closeOnClickOutside])
 
     useEffect(() => {
-        consoleInfo("BaseDialog useEffect openCount = " + openCount)
-        if (openCount > 0) {
+        consoleInfo("BaseDialog useEffect openCounter = " + openCounter)
+        if (openCounter > 0) {
             dialogRef.current?.open()
         }
-    }, [openCount])
+    }, [openCounter])
+
+    useEffect(() => {
+        consoleInfo("BaseDialog useEffect closeCounter = " + closeCounter)
+        if (closeCounter > 0) {
+            dialogRef.current?.close()
+        }
+    }, [closeCounter])
 
     function initDialog(rootE: HTMLElement) {
         dialogRef.current = new MDCDialog(rootE)
@@ -253,6 +261,7 @@ export const SHARE_DIALOG_WRAPPER_ID = "share-dialog-wrapper"
 export const PREFERENCE_DIALOG_WRAPPER_ID = "preference-dialog-wrapper"
 export const MATERIAL_DIALOG_WRAPPER_ID = "material-dialog-wrapper"
 export const LENS_FILTER_DIALOG_WRAPPER_ID = "lens-filter-dialog-wrapper"
+export const AUTH_DIALOG_WRAPPER_ID = "auth-dialog-wrapper"
 
 // 缓存每种 dialog 的 root 容器
 // 每个 tag 都使用单独的 dialog

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { consoleInfo } from "../../util/log"
 import { useDebouncedResize } from "../react/tools/useDebouncedResize"
 import { BaseDialog, INFO_DIALOG_WRAPPER_ID, showDialog, type BaseDialogOpenProps } from "./BaseDialog"
 import "./InfoDialog.scss"
@@ -17,7 +16,7 @@ function InfoDialog(props: BaseDialogOpenProps) {
     useDebouncedResize(document.body)
 
     return (
-        <BaseDialog openCount={props.openCount}>
+        <BaseDialog openCounter={props.openCounter}>
             <div>
                 <p><strong className="no-shadow">Chromium</strong></p>
                 <p>version: {chromeVersion ?? "unknown"}</p>
@@ -35,7 +34,7 @@ function InfoDialog(props: BaseDialogOpenProps) {
     )
 }
 
-let openCount = 0
+let openCounter = 0
 export function showInfoDialog() {
-    showDialog(<InfoDialog openCount={openCount++} />, INFO_DIALOG_WRAPPER_ID)
+    showDialog(<InfoDialog openCounter={openCounter++} />, INFO_DIALOG_WRAPPER_ID)
 }

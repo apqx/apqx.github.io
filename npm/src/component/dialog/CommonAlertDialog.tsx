@@ -12,7 +12,7 @@ interface CommonAlertDialogProps extends BaseDialogOpenProps {
     onClickActionConfirmBtn?: (e: React.MouseEvent<HTMLElement>) => void
 }
 
-let openCount = 0
+let openCounter = 0
 function NewCommonAlertDialog(props: CommonAlertDialogProps) {
     const actionBtns = useMemo(() => {
         if (props.actionCancelBtnText != null) {
@@ -28,7 +28,7 @@ function NewCommonAlertDialog(props: CommonAlertDialogProps) {
     }, [props.actionCancelBtnText, props.onClickActionCancelBtn, props.actionConfirmBtnText, props.onClickActionConfirmBtn])
 
     return (
-        <BaseDialog openCount={props.openCount} actions={actionBtns}>
+        <BaseDialog openCounter={props.openCounter} actions={actionBtns}>
             <div>
                 <p className="common-alert-dialog_title">{props.title}</p>
                 <p className="common-alert-dialog_content"
@@ -43,14 +43,14 @@ export function showAlertDialog(title: string, contentHTML: string,
     actionCancelBtnText: string | undefined, onClickCancelBtn: ((e: React.MouseEvent<HTMLElement>) => void) | undefined,
     confirmBtnText: string, onClickConfirmBtn: (e: React.MouseEvent<HTMLElement>) => void) {
 
-    showDialog(<NewCommonAlertDialog openCount={openCount++} title={title} contentHTML={contentHTML}
+    showDialog(<NewCommonAlertDialog openCounter={openCounter++} title={title} contentHTML={contentHTML}
         actionCancelBtnText={actionCancelBtnText} onClickActionCancelBtn={onClickCancelBtn}
         actionConfirmBtnText={confirmBtnText} onClickActionConfirmBtn={onClickConfirmBtn} />, COMMON_DIALOG_WRAPPER_ID)
 }
 
 export function showSimpleAlertDialog(title: string, contentHTML: string,
     confirmBtnText: string, onClickConfirmBtn: (e: React.MouseEvent<HTMLElement>) => void) {
-    showDialog(<NewCommonAlertDialog openCount={openCount++} title={title} contentHTML={contentHTML}
+    showDialog(<NewCommonAlertDialog openCounter={openCounter++} title={title} contentHTML={contentHTML}
         actionCancelBtnText={undefined} onClickActionCancelBtn={undefined}
         actionConfirmBtnText={confirmBtnText} onClickActionConfirmBtn={onClickConfirmBtn} />, COMMON_DIALOG_WRAPPER_ID)
 }

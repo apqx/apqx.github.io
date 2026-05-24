@@ -12,7 +12,7 @@ import { useDarkTheme } from "../react/tools/useDarkTheme"
 function ShareDialog(props: BaseDialogOpenProps) {
     const containerRef = useRef<HTMLDivElement>(null)
 
-    const [isDarkTheme, stopListening] = useDarkTheme(props.openCount)
+    const [isDarkTheme, stopListening] = useDarkTheme(props.openCounter)
 
     const title = useMemo(() => {
         return document.title
@@ -92,7 +92,7 @@ function ShareDialog(props: BaseDialogOpenProps) {
     }, [isDarkTheme])
 
     return (
-        <BaseDialog openCount={props.openCount} onDialogClose={onDialogClose}>
+        <BaseDialog openCounter={props.openCounter} onDialogClose={onDialogClose}>
             <div ref={containerRef} className="center-inline-items">
                 <div className="share-qrcode-picture">
                 </div>
@@ -130,9 +130,9 @@ function ShareUrlItem(props: ShareUrlItemProps) {
     )
 }
 
-let openCount = 0
+let openCounter = 0
 export function showShareDialog() {
-    showDialog(<ShareDialog openCount={openCount++} />, SHARE_DIALOG_WRAPPER_ID)
+    showDialog(<ShareDialog openCounter={openCounter++} />, SHARE_DIALOG_WRAPPER_ID)
 }
 
 function getQRCodeModulesCount(data: string, errorCorrectionLevel: "L" | "M" | "Q" | "H" = "M") {

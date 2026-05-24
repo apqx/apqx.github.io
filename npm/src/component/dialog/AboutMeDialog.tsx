@@ -19,7 +19,7 @@ function AboutMeDialog(props: BaseDialogOpenProps) {
     }, [])
 
     return (
-        <BaseDialog openCount={props.openCount}>
+        <BaseDialog openCounter={props.openCounter}>
             <div className="center-inline-items">
                 <picture>
                     <source srcSet="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me_emoji.webp"
@@ -49,7 +49,7 @@ function AboutMeDialog(props: BaseDialogOpenProps) {
     )
 }
 
-let openCount = 0
+let openCounter = 0
 export function showAboutMeDialog() {
-    showDialog(<AboutMeDialog openCount={openCount++} />, ABOUT_DIALOG_WRAPPER_ID)
+    showDialog(<AboutMeDialog openCounter={openCounter++} />, ABOUT_DIALOG_WRAPPER_ID)
 }

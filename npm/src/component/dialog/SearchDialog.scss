@@ -4,11 +4,9 @@
 @use "../../style/global" as base;
 @use "./BaseDialog.scss" as baseDialog;
 @use "./TagDialog" as tagDialog;
-@use "@material/textfield";
-@use "@material/textfield/mdc-text-field";
 @use "sass:map";
 
-#search-dialog_label {
+.search-dialog_label {
     width: 94%;
     margin-top: 1.5rem;
 }
@@ -17,43 +15,11 @@
     @include baseDialog.baseDialogHint();
 }
 
-.mdc-text-field {
-    display: flex;
-    align-items: center;
-    padding: 0 0 0 1rem;
-    margin-left: auto;
-    margin-right: auto;
-
-    @include textfield.ink-color(var(--mdc-theme-on-surface));
-    @include textfield.caret-color(var(--mdc-theme-on-surface));
-    @include textfield.placeholder-color(var(--mdc-theme-text-secondary-on-background));
-    @include textfield.label-color(var(--mdc-theme-text-secondary-on-background));
-    @include textfield.outline-color(var(--textfield-border));
-    @include textfield.hover-outline-color(var(--textfield-border));
-    @include textfield.focused-outline-color(var(--textfield-border));
-}
-
-#btn-search {
-    height: 100%;
-    width: 4.5rem;
-    border-radius: 0 var(--mdc-shape-small) var(--mdc-shape-small) 0;
-    // border-left: 1px solid var(--textfield-border);
-    overflow: hidden;
-
-    i {
-        color: var(--mdc-theme-text-secondary-on-background);
-    }
-}
-
-input {
-    -webkit-tap-highlight-color: transparent;
-}
-
 .search-result-item-type {
     @include tagDialog.block();
     @include tagDialog.blockFirst();
     margin-right: 0.2rem;
-    
+
     color: var(--list-chip-1-ink);
     background: var(--list-chip-1-bg);
 }

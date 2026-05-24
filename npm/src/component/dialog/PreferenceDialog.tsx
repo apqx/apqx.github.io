@@ -47,7 +47,7 @@ export function PreferenceDialog(props: BaseDialogOpenProps) {
     }, [])
 
     return (
-        <BaseDialog openCount={props.openCount} onDialogOpen={onDialogOpen}>
+        <BaseDialog openCounter={props.openCounter} onDialogOpen={onDialogOpen}>
             <>
                 <div id="preference-dialog__top-container">
                     <picture>
@@ -116,8 +116,8 @@ export function SettingsToggle(props: SettingsToggleProps) {
     )
 }
 
-let openCount = 0
+let openCounter = 0
 export function showPreferenceDialog() {
     consoleInfo("PreferenceDialogContent showPreferenceDialog")
-    showDialog(<PreferenceDialog openCount={openCount++} />, PREFERENCE_DIALOG_WRAPPER_ID)
+    showDialog(<PreferenceDialog openCounter={openCounter++} />, PREFERENCE_DIALOG_WRAPPER_ID)
 }

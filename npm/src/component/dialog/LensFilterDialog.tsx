@@ -101,7 +101,7 @@ export function LensFilterDialog(props: BaseDialogOpenProps) {
     }, [state.tags])
 
     return (
-        <BaseDialog openCount={props.openCount} fixedWidth={true} onDialogOpen={onDialogOpen} onDialogClose={onDialogClose} actions={actions}>
+        <BaseDialog openCounter={props.openCounter} fixedWidth={true} onDialogOpen={onDialogOpen} onDialogClose={onDialogClose} actions={actions}>
             <SmoothCollapse>
                 <p className="lens-filter-dialog__title">选择搜索标签</p>
                 <p className="lens-filter-dialog__hint">多选会显示同时满足条件的结果，比如演员与剧目的组合，若无选中则显示所有结果🕵🏻。</p>
@@ -162,8 +162,8 @@ function getTagTitle(tag: Tag) {
     }
 }
 
-let openCount = 0
+let openCounter = 0
 export function showLensFilterDialog() {
     consoleInfo("ShowLensFilterDialog")
-    showDialog(<LensFilterDialog openCount={openCount++} />, LENS_FILTER_DIALOG_WRAPPER_ID)
+    showDialog(<LensFilterDialog openCounter={openCounter++} />, LENS_FILTER_DIALOG_WRAPPER_ID)
 }

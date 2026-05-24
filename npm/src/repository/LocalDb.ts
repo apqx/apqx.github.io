@@ -5,6 +5,7 @@ export class LocalDb {
     KEY_THEME = "theme"
     KEY_LENS_BIGGER_PICTURE = "lensBiggerPicture"
     KEY_HIDE_STATUS_BAR_BG = "hideStatusBarBg"
+    KEY_AUTH = "auth"
 
     VALUE_THEME_DARK = "dark"
     VALUE_THEME_LIGHT = "light"
@@ -13,7 +14,7 @@ export class LocalDb {
     saveBoolean(key: string, value: boolean) {
         this.saveString(key, String(value))
     }
-    
+
     getBoolean(key: string): boolean | null {
         // 默认为false
         const value = this.getString(key)
@@ -82,6 +83,14 @@ export class LocalDb {
 
     getHideStatusBarBg(): boolean {
         return this.getBoolean(this.KEY_HIDE_STATUS_BAR_BG) ?? true
+    }
+
+    saveAuth(current: string) {
+        this.saveString(this.KEY_AUTH, current)
+    }
+
+    getAuth(): string | null {
+        return this.getString(this.KEY_AUTH)
     }
 }
 

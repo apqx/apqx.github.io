@@ -7,10 +7,11 @@ interface TextFieldProps {
     label: string
     hint: string
     classes?: string[]
-    onChange: (value: string) => void
+    onTextChange: (value: string) => void
     tabIndex?: number
     icon?: string
     onClickIcon?: () => void
+    clearInputCounter?: number
 }
 
 export function TextField(props: TextFieldProps) {
@@ -31,6 +32,12 @@ export function TextField(props: TextFieldProps) {
         }
     }, [])
 
+    useEffect(() => {
+        if (props.clearInputCounter != null && textFieldRef.current) {
+            textFieldRef.current.value = ""
+        }
+    }, [props.clearInputCounter])
+
     return (
         <label ref={containerRef} className={`mdc-text-field mdc-text-field--outlined ${props.classes?.join(" ") ?? ""}`.trimEnd()}>
             <span className="mdc-notched-outline">
@@ -41,7 +48,7 @@ export function TextField(props: TextFieldProps) {
                 <span className="mdc-notched-outline__trailing"></span>
             </span>
             {/* 这里禁止自动获取焦点，可能导致 dialog 意外滚动到焦点位置 */}
-            <input type="search" className="mdc-text-field__input" aria-labelledby="input-label" tabIndex={props.tabIndex ?? -1} />
+            <input type="search" className="mdc-text-field__input" aria-labelledby="input-label" tabIndex={props.tabIndex ?? -1} onChange={(e) => props.onTextChange(e.target.value)} />
             {props.icon &&
                 <IconButton icon={props.icon} onClick={props.onClickIcon} classes={["text-field__icon"]} tabIndex={-1} />
             }
