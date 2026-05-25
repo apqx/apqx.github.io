@@ -76,7 +76,8 @@ export function SearchDialog(props: BaseDialogOpenProps) {
     return (
         <BaseDialog openCounter={props.openCounter} onDialogOpen={onDialogOpen} onDialogClose={onDialogClose} actions={actions}>
             <div ref={containerRef} className="center-inline-items">
-                <TextField label="Words" hint="" classes={["search-dialog_label"]} onTextChange={onTextChange} tabIndex={-1} icon="search" onClickIcon={onClickSearch} clearInputCounter={clearInputCounter} />
+                <TextField label="Words" hint="" inputId="search-dialog-input" classes={["search-dialog_label"]} onTextChange={onTextChange} tabIndex={-1} icon="search"
+                    onClickIcon={onClickSearch} onClickEnter={onClickSearch} clearInputCounter={clearInputCounter} />
 
                 <p id="search-dialog_tips"><b>TIPS：</b>中文低频词组用空格分隔会有更好匹配，比如名字「施夏明」改为「施 夏 明」。若网络通畅可使用 <a
                     href="https://cse.google.com/cse?cx=757420b6b2f3d47d2" target="_blank" tabIndex={-1}>Google 站内搜索</a>。</p>

@@ -187,6 +187,7 @@ function handleSlideInBase(entry: IntersectionObserverEntry, slidFromBottom: boo
 function fadeAnimationEndListener(event: TransitionEvent) {
     const target = event.target as Element
     if (!containsFadeClass(target)) return
+    consoleInfo("Fade animation end, target classList = " + target.classList.toString())
     if (target.classList.contains("fade--opening")) {
         toggleElementClass(target, "fade--opening", false)
         toggleElementClass(target, "fade--open", true)
@@ -209,24 +210,25 @@ function cancelPendingShowFrame(element: HTMLElement) {
 export function toggleFade(element: HTMLElement, show: boolean) {
     element.removeEventListener("transitionend", fadeAnimationEndListener)
     element.addEventListener("transitionend", fadeAnimationEndListener)
+    consoleInfo("Toggle fade " + show + ", target classList = " + element.classList.toString())
     if (show) {
+        toggleElementClass(element, "fade--closing", false)
+        cancelPendingShowFrame(element)
         if (element.classList.contains("fade--open") || element.classList.contains("fade--opening")) {
             return
         }
-        toggleElementClass(element, "fade--closing", false)
         toggleElementClass(element, "fade--opening", true)
-        cancelPendingShowFrame(element)
         frameIds.set(element, requestAnimationFrame(() => {
             frameIds.delete(element)
             toggleElementClass(element, "fade--open", true)
         }))
     } else {
+        toggleElementClass(element, "fade--opening", false)
+        cancelPendingShowFrame(element)
         if (element.classList.contains("fade--closing")) {
             return
         }
-        toggleElementClass(element, "fade--opening", false)
         toggleElementClass(element, "fade--closing", true)
-        cancelPendingShowFrame(element)
         frameIds.set(element, requestAnimationFrame(() => {
             frameIds.delete(element)
             toggleElementClass(element, "fade--open", false)

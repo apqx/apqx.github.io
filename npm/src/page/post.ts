@@ -7,6 +7,7 @@ import { showSnackbar } from "../component/react/Snackbar"
 import { getSectionTypeByPath, SECTION_TYPE_OPERA, SECTION_TYPE_SHARE } from "../base/constant"
 import { initShares } from "../component/react/LinearShares"
 import { showAuthDialog } from "../component/dialog/AuthDialog"
+import { getAuthority } from "../util/auth"
 
 export function initPost() {
     runOnHtmlDone(() => {
@@ -90,12 +91,14 @@ function showCopyrightDialog(url: string) {
     showAlertDialog("版权声明", formatHint + "点击“跳转”将打开无水印原图，注意图片版权归属作者及剧团演员所有，未经允许不可作商业用途🤫。",
         "取消", undefined,
         "跳转", () => {
+            if (getAuthority().checkSavedAuth()) {
+                window.open(url, "_blank")
+                return
+            }
             showAuthDialog((success) => {
                 if (success) {
                     window.open(url, "_blank")
-                } else {
-                    showSnackbar("验证失败，无法查看原图")
-                }
+                } 
             })
         })
 }
