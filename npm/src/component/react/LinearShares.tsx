@@ -8,15 +8,29 @@ import { ShareHttpPaginator } from "../base/paginate/ShareHttpPaginator";
 import type { ApiShare } from "../../repository/bean/service/ApiShare";
 import type { Share } from "../base/paginate/bean/Share";
 import type { BasePaginateViewProps } from "../base/paginate/bean/BasePaginateViewProps";
+import { showAuthDialog } from "../dialog/AuthDialog";
+import { getAuthority } from "../../util/auth";
 
 export function initShares() {
     const wrapperE = document.querySelector("#share-list-wrapper") as HTMLElement
     if (wrapperE == null) {
         return
     }
+    const loadShares = () => {
+        const root = createRoot(wrapperE)
+        root.render(<LinearShares tag={""} category={"share"} pinnedPosts={[]} loadedPosts={[]} />)
+    }
 
-    const root = createRoot(wrapperE)
-    root.render(<LinearShares tag={""} category={"share"} pinnedPosts={[]} loadedPosts={[]} />)
+    if (getAuthority().checkSavedAuth()) {
+        loadShares()
+        return
+    }
+
+    showAuthDialog((success) => {
+        if (success) {
+            loadShares()
+        }
+    }, false)
 }
 
 export function LinearShares(props: BasePaginateViewProps<Share>) {

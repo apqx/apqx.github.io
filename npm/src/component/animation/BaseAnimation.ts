@@ -212,22 +212,16 @@ export function toggleFade(element: HTMLElement, show: boolean) {
     element.addEventListener("transitionend", fadeAnimationEndListener)
     consoleInfo("Toggle fade " + show + ", target classList = " + element.classList.toString())
     if (show) {
-        toggleElementClass(element, "fade--closing", false)
         cancelPendingShowFrame(element)
-        if (element.classList.contains("fade--open") || element.classList.contains("fade--opening")) {
-            return
-        }
+        toggleElementClass(element, "fade--closing", false)
         toggleElementClass(element, "fade--opening", true)
         frameIds.set(element, requestAnimationFrame(() => {
             frameIds.delete(element)
             toggleElementClass(element, "fade--open", true)
         }))
     } else {
-        toggleElementClass(element, "fade--opening", false)
         cancelPendingShowFrame(element)
-        if (element.classList.contains("fade--closing")) {
-            return
-        }
+        toggleElementClass(element, "fade--opening", false)
         toggleElementClass(element, "fade--closing", true)
         frameIds.set(element, requestAnimationFrame(() => {
             frameIds.delete(element)

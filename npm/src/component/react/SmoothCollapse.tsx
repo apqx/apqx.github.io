@@ -66,10 +66,10 @@ function calculateDuration(newSize: number, preSize: number, propertyName: strin
     consoleInfo(`SmoothCollapse wrapper ${propertyName} = ${preSize} -> ${newSize}, animationSize = ${animationSize}, duration = ${duration}s`)
     if (duration < 0.35) {
         duration = 0.35
-        consoleInfo(`Actual duration = ${duration}s`)
-    } else if (duration > 0.5) {
-        duration = 0.5
-        consoleInfo(`Actual duration = ${duration}s`)
+        consoleInfo(`SmoothCollapse actual duration = ${duration}s`)
+    } else if (duration > 0.55) {
+        duration = 0.55
+        consoleInfo(`SmoothCollapse actual duration = ${duration}s`)
     }
 
     return duration

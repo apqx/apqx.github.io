@@ -18,6 +18,10 @@
     @include button.container-fill-color(var(--button-bg));
     @include button.ink-color(var(--button-ink));
 
+    &:not(:disabled) {
+        @include button.ink-color(var(--button-ink));
+    }
+
     overflow: hidden;
     @include ripple.surface;
     // 如果为 bounded 则宽度可能有问题，导致横向溢出，滚动🤔

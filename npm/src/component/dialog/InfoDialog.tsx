@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { useDebouncedResize } from "../react/tools/useDebouncedResize"
 import { BaseDialog, INFO_DIALOG_WRAPPER_ID, showDialog, type BaseDialogOpenProps } from "./BaseDialog"
 import "./InfoDialog.scss"
 import { getChromeVersion } from "../../util/tools"
+import { Button } from "../react/Button"
 
 
 function InfoDialog(props: BaseDialogOpenProps) {
@@ -14,6 +15,11 @@ function InfoDialog(props: BaseDialogOpenProps) {
 
     // 监听窗口尺寸变化，触发组件刷新
     useDebouncedResize(document.body)
+
+    const clearLocalStorage = useCallback(() => {
+        localStorage.clear()
+        window.location.reload()
+    }, [])
 
     return (
         <BaseDialog openCounter={props.openCounter}>
@@ -29,6 +35,8 @@ function InfoDialog(props: BaseDialogOpenProps) {
                     left: {getComputedStyle(document.body).getPropertyValue('--safe-area-inset-left')}<br />
                     right: {getComputedStyle(document.body).getPropertyValue('--safe-area-inset-right')}
                 </p>
+                <p><strong className="no-shadow">Local storage</strong></p>
+                <Button text="clear" tabIndex={-1} onClick={clearLocalStorage}/>
             </div>
         </BaseDialog>
     )

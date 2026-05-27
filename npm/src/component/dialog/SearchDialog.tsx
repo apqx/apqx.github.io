@@ -69,6 +69,7 @@ export function SearchDialog(props: BaseDialogOpenProps) {
         }, {
             text: "清除", closeOnClick: false, onClick: () => {
                 paginateViewModel.clear()
+                textInputRef.current = ""
                 setClearInputCounter(prev => prev + 1)
             }
         }]
