@@ -214,18 +214,30 @@ export function toggleFade(element: HTMLElement, show: boolean) {
     if (show) {
         cancelPendingShowFrame(element)
         toggleElementClass(element, "fade--closing", false)
-        toggleElementClass(element, "fade--opening", true)
-        frameIds.set(element, requestAnimationFrame(() => {
-            frameIds.delete(element)
-            toggleElementClass(element, "fade--open", true)
-        }))
+        if (element.classList.contains("fade--open")) {
+            // 已经处于 open 状态，删除中间态 class
+            toggleElementClass(element, "fade--opening", false)
+        } else {
+            // 非 open 状态，启动开启动画
+            toggleElementClass(element, "fade--opening", true)
+            frameIds.set(element, requestAnimationFrame(() => {
+                frameIds.delete(element)
+                toggleElementClass(element, "fade--open", true)
+            }))
+        }
     } else {
         cancelPendingShowFrame(element)
         toggleElementClass(element, "fade--opening", false)
-        toggleElementClass(element, "fade--closing", true)
-        frameIds.set(element, requestAnimationFrame(() => {
-            frameIds.delete(element)
-            toggleElementClass(element, "fade--open", false)
-        }))
+        if (element.classList.contains("fade--open")) {
+            // 处于 open 状态，启动关闭动画
+            toggleElementClass(element, "fade--closing", true)
+            frameIds.set(element, requestAnimationFrame(() => {
+                frameIds.delete(element)
+                toggleElementClass(element, "fade--open", false)
+            }))
+        } else {
+            // 若处于 closing 状态，等待关闭动画完成即可
+            // 若处于 关闭状态，无需任何操作
+        }
     }
 }

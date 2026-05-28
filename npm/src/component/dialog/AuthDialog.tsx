@@ -3,7 +3,7 @@ import "./AuthDialog.scss"
 import { BaseDialog, AUTH_DIALOG_WRAPPER_ID, showDialog, type ActionBtn, type BaseDialogOpenProps } from "./BaseDialog";
 import { TextField } from "../react/TextField";
 import { getAuthority } from "../../util/auth";
-import { showSnackbar } from "../react/Snackbar";
+import { Length, showSnackbar } from "../react/Snackbar";
 
 interface AuthDialogProps extends BaseDialogOpenProps {
     authCallback: (success: boolean) => void
@@ -17,7 +17,7 @@ export function AuthDialog(props: AuthDialogProps) {
 
     const checkInputAuth = useCallback(() => {
         if (textInputRef.current == null || textInputRef.current.length == 0) {
-            showSnackbar("请输入验证信息")
+            showSnackbar("请输入验证信息", Length.SHORT)
             return
         }
         if (getAuthority().checkInputAuth(textInputRef.current)) {
@@ -25,7 +25,7 @@ export function AuthDialog(props: AuthDialogProps) {
             setCloseCounter(prev => prev + 1)
         } else {
             props.authCallback(false)
-            showSnackbar("验证失败")
+            showSnackbar("验证失败", Length.SHORT)
         }
     }, [props.authCallback])
 
@@ -34,7 +34,7 @@ export function AuthDialog(props: AuthDialogProps) {
             text: "取消", closeOnClick: true, onClick: () => { }
         }
         const backToMainPage = {
-            text: "返回首页", closeOnClick: true, onClick: () => {
+            text: "返回首页", closeOnClick: false, onClick: () => {
                 window.location.href = "/"
             }
         }

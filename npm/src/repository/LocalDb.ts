@@ -82,7 +82,7 @@ export class LocalDb {
     }
 
     getHideStatusBarBg(): boolean {
-        return this.getBoolean(this.KEY_HIDE_STATUS_BAR_BG) ?? true
+        return this.getBoolean(this.KEY_HIDE_STATUS_BAR_BG) ?? false
     }
 
     saveAuth(current: string) {

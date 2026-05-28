@@ -17,8 +17,9 @@
     --font-weight-light: #{base.$font-weight-light-noto-serif};
     --font-weight-normal: #{base.$font-weight-normal-noto-serif};
     --font-weight-medium: #{base.$font-weight-medium-noto-serif};
+
     --mdc-typography-body1-font-weight: var(--font-weight-normal);
-    --mdc-typography-subtitle2-font-weight: 510;
+    --mdc-typography-subtitle2-font-weight: calc(var(--font-weight-normal) + 30);
 }
 
 @mixin notoSerifText {
@@ -38,7 +39,7 @@
     padding-bottom: 0.1rem;
 }
 
-// 全局字体
+// 全局字体，只能应用于 body，应用于局部可能部分元素不及预期
 .font-noto-serif-sc {
     // 更改全局变量
     @include notoSerifTextContainer();
@@ -124,7 +125,7 @@ pre code.hljs {
     border-radius: var(--post-inner-shape-round);
     padding: 1rem;
     background: var(--pre-code-bg);
-    border: 1px solid var(--pre-code-border);
+    // border: 1px solid var(--pre-code-border);
 }
 
 /* 段落中单词高亮 */
@@ -277,7 +278,7 @@ time {
     @include block-text();
     // @include text.notoSerifTextContainer();
 
-    border: 1px solid var(--surface-block-border);
+    // border: 1px solid var(--surface-block-border);
     border-radius: var(--post-inner-shape-round);
     background: var(--surface-block-bg);
     padding: 1rem 1.3rem;
@@ -318,7 +319,6 @@ audio {
 .pre * {
     white-space: pre;
 }
-
 
 .one-line {
     /* 不换行 */

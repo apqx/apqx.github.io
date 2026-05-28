@@ -5,8 +5,13 @@ import { createRoot } from "react-dom/client";
 import type { Root } from "react-dom/client";
 import { consoleError } from "../../util/log";
 
+export enum Length {
+    SHORT = 4000, DEFAULT = 5000
+}
+
 interface props {
     text: string
+    length: Length
 }
 
 export function Snackbar(props: props) {
@@ -16,14 +21,19 @@ export function Snackbar(props: props) {
     useEffect(() => {
         const rootE = containerRef.current as Element
         snackbar.current = new MDCSnackbar(rootE)
+        // 自动关闭时间，-1 表示不自动关闭
+        // snackbar.current!!.timeoutMs = -1
         return () => {
             snackbar.current?.destroy()
         }
     }, [])
 
     useEffect(() => {
-        // 自动关闭时间，-1 表示不自动关闭
-        // snackbar.current?.timeoutMs = -1
+        // 组件内部实现的最小长度是 4000，否则异常
+        snackbar.current!!.timeoutMs = props.length
+    }, [props.length])
+
+    useEffect(() => {
         snackbar.current?.open()
     })
 
@@ -41,7 +51,7 @@ export function Snackbar(props: props) {
 
 var root: Root | null = null
 
-export function showSnackbar(_text: string) {
+export function showSnackbar(_text: string, _length: Length = Length.DEFAULT) {
     // 如果此时html还未加载完成，确实可能出现为null的情况
     if (document.readyState === "loading") return
     if (root == null) {
@@ -53,6 +63,6 @@ export function showSnackbar(_text: string) {
         root = createRoot(snackbarContainerE)
     }
     root.render(
-        <Snackbar text={_text} />
+        <Snackbar text={_text} length={_length} />
     )
 }
