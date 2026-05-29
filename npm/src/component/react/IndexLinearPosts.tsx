@@ -84,7 +84,7 @@ export function IndexLinearPosts(props: Props) {
             <ul className="index-ul">
                 {showPosts.map((item, index) =>
                     <IndexItem key={item.path + "?pinned=" + item.pinned}
-                        title={item.title} author={item.author} date={item.date} description={item.description} path={item.path}
+                        title={item.title} author={item.author} date={item.date} moreDate={item.moreDate} description={item.description} path={item.path}
                         pinned={item.pinned} featured={item.featured} last={index === showPosts.length - 1} index={index} />
                 )}
                 <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore}
@@ -134,6 +134,7 @@ type IndexItemProps = {
     title: string,
     author: string,
     date: string,
+    moreDate: string,
     description: string,
     path: string,
     pinned: boolean,
@@ -194,12 +195,19 @@ function IndexItem(props: IndexItemProps) {
         return " slide-in-farer slide-in-chained"
     }, [])
 
+    const author = useMemo(() => {
+        if (props.moreDate != null && props.moreDate.trim() !== "") {
+            return props.moreDate + " " + props.author
+        }
+        return props.author
+    }, [props.author, props.moreDate])
+
     return (
         <li ref={containerRef} className="index-li">
             <a className={"index-a mdc-card index-card" + animationClass} href={props.path}>
                 <section>
                     <h1 className="index-title">{props.title}</h1>
-                    <span className="index-author">{props.author}</span>
+                    <span className="index-author">{author}</span>
                     <span className="index-date">
                         {date.year}<span className="year">年</span>
                         {date.month}<span className="month">月</span>

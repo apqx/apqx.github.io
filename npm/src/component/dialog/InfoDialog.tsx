@@ -1,9 +1,9 @@
+import "./InfoDialog.scss"
 import { useCallback, useEffect, useState } from "react"
 import { useDebouncedResize } from "../react/tools/useDebouncedResize"
 import { BaseDialog, INFO_DIALOG_WRAPPER_ID, showDialog, type BaseDialogOpenProps } from "./BaseDialog"
-import "./InfoDialog.scss"
 import { getChromeVersion } from "../../util/tools"
-import { Button } from "../react/Button"
+import { Tag } from "../react/Tag"
 
 
 function InfoDialog(props: BaseDialogOpenProps) {
@@ -18,12 +18,15 @@ function InfoDialog(props: BaseDialogOpenProps) {
 
     const clearLocalStorage = useCallback(() => {
         localStorage.clear()
+    }, [])
+
+    const refreshPage = useCallback(() => {
         window.location.reload()
     }, [])
 
     return (
         <BaseDialog openCounter={props.openCounter}>
-            <div>
+            <div className="info-dialog-content">
                 <p><strong className="no-shadow">Chromium</strong></p>
                 <p>version: {chromeVersion ?? "unknown"}</p>
                 <p><strong className="no-shadow">Window</strong></p>
@@ -36,7 +39,10 @@ function InfoDialog(props: BaseDialogOpenProps) {
                     right: {getComputedStyle(document.body).getPropertyValue('--safe-area-inset-right')}
                 </p>
                 <p><strong className="no-shadow">Local storage</strong></p>
-                <Button text="clear" tabIndex={-1} onClick={clearLocalStorage}/>
+                <div className="btn-tag-container">
+                    <Tag text="Clear" onClick={clearLocalStorage}/>
+                    <Tag text="Refresh" onClick={refreshPage}/>
+                </div>
             </div>
         </BaseDialog>
     )

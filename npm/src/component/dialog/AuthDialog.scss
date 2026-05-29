@@ -7,4 +7,5 @@
 
 #auth-dialog_tips {
     @include baseDialog.baseDialogHint();
+    font-weight: var(--font-weight-normal);
 }

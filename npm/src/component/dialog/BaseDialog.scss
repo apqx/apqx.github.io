@@ -140,7 +140,7 @@
 
 @mixin baseDialogHint {
     margin: 1.2rem 1rem;
-    color: var(--mdc-theme-on-surface-secondary);
+    color: var(--mdc-theme-on-surface);
     font-weight: var(--font-weight-light);
     font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
     line-height: calc(var(--mdc-typography-body1-line-height) - 0.3rem);

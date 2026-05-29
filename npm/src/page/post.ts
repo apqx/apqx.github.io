@@ -87,8 +87,8 @@ function initImgJump() {
 }
 
 function showCopyrightDialog(url: string) {
-    const formatHint = url.endsWith(".avif") && isAndroidModern() ? "原图为 P3 色域 AVIF 文件，在部分 Android 设备的图库中可能颜色偏淡。<br/>" : ""
-    showAlertDialog("版权声明", formatHint + "点击“跳转”将打开无水印原图，注意图片版权归属作者及剧团演员所有，未经允许不可作商业用途🤫。",
+    const formatHint = url.endsWith(".avif") && isAndroidModern() ? "<br/>原图为高质量 P3 色域 AVIF 格式文件，部分 Android 设备受限于硬件解码器可能在图库中显示颜色偏淡，可尝试更换设备查看。" : ""
+    showAlertDialog("版权声明", "点击“跳转”将打开无水印原图，注意图片版权归属作者及剧团演员所有，未经允许不可作商业用途🤫。" + formatHint,
         "取消", undefined,
         "跳转", () => {
             if (getAuthority().checkSavedAuth()) {

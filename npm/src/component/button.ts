@@ -10,7 +10,9 @@ export function initButton() {
 
 export function setupButtonRipple(ele?: Element) {
     if (ele != null) {
-        new MDCRipple(ele)
+        const ripple = new MDCRipple(ele)
+        // TODO: ripple 边界需要详细探究，不要随意更改
+        ripple.unbounded = false
     }
 }
 

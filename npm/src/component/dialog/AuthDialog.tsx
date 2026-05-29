@@ -25,13 +25,13 @@ export function AuthDialog(props: AuthDialogProps) {
             setCloseCounter(prev => prev + 1)
         } else {
             props.authCallback(false)
-            showSnackbar("验证失败", Length.SHORT)
+            showSnackbar("答案不正确", Length.SHORT)
         }
     }, [props.authCallback])
 
     const actions = useMemo<ActionBtn[]>(() => {
         const cancel = {
-            text: "取消", closeOnClick: true, onClick: () => { }
+            text: "取消", closeOnClick: true, onClick: () => { } 
         }
         const backToMainPage = {
             text: "返回首页", closeOnClick: false, onClick: () => {
@@ -69,7 +69,7 @@ export function AuthDialog(props: AuthDialogProps) {
                 </div>
                 <TextField label="Words" hint="" inputId="auth-dialog-input" classes={["auth-dialog_label"]} onTextChange={onTextChange} onClickEnter={checkInputAuth} tabIndex={-1} />
 
-                <p id="auth-dialog_tips">本内容仅为小范围公开，请输入我的微信或哔哩哔哩用户名进行访问验证。小声提示：<a
+                <p id="auth-dialog_tips">本内容为小范围公开，请输入我的微信或哔哩哔哩用户名进行访问验证。小声提示：<a
                     href="https://space.bilibili.com/11037907" target="_blank" tabIndex={-1}>哔哩哔哩</a>。</p>
 
             </div>
