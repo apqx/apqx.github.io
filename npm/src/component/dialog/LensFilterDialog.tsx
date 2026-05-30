@@ -1,6 +1,6 @@
 import "./LensFilterDialog.scss"
-import { useCallback, useEffect, useMemo, useSyncExternalStore } from "react";
-import { BaseDialog, LENS_FILTER_DIALOG_WRAPPER_ID, showDialog, type ActionBtn, type BaseDialogOpenProps } from "./BaseDialog";
+import { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from "react";
+import { BaseDialog, getDialogController, LENS_FILTER_DIALOG_WRAPPER_ID, showDialog, type ActionBtn, type BaseDialogController, type BaseDialogOpenProps, type DialogControllerRef } from "./BaseDialog";
 import { LensFilterDialogViewModel, type Category, type Tag } from "./LensFilterDialogViewModel";
 import { SmoothCollapse } from "../react/SmoothCollapse";
 import { CheckableTag } from "../react/CheckableTag";
@@ -101,7 +101,7 @@ export function LensFilterDialog(props: BaseDialogOpenProps) {
     }, [state.tags])
 
     return (
-        <BaseDialog openCounter={props.openCounter} fixedWidth={true} onDialogOpen={onDialogOpen} onDialogClose={onDialogClose} actions={actions}>
+        <BaseDialog dialogControllerRef={props.dialogControllerRef} fixedWidth={true} onDialogOpen={onDialogOpen} onDialogClose={onDialogClose} actions={actions}>
             <SmoothCollapse>
                 <p className="lens-filter-dialog__title">选择搜索标签</p>
                 <p className="lens-filter-dialog__hint">多选会显示同时满足条件的结果，比如演员与剧目的组合，若无选中则显示所有结果🕵🏻。</p>
@@ -162,8 +162,12 @@ function getTagTitle(tag: Tag) {
     }
 }
 
-let openCounter = 0
 export function showLensFilterDialog() {
     consoleInfo("ShowLensFilterDialog")
-    showDialog(<LensFilterDialog openCounter={openCounter++} />, LENS_FILTER_DIALOG_WRAPPER_ID)
+    const id = LENS_FILTER_DIALOG_WRAPPER_ID
+    const dialogControllerRef = getDialogController(id)
+    showDialog(<LensFilterDialog dialogControllerRef={dialogControllerRef} />, id)
+    if (dialogControllerRef.current) {
+        dialogControllerRef.current.open()
+    }
 }

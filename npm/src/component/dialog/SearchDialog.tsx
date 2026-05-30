@@ -1,8 +1,8 @@
 import "./SearchDialog.scss"
 import { MDCList } from "@material/list"
 import { createHtmlContent } from "../../util/tools"
-import { BaseDialog, SEARCH_DIALOG_WRAPPER_ID, showDialog } from "./BaseDialog"
-import type { ActionBtn, BaseDialogOpenProps } from "./BaseDialog"
+import { BaseDialog, getDialogController, SEARCH_DIALOG_WRAPPER_ID, showDialog } from "./BaseDialog"
+import type { ActionBtn, BaseDialogController, BaseDialogOpenProps, DialogControllerRef } from "./BaseDialog"
 import { setupListItemRipple } from "../list"
 import { LoadingHint } from "../react/LoadingHint"
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
@@ -75,7 +75,7 @@ export function SearchDialog(props: BaseDialogOpenProps) {
         }]
     }, [])
     return (
-        <BaseDialog openCounter={props.openCounter} onDialogOpen={onDialogOpen} onDialogClose={onDialogClose} actions={actions}>
+        <BaseDialog dialogControllerRef={props.dialogControllerRef} onDialogOpen={onDialogOpen} onDialogClose={onDialogClose} actions={actions}>
             <div ref={containerRef} className="center-inline-items">
                 <TextField label="Words" hint="" inputId="search-dialog-input" classes={["search-dialog_label"]} onTextChange={onTextChange} tabIndex={-1} icon="search"
                     onClickIcon={onClickSearch} onClickEnter={onClickSearch} clearInputCounter={clearInputCounter} />
@@ -160,7 +160,11 @@ function ResultItem(props: ResultItemProps) {
     )
 }
 
-let openCounter = 0
 export function showSearchDialog() {
-    showDialog(<SearchDialog openCounter={openCounter++} />, SEARCH_DIALOG_WRAPPER_ID)
+    const id = SEARCH_DIALOG_WRAPPER_ID
+    const dialogControllerRef = getDialogController(id)
+    showDialog(<SearchDialog dialogControllerRef={dialogControllerRef} />, id)
+    if (dialogControllerRef.current) {
+        dialogControllerRef.current.open()
+    }
 }

@@ -8,6 +8,7 @@ import { getSectionTypeByPath, SECTION_TYPE_OPERA, SECTION_TYPE_SHARE } from "..
 import { initShares } from "../component/react/LinearShares"
 import { showAuthDialog } from "../component/dialog/AuthDialog"
 import { getAuthority } from "../util/auth"
+import { mountLottieAnimation } from "../component/lottie"
 
 export function initPost() {
     runOnHtmlDone(() => {
@@ -16,6 +17,7 @@ export function initPost() {
         initPageCheck()
         initImgJump()
         initImg()
+        initLottie()
     })
 }
 
@@ -113,3 +115,11 @@ function initImg() {
         }
     })
 }
+
+function initLottie() {
+    const wrapperE = document.querySelector(".lottie-animation-wrapper.emoji-tag") as HTMLElement
+    if (wrapperE) {
+        mountLottieAnimation(wrapperE)
+    }
+}
+

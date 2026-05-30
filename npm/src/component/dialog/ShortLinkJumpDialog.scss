@@ -1,11 +1,6 @@
 // @use "../react/ProgressLinear";
 @use "../../style/global" as base;
 
-.emoji-jump {
-    width: 10rem;
-    height: 10rem;
-}
-
 #short-link-jump-dialog_title {
     text-align: center;
     color: var(--mdc-theme-on-surface-secondary);
@@ -19,6 +14,8 @@
 }
 
 .jump-dialog-container {
+    --animated-emoji-size: 10rem;
+
     .mdc-linear-progress {
         margin-top: 0.8rem;
     }

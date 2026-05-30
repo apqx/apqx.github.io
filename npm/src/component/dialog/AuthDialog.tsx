@@ -1,9 +1,10 @@
 import { useCallback, useMemo, useRef, useState } from "react";
 import "./AuthDialog.scss"
-import { BaseDialog, AUTH_DIALOG_WRAPPER_ID, showDialog, type ActionBtn, type BaseDialogOpenProps } from "./BaseDialog";
+import { BaseDialog, AUTH_DIALOG_WRAPPER_ID, showDialog, type ActionBtn, type BaseDialogOpenProps, type BaseDialogController, type DialogControllerRef, getDialogController } from "./BaseDialog";
 import { TextField } from "../react/TextField";
 import { getAuthority } from "../../util/auth";
 import { Length, showSnackbar } from "../react/Snackbar";
+import { LottieAnimation, type LottieAnimationController } from "../react/LottieAnimation";
 
 interface AuthDialogProps extends BaseDialogOpenProps {
     authCallback: (success: boolean) => void
@@ -13,7 +14,7 @@ interface AuthDialogProps extends BaseDialogOpenProps {
 export function AuthDialog(props: AuthDialogProps) {
     const containerRef = useRef<HTMLDivElement>(null)
     const textInputRef = useRef<string>("")
-    const [closeCounter, setCloseCounter] = useState(0)
+    const animationControllerRef = useRef<LottieAnimationController | null>(null) 
 
     const checkInputAuth = useCallback(() => {
         if (textInputRef.current == null || textInputRef.current.length == 0) {
@@ -22,7 +23,7 @@ export function AuthDialog(props: AuthDialogProps) {
         }
         if (getAuthority().checkInputAuth(textInputRef.current)) {
             props.authCallback(true)
-            setCloseCounter(prev => prev + 1)
+            props.dialogControllerRef?.current?.close()
         } else {
             props.authCallback(false)
             showSnackbar("答案不正确", Length.SHORT)
@@ -31,7 +32,7 @@ export function AuthDialog(props: AuthDialogProps) {
 
     const actions = useMemo<ActionBtn[]>(() => {
         const cancel = {
-            text: "取消", closeOnClick: true, onClick: () => { } 
+            text: "取消", closeOnClick: true, onClick: () => { }
         }
         const backToMainPage = {
             text: "返回首页", closeOnClick: false, onClick: () => {
@@ -54,18 +55,21 @@ export function AuthDialog(props: AuthDialogProps) {
         textInputRef.current = value
     }, [])
 
+    const onDialogOpen = useCallback(() => {
+        animationControllerRef.current?.play()
+    }, [])
+
+    const onDialogClose = useCallback(() => {
+        animationControllerRef.current?.pause()
+    }, [])
 
     return (
-        <BaseDialog openCounter={props.openCounter} closeCounter={closeCounter} closeOnClickOutside={props.dismissible}
+        <BaseDialog dialogControllerRef={props.dialogControllerRef} onDialogOpen={onDialogOpen} onDialogClose={onDialogClose} closeOnClickOutside={props.dismissible}
             actions={actions}>
             <div ref={containerRef} className="center-inline-items">
                 <div id="preference-dialog__top-container">
-                    <picture>
-                        <source srcSet="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/noto-animated-emoji/mouth-none/512.webp"
-                            type="image/webp" />
-                        <img className="inline-for-center emoji-preference" alt=""
-                            src="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/noto-animated-emoji/mouth-none/512.gif" />
-                    </picture>
+                    <LottieAnimation animationDataUrl={"https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/noto-animated-emoji/mouth-none/lottie.json"}
+                        animationControllerRef={animationControllerRef} />
                 </div>
                 <TextField label="Words" hint="" inputId="auth-dialog-input" classes={["auth-dialog_label"]} onTextChange={onTextChange} onClickEnter={checkInputAuth} tabIndex={-1} />
 
@@ -77,7 +81,11 @@ export function AuthDialog(props: AuthDialogProps) {
     )
 }
 
-let openCounter = 0
 export function showAuthDialog(authCallback: (success: boolean) => void, dismissible: boolean = true) {
-    showDialog(<AuthDialog openCounter={openCounter++} authCallback={authCallback} dismissible={dismissible} />, AUTH_DIALOG_WRAPPER_ID)
+    const id = AUTH_DIALOG_WRAPPER_ID   
+    const dialogControllerRef = getDialogController(id)
+    showDialog(<AuthDialog dialogControllerRef={dialogControllerRef} authCallback={authCallback} dismissible={dismissible} />, id)
+    if (dialogControllerRef.current) {
+        dialogControllerRef.current.open()
+    }
 }

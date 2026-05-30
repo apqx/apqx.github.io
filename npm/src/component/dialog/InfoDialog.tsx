@@ -1,7 +1,7 @@
 import "./InfoDialog.scss"
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { useDebouncedResize } from "../react/tools/useDebouncedResize"
-import { BaseDialog, INFO_DIALOG_WRAPPER_ID, showDialog, type BaseDialogOpenProps } from "./BaseDialog"
+import { BaseDialog, getDialogController, INFO_DIALOG_WRAPPER_ID, showDialog, type BaseDialogController, type BaseDialogOpenProps, type DialogControllerRef } from "./BaseDialog"
 import { getChromeVersion } from "../../util/tools"
 import { Tag } from "../react/Tag"
 import { Button } from "../react/Button"
@@ -26,7 +26,7 @@ function InfoDialog(props: BaseDialogOpenProps) {
     }, [])
 
     return (
-        <BaseDialog openCounter={props.openCounter}>
+        <BaseDialog dialogControllerRef={props.dialogControllerRef}>
             <div className="info-dialog-content">
                 <p><strong className="no-shadow">Chromium</strong></p>
                 <p>version: {chromeVersion ?? "unknown"}</p>
@@ -49,7 +49,11 @@ function InfoDialog(props: BaseDialogOpenProps) {
     )
 }
 
-let openCounter = 0
 export function showInfoDialog() {
-    showDialog(<InfoDialog openCounter={openCounter++} />, INFO_DIALOG_WRAPPER_ID)
+    const id = INFO_DIALOG_WRAPPER_ID
+    const dialogControllerRef = getDialogController(id)
+    showDialog(<InfoDialog dialogControllerRef={dialogControllerRef} />, id)
+    if (dialogControllerRef.current) {
+        dialogControllerRef.current.open()
+    }
 }

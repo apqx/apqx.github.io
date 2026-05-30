@@ -6,7 +6,7 @@ import { EVENT_PAGE_BACK_FROM_CACHE, getEventEmitter, type Events } from "../../
 /**
  * 监听主题变化的 state，延迟 300 ms 修改状态，有的地方需要查询主题的 CSS 属性，延迟可以确保查询到正确的值
  */
-export function useDarkTheme(refreshCount: number): [boolean, () => void] {
+export function useDarkTheme(): [boolean, () => void, () => void] {
     const delay = 300
     const timeoutRef = useRef<NodeJS.Timeout | null>(null)
     const mediaQueryRef = useRef<MediaQueryList>(window.matchMedia("(prefers-color-scheme: dark)"))
@@ -44,6 +44,18 @@ export function useDarkTheme(refreshCount: number): [boolean, () => void] {
         }
     }, [])
 
+    const startListening = useCallback(() => {
+        consoleInfo("useDarkTheme startListening")
+        setIsDark(isDarkThemeFromDocument())
+        // 监听系统主题变化
+        mediaQueryRef.current.addEventListener("change", mediaQueryChangeHandler)
+        // 监听手动切换主题
+        getEventEmitter().on("themeChange", themeChangeHandler)
+        // 监听页面从缓存中加载事件，重新检查主题设置
+        getEventEmitter().on("pageEvent", pageEventHandler)
+
+    }, [themeChangeHandler, mediaQueryChangeHandler, pageEventHandler])
+
     const stopListening = useCallback(() => {
         consoleInfo("useDarkTheme stopListening")
         mediaQueryRef.current.removeEventListener("change", mediaQueryChangeHandler)
@@ -54,21 +66,6 @@ export function useDarkTheme(refreshCount: number): [boolean, () => void] {
         }
     }, [themeChangeHandler, mediaQueryChangeHandler, pageEventHandler])
 
-    useEffect(() => {
-        consoleInfo("useDarkTheme startListening")
-        setIsDark(isDarkThemeFromDocument())
-        // 监听系统主题变化
-        mediaQueryRef.current.addEventListener("change", mediaQueryChangeHandler)
-        // 监听手动切换主题
-        getEventEmitter().on("themeChange", themeChangeHandler)
-        // 监听页面从缓存中加载事件，重新检查主题设置
-        getEventEmitter().on("pageEvent", pageEventHandler)
-
-        return () => {
-            stopListening()
-        }
-    }, [refreshCount])
-
-    return [isDark, stopListening]
+    return [isDark, startListening, stopListening]
 }
 

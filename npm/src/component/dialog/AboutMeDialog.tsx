@@ -1,6 +1,6 @@
 import "./AboutMeDialog.scss"
-import { ABOUT_DIALOG_WRAPPER_ID, BaseDialog, showDialog } from "./BaseDialog"
-import type { BaseDialogOpenProps } from "./BaseDialog"
+import { ABOUT_DIALOG_WRAPPER_ID, BaseDialog, getDialogController, showDialog } from "./BaseDialog"
+import type { BaseDialogController, BaseDialogOpenProps, DialogControllerRef } from "./BaseDialog"
 import { useEffect, useMemo, useRef } from "react"
 import { Tag } from "../react/Tag"
 import { List } from "../react/List"
@@ -19,7 +19,7 @@ function AboutMeDialog(props: BaseDialogOpenProps) {
     }, [])
 
     return (
-        <BaseDialog openCounter={props.openCounter}>
+        <BaseDialog dialogControllerRef={props.dialogControllerRef}>
             <div className="center-inline-items">
                 <picture>
                     <source srcSet="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me_emoji.webp"
@@ -49,7 +49,11 @@ function AboutMeDialog(props: BaseDialogOpenProps) {
     )
 }
 
-let openCounter = 0
 export function showAboutMeDialog() {
-    showDialog(<AboutMeDialog openCounter={openCounter++} />, ABOUT_DIALOG_WRAPPER_ID)
+    const id = ABOUT_DIALOG_WRAPPER_ID
+    const dialogControllerRef = getDialogController(id)
+    showDialog(<AboutMeDialog dialogControllerRef={dialogControllerRef} />, id)
+    if (dialogControllerRef.current) {
+        dialogControllerRef.current.open()
+    }
 }

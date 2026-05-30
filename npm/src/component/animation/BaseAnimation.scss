@@ -67,6 +67,17 @@ $anim-in-out: cubic-bezier(0.4, 0.0, 0.2, 1);
     }
 }
 
+// 无动画显示
+.flash-in {
+    opacity: 0;
+    transform: translateY(0);
+    
+    &.flash-in--start {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 // 标记此类，在元素进入 viewport 时检查用户是否滚动过，若滚动过则变为 fade-in
 // 同时，当元素是从上方滑入也改为 fade-in
 .scroll-to-fade-in {

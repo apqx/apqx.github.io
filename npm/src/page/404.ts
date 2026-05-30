@@ -3,11 +3,11 @@ import { showShortLinkJumpDialog } from "../component/dialog/ShortLinkJumpDialog
 import { consoleInfo } from "../util/log";
 import { runOnHtmlDone, runOnPageDone } from "../util/tools";
 import { initContentCard } from "../component/contentCard";
-
+import { mountLottieAnimation } from "../component/lottie";
 
 export function init404() {
     runOnHtmlDone(() => {
-        // 404页面，卡片默认是隐藏的，由动画类之外的机制控制
+        // 404 页面，卡片默认是隐藏的，由动画类之外的机制控制
         // 这里像其它页面一样正常处理动画类
         initContentCard(false)
     })
@@ -41,12 +41,24 @@ function checkJump() {
     }
     if (pid == null) {
         // 不是短链跳转，如果处于404页，显示404提示（默认是不显示的）
-        const eCard = document.querySelector(".content-card")
-        if (eCard != null) {
-            (eCard as HTMLElement).style.display = "block"
-        }
+        show404()
         return
     }
-    // 查询url映射表中的pid
+    // 查询 url 映射表中的 pid
     showShortLinkJumpDialog(pid)
+}
+
+function show404() {
+    const eCard = document.querySelector(".content-card")
+    if (eCard) {
+        (eCard as HTMLElement).style.display = "block"
+    }
+    initLottie()
+}
+
+function initLottie() {
+    const wrapperE = document.querySelector(".lottie-animation-wrapper.emoji-404")
+    if (wrapperE) {
+        mountLottieAnimation(wrapperE as HTMLElement)
+    }
 }

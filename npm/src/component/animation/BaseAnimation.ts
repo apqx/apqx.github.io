@@ -22,6 +22,9 @@ export function getWindowInterSectionObserver() {
                     } else if (containsFadeInClass(entry.target)) {
                         // consoleObjDebug("Content fade-in", entry.target)
                         handleFadeIn(entry)
+                    } else if (containsFlashInClass(entry.target)) {
+                        // consoleObjDebug("Content flash-in", entry.target)
+                        handleFlashIn(entry)
                     }
                     // 只触发一次动画，之后不再监听
                     getWindowInterSectionObserver().unobserve(entry.target)
@@ -47,6 +50,8 @@ const slideInClasses = ["slide-in", "slide-in-offset", "slide-in-farer", "slide-
 
 const fadeInClasses = ["fade-in"]
 
+const flashInClasses = ["flash-in"]
+
 const fadeClasses = ["fade"]
 
 function containsSlideInClass(element: Element) {
@@ -55,6 +60,10 @@ function containsSlideInClass(element: Element) {
 
 function containsFadeInClass(element: Element) {
     return fadeInClasses.some(className => element.classList.contains(className))
+}
+
+function containsFlashInClass(element: Element) {
+    return flashInClasses.some(className => element.classList.contains(className))
 }
 
 function containsFadeClass(element: Element) {
@@ -161,6 +170,10 @@ function handleFadeIn(entry: IntersectionObserverEntry) {
         startSlideIn(entry.target)
     }
     toggleElementClass(entry.target, "fade-in--start", true)
+}
+
+function handleFlashIn(entry: IntersectionObserverEntry) {
+    toggleElementClass(entry.target, "flash-in--start", true)
 }
 
 function handleSlideInBase(entry: IntersectionObserverEntry, slidFromBottom: boolean) {

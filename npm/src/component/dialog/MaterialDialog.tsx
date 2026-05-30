@@ -1,5 +1,6 @@
+import { useRef } from "react"
 import { List } from "../react/List"
-import { BaseDialog, MATERIAL_DIALOG_WRAPPER_ID, showDialog, type BaseDialogOpenProps } from "./BaseDialog"
+import { BaseDialog, getDialogController, MATERIAL_DIALOG_WRAPPER_ID, showDialog, type BaseDialogController, type BaseDialogOpenProps, type DialogControllerRef } from "./BaseDialog"
 import "./MaterialDialog.scss"
 
 
@@ -7,7 +8,7 @@ function MaterialDialog(props: BaseDialogOpenProps) {
 
 
     return (
-        <BaseDialog openCounter={props.openCounter}>
+        <BaseDialog dialogControllerRef={props.dialogControllerRef}>
             <p>设计与资源列表</p>
             <List oneLine={false} items={[
                 {
@@ -39,7 +40,11 @@ function MaterialDialog(props: BaseDialogOpenProps) {
     )
 }
 
-let openCounter = 0
 export function showMaterialDialog() {
-    showDialog(<MaterialDialog openCounter={openCounter++} />, MATERIAL_DIALOG_WRAPPER_ID)
+    const id = MATERIAL_DIALOG_WRAPPER_ID
+    const dialogControllerRef = getDialogController(id)
+    showDialog(<MaterialDialog dialogControllerRef={dialogControllerRef} />, id)
+    if (dialogControllerRef.current) {
+        dialogControllerRef.current.open()
+    }
 }

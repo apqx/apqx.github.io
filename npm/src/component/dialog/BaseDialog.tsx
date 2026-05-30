@@ -17,8 +17,17 @@ export interface ActionBtn {
 }
 
 export interface BaseDialogOpenProps {
-    openCounter: number
-    closeCounter?: number
+    dialogControllerRef?: DialogControllerRef
+}
+
+export interface DialogControllerRef {
+    current: BaseDialogController | null
+}
+
+export interface BaseDialogController {
+    opened: boolean
+    open: () => void
+    close: () => void
 }
 
 export interface BaseDialogProps extends BaseDialogOpenProps {
@@ -36,8 +45,9 @@ export interface BaseDialogProps extends BaseDialogOpenProps {
 
 const defaultActionBtn: ActionBtn = { text: "关闭", closeOnClick: true, onClick: () => { } }
 
-export function BaseDialog({ openCounter = 0, closeCounter = 0, fixedWidth = false, closeOnClickOutside = true, scrollToTopOnDialogOpen = true,
-    onLoadMore = undefined, onDialogOpen = undefined, onDialogOpening = undefined, onDialogClose = undefined, onDialogClosing = undefined, actions = [defaultActionBtn], children }: BaseDialogProps) {
+export function BaseDialog({ dialogControllerRef = undefined, fixedWidth = false, closeOnClickOutside = true, scrollToTopOnDialogOpen = true,
+    onLoadMore = undefined, onDialogOpen = undefined, onDialogOpening = undefined, onDialogClose = undefined, onDialogClosing = undefined,
+    actions = [defaultActionBtn], children }: BaseDialogProps) {
     const containerRef = useRef<HTMLDivElement>(null)
     const animaERef = useRef<HTMLDivElement>(null)
     const scrollContainerRef = useRef<HTMLDivElement>(null)
@@ -77,6 +87,14 @@ export function BaseDialog({ openCounter = 0, closeCounter = 0, fixedWidth = fal
 
         dialogRef.current!.open()
 
+        if (dialogControllerRef) {
+            dialogControllerRef.current = {
+                opened: false,
+                open: () => dialogRef.current?.open(),
+                close: () => dialogRef.current?.close()
+            }
+        }
+
         return () => {
             consoleInfo("BaseDialog useEffect cleanup")
 
@@ -84,7 +102,7 @@ export function BaseDialog({ openCounter = 0, closeCounter = 0, fixedWidth = fal
             dialogRef.current?.destroy()
         }
 
-    }, [])
+    }, [dialogControllerRef])
 
     // 监听 dialog 内部滚动，触发加载更多
     useEffect(() => {
@@ -111,27 +129,13 @@ export function BaseDialog({ openCounter = 0, closeCounter = 0, fixedWidth = fal
         dialogRef.current.scrimClickAction = closeOnClickOutside ? "close" : ""
     }, [closeOnClickOutside])
 
-    useEffect(() => {
-        consoleInfo("BaseDialog useEffect openCounter = " + openCounter)
-        if (openCounter > 0) {
-            dialogRef.current?.open()
-        }
-    }, [openCounter])
-
-    useEffect(() => {
-        consoleInfo("BaseDialog useEffect closeCounter = " + closeCounter)
-        if (closeCounter > 0) {
-            dialogRef.current?.close()
-        }
-    }, [closeCounter])
-
     function initDialog(rootE: HTMLElement) {
         dialogRef.current = new MDCDialog(rootE)
 
         rootE.addEventListener("transitionend", (event: TransitionEvent) => {
-             const target = event.target as Element
-             if (target != animaERef.current) return
-             const currentTarget = event.currentTarget as Element
+            const target = event.target as Element
+            if (target != animaERef.current) return
+            const currentTarget = event.currentTarget as Element
             //  consoleInfo("BaseDialog transitionend, target = " + target.className + ", currentTarget = " + currentTarget.className)
             //  关闭动画结束后，删除动画类
             if (currentTarget.classList.contains("mdc-dialog--my-closing")) {
@@ -146,10 +150,14 @@ export function BaseDialog({ openCounter = 0, closeCounter = 0, fixedWidth = fal
             }
             toggleScrimActive(true)
         }
+
         const onOpenedListener = () => {
             consoleInfo("Dialog opened")
             if (onDialogOpenRef.current != null) {
                 onDialogOpenRef.current()
+            }
+            if (dialogControllerRef && dialogControllerRef.current) {
+                dialogControllerRef.current.opened = true
             }
             handleFocus()
             if (scrollToTopOnDialogOpenRef.current) {
@@ -171,6 +179,9 @@ export function BaseDialog({ openCounter = 0, closeCounter = 0, fixedWidth = fal
 
         const onClosedListener = () => {
             consoleInfo("Dialog closed")
+            if (dialogControllerRef && dialogControllerRef.current) {
+                dialogControllerRef.current.opened = false
+            }
         }
 
         // 启动 open 动画
@@ -267,6 +278,20 @@ export const AUTH_DIALOG_WRAPPER_ID = "auth-dialog-wrapper"
 // 每个 tag 都使用单独的 dialog
 let dialogContainerE: HTMLElement | null = null
 let rootDialogMap = new Map<string, Root>()
+// 存储每个 dialog 的 controller，key 是 dialogWrapperId 或者 tag
+let dialogControllerMap = new Map<string, DialogControllerRef>()
+
+export function getDialogController(dialogWrapperId: string): DialogControllerRef {
+    if (dialogControllerMap.has(dialogWrapperId)) {
+        return dialogControllerMap.get(dialogWrapperId)!!
+    } else {
+        const controllerRef = {
+            current: null
+        } as DialogControllerRef
+        dialogControllerMap.set(dialogWrapperId, controllerRef)
+        return controllerRef
+    }
+}
 
 export function showDialog(_contentElement: React.JSX.Element, _dialogWrapperId: string) {
     // 如果此时 html 还未加载完成，确实可能出现为 null 的情况

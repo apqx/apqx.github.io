@@ -1,13 +1,14 @@
 import "./PreferenceDialog.scss"
 import { PreferenceDialogViewModel } from "./PreferenceDialogViewModel"
 import { consoleInfo } from "../../util/log"
-import { BaseDialog, PREFERENCE_DIALOG_WRAPPER_ID, showDialog } from "./BaseDialog"
+import { BaseDialog, getDialogController, PREFERENCE_DIALOG_WRAPPER_ID, showDialog } from "./BaseDialog"
 import type { BaseDialogOpenProps } from "./BaseDialog"
 import { NewMdSwitch } from "../react/Switch"
-import React, { useCallback, useEffect, useMemo, useSyncExternalStore } from "react"
+import React, { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from "react"
 import { setupListItemRipple } from "../list"
 import { createHtmlContent } from "../../util/tools"
 import { EVENT_PAGE_BACK_FROM_CACHE, getEventEmitter, type Events } from "../base/EventBus"
+import { LottieAnimation, type LottieAnimationController } from "../react/LottieAnimation"
 
 export function PreferenceDialog(props: BaseDialogOpenProps) {
     const viewModel = useMemo(() => {
@@ -15,6 +16,7 @@ export function PreferenceDialog(props: BaseDialogOpenProps) {
     }, [])
 
     const state = useSyncExternalStore(viewModel.subscribe, () => viewModel.state)
+    const animationControllerRef = useRef<LottieAnimationController | null>(null)
 
     useEffect(() => {
         consoleInfo("PreferenceDialogContent useEffect, subscribe to viewModel")
@@ -40,22 +42,24 @@ export function PreferenceDialog(props: BaseDialogOpenProps) {
     const autoThemeTitle = useMemo(() => {
         return "自适应<a href=\"/post/original/2021/08/03/为博客添加站内搜索和深色模式.html\" tabIndex=\"-1\">主题颜色</a>"
     }, [])
-
+    
     const onDialogOpen = useCallback(() => {
         consoleInfo("PreferenceDialogContent onDialogOpen")
         viewModel.initSettings()
+        animationControllerRef.current?.play()
+    }, [])
+
+    const onDialogClose = useCallback(() => {
+        consoleInfo("PreferenceDialogContent onDialogClose")
+        animationControllerRef.current?.pause()
     }, [])
 
     return (
-        <BaseDialog openCounter={props.openCounter} onDialogOpen={onDialogOpen}>
+        <BaseDialog dialogControllerRef={props.dialogControllerRef} onDialogOpen={onDialogOpen} onDialogClose={onDialogClose}>
             <>
                 <div id="preference-dialog__top-container">
-                    <picture>
-                        <source srcSet="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/noto-animated-emoji/mouth-none/512.webp"
-                            type="image/webp" />
-                        <img className="inline-for-center emoji-preference" alt=""
-                            src="https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/noto-animated-emoji/mouth-none/512.gif" />
-                    </picture>
+                    <LottieAnimation animationDataUrl={"https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/noto-animated-emoji/mouth-none/lottie.json"}
+                        animationControllerRef={animationControllerRef}/>
                 </div>
                 <ul className="mdc-deprecated-list" id="preference-dialog__toggle-container">
                     <SettingsToggle titleHtml="固定顶部导航栏" description="滚动时导航栏固定显示在顶部"
@@ -116,8 +120,12 @@ export function SettingsToggle(props: SettingsToggleProps) {
     )
 }
 
-let openCounter = 0
 export function showPreferenceDialog() {
     consoleInfo("PreferenceDialogContent showPreferenceDialog")
-    showDialog(<PreferenceDialog openCounter={openCounter++} />, PREFERENCE_DIALOG_WRAPPER_ID)
+    const id = PREFERENCE_DIALOG_WRAPPER_ID
+    const dialogControllerRef = getDialogController(id)
+    showDialog(<PreferenceDialog dialogControllerRef={dialogControllerRef} />, id)
+    if (dialogControllerRef.current) {
+        dialogControllerRef.current.open()
+    }
 }

@@ -1,6 +1,6 @@
 import "./ShareDialog.scss"
-import { BaseDialog, SHARE_DIALOG_WRAPPER_ID, showDialog } from "./BaseDialog"
-import type { BaseDialogOpenProps } from "./BaseDialog"
+import { BaseDialog, getDialogController, SHARE_DIALOG_WRAPPER_ID, showDialog } from "./BaseDialog"
+import type { BaseDialogController, BaseDialogOpenProps, DialogControllerRef } from "./BaseDialog"
 import { consoleInfo } from "../../util/log"
 import { useCallback, useEffect, useMemo, useRef } from "react"
 import QRCodeStyling from "qr-code-styling"
@@ -12,7 +12,7 @@ import { useDarkTheme } from "../react/tools/useDarkTheme"
 function ShareDialog(props: BaseDialogOpenProps) {
     const containerRef = useRef<HTMLDivElement>(null)
 
-    const [isDarkTheme, stopListening] = useDarkTheme(props.openCounter)
+    const [isDarkTheme, startListening, stopListening] = useDarkTheme()
 
     const title = useMemo(() => {
         return document.title
@@ -22,6 +22,10 @@ function ShareDialog(props: BaseDialogOpenProps) {
         const encodedUrl = window.location.href
         return encodedUrl.endsWith("/") ? encodedUrl.substring(0, encodedUrl.length - 1) : encodedUrl
     }, [])
+
+    const onDialogOpen = useCallback(() => {
+        startListening()
+    }, [startListening])
 
     const onDialogClose = useCallback(() => {
         stopListening()
@@ -92,7 +96,7 @@ function ShareDialog(props: BaseDialogOpenProps) {
     }, [isDarkTheme])
 
     return (
-        <BaseDialog openCounter={props.openCounter} onDialogClose={onDialogClose}>
+        <BaseDialog dialogControllerRef={props.dialogControllerRef} onDialogOpen={onDialogOpen} onDialogClose={onDialogClose}>
             <div ref={containerRef} className="center-inline-items">
                 <div className="share-qrcode-picture">
                 </div>
@@ -130,9 +134,13 @@ function ShareUrlItem(props: ShareUrlItemProps) {
     )
 }
 
-let openCounter = 0
 export function showShareDialog() {
-    showDialog(<ShareDialog openCounter={openCounter++} />, SHARE_DIALOG_WRAPPER_ID)
+    const id = SHARE_DIALOG_WRAPPER_ID
+    const dialogControllerRef = getDialogController(id)
+    showDialog(<ShareDialog dialogControllerRef={dialogControllerRef} />, id)
+    if (dialogControllerRef.current) {
+        dialogControllerRef.current.open()
+    }
 }
 
 function getQRCodeModulesCount(data: string, errorCorrectionLevel: "L" | "M" | "Q" | "H" = "M") {
