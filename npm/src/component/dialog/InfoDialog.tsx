@@ -4,6 +4,7 @@ import { useDebouncedResize } from "../react/tools/useDebouncedResize"
 import { BaseDialog, INFO_DIALOG_WRAPPER_ID, showDialog, type BaseDialogOpenProps } from "./BaseDialog"
 import { getChromeVersion } from "../../util/tools"
 import { Tag } from "../react/Tag"
+import { Button } from "../react/Button"
 
 
 function InfoDialog(props: BaseDialogOpenProps) {
@@ -40,8 +41,8 @@ function InfoDialog(props: BaseDialogOpenProps) {
                 </p>
                 <p><strong className="no-shadow">Local storage</strong></p>
                 <div className="btn-tag-container">
-                    <Tag text="Clear" onClick={clearLocalStorage}/>
-                    <Tag text="Refresh" onClick={refreshPage}/>
+                    <Button text="Clear" tabIndex={-1} onClick={clearLocalStorage}/>
+                    <Button text="Refresh" tabIndex={-1} onClick={refreshPage}/>
                 </div>
             </div>
         </BaseDialog>

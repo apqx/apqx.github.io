@@ -1,11 +1,8 @@
 @use "../style/global" as base;
 @use "button" as button;
 @use "@material/elevation";
-@use "@material/elevation/mdc-elevation";
 @use "@material/top-app-bar";
-@use "@material/top-app-bar/mdc-top-app-bar";
 @use "@material/icon-button";
-@use "@material/icon-button/mdc-icon-button";
 @use "@material/ripple";
 @use "sass:map";
 @use "sass:color";

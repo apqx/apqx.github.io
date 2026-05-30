@@ -1,8 +1,8 @@
 @use "../style/global" as base;
+// 只包含组件变量和 mixin
 @use "@material/button";
-@use "@material/button/mdc-button";
+// 包含组件样式，只在 scaffold 中引入，其它入口不许再引入，动态加载时机靠后会覆盖 scaffold 中的样式
 @use "@material/icon-button";
-@use "@material/icon-button/mdc-icon-button";
 @use "@material/ripple";
 @use "sass:map";
 @use "sass:color";
@@ -17,6 +17,9 @@
 .mdc-button {
     @include button.container-fill-color(var(--button-bg));
     @include button.ink-color(var(--button-ink));
+    @include button.height(2.5rem);
+    min-width: 3.6rem;
+    text-transform: none;
     
     &:not(:disabled) {
         @include button.ink-color(var(--button-ink));

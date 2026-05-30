@@ -1,8 +1,6 @@
 @use "../style/global" as base;
 @use "@material/typography";
-@use "@material/typography/mdc-typography";
 @use "@material/theme";
-@use "@material/theme/mdc-theme";
 
 @mixin basicText {
     // 使用mdc的字体样式

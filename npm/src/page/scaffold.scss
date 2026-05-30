@@ -1,12 +1,33 @@
+// material 组件由 @material/component 和 @material/component/mdc-component 组成，前者只包含组件变量和 mixin，后者包含组件样式
+// 在这里集中引入组件的样式，避免其它打包入口（包括动态导入创建的打包入口）重复引入，动态导入的组件时机晚于 scaffold，能覆盖 scaffold 中的自定义样式
+@use "@material/theme/mdc-theme";
+@use "@material/elevation/mdc-elevation";
+@use "@material/typography/mdc-typography";
+@use "@material/button/mdc-button";
+@use "@material/icon-button/mdc-icon-button";
+@use "@material/card/mdc-card";
+@use "@material/top-app-bar/mdc-top-app-bar";
+@use "@material/drawer/mdc-drawer";
+@use "@material/drawer/modal/mdc-drawer-modal";
+@use "@material/drawer/dismissible/mdc-drawer-dismissible";
+@use "@material/fab/mdc-fab";
+@use "@material/list/mdc-list";
+@use "@material/data-table/mdc-data-table";
+@use "@material/dialog/mdc-dialog";
+@use "@material/circular-progress/mdc-circular-progress";
+@use "@material/linear-progress/mdc-linear-progress";
+@use "@material/snackbar/mdc-snackbar";
+@use "@material/textfield/mdc-text-field";
+
 @use "../style/global" as base;
 @use "../component/theme" as blogTheme;
 @use "../component/contentCard";
 @use "../component/button";
+@use "../component/list";
 @use "../component/card";
 @use "../component/drawer";
 @use "../component/fab";
 @use "../component/footer";
-@use "../component/list";
 @use "../component/table";
 @use "../component/tag";
 @use "../component/text";
@@ -20,7 +41,6 @@
 // @use "../component/dialog/SearchDialog";
 // @use "../component/dialog/TagDialog";
 // @use "../component/react/Snackbar";
-@use "@material/animation";
 @use "sass:map";
 @use "sass:color";
 

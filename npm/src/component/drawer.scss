@@ -2,16 +2,10 @@
 @use "../component/scrim.scss" as scrim;
 @use "../component/animation/BaseAnimation.scss" as anim;
 @use "@material/drawer";
-@use "@material/drawer/mdc-drawer";
-@use "@material/drawer/modal/mdc-drawer-modal";
-@use "@material/drawer/dismissible/mdc-drawer-dismissible";
 @use "@material/elevation";
-@use "@material/elevation/mdc-elevation";
 @use "@material/ripple";
 @use "@material/button";
-@use "@material/button/mdc-button";
 @use "@material/list";
-@use "@material/list/mdc-list";
 @use "sass:map";
 @use "sass:color";
 

@@ -1,7 +1,6 @@
 // @use "../react/Button";
 // @use "./ProgressCircular";
 @use "@material/button";
-@use '@material/button/mdc-button';
 @use "@material/ripple";
 
 @mixin baseFadeIn {
