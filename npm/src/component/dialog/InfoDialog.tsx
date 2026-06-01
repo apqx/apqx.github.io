@@ -5,6 +5,7 @@ import { BaseDialog, getDialogController, INFO_DIALOG_WRAPPER_ID, showDialog, ty
 import { getChromeVersion } from "../../util/tools"
 import { Tag } from "../react/Tag"
 import { Button } from "../react/Button"
+import { List } from "../react/List"
 
 
 function InfoDialog(props: BaseDialogOpenProps) {
@@ -26,24 +27,33 @@ function InfoDialog(props: BaseDialogOpenProps) {
     }, [])
 
     return (
-        <BaseDialog dialogControllerRef={props.dialogControllerRef}>
+        <BaseDialog dialogControllerRef={props.dialogControllerRef} fixedWidth={false}>
             <div className="info-dialog-content">
-                <p><strong className="no-shadow">Chromium</strong></p>
-                <p>version: {chromeVersion ?? "unknown"}</p>
-                <p><strong className="no-shadow">Window</strong></p>
-                <p>{window.innerWidth} x {window.innerHeight}</p>
-                <p><strong className="no-shadow">Insets</strong></p>
+                <p><strong className="no-shadow">Information</strong></p>
                 <p>
-                    top: {getComputedStyle(document.body).getPropertyValue('--safe-area-inset-top')}<br />
-                    bottom: {getComputedStyle(document.body).getPropertyValue('--safe-area-inset-bottom')}<br />
-                    left: {getComputedStyle(document.body).getPropertyValue('--safe-area-inset-left')}<br />
-                    right: {getComputedStyle(document.body).getPropertyValue('--safe-area-inset-right')}
+                    chromium version: {chromeVersion ?? "unknown"}<br />
+                    window size: {window.innerWidth} x {window.innerHeight}<br />
+                    insets top: {getComputedStyle(document.body).getPropertyValue('--safe-area-inset-top')}<br />
+                    insets bottom: {getComputedStyle(document.body).getPropertyValue('--safe-area-inset-bottom')}<br />
+                    insets left: {getComputedStyle(document.body).getPropertyValue('--safe-area-inset-left')}<br />
+                    insets right: {getComputedStyle(document.body).getPropertyValue('--safe-area-inset-right')}
                 </p>
-                <p><strong className="no-shadow">Local storage</strong></p>
+                <p><strong className="no-shadow">Actions</strong></p>
                 <div className="btn-tag-container">
-                    <Button text="Clear" tabIndex={-1} onClick={clearLocalStorage}/>
-                    <Button text="Refresh" tabIndex={-1} onClick={refreshPage}/>
+                    <Tag text="Clear cookies" onClick={clearLocalStorage} />
+                    <Tag text="Refresh page" onClick={refreshPage} />
                 </div>
+                <p><strong className="no-shadow">Links</strong></p>
+                <List oneLine={false} items={[
+                    {
+                        title: "Share", description: document.location.origin + "/share",
+                        link: "/share", newPage: true
+                    },
+                    {
+                        title: "Sitemap", description: document.location.origin + "/sitemap.xml",
+                        link: "/sitemap.xml", newPage: true
+                    }
+                ]} />
             </div>
         </BaseDialog>
     )

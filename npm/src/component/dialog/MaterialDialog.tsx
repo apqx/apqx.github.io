@@ -32,6 +32,10 @@ function MaterialDialog(props: BaseDialogOpenProps) {
                     link: "https://material-web.dev", newPage: true
                 },
                 {
+                    title: "Material Symbols & Fonts", description: "https://fonts.google.com/icons",
+                    link: "https://fonts.google.com/icons", newPage: true
+                },
+                {
                     title: "Noto Animated Color Emoji", description: "https://googlefonts.github.io/noto-emoji-animation",
                     link: "https://googlefonts.github.io/noto-emoji-animation/", newPage: true
                 },

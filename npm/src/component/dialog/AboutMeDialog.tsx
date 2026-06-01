@@ -1,6 +1,6 @@
 import "./AboutMeDialog.scss"
 import { ABOUT_DIALOG_WRAPPER_ID, BaseDialog, getDialogController, showDialog } from "./BaseDialog"
-import type { BaseDialogController, BaseDialogOpenProps, DialogControllerRef } from "./BaseDialog"
+import type { BaseDialogOpenProps } from "./BaseDialog"
 import { useEffect, useMemo, useRef } from "react"
 import { Tag } from "../react/Tag"
 import { List } from "../react/List"

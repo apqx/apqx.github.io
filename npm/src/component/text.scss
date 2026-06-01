@@ -111,6 +111,36 @@ code {
     margin: 0;
 }
 
+pre {
+    &:has(code) {
+        position: relative;
+        // border: 1px solid var(--pre-code-border);
+        border-radius: var(--post-inner-shape-round);
+
+        &:before {
+            content: "";
+            position: absolute;
+            display: block;
+            top: 0;
+            left: 0;
+            width: var(--text-block-padding-horizontal);
+            height: 100%;
+            background: linear-gradient(to right, var(--pre-code-bg), transparent);
+        }
+
+        &:after {
+            content: "";
+            position: absolute;
+            display: block;
+            top: 0;
+            right: 0;
+            width: var(--text-block-padding-horizontal);
+            height: 100%;
+            background: linear-gradient(to left, var(--pre-code-bg), transparent);
+        }
+    }
+}
+
 // 代码块
 pre code,
 pre code.hljs {
@@ -120,10 +150,9 @@ pre code.hljs {
     line-height: calc(var(--mdc-typography-body1-line-height) - 0.2rem);
     // 独立代码块字重为 normal
     font-weight: base.$font-weight-normal-default;
-    border-radius: var(--post-inner-shape-round);
-    padding: 1rem;
+    
+    padding: var(--text-block-padding-vertical) var(--text-block-padding-horizontal);
     background: var(--pre-code-bg);
-    // border: 1px solid var(--pre-code-border);
 }
 
 /* 段落中单词高亮 */
@@ -175,7 +204,7 @@ p.no-justify {
 
 li {
     @include basicText();
-    // item间距
+    // item 间距
     margin: calc(var(--mdc-typography-body1-font-size) / 10) 0;
 }
 
@@ -186,7 +215,7 @@ em {
 
 strong,
 b {
-    // 霞鹜文楷粗体只提供medium
+    // 霞鹜文楷粗体只提供 medium
     font-weight: var(--font-weight-medium);
 }
 
@@ -206,7 +235,7 @@ strong {
 }
 
 a {
-    // 以::after伪元素方式实现下划线
+    // 以 ::after 伪元素方式实现下划线
     position: relative;
     text-decoration: underline;
     // 下划线与文字的间距
@@ -219,7 +248,7 @@ a {
 }
 
 a.clickable-empty-link {
-    // url为空的<a>
+    // url 为空的 <a>
     cursor: pointer;
 }
 
@@ -279,7 +308,7 @@ time {
     // border: 1px solid var(--surface-block-border);
     border-radius: var(--post-inner-shape-round);
     background: var(--surface-block-bg);
-    padding: 1rem 1.3rem;
+    padding: var(--text-block-padding-vertical) var(--text-block-padding-horizontal);
 }
 
 // 引用段落
@@ -306,11 +335,11 @@ audio {
 }
 
 // 手写诗文，保持原有排版，横向滚动
-// 此时，如果是blockquote，注意不要行尾加双空格，jekyll会处理成以下格式，导致行1和行2之间多了一行
-// <p>行1
+// 此时，如果是 blockquote，注意不要行尾加双空格，jekyll 会处理成以下格式，导致行 1 和行 2 之间多了一行
+// <p>行 1
 // <br/>
-// 行2</p>
-// jekyll会把 > 转换为以下格式，这里只给p加white-space: pre，如果blockquote加了，则上下会多一行
+// 行 2</p>
+// jekyll 会把 > 转换为以下格式，这里只给 p 加 white-space: pre，如果 blockquote 加了，则上下会多一行
 // <blockquote>
 // <p>文本</p>
 // </blockquote>

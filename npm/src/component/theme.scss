@@ -232,6 +232,9 @@ body {
 
         --topbar-height: 3.9rem;
 
+        --text-block-padding-vertical: 1rem;
+        --text-block-padding-horizontal: 1.3rem;
+
         // main container 为中央主体容器，设置最大宽度，水平居中，此为其顶部距 topbar 和底部距 footer 的距离
         --main-container-padding-vertical: 1.2rem;
         // center card 为主体容器中的主体卡片，即文章卡片和列表卡片，居中显示，此为其左右距容器边界的距离
