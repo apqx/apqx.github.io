@@ -36,6 +36,8 @@
         // Button
         --button-bg: #{map.get(base.$button-bg, "light")};
         --button-ink: #{map.get(base.$button-ink, "light")};
+        --button-ripple: #{map.get(base.$button-ripple, "light")};
+        --icon-button-ripple: #{map.get(base.$icon-button-ripple, "light")};
         --navigation: #{map.get(base.$text-subtitle, "light")};
 
         // Code
@@ -50,6 +52,7 @@
         // Chip
         --chip-bg: #{map.get(base.$chip-bg, "light")};
         --chip-ink: #{map.get(base.$chip-ink, "light")};
+        --chip-ripple: #{map.get(base.$chip-ripple, "light")};
         --chip-checked-bg: #{map.get(base.$chip-bg, "dark")};
         --chip-checked-ink: #{map.get(base.$chip-ink, "dark")};
         --list-chip-1-bg: #{map.get(base.$text-block-1-bg, "light")};
@@ -82,6 +85,8 @@
 
         --snackbar-bg: #{map.get(base.$snackbar-bg, "light")};
         --snackbar-ink: #{map.get(base.$snackbar-ink, "light")};
+
+        --test-color: white;
 }
 
 @mixin dark {
@@ -102,7 +107,7 @@
 
         // Drawer
         --drawer-scrim-bg: #{map.get(base.$scrim, "dark")};
-        
+
         // Dialog
         --dialog-scrim-bg: #{map.get(base.$scrim, "dark")};
         --dialog-action-btn-bg: #{map.get(base.$dialog-action-btn-bg, "dark")};
@@ -110,6 +115,8 @@
 
         --button-bg: #{map.get(base.$button-bg, "dark")};
         --button-ink: #{map.get(base.$button-ink, "dark")};
+        --button-ripple: #{map.get(base.$button-ripple, "dark")};
+        --icon-button-ripple: #{map.get(base.$icon-button-ripple, "dark")};
         --navigation: #{map.get(base.$text-subtitle, "dark")};
 
         // Code
@@ -123,6 +130,7 @@
         // Chip
         --chip-bg: #{map.get(base.$chip-bg, "dark")};
         --chip-ink: #{map.get(base.$chip-ink, "dark")};
+        --chip-ripple: #{map.get(base.$chip-ripple, "dark")};
         --chip-checked-bg: #{map.get(base.$chip-bg, "light")};
         --chip-checked-ink: #{map.get(base.$chip-ink, "light")};
         --list-chip-1-bg: #{map.get(base.$text-block-1-bg, "dark")};
@@ -154,6 +162,8 @@
 
         --snackbar-bg: #{map.get(base.$snackbar-bg, "dark")};
         --snackbar-ink: #{map.get(base.$snackbar-ink, "dark")};
+
+        --test-color: black;
 }
 
 body {

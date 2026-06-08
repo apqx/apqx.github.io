@@ -270,8 +270,8 @@ $strong: (
 );
 
 $strong-under-line: (
-        light: color.adjust(map.get($surface, "light"), $lightness: -12%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: +12%),
+        light: color.adjust(map.get($surface, "light"), $lightness: -14%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: +14%),
 );
 
 // 使 border 与 bg 亮度差为 2

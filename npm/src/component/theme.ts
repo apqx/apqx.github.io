@@ -1,14 +1,18 @@
 // import "./theme.scss"
-import { isChrome, isMobileOrTablet, toggleElementClass } from "../util/tools"
+import { isMobileOrTablet, toggleElementClass } from "../util/tools"
 import { consoleInfo } from "../util/log"
 import { getLocalRepository } from "../repository/LocalDb"
 import { setToggleThemeIconDarkOn, toggleTopbarGlass } from "./topbar"
 import { showSnackbar } from "./react/Snackbar"
 import { EVENT_PAGE_BACK_FROM_CACHE, getEventEmitter, type Events } from "./base/EventBus"
+import { applyModernM3Theme, materialYouThemeFromSourceColor, type MaterialYouTheme } from "../util/material"
 
 export const darkClass = "dark"
 
+let dynamicTheme: MaterialYouTheme | null = null
+
 export function initTheme() {
+    initDynamicThemeColor()
     checkColorfulToolbar()
     checkUserTheme()
     // 监听系统级主题变化，即系统和导航栏都可以控制主题变化
@@ -29,6 +33,12 @@ export function initTheme() {
             checkUserTheme()
         }
     })
+}
+
+function initDynamicThemeColor() {
+    // 生成 Material You 主题色插入到 CSS 变量中
+    // https://material-web.dev/theming/color/
+    dynamicTheme = materialYouThemeFromSourceColor('#5a5fc1');
 }
 
 export function isDarkThemeFromDocument(): boolean {
@@ -155,6 +165,9 @@ function saveTheme(theme: string) {
 
 export function checkUserTheme(showToast: boolean = false) {
     const dark = isDarkThemeFromSysAndUserSettings()
+    if (dynamicTheme != null) {
+        applyModernM3Theme(dynamicTheme, dark)
+    }
     showThemeDark(dark)
     if (!showToast) return
 

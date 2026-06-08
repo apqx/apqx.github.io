@@ -65,7 +65,7 @@ export function initTopbar() {
 }
 
 
-export function setFixedTopbar(on: boolean) {
+function setFixedTopbar(on: boolean) {
     consoleInfo("setFixedTopbar " + on)
     // 监听滚动，平滑隐藏/显示
     // if (on) {

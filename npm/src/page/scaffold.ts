@@ -1,7 +1,6 @@
 import "./scaffold.scss"
-import { isChrome, isWriting, runOnHtmlDone, runOnPageBackFromCache, runOnPageDone, toggleElementClass } from "../util/tools"
+import { isWriting, runOnHtmlDone, runOnPageBackFromCache, runOnPageDone, toggleElementClass } from "../util/tools"
 import { initTopbar } from "../component/topbar"
-import { initDrawer } from "../component/drawer"
 import { initTheme } from "../component/theme"
 import { getLocalRepository, initLocalRepository } from "../repository/LocalDb"
 import { initFont } from "../component/font/font"
@@ -16,17 +15,14 @@ import { loadGoogleAnalytics } from "../util/gtag"
 import { initFooter } from "../component/footer"
 import { initCard } from "../component/card"
 import { is404Page, isIndexPage, isPostPage } from "../base/constant"
-import supportsWebP from "supports-webp"
-import { showSimpleAlertDialog } from "../component/dialog/CommonAlertDialog"
-import { ResizeWidthObserver } from "../base/ResizeWidthObserver"
 import { EVENT_PAGE_BACK_FROM_CACHE, getEventEmitter, type Events } from "../component/base/EventBus"
 import { initScrim } from "../component/scrim"
+import { initDrawer } from "../component/drawer"
 
 initScaffold()
 
 export function initScaffold() {
     runOnHtmlDone(() => {
-        // checkBrowser()
         checkPage()
         initLocalRepository()
         initFont()
@@ -49,7 +45,6 @@ export function initScaffold() {
     })
 
     runOnPageDone(() => {
-        checkWebpSupport()
         loadGoogleAnalytics()
     })
 
@@ -116,18 +111,6 @@ window.addEventListener("pagehide", (event) => {
     consoleInfo("Window event: pagehide")
 });
 
-function checkWebpSupport() {
-    supportsWebP.then(supported => {
-        if (!supported) {
-            const urlLink = `
-            当前浏览器不支持 <a href="https://caniuse.com/?search=webp" target="_blank">WebP</a> 格式，部分图片可能无法显示，请更新浏览器版本。
-            `
-            showSimpleAlertDialog("提示", urlLink, "关闭", () => {
-
-            })
-        }
-    })
-}
 
 var statusBarProtectorE: HTMLElement | null = null
 
@@ -172,28 +155,4 @@ function checkTest() {
     const urlParams = new URLSearchParams(window.location.search)
     const fontSans = urlParams.get("fontSans")
 
-}
-
-function checkBrowser() {
-    // 解决移动端Chrome字体问题，在小米手机上可能字体过大，原因是窗口宽度过小，所以为小宽度设置一个合适的字体大小
-    if (isChrome()) {
-        const updateChromeClass = (width: number) => {
-            consoleInfo("Chrome detected, window width: " + width)
-            if (width < 400) {
-                consoleInfo("Chrome windowWidth < 400px, set fontSize to 14.5px")
-                document.documentElement.style.fontSize = "14.5px"
-            } else if (width >= 400 && width < 410) {
-                consoleInfo("Chrome windowWidth >= 400px, < 410px, set fontSize to 15px")
-                document.documentElement.style.fontSize = "15px"
-            } else {
-                consoleInfo("Chrome windowWidth >= 410px, set fontSize to unset")
-                document.documentElement.style.fontSize = "unset"
-            }
-        }
-        updateChromeClass(window.innerWidth)
-        new ResizeWidthObserver(document.documentElement, (width) => {
-            updateChromeClass(width)
-        })
-    }
-    // alert("width = " + window.innerWidth)
 }

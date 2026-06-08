@@ -117,27 +117,28 @@ pre {
         // border: 1px solid var(--pre-code-border);
         border-radius: var(--post-inner-shape-round);
 
-        &:before {
-            content: "";
-            position: absolute;
-            display: block;
-            top: 0;
-            left: 0;
-            width: var(--text-block-padding-horizontal);
-            height: 100%;
-            background: linear-gradient(to right, var(--pre-code-bg), transparent);
-        }
+        // 代码块两侧渐变遮罩，提示可横向滚动
+        // &:before {
+        //     content: "";
+        //     position: absolute;
+        //     display: block;
+        //     top: 0;
+        //     left: 0;
+        //     width: var(--text-block-padding-horizontal);
+        //     height: 100%;
+        //     background: linear-gradient(to right, var(--pre-code-bg), transparent);
+        // }
 
-        &:after {
-            content: "";
-            position: absolute;
-            display: block;
-            top: 0;
-            right: 0;
-            width: var(--text-block-padding-horizontal);
-            height: 100%;
-            background: linear-gradient(to left, var(--pre-code-bg), transparent);
-        }
+        // &:after {
+        //     content: "";
+        //     position: absolute;
+        //     display: block;
+        //     top: 0;
+        //     right: 0;
+        //     width: var(--text-block-padding-horizontal);
+        //     height: 100%;
+        //     background: linear-gradient(to left, var(--pre-code-bg), transparent);
+        // }
     }
 }
 

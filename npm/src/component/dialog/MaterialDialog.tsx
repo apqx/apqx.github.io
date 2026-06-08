@@ -1,4 +1,3 @@
-import { useRef } from "react"
 import { List } from "../react/List"
 import { BaseDialog, getDialogController, MATERIAL_DIALOG_WRAPPER_ID, showDialog, type BaseDialogController, type BaseDialogOpenProps, type DialogControllerRef } from "./BaseDialog"
 import "./MaterialDialog.scss"
@@ -32,9 +31,13 @@ function MaterialDialog(props: BaseDialogOpenProps) {
                     link: "https://material-web.dev", newPage: true
                 },
                 {
+                    title: "Material Theme Builder", description: "https://material-foundation.github.io/material-theme-builder",
+                    link: "https://material-foundation.github.io/material-theme-builder", newPage: true
+                },
+                {
                     title: "Material Symbols & Fonts", description: "https://fonts.google.com/icons",
                     link: "https://fonts.google.com/icons", newPage: true
-                },
+                },                
                 {
                     title: "Noto Animated Color Emoji", description: "https://googlefonts.github.io/noto-emoji-animation",
                     link: "https://googlefonts.github.io/noto-emoji-animation/", newPage: true

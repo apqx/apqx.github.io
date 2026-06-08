@@ -26,6 +26,7 @@
     "@material/icon-button": "^14.0.0",
     "@material/linear-progress": "^14.0.0",
     "@material/list": "^14.0.0",
+    "@material/material-color-utilities": "^0.4.0",
     "@material/ripple": "^14.0.0",
     "@material/snackbar": "^14.0.0",
     "@material/switch": "^14.0.0",
@@ -44,7 +45,6 @@
     "qr-code-styling": "^1.9.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "supports-webp": "^3.0.0",
     "tslog": "^4.10.2"
   },
   "devDependencies": {
