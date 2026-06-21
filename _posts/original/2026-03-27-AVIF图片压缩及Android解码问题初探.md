@@ -4,7 +4,7 @@ categories: original
 title: "AVIF 图片压缩及 Android 解码问题初探"
 author: 立泉
 mention: 硬件编解码器 色域 AV1 ICC CICP YUV420
-date: 2026-03-27 +0800
+date: 2026-03-27 19:30:00 +0800
 description: 博客图片同时提供小尺寸缩略图和全尺寸原图，为节省数据流量 thumb 缩略图已经转向 WebP，但顾及兼容性，尤其分享的摄影照片依旧使用 JPG。不过伴随填充「透镜」的照片数量增多，占用的 OSS 存储容量也在快速膨胀，为控制存储和带宽成本，切换到一种更高效的现代图片格式是必须考虑的事情。
 cover: 
 tags: Code Android AVIF AV1 ICC CICP 色域

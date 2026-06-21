@@ -4,7 +4,7 @@ categories: original
 title: "Gemini CLI 登录代理与 OAuth 授权"
 author: 立泉
 mention: Clash Proxy OAuth2 Terminal 环境变量
-date: 2026-01-14 +0800
+date: 2026-01-14 19:30:00 +0800
 description: 订阅后安装 Gemini CLI 终端工具，开启系统代理却始终无法登录，终端启动的浏览器授权页正常打开但似乎不能将授权结果传递回来，问题根源在于 Terminal 不会自动应用系统代理设置。
 cover: 
 tags: Code AI Gemini Proxy OAuth2 环境变量
