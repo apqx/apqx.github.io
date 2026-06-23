@@ -1,4 +1,4 @@
-@use "../style/global" as base;
+@use "../../style/global.scss" as base;
 @use "sass:map";
 
 @mixin baseScrim {

@@ -16,7 +16,6 @@ import { initFooter } from "../component/footer"
 import { initCard } from "../component/card"
 import { is404Page, isIndexPage, isPostPage } from "../base/constant"
 import { EVENT_PAGE_BACK_FROM_CACHE, getEventEmitter, type Events } from "../component/base/EventBus"
-import { initScrim } from "../component/scrim"
 import { initDrawer } from "../component/drawer"
 
 initScaffold()
@@ -31,7 +30,6 @@ export function initScaffold() {
         initFooter()
         initTheme()
         initDrawer()
-        initScrim()
         initFab()
         initTag()
         initButton()

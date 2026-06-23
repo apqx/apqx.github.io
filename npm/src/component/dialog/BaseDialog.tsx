@@ -6,9 +6,9 @@ import { createRoot } from "react-dom/client"
 import type { Root } from "react-dom/client"
 import { setupButtonRipple } from "../button"
 import { ScrollLoader } from "../../base/ScrollLoader"
-import { toggleScrimActive } from "../scrim"
 import { ScrollContext } from "../react/LoadingHint"
 import { toggleElementClass } from "../../util/tools"
+import { Scrim, type ScrimController } from "../react/Scrim"
 
 export interface ActionBtn {
     text: string,
@@ -48,7 +48,8 @@ const defaultActionBtn: ActionBtn = { text: "关闭", closeOnClick: true, onClic
 export function BaseDialog({ dialogControllerRef = undefined, fixedWidth = false, closeOnClickOutside = true, scrollToTopOnDialogOpen = true,
     onLoadMore = undefined, onDialogOpen = undefined, onDialogOpening = undefined, onDialogClose = undefined, onDialogClosing = undefined,
     actions = [defaultActionBtn], children }: BaseDialogProps) {
-    const containerRef = useRef<HTMLDivElement>(null)
+    const dialogContainerRef = useRef<HTMLDivElement>(null)
+    const scrimControllerRef = useRef<ScrimController | null>(null)
     const animaERef = useRef<HTMLDivElement>(null)
     const scrollContainerRef = useRef<HTMLDivElement>(null)
     const dialogContentRef = useRef<HTMLDivElement>(null)
@@ -73,7 +74,7 @@ export function BaseDialog({ dialogControllerRef = undefined, fixedWidth = false
 
     useEffect(() => {
         consoleInfo("BaseDialog useEffect")
-        const rootE = containerRef.current as Element
+        const rootE = dialogContainerRef.current as Element
         dialogContentRef.current = rootE.querySelector("#basic-dialog-content") as HTMLDivElement
 
         rootE.querySelectorAll(".basic-dialog_btn_action").forEach((ele) => {
@@ -148,7 +149,7 @@ export function BaseDialog({ dialogControllerRef = undefined, fixedWidth = false
             if (onDialogOpeningRef.current != null) {
                 onDialogOpeningRef.current()
             }
-            toggleScrimActive(true)
+            scrimControllerRef.current?.open()
         }
 
         const onOpenedListener = () => {
@@ -171,7 +172,7 @@ export function BaseDialog({ dialogControllerRef = undefined, fixedWidth = false
             if (onDialogClosingRef.current != null) {
                 onDialogClosingRef.current()
             }
-            toggleScrimActive(false)
+            scrimControllerRef.current?.close()
             if (onDialogCloseRef.current != null) {
                 onDialogCloseRef.current()
             }
@@ -228,38 +229,41 @@ export function BaseDialog({ dialogControllerRef = undefined, fixedWidth = false
     }
 
     return (
-        <div ref={containerRef} className="mdc-dialog">
-            <div ref={animaERef} className="mdc-dialog__container">
-                <div
-                    className={fixedWidth ? "mdc-dialog__surface mdc-dialog__fixed-width" : "mdc-dialog__surface"}
-                    role="alertdialog" aria-modal="true"
-                    aria-labelledby="basic-dialog-title"
-                    aria-describedby="basic-dialog-content">
-                    <ScrollContext.Provider value={scrollContainerRef}>
-                        <div ref={scrollContainerRef} className="mdc-dialog__content mdc-theme--on-surface"
-                            id="basic-dialog-content">
-                            {children}
-                        </div>
-                    </ScrollContext.Provider>
+        <>
+            <div ref={dialogContainerRef} className="mdc-dialog">
+                <div ref={animaERef} className="mdc-dialog__container">
+                    <div
+                        className={fixedWidth ? "mdc-dialog__surface mdc-dialog__fixed-width" : "mdc-dialog__surface"}
+                        role="alertdialog" aria-modal="true"
+                        aria-labelledby="basic-dialog-title"
+                        aria-describedby="basic-dialog-content">
+                        <ScrollContext.Provider value={scrollContainerRef}>
+                            <div ref={scrollContainerRef} className="mdc-dialog__content mdc-theme--on-surface"
+                                id="basic-dialog-content">
+                                {children}
+                            </div>
+                        </ScrollContext.Provider>
 
-                    {actions && actions.length > 0 &&
-                        <div className="mdc-dialog__actions basic-dialog_actions">
-                            {actions.map((btn, index) =>
-                                <button type="button"
-                                    className="mdc-button basic-dialog_btn_action"
-                                    data-mdc-dialog-action={btn.closeOnClick ? "close" : ""}
-                                    onClick={btn.onClick}
-                                    tabIndex={0}>
-                                    <span className="mdc-button__label"
-                                    >{btn.text}</span>
-                                </button>
-                            )}
-                        </div>
-                    }
+                        {actions && actions.length > 0 &&
+                            <div className="mdc-dialog__actions basic-dialog_actions">
+                                {actions.map((btn, index) =>
+                                    <button type="button"
+                                        className="mdc-button basic-dialog_btn_action"
+                                        data-mdc-dialog-action={btn.closeOnClick ? "close" : ""}
+                                        onClick={btn.onClick}
+                                        tabIndex={0}>
+                                        <span className="mdc-button__label"
+                                        >{btn.text}</span>
+                                    </button>
+                                )}
+                            </div>
+                        }
+                    </div>
                 </div>
+                <div className="mdc-dialog__scrim"></div>
             </div>
-            <div className="mdc-dialog__scrim"></div>
-        </div>
+            <Scrim controllerRef={scrimControllerRef} />
+        </>
     )
 }
 

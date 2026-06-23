@@ -31,8 +31,8 @@ function InfoDialog(props: BaseDialogOpenProps) {
             <div className="info-dialog-content">
                 <p><strong className="no-shadow">Information</strong></p>
                 <p>
-                    chromium version: {chromeVersion ?? "unknown"}<br />
-                    window size: {window.innerWidth} x {window.innerHeight}<br />
+                    chromium: {chromeVersion ?? "unknown"}<br />
+                    window: {window.innerWidth} x {window.innerHeight}<br />
                     insets top: {getComputedStyle(document.body).getPropertyValue('--safe-area-inset-top')}<br />
                     insets bottom: {getComputedStyle(document.body).getPropertyValue('--safe-area-inset-bottom')}<br />
                     insets left: {getComputedStyle(document.body).getPropertyValue('--safe-area-inset-left')}<br />
