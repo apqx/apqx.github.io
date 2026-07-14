@@ -1,11 +1,11 @@
 @use "../../style/global" as base;
 @use "../react/Scrim.scss" as scrim;
+@use "../ripple.scss" as ripple;
 @use "../animation/BaseAnimation.scss" as anim;
 @use "@material/dialog";
 @use "@material/elevation";
 @use "@material/theme";
 @use "@material/button";
-@use "@material/ripple";
 @use "sass:map";
 @use "sass:color";
 
@@ -177,17 +177,8 @@
 
     @include button.container-fill-color(var(--dialog-action-btn-bg));
     @include button.ink-color(var(--dialog-action-btn-ink));
-    // 启用 ripple 的 radius-bounded 可能导致某些东西溢出元素，导致整个页面宽度不正常可以横向滚动
-    // 加上这个则可以解决🤔
-    overflow: hidden;
-    @include ripple.surface;
-    @include ripple.radius-bounded;
-    @include ripple.states-base-color(map.get(base.$dialog-action-btn-ripple, "light"));
-    @include ripple.states-opacities((hover: .0, focus: .0, press: .1));
-}
 
-.dark .mdc-button.basic-dialog_btn_action {
-    @include ripple.states-base-color(map.get(base.$dialog-action-btn-ripple, "dark"));
+    @include ripple.ripple(var(--dialog-action-btn-ripple), 0, 0, 0.1);
 }
 
 .mdc-dialog__content .mdc-deprecated-list {

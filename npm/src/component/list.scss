@@ -1,6 +1,6 @@
 @use "../style/global" as base;
+@use "./ripple.scss" as ripple;
 @use "@material/list";
-@use "@material/ripple";
 @use "sass:map";
 @use "sass:color";
 
@@ -29,11 +29,7 @@ $listItemRadius: 0.2rem;
 // 效果似乎是与原有 __ripple 叠加🤔
 // hover 与 press 的透明度在点击的时候是叠加的，所以可以一致
 .mdc-deprecated-list-item {
-    overflow: hidden;
-    @include ripple.surface;
-    @include ripple.radius-bounded;
-    @include ripple.states-base-color(map.get(base.$list-ripple, "light"));
-    @include ripple.states-opacities((hover: .06, focus: .06, press: .06));
+    @include ripple.ripple(var(--list-ripple), 0.06, 0.06, 0.06);
     padding: 0.6rem 1rem;
     height: fit-content;
 
@@ -43,11 +39,7 @@ $listItemRadius: 0.2rem;
 }
 
 .mdc-deprecated-list-item.mdc-deprecated-list-item__no-hover {
-    @include ripple.states-opacities((hover: 0, focus: 0, press: .06));
-}
-
-.dark .mdc-deprecated-list-item {
-    @include ripple.states-base-color(map.get(base.$list-ripple, "dark"));
+    @include ripple.ripple(var(--list-ripple), 0, 0, 0.06);
 }
 
 .mdc-deprecated-list-item:before,

@@ -1,0 +1,14 @@
+@use "@material/ripple";
+
+// baseColor 是 css 变量，hover, focus opacity 是 0～1 之间的数字
+@mixin ripple($baseColor: white, $hover: 0, $focus: 0, $opacity: 0.1) {
+    // ripple 元素内部会填充一个大尺寸伪元素用语绘制动画，需要设置 overflow: hidden，否则可能出现尺寸异常
+    overflow: hidden;
+    @include ripple.surface;
+    // 如果为 bounded 则宽度可能有问题，导致横向溢出，滚动🤔
+    // 设置其 surface 的 overflow 为 hidden
+    // Dialog 的 surface 的尺寸异常导致滚动，已设置设置其 overflow 为 clip
+    @include ripple.radius-bounded;
+    @include ripple.states-base-color($baseColor);
+    @include ripple.states-opacities((hover: $hover, focus: $focus, press: $opacity));
+}

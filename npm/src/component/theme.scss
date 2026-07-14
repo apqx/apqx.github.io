@@ -27,11 +27,15 @@
 
         // Drawer
         --drawer-scrim-bg: #{map.get(base.$scrim, "light")};
+        --drawer-nav-ripple: #{map.get(base.$drawer-nav-ripple, "light")};
 
         // Dialog
         --dialog-scrim-bg: #{map.get(base.$scrim, "light")};
         --dialog-action-btn-bg: #{map.get(base.$dialog-action-btn-bg, "light")};
         --dialog-action-btn-ink: #{map.get(base.$dialog-action-btn-ink, "light")};
+        --dialog-action-btn-ripple: #{map.get(base.$dialog-action-btn-ripple, "light")};
+
+        --card-ripple: #{map.get(base.$card-ripple, "light")};
 
         // Button
         --button-bg: #{map.get(base.$button-bg, "light")};
@@ -75,10 +79,10 @@
         --surface-block-border-heavy: #{map.get(base.$surface-block-border-heavy, "light")};
         --surface-block-bg: #{map.get(base.$surface-block-bg, "light")};
 
-
         --list-border: #{map.get(base.$list-border, "light")};
         --list-bg: #{map.get(base.$list-bg, "light")};
         --list-divider-color: #{map.get(base.$list-border, "light")};
+        --list-ripple: #{map.get(base.$list-ripple, "light")};
 
         --textfield-border: #{map.get(base.$textfield-border, "light")};
         --common-divider-color: #{map.get(base.$common-divider-color, "light")};
@@ -107,11 +111,15 @@
 
         // Drawer
         --drawer-scrim-bg: #{map.get(base.$scrim, "dark")};
+        --drawer-nav-ripple: #{map.get(base.$drawer-nav-ripple, "dark")};
 
         // Dialog
         --dialog-scrim-bg: #{map.get(base.$scrim, "dark")};
         --dialog-action-btn-bg: #{map.get(base.$dialog-action-btn-bg, "dark")};
         --dialog-action-btn-ink: #{map.get(base.$dialog-action-btn-ink, "dark")};
+        --dialog-action-btn-ripple: #{map.get(base.$dialog-action-btn-ripple, "dark")};
+
+        --card-ripple: #{map.get(base.$card-ripple, "dark")};
 
         --button-bg: #{map.get(base.$button-bg, "dark")};
         --button-ink: #{map.get(base.$button-ink, "dark")};
@@ -156,6 +164,7 @@
         --list-border: #{map.get(base.$list-border, "dark")};
         --list-bg: #{map.get(base.$list-bg, "dark")};
         --list-divider-color: #{map.get(base.$list-border, "dark")};
+        --list-ripple: #{map.get(base.$list-ripple, "dark")};
 
         --textfield-border: #{map.get(base.$textfield-border, "dark")};
         --common-divider-color: #{map.get(base.$common-divider-color, "dark")};

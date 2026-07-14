@@ -1,7 +1,7 @@
 @use "../style/global" as base;
 @use "@material/elevation";
 @use "@material/card";
-@use "@material/ripple";
+@use "./ripple.scss" as ripple;
 @use "sass:map";
 @use "sass:color";
 
@@ -17,14 +17,5 @@
 }
 
 @mixin cardRipple {
-    overflow: hidden;
-    @include ripple.surface;
-    @include ripple.radius-bounded;
-    @include ripple.states-base-color(map.get(base.$card-ripple, "light"));
-    @include ripple.states-opacities((hover: .0, focus: .0, press: .2));
-
-    .dark & {
-        @include ripple.states-base-color(map.get(base.$card-ripple, "dark"));
-        @include ripple.states-opacities((hover: .0, focus: .0, press: .2));
-    }
+    @include ripple.ripple(var(--card-ripple), 0, 0, 0.2);
 }

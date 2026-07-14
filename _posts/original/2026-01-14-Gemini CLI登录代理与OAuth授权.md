@@ -133,3 +133,5 @@ node      9797 apqx   10u  IPv4 0xd2d51a691221d9a3      0t0  TCP *:35729 (LISTEN
 解决后回头看 Gemini 在我第一次提问时的回答，其中第 3 项就与 Terminal 代理的环境变量有关，只不过说反了🤔。
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20260114/gemini_chat_solution.webp){: loading="lazy" class="clickable clickShowOriginalImg" alt="Gemini's solution about terminal proxy" }
+
+*2026 年 05 月 20 日更新：Antigravity 2.0 发布后测试 CLI 和图形版本都不会应用系统 Proxy 设置，必须使用代理软件的 TUN 模式模拟网卡接管所有网络流量，这种方式需配合更完善的分流策略。*

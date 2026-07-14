@@ -1,9 +1,9 @@
 @use "../style/global" as base;
 @use "./react/Scrim.scss" as scrim;
 @use "../component/animation/BaseAnimation.scss" as anim;
+@use "./ripple.scss" as ripple;
 @use "@material/drawer";
 @use "@material/elevation";
-@use "@material/ripple";
 @use "@material/button";
 @use "@material/list";
 @use "sass:map";
@@ -165,16 +165,7 @@ $list-item-padding-horizontal: 0.8rem;
             margin-bottom: 0;
         }
 
-        overflow: hidden;
-        @include ripple.surface;
-        @include ripple.radius-bounded;
-        @include ripple.states-base-color(map.get(base.$drawer-nav-ripple, "light"));
-        @include ripple.states-opacities((hover: .1, focus: .1, press: .1));
-
-        .dark & {
-            @include ripple.states-base-color(map.get(base.$drawer-nav-ripple, "dark"));
-            @include ripple.states-opacities((hover: .1, focus: .1, press: .1));
-        }
+        @include ripple.ripple(var(--drawer-nav-ripple), 0.1, 0.1, 0.1);
 
         .mdc-deprecated-list-item__graphic {
             margin-right: 1.8rem;
@@ -185,11 +176,7 @@ $list-item-padding-horizontal: 0.8rem;
     }
 
     .mdc-deprecated-list-item.mdc-deprecated-list-item--selected {
-        background-color: rgba($color: map.get(base.$drawer-nav-ripple, "light"), $alpha: 0.15);
-
-        .dark & {
-            background-color: rgba($color: map.get(base.$drawer-nav-ripple, "dark"), $alpha: 0.15);
-        }
+        background-color: color-mix(in srgb, var(--drawer-nav-ripple) 15%, transparent);
     }
 }
 
