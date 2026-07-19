@@ -90,7 +90,7 @@ export function LoadingHint(props: Props) {
         <div ref={containerRef} className={`loading-hint-wrapper center-inline-items ${hide ? "hide" : ""}`.trim()}>
             <ProgressCircular loading={props.loading} classes={props.loading ? ["show"] : []} />
             <Button text={props.loadHint ?? ""} onClick={props.loading ? undefined : props.onClickHint} tabIndex={-1}
-                classes={!props.loading && props.loadHint != null ? ["show"] : []} />
+                classes={!props.loading && props.loadHint != null ? ["btn-no-bg", "btn-no-ripple", "show"] : ["btn-no-bg", "btn-no-ripple"]} />
         </div>
     )
 }

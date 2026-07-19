@@ -1,7 +1,6 @@
 // @use "../react/Button";
 // @use "./ProgressCircular";
 @use "@material/button";
-@use "@material/ripple";
 
 @mixin baseFadeIn {
     position: absolute;
@@ -45,12 +44,5 @@
         }
 
         @include button.ink-color(var(--navigation));
-        @include button.container-fill-color(transparent);
-        @include ripple.states-base-color(transparent);
-
-        .dark & {
-            @include button.container-fill-color(transparent);
-            @include ripple.states-base-color(transparent);
-        }
     }
 }

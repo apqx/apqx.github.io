@@ -24,8 +24,12 @@
     &:not(:disabled) {
         @include button.ink-color(var(--button-ink));
     }
-    
-    @include ripple.ripple(var(--button-ripple), 0, 0, 0.1);
+    &:not(.btn-no-ripple) {
+        @include ripple.ripple(var(--button-ripple), 0, 0, 0.1);
+    }
+    &.btn-no-bg {
+        @include button.container-fill-color(transparent);
+    }
 }
 
 .mdc-button.btn-round {

@@ -126,4 +126,4 @@ git push
 
 ## 开源与版权
 
-博客代码以 GPL-3.0 协议开源，但 [_posts](./_posts/) 目录下的原创文章以 [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/) 协议保留著作权，对其中摄影照片保留版权，未经允许不可作商业用途。
+博客代码以 GPL-3.0 协议开源，但 [_posts](./_posts/) 目录下的原创文章以 [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/) 协议保留著作权，对其中摄影照片保留版权，未经允许不可公开发布或作商业用途。
