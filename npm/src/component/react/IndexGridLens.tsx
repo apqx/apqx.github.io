@@ -65,8 +65,10 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
             consoleInfo("IndexGridLens receive pageEvent, event = " + data)
             if (data == EVENT_PAGE_BACK_FROM_CACHE) {
                 const enabled = getLocalRepository().getLensBiggerPicture()
-                scrollToTopNative(false)
-                setLensBiggerPicture(enabled)
+                if (enabled != lensBiggerPicture) {
+                    scrollToTopNative(false)
+                    setLensBiggerPicture(enabled)
+                }
             }
         }
         emitter.on("lensFilterChange", lensFilterChangeListener)

@@ -73,12 +73,14 @@ sudo systemctl restart nginx
 如今借助 Let’s Encrypt 启用 HTTPS 已经非常简单，[Certbot](https://certbot.eff.org/lets-encrypt/ubuntufocal-nginx){: target="_blank" } 是一个基于 Let’s Encrypt 为域名生成 SSL 证书并配置 Nginx 的工具，支持为只有 90 天有效期的证书自动续期。
 
 ```sh
-# 安装 Certbot
+# 在域名指向的服务器中安装 Certbot
 sudo snap install --classic certbot
-# 按提示选择要加密的域名，生成证书签名，配置 Nginx，启用 SSL
+# 按提示选择域名，生成证书，配置 Nginx，启用 SSL
 # 证书目录为 /etc/letsencrypt/live/[域名]/
 # Certbot 会自动执行证书更新
 sudo certbot --nginx
+# 也可在本地通过验证 DNS 生成证书，手动部署到服务器或对象存储中
+sudo certbot certonly --manual --preferred-challenges dns
 ```
 
 按提示执行完成，Certbot 会更新 Nginx 配置以使用生成的证书：
