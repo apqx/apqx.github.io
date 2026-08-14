@@ -50,7 +50,7 @@ export function LensFilterDialog(props: BaseDialogOpenProps) {
                 text: "关闭", closeOnClick: true, onClick: () => {
                 }
             }, {
-                text: "搜索", closeOnClick: true, onClick: () => {
+                text: "确认", closeOnClick: true, onClick: () => {
                     viewModel.confirmSelection()
                     // 通知执行搜索
                     consoleInfo("LensFilterDialog selected tags = " + state.selectedTags.toString())

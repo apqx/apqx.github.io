@@ -7,6 +7,7 @@ import {
     type CSSProperties,
     type ReactNode,
 } from "react"
+import { consoleInfo } from "../../util/log"
 
 export interface MasonryBreakpoint {
     maxWidth: number
@@ -22,8 +23,8 @@ export interface MasonryProps<T> {
     estimatedItemHeight?: number
     columnGap?: CSSProperties["gap"]
     rowGap?: CSSProperties["gap"]
-    // 是否监听 item 尺寸变化，判断是否需要重排
-    observeItemResize?: boolean
+    // 是否监听 item 高度变化，判断是否需要重排
+    observeItemHeightResize?: boolean
     // 是否在 item 组件挂载时测量，开启后可以在初始布局阶段使用真实的 item 尺寸
     measureItemOnMount?: boolean
     className?: string
@@ -32,7 +33,7 @@ export interface MasonryProps<T> {
 
 const DEFAULT_COLUMNS = 3
 const DEFAULT_ESTIMATED_HEIGHT = 300
-const HEIGHT_CHANGE_THRESHOLD = 1
+const HEIGHT_CHANGE_THRESHOLD = 50
 
 /**
  * render 阶段，所有元素都是预估高度
@@ -48,7 +49,7 @@ export function Masonry<T>({
     estimatedItemHeight = DEFAULT_ESTIMATED_HEIGHT,
     columnGap = 16,
     rowGap = 16,
-    observeItemResize = false,
+    observeItemHeightResize = false,
     measureItemOnMount = true,
     className,
     style,
@@ -63,27 +64,29 @@ export function Masonry<T>({
     const itemHeightsRef = useRef(new Map<string, number>())
     const itemResizeObserverRef = useRef<ResizeObserver | null>(null)
 
-    const [containerWidth, setContainerWidth] = useState(0)
+    // const [containerWidth, setContainerWidth] = useState(0)
+    const [columnCount, setColumnCount] = useState(Math.max(1, defaultColumns))
     const [layoutColumns, setLayoutColumns] = useState<number[][]>([])
 
+    // 升序排列 breakpoints
     const sortedBreakpoints = useMemo(
         () => [...(breakpoints ?? [])].sort((a, b) => a.maxWidth - b.maxWidth),
         [breakpoints],
     )
 
-    const columnCount = useMemo(() => {
-        if (containerWidth <= 0 || sortedBreakpoints.length === 0) {
-            return Math.max(1, defaultColumns)
-        }
+    // const columnCount = useMemo(() => {
+    //     if (containerWidth <= 0 || sortedBreakpoints.length === 0) {
+    //         return Math.max(1, defaultColumns)
+    //     }
 
-        for (const breakpoint of sortedBreakpoints) {
-            if (containerWidth <= breakpoint.maxWidth) {
-                return Math.max(1, breakpoint.columns)
-            }
-        }
+    //     for (const breakpoint of sortedBreakpoints) {
+    //         if (containerWidth <= breakpoint.maxWidth) {
+    //             return Math.max(1, breakpoint.columns)
+    //         }
+    //     }
 
-        return Math.max(1, defaultColumns)
-    }, [containerWidth, defaultColumns, sortedBreakpoints])
+    //     return Math.max(1, defaultColumns)
+    // }, [containerWidth, defaultColumns, sortedBreakpoints])
 
     const itemKeys = useMemo(
         () => items.map((item, index) => String(getItemKey(item, index))),
@@ -177,7 +180,7 @@ export function Masonry<T>({
             }
 
             if (previousNode) {
-                if (observeItemResize) {
+                if (observeItemHeightResize) {
                     itemResizeObserverRef.current?.unobserve(previousNode)
                 }
                 itemNodesRef.current.delete(key)
@@ -188,7 +191,7 @@ export function Masonry<T>({
             }
 
             itemNodesRef.current.set(key, node)
-            if (observeItemResize) {
+            if (observeItemHeightResize) {
                 itemResizeObserverRef.current?.observe(node)
             }
 
@@ -206,7 +209,7 @@ export function Masonry<T>({
                 }
             }
         },
-        [measureItemOnMount, observeItemResize, scheduleRelayout],
+        [measureItemOnMount, observeItemHeightResize, scheduleRelayout],
     )
 
     useEffect(() => {
@@ -214,16 +217,35 @@ export function Masonry<T>({
         if (!container) {
             return
         }
-
+        // 监听 container 宽度变化，更新 columnCount
+        // 仅在 columnCount 变化时才触发重排，避免频繁重排带来的性能问题
         const resizeObserver = new ResizeObserver(entries => {
             for (const entry of entries) {
                 const width = entry.contentRect.width
-                setContainerWidth(previousWidth => {
-                    if (Math.abs(previousWidth - width) < HEIGHT_CHANGE_THRESHOLD) {
-                        return previousWidth
+                var newColumnCount = Math.max(1, defaultColumns)
+                if (width > 0 && sortedBreakpoints.length > 0) {
+                    for (const breakpoint of sortedBreakpoints) {
+                        if (width <= breakpoint.maxWidth) {
+                            newColumnCount = Math.max(1, breakpoint.columns)
+                            break
+                        }
                     }
-                    return width
+                }
+
+                setColumnCount(previousCount => {
+                    if (previousCount != newColumnCount) {
+                        consoleInfo("Masonry column count changed from " + previousCount + " to " + newColumnCount)
+                        return newColumnCount
+                    }
+                    return previousCount
                 })
+
+                // setContainerWidth(previousWidth => {
+                //     if (Math.abs(previousWidth - width) < HEIGHT_CHANGE_THRESHOLD) {
+                //         return previousWidth
+                //     }
+                //     return width
+                // })
             }
         })
 
@@ -231,10 +253,11 @@ export function Masonry<T>({
         return () => {
             resizeObserver.disconnect()
         }
-    }, [])
+    }, [defaultColumns, sortedBreakpoints])
 
+    // 监听每个 item 高度变化，如果变化超过默认阈值就触发重排，避免布局错乱
     useEffect(() => {
-        if (!observeItemResize) {
+        if (!observeItemHeightResize) {
             itemResizeObserverRef.current?.disconnect()
             itemResizeObserverRef.current = null
             return
@@ -276,7 +299,7 @@ export function Masonry<T>({
             resizeObserver.disconnect()
             itemResizeObserverRef.current = null
         }
-    }, [observeItemResize, scheduleRelayout])
+    }, [observeItemHeightResize, scheduleRelayout])
 
     useEffect(() => {
         const currentKeys = new Set(itemKeys)
