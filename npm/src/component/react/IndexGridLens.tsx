@@ -240,7 +240,6 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
                 )}
                 defaultColumns={3}
                 breakpoints={breakpoints}
-                measureItemOnMount={true}
                 observeItemHeightResize={false}
                 columnGap={0}
                 rowGap={0}

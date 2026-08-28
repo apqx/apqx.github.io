@@ -126,7 +126,6 @@ export function IndexGridPosts(props: Props) {
                     { maxWidth: 880, columns: 2 },
                     { maxWidth: 600, columns: 1 },
                 ]}
-                measureItemOnMount={true}
                 observeItemHeightResize={false}
                 columnGap={0}
                 rowGap={0}

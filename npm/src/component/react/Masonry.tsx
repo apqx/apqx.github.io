@@ -25,8 +25,6 @@ export interface MasonryProps<T> {
     rowGap?: CSSProperties["gap"]
     // 是否监听 item 高度变化，判断是否需要重排
     observeItemHeightResize?: boolean
-    // 是否在 item 组件挂载时测量，开启后可以在初始布局阶段使用真实的 item 尺寸
-    measureItemOnMount?: boolean
     className?: string
     style?: CSSProperties
 }
@@ -50,7 +48,6 @@ export function Masonry<T>({
     columnGap = 16,
     rowGap = 16,
     observeItemHeightResize = false,
-    measureItemOnMount = true,
     className,
     style,
 }: MasonryProps<T>) {
@@ -64,7 +61,6 @@ export function Masonry<T>({
     const itemHeightsRef = useRef(new Map<string, number>())
     const itemResizeObserverRef = useRef<ResizeObserver | null>(null)
 
-    // const [containerWidth, setContainerWidth] = useState(0)
     const [columnCount, setColumnCount] = useState(Math.max(1, defaultColumns))
     const [layoutColumns, setLayoutColumns] = useState<number[][]>([])
 
@@ -73,20 +69,6 @@ export function Masonry<T>({
         () => [...(breakpoints ?? [])].sort((a, b) => a.maxWidth - b.maxWidth),
         [breakpoints],
     )
-
-    // const columnCount = useMemo(() => {
-    //     if (containerWidth <= 0 || sortedBreakpoints.length === 0) {
-    //         return Math.max(1, defaultColumns)
-    //     }
-
-    //     for (const breakpoint of sortedBreakpoints) {
-    //         if (containerWidth <= breakpoint.maxWidth) {
-    //             return Math.max(1, breakpoint.columns)
-    //         }
-    //     }
-
-    //     return Math.max(1, defaultColumns)
-    // }, [containerWidth, defaultColumns, sortedBreakpoints])
 
     const itemKeys = useMemo(
         () => items.map((item, index) => String(getItemKey(item, index))),
@@ -172,6 +154,7 @@ export function Masonry<T>({
         })
     }, [computeLayoutColumns])
 
+    // item 挂载时的 ref 回调，保存每个元素的 DOM 节点，以便后续测量高度和监听 resize
     const setItemNode = useCallback(
         (key: string, node: HTMLDivElement | null) => {
             const previousNode = itemNodesRef.current.get(key)
@@ -195,21 +178,19 @@ export function Masonry<T>({
                 itemResizeObserverRef.current?.observe(node)
             }
 
-            if (measureItemOnMount) {
-                // 获取元素挂载后的实际高度，和之前记录的高度对比，如果变化较大就触发重排
-                const nextHeight = node.getBoundingClientRect().height
-                const previousHeight = itemHeightsRef.current.get(key)
-                if (
-                    previousHeight === undefined ||
-                    Math.abs(previousHeight - nextHeight) > HEIGHT_CHANGE_THRESHOLD
-                ) {
-                    // 保存测量到的高度
-                    itemHeightsRef.current.set(key, nextHeight)
-                    scheduleRelayout()
-                }
+            // 获取元素挂载后的实际高度，和之前记录的高度对比，如果变化较大就触发重排
+            const nextHeight = node.getBoundingClientRect().height
+            const previousHeight = itemHeightsRef.current.get(key)
+            if (
+                previousHeight === undefined ||
+                Math.abs(previousHeight - nextHeight) > HEIGHT_CHANGE_THRESHOLD
+            ) {
+                // 保存测量到的高度
+                itemHeightsRef.current.set(key, nextHeight)
+                scheduleRelayout()
             }
         },
-        [measureItemOnMount, observeItemHeightResize, scheduleRelayout],
+        [observeItemHeightResize, scheduleRelayout],
     )
 
     useEffect(() => {
@@ -239,13 +220,6 @@ export function Masonry<T>({
                     }
                     return previousCount
                 })
-
-                // setContainerWidth(previousWidth => {
-                //     if (Math.abs(previousWidth - width) < HEIGHT_CHANGE_THRESHOLD) {
-                //         return previousWidth
-                //     }
-                //     return width
-                // })
             }
         })
 
@@ -395,6 +369,7 @@ export function Masonry<T>({
                             <div
                                 key={key}
                                 data-masonry-key={key}
+                                // ref 回调中保存每个元素的 DOM 节点，以便后续测量高度和监听 resize
                                 ref={node => {
                                     setItemNode(key, node)
                                 }}

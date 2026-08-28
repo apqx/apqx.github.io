@@ -156,25 +156,26 @@ CICP 即 Coding-Independent Code Points 独立于编码的代码点，它不使�
 
 比如 sRGB 的 1/13/6，3 个数字分别代表 Primaries、Transfer 和 Matrix：
 
-* Primaries 原色用于指定图片色域。
-    * sRGB 色域使用数字 1，对应 ffmpeg 的 color_primaries: bt709。
-    * P3 色域使用数字 12，对应 ffmpeg 的 color_primaries: smpte432。
+Primaries 原色用于指定图片色域。
 
-* Transfer 传输曲线用于指定非线性 RGB 与线性 RGB 的转换方式。
-    * sRGB 色域和 P3 色域都使用数字 13，对应 ffmpeg 的 color_transfer: iec61966-2-1。
+* sRGB 色域使用数字 1，对应 ffmpeg 的 color_primaries: bt709。
+* P3 色域使用数字 12，对应 ffmpeg 的 color_primaries: smpte432。
 
-* Matrix 转换矩阵用于指定图片编码 YUV 与 RGB 的转换方式。
-    * 对于 YUV 420 有损采样压缩：
+Transfer 传输曲线用于指定非线性 RGB 与线性 RGB 的转换方式。
+    
+* sRGB 色域和 P3 色域都使用数字 13，对应 ffmpeg 的 color_transfer: iec61966-2-1。
+
+Matrix 转换矩阵用于指定图片编码 YUV 与 RGB 的转换方式。
+
+* 对于 YUV 420 有损采样压缩：
     * sRGB 色域使用数字 6，对应 ffmpeg 的 color_space: smpte170m。
     * P3 色域使用数字 1，对应 ffmpeg 的 color_space: bt709。
-    * 对于 YUV 444 无损采样，使用数字 0，代表无需转换。
+* 对于 YUV 444 无损采样，使用数字 0，代表无需转换。
 
 这 3 个参数决定照片编解码时的 3 个关键步骤，以解码为例，通过 3 个公式把 YUV 数据转换为真实颜色：
 
 * 通过 Matrix 矩阵将像素数据从 YUV 编码转换为 RGB 数据。
-
 * 通过 Transfer 传输曲线将非线性 RGB 转换为线性 RGB。
-
 * 通过 Primaries 原色确定图片色域。
 
 CICP 专为 H264、HEVC、AV1 这类视频流媒体设计，基于视频技术的图片（如 AVIF）自然也可以用它映射颜色。

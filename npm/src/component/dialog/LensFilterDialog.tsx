@@ -104,7 +104,7 @@ export function LensFilterDialog(props: BaseDialogOpenProps) {
         <BaseDialog dialogControllerRef={props.dialogControllerRef} fixedWidth={true} onDialogOpen={onDialogOpen} onDialogClose={onDialogClose} actions={actions}>
             <SmoothCollapse>
                 <p className="lens-filter-dialog__title">选择搜索标签</p>
-                <p className="lens-filter-dialog__hint">多选会显示同时满足条件的结果，比如演员与剧目的组合，若无选中则显示所有结果🕵🏻。</p>
+                <p className="lens-filter-dialog__hint">多选会显示同时满足条件的结果，比如演员与剧目的组合，若无选中则显示所有结果🕵🏻。可以在👉<a href="">这里设置</a>图片以更大或更小的方式显示。</p>
                 {
                     categoriesArray.length > 0 && categoriesArray.map((categories, index) =>
                         <Categories key={index} categories={categories} selectedTags={state.selectedTags} onTagClick={onTagClick} />
