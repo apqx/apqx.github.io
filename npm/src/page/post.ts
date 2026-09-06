@@ -89,20 +89,32 @@ function initImgJump() {
 }
 
 function showCopyrightDialog(url: string) {
-    const formatHint = url.endsWith(".avif") && isAndroidModern() ? "<br/>原图为高质量 P3 色域 AVIF 格式文件，部分 Android 设备受限于硬件解码器可能在图库中显示色彩偏淡，可尝试更换设备查看。" : ""
-    showAlertDialog("版权声明", "点击“跳转”将打开无水印原图，注意图片版权归属作者及剧团演员所有，未经允许不可公开发布或作商业用途🤫。" + formatHint,
+    showAlertDialog("版权声明", "点击“跳转”将打开无水印原图，注意图片版权归属作者及剧团演员所有，未经允许不可公开发布或作商业用途🤫。",
         "取消", undefined,
         "跳转", () => {
             if (getAuthority().checkSavedAuth()) {
-                window.open(url, "_blank")
+                checkImgCompatibility(url)
                 return
             }
             showAuthDialog((success) => {
                 if (success) {
-                    window.open(url, "_blank")
-                } 
+                    checkImgCompatibility(url)
+                }
             })
         })
+}
+
+function checkImgCompatibility(url: string) {
+    const showFormatHint = url.endsWith(".avif")
+    if (showFormatHint) {
+        showAlertDialog("兼容提示", "原图为现代 P3 色域 AVIF 格式文件，部分 Android 设备受限于硬件解码器可能在图库中显示色彩偏淡，部分社交平台可能对此格式的支持尚不完善。",
+            "取消", undefined,
+            "跳转", () => {
+                window.open(url, "_blank")
+            })
+        return
+    }
+    window.open(url, "_blank")
 }
 
 function initImg() {
@@ -110,8 +122,7 @@ function initImg() {
     document.addEventListener("contextmenu", (event) => {
         if (event.target instanceof HTMLImageElement) {
             event.preventDefault();
-            // showAlertDialog("提示", "节省数据流量文中是缩略图，点击图片可以跳转到原图。", "OK", () => { })
-            showSnackbar("节省数据文中是缩略图，点击图片可跳转到原图")
+            showSnackbar("点击图片跳转到全尺寸原图")
         }
     })
 }

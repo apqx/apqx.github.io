@@ -9,7 +9,7 @@
 @use "sass:map";
 @use "sass:color";
 
-$drawer-width: 18rem;
+$drawer-width: 17rem;
 
 .mdc-drawer {
     width: calc($drawer-width + var(--safe-area-inset-left));
@@ -88,6 +88,7 @@ $list-item-padding-horizontal: 0.8rem;
             min-height: unset;
 
             #drawer_btn_share {
+                margin-right: -0.5rem;
                 i {
                     font-size: 1.5rem;
                     font-weight: base.$font-weight-icons-noto-sans + 20;

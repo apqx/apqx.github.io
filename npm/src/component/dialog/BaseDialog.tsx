@@ -101,6 +101,9 @@ export function BaseDialog({ dialogControllerRef = undefined, fixedWidth = false
 
             clearListeners()
             dialogRef.current?.destroy()
+            if (dialogControllerRef) {
+                dialogControllerRef.current = null
+            }
         }
 
     }, [dialogControllerRef])
