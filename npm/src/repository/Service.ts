@@ -3,6 +3,7 @@ import { isDebug } from "../util/tools";
 
 var service: Service | null = null;
 
+// 控制是否使用 localhost 作为服务端，方便调试
 export const SERVICE_DEBUG_MODE_AUTO = 0
 export const SERVICE_DEBUG_MODE_ON = 1
 export const SERVICE_DEBUG_MODE_OFF = 2
@@ -25,11 +26,10 @@ class Service {
     getPostsByTag(config: ServiceConfig, tag: string, page: number): Promise<Response> {
         const url = getBaseUrl(config) + "/api/paginate/tags/" + getFormattedUrlFragment(tag) + "/page-" + page + ".json"
         const request = new Request(url, {
-            method: "GET",
-            signal: config.abortSignal
+            method: "GET"
         })
         consoleInfo("GetPostsByTag " + url)
-        return fetch(request, { cache: "no-cache" })
+        return fetch(request, { signal: config.abortSignal, cache: "no-cache" })
     }
 
     /**

@@ -151,7 +151,7 @@ pre code.hljs {
     line-height: calc(var(--mdc-typography-body1-line-height) - 0.2rem);
     // 独立代码块字重为 normal
     font-weight: base.$font-weight-normal-default;
-    
+
     padding: var(--text-block-padding-vertical) var(--text-block-padding-horizontal);
     background: var(--pre-code-bg);
 }
@@ -175,15 +175,13 @@ code:not(pre code) {
 // 思源宋体段落中的代码块
 .font-noto-serif-sc {
     code:not(pre code) {
+        // 英文代码字体比宋体粗很多，需要单独设置更细的 font-face
         --text-code-font-family: #{base.$text-font-noto-serif-code};
-        // 英文字体比宋体粗很多，需要单独设置更细
-        --text-code-font-weight: #{base.$font-weight-normal-noto-serif-code};
     }
 
-    // 使用细字重的组件中，单独设置代码字重
-    blockquote code:not(pre code),
-    .surface-block code:not(pre code) {
-        --text-code-font-weight: #{base.$font-weight-light-noto-serif-code};
+    pre code,
+    pre code.hljs {
+        font-weight: base.$font-weight-normal-default - 30;
     }
 }
 
