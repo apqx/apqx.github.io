@@ -33,9 +33,9 @@ $font-weight-normal-noto-sans: 395;
 $font-weight-medium-noto-sans: 495;
 
 // 避开 400 normal，可变字体渲染时的短路优化可能使字重映射实效，只要避开 400 就行
-$font-weight-light-noto-serif: 415;
-$font-weight-normal-noto-serif: 500;
-$font-weight-medium-noto-serif: 600;
+$font-weight-light-noto-serif: 435;
+$font-weight-normal-noto-serif: 505;
+$font-weight-medium-noto-serif: 605;
 
 $font-weight-extra-light-default: 200;
 $font-weight-light-default: 300;
@@ -43,4 +43,4 @@ $font-weight-normal-default: 400;
 $font-weight-medium-default: 500;
 
 $font-weight-icons-noto-sans: 300;
-$font-weight-icons-noto-serif: 290;
+$font-weight-icons-noto-serif: 295;

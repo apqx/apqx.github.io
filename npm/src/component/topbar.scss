@@ -10,19 +10,19 @@ body {
     --topbar-slid-translateY: calc(0px - var(--topbar-height) - 10px)
 }
 
-.mdc-top-app-bar.colorful {
-    background-color: #{map.get(base.$topbar, "bg-light-colorful")};
-
-    * {
-        color: #{map.get(base.$topbar-ink, "light-colorful")};
-    }
-
-    .dark & {
-        background-color: #{map.get(base.$topbar, "bg-dark-colorful")};
+.mdc-top-app-bar {
+    &.colorful {
+        background-color: var(--md-sys-color-primary);
 
         * {
-            color: #{map.get(base.$topbar-ink, "dark-colorful")};
+            color: var(--md-sys-color-on-primary);
         }
+    }
+
+    &.top-app-bar--blur:not(.colorful) {
+        backdrop-filter: blur(map.get(base.$topbar, "backdrop-filter"));
+        -webkit-backdrop-filter: blur(map.get(base.$topbar, "backdrop-filter"));
+        @include top-app-bar.fill-color(var(--topbar-blur));
     }
 }
 
@@ -83,11 +83,6 @@ body {
     }
 }
 
-.mdc-top-app-bar.top-app-bar--blur {
-    backdrop-filter: blur(map.get(base.$topbar, "backdrop-filter"));
-    -webkit-backdrop-filter: blur(map.get(base.$topbar, "backdrop-filter"));
-    @include top-app-bar.fill-color(var(--topbar-blur));
-}
 
 // 添加此类以禁用 mdc 默认的滚动隐藏/显示逻辑，但会导致 topbar 固定显示
 .mdc-top-app-bar.mdc-top-app-bar--fixed {

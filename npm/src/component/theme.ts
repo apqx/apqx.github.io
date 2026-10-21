@@ -56,8 +56,6 @@ export function isDarkThemeFromSysAndUserSettings(): boolean {
 }
 
 const metaThemeColor = {
-    lightColorful: "#556a3b",
-    darkColorful: "#556a3b",
     light: "#ffffff",
     dark: "#161616"
 }
@@ -76,7 +74,7 @@ const colorfulToolbar = false
 function checkMetaThemeColor(dark: boolean, show: boolean) {
     if (show) {
         if (document.querySelector(".colorful") != null) {
-            setMetaThemeColor(dark ? metaThemeColor.darkColorful : metaThemeColor.lightColorful)
+            setMetaThemeColor(dark ? dynamicTheme?.dark.get("--md-sys-color-primary") : dynamicTheme?.light.get("--md-sys-color-primary"))
         } else {
             setMetaThemeColor(dark ? metaThemeColor.dark : metaThemeColor.light)
         }

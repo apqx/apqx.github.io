@@ -77,8 +77,8 @@ function TagDialog(props: TagDialogProps) {
     return (
         <BaseDialog dialogControllerRef={props.dialogControllerRef} fixedWidth={true} onDialogOpen={onDialogOpen} onDialogOpening={onDialogOpening}
             onDialogClose={onDialogClose} onDialogClosing={onDialogClosing} >
+            <p>标记 {props.nickname ?? props.tag} 的 {state.totalPostsSize} 篇博文</p>
             <SmoothCollapse>
-                <p>标记 {props.nickname ?? props.tag} 的 {state.totalPostsSize} 篇博文</p>
                 {state.posts != null && state.posts.length != 0 &&
                     <PostResult list={state.posts} />
                 }

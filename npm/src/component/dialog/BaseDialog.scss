@@ -123,6 +123,10 @@
 .mdc-dialog .mdc-dialog__content {
     padding: 1.2rem var(--dialog-content-padding-left-right) 1rem var(--dialog-content-padding-left-right);
     overflow-x: hidden;
+
+    &>:first-child {
+        margin-top: 0.2rem;
+    }
 }
 
 .mdc-dialog__fixed-width {
