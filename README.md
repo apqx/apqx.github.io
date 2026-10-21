@@ -8,35 +8,35 @@
 
 主页：
 
-![立泉落落](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/screenshots/blog_index_original.webp)
+![立泉落落](/docs/screenshots/blog_index_original.webp)
 
 看剧：
 
-![立泉落落｜看剧](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/screenshots/blog_index_opera.webp)
+![立泉落落｜看剧](/docs/screenshots/blog_index_opera.webp)
 
 透镜：
 
-![立泉落落｜透镜](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/screenshots/blog_index_lens.webp)
+![立泉落落｜透镜](/docs/screenshots/blog_index_lens.webp)
 
 标签：
 
-![立泉落落｜透镜](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/screenshots/blog_tags.webp)
+![立泉落落｜透镜](/docs/screenshots/blog_tags.webp)
 
 ## Markdown
 
 博文以 Markdown 格式撰写，由 Jekyll 转换为 HTML 网页：
 
-![立泉落落](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/screenshots/blog_post.webp)
+![立泉落落](/docs/screenshots/blog_post.webp)
 
 关联博文：
 
-![立泉落落](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/screenshots/blog_post_relative.webp)
+![立泉落落](/docs/screenshots/blog_post_relative.webp)
 
 ## Pagefind
 
 站内搜索功能基于 Pagefind 实现：
 
-![立泉落落](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/screenshots/blog_search.webp)
+![立泉落落](/docs/screenshots/blog_search.webp)
 
 需要先扫描站点生成索引文件：
 
@@ -122,7 +122,7 @@ git push
 
 静候数秒或数分钟，取决于 Pages 执行速度，完成后网站即会更新。
 
-![立泉落落](https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/screenshots/blog_index_original_phone.webp)
+![立泉落落](/docs/screenshots/blog_index_original_phone.webp)
 
 ## 开源与版权
 
