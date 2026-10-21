@@ -1,0 +1,18 @@
+@use '../../style/global' as base;
+@use "sass:math";
+
+@font-face {
+    font-family: "Noto Serif";
+    src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-wght-remapped.woff2") format('woff2');
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Noto Serif";
+    src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-Italic-wght-remapped.woff2") format('woff2');
+    font-style: italic;
+    font-weight: 100 900;
+    font-display: swap;
+}

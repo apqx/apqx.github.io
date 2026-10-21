@@ -1,9 +1,19 @@
 @font-face {
     font-family: "Google Sans Flex";
-    // src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/GoogleSansFlex/compressed/GoogleSansFlex-opsz,slnt,wght.ttf") format('truetype');
-    src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/GoogleSansFlex/compressed/GoogleSansFlex-opsz,slnt,wght-Remapped.woff2") format('woff2');
-    // 本可变字体支持倾斜度数
-    font-style: oblique -10deg 0deg;
+    src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/GoogleSansFlex/compressed/GoogleSansFlex-opsz,slnt,wght-remapped.woff2") format('woff2');
+    // 本可变字体支持倾斜度数，为避免和不支持倾斜轴的中文字体混排时出现再次叠加系统倾斜，导致倾斜过度，单独定义 italic 字体，向字体底层传递 -10 倾斜轴
+    // font-style: oblique -10deg 0deg;
+    font-style: normal;
     font-weight: 100 900;
     font-display: swap;
+}
+
+@font-face {
+    font-family: "Google Sans Flex";
+    src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/GoogleSansFlex/compressed/GoogleSansFlex-opsz,slnt,wght-remapped.woff2") format('woff2');
+    font-style: italic;
+    font-weight: 100 900;
+    font-display: swap;
+    // 在此切面下，向字体底层传递 -10 倾斜轴
+    font-variation-settings: "slnt" -10;
 }

@@ -55,8 +55,9 @@
 
 body * {
     -webkit-text-size-adjust: 100%;
-    // 如果不设置这个，部分字体如 Inter 在 Safari 上下划线不会被字体线条隔断
-    font-variation-settings: "opsz" 14;
+    // 如果不设置这个，部分字体如 Inter 在 iPhone Safari 上下划线不会被字体线条隔断
+    // 偶尔出现，时好时坏，奇怪，暂时关闭
+    // font-variation-settings: "opsz" 14;
     font-optical-sizing: auto;
     // 启用 OpenType 的 Ligature 连字功能
     font-variant-ligatures: normal;
@@ -210,6 +211,9 @@ li {
 // 斜体，一般用于图片说明
 em {
     color: var(--em-color);
+    // 向字体底层传递 -10 倾斜轴，Google Sans Flex 以可变字体创建 italic font-face，通过这个参数可更改倾斜度
+    // 对正常字体无影响
+    font-variation-settings: "slnt" -10;
 }
 
 strong,
