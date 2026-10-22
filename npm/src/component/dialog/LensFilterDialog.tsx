@@ -51,6 +51,7 @@ export function LensFilterDialog(props: BaseDialogOpenProps) {
                 }
             }, {
                 text: "确认", closeOnClick: true, onClick: () => {
+                    if (state.tags.length == 0) return
                     viewModel.confirmSelection()
                     // 通知执行搜索
                     consoleInfo("LensFilterDialog selected tags = " + state.selectedTags.toString())

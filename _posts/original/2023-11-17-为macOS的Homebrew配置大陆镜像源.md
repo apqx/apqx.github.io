@@ -46,7 +46,7 @@ https://github.com/homebrew/homebrew-core
 
 每个包对应其中一个记录其属性的 Ruby 文件，`brew`安装要先从此仓库拉取包列表所以很慢。
 
-即然包列表是一个 Git 仓库，那么上传自己的包到 Homebrew 只需把自定义包文件 Push 到这个仓库即可，这是 Homebrew 和其它包管理器很不一样的地方。
+即然包列表是一个 Git 仓库，那么上传自己的包到 Homebrew 只需把自定义包文件`push`到这个仓库即可，这是 Homebrew 和其它包管理器很不一样的地方。
 
 ### cask
 

@@ -5,34 +5,34 @@ title: "部署 GitHub Pages 博客到私有服务器"
 author: 立泉
 mention: Jekyll GoogleCloud Server Nginx HTTPS OSS
 date: 2020-09-14 19:30:00 +0800
-description: 博客托管在 GitHub Pages 上，不是我的错觉，它在大陆的访问速度正变得越来越不稳定，有时甚至要等 5 秒以上才能打开，这让我无法接受。博客是沉淀知识阅历的地方，应该触手可及而非无意义等待。
+description: 这个博客站点托管在 GitHub Pages 上，不是我的错觉，它在大陆的访问速度正变得越来越不稳定，有时需要等待数秒才能打开。迁移的念头已经萌生多次，博客是沉淀知识和阅历的地方，本应该触手可及，而非面对页面跳转的无意义等待如鲠在喉。
 image: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20200914/jekyll_project.png
 tags: Code GitHub Jekyll Blog Nginx HTTPS 云计算 阿里云 OSS 对象存储
 ---
 
-博客托管在 GitHub Pages 上，不是我的错觉，它在大陆的访问速度正变得越来越不稳定，有时甚至要等 5 秒以上才能打开，这让我无法接受。博客是沉淀知识阅历的地方，应该触手可及而非无意义等待。
+这个博客站点托管在 GitHub Pages 上，不是我的错觉，它在大陆的访问速度正变得越来越不稳定，有时需要等待数秒才能打开。迁移的念头已经萌生多次，博客是沉淀知识和阅历的地方，本应该触手可及，而非面对页面跳转的无意义等待如鲠在喉。
 
 ## 镜像
 
-几年前 GitHub Pages 并不是这样，当时我很满意才会把博客托管给它，可是物是人非，必须做些尝试尽可能提高一个非备案域名在大陆的访问速度。不备案意味着无法使用大陆的服务器和 CDN，而这两项正是网站加速的最佳途径，所以成年人的标志之一便是根据好恶作出选择然后坦然面对后果。
+几年前 GitHub Pages 的网络状态并不是这样，可惜物是人非，必须做些尝试尽可能提高一个非备案域名在大陆的访问速度。不备案意味着不能使用大陆的服务器和 CDN，而这两项正是网站加速的最佳途径，所以成年人的标志之一便是根据好恶作出选择然后坦然面对结果。
 
-为减少 GitHub 仓库容量，毕竟速度那么慢，我把网页之外的资源都放在阿里云杭州节点的 OSS 对象存储上，这个只需实名无须备案。关于费用，不少人会因为“免费额度”选择小服务商的对象存储，但实际上阿里云的报价表只是看起来复杂，流量不大的个人博客账单其实每月不过零点几元，充 5 元已经是“巨款”。
+为减少 GitHub 仓库容量，毕竟速度那么慢，我把网页之外的资源都放在阿里云杭州节点的 OSS 对象存储上，这个只需实名无须备案。关于费用，不少人会因为“免费额度”选择小服务商的对象存储，但实际上阿里云的报价表只是看起来复杂，流量不大的个人博客其实每月账单不过零点几元，充值 5 元已经是“巨款”。
 
 *2024 年 03 月 07 日更新：注意 [OSS 可能被流量攻击引起的高额账单风险]({% link _posts/original/2024-03-07-解决阿里云OSS无CDN时的流量风险.md %}){: target="_blank" }。*
 
-解决资源托管后瓶颈只剩下对 GitHub 本身的连接速度，而其在大陆没有数据中心，又不能使用国内 CDN，唯一可行的方法是在一台靠近大陆的服务器上创建博客镜像，把域名指向它。付出一台服务器费用解决访问速度问题，承载博客之外，随着我的想法越来越多它也会发挥更大作用。
+解决资源托管后瓶颈只剩下对 GitHub 本身的连接速度，它在大陆没有数据中心，亦不能通过国内 CDN 中转，比较现实的方法是在一台靠近大陆的服务器上创建博客镜像，把域名指向它。付出一台服务器的成本解决访问速度问题，承载博客之外，随着我的想法增多它会发挥更大的作用。
 
 ## 实施
 
 GitHub Pages 托管的博客本身是一个 Git 仓库，Jekyll 工程的目录结构如下：
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20200914/jekyll_project.png){: loading="lazy" class="clickable clickShowOriginalImg" alt="jekyll" }
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20200914/jekyll_project.png){: loading="lazy" class="clickable clickShowOriginalImg" alt="Jekyll project structure" }
 
-其中，`_drafts`和`_posts`分别存放用 Markdown 格式撰写的草稿和文章，`assets`存放媒体资源，已经把它们迁移到阿里云 OSS 上，所以这里是空的。`_includes`、`_layouts`、`css`、`font`和`js`是与网站模版、布局、样式相关的东西，Jekyll 需要借助它们将 Markdown 文本转换为静态 HTML 网页。
+其中，`_drafts`和`_posts`存放 Markdown 格式撰写的草稿和文章，`assets`存放媒体资源，已经把它们迁移到阿里云 OSS，所以这里是空的。`_includes`、`_layouts`、`css`、`font`和`js`是与网站模版、布局、样式相关的东西，Jekyll 需要借助它们将 Markdown 文本转换为静态 HTML 网页。
 
-内容更改后 Push 到 GitHub 上，Pages 会自动用 Jekyll 生成静态站点 Serve 到指定域名下。创建博客镜像是把这份代码 Push 到自己的服务器上，手动 Build 在`_site`目录生成静态网页，再配置 Nginx 进行 Serve。
+内容更改后`push`到 GitHub，触发 Pages 自动用 Jekyll 生成静态站点`serve`到指定域名下。创建博客镜像是把这份代码`push`到自己的服务器上，手动`build`在`_site`目录生成静态网页，再配置 Nginx 进行`serve`。
 
-我并不擅长 Linux，好在要做的事不复杂，服务器安装 Nginx 会生成默认配置文件`/etc/nginx/sites-available/default`，按如下方式修改：
+我不擅长 Linux，好在要做的事不复杂，服务器安装 Nginx 会生成默认配置文件`/etc/nginx/sites-available/default`，按如下方式修改：
 
 ```sh
 server {
@@ -62,7 +62,7 @@ server {
 }
 ```
 
-重启 Nginx 即可用 HTTP 访问到博客。
+重启 Nginx 即可用 HTTP 访问博客。
 
 ```sh
 sudo systemctl restart nginx
@@ -70,7 +70,7 @@ sudo systemctl restart nginx
 
 ## HTTPS
 
-如今借助 Let’s Encrypt 启用 HTTPS 已经非常简单，[Certbot](https://certbot.eff.org/lets-encrypt/ubuntufocal-nginx){: target="_blank" } 是一个基于 Let’s Encrypt 为域名生成 SSL 证书并配置 Nginx 的工具，支持为只有 90 天有效期的证书自动续期。
+如今借助 Let’s Encrypt 启用 HTTPS 已经非常简单，[Certbot](https://certbot.eff.org/lets-encrypt/ubuntufocal-nginx){: target="_blank" } 是一个基于 Let’s Encrypt 为域名生成 SSL 证书并配置 Nginx 的工具，而且支持为只有 90 天有效期的证书自动续期。
 
 ```sh
 # 在域名指向的服务器中安装 Certbot
@@ -93,7 +93,7 @@ server {
 	# 入口
 	index index.html index.htm index.nginx-debian.html;
 
-	# 404错误页面
+	# 404 错误页面
    	error_page 404 /404.html;
     
     # 域名
@@ -134,8 +134,8 @@ server {
 
 *注：域名已更换为 [mudan.me]({% link _posts/original/2023-01-12-2023年，我换了新域名「牡丹」.md %}){: target="_blank" }。*
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20200914/lets_encrypt.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="ssl certificate" }
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20200914/lets_encrypt.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="SSL certificate" }
 
 这台 Google Cloud 台湾节点的服务器网络延迟约 60ms，比 GitHub Pages 平均 300ms 好很多，虽然不如离我最近的阿里云杭州节点的 10ms，但对静态博客已经足够。
 
-![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20200914/ping_apqxme.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="ping" }
+![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20200914/ping_apqxme.jpg){: loading="lazy" class="clickable clickShowOriginalImg" alt="Network ping" }

@@ -11,7 +11,9 @@ tags: Code AI Gemini Proxy OAuth2 环境变量
 published: true
 ---
 
-2026 年初 Claude Code、Gemini CLI 和 GitHub Copilot 在快速进化的终端 Agent 领域已成三足鼎立，之前使用 Copilot 时对这类 AI 智能体的意图理解和复杂工程编码能力印象深刻。虽然在 Copilot 中可以使用 Claude、Codex 和 Gemini Pro 的最新版本，但 Pro 订阅每月 300 次高级请求在高强度使用下快速消耗有时感到捉襟见肘，便准备尝试另外两家的 CLI 工具。
+> 2026 年 05 月 20 日更新：Antigravity 2.0 发布后测试 CLI 和图形版本都不会应用系统 Proxy 设置，必须使用代理软件的 TUN 模式模拟网卡接管所有网络流量，这种方式需配合更完善的分流策略。
+
+年初 Claude Code、Gemini CLI 和 GitHub Copilot 在快速进化的终端 Agent 领域已成三足鼎立，之前使用 Copilot 时对这类 AI 智能体的意图理解和复杂工程编码能力印象深刻。虽然在 Copilot 中可以使用 Claude、Codex 和 Gemini Pro 的最新版本，但 Pro 订阅每月 300 次高级请求在高强度使用下快速消耗有时感到捉襟见肘，便准备尝试另外两家的 CLI 工具。
 
 以“慷慨”闻名的 Google AI Pro 提供前 3 个月低价试用，所以先从 Gemini 开始。
 
@@ -133,5 +135,3 @@ node      9797 apqx   10u  IPv4 0xd2d51a691221d9a3      0t0  TCP *:35729 (LISTEN
 解决后回头看 Gemini 在我第一次提问时的回答，其中第 3 项就与 Terminal 代理的环境变量有关，只不过说反了🤔。
 
 ![](https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20260114/gemini_chat_solution.webp){: loading="lazy" class="clickable clickShowOriginalImg" alt="Gemini's solution about terminal proxy" }
-
-*2026 年 05 月 20 日更新：Antigravity 2.0 发布后测试 CLI 和图形版本都不会应用系统 Proxy 设置，必须使用代理软件的 TUN 模式模拟网卡接管所有网络流量，这种方式需配合更完善的分流策略。*

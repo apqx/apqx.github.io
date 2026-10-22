@@ -116,7 +116,7 @@ android {
 
 Android Gradle plugin 会在编译时根据`build variant`为用于定义 Maven 发包类型的`components`对象生成相关属性，实现发布指定`build variant`包。
 
-发包 token 属于私密信息不能上传到公开仓库，可在工程根目录下创建一个`github.properties`文件，不要 Push 到 GitHub 上。
+发包 token 属于私密信息不能上传到公开仓库，可在工程根目录下创建一个`github.properties`文件，不要`push`到 GitHub 上。
 
 ```sh
 gpr.usr=user_name
@@ -133,7 +133,7 @@ apply plugin: 'com.android.library'
 // 使用 maven-publish插件
 apply plugin: 'maven-publish'
 
-// 读取 github.properties 文件里的授权信息，不要把这个文件 Push 到 GitHub
+// 读取 github.properties 文件里的授权信息，不要把这个文件 push 到 GitHub
 def githubProperties = new Properties()
 githubProperties.load(new FileInputStream(rootProject.file("github.properties")))
 
