@@ -176,8 +176,25 @@ body {
 }
 
 
+// 平板中屏
+@media (max-width: base.$screen-middle-max-width) {
+    body {
+        --index-card-padding-vertical: 1.2rem;
+        --index-card-padding-horizontal: 2rem;
+    }
+
+    .index-author {
+        font-size: calc(var(--mdc-typography-body1-font-size) - 0.2rem);
+    }
+
+    .index-date {
+        font-size: calc(var(--mdc-typography-body1-font-size) - 0.2rem);
+    }
+
+}
+
 // 手机小屏
-@media all and (max-width: base.$screen-middle-width-start) {
+@media (max-width: base.$screen-small-max-width) {
     body {
         --index-card-padding-vertical: 1rem;
         --index-card-padding-horizontal: 1.3rem;
@@ -206,21 +223,4 @@ body {
         padding-top: 0.08rem;
         padding-bottom: 0.15rem;
     }
-}
-
-// 平板中屏
-@media all and (min-width: (base.$screen-middle-width-start + 1px)) and (max-width: (base.$screen-middle-width-end - 1px)) {
-    body {
-        --index-card-padding-vertical: 1.2rem;
-        --index-card-padding-horizontal: 2rem;
-    }
-
-    .index-author {
-        font-size: calc(var(--mdc-typography-body1-font-size) - 0.2rem);
-    }
-
-    .index-date {
-        font-size: calc(var(--mdc-typography-body1-font-size) - 0.2rem);
-    }
-
 }

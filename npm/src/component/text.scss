@@ -53,6 +53,10 @@
     --mdc-typography-body1-font-weight: var(--font-weight-normal);
 }
 
+.font-jetbrains {
+    --mdc-typography-font-family: #{base.$text-font-code-block-jetbrains};
+}
+
 body * {
     -webkit-text-size-adjust: 100%;
     // 如果不设置这个，部分字体如 Inter 在 iPhone Safari 上下划线不会被字体线条隔断
@@ -213,7 +217,8 @@ em {
     color: var(--em-color);
     // 向字体底层传递 -10 倾斜轴，Google Sans Flex 以可变字体创建 italic font-face，通过这个参数可更改倾斜度
     // 对正常字体无影响
-    font-variation-settings: "slnt" -10;
+    // Google Sans Flex 已经将此参数固化到字体文件中，所以不需要再设置这个参数
+    // font-variation-settings: "slnt" -10;
 }
 
 strong,

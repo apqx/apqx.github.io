@@ -64,7 +64,7 @@
 //     }
 // }
 
-@media(max-width: base.$screen-middle-width-start) {
+@media(max-width: base.$screen-small-max-width) {
     .floating-action-container {
         --fab-right-gap: 1rem;
         --fab-bottom-gap: 1rem;

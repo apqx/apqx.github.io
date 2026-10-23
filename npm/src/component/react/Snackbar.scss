@@ -26,7 +26,7 @@
     padding-right: 1rem;
 }
 
-@media(min-width: base.$screen-middle-width-start) {
+@media(min-width: base.$screen-small-max-width) {
     .mdc-snackbar {
         bottom: 1.8rem;
     }

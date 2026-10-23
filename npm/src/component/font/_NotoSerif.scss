@@ -1,18 +1,370 @@
-@use '../../style/global' as base;
-@use "sass:math";
+// @font-face {
+//     font-family: "Noto Serif";
+//     src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-wght.woff2") format('woff2');
+//     font-style: normal;
+//     font-weight: 100 900;
+//     font-display: swap;
+// }
+
+// @font-face {
+//     font-family: "Noto Serif";
+//     src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-Italic-wght.woff2") format('woff2');
+//     font-style: italic;
+//     font-weight: 100 900;
+//     font-display: swap;
+// }
+
+// 本字体与中文字体配合时偏粗，需将实际字重调低，使用此函数生成对应字重映射的 font-face，以 10 为字重步长覆盖 regular 前后各 100 字重
+
+// 600:380
+// 500:340 regular
+// 400:300
+// start: 400, end: 600, startActual: 300, step: 100, offsetActual: 40
+// start: 400, end: 600, startActual: 300, step: 10, offsetActual: 4
+
+// @include font.generate-weight-slice("Noto Serif", "normal", null, "https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-wght.woff2", 
+//     400, 600, 300, 10, 4);
+
+// @include font.generate-weight-slice("Noto Serif", "italic", null, "https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-Italic-wght.woff2", 
+//     400, 600, 300, 10, 4);
+
+// 使用 fontTools 将字体切片，字重步长为 10，生成对应的 font-face
+// 映射的 font-weight 已固化到字体文件中
+
+$font-family: "Noto Serif";
 
 @font-face {
-    font-family: "Noto Serif";
-    src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-wght-remapped.woff2") format('woff2');
+    font-family: $font-family;
+    src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-wght-400-to-300.woff2") format('woff2');
+    font-weight: 400;
     font-style: normal;
-    font-weight: 100 900;
     font-display: swap;
 }
 
 @font-face {
-    font-family: "Noto Serif";
-    src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-Italic-wght-remapped.woff2") format('woff2');
-    font-style: italic;
-    font-weight: 100 900;
+    font-family: $font-family;
+    src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-wght-410-to-304.woff2") format('woff2');
+    font-weight: 410;
+    font-style: normal;
     font-display: swap;
+}
+
+@font-face {
+    font-family: $font-family;
+    src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-wght-420-to-308.woff2") format('woff2');
+    font-weight: 420;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: $font-family;
+    src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-wght-430-to-312.woff2") format('woff2');
+    font-weight: 430;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: $font-family;
+    src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-wght-440-to-316.woff2") format('woff2');
+    font-weight: 440;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: $font-family;
+    src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-wght-450-to-320.woff2") format('woff2');
+    font-weight: 450;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: $font-family;
+    src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-wght-460-to-324.woff2") format('woff2');
+    font-weight: 460;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: $font-family;
+    src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-wght-470-to-328.woff2") format('woff2');
+    font-weight: 470;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: $font-family;
+    src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-wght-480-to-332.woff2") format('woff2');
+    font-weight: 480;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: $font-family;
+    src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-wght-490-to-336.woff2") format('woff2');
+    font-weight: 490;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: $font-family;
+    src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-wght-500-to-340.woff2") format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: $font-family;
+    src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-wght-510-to-344.woff2") format('woff2');
+    font-weight: 510;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: $font-family;
+    src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-wght-520-to-348.woff2") format('woff2');
+    font-weight: 520;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: $font-family;
+    src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-wght-530-to-352.woff2") format('woff2');
+    font-weight: 530;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: $font-family;
+    src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-wght-540-to-356.woff2") format('woff2');
+    font-weight: 540;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: $font-family;
+    src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-wght-550-to-360.woff2") format('woff2');
+    font-weight: 550;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: $font-family;
+    src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-wght-560-to-364.woff2") format('woff2');
+    font-weight: 560;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: $font-family;
+    src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-wght-570-to-368.woff2") format('woff2');
+    font-weight: 570;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: $font-family;
+    src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-wght-580-to-372.woff2") format('woff2');
+    font-weight: 580;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: $font-family;
+    src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-wght-590-to-376.woff2") format('woff2');
+    font-weight: 590;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: $font-family;
+    src: url("https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-wght-600-to-380.woff2") format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+  font-family: $font-family;
+  src: url('https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-Italic-wght-400-to-300.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: $font-family;
+  src: url('https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-Italic-wght-410-to-304.woff2') format('woff2');
+  font-weight: 410;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: $font-family;
+  src: url('https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-Italic-wght-420-to-308.woff2') format('woff2');
+  font-weight: 420;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: $font-family;
+  src: url('https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-Italic-wght-430-to-312.woff2') format('woff2');
+  font-weight: 430;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: $font-family;
+  src: url('https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-Italic-wght-440-to-316.woff2') format('woff2');
+  font-weight: 440;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: $font-family;
+  src: url('https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-Italic-wght-450-to-320.woff2') format('woff2');
+  font-weight: 450;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: $font-family;
+  src: url('https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-Italic-wght-460-to-324.woff2') format('woff2');
+  font-weight: 460;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: $font-family;
+  src: url('https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-Italic-wght-470-to-328.woff2') format('woff2');
+  font-weight: 470;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: $font-family;
+  src: url('https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-Italic-wght-480-to-332.woff2') format('woff2');
+  font-weight: 480;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: $font-family;
+  src: url('https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-Italic-wght-490-to-336.woff2') format('woff2');
+  font-weight: 490;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: $font-family;
+  src: url('https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-Italic-wght-500-to-340.woff2') format('woff2');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: $font-family;
+  src: url('https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-Italic-wght-510-to-344.woff2') format('woff2');
+  font-weight: 510;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: $font-family;
+  src: url('https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-Italic-wght-520-to-348.woff2') format('woff2');
+  font-weight: 520;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: $font-family;
+  src: url('https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-Italic-wght-530-to-352.woff2') format('woff2');
+  font-weight: 530;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: $font-family;
+  src: url('https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-Italic-wght-540-to-356.woff2') format('woff2');
+  font-weight: 540;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: $font-family;
+  src: url('https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-Italic-wght-550-to-360.woff2') format('woff2');
+  font-weight: 550;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: $font-family;
+  src: url('https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-Italic-wght-560-to-364.woff2') format('woff2');
+  font-weight: 560;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: $font-family;
+  src: url('https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-Italic-wght-570-to-368.woff2') format('woff2');
+  font-weight: 570;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: $font-family;
+  src: url('https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-Italic-wght-580-to-372.woff2') format('woff2');
+  font-weight: 580;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: $font-family;
+  src: url('https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-Italic-wght-590-to-376.woff2') format('woff2');
+  font-weight: 590;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: $font-family;
+  src: url('https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/fonts/NotoSerif/compressed/NotoSerif-Italic-wght-600-to-380.woff2') format('woff2');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
 }

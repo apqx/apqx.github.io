@@ -17,9 +17,10 @@ $text-font-code-block-jetbrains: string.unquote("Jetbrains Mono, Noto Sans SC, m
 $text-size-base: 1rem;
 $text-line-height-base: $text-size-base + 0.8rem;
 
-// 中型屏幕宽度范围，定义为平板，小于此尺寸为手机，大于此尺寸为电脑
-$screen-middle-width-start: 600px;
-$screen-middle-width-end: 880px;
+// 中型屏幕宽度分界点，大于为平板，小于为手机
+$screen-small-max-width: 600px;
+// 大于此尺寸为电脑
+$screen-middle-max-width: 880px;
 // 页面中部容器的最大宽度，普通索引页、文章页等都使用此宽度
 $center-container-max-width: 880px;
 // 更宽的页面中部容器的最大宽度，透镜索引页展示照片墙使用此宽度
@@ -28,14 +29,13 @@ $center-container-larger-max-width: 1400px;
 $ripple-gap-percent: 25%;
 
 // 思源黑体和思源宋体都是可变字体，但与其配合的西文字体不一定是可变的，应调整字重与之匹配
-$font-weight-light-noto-sans: 325;
-$font-weight-normal-noto-sans: 395;
-$font-weight-medium-noto-sans: 495;
+$font-weight-light-noto-sans: 320;
+$font-weight-normal-noto-sans: 390;
+$font-weight-medium-noto-sans: 490;
 
-// 避开 400 normal，可变字体渲染时的短路优化可能使字重映射实效，只要避开 400 就行
-$font-weight-light-noto-serif: 435;
-$font-weight-normal-noto-serif: 505;
-$font-weight-medium-noto-serif: 605;
+$font-weight-light-noto-serif: 430;
+$font-weight-normal-noto-serif: 500;
+$font-weight-medium-noto-serif: 600;
 
 $font-weight-extra-light-default: 200;
 $font-weight-light-default: 300;

@@ -75,8 +75,8 @@ class Service {
     }
 
     /**
-     * 获取短链映射
-     * @returns Response 成功 body 的数据类型是 ApiUrlMap 对应的 JSON
+     * 获取透镜搜索的过滤条件数据
+     * @returns Response 成功 body 的数据类型是 ApiLensFilterTemplate 对应的 JSON
      */
     getLensSearchFilters(config: ServiceConfig): Promise<Response> {
         const url = getBaseUrl(config) + "/api/lens-search-filter.json"

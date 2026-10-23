@@ -49,25 +49,29 @@ body {
     }
 
     .mdc-top-app-bar__title {
-        // font-family: "Irvin-Heading";
         padding-left: 0.3rem;
-        font-weight: var(--font-weight-normal);
+        // 与思源黑体搭配的西文字体比较细，这里加粗一点，保持视觉平衡
+        font-weight: calc(var(--font-weight-normal) + 40);
 
         a {
             text-decoration: none;
         }
+
+        .font-noto-serif-sc & {
+            // 与思源宋体搭配的西文字体粗细适中，且宋体本身已经加粗，所以这里少加一些
+            font-weight: calc(var(--font-weight-normal) + 40);
+        }
     }
 
-    // 标题栏图标和字体的字重以字体为准，图标适应字体
+    // 标题栏图标和字体的字重以 title 字体为准，图标适应字体
     // 默认思源黑体，可切换为稍细的思源宋体
     // 标题栏字体字重默认为正文字重
     i {
         // 标题栏图标字重适应字体粗细
-        font-weight: calc(var(--font-weight-normal) - 50);
+        font-weight: base.$font-weight-icons-noto-sans + 40;
 
-        // 思源宋体字体更细，标题栏图标字重适应字体粗细
         .font-noto-serif-sc & {
-            font-weight: calc(var(--font-weight-normal) - 170);
+            font-weight: base.$font-weight-icons-noto-serif + 40;
         }
     }
 
@@ -76,7 +80,6 @@ body {
         letter-spacing: 0.08rem;
         font-weight: calc(var(--font-weight-normal) + 10);
 
-        // 首页标题字重单独调整
         .font-noto-serif-sc & {
             font-weight: calc(var(--font-weight-normal) - 110);
         }

@@ -16,14 +16,14 @@ body {
 }
 
 // 平板中屏
-@media all and (min-width: (base.$screen-middle-width-start + 1px)) and (max-width: (base.$screen-middle-width-end - 1px)) {
+@media (max-width: base.$screen-middle-max-width) {
     body {
         --content-card-padding-horizontal: 2rem;
     }
 }
 
 // 手机小屏
-@media all and (max-width: base.$screen-middle-width-start) {
+@media (max-width: base.$screen-small-max-width) {
     body {
         --content-card-to-container-border-horizontal: 0;
         

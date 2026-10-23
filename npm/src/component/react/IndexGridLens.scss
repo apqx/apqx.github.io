@@ -92,17 +92,9 @@
     --mdc-shape-medium: 0.18rem;
 }
 
-// 平板中屏
-@media all and (min-width: (base.$screen-middle-width-start + 1px)) and (max-width: (base.$screen-middle-width-end - 1px)) {
-    body {
-        .lens-index-list-wrapper {}
-    }
-}
-
 // 手机小屏
-@media all and (max-width: base.$screen-middle-width-start) {
+@media (max-width: base.$screen-small-max-width) {
     body {
-
         .lens-index-pinned-icon-container,
         .lens-index-featured-icon-container {
             left: 0.2rem;

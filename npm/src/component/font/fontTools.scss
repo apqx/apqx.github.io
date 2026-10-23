@@ -1,0 +1,25 @@
+// 定义输入字重与对应实际应使用字重的映射 font-face
+// 思源黑体和思源宋体搭配的西文字体较中文字体偏粗，所以应将西文字体的字重调低，此函数用来生成对应字重的 font-face
+@mixin generate-weight-slice($fontName, $fontStyle, $italicAngle, $url, $min, $max, $minActual, $step, $stepActual) {
+    $current: $min;
+    $currentActual: $minActual;
+
+    @while $current <=$max {
+        @font-face {
+            font-family: "#{$fontName}";
+            src: url(#{$url}) format('woff2');
+            font-style: #{$fontStyle};
+            font-display: swap;
+            font-weight: #{$current};
+            // italicAngle 非 null 或 false 即判断为 true
+            @if $italicAngle {
+                font-variation-settings: 'wght' #{$currentActual}, 'slnt' #{$italicAngle};
+            } @else {
+                font-variation-settings: 'wght' #{$currentActual};
+            }
+        }
+
+        $current: $current + $step;
+        $currentActual: $currentActual + $stepActual;
+    }
+}

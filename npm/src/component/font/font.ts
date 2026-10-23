@@ -21,7 +21,7 @@ export function initFont() {
         if (data == "pageBackFromCache") {
             checkNotoSerifSCFont()
         }
-    }) 
+    })
 }
 
 function checkNotoSerifSCFont() {
@@ -37,7 +37,7 @@ export function setHandwrittenFont(on: boolean) {
 export function setNotoSerifSCFont(on: boolean) {
     const bodyE = document.body
     toggleElementClass(bodyE, "font-noto-serif-sc", on)
-    // toggleClassWithEnable(bodyE, "font-wenkai", on)
+    // toggleElementClass(bodyE, "font-wenkai", on)
 }
 
 export function setNotoSansSCFont(on: boolean) {
@@ -61,6 +61,12 @@ function loadNecessaryFonts() {
     if (wenKaiIndexElements.length > 0)
         import("./fontWenKai").then().catch((e) => {
             consoleError("Load WenKai font error: " + e)
+        })
+    // JetBrains Mono
+    const jetbrainsIndexElements = document.querySelectorAll(".font-jetbrains")
+    if (jetbrainsIndexElements.length > 0)
+        import("./fontJetBrains").then().catch((e) => {
+            consoleError("Load JetBrains font error: " + e)
         })
 }
 
