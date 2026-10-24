@@ -22,7 +22,6 @@
         // 小标题字体色
         --mdc-theme-text-secondary-on-background: #{map.get(base.$text-subtitle, "light")};
 
-        --topbar-blur: #{map.get(base.$topbar, "bg-blur-light")};
         --footer-ink:#{map.get(base.$footer-ink, "light")};
 
         // Drawer
@@ -106,7 +105,6 @@
         --mdc-theme-text-primary-on-background: #{map.get(base.$text-title, "dark")};
         --mdc-theme-text-secondary-on-background: #{map.get(base.$text-subtitle, "dark")};
 
-        --topbar-blur: #{map.get(base.$topbar, "bg-blur-dark")};
         --footer-ink:#{map.get(base.$footer-ink, "dark")};
 
         // Drawer
@@ -251,8 +249,8 @@ body {
 
         --topbar-height: 3.9rem;
 
-        --text-block-padding-vertical: 1rem;
-        --text-block-padding-horizontal: 1.3rem;
+        --text-block-padding-vertical: 1.2rem;
+        --text-block-padding-horizontal: 1.5rem;
 
         // main container 为中央主体容器，设置最大宽度，水平居中，此为其顶部距 topbar 和底部距 footer 的距离
         --main-container-padding-vertical: 1.2rem;

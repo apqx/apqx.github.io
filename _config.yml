@@ -8,14 +8,14 @@
 # Site settings
 title: 立泉落落
 email: safari@mudan.me
-description: "昆虫，野生散养攻城狮，“十分”“业余”摄影Fans。"
+description: "旅居杭州，常在西湖，淮南一叶，自觉洞庭。"
 url: "https://mudan.me" # the base hostname & protocol for your site
 baseurl: "" # the subpath of your site, e.g. /blog
 github_username:  apqx
 
 exclude: [.idea/, npm/node_modules/, npm/src/,
-npm/package-lock.json, npm/package.json, npm/README.md, npm/webpack.config.js,
-npm/babel.config.json, docs/, README.md, README_CN.md]
+  npm/package-lock.json, npm/package.json, npm/README.md, npm/webpack.config.js,
+  npm/babel.config.json, docs/, README.md, README_CN.md]
 
 # _post 目录下 markdown 转换后的 url 结构
 permalink: /post/:categories/:year/:month/:day/:title:output_ext
@@ -27,8 +27,8 @@ markdown: kramdown
 # 但是 GitHub Pages 只支持 Rouge 或 Pygments 的高亮格式，所以不能设置为 none，默认是 Rouge
 # highlighter: none
 kramdown:
-  # 关闭智能引号转换 
-  smart_quotes: ["apos", "apos", "quot", "quot"]
+  # 关闭智能引号转换，保留原始文本格式，避免意料之外的排版效果
+  smart_quotes: "apos,apos,quot,quot"
   # 虽然不能设置 highlighter: none，但可以禁用 rouge 的输出功能，使 kramdown 输出标准的代码高亮 html，方便 highlight.js 解析
   syntax_highlighter_opts:
     disable : true

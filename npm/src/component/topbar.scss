@@ -22,7 +22,7 @@ body {
     &.top-app-bar--blur:not(.colorful) {
         backdrop-filter: blur(map.get(base.$topbar, "backdrop-filter"));
         -webkit-backdrop-filter: blur(map.get(base.$topbar, "backdrop-filter"));
-        @include top-app-bar.fill-color(var(--topbar-blur));
+        background-color: color-mix(in srgb, var(--mdc-theme-primary) 80%, transparent);
     }
 }
 

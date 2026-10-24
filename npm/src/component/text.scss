@@ -116,6 +116,19 @@ code {
     margin: 0;
 }
 
+.font-code {
+    @include basicText();
+    font-family: var(--text-code-font-family);
+    // 与思源黑体配合时 weight 正常即可
+    --text-code-font-weight: #{base.$font-weight-normal-default};
+
+    .font-noto-serif-sc & {
+        --text-code-font-family: #{base.$text-font-noto-serif-code};
+        // 与思源宋体配合时减少 weight
+        --text-code-font-weight: #{base.$font-weight-normal-default - 30};
+    }
+}
+
 pre {
     &:has(code) {
         position: relative;
@@ -155,7 +168,7 @@ pre code.hljs {
     font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
     line-height: calc(var(--mdc-typography-body1-line-height) - 0.2rem);
     // 独立代码块字重为 normal
-    font-weight: base.$font-weight-normal-default;
+    --text-code-font-weight: #{base.$font-weight-normal-default};
 
     padding: var(--text-block-padding-vertical) var(--text-block-padding-horizontal);
     background: var(--pre-code-bg);
@@ -186,7 +199,7 @@ code:not(pre code) {
 
     pre code,
     pre code.hljs {
-        font-weight: base.$font-weight-normal-default - 30;
+        --text-code-font-weight: #{base.$font-weight-normal-default - 30};
     }
 }
 
@@ -198,7 +211,7 @@ em code {
 }
 
 pre {
-    margin: calc(var(--mdc-typography-body1-font-size) - 0.5rem) 0;
+    margin: calc(var(--mdc-typography-body1-font-size) - 0.3rem) 0;
     overflow: scroll;
 }
 
@@ -316,6 +329,7 @@ time {
     // border: 1px solid var(--surface-block-border);
     border-radius: var(--post-inner-shape-round);
     background: var(--surface-block-bg);
+    // margin: calc(var(--mdc-typography-body1-font-size) - 0.3rem) 0;
     padding: var(--text-block-padding-vertical) var(--text-block-padding-horizontal);
 }
 

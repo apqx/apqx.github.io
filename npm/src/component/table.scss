@@ -32,41 +32,45 @@ th,
 }
 
 .table-wrapper {
-    width: 100%;
-    // 表格宽度超出时滚动
-    overflow: scroll;
+    // 表格宽度超出时截断，主要使滚动条不覆盖到 border 之上
+    overflow: clip;
     margin: calc(var(--mdc-typography-body1-font-size) - 0.5rem) 0;
-    // wrapper边框
+    // wrapper 边框
     border: 1px solid var(--surface-block-border);
     border-radius: var(--post-inner-shape-round);
 
-    table {
-        // 有wrapper时不显示边框，由wrapper显示
-        border: none;
-        border-radius: none;
-        width: fit-content;
-        min-width: 100%;
+    .table-inner-overflow {
+        width: 100%;
+        overflow: scroll;
 
-        th,
-        td {
-            // 有wrapper时设置单元格最小宽度，因为表格已经支持滚动
-            min-width: fit-content;
-            // 有wrapper时设置单元格不换行，方便滚动
-            white-space: nowrap;
-            line-break: normal;
+        table {
+            // 有 wrapper 时不显示边框，由 wrapper 显示
+            border: none;
+            border-radius: none;
+            width: fit-content;
+            min-width: 100%;
+
+            th,
+            td {
+                // 有 wrapper 时设置单元格最小宽度，因为表格已经支持滚动
+                min-width: fit-content;
+                // 有 wrapper 时设置单元格不换行，方便滚动
+                white-space: nowrap;
+                line-break: normal;
+            }
         }
     }
 }
 
-// markdown转换的table，将由js移动到wrapper中
-// 无wrapper时表格不支持滚动，宽度为100%
+// markdown 转换的 table，将由 js 移动到 wrapper 中
+// 无 wrapper 时表格不支持滚动，宽度为 100%
 table {
-    // 设置表格圆角必须将collapse设置为separate
+    // 设置表格圆角必须将 collapse 设置为 separate
     border-collapse: separate;
-    // 确保没有wrapper也能显示边框
+    // 确保没有 wrapper 也能显示边框
     border: 1px solid var(--surface-block-border);
     border-radius: var(--post-inner-shape-round);
-    // 没有wrapper时宽度100%，不支持滚动
+    // 没有 wrapper 时宽度 100%，不支持滚动
     width: 100%;
     border-spacing: 0;
 
@@ -77,6 +81,7 @@ table {
     thead {
         background-color: var(--surface-block-bg);
         margin: 0;
+
         * {
             color: var(--mdc-theme-on-surface);
         }
@@ -84,6 +89,7 @@ table {
 
     tbody {
         margin: 0;
+
         * {
             color: var(--mdc-theme-on-surface-secondary);
         }
@@ -101,6 +107,7 @@ table {
     tr {
         margin: 0;
     }
+
     // 单元格
     th,
     td {
@@ -117,6 +124,7 @@ table {
 
 
 .align-right {
+
     th,
     td {
         text-align: right;
@@ -124,6 +132,7 @@ table {
 }
 
 .align-center {
+
     th,
     td {
         text-align: center;

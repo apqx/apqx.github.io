@@ -28,19 +28,21 @@ $center-container-larger-max-width: 1400px;
 
 $ripple-gap-percent: 25%;
 
+$font-weight-light-gap: 70;
+$font-weight-medium-gap: 100;
+
 // 思源黑体和思源宋体都是可变字体，但与其配合的西文字体不一定是可变的，应调整字重与之匹配
-$font-weight-light-noto-sans: 320;
-$font-weight-normal-noto-sans: 390;
-$font-weight-medium-noto-sans: 490;
+$font-weight-normal-noto-sans: 400;
+$font-weight-light-noto-sans: $font-weight-normal-noto-sans - $font-weight-light-gap;
+$font-weight-medium-noto-sans: $font-weight-normal-noto-sans + $font-weight-medium-gap;
 
-$font-weight-light-noto-serif: 430;
-$font-weight-normal-noto-serif: 500;
-$font-weight-medium-noto-serif: 600;
+$font-weight-normal-noto-serif: 520;
+$font-weight-light-noto-serif: $font-weight-normal-noto-serif - $font-weight-light-gap;
+$font-weight-medium-noto-serif: $font-weight-normal-noto-serif + $font-weight-medium-gap;
 
-$font-weight-extra-light-default: 200;
 $font-weight-light-default: 300;
 $font-weight-normal-default: 400;
 $font-weight-medium-default: 500;
 
 $font-weight-icons-noto-sans: 300;
-$font-weight-icons-noto-serif: 295;
+$font-weight-icons-noto-serif: 300;

@@ -12,13 +12,9 @@ $surface: (
 $topbar: (
         backdrop-filter: 30px,
         bg-light: map.get($surface, "light"),
-        bg-blur-light: rgba(map.get($surface, "light"), 0.8),
         bg-light-colorful: #556a3b,
-        bg-blur-light-colorful: rgba(#556a3b, 0.8),
         bg-dark: map.get($surface, "dark"),
-        bg-blur-dark: rgba(map.get($surface, "dark"), 0.8),
         bg-dark-colorful: #556a3b,
-        bg-blur-dark-colorful: rgba(#556a3b, 0.8),
 );
 $topbar-ink: (
         light: color.adjust(map.get($topbar, "bg-light"), $lightness: -80%),

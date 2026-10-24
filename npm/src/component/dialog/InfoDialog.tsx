@@ -47,12 +47,16 @@ function InfoDialog(props: BaseDialogOpenProps) {
                 <List oneLine={false} items={[
                     {
                         title: "Share", description: document.location.origin + "/share",
-                        link: "/share", newPage: true
+                        link: "/share", newPage: false
                     },
                     {
                         title: "Sitemap", description: document.location.origin + "/sitemap.xml",
-                        link: "/sitemap.xml", newPage: true
-                    }
+                        link: "/sitemap.xml", newPage: false
+                    },
+                    {
+                        title: "Font", description: document.location.origin + "/page/font.html",
+                        link: "/page/font.html", newPage: false
+                    },
                 ]} />
             </div>
         </BaseDialog>

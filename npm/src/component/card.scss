@@ -5,7 +5,6 @@
 @use "sass:map";
 @use "sass:color";
 
-
 @mixin cardElevation {
     @include elevation.elevation(map.get(base.$card-elevation, "elevation"),
         map.get(base.$card-elevation, "shadow-light"), 0);
