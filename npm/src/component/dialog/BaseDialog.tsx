@@ -43,11 +43,11 @@ export interface BaseDialogProps extends BaseDialogOpenProps {
     children: React.ReactNode
 }
 
-const defaultActionBtn: ActionBtn = { text: "关闭", closeOnClick: true, onClick: () => { } }
+export const defaultActionBtnClose: ActionBtn = { text: "关闭", closeOnClick: true, onClick: () => { } }
 
 export function BaseDialog({ dialogControllerRef = undefined, fixedWidth = false, closeOnClickOutside = true, scrollToTopOnDialogOpen = true,
     onLoadMore = undefined, onDialogOpen = undefined, onDialogOpening = undefined, onDialogClose = undefined, onDialogClosing = undefined,
-    actions = [defaultActionBtn], children }: BaseDialogProps) {
+    actions = [defaultActionBtnClose], children }: BaseDialogProps) {
     const dialogContainerRef = useRef<HTMLDivElement>(null)
     const scrimControllerRef = useRef<ScrimController | null>(null)
     const animaERef = useRef<HTMLDivElement>(null)

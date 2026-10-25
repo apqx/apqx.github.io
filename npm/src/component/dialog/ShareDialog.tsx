@@ -1,6 +1,6 @@
 import "./ShareDialog.scss"
-import { BaseDialog, getDialogController, SHARE_DIALOG_WRAPPER_ID, showDialog } from "./BaseDialog"
-import type { BaseDialogController, BaseDialogOpenProps, DialogControllerRef } from "./BaseDialog"
+import { BaseDialog, defaultActionBtnClose, getDialogController, SHARE_DIALOG_WRAPPER_ID, showDialog } from "./BaseDialog"
+import type { ActionBtn, BaseDialogOpenProps } from "./BaseDialog"
 import { consoleInfo } from "../../util/log"
 import { useCallback, useEffect, useMemo, useRef } from "react"
 import QRCodeStyling from "qr-code-styling"
@@ -8,6 +8,7 @@ import QRCode from "qrcode-generator"
 import { showSnackbar } from "../react/Snackbar"
 import { IconButton } from "../react/Button"
 import { useDarkTheme } from "../react/tools/useDarkTheme"
+import { getMetaContent, share } from "../../util/tools"
 
 function ShareDialog(props: BaseDialogOpenProps) {
     const containerRef = useRef<HTMLDivElement>(null)
@@ -95,8 +96,26 @@ function ShareDialog(props: BaseDialogOpenProps) {
         qrCode.append(qrcodeContainer)
     }, [isDarkTheme])
 
+    const actionBtnShare: ActionBtn = useMemo(() => {
+        return {
+            text: "分享",
+            closeOnClick: false,
+            onClick: () => {
+                const title = getMetaContent('property="og:title"') ?? ""
+                const description = getMetaContent('property="og:description"') ?? ""
+                const url = window.location.href
+                share(title, description, url, () => {
+                    showSnackbar("分享成功")
+                }, (error: string) => {
+                    showSnackbar(error)
+                })
+            }
+        }
+    }, [])
+
     return (
-        <BaseDialog dialogControllerRef={props.dialogControllerRef} onDialogOpen={onDialogOpen} onDialogClose={onDialogClose}>
+        <BaseDialog dialogControllerRef={props.dialogControllerRef} onDialogOpen={onDialogOpen} onDialogClose={onDialogClose}
+            actions={[defaultActionBtnClose, actionBtnShare]}>
             <div ref={containerRef} className="center-inline-items">
                 <div className="share-qrcode-picture">
                 </div>

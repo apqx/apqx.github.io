@@ -61,6 +61,27 @@ sitemap: false
                 "path": "/page/kfc.html",
                 "title": "9块9疯狂星期四"
             }
+        },    
+        {
+            "id": "weibo",
+            "target": {
+                "path": "https://weibo.com/u/7026785047",
+                "title": "立泉落落｜微博"
+            }
+        },
+        {
+            "id": "blbl",
+            "target": {
+                "path": "https://space.bilibili.com/11037907",
+                "title": "立泉落落｜哔哩哔哩"
+            }
+        },
+        {
+            "id": "ytb",
+            "target": {
+                "path": "https://www.youtube.com/@apqx",
+                "title": "立泉落落｜YouTube"
+            }
         },
         {
             "id": "op00",

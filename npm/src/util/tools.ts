@@ -1,5 +1,5 @@
 import type { Post } from "../component/base/paginate/bean/Post"
-import { consoleInfo } from "./log"
+import { consoleError, consoleInfo, consoleInfoObj } from "./log"
 
 /**
  * 当HTML元素加载完成后执行指定的任务
@@ -139,7 +139,7 @@ export async function getChromeVersion(): Promise<string | null> {
         }
     }
     // 作为降级方案，使用传统 UA 字符串解析版本号
-    return getChromeVersionFromUA() 
+    return getChromeVersionFromUA()
 }
 
 export function getChromeVersionFromUA(): string | null {
@@ -196,6 +196,41 @@ export function getElementSize(e: HTMLElement, property: string): number {
 
 export function getElementAttribute(e: HTMLElement, property: string) {
     return e.getAttribute(property)
+}
+
+export function getMetaContent(metaName: string) {
+    const metaE = document.querySelector(`meta[${metaName}]`)
+    if (metaE != null) {
+        return metaE.getAttribute("content")
+    } else {
+        return null
+    }
+}
+
+export async function share(title: string, description: string, url: string, onSuccess: () => void, onFailed: (error: string) => void) {
+    const shareData = {
+        title: title,
+        text: description,
+        url: url
+    }
+    consoleInfoObj("Share by invoke native interface: ", shareData)
+    if (navigator.canShare(shareData)) {
+        try {
+            await navigator.share(shareData);
+            consoleInfo("Share success")
+            onSuccess()
+        } catch(error) {
+            consoleError("Share error: " + error)
+            if (error instanceof Error && error.message.includes("canceled")) {
+                onFailed("分享被取消")
+            } else {
+                onFailed("分享失败：" + error)
+            }
+        }
+    } else {
+        consoleError("Share failed, not support share or share data invalidate")
+        onFailed("当前设备不支持分享或数据异常")
+    }
 }
 
 export const MINIMAL_LOADING_TIME_MS = 300
