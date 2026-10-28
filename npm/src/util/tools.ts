@@ -208,9 +208,11 @@ export function getMetaContent(metaName: string) {
 }
 
 export async function share(title: string, description: string, url: string, onSuccess: () => void, onFailed: (error: string) => void) {
+    // 不传递 text 属性，仅传递 title 和 url 可被微信识别为链接卡片，微信会自己从 url 抓取 title、description、image
+    // 否则是一串 text + url 文本，不显示 title。
     const shareData = {
         title: title,
-        text: description,
+        // text: description,
         url: url
     }
     consoleInfoObj("Share by invoke native interface: ", shareData)
@@ -221,8 +223,8 @@ export async function share(title: string, description: string, url: string, onS
             onSuccess()
         } catch(error) {
             consoleError("Share error: " + error)
-            if (error instanceof Error && error.message.includes("canceled")) {
-                onFailed("分享被取消")
+            if (error instanceof Error && error.name.toLowerCase().includes("abort")) {
+                onFailed("分享中止")
             } else {
                 onFailed("分享失败：" + error)
             }

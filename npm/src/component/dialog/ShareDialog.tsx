@@ -5,7 +5,7 @@ import { consoleInfo } from "../../util/log"
 import { useCallback, useEffect, useMemo, useRef } from "react"
 import QRCodeStyling from "qr-code-styling"
 import QRCode from "qrcode-generator"
-import { showSnackbar } from "../react/Snackbar"
+import { Length, showSnackbar } from "../react/Snackbar"
 import { IconButton } from "../react/Button"
 import { useDarkTheme } from "../react/tools/useDarkTheme"
 import { getMetaContent, share } from "../../util/tools"
@@ -105,9 +105,9 @@ function ShareDialog(props: BaseDialogOpenProps) {
                 const description = getMetaContent('property="og:description"') ?? ""
                 const url = window.location.href
                 share(title, description, url, () => {
-                    showSnackbar("分享成功")
+                    // showSnackbar("分享成功", Length.SHORT)
                 }, (error: string) => {
-                    showSnackbar(error)
+                    showSnackbar(error, Length.SHORT)
                 })
             }
         }

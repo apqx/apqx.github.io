@@ -231,7 +231,7 @@ em {
     // 向字体底层传递 -10 倾斜轴，Google Sans Flex 以可变字体创建 italic font-face，通过这个参数可更改倾斜度
     // 对正常字体无影响
     // Google Sans Flex 已经将此参数固化到字体文件中，所以不需要再设置这个参数
-    // font-variation-settings: "slnt" -10;
+    font-variation-settings: "slnt" -10;
 }
 
 strong,

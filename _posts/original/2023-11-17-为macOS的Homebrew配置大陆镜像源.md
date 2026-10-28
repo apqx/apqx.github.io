@@ -10,6 +10,8 @@ image: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/original/20231117/homebrew
 tags: Code Git macOS Homebrew GitHub 阿里云 镜像源
 ---
 
+> 2026 年 06 月 26 日更新：近期重装系统后倾向于使用分流代理，不再修改 Homebrew 默认配置，规避镜像源的安全风险和版本升级可能伴随的兼容问题。
+
 Homebrew 之于 macOS 正如 APT 之于 Ubuntu，且如 APT 在大陆面临的网络问题一样，Homebrew 也面临相近甚至更糟的网络问题，因为它默认的源正是“剪不断、理还乱”的 GitHub 和 GitHub Packages，后面会提到。
 
 [Homebrew](https://brew.sh){: target="_blank" } 是 macOS 的包管理器，但并没有被内置，需手动安装:
