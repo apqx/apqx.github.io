@@ -32,7 +32,7 @@ $font-weight-light-gap: 70;
 $font-weight-medium-gap: 100;
 
 // 思源黑体和思源宋体都是可变字体，但与其配合的西文字体不一定是可变的，应调整字重与之匹配
-$font-weight-normal-noto-sans: 400;
+$font-weight-normal-noto-sans: 390;
 $font-weight-light-noto-sans: $font-weight-normal-noto-sans - $font-weight-light-gap;
 $font-weight-medium-noto-sans: $font-weight-normal-noto-sans + $font-weight-medium-gap;
 
