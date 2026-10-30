@@ -1,8 +1,7 @@
 import { useMemo, useRef } from "react"
 import { createHtmlContent } from "../../util/tools"
 import { BaseDialog, COMMON_DIALOG_WRAPPER_ID, getDialogController, showDialog } from "./BaseDialog"
-import type { BaseDialogController, BaseDialogOpenProps, DialogControllerRef } from "./BaseDialog"
-import { SmoothCollapse } from "../react/SmoothCollapse"
+import type { BaseDialogOpenProps, DialogControllerRef } from "./BaseDialog"
 
 interface CommonAlertDialogProps extends BaseDialogOpenProps {
     title: string,
@@ -30,13 +29,11 @@ function NewCommonAlertDialog(props: CommonAlertDialogProps) {
 
     return (
         <BaseDialog dialogControllerRef={props.dialogControllerRef} actions={actionBtns}>
-            <SmoothCollapse>
-                <div>
-                    <p className="common-alert-dialog_title">{props.title}</p>
-                    <p className="common-alert-dialog_content"
-                        dangerouslySetInnerHTML={createHtmlContent(props.contentHTML)} />
-                </div>
-            </SmoothCollapse>
+            <div>
+                <p className="common-alert-dialog_title">{props.title}</p>
+                <p className="common-alert-dialog_content"
+                    dangerouslySetInnerHTML={createHtmlContent(props.contentHTML)} />
+            </div>
         </BaseDialog>
     )
 }

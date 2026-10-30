@@ -9,7 +9,6 @@ import { getSectionTypeByPath, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL } from 
 import type { SectionType } from "../../base/constant"
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
 import { getSplittedDate } from "../../base/post"
-import { SmoothCollapse } from "../react/SmoothCollapse"
 import { HttpPaginatorViewModel } from "../base/paginate/HttpPaginateViewModel"
 import type { ApiPost } from "../../repository/bean/service/ApiPost"
 import type { Post } from "../base/paginate/bean/Post"
@@ -78,13 +77,11 @@ function TagDialog(props: TagDialogProps) {
         <BaseDialog dialogControllerRef={props.dialogControllerRef} fixedWidth={true} onDialogOpen={onDialogOpen} onDialogOpening={onDialogOpening}
             onDialogClose={onDialogClose} onDialogClosing={onDialogClosing} >
             <p>标记 {props.nickname ?? props.tag} 的 {state.totalPostsSize} 篇博文</p>
-            <SmoothCollapse>
-                {state.posts != null && state.posts.length != 0 &&
-                    <PostResult list={state.posts} />
-                }
-                <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore}
-                    triggerIntersectionCheckCount={triggerIntersection} />
-            </SmoothCollapse>
+            {state.posts != null && state.posts.length != 0 &&
+                <PostResult list={state.posts} />
+            }
+            <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore}
+                triggerIntersectionCheckCount={triggerIntersection} />
         </BaseDialog>
     )
 }

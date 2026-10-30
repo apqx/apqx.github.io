@@ -20,7 +20,7 @@ function AboutMeDialog(props: BaseDialogOpenProps) {
 
     return (
         <BaseDialog dialogControllerRef={props.dialogControllerRef}>
-            <div className="center-inline-items">
+            <div className="about-me-dialog-container center-inline-items">
                 <picture>
                     <source srcSet="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me_emoji.webp"
                         type="image/webp" />

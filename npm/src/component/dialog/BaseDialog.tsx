@@ -1,14 +1,16 @@
 import "./BaseDialog.scss"
 import { consoleInfo } from "../../util/log"
 import { MDCDialog } from "@material/dialog"
-import React, { useEffect, useRef } from "react"
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react"
 import { createRoot } from "react-dom/client"
 import type { Root } from "react-dom/client"
 import { setupButtonRipple } from "../button"
 import { ScrollLoader } from "../../base/ScrollLoader"
 import { ScrollContext } from "../react/LoadingHint"
-import { toggleElementClass } from "../../util/tools"
+import { getResolvedElementMaxHeight, toggleElementClass } from "../../util/tools"
 import { Scrim, type ScrimController } from "../react/Scrim"
+import { DEBOUNCE_DELAY, useDebouncedResize } from "../react/tools/useDebouncedResize"
+import { useResizeMonitor } from "../react/SmoothCollapse"
 
 export interface ActionBtn {
     text: string,
@@ -48,7 +50,11 @@ export const defaultActionBtnClose: ActionBtn = { text: "关闭", closeOnClick: 
 export function BaseDialog({ dialogControllerRef = undefined, fixedWidth = false, closeOnClickOutside = true, scrollToTopOnDialogOpen = true,
     onLoadMore = undefined, onDialogOpen = undefined, onDialogOpening = undefined, onDialogClose = undefined, onDialogClosing = undefined,
     actions = [defaultActionBtnClose], children }: BaseDialogProps) {
+    const [contentMaxHeight, setContentMaxHeight] = useState(0)
+
     const dialogContainerRef = useRef<HTMLDivElement>(null)
+    const dialogSurfaceRef = useRef<HTMLDivElement>(null)
+    const smoothCollapseWrapperRef = useRef<HTMLDivElement>(null)
     const scrimControllerRef = useRef<ScrimController | null>(null)
     const animaERef = useRef<HTMLDivElement>(null)
     const scrollContainerRef = useRef<HTMLDivElement>(null)
@@ -57,6 +63,7 @@ export function BaseDialog({ dialogControllerRef = undefined, fixedWidth = false
     const btnCloseRef = useRef<HTMLElement>(null)
 
     // 使用 ref 存储回调函数的最新引用，避免因函数引用变化导致 useEffect 重新执行
+    // Dialog 监听器要在同一个 useEffect 中统一管理
     const onDialogOpenRef = useRef(onDialogOpen)
     const onDialogOpeningRef = useRef(onDialogOpening)
     const onDialogCloseRef = useRef(onDialogClose)
@@ -74,7 +81,7 @@ export function BaseDialog({ dialogControllerRef = undefined, fixedWidth = false
 
     useEffect(() => {
         consoleInfo("BaseDialog useEffect")
-        const rootE = dialogContainerRef.current as Element
+        const rootE = dialogContainerRef.current as HTMLElement
         dialogContentRef.current = rootE.querySelector("#basic-dialog-content") as HTMLDivElement
 
         rootE.querySelectorAll(".basic-dialog_btn_action").forEach((ele) => {
@@ -98,7 +105,6 @@ export function BaseDialog({ dialogControllerRef = undefined, fixedWidth = false
 
         return () => {
             consoleInfo("BaseDialog useEffect cleanup")
-
             clearListeners()
             dialogRef.current?.destroy()
             if (dialogControllerRef) {
@@ -231,11 +237,41 @@ export function BaseDialog({ dialogControllerRef = undefined, fixedWidth = false
         btnCloseRef.current.blur()
     }
 
+    const calcContentMaxHeight = useCallback(() => {
+        // TODO: 这里计算的 maxHeight 不对，且缺少 inset 尺寸
+        // surfaceHeight = contentHeight + actionHeight
+        const surfaceMaxHeight = getResolvedElementMaxHeight(dialogSurfaceRef.current!) ?? 0
+        const actionsE = dialogContainerRef.current?.querySelector(".mdc-dialog__actions") as HTMLDivElement
+        const actionBtnHeight = actionsE.offsetHeight
+        consoleInfo(`Dialog surfaceMaxHeight = ${surfaceMaxHeight}, actionBtnHeight = ${actionBtnHeight}`)
+        return surfaceMaxHeight - actionBtnHeight
+    }, [])
+
+    // Dialog 启动时由内容自动撑开 Dialog 至最大高度，然后监听内容高度变化，平滑过渡🤔
+
+    useLayoutEffect(() => {
+        setContentMaxHeight(calcContentMaxHeight())
+    }, [])
+
+    const resizeCallback = useCallback(() => {
+        setContentMaxHeight(pre => {
+            const current = calcContentMaxHeight()
+            consoleInfo("Dialog contentMaxHeight changed: " + pre + " -> " + current)
+            return current
+        })
+    }, [])
+
+    // 监听视口尺寸变化，计算 surface 最大高度
+    useDebouncedResize(dialogContainerRef, DEBOUNCE_DELAY, resizeCallback)
+
+    // 监听内容高度变化，使 Dialog 窗口平滑变化
+    useResizeMonitor(scrollContainerRef, smoothCollapseWrapperRef, contentMaxHeight)
+
     return (
         <>
             <div ref={dialogContainerRef} className="mdc-dialog">
                 <div ref={animaERef} className="mdc-dialog__container">
-                    <div
+                    <div ref={dialogSurfaceRef}
                         className={fixedWidth ? "mdc-dialog__surface mdc-dialog__fixed-width" : "mdc-dialog__surface"}
                         role="alertdialog" aria-modal="true"
                         aria-labelledby="basic-dialog-title"
@@ -243,7 +279,9 @@ export function BaseDialog({ dialogControllerRef = undefined, fixedWidth = false
                         <ScrollContext.Provider value={scrollContainerRef}>
                             <div ref={scrollContainerRef} className="mdc-dialog__content mdc-theme--on-surface"
                                 id="basic-dialog-content">
-                                {children}
+                                <div ref={smoothCollapseWrapperRef} className="smooth-collapse-wrapper">
+                                    {children}
+                                </div>
                             </div>
                         </ScrollContext.Provider>
 

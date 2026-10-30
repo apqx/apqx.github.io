@@ -1,28 +1,33 @@
 // @use "../react/Button";
 
-.about-me-name {
-    line-height: 2.5rem;
-    font-size: calc(var(--mdc-typography-body1-font-size) + 0.8rem);
-    text-align: center;
-    margin-top: 1.0rem;
-    margin-bottom: 1.0rem;
-    display: block;
-}
+$avatarWidth: 7rem;
 
-.about-me-description {
-    margin: 1.6rem 1rem;
-}
+.about-me-dialog-container {
+    .about-me-name {
+        line-height: 2.5rem;
+        font-size: calc(var(--mdc-typography-body1-font-size) + 0.8rem);
+        text-align: center;
+        margin-top: 1.0rem;
+        margin-bottom: 1.0rem;
+        display: block;
+    }
 
-.circle-avatar {
-    width: 7rem;
-    height: 7rem;
-    border-radius: 50%;
-    margin-top: 2rem;
-    background-color: var(--chip-bg);
-}
+    .about-me-description {
+        margin: 1.6rem 1rem;
+    }
+    
+    .circle-avatar {
+        display: inline-block;
+        width: $avatarWidth;
+        height: $avatarWidth;
+        margin-top: 2rem;
+        border-radius: 50%;
+        background-color: var(--chip-bg);
+    }
 
-.btn-tag-container.about-me-tag-wrapper {
-    justify-content: center;
+    .about-me-tag-wrapper {
+        justify-content: center;
+    }
 }
 
 .link-item {

@@ -1,3 +1,4 @@
+import type { RefObject } from "react"
 import type { Post } from "../component/base/paginate/bean/Post"
 import { consoleError, consoleInfo, consoleInfoObj } from "./log"
 
@@ -183,9 +184,9 @@ export function getHostWithHttp(): string {
     }
 }
 
-export function getElementSize(e: HTMLElement, property: string): number {
-    // 获得的值可能是auto或非数字
-    // computedStyleMap目前不支持Firefox
+export function getElementComputeSize(e: HTMLElement, property: string): number {
+    // 获得的值可能是 auto 或非数字或 calc(100% - 32px) 这种
+    // computedStyleMap 目前不支持 Firefox
     // const value = e.computedStyleMap().get(property)?.toString()
     const value = window.getComputedStyle(e).getPropertyValue(property)
     consoleInfo("GetElementSize " + property + " = " + value)
@@ -194,8 +195,71 @@ export function getElementSize(e: HTMLElement, property: string): number {
     return Number.isNaN(result) ? 0 : result
 }
 
+export function getResolvedElementMaxHeight(element: HTMLElement): number | null {
+    const computed = window.getComputedStyle(element);
+    const rawMaxHeight = computed.maxHeight;
+
+    // 1. 若属性本身未设置或失效，返回 null
+    if (rawMaxHeight === "none") {
+        return null;
+    }
+
+    // 2. 若值已是纯像素形式（例如设置了固定 px 单位）
+    if (rawMaxHeight.endsWith("px")) {
+        return parseFloat(rawMaxHeight);
+    }
+
+    // 3. 针对包含百分比的 calc 表达式：获取包含块的实际几何高度进行换算
+    const parent = element.parentElement;
+    if (!parent) {
+        return null;
+    }
+
+    const parentHeight = parent.clientHeight - parseNumberStrict(parent.style.paddingTop) - parseNumberStrict(parent.style.paddingBottom);
+
+    // 正则提取 calc(100% - 32px) 或 calc(100% + 10px) 中的像素偏移量
+    // 匹配形式：calc(100% [+-] Xpx)
+    const calcMatch = rawMaxHeight.match(/calc\(\s*100%\s*([+-])\s*([\d.]+)px\s*\)/);
+    if (calcMatch) {
+        const operator = calcMatch[1];
+        const offsetPx = parseFloat(calcMatch[2]);
+        const delta = operator === "-" ? -offsetPx : offsetPx;
+        return Math.max(0, parentHeight + delta);
+    }
+
+    // 若仅声明为 calc(100%) 或 100%
+    if (rawMaxHeight === "100%" || rawMaxHeight === "calc(100%)") {
+        return parentHeight;
+    }
+
+    return null;
+}
+
+function parseNumberStrict(value: string): number {
+  const trimmed = value.trim();
+  // 排除空串与纯空格，因为 Number("") 在 JS 中会被隐式转换为 0
+  if (trimmed === "") {
+    return 0;
+  }
+
+  const num = Number(trimmed);
+  // Number.isFinite 同时排除 NaN、+Infinity 和 -Infinity
+  return Number.isFinite(num) ? num : 0;
+}
+
 export function getElementAttribute(e: HTMLElement, property: string) {
     return e.getAttribute(property)
+}
+
+/**
+ * 判断目标对象是否为 RefObject 结构
+ */
+export function isRefObject<T = unknown>(value: unknown): value is RefObject<T> {
+    return (
+        typeof value === "object" &&
+        value !== null &&
+        "current" in value
+    );
 }
 
 export function getMetaContent(metaName: string) {
@@ -221,7 +285,7 @@ export async function share(title: string, description: string, url: string, onS
             await navigator.share(shareData);
             consoleInfo("Share success")
             onSuccess()
-        } catch(error) {
+        } catch (error) {
             consoleError("Share error: " + error)
             if (error instanceof Error && error.name.toLowerCase().includes("abort")) {
                 onFailed("分享中止")

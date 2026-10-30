@@ -7,7 +7,6 @@ import { setupListItemRipple } from "../list"
 import { LoadingHint } from "../react/LoadingHint"
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
 import { getSplittedDate } from "../../base/post"
-import { SmoothCollapse } from "../react/SmoothCollapse"
 import { PagefindPaginateViewModel } from "../base/paginate/PagefindPaginateViewModel"
 import type { PagefindResultItem } from "../../repository/bean/pagefind/ApiPagefindSearch"
 import type { Post } from "../base/paginate/bean/Post"
@@ -82,14 +81,12 @@ export function SearchDialog(props: BaseDialogOpenProps) {
 
                 <p id="search-dialog_tips"><b>TIPS：</b>中文低频词组用空格分隔会有更好匹配，比如名字「施夏明」改为「施 夏 明」。若网络通畅可使用 <a
                     href="https://cse.google.com/cse?cx=757420b6b2f3d47d2" target="_blank" tabIndex={-1}>Google 站内搜索</a>。</p>
-                <SmoothCollapse>
-                    <div>
-                        {(state.posts != null && state.posts.length > 0) &&
-                            <SearchResult list={state.posts} />
-                        }
-                        <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore} />
-                    </div>
-                </SmoothCollapse>
+                <div>
+                    {(state.posts != null && state.posts.length > 0) &&
+                        <SearchResult list={state.posts} />
+                    }
+                    <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore} />
+                </div>
             </div>
         </BaseDialog>
     )
