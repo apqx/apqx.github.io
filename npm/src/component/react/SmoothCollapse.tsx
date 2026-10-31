@@ -1,5 +1,5 @@
 import "./SmoothCollapse.scss"
-import { useLayoutEffect, useRef, type RefObject } from "react"
+import { useEffect, useLayoutEffect, useRef, type RefObject } from "react"
 import { consoleInfo } from "../../util/log"
 
 type SmoothCollapseProps = {
@@ -29,34 +29,30 @@ export function useResizeMonitor(targetERef: RefObject<HTMLElement | null>, moni
 
     useLayoutEffect(() => {
         if (targetERef.current == null || monitorERef.current == null) return
-        let preHeight = targetERef.current.offsetHeight
-        let preWidth = targetERef.current.offsetWidth
-        consoleInfo("SmoothCollapse useEffect init height = " + preHeight + ", width = " + preWidth)
         const resizeObserver = new ResizeObserver((entries) => {
-            // 当元素的上级被设置为 display: none 时，offsetHeight 会变为 0，过滤掉这种情况
+            // 当元素的上级被设置为 display: none 时，ResizeObserver 会被触发, offsetHeight 会变为 0，过滤掉这种情况
             if (isElementHidden(monitorERef.current!)) return
+            if (targetERef.current == null || monitorERef.current == null) return
+            // 内部尺寸变化时，获取 target 的当前尺寸，然后计算与新尺寸的差值
+            let currentHeight = targetERef.current.offsetHeight
+            let currentWidth = targetERef.current.offsetWidth
+            consoleInfo("SmoothCollapse resizeObserver currentHeight = " + currentHeight + ", currentWidth = " + currentWidth)
             for (const entry of entries) {
                 const ele = entry.target as HTMLElement
-                var height = ele.offsetHeight
-                var width = ele.offsetWidth
-                // const duration = Math.max(calculateDuration(height, preHeight, "height"), calculateDuration(width, preWidth, "width"))
-                consoleInfo("SmoothCollapse resizeObserver: height = " + height + ", maxHeight = " + maxHeight + ", preHeight = " + preHeight)
-                if(maxHeight && maxHeight > 0 && height > maxHeight) {
-                    height = maxHeight
+                var newHeight = ele.offsetHeight
+                consoleInfo("SmoothCollapse resizeObserver: newHeight = " + newHeight + ", maxHeight = " + maxHeight)
+                if (maxHeight && maxHeight > 0 && newHeight > maxHeight) {
+                    newHeight = maxHeight
                 }
-                const duration = calculateDuration(height, preHeight, "height")
+                const duration = calculateDuration(newHeight, currentHeight, "height")
                 consoleInfo("SmoothCollapse calculateDuration = " + duration + "s")
-                // calculateDuration(width, preWidth, "width")
-                preHeight = height
-                preWidth = width
                 targetERef.current!.style.transitionDuration = duration + "s"
                 if (frameIdRef.current !== null) {
                     cancelAnimationFrame(frameIdRef.current)
                 }
                 frameIdRef.current = requestAnimationFrame(() => {
                     frameIdRef.current = null
-                    targetERef.current!.style.height = height + "px"
-                    // wrapperE.parentElement!.style.width = width + "px"
+                    targetERef.current!.style.height = newHeight + "px"
                 })
             }
         })
@@ -66,28 +62,28 @@ export function useResizeMonitor(targetERef: RefObject<HTMLElement | null>, moni
             consoleInfo("SmoothCollapse useEffect cleanup")
             resizeObserver.disconnect()
         }
-    }, [targetERef.current, monitorERef.current ,maxHeight])
+    }, [targetERef.current, monitorERef.current, maxHeight])
 }
 
 export function calculateDuration(newSize: number, preSize: number, propertyName: string): number {
     let duration = 0
     const animationSize = Math.abs(newSize - preSize)
 
-    duration = animationSize / 1000
+    duration = animationSize / 1400
     consoleInfo(`SmoothCollapse wrapper ${propertyName} = ${preSize} -> ${newSize}, animationSize = ${animationSize}, duration = ${duration}s`)
     if (duration > 0 && duration < 0.35) {
         duration = 0.35
         consoleInfo(`SmoothCollapse actual duration = ${duration}s`)
-    } else if (duration > 0.5) {
-        duration = 0.5
+    } else if (duration > 0.55) {
+        duration = 0.55
         consoleInfo(`SmoothCollapse actual duration = ${duration}s`)
     }
 
     return duration
 }
 
-function isElementHidden(el: HTMLElement): boolean {
+export function isElementHidden(el: HTMLElement): boolean {
     // 注意：这个判断对 position: fixed 的元素在某些浏览器下会有例外
     // 但对于大多数布局场景，它是判断 display: none 的金标准
     return el.offsetParent === null && el.tagName !== 'BODY';
-};
+}

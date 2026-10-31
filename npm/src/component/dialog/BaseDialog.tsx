@@ -10,7 +10,7 @@ import { ScrollContext } from "../react/LoadingHint"
 import { getResolvedElementMaxHeight, toggleElementClass } from "../../util/tools"
 import { Scrim, type ScrimController } from "../react/Scrim"
 import { DEBOUNCE_DELAY, useDebouncedResize } from "../react/tools/useDebouncedResize"
-import { useResizeMonitor } from "../react/SmoothCollapse"
+import { isElementHidden, useResizeMonitor } from "../react/SmoothCollapse"
 
 export interface ActionBtn {
     text: string,
@@ -241,8 +241,8 @@ export function BaseDialog({ dialogControllerRef = undefined, fixedWidth = false
         // TODO: 这里计算的 maxHeight 不对，且缺少 inset 尺寸
         // surfaceHeight = contentHeight + actionHeight
         const surfaceMaxHeight = getResolvedElementMaxHeight(dialogSurfaceRef.current!) ?? 0
-        const actionsE = dialogContainerRef.current?.querySelector(".mdc-dialog__actions") as HTMLDivElement
-        const actionBtnHeight = actionsE.offsetHeight
+        const actionsE = dialogContainerRef.current?.querySelector(".mdc-dialog__actions") as HTMLDivElement | null
+        const actionBtnHeight = actionsE?.offsetHeight ?? 0
         consoleInfo(`Dialog surfaceMaxHeight = ${surfaceMaxHeight}, actionBtnHeight = ${actionBtnHeight}`)
         return surfaceMaxHeight - actionBtnHeight
     }, [])
@@ -254,8 +254,11 @@ export function BaseDialog({ dialogControllerRef = undefined, fixedWidth = false
     }, [])
 
     const resizeCallback = useCallback(() => {
+        // 元素 display: none 时会触发 ResizeObserver，获取尺寸为 0，过滤这种情况 
+        // if (isElementHidden(dialogContainerRef.current!)) return
         setContentMaxHeight(pre => {
             const current = calcContentMaxHeight()
+            if (current == 0) return pre
             consoleInfo("Dialog contentMaxHeight changed: " + pre + " -> " + current)
             return current
         })

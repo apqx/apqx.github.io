@@ -1,29 +1,29 @@
 {
-  "short_name": "立泉落落",
-  "name": "立泉落落",
+  "short_name": "如杭",
+  "name": "如杭",
   "icons": [
     {
       "purpose": "maskable",
       "sizes": "192x192",
-      "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/reading/icon_maskable_192.png",
+      "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/hangzhou/icon_maskable_192.png",
       "type": "image/png"
     },
     {
       "purpose": "maskable",
       "sizes": "1024x1024",
-      "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/reading/icon_maskable_1024.png",
+      "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/hangzhou/icon_maskable_1024.png",
       "type": "image/png"
     },
     {
       "purpose": "any",
       "sizes": "192x192",
-      "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/reading/icon_corner_192.png",
+      "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/hangzhou/icon_corner_192.png",
       "type": "image/png"
     },
     {
       "purpose": "any",
       "sizes": "1024x1024",
-      "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/reading/icon_corner_1024.png",
+      "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/hangzhou/icon_corner_1024.png",
       "type": "image/png"
     }
   ],

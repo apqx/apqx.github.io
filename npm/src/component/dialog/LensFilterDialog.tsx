@@ -14,7 +14,7 @@ export function LensFilterDialog(props: BaseDialogOpenProps) {
 
     useEffect(() => {
         consoleInfo("LensFilterDialog useEffect")
-        viewModel.init()
+        viewModel.init(true)
 
         return () => {
             consoleInfo("LensFilterDialog clearup")
