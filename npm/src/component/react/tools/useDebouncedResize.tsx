@@ -6,9 +6,15 @@ interface size {
     height: number
 }
 
-export const DEBOUNCE_DELAY = 100
+interface useDebouncedResizeOptions {
 
-export function useDebouncedResize(target: HTMLElement | RefObject<HTMLElement | null>, delay: number = DEBOUNCE_DELAY, resizeCallback: (() => void) | undefined = undefined): size {
+    delay?: number
+    resizeCallback?: () => void
+}
+
+const DEBOUNCE_DELAY = 100
+
+export function useDebouncedResize(target: HTMLElement | RefObject<HTMLElement | null>, { delay = DEBOUNCE_DELAY, resizeCallback = undefined }: useDebouncedResizeOptions = {}): size {
     const timeoutRef = useRef<NodeJS.Timeout | null>(null)
     const [size, setSize] = useState<size>({
         width: 0,
@@ -21,7 +27,10 @@ export function useDebouncedResize(target: HTMLElement | RefObject<HTMLElement |
                 clearTimeout(timeoutRef.current)
             }
             timeoutRef.current = setTimeout(() => {
-                const entry = entries[0]
+                const entry = entries.pop()
+                if (!entry) return
+                if (isRefObject(target) && entry.target !== target.current) return
+                if (!isRefObject(target) && entry.target !== target) return
                 const newSize = {
                     width: entry.contentRect.width,
                     height: entry.contentRect.height

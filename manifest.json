@@ -17,13 +17,19 @@
     {
       "purpose": "any",
       "sizes": "192x192",
-      "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/hangzhou/icon_corner_192.png",
+      "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/hangzhou/icon_192.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "any",
+      "sizes": "512x512",
+      "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/hangzhou/icon_512.png",
       "type": "image/png"
     },
     {
       "purpose": "any",
       "sizes": "1024x1024",
-      "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/hangzhou/icon_corner_1024.png",
+      "src": "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/hangzhou/icon_1024.png",
       "type": "image/png"
     }
   ],

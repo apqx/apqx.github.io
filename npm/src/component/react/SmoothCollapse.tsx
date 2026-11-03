@@ -13,7 +13,7 @@ export function SmoothCollapse({ children }: SmoothCollapseProps) {
     const wrapperRef = useRef<HTMLDivElement>(null)
     const parentRef = useRef<HTMLDivElement>(null)
 
-    useResizeMonitor(parentRef, wrapperRef)
+    useDebouncedResizeMonitor(parentRef, wrapperRef)
 
     return (
         <div ref={parentRef} className="smooth-collapse">
@@ -24,22 +24,35 @@ export function SmoothCollapse({ children }: SmoothCollapseProps) {
     )
 }
 
-export function useResizeMonitor(targetERef: RefObject<HTMLElement | null>, monitorERef: RefObject<HTMLElement | null>, maxHeight?: number) {
+const DEBOUNCE_DELAY = 100
+
+/**
+ * 使用防抖的尺寸变化监听器，动态修改目标元素的高度，使其平滑过渡到监控元素的高度
+ */
+export function useDebouncedResizeMonitor(targetERef: RefObject<HTMLElement | null>, monitorERef: RefObject<HTMLElement | null>, maxHeight?: number) {
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null)
     const frameIdRef = useRef<number | null>(null)
 
     useLayoutEffect(() => {
         if (targetERef.current == null || monitorERef.current == null) return
         const resizeObserver = new ResizeObserver((entries) => {
-            // 当元素的上级被设置为 display: none 时，ResizeObserver 会被触发, offsetHeight 会变为 0，过滤掉这种情况
-            if (isElementHidden(monitorERef.current!)) return
-            if (targetERef.current == null || monitorERef.current == null) return
-            // 内部尺寸变化时，获取 target 的当前尺寸，然后计算与新尺寸的差值
-            let currentHeight = targetERef.current.offsetHeight
-            let currentWidth = targetERef.current.offsetWidth
-            consoleInfo("SmoothCollapse resizeObserver currentHeight = " + currentHeight + ", currentWidth = " + currentWidth)
-            for (const entry of entries) {
-                const ele = entry.target as HTMLElement
-                var newHeight = ele.offsetHeight
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current)
+            }
+            timeoutRef.current = setTimeout(() => {
+                // 当元素的上级被设置为 display: none 时，ResizeObserver 会被触发, offsetHeight 会变为 0，过滤掉这种情况
+                if (isElementHidden(monitorERef.current!)) return
+                if (targetERef.current == null || monitorERef.current == null) return
+                // 内部尺寸变化时，获取 target 的当前尺寸，然后计算与新尺寸的差值
+                let currentHeight = targetERef.current.offsetHeight
+                let currentWidth = targetERef.current.offsetWidth
+                consoleInfo("SmoothCollapse resizeObserver currentHeight = " + currentHeight + ", currentWidth = " + currentWidth)
+                const entry = entries.pop()
+                if (!entry) return
+                if (entry.target !== monitorERef.current) return
+                
+                // 计算新尺寸，设置 target 的高度为新尺寸，触发过渡动画
+                var newHeight = entry.borderBoxSize[0].blockSize
                 consoleInfo("SmoothCollapse resizeObserver: newHeight = " + newHeight + ", maxHeight = " + maxHeight)
                 if (maxHeight && maxHeight > 0 && newHeight > maxHeight) {
                     newHeight = maxHeight
@@ -54,7 +67,7 @@ export function useResizeMonitor(targetERef: RefObject<HTMLElement | null>, moni
                     frameIdRef.current = null
                     targetERef.current!.style.height = newHeight + "px"
                 })
-            }
+            }, DEBOUNCE_DELAY)
         })
         resizeObserver.observe(monitorERef.current)
 

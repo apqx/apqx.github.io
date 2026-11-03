@@ -9,8 +9,8 @@ import { ScrollLoader } from "../../base/ScrollLoader"
 import { ScrollContext } from "../react/LoadingHint"
 import { getResolvedElementMaxHeight, toggleElementClass } from "../../util/tools"
 import { Scrim, type ScrimController } from "../react/Scrim"
-import { DEBOUNCE_DELAY, useDebouncedResize } from "../react/tools/useDebouncedResize"
-import { isElementHidden, useResizeMonitor } from "../react/SmoothCollapse"
+import { useDebouncedResize } from "../react/tools/useDebouncedResize"
+import { isElementHidden, useDebouncedResizeMonitor } from "../react/SmoothCollapse"
 
 export interface ActionBtn {
     text: string,
@@ -265,10 +265,10 @@ export function BaseDialog({ dialogControllerRef = undefined, fixedWidth = false
     }, [])
 
     // 监听视口尺寸变化，计算 surface 最大高度
-    useDebouncedResize(dialogContainerRef, DEBOUNCE_DELAY, resizeCallback)
+    useDebouncedResize(dialogContainerRef, { resizeCallback: resizeCallback })
 
     // 监听内容高度变化，使 Dialog 窗口平滑变化
-    useResizeMonitor(scrollContainerRef, smoothCollapseWrapperRef, contentMaxHeight)
+    useDebouncedResizeMonitor(scrollContainerRef, smoothCollapseWrapperRef, contentMaxHeight)
 
     return (
         <>
