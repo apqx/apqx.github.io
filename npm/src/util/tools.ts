@@ -55,16 +55,24 @@ export function createHtmlContent(html: string) {
     return { __html: html }
 }
 
-export function toggleElementClass(e: Element, className: string, enable: boolean) {
+export function toggleElementClass(e: Element | null, className: string, enable: boolean) {
     if (e == null) {
         consoleInfo("Element is null")
         return
     }
-    if (enable && !e.classList.contains(className)) {
+    if (enable && !elementContainsClass(e, className)) {
         e.classList.add(className)
-    } else if (!enable && e.classList.contains(className)) {
+    } else if (!enable && elementContainsClass(e, className)) {
         e.classList.remove(className)
     }
+}
+
+export function elementContainsClass(e: Element | null, className: string): boolean {
+    if (e == null) {
+        consoleInfo("Element is null")
+        return false
+    }
+    return e.classList.contains(className)
 }
 
 export function isMobileOrTablet(): boolean {
@@ -236,15 +244,15 @@ export function getResolvedElementMaxHeight(element: HTMLElement): number | null
 }
 
 function parseNumberStrict(value: string): number {
-  const trimmed = value.trim();
-  // 排除空串与纯空格，因为 Number("") 在 JS 中会被隐式转换为 0
-  if (trimmed === "") {
-    return 0;
-  }
+    const trimmed = value.trim();
+    // 排除空串与纯空格，因为 Number("") 在 JS 中会被隐式转换为 0
+    if (trimmed === "") {
+        return 0;
+    }
 
-  const num = Number(trimmed);
-  // Number.isFinite 同时排除 NaN、+Infinity 和 -Infinity
-  return Number.isFinite(num) ? num : 0;
+    const num = Number(trimmed);
+    // Number.isFinite 同时排除 NaN、+Infinity 和 -Infinity
+    return Number.isFinite(num) ? num : 0;
 }
 
 export function getElementAttribute(e: HTMLElement, property: string) {

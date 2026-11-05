@@ -1,7 +1,7 @@
 import "./Scrim.scss"
 import { useEffect, useRef } from "react"
-import { toggleFade } from "../animation/BaseAnimation"
 import { consoleInfo } from "../../util/log"
+import { FadeAnimationController } from "../animation/FadeAnimationController"
 
 export interface ScrimController {
     open: () => void
@@ -16,15 +16,20 @@ export function Scrim(props: ScrimProps) {
     const containerRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
+        const fadeAnimationController = new FadeAnimationController(containerRef.current!)
         props.controllerRef.current = {
             open: () => {
                 consoleInfo("Scrim open")
-                toggleFade(containerRef.current as HTMLElement, true)
+                fadeAnimationController.toggleOpen(true)
             },
             close: () => {
                 consoleInfo("Scrim close")
-                toggleFade(containerRef.current as HTMLElement, false)
+                fadeAnimationController.toggleOpen(false)
             }
+        }
+        return () => {
+            fadeAnimationController.destroy()
+            props.controllerRef.current = null
         }
     }, [props.controllerRef])
 

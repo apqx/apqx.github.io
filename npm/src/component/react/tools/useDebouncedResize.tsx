@@ -7,7 +7,6 @@ interface size {
 }
 
 interface useDebouncedResizeOptions {
-
     delay?: number
     resizeCallback?: () => void
 }

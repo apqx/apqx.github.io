@@ -4,7 +4,6 @@ import { useDebouncedResize } from "../react/tools/useDebouncedResize"
 import { BaseDialog, getDialogController, INFO_DIALOG_WRAPPER_ID, showDialog, type BaseDialogController, type BaseDialogOpenProps, type DialogControllerRef } from "./BaseDialog"
 import { getChromeVersion } from "../../util/tools"
 import { Tag } from "../react/Tag"
-import { Button } from "../react/Button"
 import { List } from "../react/List"
 
 

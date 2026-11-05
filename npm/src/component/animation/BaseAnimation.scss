@@ -122,22 +122,33 @@ $anim-in-out: cubic-bezier(0.4, 0.0, 0.2, 1);
         transform: translateY(0);
     }
 }
-// 支持进入和退出的透明度动画
+
+// 进入和退出的透明度动画
 .fade {
     opacity: 0;
     display: none;
     // 启动时，先加 opening，再加 open，动画结束后删除 opening
     &.fade--opening {
         transition: opacity var(--dialog-animation-duration) linear;
+        &.fade-card {
+            transition: opacity calc(var(--index-card-animation-duration) / 1.2) ease-out;
+        }
         display: block;
     }
+
+    &.fade--opening.fade--open,
     &.fade--open {
         opacity: 1;
         display: block;
     }
-    // 关闭时，先加 closing，再删除 open，动画结束后删除 closing
+    
+    // 关闭时，先加 closing 删除 open，动画结束后删除 closing
+    &.fade--open.fade--closing,
     &.fade--closing {
         transition: opacity var(--dialog-animation-duration) linear;
+        &.fade-card {
+            transition: opacity calc(var(--index-card-animation-duration) / 1.2) ease-out;
+        }
         opacity: 0;
         display: block;
     }

@@ -230,7 +230,6 @@ export function showTagDialog(_tag: string, _tagNickname?: string) {
     const id = TAG_DIALOG_WRAPPER_ID + "-" + _tag
     const dialogControllerRef = getDialogController(id)
     showDialog(<TagDialog dialogControllerRef={dialogControllerRef} tag={_tag} nickname={_tagNickname} />, id)
-    // OnClickBtn={null} closeOnClickOutside={true} />, TAG_DIALOG_WRAPPER_ID)
     if (dialogControllerRef.current) {
         dialogControllerRef.current.open()
     }
