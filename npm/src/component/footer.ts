@@ -14,6 +14,8 @@ function initFootAnimationController(autoShow: boolean) {
     }
 }
 
+var timeOutId: number | null = null
+
 export function initFooter() {
     // footer 默认隐藏，监听进入视图时触发动画显示
     if (isIndexPage(document.location.pathname)) {
@@ -22,7 +24,12 @@ export function initFooter() {
         initFootAnimationController(false)
         getEventEmitter().on("footerDisplayChange", (data: Events["footerDisplayChange"]) => {
             if (data.enabled) {
-                footAnimationController.resetIntersectionObserve()
+                if (timeOutId) {
+                    clearTimeout(timeOutId)
+                }
+                setTimeout(() => {
+                    footAnimationController.resetIntersectionObserve()
+                }, 400)
             } else {
                 footAnimationController.toggleOpen(false)
             }
@@ -38,3 +45,8 @@ export function initFooter() {
         })
     })
 }
+
+// index 业加载状态
+// loading: true，隐藏 footer
+// loading: false, show hint，显示 footer
+// loading: false, no hint，显示 footer

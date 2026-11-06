@@ -31,32 +31,10 @@ export function initFab() {
         setupIconButtonRipple(fabUpE)
         getWindowInterSectionObserver().observe(fabUpE.parentElement as HTMLElement)
         fabUpE?.addEventListener("click", () => {
-            // if (isSafari()) {
-            //     scrollToTop()
-            // } else {
-            //     scrollToTopNative()
-            // }
             scrollToTopNative()
             fabUpE.focus()
         })
     }
-}
-
-let lastScrollY = -1
-
-function scrollToTop() {
-    const scrollY = window.scrollY
-    if (lastScrollY != -1 && scrollY > lastScrollY) {
-        // 用户中断
-        lastScrollY = -1
-        return
-    }
-    if (scrollY > 0) {
-        window.requestAnimationFrame(scrollToTop)
-        window.scrollTo(0, scrollY - scrollY / 15)
-    }
-    lastScrollY = scrollY
-    if (lastScrollY <= 0) lastScrollY = -1
 }
 
 /**

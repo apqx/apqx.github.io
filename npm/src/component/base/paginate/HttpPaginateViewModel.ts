@@ -1,5 +1,6 @@
 import { consoleErrorObj, consoleInfo, consoleInfoObj } from "../../../util/log"
 import { LOADING_HINT_ERROR, getLoadHint } from "../../react/LoadingHint"
+import { DelayToNextFrame } from "../DelayToNextFrame"
 import { BaseExternalStore } from "./BaseExternalStore"
 import type { BaseHttpPaginator } from "./BaseHttpPaginator"
 import type { BasePaginateViewModelState } from "./bean/BasePaginateViewModelState"
@@ -12,11 +13,13 @@ export class HttpPaginatorViewModel<H, P extends BaseHttpPaginator<H, T>, T> ext
     state: BasePaginateViewModelState<T>
     onlyShowLoadingAndError: boolean
     abortController?: AbortController
+    delayToNextFrame: DelayToNextFrame
 
     constructor(paginator: P, onlyShowLoadingAndError: boolean = false) {
         super()
         this.paginator = paginator
         this.onlyShowLoadingAndError = onlyShowLoadingAndError
+        this.delayToNextFrame = new DelayToNextFrame()
         this.state = {
             loading: false,
             loadingHint: undefined,
@@ -86,15 +89,13 @@ export class HttpPaginatorViewModel<H, P extends BaseHttpPaginator<H, T>, T> ext
             }
             this.emitChange()
             // loading 状态的解除延时一段时间，尽量在新数据的布局完成之后，避免 loading 组件的 intersection 过早触发，从而导致重复触发加载更多
-            requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    this.state = {
-                        ...this.state,
-                        loading: false,
-                        loadingHint: posts.length > 0 && this.onlyShowLoadingAndError ? undefined : getLoadHint(posts.length, totalPostsSize),
-                    }
-                    this.emitChange()
-                })
+            this.delayToNextFrame.delay(() => {
+                this.state = {
+                    ...this.state,
+                    loading: false,
+                    loadingHint: posts.length > 0 && this.onlyShowLoadingAndError ? undefined : getLoadHint(posts.length, totalPostsSize),
+                }
+                this.emitChange()
             })
         } catch (e) {
             if (e instanceof Error && e.name === "AbortError") {
@@ -123,6 +124,7 @@ export class HttpPaginatorViewModel<H, P extends BaseHttpPaginator<H, T>, T> ext
 
     abort() {
         this.abortController?.abort()
+        this.delayToNextFrame.cancelPendingFrame()
         if (this.state.loading) {
             this.state = {
                 ...this.state,

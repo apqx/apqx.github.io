@@ -124,6 +124,9 @@ $anim-in-out: cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
 // 进入和退出的透明度动画
+// 使用动画的元素必须添加 fade 类，如果要求初始状态占位亦可添加 --opening 类
+// -preserve-display-none 可以避免动画结束时 opening 和 closing 被移除导致元素 display: none
+// fade-card 是动画参数变体
 .fade {
     opacity: 0;
     display: none;

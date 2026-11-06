@@ -1,5 +1,6 @@
 import { consoleInfo } from "../../util/log"
 import { elementContainsClass, toggleElementClass } from "../../util/tools"
+import { DelayToNextFrame } from "../base/DelayToNextFrame"
 import type { IAnimationController } from "./IAnimationController"
 
 const OPENING_CLASS_SUFFIX = "--opening"
@@ -8,6 +9,8 @@ const CLOSING_CLASS_SUFFIX = "--closing"
 const PRESERVE_DISPLAY_NONE_CLASS_SUFFIX = "-preserve-display-none"
 
 export class AnimationController implements IAnimationController {
+    private delayToNextFrame: DelayToNextFrame
+
     private element: HTMLElement | null
     private baseClass: string
     private openingClass: string
@@ -16,13 +19,12 @@ export class AnimationController implements IAnimationController {
     private preserveDisplayNone: string
     private transitionEndListener: (event: TransitionEvent) => void
 
-    private frameId: number | null = null
-
     constructor(element: HTMLElement, baseClass: string)
 
     constructor(element: HTMLElement, baseClass: string, openingClass: string, openClass: string, closingClass: string, preserveDisplayNone: string)
 
     constructor(element: HTMLElement, baseClass: string, openingClass?: string, openClass?: string, closingClass?: string, preserveDisplayNone?: string) {
+        this.delayToNextFrame = new DelayToNextFrame()
         this.element = element
         this.baseClass = baseClass
         if (openingClass == null) {
@@ -61,13 +63,7 @@ export class AnimationController implements IAnimationController {
         }
     }
 
-    private delayToNextFrame(callback: () => void) {
-        this.frameId = requestAnimationFrame(() => {
-            this.frameId = requestAnimationFrame(() => {
-                callback()
-            })
-        })
-    }
+
 
     getElement(): Element | null {
         return this.element
@@ -76,7 +72,7 @@ export class AnimationController implements IAnimationController {
     toggleOpen(open: boolean) {
         if(this.element == null) return
         consoleInfo(`AnimationController toggleOpen ${open}, classList : ${this.element.classList}`)
-        cancelPendingShowFrame(this.frameId)
+        this.delayToNextFrame.cancelPendingFrame()
         // transition 动画可以中断，当前可能处于的状态有
         // baseClass + openingClass
         // baseClass + openingClass + openClass
@@ -89,7 +85,7 @@ export class AnimationController implements IAnimationController {
                 // 可能是 opening open 或 open，无需操作
             } else {
                 toggleElementClass(this.element, this.openingClass, true)
-                this.delayToNextFrame(() => {
+                this.delayToNextFrame.delay(() => {
                     consoleInfo("AnimationController add " + this.openClass)
                     // 监听动画完成
                     this.startListenTransition()
@@ -127,14 +123,9 @@ export class AnimationController implements IAnimationController {
     }
 
     destroy() {
+        this.delayToNextFrame.cancelPendingFrame()
         this.stopListenTransition()
         this.element = null
     }
 
-}
-
-function cancelPendingShowFrame(frameId: number | null) {
-    if (frameId != null) {
-        cancelAnimationFrame(frameId)
-    }
 }
