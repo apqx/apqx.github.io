@@ -165,8 +165,8 @@ export function getChromeVersionFromUA(): string | null {
     return null;
 }
 
-var debugMode: boolean | undefined
-var writingMode: boolean | undefined
+let debugMode: boolean | undefined
+let writingMode: boolean | undefined
 
 export function isDebug(): boolean {
     if (debugMode != undefined) return debugMode

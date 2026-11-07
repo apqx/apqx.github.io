@@ -203,7 +203,7 @@ export function Masonry<T>({
         const resizeObserver = new ResizeObserver(entries => {
             for (const entry of entries) {
                 const width = entry.contentRect.width
-                var newColumnCount = Math.max(1, defaultColumns)
+                let newColumnCount = Math.max(1, defaultColumns)
                 if (width > 0 && sortedBreakpoints.length > 0) {
                     for (const breakpoint of sortedBreakpoints) {
                         if (width <= breakpoint.maxWidth) {

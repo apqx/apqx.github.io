@@ -2,16 +2,18 @@ body {
     --animated-emoji-size: 4rem;
 }
 
-.lottie-placeholder {
-    width: var(--animated-emoji-size);
-    height: var(--animated-emoji-size);
-}
-
 .lottie-container {
     display: inline-block;
+
+    .lottie-placeholder {
+        width: var(--animated-emoji-size);
+        height: var(--animated-emoji-size);
+    }
+    
     // lottie 组件实际是一个包含 svg 的 div
     div {
         width: var(--animated-emoji-size);
         height: var(--animated-emoji-size);
     }
+    
 }

@@ -110,7 +110,7 @@ window.addEventListener("pagehide", (event) => {
 });
 
 
-var statusBarProtectorE: HTMLElement | null = null
+let statusBarProtectorE: HTMLElement | null = null
 
 // TODO: statusBarProtectorE 本来应该只获取一次，但在一种情况下会从对象变为 null，比如初始隐藏，init 时能获取到 element 对象
 // 但在设置中修改状态后原来有值的变量就变成 null 了，原因不明，暂时先每次都获取一次，后续有时间再调查

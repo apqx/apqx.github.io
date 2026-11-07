@@ -35,7 +35,7 @@ function initCodeHighlight() {
  */
 function initPageCheck() {
     const urlPath = window.location.pathname
-    var sectionIdentifier = getSectionTypeByPath(urlPath).identifier
+    let sectionIdentifier = getSectionTypeByPath(urlPath).identifier
     consoleInfo("Post page section = " + sectionIdentifier + ", path = " + urlPath)
     if (sectionIdentifier === SECTION_TYPE_OPERA.identifier) {
         consoleInfo("Add opera-page to body")

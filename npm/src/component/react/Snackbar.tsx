@@ -49,7 +49,7 @@ export function Snackbar(props: props) {
 
 }
 
-var root: Root | null = null
+let root: Root | null = null
 
 export function showSnackbar(_text: string, _length: Length = Length.DEFAULT) {
     // 如果此时html还未加载完成，确实可能出现为null的情况

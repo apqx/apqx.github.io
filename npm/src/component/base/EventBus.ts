@@ -40,7 +40,7 @@ export type Events = {
 }
 
 
-var emitter: Emitter<Events> | null = null
+let emitter: Emitter<Events> | null = null
 
 export function getEventEmitter() {
     if (emitter == null) {

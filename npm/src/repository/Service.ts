@@ -1,7 +1,7 @@
 import { consoleInfo } from "../util/log";
 import { isDebug } from "../util/tools";
 
-var service: Service | null = null;
+let service: Service | null = null;
 
 // 控制是否使用 localhost 作为服务端，方便调试
 export const SERVICE_DEBUG_MODE_AUTO = 0
@@ -89,7 +89,7 @@ class Service {
 }
 
 function getBaseUrl(config: ServiceConfig): string {
-    var baseUrl = SERVICE_BASE_URL
+    let baseUrl = SERVICE_BASE_URL
     if (config.debugMode == SERVICE_DEBUG_MODE_ON || (config.debugMode == SERVICE_DEBUG_MODE_AUTO && isDebug())) {
         baseUrl = window.location.origin
     }

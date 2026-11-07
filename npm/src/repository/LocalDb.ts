@@ -94,7 +94,7 @@ export class LocalDb {
     }
 }
 
-var localRepository: LocalDb | undefined
+let localRepository: LocalDb | undefined
 
 export function initLocalRepository() {
     localRepository = new LocalDb()

@@ -5,7 +5,7 @@ import { FadeAnimationController } from "./animation/FadeAnimationController"
 import { AutoShowAnimationController } from "./animation/AutoShowAnimationController"
 import type { IAutoShowAnimationController } from "./animation/IAutoShowAnimationController"
 
-var footAnimationController: IAutoShowAnimationController 
+let footAnimationController: IAutoShowAnimationController 
 
 function initFootAnimationController(autoShow: boolean) {
     const ele = document.querySelector("footer .fade") as HTMLElement | null
@@ -14,7 +14,7 @@ function initFootAnimationController(autoShow: boolean) {
     }
 }
 
-var timeOutId: number | null = null
+let timeOutId: number | null = null
 
 export function initFooter() {
     // footer 默认隐藏，监听进入视图时触发动画显示

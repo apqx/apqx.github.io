@@ -291,7 +291,7 @@ export function BaseDialog({ dialogControllerRef = undefined, fixedWidth = false
                         {actions && actions.length > 0 &&
                             <div className="mdc-dialog__actions basic-dialog_actions">
                                 {actions.map((btn, index) =>
-                                    <button type="button"
+                                    <button key={btn.text ?? index} type="button"
                                         className="mdc-button basic-dialog_btn_action"
                                         data-mdc-dialog-action={btn.closeOnClick ? "close" : ""}
                                         onClick={btn.onClick}

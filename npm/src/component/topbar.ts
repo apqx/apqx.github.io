@@ -9,10 +9,10 @@ import { getSectionTypeByPath, isIndexPage, SECTION_TYPE_LENS, SECTION_TYPE_OPER
 import { toggleTheme } from "./theme"
 import { getEventEmitter, type Events } from "./base/EventBus"
 
-var iconToggleTheme: MDCIconButtonToggle | null = null
-var iconToggleMenu: MDCIconButtonToggle | null = null
-export var topAppBar: MDCTopAppBar | null = null
-export var topAppBarE: HTMLElement | null = null
+let iconToggleTheme: MDCIconButtonToggle | null = null
+let iconToggleMenu: MDCIconButtonToggle | null = null
+export let topAppBar: MDCTopAppBar | null = null
+export let topAppBarE: HTMLElement | null = null
 
 function checkTopbar() {
     const fixedTopbar = getLocalRepository().getFixedTopbar()

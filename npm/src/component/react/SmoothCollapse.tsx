@@ -50,9 +50,9 @@ export function useDebouncedResizeMonitor(targetERef: RefObject<HTMLElement | nu
                 const entry = entries.pop()
                 if (!entry) return
                 if (entry.target !== monitorERef.current) return
-                
+
                 // 计算新尺寸，设置 target 的高度为新尺寸，触发过渡动画
-                var newHeight = entry.borderBoxSize[0].blockSize
+                let newHeight = entry.borderBoxSize[0].blockSize
                 consoleInfo("SmoothCollapse resizeObserver: newHeight = " + newHeight + ", maxHeight = " + maxHeight)
                 if (maxHeight && maxHeight > 0 && newHeight > maxHeight) {
                     newHeight = maxHeight

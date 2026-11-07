@@ -4,6 +4,8 @@ import { type LottieHandle } from "lottie-react"
 import { lazy, Suspense, useEffect, useMemo, useRef } from "react"
 import { consoleErrorObj, consoleInfo } from "../../util/log"
 import { DelayToNextFrame } from "../base/DelayToNextFrame"
+import { FadeAnimationController } from "../animation/FadeAnimationController"
+import { type IAnimationController } from "../animation/IAnimationController"
 
 interface LottieProps {
     loop: boolean
@@ -27,6 +29,9 @@ const LazyLottie = lazy(() => import("lottie-react").then(module => ({ default: 
  * 懒加载 Lottie 动画组件
  */
 export function LottieAnimation(props: LottieProps) {
+    const lottieWrapperRef = useRef<HTMLDivElement>(null)
+    const animationControllerRef = useRef<IAnimationController | null>(null)
+
     const lottieControllerRef = useRef<LottieHandle | null>(null)
     const delayToNextFrame = useMemo(() => {
         return new DelayToNextFrame()
@@ -39,7 +44,7 @@ export function LottieAnimation(props: LottieProps) {
                 lottieControllerRef.current.play()
             } else {
                 delayToNextFrame.delay(() => {
-                    checkAndPlay()  
+                    checkAndPlay()
                 })
             }
         }
@@ -67,9 +72,24 @@ export function LottieAnimation(props: LottieProps) {
 
     const subscription = useMemo(() => {
         return {
+            ready: () => {
+                consoleInfo("Lottie animation ready : " + props.animationDataUrl)
+                if (lottieWrapperRef.current && animationControllerRef.current == null) {
+                    animationControllerRef.current = new FadeAnimationController(lottieWrapperRef.current)
+                    animationControllerRef.current.toggleOpen(true)
+                }
+            },
             error: (error: any) => {
                 delayToNextFrame.cancelPendingFrame()
                 consoleErrorObj("Failed to load Lottie animation:", error.error)
+            }
+        }
+    }, [props.animationDataUrl])
+
+    useEffect(() => {
+        return () => {
+            if (animationControllerRef.current) {
+                animationControllerRef.current.destroy()
             }
         }
     }, [])
@@ -77,13 +97,15 @@ export function LottieAnimation(props: LottieProps) {
     return (
         <div className={`lottie-container ${props.classes?.join(" ") ?? ""}`.trimEnd()}>
             <Suspense fallback={<div className="lottie-placeholder"></div>}>
-                <LazyLottie
-                    loop={props.loop}
-                    autoplay={props.autoplay}
-                    src={props.animationDataUrl}
-                    lottieRef={lottieControllerRef}
-                    subscriptions={subscription}
-                />
+                <div ref={lottieWrapperRef} className="fade fade--opening fade-preserve-display-none">
+                    <LazyLottie
+                        loop={props.loop}
+                        autoplay={props.autoplay}
+                        src={props.animationDataUrl}
+                        lottieRef={lottieControllerRef}
+                        subscriptions={subscription}
+                    />
+                </div>
             </Suspense>
         </div>
     )

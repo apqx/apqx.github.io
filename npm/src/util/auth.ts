@@ -28,7 +28,7 @@ class Authority {
     }
 }
 
-var authority: Authority | undefined
+let authority: Authority | undefined
 
 function initAuthority() {
     authority = new Authority()

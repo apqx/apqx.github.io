@@ -290,8 +290,7 @@ function IndexDescriptionItem(props: IndexDescriptionItemProps) {
 
     return (
         <li ref={containerRef} className="grid-index-li grid-index-li--description">
-            <section className="mdc-card grid-index-card slide-in-farer slide-in-chained" dangerouslySetInnerHTML={{ __html: props.innerHtml }}>
-            </section>
+            <section className="mdc-card grid-index-card slide-in-farer slide-in-chained" dangerouslySetInnerHTML={{ __html: props.innerHtml }} />
             <hr className="grid-index-li-divider" />
         </li>
     )

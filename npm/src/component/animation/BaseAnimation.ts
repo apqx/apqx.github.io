@@ -2,7 +2,7 @@ import "./BaseAnimation.scss"
 import { consoleInfo, consoleInfoObj } from "../../util/log"
 import { toggleElementClass } from "../../util/tools"
 
-var windowInterSectionObserver: IntersectionObserver | null = null
+let windowInterSectionObserver: IntersectionObserver | null = null
 
 /**
  * 获取相对于 Window 的 IntersectionObserver 实例

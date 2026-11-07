@@ -41,7 +41,7 @@ export class ShortLinkJumpDialogViewModel extends BaseExternalStore {
                     if (item.id === pid) {
                         consoleInfo("Find pid " + pid + " => " + item.target.path)
                         // 跳转到目标页，不在浏览器中保留跳转记录，url 可以是站内的相对 path，也可以是站外 http 的绝对 path
-                        var jumpUrl = item.target.path
+                        let jumpUrl = item.target.path
                         if (!item.target.path.startsWith("http")) {
                             jumpUrl = window.location.origin + item.target.path
                         }
