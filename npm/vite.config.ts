@@ -4,7 +4,7 @@ import path from 'path'
 import fs from 'node:fs'
 
 const pkg = JSON.parse(
-  fs.readFileSync(path.resolve(__dirname, 'package.json'), 'utf-8')
+  fs.readFileSync(path.resolve(import.meta.dirname, 'package.json'), 'utf-8')
 ) as { version?: string }
 
 // 可选：清理版本号，避免特殊字符影响目录名
@@ -22,9 +22,14 @@ export default defineConfig({
     emptyOutDir: true,
     cssCodeSplit: true,
     rollupOptions: {
+      onwarn(warning, defaultHandler) {
+        // 抑制第三方依赖 lottie-web 内部使用 direct eval 的告警
+        if (warning.code === 'EVAL' && warning.id?.includes('lottie-web')) return
+        defaultHandler(warning)
+      },
       input: {
-        scaffold: path.resolve(__dirname, 'src/page/scaffold.ts'),
-        font: path.resolve(__dirname, 'src/component/font/font.scss'),
+        scaffold: path.resolve(import.meta.dirname, 'src/page/scaffold.ts'),
+        font: path.resolve(import.meta.dirname, 'src/component/font/font.scss'),
       },
       output: {
         entryFileNames: `blog-[name]-${version}.js`,

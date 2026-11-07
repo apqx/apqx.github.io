@@ -33,7 +33,7 @@ function AboutMeDialog(props: BaseDialogOpenProps) {
                     <Tag text="Java" />
                     <Tag text="Kotlin" />
                     <Tag text="Android" />
-                    {/* <Tag text="Git" /> */}
+                    <Tag text="Web" />
                 </section>
                 <p className="about-me-description">旅居杭州，常在西湖，野生<a
                     href={kunQvLink} tabIndex={-1}>昆虫</a> & 攻城狮，“十分”“业余”摄影 Fans。联系我可以通过<a href="mailto:safari@mudan.me" tabIndex={-1}>电子邮件</a>，如果有必要亦可用<a

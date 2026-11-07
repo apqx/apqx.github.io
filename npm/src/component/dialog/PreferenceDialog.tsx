@@ -58,7 +58,7 @@ export function PreferenceDialog(props: BaseDialogOpenProps) {
         <BaseDialog dialogControllerRef={props.dialogControllerRef} onDialogOpen={onDialogOpen} onDialogClose={onDialogClose}>
             <>
                 <div id="preference-dialog__top-container">
-                    <LottieAnimation animationDataUrl={"https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/noto-animated-emoji/mouth-none/lottie.json"}
+                    <LottieAnimation loop={true} autoplay={false} animationDataUrl={"https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/noto-animated-emoji/mouth-none/lottie.json"}
                         animationControllerRef={animationControllerRef}/>
                 </div>
                 <ul className="mdc-deprecated-list" id="preference-dialog__toggle-container">

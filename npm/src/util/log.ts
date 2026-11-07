@@ -1,16 +1,16 @@
 import { Logger } from "tslog";
 import { isDebug } from "./tools"
 
-const log = new Logger(
-    {
+const log = new Logger({
+    pretty: {
         // 使用本地时间
-        prettyLogTimeZone: "local",
+        timeZone: "local",
         // 关闭颜色
-        stylePrettyLogs: false,
+        style: false,
         // 自定义输出模板，确保信息密度
-        prettyLogTemplate: "{{yyyy}}-{{mm}}-{{dd}} {{hh}}:{{mm}}:{{ss}} {{logLevelName}} ",
-    }
-);
+        template: "{{yyyy}}-{{mm}}-{{dd}} {{hh}}:{{mm}}:{{ss}} {{logLevelName}} ",
+    },
+});
 
 export function consoleInfo(str: string) {
     if (isDebug())

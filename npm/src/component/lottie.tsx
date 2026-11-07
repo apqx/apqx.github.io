@@ -5,5 +5,5 @@ import { LottieAnimation } from "./react/LottieAnimation"
 export function mountLottieAnimation(wrapperE: HTMLElement) {
     const root = createRoot(wrapperE)
     const animationDataUrl = wrapperE.getAttribute("data-animation-url")!!
-    root.render(<LottieAnimation animationDataUrl={animationDataUrl} />)
+    root.render(<LottieAnimation loop={true} autoplay={true} animationDataUrl={animationDataUrl} />)
 }

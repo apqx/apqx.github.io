@@ -31,7 +31,7 @@ export function ShortLinkDialog(props: ShortLinkJumpDialogProps) {
     return (
         <BaseDialog dialogControllerRef={props.dialogControllerRef} onDialogOpen={onDialogOpen} onDialogClose={onDialogClose} closeOnClickOutside={false} actions={[]}>
             <div className="jump-dialog-container center-inline-items">
-                <LottieAnimation animationDataUrl={"https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/noto-animated-emoji/peacock/lottie.json"}
+                <LottieAnimation loop={true} autoplay={false} animationDataUrl={"https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/noto-animated-emoji/peacock/lottie.json"}
                     animationControllerRef={animationControllerRef} />
                 <p id="short-link-jump-dialog_title">{state.title}</p>
                 <p id="short-link-jump-dialog_link" className="center-inline-items">

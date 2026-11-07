@@ -68,7 +68,7 @@ export function AuthDialog(props: AuthDialogProps) {
             actions={actions}>
             <div ref={containerRef} className="center-inline-items">
                 <div id="preference-dialog__top-container">
-                    <LottieAnimation animationDataUrl={"https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/noto-animated-emoji/mouth-none/lottie.json"}
+                    <LottieAnimation loop={true} autoplay={false} animationDataUrl={"https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/noto-animated-emoji/mouth-none/lottie.json"}
                         animationControllerRef={animationControllerRef} />
                 </div>
                 <TextField label="Words" hint="" inputId="auth-dialog-input" classes={["auth-dialog_label"]} onTextChange={onTextChange} onClickEnter={checkInputAuth} tabIndex={-1} />
