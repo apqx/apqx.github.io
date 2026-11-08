@@ -27,7 +27,7 @@ export class ShortLinkJumpDialogViewModel extends BaseExternalStore {
      * 从 url 映射文件中查询 pid
      */
     findPage(pid: string) {
-        let startTimeMs = Date.now()
+        const startTimeMs = Date.now()
         getServiceInstance().getUrlMap({ debugMode: SERVICE_DEBUG_MODE_AUTO })
             .then(response => {
                 if (response.status === 200) {
@@ -61,7 +61,7 @@ export class ShortLinkJumpDialogViewModel extends BaseExternalStore {
 
     showJump(startTimeMs: number, url: string, linkTitle: string) {
         // “查询映射表”应至少显示 1s，“正在跳转”应至少显示 1s
-        let timeGapQueryingMs = 800
+        const timeGapQueryingMs = 800
         runAfterMinimalTime(startTimeMs, () => {
             this.refreshHint(linkTitle, url)
         }, timeGapQueryingMs)

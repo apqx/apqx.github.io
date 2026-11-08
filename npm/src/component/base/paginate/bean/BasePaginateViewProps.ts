@@ -3,5 +3,4 @@ export interface BasePaginateViewProps<T> {
     tag: string,
     pinnedPosts: Array<T>,
     loadedPosts: Array<T>,
-    onMount?: () => void,
 }

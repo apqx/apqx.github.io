@@ -11,14 +11,14 @@ interface ShortLinkJumpDialogProps extends BaseDialogOpenProps {
 }
 
 export function ShortLinkDialog(props: ShortLinkJumpDialogProps) {
-    const viewModel = useMemo(() => new ShortLinkJumpDialogViewModel(props.pid), [])
+    const viewModel = useMemo(() => new ShortLinkJumpDialogViewModel(props.pid), [props.pid])
 
     const state = useSyncExternalStore(viewModel.subscribe, () => viewModel.state)
     const animationControllerRef = useRef<LottieAnimationController | null>(null)
 
     useEffect(() => {
         viewModel.findPage(props.pid)
-    }, [])
+    }, [viewModel, props.pid])
 
     const onDialogOpen = useCallback(() => {
         animationControllerRef.current?.play()

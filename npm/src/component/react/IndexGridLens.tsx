@@ -1,7 +1,7 @@
 // import "./LensIndexList.scss"
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
 import { LOADING_HINT_ERROR, LOADING_HINT_NO_RESULT, LoadingHint } from "./LoadingHint"
-import { consoleInfo, consoleInfoObj } from "../../util/log"
+import { consoleInfo } from "../../util/log"
 import { getWindowInterSectionObserver, queryAnimatedElement } from "../animation/BaseAnimation"
 import { getSplittedDate } from "../../base/post"
 import { setupCardRipple } from "../card"
@@ -27,8 +27,8 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
     const [lensBiggerPicture, setLensBiggerPicture] = useState(() => {
         return getLocalRepository().getLensBiggerPicture()
     })
-    // 记录是否已经进行过搜索
-    const haveSearchedRef = useRef(false)
+    // 记录是否已经进行过搜索或点击过 loading hint
+    const haveSearchedOrInteractedRef = useRef(false)
 
     const httpPaginateViewModel = useMemo(() => {
         const options = {
@@ -36,7 +36,7 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
             category: props.category,
         }
         return new HttpPaginatorViewModel<ApiPost, PostHttpPaginator, Post>(new PostHttpPaginator(options), true)
-    }, [])
+    }, [props.tag, props.category])
     const pagefindPaginateViewModel = useMemo(() => {
         return new PagefindPaginateViewModel<PagefindResultItem, Post, PostPagefindPaginator>(new PostPagefindPaginator(), true)
     }, [])
@@ -46,8 +46,6 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
 
     useEffect(() => {
         consoleInfo(`IndexGridLens useEffect, tag: ${props.tag}, category: ${props.category}, filterTags: ${filterTags.toString()} `)
-        if (props.onMount != null)
-            props.onMount()
 
         const emitter = getEventEmitter()
         const lensFilterChangeListener = (data: Events["lensFilterChange"]) => {
@@ -82,11 +80,11 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
             emitter.off("lensBiggerPictureChange", lensBiggerPictureChangeListener)
             emitter.off("pageEvent", pageEventListener)
         }
-    }, [])
+    }, [props.tag, props.category, filterTags, lensBiggerPicture])
 
     const pagefindOptions = useMemo(() => {
         if (filterTags.length > 0) {
-            haveSearchedRef.current = true
+            haveSearchedOrInteractedRef.current = true
         }
 
         const sort = filterTags.includes(LENS_FILTER_SORT_ASC) ? "asc" : "desc"
@@ -102,7 +100,7 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
         }
     }, [filterTags])
 
-    // 加载初始数据，每次 searchCount 变化会触发搜索
+    // 加载初始数据，每次 searchCount filterTags 变化会触发搜索
     useEffect(() => {
         scrollToTopNative(false)
         // 清除旧数据并加载新数据
@@ -116,7 +114,9 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
             httpPaginateViewModel.clear()
             httpPaginateViewModel.load()
         }
-    }, [searchCount])
+        // 空消费该依赖，消除 Lint 提示
+        void searchCount
+    }, [searchCount, filterTags, httpPaginateViewModel, pagefindPaginateViewModel, pagefindOptions])
 
     // 加载状态变化时，通知 Footer 显示或隐藏
     // 加载时隐藏，有结果时（错误或加载完成）显示
@@ -142,9 +142,10 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
         } else if (filterTags.length == 0 && httpState.loadingHint != LOADING_HINT_ERROR && httpState.loadingHint != LOADING_HINT_NO_RESULT) {
             httpPaginateViewModel.loadMore()
         }
-    }, [filterTags, httpState.loadingHint, pagefindState.loadingHint])
+    }, [filterTags, httpState.loadingHint, pagefindState.loadingHint, httpPaginateViewModel, pagefindPaginateViewModel])
 
-    const onClickHint = useCallback(() => {
+    const onClickLoadingHint = useCallback(() => {
+        haveSearchedOrInteractedRef.current = true
         if (filterTags.length > 0) {
             if (pagefindState.posts.length > 0) {
                 pagefindPaginateViewModel.loadMore(true)
@@ -158,7 +159,7 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
                 httpPaginateViewModel.load(true)
             }
         }
-    }, [httpState.posts, pagefindState.posts, filterTags])
+    }, [httpState.posts, pagefindState.posts, filterTags, httpPaginateViewModel, pagefindPaginateViewModel, pagefindOptions])
 
     const showPosts = useMemo(() => {
         if (filterTags.length > 0) {
@@ -174,13 +175,13 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
             // 云端数据与本地数据覆盖可能导致 masonry 短时间内多次重排，入场动画混乱
             // 不再预加载要被覆盖的本地数据
             // TODO: 如果置顶足够多，可以考虑放开置顶预加载，首页相应更迅速，而且不被干扰
-            let posts = httpState.posts
+            const posts = httpState.posts
             if (posts.length == 0) {
                 return posts
             }
             return props.pinnedPosts.concat(convertPinedToFeatured(props.pinnedPosts.length, posts))
         }
-    }, [httpState.posts, pagefindState.posts, filterTags])
+    }, [httpState.posts, pagefindState.posts, filterTags, props.pinnedPosts])
 
     const loadingState = useMemo(() => {
         if (filterTags.length > 0) {
@@ -215,9 +216,8 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
 
     const hideLoading = useMemo(() => {
         // 首页加载不显示 loading
-        // 这种机制只在首页加载失败需要用户点击重试时有点问题，不会显示 loading，但概率极低，没有 loading 动画也可接受
-        return !haveSearchedRef.current && showPosts.length == 0 && loadingState.loading
-    }, [haveSearchedRef.current, loadingState.loading, showPosts.length])
+        return !haveSearchedOrInteractedRef.current && showPosts.length == 0 && loadingState.loading
+    }, [loadingState.loading, showPosts.length])
 
     return (
         <ul ref={masonryContainerRef} className="grid-index-ul">
@@ -245,7 +245,7 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
                 rowGap={0}
             />
 
-            <LoadingHint loading={loadingState.loading} loadHint={loadingState.loadingHint} onClickHint={onClickHint}
+            <LoadingHint loading={loadingState.loading} loadHint={loadingState.loadingHint} onClickHint={onClickLoadingHint}
                 onLoadMore={onLoadMore} extendIntersectionThreshold={true}
                 hide={hideLoading} />
         </ul>
@@ -272,7 +272,13 @@ function IndexItem(props: IndexItemProps) {
     const containerRef = useRef<HTMLLIElement>(null)
 
     useEffect(() => {
-        consoleInfoObj("IndexItem useEffect " + props.index + " : " + props.title, props)
+        consoleInfo("IndexItem useEffect " + props.index + " : " + props.title)
+        return () => {
+            consoleInfo("IndexItem useEffect cleanup " + props.index + " : " + props.title)
+        }
+    }, [props.index, props.title])
+
+    useEffect(() => {
         const rootE = containerRef.current as HTMLElement;
         const cardE = rootE.querySelector(".grid-index-card") as HTMLElement
         setupCardRipple(cardE)
@@ -293,7 +299,6 @@ function IndexItem(props: IndexItemProps) {
         }
 
         return () => {
-            consoleInfo("IndexItem useEffect cleanup " + props.index + " : " + props.title)
             coverE.onload = null
             if (animationE != null) {
                 getWindowInterSectionObserver().unobserve(animationE)

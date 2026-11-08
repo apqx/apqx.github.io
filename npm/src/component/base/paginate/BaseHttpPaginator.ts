@@ -26,10 +26,10 @@ export abstract class BaseHttpPaginator<H, T> implements IHttpPaginator<H, T> {
 
     async load(delay?: boolean, abortSignal?: AbortSignal): Promise<T[]> {
         consoleInfo(`Load by http paginator, tag = ${this.options.tag}, category = ${this.options.category}`)
-        abortSignal?.throwIfAborted()
         const startTime = Date.now()
         return this.getRequest(abortSignal, 1)
             .then(async (response: Response) => {
+                abortSignal?.throwIfAborted()
                 if (response.status === 200) {
                     return response.json()
                 } else {
@@ -39,11 +39,11 @@ export abstract class BaseHttpPaginator<H, T> implements IHttpPaginator<H, T> {
                     throw new Error("Something went wrong on api server!")
                 }
             }).then(async (page: ApiPaginatePage<H>) => {
-                consoleInfoObj("Http paginator first page", page)
                 if (delay) {
                     await sleepUntilMinimalTime(startTime, abortSignal)
                 }
                 abortSignal?.throwIfAborted()
+                consoleInfoObj("Http paginator first page", page)
                 this.cachedPage = []
                 this.cachedPage.push(page)
                 this.cachedData = []
@@ -80,16 +80,18 @@ export abstract class BaseHttpPaginator<H, T> implements IHttpPaginator<H, T> {
         if (this.cachedPage.length == 0) {
             return this.load(delay, abortSignal)
         }
-        abortSignal?.throwIfAborted()
         const nextPagePath = this.cachedPage[this.cachedPage.length - 1].data.nextPagePath
         if (nextPagePath == null || nextPagePath.length == 0) {
             return new Promise((resolve) => {
+                abortSignal?.throwIfAborted()
                 resolve(this.cachedData.slice())
             })
         }
         const startTime = Date.now()
+
         return await this.getRequest(abortSignal, undefined, nextPagePath)
             .then(async (response: Response) => {
+                abortSignal?.throwIfAborted()
                 if (response.status === 200) {
                     return response.json()
                 }
@@ -98,11 +100,11 @@ export abstract class BaseHttpPaginator<H, T> implements IHttpPaginator<H, T> {
                 }
                 throw new Error("Something went wrong on api server!")
             }).then(async (page: ApiPaginatePage<H>) => {
-                consoleInfoObj("Http paginator more page", page)
                 if (delay) {
                     await sleepUntilMinimalTime(startTime, abortSignal)
                 }
                 abortSignal?.throwIfAborted()
+                consoleInfoObj("Http paginator more page", page)
                 this.cachedPage.push(page)
                 this.cachedData.push(...page.posts.map(item => this.convertToShowData(item)))
                 return this.cachedData.slice()

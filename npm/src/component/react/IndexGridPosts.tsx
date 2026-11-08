@@ -1,5 +1,5 @@
 // import "./GridIndexList.scss"
-import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
+import { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from "react"
 import { LOADING_HINT_ERROR, LOADING_HINT_NO_RESULT, LoadingHint } from "./LoadingHint"
 import { consoleInfo, consoleInfoObj } from "../../util/log"
 import { onTagTriggerClick } from "../tag"
@@ -20,6 +20,7 @@ interface Props extends BasePaginateViewProps<Post> {
 }
 
 export function IndexGridPosts(props: Props) {
+    const haveSearchedOrInteractedRef = useRef(false)
 
     const paginateViewModel = useMemo(() => {
         const options = {
@@ -27,19 +28,17 @@ export function IndexGridPosts(props: Props) {
             category: props.category,
         }
         return new HttpPaginatorViewModel<ApiPost, PostHttpPaginator, Post>(new PostHttpPaginator(options), true)
-    }, [])
+    }, [props.tag, props.category])
     const state = useSyncExternalStore(paginateViewModel.subscribe, () => paginateViewModel.state)
 
     useEffect(() => {
         consoleInfo(`IndexGridPosts useEffect, tag: ${props.tag}, category: ${props.category}`)
         paginateViewModel.load()
 
-        if (props.onMount != null) props.onMount()
-
         return () => {
             consoleInfo("IndexGridPosts useEffect cleanup")
         }
-    }, [])
+    }, [paginateViewModel, props.tag, props.category])
 
     // 加载状态变化时，通知 Footer 显示或隐藏
     // 加载时隐藏，有结果时（错误或加载完成）显示
@@ -56,15 +55,16 @@ export function IndexGridPosts(props: Props) {
         if (state.loadingHint != LOADING_HINT_ERROR && state.loadingHint != LOADING_HINT_NO_RESULT) {
             paginateViewModel.loadMore()
         }
-    }, [state.loadingHint])
+    }, [state.loadingHint, paginateViewModel])
 
     const onClickHint = useCallback(() => {
+        haveSearchedOrInteractedRef.current = true
         if (state.posts.length > 0) {
             paginateViewModel.loadMore(true)
         } else {
             paginateViewModel.load(true)
         }
-    }, [state.posts])
+    }, [state.posts, paginateViewModel])
 
     const descriptionPost: Post = useMemo(() => {
         return {
@@ -87,16 +87,21 @@ export function IndexGridPosts(props: Props) {
             pinned: false,
             featured: false
         }
-    }, [props.pageDescriptionHtml])
+    }, [])
 
     const showPosts = useMemo(() => {
-        let posts = state.posts
+        const posts = state.posts
         if (state.posts.length == 0) {
             return posts
         }
         consoleInfoObj("Show posts in index grid", posts)
         return [descriptionPost, ...posts]
-    }, [state.posts, props.pageDescriptionHtml])
+    }, [state.posts, descriptionPost])
+
+    const hideLoading = useMemo(() => {
+        // 首页加载不显示 loading
+        return !haveSearchedOrInteractedRef.current && showPosts.length == 0 && state.loading
+    }, [state.loading, showPosts.length])
 
     return (
         <ul className="grid-index-ul">
@@ -132,7 +137,7 @@ export function IndexGridPosts(props: Props) {
             />
 
             <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint}
-                onLoadMore={onLoadMore} hide={showPosts.length == 0 && state.loading} />
+                onLoadMore={onLoadMore} hide={hideLoading} />
         </ul>
     )
 }
@@ -158,7 +163,13 @@ function IndexItem(props: IndexItemProps) {
     // 缓存最新的回调
 
     useEffect(() => {
-        consoleInfoObj("IndexItem useEffect " + props.index + " : " + props.title, props)
+        consoleInfo("IndexItem useEffect " + props.index + " : " + props.title)
+        return () => {
+            consoleInfo("IndexItem useEffect cleanup " + props.index + " : " + props.title)
+        }
+    }, [props.index, props.title])
+
+    useEffect(() => {
         const rootE = containerRef.current as HTMLElement;
         const cardE = rootE.querySelector(".grid-index-card")
         setupCardRipple(cardE as HTMLElement)
@@ -190,7 +201,6 @@ function IndexItem(props: IndexItemProps) {
         window.addEventListener("scroll", scrollListener)
 
         return () => {
-            consoleInfo("IndexItem useEffect cleanup " + props.title)
             if (animationE != null) {
                 getWindowInterSectionObserver().unobserve(animationE)
             }

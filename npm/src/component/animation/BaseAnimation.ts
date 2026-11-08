@@ -1,5 +1,5 @@
 import "./BaseAnimation.scss"
-import { consoleInfo, consoleInfoObj } from "../../util/log"
+import { consoleInfo } from "../../util/log"
 import { toggleElementClass } from "../../util/tools"
 
 let windowInterSectionObserver: IntersectionObserver | null = null
@@ -38,7 +38,7 @@ export function getWindowInterSectionObserver() {
 }
 
 const CHAINED_SLIDE_IN_INTERVAL = 50
-let chainedSlideInQueue: Element[] = []
+const chainedSlideInQueue: Element[] = []
 let chainedSlideInTimerId: number | null = null
 let lastChainedSlideInStartTime = 0
 
@@ -52,8 +52,6 @@ const fadeInClasses = ["fade-in"]
 
 const flashInClasses = ["flash-in"]
 
-const fadeClasses = ["fade"]
-
 function containsSlideInClass(element: Element) {
     return slideInClasses.some(className => element.classList.contains(className))
 }
@@ -64,10 +62,6 @@ function containsFadeInClass(element: Element) {
 
 function containsFlashInClass(element: Element) {
     return flashInClasses.some(className => element.classList.contains(className))
-}
-
-function containsFadeClass(element: Element) {
-    return fadeClasses.some(className => element.classList.contains(className))
 }
 
 function removeSlideInClasses(element: Element) {
@@ -90,7 +84,7 @@ function startFadeIn(element: Element) {
 
 function startSlideIn(element: Element, delay: number = 0) {
     let readyClass = ""
-    let startClass = "slide-in--start"
+    const startClass = "slide-in--start"
     if (element.classList.contains("slide-in")) {
         readyClass = "slide-in--ready"
     } else if (element.classList.contains("slide-in-offset")) {

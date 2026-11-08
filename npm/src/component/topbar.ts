@@ -114,7 +114,7 @@ export function toggleTopbarGlass(on: boolean) {
     toggleElementClass(topAppBarE!!, "top-app-bar--blur", on)
 }
 
-const animationDoneListener = () => {
+const _animationDoneListener = () => {
     consoleInfo("Topbar animation done")
     // topAppBarE.style.animationPlayState = "initial"
     if (topAppBarE!!.classList.contains("top-app-bar--moving-up")) {
@@ -132,13 +132,13 @@ const topbarDisplayTriggerIgnoreScrollY = 200;
 // 触发topbar状态变化的距离阈值
 // TODO: 监测索引页的cover动画，卡片页的移动动画，阈值应大于它们
 // 索引页cover最大300px，卡片页移动动画最大240px
-let topbarDisplayTriggerScrollY = 100;
+const topbarDisplayTriggerScrollY = 100;
 
 let lastScrollY = -1;
 // 滚动变化的点
 let lastScrollChange: ScrollChange | null = null;
 
-const scrollListener = () => {
+const _scrollListener = () => {
     // const bodyE = document.body
     // consoleDebug("Body scrollHeight = " + bodyE.scrollHeight + ", clientHeight = " + bodyE.clientHeight +
     //     ", scrollTop = " + window.scrollY
@@ -232,51 +232,51 @@ function initTitle(topAppBarE: HTMLElement) {
     const path = window.location.pathname
     const section = getSectionTypeByPath(path)
     const isIndex = isIndexPage(path)
-    let titleAE: HTMLLinkElement = topAppBarE.querySelector(".mdc-top-app-bar__title a") as HTMLLinkElement
+    const titleAE: HTMLLinkElement = topAppBarE.querySelector(".mdc-top-app-bar__title a") as HTMLLinkElement
     switch (section.identifier) {
         case SECTION_TYPE_ORIGINAL.identifier: {
             titleAE.parentElement?.classList.add("title-home")
-            titleAE.innerText = "ʕ•ᴥ•ʔ"
+            titleAE.textContent = "ʕ•ᴥ•ʔ"
             titleAE.href = "/"
             break
         }
         case SECTION_TYPE_REPOST.identifier: {
-            titleAE.innerText = "Repost"
+            titleAE.textContent = "Repost"
             titleAE.href = isIndex ? "/" : section.indexPath
             break
         }
         case SECTION_TYPE_POETRY.identifier: {
-            titleAE.innerText = "Poetry"
+            titleAE.textContent = "Poetry"
             titleAE.href = isIndex ? "/" : section.indexPath
             break
         }
         case SECTION_TYPE_OPERA.identifier: {
-            titleAE.innerText = "Opera"
+            titleAE.textContent = "Opera"
             titleAE.href = isIndex ? "/" : section.indexPath
             break
         }
         case SECTION_TYPE_LENS.identifier: {
-            titleAE.innerText = "Lens"
+            titleAE.textContent = "Lens"
             titleAE.href = isIndex ? "/" : section.indexPath
             break
         }
         case SECTION_TYPE_TAGS.identifier: {
-            titleAE.innerText = "Tags"
+            titleAE.textContent = "Tags"
             titleAE.href = "/"
             break
         }
         case SECTION_TYPE_SHARE.identifier: {
-            titleAE.innerText = "Share"
+            titleAE.textContent = "Share"
             titleAE.href = "/"
             break
         }
         case SECTION_TYPE_PRINT.identifier: {
-            titleAE.innerText = "Print"
+            titleAE.textContent = "Print"
             titleAE.href = "/"
             break
         }
         default: {
-            titleAE.innerText = "Other"
+            titleAE.textContent = "Other"
             titleAE.href = "/"
             break
         }

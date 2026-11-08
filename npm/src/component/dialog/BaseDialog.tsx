@@ -1,7 +1,8 @@
 import "./BaseDialog.scss"
 import { consoleInfo } from "../../util/log"
 import { MDCDialog } from "@material/dialog"
-import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react"
+import type React from "react"
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react"
 import { createRoot } from "react-dom/client"
 import type { Root } from "react-dom/client"
 import { setupButtonRipple } from "../button"
@@ -10,7 +11,7 @@ import { ScrollContext } from "../react/LoadingHint"
 import { getResolvedElementMaxHeight, toggleElementClass } from "../../util/tools"
 import { Scrim, type ScrimController } from "../react/Scrim"
 import { useDebouncedResize } from "../react/tools/useDebouncedResize"
-import { isElementHidden, useDebouncedResizeMonitor } from "../react/SmoothCollapse"
+import { useDebouncedResizeMonitor } from "../react/SmoothCollapse"
 
 export interface ActionBtn {
     text: string,
@@ -62,23 +63,6 @@ export function BaseDialog({ dialogControllerRef = undefined, fixedWidth = false
     const dialogRef = useRef<MDCDialog>(null)
     const btnCloseRef = useRef<HTMLElement>(null)
 
-    // 使用 ref 存储回调函数的最新引用，避免因函数引用变化导致 useEffect 重新执行
-    // Dialog 监听器要在同一个 useEffect 中统一管理
-    const onDialogOpenRef = useRef(onDialogOpen)
-    const onDialogOpeningRef = useRef(onDialogOpening)
-    const onDialogCloseRef = useRef(onDialogClose)
-    const onDialogClosingRef = useRef(onDialogClosing)
-    const scrollToTopOnDialogOpenRef = useRef(scrollToTopOnDialogOpen)
-
-    // 更新 ref 中的函数引用，这些引用会在初始化的监听器中使用
-    useEffect(() => {
-        onDialogOpenRef.current = onDialogOpen
-        onDialogOpeningRef.current = onDialogOpening
-        onDialogCloseRef.current = onDialogClose
-        onDialogClosingRef.current = onDialogClosing
-        scrollToTopOnDialogOpenRef.current = scrollToTopOnDialogOpen
-    }, [onDialogOpen, onDialogOpening, onDialogClose, onDialogClosing, scrollToTopOnDialogOpen])
-
     useEffect(() => {
         consoleInfo("BaseDialog useEffect")
         const rootE = dialogContainerRef.current as HTMLElement
@@ -91,10 +75,26 @@ export function BaseDialog({ dialogControllerRef = undefined, fixedWidth = false
             setupButtonRipple(ele as HTMLElement)
         })
 
-        const clearListeners = initDialog(rootE as HTMLElement)
+        dialogRef.current = new MDCDialog(rootE)
 
-        dialogRef.current!.open()
+        rootE.addEventListener("transitionend", (event: TransitionEvent) => {
+            const target = event.target as Element
+            if (target != animaERef.current) return
+            const currentTarget = event.currentTarget as Element
+            //  consoleInfo("BaseDialog transitionend, target = " + target.className + ", currentTarget = " + currentTarget.className)
+            //  关闭动画结束后，删除动画类
+            if (currentTarget.classList.contains("mdc-dialog--my-closing")) {
+                toggleElementClass(currentTarget, "mdc-dialog--my-closing", false)
+            }
+        })
 
+        return () => {
+            consoleInfo("BaseDialog useEffect cleanup")
+            dialogRef.current?.destroy()
+        }
+    }, [])
+
+    useEffect(() => {
         if (dialogControllerRef) {
             dialogControllerRef.current = {
                 opened: false,
@@ -102,17 +102,76 @@ export function BaseDialog({ dialogControllerRef = undefined, fixedWidth = false
                 close: () => dialogRef.current?.close()
             }
         }
-
         return () => {
-            consoleInfo("BaseDialog useEffect cleanup")
-            clearListeners()
-            dialogRef.current?.destroy()
             if (dialogControllerRef) {
                 dialogControllerRef.current = null
             }
         }
-
     }, [dialogControllerRef])
+
+    useEffect(() => {
+        const onOpeningListener = () => {
+            consoleInfo("Dialog opening")
+            if (onDialogOpening) {
+                onDialogOpening()
+            }
+            scrimControllerRef.current?.open()
+        }
+
+        const onOpenedListener = () => {
+            consoleInfo("Dialog opened")
+            if (dialogControllerRef?.current) {
+                dialogControllerRef.current.opened = true
+            }
+            if (onDialogOpen) {
+                onDialogOpen()
+            }
+            handleFocus(btnCloseRef.current)
+            if (scrollToTopOnDialogOpen) {
+                scrollToTop(true, dialogContentRef.current)
+            }
+        }
+
+        const onClosingListener = () => {
+            consoleInfo("Dialog closing")
+            const rootE = dialogContainerRef.current
+            toggleElementClass(rootE, "mdc-dialog--my-closing", true)
+            if (dialogControllerRef?.current) {
+                dialogControllerRef.current.opened = false
+            }
+            if (onDialogClosing) {
+                onDialogClosing()
+            }
+            scrimControllerRef.current?.close()
+            if (onDialogClose) {
+                onDialogClose()
+            }
+        }
+
+        const onClosedListener = () => {
+            consoleInfo("Dialog closed")
+        }
+
+        // 启动 open 动画
+        dialogRef.current!.listen("MDCDialog:opening", onOpeningListener)
+        // open 动画结束
+        dialogRef.current!.listen("MDCDialog:opened", onOpenedListener)
+        // 启动 close 动画
+        dialogRef.current!.listen("MDCDialog:closing", onClosingListener)
+        // close 动画结束
+        dialogRef.current!.listen("MDCDialog:closed", onClosedListener)
+
+        return (() => {
+            dialogRef.current?.unlisten("MDCDialog:opening", onOpeningListener)
+            dialogRef.current?.unlisten("MDCDialog:opened", onOpenedListener)
+            dialogRef.current?.unlisten("MDCDialog:closing", onClosingListener)
+            dialogRef.current?.unlisten("MDCDialog:closed", onClosedListener)
+        })
+    }, [onDialogOpening, onDialogOpen, onDialogClosing, onDialogClose, scrollToTopOnDialogOpen, dialogControllerRef])
+
+    useEffect(() => {
+        dialogRef.current!.open()
+    }, [])
 
     // 监听 dialog 内部滚动，触发加载更多
     useEffect(() => {
@@ -139,103 +198,7 @@ export function BaseDialog({ dialogControllerRef = undefined, fixedWidth = false
         dialogRef.current.scrimClickAction = closeOnClickOutside ? "close" : ""
     }, [closeOnClickOutside])
 
-    function initDialog(rootE: HTMLElement) {
-        dialogRef.current = new MDCDialog(rootE)
 
-        rootE.addEventListener("transitionend", (event: TransitionEvent) => {
-            const target = event.target as Element
-            if (target != animaERef.current) return
-            const currentTarget = event.currentTarget as Element
-            //  consoleInfo("BaseDialog transitionend, target = " + target.className + ", currentTarget = " + currentTarget.className)
-            //  关闭动画结束后，删除动画类
-            if (currentTarget.classList.contains("mdc-dialog--my-closing")) {
-                toggleElementClass(currentTarget, "mdc-dialog--my-closing", false)
-            }
-        })
-
-        const onOpeningListener = () => {
-            consoleInfo("Dialog opening")
-            if (onDialogOpeningRef.current != null) {
-                onDialogOpeningRef.current()
-            }
-            scrimControllerRef.current?.open()
-        }
-
-        const onOpenedListener = () => {
-            consoleInfo("Dialog opened")
-            if (onDialogOpenRef.current != null) {
-                onDialogOpenRef.current()
-            }
-            if (dialogControllerRef && dialogControllerRef.current) {
-                dialogControllerRef.current.opened = true
-            }
-            handleFocus()
-            if (scrollToTopOnDialogOpenRef.current) {
-                scrollToTop()
-            }
-        }
-
-        const onClosingListener = () => {
-            consoleInfo("Dialog closing")
-            toggleElementClass(rootE, "mdc-dialog--my-closing", true)
-            if (onDialogClosingRef.current != null) {
-                onDialogClosingRef.current()
-            }
-            scrimControllerRef.current?.close()
-            if (onDialogCloseRef.current != null) {
-                onDialogCloseRef.current()
-            }
-        }
-
-        const onClosedListener = () => {
-            consoleInfo("Dialog closed")
-            if (dialogControllerRef && dialogControllerRef.current) {
-                dialogControllerRef.current.opened = false
-            }
-        }
-
-        // 启动 open 动画
-        dialogRef.current!.listen("MDCDialog:opening", onOpeningListener)
-        // open 动画结束
-        dialogRef.current!.listen("MDCDialog:opened", onOpenedListener)
-        // 启动 close 动画
-        dialogRef.current!.listen("MDCDialog:closing", onClosingListener)
-        // close 动画结束
-        dialogRef.current!.listen("MDCDialog:closed", onClosedListener)
-
-        return (() => {
-            dialogRef.current?.unlisten("MDCDialog:opening", onOpeningListener)
-            dialogRef.current?.unlisten("MDCDialog:opened", onOpenedListener)
-            dialogRef.current?.unlisten("MDCDialog:closing", onClosingListener)
-            dialogRef.current?.unlisten("MDCDialog:closed", onClosedListener)
-        })
-    }
-
-    function scrollToTop(smooth: boolean = true) {
-        if (smooth) {
-            dialogContentRef.current?.scrollTo(
-                {
-                    top: 0,
-                    behavior: "smooth"
-                }
-            )
-        } else {
-            dialogContentRef.current?.scrollTo(
-                {
-                    top: 0,
-                    behavior: "instant"
-                }
-            )
-        }
-    }
-
-    function handleFocus() {
-        if (btnCloseRef.current == null) return
-        // Dialog 弹出时应该让 Button 获取焦点，避免 chip 出现选中阴影
-        // 但是 Button 获取焦点后颜色会变化，所以立即取消焦点
-        btnCloseRef.current.focus()
-        btnCloseRef.current.blur()
-    }
 
     const calcContentMaxHeight = useCallback(() => {
         // TODO: 这里计算的 maxHeight 不对，且缺少 inset 尺寸
@@ -251,7 +214,7 @@ export function BaseDialog({ dialogControllerRef = undefined, fixedWidth = false
 
     useLayoutEffect(() => {
         setContentMaxHeight(calcContentMaxHeight())
-    }, [])
+    }, [calcContentMaxHeight])
 
     const resizeCallback = useCallback(() => {
         // 元素 display: none 时会触发 ResizeObserver，获取尺寸为 0，过滤这种情况 
@@ -262,7 +225,7 @@ export function BaseDialog({ dialogControllerRef = undefined, fixedWidth = false
             consoleInfo("Dialog contentMaxHeight changed: " + pre + " -> " + current)
             return current
         })
-    }, [])
+    }, [calcContentMaxHeight])
 
     // 监听视口尺寸变化，计算 surface 最大高度
     useDebouncedResize(dialogContainerRef, { resizeCallback: resizeCallback })
@@ -311,6 +274,33 @@ export function BaseDialog({ dialogControllerRef = undefined, fixedWidth = false
     )
 }
 
+function handleFocus(ele: HTMLElement | null) {
+    if (!ele) return
+    // Dialog 弹出时应该让 Button 获取焦点，避免 chip 出现选中阴影
+    // 但是 Button 获取焦点后颜色会变化，所以立即取消焦点
+    ele.focus()
+    ele.blur()
+}
+
+function scrollToTop(smooth: boolean = true, ele: HTMLElement | null) {
+    if (!ele) return
+    if (smooth) {
+        ele.scrollTo(
+            {
+                top: 0,
+                behavior: "smooth"
+            }
+        )
+    } else {
+        ele.scrollTo(
+            {
+                top: 0,
+                behavior: "instant"
+            }
+        )
+    }
+}
+
 export const COMMON_DIALOG_WRAPPER_ID = "common-dialog-wrapper"
 export const TAG_DIALOG_WRAPPER_ID = "tag-dialog-wrapper"
 export const SEARCH_DIALOG_WRAPPER_ID = "search-dialog-wrapper"
@@ -325,9 +315,9 @@ export const AUTH_DIALOG_WRAPPER_ID = "auth-dialog-wrapper"
 // 缓存每种 dialog 的 root 容器
 // 每个 tag 都使用单独的 dialog
 let dialogContainerE: HTMLElement | null = null
-let rootDialogMap = new Map<string, Root>()
+const rootDialogMap = new Map<string, Root>()
 // 存储每个 dialog 的 controller，key 是 dialogWrapperId 或者 tag
-let dialogControllerMap = new Map<string, DialogControllerRef>()
+const dialogControllerMap = new Map<string, DialogControllerRef>()
 
 export function getDialogController(dialogWrapperId: string): DialogControllerRef {
     if (dialogControllerMap.has(dialogWrapperId)) {
@@ -350,7 +340,7 @@ export function showDialog(_contentElement: React.JSX.Element, _dialogWrapperId:
         root = rootDialogMap.get(_dialogWrapperId)
     } else {
         // 创建 wrapper 节点
-        let rootE = document.createElement("div")
+        const rootE = document.createElement("div")
         rootE.setAttribute("id", _dialogWrapperId)
         dialogContainerE!!.appendChild(rootE)
         root = createRoot(rootE)

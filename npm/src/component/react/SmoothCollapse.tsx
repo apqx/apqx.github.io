@@ -1,5 +1,5 @@
 import "./SmoothCollapse.scss"
-import { useEffect, useLayoutEffect, useRef, type RefObject } from "react"
+import { useLayoutEffect, useRef, type RefObject } from "react"
 import { consoleInfo } from "../../util/log"
 
 type SmoothCollapseProps = {
@@ -44,8 +44,8 @@ export function useDebouncedResizeMonitor(targetERef: RefObject<HTMLElement | nu
                 if (isElementHidden(monitorERef.current!)) return
                 if (targetERef.current == null || monitorERef.current == null) return
                 // 内部尺寸变化时，获取 target 的当前尺寸，然后计算与新尺寸的差值
-                let currentHeight = targetERef.current.offsetHeight
-                let currentWidth = targetERef.current.offsetWidth
+                const currentHeight = targetERef.current.offsetHeight
+                const currentWidth = targetERef.current.offsetWidth
                 consoleInfo("SmoothCollapse resizeObserver currentHeight = " + currentHeight + ", currentWidth = " + currentWidth)
                 const entry = entries.pop()
                 if (!entry) return

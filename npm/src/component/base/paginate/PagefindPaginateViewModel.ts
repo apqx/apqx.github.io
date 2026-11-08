@@ -53,6 +53,7 @@ export class PagefindPaginateViewModel<P, T, O extends BasePagefindPaginator<P, 
             }
             this.emitChange()
             const posts = await this.paginator.search(keywords, options, delay, this.abortController.signal)
+            this.abortController.signal.throwIfAborted()
             const totalPostsSize = this.paginator.totalPostsSize()
             this.state = {
                 loading: false,
@@ -91,6 +92,7 @@ export class PagefindPaginateViewModel<P, T, O extends BasePagefindPaginator<P, 
             }
             this.emitChange()
             const posts = await this.paginator.loadMore(delay, this.abortController.signal)
+            this.abortController.signal.throwIfAborted()
             const totalPostsSize = this.paginator.totalPostsSize()
             this.state = {
                 ...this.state,

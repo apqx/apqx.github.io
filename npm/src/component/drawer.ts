@@ -23,15 +23,15 @@ const DRAWER_ITEM_PREFERENCE_ID = "drawer-a-preference"
 const DRAWER_ITEM_ABOUT_ME_ID = "drawer-a-about-me"
 
 let drawer: MDCDrawer | null = null
-let drawerWrapperE: HTMLElement | null = null
+let _drawerWrapperE: HTMLElement | null = null
 
 export function initDrawer() {
-    let drawerE = document.querySelector(".mdc-drawer")
+    const drawerE = document.querySelector(".mdc-drawer")
     if (drawerE == null) {
         consoleError("Drawer not found")
         return
     }
-    drawerWrapperE = drawerE.querySelector(".mdc-drawer__wrapper") as HTMLElement
+    _drawerWrapperE = drawerE.querySelector(".mdc-drawer__wrapper") as HTMLElement
     drawer = MDCDrawer.attachTo(drawerE)
     // 监听 menu 按钮点击
     topAppBar?.listen("MDCTopAppBar:nav", () => {
@@ -62,7 +62,7 @@ export function initDrawer() {
         consoleInfo("Click drawer close button")
         toggleDrawer(false)
     })
-    drawerE.querySelector(".drawer-header-text-container")?.addEventListener("dblclick", (event) => {
+    drawerE.querySelector(".drawer-header-text-container")?.addEventListener("dblclick", (_event) => {
         showInfoDialogAsync(() => {
             toggleDrawer(false)
         })
@@ -144,7 +144,7 @@ export function toggleDrawer(on: boolean) {
 }
 
 function getCurrentPageIndex(aEList: NodeListOf<Element>) {
-    let section = getSectionTypeByPath(window.location.pathname)
+    const section = getSectionTypeByPath(window.location.pathname)
     if (section.identifier == SECTION_TYPE_REPOST.identifier) {
         return findIndexById(aEList, DRAWER_ITEM_REPOST_ID)
     } else if (section.identifier == SECTION_TYPE_POETRY.identifier) {

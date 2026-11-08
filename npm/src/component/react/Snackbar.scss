@@ -16,8 +16,8 @@
     min-width: 0;
 
     background-color: var(--snackbar-bg);
-    backdrop-filter: blur(map.get(base.$snackbar-bg, "backdrop-filter"));
     -webkit-backdrop-filter: blur(map.get(base.$snackbar-bg, "backdrop-filter"));
+    backdrop-filter: blur(map.get(base.$snackbar-bg, "backdrop-filter"));
 }
 
 .mdc-snackbar__label {

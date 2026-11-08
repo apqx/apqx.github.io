@@ -308,6 +308,9 @@ export function Masonry<T>({
     }, [itemKeys.length])
 
     useEffect(() => {
+        // 标记变量已消费，消除未使用依赖警告
+        // TODO: 重新梳理部分逻辑
+        void columnCount
         scheduleRelayout()
     }, [columnCount, scheduleRelayout])
 

@@ -1,5 +1,5 @@
 // import "./theme.scss"
-import { isMobileOrTablet, toggleElementClass } from "../util/tools"
+import { toggleElementClass } from "../util/tools"
 import { consoleInfo } from "../util/log"
 import { getLocalRepository } from "../repository/LocalDb"
 import { setToggleThemeIconDarkOn, toggleTopbarGlass } from "./topbar"
@@ -17,7 +17,7 @@ export function initTheme() {
     checkUserTheme()
     // 监听系统级主题变化，即系统和导航栏都可以控制主题变化
     window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
-        let newSysTheme = e.matches ? "dark" : "light";
+        const newSysTheme = e.matches ? "dark" : "light";
         consoleInfo("System theme change to " + newSysTheme)
         checkUserTheme()
     });
@@ -63,7 +63,6 @@ const metaThemeColor = {
 // TODO: 根据是否启用 edge-to-edge 设置
 const topbarBlur = {
     default: true,
-    mobile: true,
 }
 
 // 是否启用彩色标题栏
@@ -81,11 +80,7 @@ function checkMetaThemeColor(dark: boolean, show: boolean) {
     } else {
         setMetaThemeColor(undefined)
     }
-    if (isMobileOrTablet()) {
-        toggleTopbarGlass(topbarBlur.mobile)
-    } else {
-        toggleTopbarGlass(topbarBlur.default)
-    }
+    toggleTopbarGlass(topbarBlur.default)
 }
 
 function checkColorfulToolbar() {

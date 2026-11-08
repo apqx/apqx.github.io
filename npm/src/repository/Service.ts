@@ -55,7 +55,6 @@ class Service {
         url = url.startsWith("http") ? url : getBaseUrl(config) + url
         const request = new Request(url, {
             method: "GET",
-
         })
         consoleInfo("GetPostsByUrl " + url)
         return fetch(request, { signal: config.abortSignal, cache: "no-cache" })

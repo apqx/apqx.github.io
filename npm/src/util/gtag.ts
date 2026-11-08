@@ -16,7 +16,9 @@ export function loadGoogleAnalytics(): void {
     window.dataLayer = window.dataLayer || [];
 
     // 将 gtag 函数添加到 window 对象
-    window.gtag = function (...args: any[]): void {
+    window.gtag = function (..._args: any[]): void {
+        // 这段注释可消除 Lint warning
+        // biome-ignore lint/complexity/noArguments: Google Analytics 依赖原生 Arguments 对象
         window.dataLayer.push(arguments);
     }
 

@@ -1,6 +1,6 @@
 import "./post.scss"
 import { consoleInfo, consoleError } from "../util/log"
-import { isAndroidModern, runOnHtmlDone } from "../util/tools"
+import { runOnHtmlDone } from "../util/tools"
 import { initContentCard } from "../component/contentCard"
 import { showAlertDialog } from "../component/dialog/CommonAlertDialog"
 import { showSnackbar } from "../component/react/Snackbar"
@@ -35,7 +35,7 @@ function initCodeHighlight() {
  */
 function initPageCheck() {
     const urlPath = window.location.pathname
-    let sectionIdentifier = getSectionTypeByPath(urlPath).identifier
+    const sectionIdentifier = getSectionTypeByPath(urlPath).identifier
     consoleInfo("Post page section = " + sectionIdentifier + ", path = " + urlPath)
     if (sectionIdentifier === SECTION_TYPE_OPERA.identifier) {
         consoleInfo("Add opera-page to body")
@@ -65,7 +65,7 @@ function initImgJump() {
             let imgUrl = img.getAttribute("src")!!
             // 如果是缩略图，获取其原图 URL
             if (imgUrl.includes("_thumb")) {
-                let urlWithoutSuffix = imgUrl.substring(0, imgUrl.lastIndexOf("."))
+                const urlWithoutSuffix = imgUrl.substring(0, imgUrl.lastIndexOf("."))
                 // 删除 thumb 之后尾部的原图后缀名标记
                 if (urlWithoutSuffix.endsWith("_jpg")) {
                     imgUrl = urlWithoutSuffix.substring(0, urlWithoutSuffix.length - "_jpg".length) + ".jpg"

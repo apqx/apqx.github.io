@@ -2,9 +2,9 @@ import "./SearchDialog.scss"
 import { MDCList } from "@material/list"
 import { createHtmlContent } from "../../util/tools"
 import { BaseDialog, getDialogController, SEARCH_DIALOG_WRAPPER_ID, showDialog } from "./BaseDialog"
-import type { ActionBtn, BaseDialogController, BaseDialogOpenProps, DialogControllerRef } from "./BaseDialog"
+import type { ActionBtn, BaseDialogOpenProps } from "./BaseDialog"
 import { setupListItemRipple } from "../list"
-import { LoadingHint } from "../react/LoadingHint"
+import { LOADING_HINT_ERROR, LOADING_HINT_NO_RESULT, LoadingHint } from "../react/LoadingHint"
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
 import { getSplittedDate } from "../../base/post"
 import { PagefindPaginateViewModel } from "../base/paginate/PagefindPaginateViewModel"
@@ -38,7 +38,7 @@ export function SearchDialog(props: BaseDialogOpenProps) {
 
     const onClickSearch = useCallback(() => {
         paginateViewModel.search(textInputRef.current, pagefindOptions, true)
-    }, [])
+    }, [paginateViewModel, pagefindOptions])
 
     const onDialogOpen = useCallback(() => {
 
@@ -46,12 +46,12 @@ export function SearchDialog(props: BaseDialogOpenProps) {
 
     const onDialogClose = useCallback(() => {
         paginateViewModel.abort()
-    }, [])
+    }, [paginateViewModel])
 
     const onLoadMore = useCallback(() => {
-        // if (state.loadingHint != LOADING_HINT_ERROR && state.loadingHint != LOADING_HINT_NO_RESULT) {
-        //     paginateViewModel.loadMore()
-        // }
+        if (state.loadingHint != LOADING_HINT_ERROR && state.loadingHint != LOADING_HINT_NO_RESULT) {
+            // paginateViewModel.loadMore()
+        }
     }, [state.loadingHint])
 
     const onClickHint = useCallback(() => {
@@ -60,7 +60,7 @@ export function SearchDialog(props: BaseDialogOpenProps) {
         } else {
             paginateViewModel.search(textInputRef.current, pagefindOptions, true)
         }
-    }, [state.posts])
+    }, [paginateViewModel, pagefindOptions, state.posts])
 
     const actions = useMemo<ActionBtn[]>(() => {
         return [{
@@ -72,7 +72,7 @@ export function SearchDialog(props: BaseDialogOpenProps) {
                 setClearInputCounter(prev => prev + 1)
             }
         }]
-    }, [])
+    }, [paginateViewModel])
     return (
         <BaseDialog dialogControllerRef={props.dialogControllerRef} onDialogOpen={onDialogOpen} onDialogClose={onDialogClose} actions={actions}>
             <div ref={containerRef} className="center-inline-items">
@@ -80,7 +80,7 @@ export function SearchDialog(props: BaseDialogOpenProps) {
                     onClickIcon={onClickSearch} onClickEnter={onClickSearch} clearInputCounter={clearInputCounter} />
 
                 <p id="search-dialog_tips"><b>TIPS：</b>中文低频词组用空格分隔会有更好匹配，比如名字「施夏明」改为「施 夏 明」。若网络通畅可使用 <a
-                    href="https://cse.google.com/cse?cx=757420b6b2f3d47d2" target="_blank" tabIndex={-1}>Google 站内搜索</a>。</p>
+                    href="https://cse.google.com/cse?cx=757420b6b2f3d47d2" target="_blank" rel="noopener" tabIndex={-1}>Google 站内搜索</a>。</p>
                 <div>
                     {(state.posts != null && state.posts.length > 0) &&
                         <SearchResult list={state.posts} />
@@ -106,7 +106,7 @@ function SearchResult(props: SearchResultProps) {
 
     return (
         <ul ref={containerRef} className="mdc-deprecated-list">
-            {props.list.map((item, index) =>
+            {props.list.map((item, _index) =>
                 <ResultItem key={item.path}
                     title={item.title}
                     description={item.description}

@@ -1,5 +1,5 @@
 import "./Snackbar.scss";
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { MDCSnackbar } from '@material/snackbar';
 import { createRoot } from "react-dom/client";
 import type { Root } from "react-dom/client";

@@ -1,6 +1,6 @@
 import "./LensFilterDialog.scss"
-import { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from "react";
-import { BaseDialog, getDialogController, LENS_FILTER_DIALOG_WRAPPER_ID, showDialog, type ActionBtn, type BaseDialogController, type BaseDialogOpenProps, type DialogControllerRef } from "./BaseDialog";
+import { useCallback, useEffect, useMemo, useSyncExternalStore } from "react";
+import { BaseDialog, getDialogController, LENS_FILTER_DIALOG_WRAPPER_ID, showDialog, type ActionBtn, type BaseDialogOpenProps } from "./BaseDialog";
 import { LensFilterDialogViewModel, type Category, type Tag } from "./LensFilterDialogViewModel";
 import { CheckableTag } from "../react/CheckableTag";
 import { LoadingHint } from "../react/LoadingHint";
@@ -20,7 +20,7 @@ export function LensFilterDialog(props: BaseDialogOpenProps) {
             consoleInfo("LensFilterDialog clearup")
             viewModel.abort()
         }
-    }, [])
+    }, [viewModel])
 
     const onDialogOpen = useCallback(() => {
         if (state.tags.length == 0) {
@@ -29,19 +29,19 @@ export function LensFilterDialog(props: BaseDialogOpenProps) {
             // dialog 弹出时恢复已确认的选中
             viewModel.restoreSelection()
         }
-    }, [state.tags.length])
+    }, [state.tags.length, viewModel])
 
     const onDialogClose = useCallback(() => {
         viewModel.abort()
-    }, [])
+    }, [viewModel])
 
     const onTagClick = useCallback((tag: string) => {
         viewModel.onTagClick(tag)
-    }, [])
+    }, [viewModel])
 
     const onClickHint = useCallback(() => {
         viewModel.init(true)
-    }, [])
+    }, [viewModel])
 
     const actions = useMemo<ActionBtn[]>(() => {
         return [
@@ -59,7 +59,7 @@ export function LensFilterDialog(props: BaseDialogOpenProps) {
                     })
                 }
             }]
-    }, [state.selectedTags])
+    }, [state.selectedTags, state.tags.length, viewModel])
 
     // 将模版中的 category 排列成适合展示的结构
     const categoriesArray = useMemo(() => {

@@ -1,5 +1,5 @@
 import { List } from "../react/List"
-import { BaseDialog, getDialogController, MATERIAL_DIALOG_WRAPPER_ID, showDialog, type BaseDialogController, type BaseDialogOpenProps, type DialogControllerRef } from "./BaseDialog"
+import { BaseDialog, getDialogController, MATERIAL_DIALOG_WRAPPER_ID, showDialog, type BaseDialogOpenProps } from "./BaseDialog"
 import "./MaterialDialog.scss"
 
 

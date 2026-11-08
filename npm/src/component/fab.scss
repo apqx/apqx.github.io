@@ -20,8 +20,8 @@
         width: 3.5rem;
         height: 3.5rem;
         border-radius: 0.2rem;
-        backdrop-filter: blur(map.get(base.$fab-bg, "backdrop-filter"));
         -webkit-backdrop-filter: blur(map.get(base.$fab-bg, "backdrop-filter"));
+        backdrop-filter: blur(map.get(base.$fab-bg, "backdrop-filter"));
         @include ripple.ripple(var(--button-ripple), 0, 0, 0.15);
     }
 

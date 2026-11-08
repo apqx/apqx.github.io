@@ -1,6 +1,6 @@
 import "./LinearShares.scss";
 import { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from "react";
-import { consoleInfo, consoleInfoObj } from "../../util/log";
+import { consoleInfo } from "../../util/log";
 import { LOADING_HINT_ERROR, LOADING_HINT_NO_RESULT, LoadingHint } from "./LoadingHint";
 import { createRoot } from "react-dom/client";
 import { HttpPaginatorViewModel } from "../base/paginate/HttpPaginateViewModel";
@@ -40,7 +40,7 @@ export function LinearShares(props: BasePaginateViewProps<Share>) {
             category: props.category,
         }
         return new HttpPaginatorViewModel<ApiShare, ShareHttpPaginator, Share>(new ShareHttpPaginator(options), true)
-    }, [])
+    }, [props.tag, props.category])
     const state = useSyncExternalStore(paginateViewModel.subscribe, () => paginateViewModel.state)
 
     useEffect(() => {
@@ -50,13 +50,13 @@ export function LinearShares(props: BasePaginateViewProps<Share>) {
         return () => {
             consoleInfo("LinearShares useEffect cleanup")
         }
-    }, [])
+    }, [paginateViewModel, props.tag, props.category])
 
     const onLoadMore = useCallback(() => {
         if (state.loadingHint != LOADING_HINT_ERROR && state.loadingHint != LOADING_HINT_NO_RESULT) {
             paginateViewModel.loadMore()
         }
-    }, [state.loadingHint])
+    }, [state.loadingHint, paginateViewModel])
 
     const onClickHint = useCallback(() => {
         if (state.posts.length > 0) {
@@ -64,11 +64,11 @@ export function LinearShares(props: BasePaginateViewProps<Share>) {
         } else {
             paginateViewModel.load(true)
         }
-    }, [state.posts])
+    }, [state.posts, paginateViewModel])
 
     return (
         <ul className="share-ul">
-            {state.posts.map((item, index) =>
+            {state.posts.map((item, _index) =>
                 <IndexItem key={item.linkUrl}
                     title={item.title} titleNoDate={item.titleNoDate} date={item.date} actor={item.actor} location={item.location}
                     linkTitle={item.linkTitle} linkUrl={item.linkUrl} linkPwd={item.linkPwd} archive={item.archive} />
@@ -93,13 +93,6 @@ type IndexItemProps = {
 function IndexItem(props: IndexItemProps) {
     const containerRef = useRef<HTMLLIElement>(null)
 
-    useEffect(() => {
-        consoleInfoObj("ShareItem mounted", props)
-        consoleInfo("archive = " + props.archive)
-        const rootE = containerRef.current as HTMLElement;
-
-    }, [])
-
     /*
     <p><strong class="no-shadow">20250801 浙昆《烂柯山》剧照</strong></p>
     <p class="no-justify em-color">
@@ -119,7 +112,7 @@ function IndexItem(props: IndexItemProps) {
             <p className="no-justify em-color">
                 {props.actor != "" && <>{props.actor}<br /></>}
                 {props.location != "" && <>{props.location}<br /></>}
-                {props.linkTitle}: {props.archive == true ? "已归档" : <a href={props.linkUrl} target="_blank">点击链接</a>}<br />
+                {props.linkTitle}: {props.archive == true ? "已归档" : <a href={props.linkUrl} target="_blank" rel="noopener">点击链接</a>}<br />
                 提取码: {props.linkPwd}
             </p>
         </li>

@@ -126,8 +126,8 @@ body {
     // mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
     // -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
 
-    backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
 }
 
 // 内容最外层容器，高度为 100% - topbar-height - footer-height 

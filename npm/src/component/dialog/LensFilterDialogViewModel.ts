@@ -2,7 +2,7 @@ import type { ApiPagefindFilter } from "../../repository/bean/pagefind/ApiPagefi
 import type { ApiLensFilterTemplate } from "../../repository/bean/service/ApiLensFilterTemplate"
 import { PagefindFactory } from "../../repository/Pagefind"
 import { getServiceInstance, SERVICE_DEBUG_MODE_AUTO } from "../../repository/Service"
-import { consoleError, consoleInfoObj, consoleErrorObj, consoleInfo } from "../../util/log"
+import { consoleInfoObj, consoleErrorObj, consoleInfo } from "../../util/log"
 import { sleepUntilMinimalTime } from "../../util/tools"
 import { BaseExternalStore } from "../base/paginate/BaseExternalStore"
 import { LOADING_HINT_ERROR } from "../react/LoadingHint"

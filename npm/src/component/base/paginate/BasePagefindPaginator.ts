@@ -1,6 +1,6 @@
 import type { ISearchPaginator } from "./interface/ISearchPaginator"
 import { consoleInfo, consoleInfoObj } from "../../../util/log"
-import { isDebug, sleepUntilMinimalTime } from "../../../util/tools"
+import { sleepUntilMinimalTime } from "../../../util/tools"
 import type { PagefindResult } from "../../../repository/bean/pagefind/ApiPagefindSearch"
 import { PagefindFactory } from "../../../repository/Pagefind"
 import type { ApiPagefindFilter } from "../../../repository/bean/pagefind/ApiPagefindFilter"
@@ -36,9 +36,9 @@ export abstract class BasePagefindPaginator<P, T> implements ISearchPaginator<P,
     }
 
     async search(newKey: string | null, options: BasePagefindPaginatorOptions, delay?: boolean, abortSignal?: AbortSignal): Promise<T[]> {
+        abortSignal?.throwIfAborted()
         consoleInfo("Search by pagefind paginator key => " + newKey)
         consoleInfoObj("Search options => ", options)
-        abortSignal?.throwIfAborted()
         this.cachedKey = ""
         this.cachedOptions = undefined
         if (newKey?.length == 0) {
@@ -48,10 +48,10 @@ export abstract class BasePagefindPaginator<P, T> implements ISearchPaginator<P,
         }
         const startTime = Date.now()
         await this.checkPagefindReady()
+        abortSignal?.throwIfAborted()
         const filters: ApiPagefindFilter = await this.pagefind.filters();
         consoleInfoObj("Get pagefind filters", filters)
-        let pagefindResult: PagefindResult = await this.pagefind.search(newKey, options)
-        abortSignal?.throwIfAborted()
+        const pagefindResult: PagefindResult = await this.pagefind.search(newKey, options)
 
         const resultSize = pagefindResult?.results.length ?? 0
         consoleInfoObj("Pagefind results", pagefindResult)
@@ -78,9 +78,8 @@ export abstract class BasePagefindPaginator<P, T> implements ISearchPaginator<P,
     async loadMore(delay?: boolean, abortSignal?: AbortSignal): Promise<T[]> {
         consoleInfo("Load more by pagefind paginator")
         if (this.pagefindResult == null) {
-            return this.search(this.cachedKey, this.cachedOptions ?? {}, delay, abortSignal)
+            return await this.search(this.cachedKey, this.cachedOptions ?? {}, delay, abortSignal)
         }
-        abortSignal?.throwIfAborted()
         const startTime = Date.now()
         const remainingCount = this.pagefindResult.results.length - this.cachedData.length
         if (remainingCount <= 0) {

@@ -1,5 +1,5 @@
 import "./Button.scss"
-import React, { useEffect, useMemo } from "react"
+import React, { useEffect } from "react"
 import { setupButtonRipple } from "../button"
 
 export interface BtnProps {

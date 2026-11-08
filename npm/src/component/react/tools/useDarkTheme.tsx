@@ -1,48 +1,45 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { isDarkThemeFromDocument, isDarkThemeFromSysAndUserSettings } from "../../theme";
 import { consoleInfo } from "../../../util/log";
 import { EVENT_PAGE_BACK_FROM_CACHE, getEventEmitter, type Events } from "../../base/EventBus";
+import { DelayToTimeGap } from "../../base/DelayToTimeGap";
 
 /**
  * 监听主题变化的 state，延迟 300 ms 修改状态，有的地方需要查询主题的 CSS 属性，延迟可以确保查询到正确的值
  */
 export function useDarkTheme(): [boolean, () => void, () => void] {
-    const delay = 300
-    const timeoutRef = useRef<NodeJS.Timeout | null>(null)
     const mediaQueryRef = useRef<MediaQueryList>(window.matchMedia("(prefers-color-scheme: dark)"))
+    const delayToTimeGap = useMemo(() => new DelayToTimeGap(), [])
 
     const [isDark, setIsDark] = useState(() => {
         return isDarkThemeFromDocument()
     })
 
-    function setState(isDark: boolean) {
-        if (timeoutRef.current) {
-            clearTimeout(timeoutRef.current)
-        }
-        timeoutRef.current = setTimeout(() => {
+    const setDarkTheme = useCallback((isDark: boolean) => {
+        delayToTimeGap.delay(() => {
             setIsDark(isDark)
-        }, delay)
-    }
+        })
+    }, [delayToTimeGap])
 
     const themeChangeHandler = useCallback((data: Events["themeChange"]) => {
         consoleInfo("useDarkTheme receive themeChange event, theme = " + data.theme + ", showToast = " + data.showToast)
         const newIsDark = isDarkThemeFromSysAndUserSettings()
-        setState(newIsDark)
-    }, [])
+        setDarkTheme(newIsDark)
+    }, [setDarkTheme])
 
     const mediaQueryChangeHandler = useCallback((e: MediaQueryListEvent) => {
         consoleInfo("useDarkTheme receive mediaQueryChange event, matches dark theme = " + e.matches)
         const newIsDark = isDarkThemeFromSysAndUserSettings()
-        setState(newIsDark)
-    }, [])
+        setDarkTheme(newIsDark)
+    }, [setDarkTheme])
 
     const pageEventHandler = useCallback((data: Events["pageEvent"]) => {
         consoleInfo("useDarkTheme receive pageEvent, event = " + data)
         if (data == EVENT_PAGE_BACK_FROM_CACHE) {
             const newIsDark = isDarkThemeFromSysAndUserSettings()
-            setState(newIsDark)
+            setDarkTheme(newIsDark)
         }
-    }, [])
+    }, [setDarkTheme])
 
     const startListening = useCallback(() => {
         consoleInfo("useDarkTheme startListening")
@@ -61,11 +58,8 @@ export function useDarkTheme(): [boolean, () => void, () => void] {
         mediaQueryRef.current.removeEventListener("change", mediaQueryChangeHandler)
         getEventEmitter().off("themeChange", themeChangeHandler)
         getEventEmitter().off("pageEvent", pageEventHandler)
-        if (timeoutRef.current) {
-            clearTimeout(timeoutRef.current)
-        }
-    }, [themeChangeHandler, mediaQueryChangeHandler, pageEventHandler])
+        delayToTimeGap.cancelPendingAction()
+    }, [themeChangeHandler, mediaQueryChangeHandler, pageEventHandler, delayToTimeGap])
 
     return [isDark, startListening, stopListening]
 }
-

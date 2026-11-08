@@ -4,8 +4,9 @@ import { getEventEmitter, type Events } from "./base/EventBus"
 import { FadeAnimationController } from "./animation/FadeAnimationController"
 import { AutoShowAnimationController } from "./animation/AutoShowAnimationController"
 import type { IAutoShowAnimationController } from "./animation/IAutoShowAnimationController"
+import { DelayToTimeGap } from "./base/DelayToTimeGap"
 
-let footAnimationController: IAutoShowAnimationController 
+let footAnimationController: IAutoShowAnimationController
 
 function initFootAnimationController(autoShow: boolean) {
     const ele = document.querySelector("footer .fade") as HTMLElement | null
@@ -14,7 +15,7 @@ function initFootAnimationController(autoShow: boolean) {
     }
 }
 
-let timeOutId: number | null = null
+const delayToTimeGap = new DelayToTimeGap(400)
 
 export function initFooter() {
     // footer 默认隐藏，监听进入视图时触发动画显示
@@ -24,12 +25,9 @@ export function initFooter() {
         initFootAnimationController(false)
         getEventEmitter().on("footerDisplayChange", (data: Events["footerDisplayChange"]) => {
             if (data.enabled) {
-                if (timeOutId) {
-                    clearTimeout(timeOutId)
-                }
-                setTimeout(() => {
+                delayToTimeGap.delay(() => {
                     footAnimationController.resetIntersectionObserve()
-                }, 400)
+                })
             } else {
                 footAnimationController.toggleOpen(false)
             }

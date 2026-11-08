@@ -43,6 +43,7 @@ export class HttpPaginatorViewModel<H, P extends BaseHttpPaginator<H, T>, T> ext
             }
             this.emitChange()
             const posts = await this.paginator.load(delay, this.abortController.signal)
+            this.abortController.signal.throwIfAborted()
             const totalPostsSize = this.paginator.totalPostsSize()
             this.state = {
                 loading: false,
@@ -81,6 +82,7 @@ export class HttpPaginatorViewModel<H, P extends BaseHttpPaginator<H, T>, T> ext
             }
             this.emitChange()
             const posts = await this.paginator.loadMore(delay, this.abortController.signal)
+            this.abortController.signal.throwIfAborted()
             const totalPostsSize = this.paginator.totalPostsSize()
             this.state = {
                 ...this.state,

@@ -1,6 +1,6 @@
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef } from "react";
 import "./AuthDialog.scss"
-import { BaseDialog, AUTH_DIALOG_WRAPPER_ID, showDialog, type ActionBtn, type BaseDialogOpenProps, type BaseDialogController, type DialogControllerRef, getDialogController } from "./BaseDialog";
+import { BaseDialog, AUTH_DIALOG_WRAPPER_ID, showDialog, type ActionBtn, type BaseDialogOpenProps, getDialogController } from "./BaseDialog";
 import { TextField } from "../react/TextField";
 import { getAuthority } from "../../util/auth";
 import { Length, showSnackbar } from "../react/Snackbar";
@@ -28,7 +28,7 @@ export function AuthDialog(props: AuthDialogProps) {
             props.authCallback(false)
             showSnackbar("答案不正确", Length.SHORT)
         }
-    }, [props.authCallback])
+    }, [props.authCallback, props.dialogControllerRef])
 
     const actions = useMemo<ActionBtn[]>(() => {
         const cancel = {
@@ -74,7 +74,7 @@ export function AuthDialog(props: AuthDialogProps) {
                 <TextField label="Words" hint="" inputId="auth-dialog-input" classes={["auth-dialog_label"]} onTextChange={onTextChange} onClickEnter={checkInputAuth} tabIndex={-1} />
 
                 <p id="auth-dialog_tips">本内容为小范围公开，请输入我的微信或哔哩哔哩用户名进行访问验证。小声提示：<a
-                    href="https://space.bilibili.com/11037907" target="_blank" tabIndex={-1}>哔哩哔哩</a>。</p>
+                    href="https://space.bilibili.com/11037907" target="_blank" rel="noopener" tabIndex={-1}>哔哩哔哩</a>。</p>
 
             </div>
         </BaseDialog>

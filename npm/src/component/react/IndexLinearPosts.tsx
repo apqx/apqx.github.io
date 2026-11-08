@@ -1,7 +1,7 @@
 // import "./IndexList.scss"
 import { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from "react"
 import { LOADING_HINT_ERROR, LOADING_HINT_NO_RESULT, LoadingHint } from "./LoadingHint"
-import { consoleInfo, consoleInfoObj } from "../../util/log"
+import { consoleInfo } from "../../util/log"
 import { getWindowInterSectionObserver, queryAnimatedElement } from "../animation/BaseAnimation"
 import { getSplittedDate } from "../../base/post"
 import { setupCardRipple } from "../card"
@@ -21,25 +21,25 @@ interface Props extends BasePaginateViewProps<Post> {
 }
 
 export function IndexLinearPosts(props: Props) {
+    const haveSearchedOrInteractedRef = useRef(false)
+
     const paginateViewModel = useMemo(() => {
         const options = {
             tag: props.tag,
             category: props.category,
         }
         return new HttpPaginatorViewModel<ApiPost, PostHttpPaginator, Post>(new PostHttpPaginator(options), true)
-    }, [])
+    }, [props.tag, props.category])
     const state = useSyncExternalStore(paginateViewModel.subscribe, () => paginateViewModel.state)
 
     useEffect(() => {
         consoleInfo(`IndexLinearPosts useEffect, tag: ${props.tag}, category: ${props.category}`)
         paginateViewModel.load()
 
-        if (props.onMount != null) props.onMount()
-
         return () => {
             consoleInfo("IndexLinearPosts useEffect cleanup")
         }
-    }, [])
+    }, [props.tag, props.category, paginateViewModel])
 
     // 加载状态变化时，通知 Footer 显示或隐藏
     // 加载时隐藏，有结果时（错误或加载完成）显示
@@ -56,24 +56,30 @@ export function IndexLinearPosts(props: Props) {
         if (state.loadingHint != LOADING_HINT_ERROR && state.loadingHint != LOADING_HINT_NO_RESULT) {
             paginateViewModel.loadMore()
         }
-    }, [state.loadingHint])
+    }, [state.loadingHint, paginateViewModel])
 
     const onClickHint = useCallback(() => {
+        haveSearchedOrInteractedRef.current = true
         if (state.posts.length > 0) {
             paginateViewModel.loadMore(true)
         } else {
             paginateViewModel.load(true)
         }
-    }, [state.posts])
+    }, [state.posts, paginateViewModel])
 
     const showPosts = useMemo(() => {
-        let posts = state.posts
+        const posts = state.posts
         if (state.posts.length == 0) {
             return posts
         }
         // 把 pinned 项目放在前面
         return props.pinnedPosts.concat(convertPinedToFeatured(props.pinnedPosts.length, posts))
-    }, [state.posts])
+    }, [props.pinnedPosts, state.posts])
+
+    const hideLoading = useMemo(() => {
+        // 首页加载不显示 loading
+        return !haveSearchedOrInteractedRef.current && showPosts.length == 0 && state.loading
+    }, [state.loading, showPosts.length])
 
     return (
         <>
@@ -88,7 +94,7 @@ export function IndexLinearPosts(props: Props) {
                         pinned={item.pinned} featured={item.featured} last={index === showPosts.length - 1} index={index} />
                 )}
                 <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore}
-                    hide={showPosts.length == 0 && state.loading} />
+                    hide={hideLoading} />
             </ul>
         </>
     )
@@ -117,7 +123,7 @@ function PageCover(props: PageCoverProps) {
             getWindowInterSectionObserver().unobserve(topCardE)
             topCardE.removeEventListener("click", onCardClick)
         }
-    }, [])
+    }, [onCardClick])
 
     return (
         <section ref={containerRef} className="mdc-card index-top-card slide-in-farer slide-in-chained">
@@ -148,7 +154,13 @@ function IndexItem(props: IndexItemProps) {
     const date = useMemo(() => getSplittedDate(props.date), [props.date]);
 
     useEffect(() => {
-        consoleInfoObj("IndexItem useEffect " + props.index + " : " + props.title, props)
+        consoleInfo("IndexItem useEffect " + props.index + " : " + props.title)
+        return () => {
+            consoleInfo("IndexItem useEffect cleanup " + props.index + " : " + props.title)
+        }
+    }, [props.index, props.title])
+
+    useEffect(() => {
         const rootE = containerRef.current as HTMLElement;
         const cardE = rootE.querySelector(".index-card") as HTMLElement
         setupCardRipple(cardE)
@@ -180,7 +192,6 @@ function IndexItem(props: IndexItemProps) {
         window.addEventListener("scroll", scrollListener)
 
         return () => {
-            consoleInfo("IndexItem useEffect cleanup " + props.title)
             if (animationE != null) {
                 getWindowInterSectionObserver().unobserve(animationE)
             }

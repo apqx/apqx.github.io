@@ -10,7 +10,7 @@ import { initButton } from "../component/button"
 import { initTable } from "../component/table"
 import { initList } from "../component/list"
 import { initText } from "../component/text"
-import { consoleError, consoleInfo } from "../util/log"
+import { consoleInfo } from "../util/log"
 import { loadGoogleAnalytics } from "../util/gtag"
 import { initFooter } from "../component/footer"
 import { initCard } from "../component/card"
@@ -105,7 +105,7 @@ window.addEventListener("pageshow", (event) => {
     }
 });
 
-window.addEventListener("pagehide", (event) => {
+window.addEventListener("pagehide", (_event) => {
     consoleInfo("Window event: pagehide")
 });
 
@@ -151,6 +151,6 @@ function checkStatusBarProtector() {
 function checkTest() {
     // 如果url含有 ?fontSans=true, 启用思源黑体
     const urlParams = new URLSearchParams(window.location.search)
-    const fontSans = urlParams.get("fontSans")
+    const _fontSans = urlParams.get("fontSans")
 
 }

@@ -38,9 +38,9 @@ function ShareDialog(props: BaseDialogOpenProps) {
         // 计算二维码尺寸，二维码的实际尺寸由模块数量、模块大小和边距组成
         // 若不计算，生成的二维码 margin 可能不一致
         // 虽然这样计算出的尺寸缩放到元素尺寸也会导致 margin 不一致，但至少在生成时是固定的，缩放后相差不大
-        let modules = getQRCodeModulesCount(url, "M")
+        const modules = getQRCodeModulesCount(url, "M")
         let margin = 18
-        let moduleSize = 6
+        const moduleSize = 6
 
         let qrCodeSize = modules * moduleSize + margin * 2
 
@@ -57,7 +57,7 @@ function ShareDialog(props: BaseDialogOpenProps) {
         const bodyStyle = getComputedStyle(document.body)
         const inkColor = bodyStyle.getPropertyValue("--mdc-theme-on-surface").trim()
 
-        consoleInfo("QRCode colors, inkColor: " + inkColor)
+        consoleInfo("QRCode colors, inkColor: " + inkColor + ", isDarkTheme: " + isDarkTheme)
 
         // 生成二维码，不要使用 svg，在浏览器中渲染时会出现点阵网格
         const qrCode = new QRCodeStyling(
@@ -94,7 +94,7 @@ function ShareDialog(props: BaseDialogOpenProps) {
         );
         qrcodeContainer.innerHTML = ""
         qrCode.append(qrcodeContainer)
-    }, [isDarkTheme])
+    }, [isDarkTheme, url])
 
     const actionBtnShare: ActionBtn = useMemo(() => {
         return {

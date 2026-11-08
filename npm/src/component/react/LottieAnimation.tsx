@@ -1,11 +1,11 @@
 import "./LottieAnimation.scss"
 // 类型保持静态导入，TypeScript 类型在编译后会被完全擦除，不会产生任何运行时 JS 代码，不占用打包体积
-import { type LottieHandle } from "lottie-react"
+import type { LottieHandle } from "lottie-react"
 import { lazy, Suspense, useEffect, useMemo, useRef } from "react"
 import { consoleErrorObj, consoleInfo } from "../../util/log"
 import { DelayToNextFrame } from "../base/DelayToNextFrame"
 import { FadeAnimationController } from "../animation/FadeAnimationController"
-import { type IAnimationController } from "../animation/IAnimationController"
+import type { IAnimationController } from "../animation/IAnimationController"
 
 interface LottieProps {
     loop: boolean
@@ -68,7 +68,7 @@ export function LottieAnimation(props: LottieProps) {
                 props.animationControllerRef.current = null
             }
         }
-    }, [props.animationControllerRef])
+    }, [props.animationControllerRef, delayToNextFrame])
 
     const subscription = useMemo(() => {
         return {
@@ -84,7 +84,7 @@ export function LottieAnimation(props: LottieProps) {
                 consoleErrorObj("Failed to load Lottie animation:", error.error)
             }
         }
-    }, [props.animationDataUrl])
+    }, [props.animationDataUrl, delayToNextFrame])
 
     useEffect(() => {
         return () => {

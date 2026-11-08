@@ -1,7 +1,7 @@
-import { useMemo, useRef } from "react"
+import { useMemo } from "react"
 import { createHtmlContent } from "../../util/tools"
 import { BaseDialog, COMMON_DIALOG_WRAPPER_ID, getDialogController, showDialog } from "./BaseDialog"
-import type { BaseDialogOpenProps, DialogControllerRef } from "./BaseDialog"
+import type { BaseDialogOpenProps } from "./BaseDialog"
 
 interface CommonAlertDialogProps extends BaseDialogOpenProps {
     title: string,
@@ -12,7 +12,6 @@ interface CommonAlertDialogProps extends BaseDialogOpenProps {
     onClickActionConfirmBtn?: (e: React.MouseEvent<HTMLElement>) => void
 }
 
-let dialogControllerRef = { current: null } as DialogControllerRef
 function NewCommonAlertDialog(props: CommonAlertDialogProps) {
     const actionBtns = useMemo(() => {
         if (props.actionCancelBtnText != null) {

@@ -9,7 +9,7 @@ function AboutMeDialog(props: BaseDialogOpenProps) {
     const avatarRef = useRef<HTMLImageElement>(null)
 
     useEffect(() => {
-        avatarRef.current?.addEventListener("dblclick", (event) => {
+        avatarRef.current?.addEventListener("dblclick", (_event) => {
             // 双击头像，或许有用
         })
     }, [])
@@ -37,7 +37,7 @@ function AboutMeDialog(props: BaseDialogOpenProps) {
                 </section>
                 <p className="about-me-description">旅居杭州，常在西湖，野生<a
                     href={kunQvLink} tabIndex={-1}>昆虫</a> & 攻城狮，“十分”“业余”摄影 Fans。联系我可以通过<a href="mailto:safari@mudan.me" tabIndex={-1}>电子邮件</a>，如果有必要亦可用<a
-                        href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/wechat.jpg" target="_blank" tabIndex={-1}>微信</a>。</p>
+                        href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/wechat.jpg" target="_blank" rel="noopener" tabIndex={-1}>微信</a>。</p>
                 <List oneLine={true} items={[
                     { title: "GitHub", link: "https://github.com/apqx", newPage: true },
                     { title: "YouTube", link: "https://www.youtube.com/@apqx", newPage: true },

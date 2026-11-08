@@ -46,13 +46,13 @@
   white-space: nowrap;
   word-wrap: normal;
   direction: ltr;
-  text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   // chrome
   -webkit-font-feature-settings: 'liga';
   // firefox
-  -moz-font-feature-settings: 'liga';
   -moz-osx-font-smoothing: grayscale;
+  -moz-font-feature-settings: 'liga';
+  text-rendering: optimizeLegibility;
 }
 
 // 默认字重 300

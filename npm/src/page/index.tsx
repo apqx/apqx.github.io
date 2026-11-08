@@ -20,11 +20,6 @@ function initIndexList() {
     if (wrapperE == null) {
         return
     }
-    const onMount = () => {
-        // getEventEmitter().emit("footerDisplayChange", {
-        //     enabled: true
-        // })
-    }
 
     const root = createRoot(wrapperE)
     const category = getSectionTypeByPath(window.location.pathname).identifier
@@ -40,8 +35,7 @@ function initIndexList() {
         root.render(
             <StrictMode>
                 <IndexLinearPosts pageCover={cover?.cover} pageCoverDescription={cover?.coverDescription} pageTitle={cover?.pageTitle}
-                    tag={""} category={category} pinnedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
-                    onMount={onMount} />
+                    tag={""} category={category} pinnedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]} />
             </StrictMode>
         )
     } else if (wrapperE.classList.contains("grid-index-list-wrapper")) {
@@ -56,7 +50,7 @@ function initIndexList() {
         root.render(
             <StrictMode>
                 <IndexGridPosts tag={""} category={category} pinnedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
-                    onMount={onMount} pageDescriptionHtml={descriptionHtml} />
+                    pageDescriptionHtml={descriptionHtml} />
             </StrictMode>
         )
     } else if (wrapperE.classList.contains("lens-index-list-wrapper")) {
@@ -65,8 +59,7 @@ function initIndexList() {
         consoleInfoObj("Index loaded local posts", loadedPosts)
         root.render(
             <StrictMode>
-                <IndexGridLens tag={""} category={category} pinnedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]}
-                    onMount={onMount} />
+                <IndexGridLens tag={""} category={category} pinnedPosts={loadedPosts[0]} loadedPosts={loadedPosts[1]} />
             </StrictMode>
         )
     }
@@ -78,7 +71,7 @@ function getLinearLoadedCover(wrapperE: HTMLElement) {
         const cover = coverE.src
         const coverDescription = coverE.alt
         const pageTitleE = wrapperE.querySelector(".index-top-card-text") as HTMLElement
-        const pageTitle = pageTitleE?.innerText || ""
+        const pageTitle = pageTitleE?.textContent || ""
         return { cover, coverDescription, pageTitle }
     }
     return null
@@ -88,9 +81,9 @@ function getLinearLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
     const pinedPosts: Array<Post> = []
     const otherPosts: Array<Post> = []
     for (const liE of wrapperE.querySelectorAll(".index-li")) {
-        const title = (liE.querySelector(".index-title") as HTMLElement).innerText
-        const author = (liE.querySelector(".index-author") as HTMLElement).innerText
-        const date = (liE.querySelector(".index-date") as HTMLElement).innerText
+        const title = (liE.querySelector(".index-title") as HTMLElement).textContent
+        const author = (liE.querySelector(".index-author") as HTMLElement).textContent
+        const date = (liE.querySelector(".index-date") as HTMLElement).textContent
         const path = (liE.querySelector(".index-a") as HTMLAnchorElement).pathname
         const pinned = liE.querySelector(".index-pinned-icon-container") != null
         const featured = liE.querySelector(".index-featured-icon-container") != null
@@ -118,7 +111,7 @@ function getLinearLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
             otherPosts.push(post)
         }
     }
-    const array = new Array<Array<Post>>()
+    const array: Array<Post>[] = []
     array.push(pinedPosts)
     array.push(otherPosts)
     return array
@@ -131,8 +124,8 @@ function getLensLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
     for (const liE of wrapperE.querySelectorAll(".grid-index-li")) {
         // 202010｜王文惠 王恒涛
         const dateActorE = liE.querySelector(".lens-index-date") as HTMLElement
-        const dateActor = dateActorE.innerText.trim().split("｜")
-        const date = dateActor[0].trim()
+        const dateActor = dateActorE.textContent.trim().split("｜")
+        const _date = dateActor[0].trim()
         const fullDate = dateActorE.getAttribute("full-date") || "2000年01月01日"
         const actors = dateActor[1].trim().split(" ")
         const coverE = liE.querySelector(".grid-index-cover") as HTMLImageElement
@@ -175,11 +168,11 @@ function getGridLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
     const pinedPosts: Array<Post> = []
     const otherPosts: Array<Post> = []
     for (const liE of wrapperE.querySelectorAll(".grid-index-li:not(.grid-index-li--description)")) {
-        const title = (liE.querySelector(".grid-index-title") as HTMLElement).innerText
-        const actors = (liE.querySelector(".grid-index-author") as HTMLElement).innerText.split(" ")
-        const date = (liE.querySelector(".grid-index-date") as HTMLElement).innerText.trim()
+        const title = (liE.querySelector(".grid-index-title") as HTMLElement).textContent
+        const actors = (liE.querySelector(".grid-index-author") as HTMLElement).textContent.split(" ")
+        const date = (liE.querySelector(".grid-index-date") as HTMLElement).textContent.trim()
         const path = (liE.querySelector(".index-a") as HTMLAnchorElement).pathname
-        const description = (liE.querySelector(".grid-index-description") as HTMLElement).innerText
+        const description = (liE.querySelector(".grid-index-description") as HTMLElement).textContent
         const coverE = liE.querySelector(".grid-index-cover") as HTMLImageElement
         const cover = coverE?.src
         const coverAlt = coverE?.alt
@@ -213,7 +206,7 @@ function getGridLoadedPosts(wrapperE: HTMLElement): Array<Array<Post>> {
             otherPosts.push(post)
         }
     }
-    const array = new Array<Array<Post>>()
+    const array: Array<Post>[] = []
     array.push(pinedPosts)
     array.push(otherPosts)
     return array

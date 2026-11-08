@@ -1,5 +1,5 @@
 import { LocalDb } from "../../repository/LocalDb"
-import { consoleInfo, consoleInfoObj } from "../../util/log"
+import { consoleInfo } from "../../util/log"
 import { BaseExternalStore } from "../base/paginate/BaseExternalStore"
 import { getEventEmitter } from "../base/EventBus"
 import type { MdSwitch } from "@material/web/switch/switch"

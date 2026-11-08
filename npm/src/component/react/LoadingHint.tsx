@@ -2,7 +2,7 @@ import "./LoadingHint.scss"
 import { Button } from "./Button"
 import { ProgressCircular } from "./ProgressCircular"
 import { createContext, useContext, useEffect, useMemo, useRef } from "react"
-import { consoleInfo, consoleInfoObj } from "../../util/log"
+import { consoleInfo } from "../../util/log"
 
 export const LOADING_HINT_ERROR: string = "重试加载"
 export const LOADING_HINT_NO_RESULT: string = "暂无数据"
@@ -52,8 +52,8 @@ export function LoadingHint(props: Props) {
         if (gap == 0) {
             gap = 400
         }
-        consoleInfo("LoadingHint useEffect gap: " + gap)
-        consoleInfoObj("LoadingHint useEffect scrollRoot:", scrollRoot?.current)
+        consoleInfo("LoadingHint useEffect gap: " + gap + ", triggerIntersectionCheckCount: " + props.triggerIntersectionCheckCount)
+        // consoleInfoObj("LoadingHint useEffect scrollRoot:", scrollRoot?.current)
         const interSectionObserver = new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 consoleInfo("LoadingHint IntersectionObserver isIntersection: " + entry.isIntersecting)
@@ -80,7 +80,7 @@ export function LoadingHint(props: Props) {
             }
         }
         // 这里锚定 loading 状态，确保一次加载完成后触发 intersection 检测
-    }, [props.loading, props.loadHint, props.extendIntersectionThreshold, props.triggerIntersectionCheckCount])
+    }, [props.loading, props.loadHint, props.extendIntersectionThreshold, props.triggerIntersectionCheckCount, scrollRoot])
 
     const hide = useMemo(() => {
         return props.hide || (!props.loading && props.loadHint == null)

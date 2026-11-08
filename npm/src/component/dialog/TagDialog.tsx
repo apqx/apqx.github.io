@@ -20,7 +20,6 @@ interface TagDialogProps extends BaseDialogOpenProps {
 }
 
 function TagDialog(props: TagDialogProps) {
-    const dialogOpened = useRef(false)
     const [triggerIntersection, setTriggerIntersection] = useState(0)
 
     const paginateViewModel = useMemo(() => {
@@ -29,12 +28,13 @@ function TagDialog(props: TagDialogProps) {
             category: "",
         }
         return new HttpPaginatorViewModel<ApiPost, PostHttpPaginator, Post>(new PostHttpPaginator(options), true)
-    }, [])
+    }, [props.tag])
+
     const state = useSyncExternalStore(paginateViewModel.subscribe, () => paginateViewModel.state)
 
     useEffect(() => {
         paginateViewModel.load(true)
-    }, [])
+    }, [paginateViewModel])
 
     const onDialogOpen = useCallback(() => {
         if (state.posts.length == 0) {
@@ -42,28 +42,20 @@ function TagDialog(props: TagDialogProps) {
         } else {
             setTriggerIntersection(prev => prev + 1)
         }
-    }, [state.posts])
-
-    const onDialogOpening = useCallback(() => {
-        dialogOpened.current = true
-    }, [])
-
-    const onDialogClosing = useCallback(() => {
-        dialogOpened.current = false
-    }, [])
+    }, [state.posts, paginateViewModel])
 
     const onDialogClose = useCallback(() => {
         paginateViewModel.abort()
-    }, [])
+    }, [paginateViewModel])
 
     const onLoadMore = useCallback(() => {
-        if (!dialogOpened.current) {
+        if (!props.dialogControllerRef?.current?.opened) {
             return
         }
         if (state.loadingHint != LOADING_HINT_ERROR && state.loadingHint != LOADING_HINT_NO_RESULT) {
             paginateViewModel.loadMore()
         }
-    }, [state.loadingHint])
+    }, [state.loadingHint, paginateViewModel, props.dialogControllerRef])
 
     const onClickHint = useCallback(() => {
         if (state.posts.length > 0) {
@@ -71,11 +63,11 @@ function TagDialog(props: TagDialogProps) {
         } else {
             paginateViewModel.load(true)
         }
-    }, [state.posts])
+    }, [state.posts, paginateViewModel])
 
     return (
-        <BaseDialog dialogControllerRef={props.dialogControllerRef} fixedWidth={true} onDialogOpen={onDialogOpen} onDialogOpening={onDialogOpening}
-            onDialogClose={onDialogClose} onDialogClosing={onDialogClosing} >
+        <BaseDialog dialogControllerRef={props.dialogControllerRef} fixedWidth={true} onDialogOpen={onDialogOpen}
+            onDialogClose={onDialogClose} >
             <p>标记 {props.nickname ?? props.tag} 的 {state.totalPostsSize} 篇博文</p>
             {state.posts != null && state.posts.length != 0 &&
                 <PostResult list={state.posts} />
@@ -108,7 +100,7 @@ function PostResult(props: PostResultProps) {
 
     return (
         <ul ref={containerRef} className="mdc-deprecated-list">
-            {items.map((item, index) =>
+            {items.map((item, _index) =>
                 <PostItem
                     key={item.title + item.date}
                     data={item}
@@ -187,10 +179,10 @@ function PostItem(props: PostItemProps) {
                                 {date.month}<span className="month">月</span>
                                 {date.day}<span className="day">日</span>
                                 ｜{props.data.type}</span>
-                            {props.data.block1Array.map((value, index) =>
+                            {props.data.block1Array.map((value, _index) =>
                                 <Block key={value} type={1} title={value} />
                             )}
-                            {props.data.block2Array.map((value, index) =>
+                            {props.data.block2Array.map((value, _index) =>
                                 <Block key={value} type={2} title={value} />
                             )}
                         </div>
