@@ -19,6 +19,10 @@ export class AutoShowAnimationController implements IAutoShowAnimationController
         return this.animationController.getElement()
     }
 
+    isOpened(): boolean {
+        return this.animationController.isOpened()
+    }
+
     resetIntersectionObserve(): void {
         this.stopIntersectionObserve()
         this.startIntersectionObserve()

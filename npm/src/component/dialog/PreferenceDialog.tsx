@@ -5,10 +5,10 @@ import { BaseDialog, getDialogController, PREFERENCE_DIALOG_WRAPPER_ID, showDial
 import type { BaseDialogOpenProps } from "./BaseDialog"
 import { NewMdSwitch } from "../react/Switch"
 import React, { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from "react"
-import { setupListItemRipple } from "../list"
 import { createHtmlContent } from "../../util/tools"
 import { EVENT_PAGE_BACK_FROM_CACHE, getEventEmitter, type Events } from "../base/EventBus"
 import { LottieAnimation, type LottieAnimationController } from "../react/LottieAnimation"
+import { setupRipple } from "../ripple"
 
 export function PreferenceDialog(props: BaseDialogOpenProps) {
     const viewModel = useMemo(() => {
@@ -59,7 +59,7 @@ export function PreferenceDialog(props: BaseDialogOpenProps) {
                 <LottieAnimation loop={true} autoplay={false} animationDataUrl={"https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/noto-animated-emoji/mouth-none/lottie.json"}
                     animationControllerRef={animationControllerRef} />
             </div>
-            <ul className="mdc-deprecated-list" id="preference-dialog__toggle-container">
+            <ul className="mdm-list mdm-list-no-hover" id="preference-dialog__toggle-container">
                 <SettingsToggle titleHtml="固定顶部导航栏" description="滚动时导航栏固定显示在顶部"
                     on={state.fixedTopbar}
                     onChange={viewModel.onClickFixedTopbarSwitch} />
@@ -92,19 +92,19 @@ export function SettingsToggle(props: SettingsToggleProps) {
 
     useEffect(() => {
         const rootE = containerRef.current as HTMLElement;
-        const liE = rootE.querySelector(".mdc-deprecated-list-item") as HTMLElement
-        setupListItemRipple(liE)
+        const liE = rootE.querySelector(".mdm-list-item") as HTMLElement
+        setupRipple(liE)
     }, [])
 
     return (
         <li ref={containerRef}>
-            <div className="mdc-deprecated-list-item mdc-deprecated-list-item__no-hover mdc-deprecated-list-item__darken preference-item-toggle">
-                <div className="mdc-deprecated-list-item__text">
-                    <div className="list-item__primary-text preference-item-toggle__title"
+            <div className="mdm-list-item mdm-list-item-darken preference-item-toggle">
+                <div className="mdm-list-item__text">
+                    <div className="mdm-list-item__primary-text"
                         dangerouslySetInnerHTML={createHtmlContent(props.titleHtml)} />
                     {
                         props.description &&
-                        <div className="list-item__secondary-text preference-item-toggle__description">
+                        <div className="mdm-list-item__secondary-text">
                             {props.description}
                         </div>
                     }
@@ -112,7 +112,6 @@ export function SettingsToggle(props: SettingsToggleProps) {
                 {/* 会自动识别组建内定义的属性 */}
                 <NewMdSwitch icons selected={props.on} onChange={props.onChange} />
             </div>
-            <hr className="mdc-deprecated-list-divider" />
         </li>
     )
 }

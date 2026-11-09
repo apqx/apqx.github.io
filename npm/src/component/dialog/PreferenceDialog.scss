@@ -11,7 +11,7 @@
     margin-top: 0.5rem;
 }
 
-.preference-item-toggle {
+.mdm-list-item.preference-item-toggle {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -21,8 +21,7 @@
     // ripple 动画会改变尺寸导致溢出，几秒钟后又自动恢复
     // overflow-x: scroll;
 
-    .preference-item-toggle__title {
-        font-size: var(--mdc-typography-body1-font-size);
+    .mdm-list-item__text {
         flex: 1;
         min-width: 0;
         width: 20rem;

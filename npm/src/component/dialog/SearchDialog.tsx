@@ -3,7 +3,6 @@ import { MDCList } from "@material/list"
 import { createHtmlContent } from "../../util/tools"
 import { BaseDialog, getDialogController, SEARCH_DIALOG_WRAPPER_ID, showDialog } from "./BaseDialog"
 import type { ActionBtn, BaseDialogOpenProps } from "./BaseDialog"
-import { setupListItemRipple } from "../list"
 import { LOADING_HINT_ERROR, LOADING_HINT_NO_RESULT, LoadingHint } from "../react/LoadingHint"
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
 import { getSplittedDate } from "../../base/post"
@@ -13,6 +12,7 @@ import type { Post } from "../base/paginate/bean/Post"
 import { PostPagefindPaginator } from "../base/paginate/PostPagefindPaginator"
 import { getSectionTypeByPath } from "../../base/constant"
 import { TextField } from "../react/TextField"
+import { setupRipple } from "../ripple"
 
 export function SearchDialog(props: BaseDialogOpenProps) {
     const containerRef = useRef<HTMLDivElement>(null)
@@ -105,7 +105,7 @@ function SearchResult(props: SearchResultProps) {
     }, [])
 
     return (
-        <ul ref={containerRef} className="mdc-deprecated-list">
+        <ul ref={containerRef} className="mdm-list">
             {props.list.map((item, _index) =>
                 <ResultItem key={item.path}
                     title={item.title}
@@ -132,16 +132,16 @@ function ResultItem(props: ResultItemProps) {
 
     useEffect(() => {
         const rootE = containerRef.current as Element
-        const liE = rootE.querySelector(".mdc-deprecated-list-item") as HTMLElement
-        setupListItemRipple(liE)
+        const liE = rootE.querySelector(".mdm-list-item") as HTMLElement
+        setupRipple(liE)
     }, [])
 
     return (
         <li ref={containerRef}>
-            <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken" href={props.path} tabIndex={-1}>
-                <div className="mdc-deprecated-list-item__text">
-                    <div className="list-item__primary-text">{props.title}</div>
-                    <div className="list-item__secondary-text">
+            <a className="mdm-list-item mdm-list-item-darken" href={props.path} tabIndex={-1}>
+                <div className="mdm-list-item__text">
+                    <div className="mdm-list-item__primary-text">{props.title}</div>
+                    <div className="mdm-list-item__secondary-text">
                         <span className="search-result-item-type">
                             {date.year}<span className="year">年</span>
                             {date.month}<span className="month">月</span>
@@ -152,7 +152,6 @@ function ResultItem(props: ResultItemProps) {
                     </div>
                 </div>
             </a>
-            <hr className="mdc-deprecated-list-divider" />
         </li>
     )
 }

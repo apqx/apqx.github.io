@@ -3,7 +3,6 @@ import { MDCList } from "@material/list"
 import { BaseDialog, TAG_DIALOG_WRAPPER_ID, getDialogController, showDialog } from "./BaseDialog"
 import type { BaseDialogOpenProps } from "./BaseDialog"
 import { consoleInfo } from "../../util/log"
-import { setupListItemRipple } from "../list"
 import { LOADING_HINT_ERROR, LOADING_HINT_NO_RESULT, LoadingHint } from "../react/LoadingHint"
 import { getSectionTypeByPath, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL } from "../../base/constant"
 import type { SectionType } from "../../base/constant"
@@ -13,6 +12,7 @@ import { HttpPaginatorViewModel } from "../base/paginate/HttpPaginateViewModel"
 import type { ApiPost } from "../../repository/bean/service/ApiPost"
 import type { Post } from "../base/paginate/bean/Post"
 import { PostHttpPaginator } from "../base/paginate/PostHttpPaginator"
+import { setupRipple } from "../ripple"
 
 interface TagDialogProps extends BaseDialogOpenProps {
     tag: string,
@@ -99,7 +99,7 @@ function PostResult(props: PostResultProps) {
     }, [])
 
     return (
-        <ul ref={containerRef} className="mdc-deprecated-list">
+        <ul ref={containerRef} className="mdm-list">
             {items.map((item, _index) =>
                 <PostItem
                     key={item.title + item.date}
@@ -162,17 +162,17 @@ function PostItem(props: PostItemProps) {
 
     useEffect(() => {
         const rootE = containerRef.current as Element
-        const liE = rootE.querySelector(".mdc-deprecated-list-item") as HTMLElement
-        setupListItemRipple(liE)
+        const liE = rootE.querySelector(".mdm-list-item") as HTMLElement
+        setupRipple(liE)
     }, [])
 
     return (
         <li ref={containerRef}>
             {/* 禁止列表自动获取焦点，可能导致 dialog 关闭时意外滚动到焦点位置 */}
-            <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken tag-list-item" href={props.data.url} tabIndex={-1}>
-                <div className="mdc-deprecated-list-item__text">
-                    <div className="list-item__primary-text">{props.data.title}</div>
-                    <div className="list-item__secondary-text tag-list-item__secondary-container">
+            <a className="mdm-list-item mdm-list-item-darken tag-list-item" href={props.data.url} tabIndex={-1}>
+                <div className="mdm-list-item__text">
+                    <div className="mdm-list-item__primary-text">{props.data.title}</div>
+                    <div className="mdm-list-item__secondary-text tag-list-item__secondary-container">
                         <div className="tag-list-item__block-container">
                             <span className="tag-list-item__post-type">
                                 {date.year}<span className="year">年</span>
@@ -189,7 +189,6 @@ function PostItem(props: PostItemProps) {
                     </div>
                 </div>
             </a>
-            <hr className="mdc-deprecated-list-divider" />
         </li>
     )
 }

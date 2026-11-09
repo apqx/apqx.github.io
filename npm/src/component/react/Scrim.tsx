@@ -10,6 +10,7 @@ export interface ScrimController {
 
 interface ScrimProps {
     controllerRef: React.RefObject<ScrimController | null>
+    onClick?: () => void
 }
 
 export function Scrim(props: ScrimProps) {
@@ -34,7 +35,6 @@ export function Scrim(props: ScrimProps) {
     }, [props.controllerRef])
 
     return (
-        <div ref={containerRef} className="common-scrim fade"></div>
+        <div ref={containerRef} className="mdm-scrim fade" onClick={props.onClick}></div>
     )
-
 }

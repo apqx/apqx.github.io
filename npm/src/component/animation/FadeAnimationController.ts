@@ -12,6 +12,10 @@ export class FadeAnimationController implements IAnimationController {
         return this.animationController.getElement()
     }
 
+    isOpened(): boolean {
+        return this.animationController.isOpened()
+    }
+
     toggleOpen(open: boolean): void {
         this.animationController.toggleOpen(open)
     }

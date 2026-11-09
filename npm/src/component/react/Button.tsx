@@ -1,6 +1,6 @@
 import "./Button.scss"
 import React, { useEffect } from "react"
-import { setupButtonRipple } from "../button"
+import { setupButtonRipple, setupIconButtonRipple } from "../button"
 
 export interface BtnProps {
     text: string
@@ -39,7 +39,7 @@ export function IconButton(props: IconBtnProps) {
 
     useEffect(() => {
         const ele = containerRef.current as HTMLElement
-        setupButtonRipple(ele)
+        setupIconButtonRipple(ele)
     }, [])
 
     return (

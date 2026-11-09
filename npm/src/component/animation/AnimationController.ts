@@ -19,11 +19,11 @@ export class AnimationController implements IAnimationController {
     private preserveDisplayNone: string
     private transitionEndListener: (event: TransitionEvent) => void
 
-    constructor(element: HTMLElement, baseClass: string)
+    constructor(element: HTMLElement | null, baseClass: string)
 
-    constructor(element: HTMLElement, baseClass: string, openingClass: string, openClass: string, closingClass: string, preserveDisplayNone: string)
+    constructor(element: HTMLElement | null, baseClass: string, openingClass: string, openClass: string, closingClass: string, preserveDisplayNone: string)
 
-    constructor(element: HTMLElement, baseClass: string, openingClass?: string, openClass?: string, closingClass?: string, preserveDisplayNone?: string) {
+    constructor(element: HTMLElement | null, baseClass: string, openingClass?: string, openClass?: string, closingClass?: string, preserveDisplayNone?: string) {
         this.delayToNextFrame = new DelayToNextFrame()
         this.element = element
         this.baseClass = baseClass
@@ -41,7 +41,7 @@ export class AnimationController implements IAnimationController {
         consoleInfo(`AnimationController init ${this.baseClass} ${this.openingClass} ${this.openClass} ${this.closingClass} ${this.preserveDisplayNone}`)
 
         this.transitionEndListener = (event: TransitionEvent) => {
-            if(this.element == null) return
+            if (this.element == null) return
             const target = event.target as HTMLElement
             consoleInfo("AnimationController transitionEnd before " + target.tagName + " : " + target.classList)
             if (target != this.element || !elementContainsClass(target, this.baseClass)) return
@@ -69,8 +69,14 @@ export class AnimationController implements IAnimationController {
         return this.element
     }
 
+    isOpened(): boolean {
+        return elementContainsClass(this.element, this.openClass)
+            && !elementContainsClass(this.element, this.openingClass)
+            && !elementContainsClass(this.element, this.closingClass)
+    }
+
     toggleOpen(open: boolean) {
-        if(this.element == null) return
+        if (this.element == null) return
         consoleInfo(`AnimationController toggleOpen ${open}, classList : ${this.element.classList}`)
         this.delayToNextFrame.cancelPendingFrame()
         // transition 动画可以中断，当前可能处于的状态有
@@ -93,7 +99,7 @@ export class AnimationController implements IAnimationController {
                 })
             }
         } else {
-            if (elementContainsClass(this.element, this.preserveDisplayNone) 
+            if (elementContainsClass(this.element, this.preserveDisplayNone)
                 && elementContainsClass(this.element, this.openingClass)
                 && !elementContainsClass(this.element, this.openClass)
             ) {
@@ -116,7 +122,7 @@ export class AnimationController implements IAnimationController {
         if (this.element == null) return
         this.element.addEventListener("transitionend", this.transitionEndListener)
     }
-    
+
     private stopListenTransition() {
         if (this.element == null) return
         this.element.removeEventListener("transitionend", this.transitionEndListener)

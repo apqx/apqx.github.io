@@ -1,37 +1,34 @@
-import { useEffect, useMemo, useRef } from "react"
 import "./List.scss"
-import { setupListItemRipple } from "../list"
+import { useEffect, useMemo, useRef } from "react"
+import { setupRipple } from "../ripple"
 
-export type ListItem = {
-    title: string,
-    description?: string,
-    link?: string,
-    newPage?: boolean,
-}
-
-interface Props {
+interface ListProps {
     oneLine: boolean,
-    items: ListItem[],
+    items: ListItemProps[],
     classes?: string[],
+    noHover?: boolean
 }
 
-export function List(props: Props) {
+export function List(props: ListProps) {
 
     const classList = useMemo(() => {
-        const base = ["mdc-deprecated-list"]
+        const base = ["mdm-list"]
         if (props.oneLine) {
-            base.push("mdc-deprecated-list--one-line")
+            base.push("mdm-list--one-line")
+        }
+        if (props.noHover) {
+            base.push("mdm-list-no-hover")
         }
         if (props.classes) {
             base.push(...props.classes)
         }
         return base.join(" ")
-    }, [props.oneLine, props.classes])
+    }, [props.oneLine, props.classes, props.noHover])
 
     return (
         <ul className={classList}>
-            {props.items.map((item, index) => (
-                <ListItem key={item.title} item={item} last={index === props.items.length - 1} />
+            {props.items.map((item, _index) => (
+                <ListItem key={item.title} title={item.title} description={item.description} link={item.link} newPage={item.newPage} />
             ))}
 
         </ul>
@@ -39,31 +36,30 @@ export function List(props: Props) {
 }
 
 interface ListItemProps {
-    item: ListItem,
-    last: boolean,
+    title: string,
+    description?: string,
+    link?: string,
+    newPage?: boolean,
 }
 
 function ListItem(props: ListItemProps) {
-    const containerRef = useRef<HTMLLIElement>(null)
+    const linkRef = useRef<HTMLLIElement>(null)
 
     useEffect(() => {
-        const rootE = containerRef.current as HTMLElement;
-        const liE = rootE.querySelector(".mdc-deprecated-list-item") as HTMLElement
-        setupListItemRipple(liE)
+        setupRipple(linkRef.current)
     }, [])
 
     return (
-        <li ref={containerRef}>
+        <li ref={linkRef}>
             {/* 禁止列表自动获取焦点，可能导致 dialog 关闭时意外滚动到焦点位置 */}
-            <a className="mdc-deprecated-list-item mdc-deprecated-list-item__darken" href={props.item.link} target={props.item.newPage ? "_blank" : "_self"} tabIndex={-1}>
-                <div className="mdc-deprecated-list-item__text">
-                    <div className="list-item__primary-text">{props.item.title}</div>
-                    <div className="list-item__secondary-text">
-                        {props.item.description}
+            <a className={"mdm-list-item mdm-list-item-darken"} href={props.link} target={props.newPage ? "_blank" : "_self"} tabIndex={-1}>
+                <div className="mdm-list-item__text">
+                    <div className="mdm-list-item__primary-text">{props.title}</div>
+                    <div className="mdm-list-item__secondary-text">
+                        {props.description}
                     </div>
                 </div>
             </a>
-            {!props.last && <hr className="mdc-deprecated-list-divider" />}
         </li>
     )
 }

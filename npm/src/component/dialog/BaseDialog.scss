@@ -28,8 +28,12 @@
         opacity: 0 !important;
         transition: none !important;
 
-        // 关闭 dialog 自身的 scrim 遮罩，使用全局的 common-scrim 实现，适配 iOS 26 中 safari 工具栏压缩 viewport 导致的 scrim 遮罩被裁剪问题
+        // 关闭 dialog 自身的 scrim 遮罩，使用全局的 mdm-scrim 实现，适配 iOS 26 中 safari 工具栏压缩 viewport 导致的 scrim 遮罩被裁剪问题
         // 本 scrim 位于 dialog 内，position 无法相对于整个页面，因此弃用
+    }
+
+    .mdm-list {
+        margin: 0 !important;
     }
 }
 
@@ -191,6 +195,3 @@
     @include ripple.ripple(var(--dialog-action-btn-ripple), 0, 0, 0.1);
 }
 
-.mdc-dialog__content .mdc-deprecated-list {
-    padding: 0 !important;
-}

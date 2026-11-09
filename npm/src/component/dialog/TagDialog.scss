@@ -30,15 +30,11 @@ $blockPaddingHorizontalSide: 0.55rem;
     margin-right: 0;
 }
 
-.mdc-deprecated-list-item__text {
-    width: 100%;
-}
-
-.mdc-deprecated-list-item.tag-list-item {
+.mdm-list-item.tag-list-item {
     padding-right: 0.8rem;
 }
 
-.list-item__secondary-text.tag-list-item__secondary-container {
+.mdm-list-item__secondary-text.tag-list-item__secondary-container {
     line-height: unset;
 }
 

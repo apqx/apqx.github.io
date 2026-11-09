@@ -7,9 +7,6 @@
 @use "@material/icon-button/mdc-icon-button";
 @use "@material/card/mdc-card";
 @use "@material/top-app-bar/mdc-top-app-bar";
-@use "@material/drawer/mdc-drawer";
-@use "@material/drawer/modal/mdc-drawer-modal";
-@use "@material/drawer/dismissible/mdc-drawer-dismissible";
 @use "@material/fab/mdc-fab";
 @use "@material/list/mdc-list";
 @use "@material/data-table/mdc-data-table";
@@ -23,9 +20,7 @@
 @use "../component/theme" as blogTheme;
 @use "../component/contentCard";
 @use "../component/button";
-@use "../component/list";
 @use "../component/card";
-@use "../component/drawer";
 @use "../component/fab";
 @use "../component/footer";
 @use "../component/table";

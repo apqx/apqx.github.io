@@ -8,6 +8,7 @@ import { showAboutMeDialog } from "./dialog/AboutMeDialog"
 import { getSectionTypeByPath, isIndexPage, SECTION_TYPE_LENS, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL, SECTION_TYPE_POETRY, SECTION_TYPE_PRINT, SECTION_TYPE_REPOST, SECTION_TYPE_SHARE, SECTION_TYPE_TAGS } from "../base/constant"
 import { toggleTheme } from "./theme"
 import { getEventEmitter, type Events } from "./base/EventBus"
+import { addDrawerToggleListener, toggleDrawer } from "./react/Drawer"
 
 let iconToggleTheme: MDCIconButtonToggle | null = null
 let iconToggleMenu: MDCIconButtonToggle | null = null
@@ -38,6 +39,16 @@ export function initTopbar() {
     topAppBar = new MDCTopAppBar(topAppBarE)
     iconToggleTheme = new MDCIconButtonToggle(btnThemeE)
     iconToggleMenu = new MDCIconButtonToggle(btnMenuE)
+
+    topAppBar.listen("MDCTopAppBar:nav", () => {
+        toggleDrawer()
+    })
+
+    addDrawerToggleListener({
+        toggle(open) {
+            setToggleMenuIconBtnOn(open)
+        }
+    })
 
     // 监听 topbar 主题切换按钮
     btnThemeE?.addEventListener("click", () => {

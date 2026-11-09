@@ -198,6 +198,7 @@ body {
         --mdc-typography-subtitle1-font-weight: var(--mdc-typography-body1-font-weight);
 
         // Drawer 中的 section title
+        --mdc-typography-subtitle2-font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
         --mdc-typography-subtitle2-font-weight: var(--font-weight-normal);
 
         --mdc-text-button-label-text-size: calc(var(--mdc-typography-body1-font-size) - 0.12rem);
@@ -259,8 +260,9 @@ body {
         // 在 index 和 post 页面酌情而定
         --center-card-to-container-border-horizontal: var(--main-container-padding-vertical);
 
-        --drawer-animation-duration: 0.35s;
-        --dialog-animation-duration: 0.35s;
+        --common-animation-duration: 0.35s;
+        --drawer-animation-duration: var(--common-animation-duration);
+        --dialog-animation-duration: var(--common-animation-duration);
         --dialog-animation-translate-y: 8rem;
         --image-height-animation-duration: 0.8s;
         --index-card-animation-duration: 0.5s;

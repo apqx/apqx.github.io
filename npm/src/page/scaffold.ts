@@ -8,7 +8,6 @@ import { initFab } from "../component/fab"
 import { initTag, initTagTriggers } from "../component/tag"
 import { initButton } from "../component/button"
 import { initTable } from "../component/table"
-import { initList } from "../component/list"
 import { initText } from "../component/text"
 import { consoleInfo } from "../util/log"
 import { loadGoogleAnalytics } from "../util/gtag"
@@ -16,7 +15,6 @@ import { initFooter } from "../component/footer"
 import { initCard } from "../component/card"
 import { is404Page, isIndexPage, isPostPage } from "../base/constant"
 import { EVENT_PAGE_BACK_FROM_CACHE, getEventEmitter, type Events } from "../component/base/EventBus"
-import { initDrawer } from "../component/drawer"
 
 initScaffold()
 
@@ -29,13 +27,11 @@ export function initScaffold() {
         initStatusBarProtector()
         initFooter()
         initTheme()
-        initDrawer()
         initFab()
         initTag()
         initButton()
         initCard()
         initTable()
-        initList()
         initText()
         initTagTriggers()
         // 检查 URL 中的测试参数

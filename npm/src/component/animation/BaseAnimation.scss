@@ -128,14 +128,23 @@ $anim-in-out: cubic-bezier(0.4, 0.0, 0.2, 1);
 // -preserve-display-none 可以避免动画结束时 opening 和 closing 被移除导致元素 display: none
 // fade-card 是动画参数变体
 .fade {
+    --anim-duration-open: var(--common-animation-duration);;
+    --anim-duration-close: var(--common-animation-duration);
+    --anim-timing-function-open: linear;
+    --anim-timing-function-close: linear;
+
+    &.fade-card {
+        --anim-duration-open: calc(var(--index-card-animation-duration) / 1.2);
+        --anim-duration-close: calc(var(--index-card-animation-duration) / 1.2);
+        --anim-timing-function-open: ease-out;
+        --anim-timing-function-close: ease-out;
+    }
+
     opacity: 0;
     display: none;
     // 启动时，先加 opening，再加 open，动画结束后删除 opening
     &.fade--opening {
-        transition: opacity var(--dialog-animation-duration) linear;
-        &.fade-card {
-            transition: opacity calc(var(--index-card-animation-duration) / 1.2) ease-out;
-        }
+        transition: opacity var(--anim-duration-open) var(--anim-timing-function-open);
         display: block;
     }
 
@@ -148,10 +157,7 @@ $anim-in-out: cubic-bezier(0.4, 0.0, 0.2, 1);
     // 关闭时，先加 closing 删除 open，动画结束后删除 closing
     &.fade--open.fade--closing,
     &.fade--closing {
-        transition: opacity var(--dialog-animation-duration) linear;
-        &.fade-card {
-            transition: opacity calc(var(--index-card-animation-duration) / 1.2) ease-out;
-        }
+        transition: opacity var(--anim-duration-close) var(--anim-timing-function-close);
         opacity: 0;
         display: block;
     }

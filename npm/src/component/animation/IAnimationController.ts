@@ -3,5 +3,7 @@ export interface IAnimationController {
 
     getElement(): Element | null
 
+    isOpened(): boolean
+
     destroy(): void
 }

@@ -12,7 +12,7 @@ import { PostHttpPaginator } from "../base/paginate/PostHttpPaginator"
 import type { BasePaginateViewProps } from "../base/paginate/bean/BasePaginateViewProps"
 import { convertPinedToFeatured, toggleElementClass } from "../../util/tools"
 import { getEventEmitter } from "../base/EventBus"
-import { toggleDrawer } from "../drawer"
+import { toggleDrawer } from "./Drawer"
 
 interface Props extends BasePaginateViewProps<Post> {
     pageCover?: string,
@@ -110,7 +110,7 @@ function PageCover(props: PageCoverProps) {
     const containerRef = useRef<HTMLElement>(null)
 
     const onCardClick = useCallback(() => {
-        toggleDrawer(true)
+        toggleDrawer()
     }, [])
 
     useEffect(() => {

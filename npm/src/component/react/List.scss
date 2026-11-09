@@ -1,0 +1,85 @@
+@use "../ripple.scss" as ripple;
+
+$listItemSideRadius: var(--table-list-border-radius);
+$listItemRadius: 0.2rem;
+
+ul.mdm-list,
+.mdm-list {
+    padding: 0;
+
+    // .mdm-list-divider {
+    //     border: none;
+    //     border-top: var(--list-divider-height) solid transparent;
+    // }
+}
+
+li {
+    .mdm-list & {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        text-decoration: none;
+    }
+
+    a.mdm-list-item,
+    .mdm-list-item {
+        margin: 0;
+        height: fit-content;
+        text-decoration: none;
+        border-radius: $listItemRadius;
+
+        padding: 0.6rem 1rem;
+        display: block;
+
+        @include ripple.ripple(var(--list-ripple), 0.06, 0.06, 0.06);
+
+        .mdm-list-no-hover & {
+            @include ripple.ripple(var(--list-ripple), 0, 0, 0.06);
+        }
+
+        &.mdm-list-item-darken {
+            background-color: var(--list-bg);
+        }
+
+        // .mdm-list--one-line 必须是 li 的父元素
+        .mdm-list--one-line & {
+            padding: 1rem 1rem;
+        }
+
+        .mdm-list-item__icon {
+            font-size: calc(var(--mdc-typography-body1-font-size) + 0.5rem);
+        }
+
+        .mdm-list-item__text {
+            text-align: left;
+
+            .mdm-list-item__primary-text {}
+
+            .mdm-list-item__secondary-text {
+                color: var(--list-secondary-ink);
+                font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
+                line-height: calc(var(--mdc-typography-body1-line-height) - 0.3rem);
+                font-weight: var(--font-weight-light);
+
+                .mdm-list--one-line & {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    &:not(:first-child) {
+        margin-top: var(--list-divider-height);
+    }
+
+
+    &:first-child .mdm-list-item {
+        border-top-left-radius: $listItemSideRadius;
+        border-top-right-radius: $listItemSideRadius;
+    }
+
+    &:last-child .mdm-list-item {
+        border-bottom-left-radius: $listItemSideRadius;
+        border-bottom-right-radius: $listItemSideRadius;
+    }
+}
