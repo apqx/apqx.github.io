@@ -1,145 +1,159 @@
 @use "../../style/global" as base;
-@use "../react/Scrim.scss" as scrim;
 @use "../ripple.scss" as ripple;
 @use "../animation/BaseAnimation.scss" as anim;
-@use "@material/dialog";
-@use "@material/elevation";
-@use "@material/theme";
 @use "@material/button";
-@use "sass:map";
-@use "sass:color";
 
-.mdc-dialog {
-    .mdc-dialog__container {
-        transform: scaleY(0.8) scaleX(0.95) translateY(-5rem);
-        opacity: 0;
-
-        padding-top: var(--safe-area-inset-top);
-        padding-bottom: var(--safe-area-inset-bottom);
-
-        will-change: transform, opacity;
-    }
-
-    .mdc-dialog__scrim {
-        // 原 dialog 的 scrim 遮罩动画
-        @include scrim.baseScrim;
-        // 使用 visibility 会导致点击失效
-        // visibility: hidden !important;
-        opacity: 0 !important;
-        transition: none !important;
-
-        // 关闭 dialog 自身的 scrim 遮罩，使用全局的 mdm-scrim 实现，适配 iOS 26 中 safari 工具栏压缩 viewport 导致的 scrim 遮罩被裁剪问题
-        // 本 scrim 位于 dialog 内，position 无法相对于整个页面，因此弃用
-    }
-
-    .mdm-list {
-        margin: 0 !important;
-    }
-}
-
-// 弹出时，加 opening，然后加 open，动画结束后（实际是计时 150ms 后）删除 opening
-// 关闭时, 加 closing，然后删除 open，动画结束后删除 closing
-.mdc-dialog.mdc-dialog--opening,
-.mdc-dialog.mdc-dialog--opening.mdc-dialog--open,
-.mdc-dialog.mdc-dialog--open {
-    display: flex;
-
-    .mdc-dialog__container {
-        transition: transform var(--dialog-animation-duration) #{anim.$anim-in},
-        opacity calc(var(--dialog-animation-duration) / 1.5) #{anim.$anim-in};
-    }
-}
-
-.mdc-dialog.mdc-dialog--open {
-    .mdc-dialog__container {
-        transform: scale(1) translateY(0);
-        opacity: 1;
-    }
-}
-
-// dialog 关闭时，添加 closing 类，再删除 open 类，动画结束后删除 closing 类
-// 但实际上源码并不是监听动画结束，而是简单计时 150ms 删除 closing 类，导致动画时长不符合 CSS 定义
-// 解决方法是添加 my-closing 类，监听动画结束后删除，确保动画时长依照 CSS 定义
-.mdc-dialog.mdc-dialog--my-closing,
-.mdc-dialog.mdc-dialog--open.mdc-dialog--my-closing,
-.mdc-dialog.mdc-dialog--closing,
-.mdc-dialog.mdc-dialog--open.mdc-dialog--closing {
-    display: flex;
-
-    .mdc-dialog__container {
-        transition: transform calc(var(--dialog-animation-duration) / 1.5) #{anim.$anim-in},
-        opacity calc(var(--dialog-animation-duration) / 1.5) #{anim.$anim-out};
-        // transform: scale(1) translateY(0);
-    }
-}
-
-// 关闭动画起始状态
-.mdc-dialog.mdc-dialog--open.mdc-dialog--my-closing,
-.mdc-dialog.mdc-dialog--open.mdc-dialog--closing {
-    .mdc-dialog__container {
-        transform: scale(1) translateY(0);
-        opacity: 1;
-    }
-}
-
-// 关闭动画结束状态
-.mdc-dialog.mdc-dialog--closing,
-.mdc-dialog.mdc-dialog--my-closing {
-    .mdc-dialog__container {
-        transform: scaleY(1) scaleX(1) translateY(0);
-        opacity: 0;
-    }
-}
-
-.mdc-dialog {
+.mdm-dialog {
     --dialog-content-padding-left-right: 1.5rem;
+}
+
+.dialog-slide {
+    --anim-duration-open: var(--common-animation-duration);
+    --anim-duration-close: var(--common-animation-duration);
+    --anim-timing-function-open: #{anim.$anim-in};
+    --anim-timing-function-close: #{anim.$anim-out};
+
+    transform: scaleY(0.8) scaleX(0.95) translateY(-5rem);
+    opacity: 0;
+    will-change: transform, opacity;
+    display: none;
+
+    // 启动时，先加 opening，再加 open，动画结束后删除 opening
+    &.dialog-slide--opening {
+        transition: transform var(--anim-duration-open) var(--anim-timing-function-open),
+            opacity calc(var(--anim-duration-open) / 1.5) var(--anim-timing-function-open);
+        display: block;
+    }
+
+    &.dialog-slide--opening.dialog-slide--open,
+    &.dialog-slide--open {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+        display: block;
+    }
+
+    // 关闭时，先加 closing 删除 open，动画结束后删除 closing
+    &.dialog-slide--open.dialog-slide--closing,
+    &.dialog-slide--closing {
+        transition: transform var(--anim-duration-close) var(--anim-timing-function-close),
+            opacity calc(var(--anim-duration-close) / 1.5) var(--anim-timing-function-close);
+        transform: scale(1) translateY(0);
+        opacity: 0;
+        display: block;
+    }
+}
+
+$dialog-max-width: 35rem;
+
+.mdm-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100dvw;
+    height: 100dvh;
+
     z-index: var(--z-index-dialog);
 
-    // 阻断重排向父级 DOM 树传播
-    contain: layout paint;
-    // 提升整体为独立合成层，避免背景重绘
-    transform: translateZ(0);
+    .mdm-dialog-container-for-flex {
+        width: 100%;
+        height: 100%;
+        // 100% 尺寸为 border + padding + content
+        box-sizing: border-box;
+        padding-top: var(--safe-area-inset-top);
+        padding-bottom: var(--safe-area-inset-bottom);
+        padding-left: var(--safe-area-inset-left);
+        padding-right: var(--safe-area-inset-right);
 
-    .mdc-dialog__surface {
-        @include elevation.elevation(map.get(base.$dialog, "elevation"), map.get(base.$dialog, "shadow-light"), 0);
-        border: 1px solid var(--common-divider-color);
-        border-radius: var(--dialog-border-radius);
-        // surface 不滚动，content 滚动
-        overflow: clip;
-        max-height: calc(100% - 32px);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
 
-        .dark & {
-            @include elevation.elevation(map.get(base.$dialog, "elevation"), map.get(base.$dialog, "shadow-dark"), 0);
-        }
+        .mdm-dialog__surface {
+            width: fit-content;
+            max-width: $dialog-max-width;
+            max-height: calc(100% - 3rem);
+            background-color: var(--mdc-theme-surface);
+            color: var(--mdc-theme-on-surface);
+            border: 1px solid var(--common-divider-color);
+            border-radius: var(--dialog-border-radius);
 
-        .mdc-dialog__content {
-            overflow-x: clip;
-            padding: 0;
-            transition-property: height;
-            // 将会通过修改 height 执行过渡动画
-            will-change: height;
-            // 避免过渡期间子元素排版干扰整体测量
-            contain: style;
+            &.mdm-dialog-fixed-width {
+                width: $dialog-max-width;
+                max-width: calc(100% - 2.2rem);
+            }
 
-            .smooth-collapse-wrapper {
-                padding: 1.2rem var(--dialog-content-padding-left-right) 1rem var(--dialog-content-padding-left-right);
+            display: flex;
+            flex-direction: column;
+            // surface 不滚动，content 滚动
+            overflow: clip;
 
-                &>:first-child {
-                    margin-top: 0;
+            // 这里检测子元素高度和父元素的最大高度，设定自己的高度，平滑变化
+            .mdm-dialog__content {
+                width: 100%;
+                overflow-x: clip;
+                // 内容滚动
+                overflow-y: scroll;
+
+                .smooth-collapse-wrapper {
+                    padding: 1.2rem var(--dialog-content-padding-left-right) 1rem var(--dialog-content-padding-left-right);
+
+                    &>:first-child {
+                        margin-top: 0;
+                    }
                 }
             }
 
-            // 覆盖组件默认值
-            &>:first-child {
-                margin-top: 0;
+            .mdm-dialog__actions {
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                flex-direction: row;
+                height: fit-content;
+                min-height: unset;
+                // 方便获取高度
+                // box-sizing: border-box;
+                border: none;
+                border-top: 1px solid;
+                border-color: var(--common-divider-color) !important;
+
+                button {
+                    flex: 1;
+                    width: fit-content;
+                    height: 3.2rem;
+                    padding: 0;
+                    border-radius: 0;
+
+                    @include button.container-fill-color(var(--dialog-action-btn-bg));
+                    @include button.ink-color(var(--dialog-action-btn-ink));
+                    @include ripple.ripple(var(--dialog-action-btn-ripple), 0, 0, 0.1);
+                }
             }
         }
+
+    }
+
+}
+
+.mdm-dialog+.mdm-scrim {
+    z-index: calc(var(--z-index-dialog) - 1);
+}
+
+.mdm-dialog-scroll-lock {
+    overflow: hidden;
+}
+
+
+// 平板中屏
+@media (max-width: ($dialog-max-width + 2.2rem)) {
+    .mdm-dialog .mdm-dialog-container-for-flex .mdm-dialog__surface {
+        max-width: calc(100% - 2.2rem);
     }
 }
 
-.mdc-dialog__fixed-width {
-    width: 560px;
-}
+// 小屏
+@media (max-width: base.$screen-small-max-width) {}
+
 
 @mixin baseDialogTitle {
     text-align: center;
@@ -167,31 +181,3 @@
 .common-alert-dialog_content {
     margin: 1.5rem 1rem 0.5rem 1rem;
 }
-
-.mdc-dialog__actions.basic-dialog_actions {
-    justify-content: center;
-    padding: 0;
-    display: flex;
-    flex-direction: row;
-    height: fit-content;
-    min-height: unset;
-    // 方便获取高度
-    // box-sizing: border-box;
-    border: none;
-    border-top: 1px solid;
-    border-color: var(--common-divider-color) !important;
-}
-
-.mdc-button.basic-dialog_btn_action {
-    flex: 1;
-    width: fit-content;
-    height: 3.2rem;
-    padding: 0;
-    border-radius: 0;
-
-    @include button.container-fill-color(var(--dialog-action-btn-bg));
-    @include button.ink-color(var(--dialog-action-btn-ink));
-
-    @include ripple.ripple(var(--dialog-action-btn-ripple), 0, 0, 0.1);
-}
-

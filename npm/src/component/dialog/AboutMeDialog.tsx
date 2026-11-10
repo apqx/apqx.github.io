@@ -55,5 +55,5 @@ export function showAboutMeDialog() {
     showDialog(<AboutMeDialog dialogControllerRef={dialogControllerRef} />, id)
     if (dialogControllerRef.current) {
         dialogControllerRef.current.open()
-    }
+    } 
 }

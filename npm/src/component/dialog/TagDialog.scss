@@ -4,16 +4,16 @@
 // 使用此 class 的标签，可以通过 id chip_tag_随笔 弹出对应 dialog_随笔 的 dialog
 .tag-dialog-trigger {}
 
-$blockRadius: 0.2rem;
+$blockRadius: 0.1rem;
 $blockRadiusSide: calc(var(--mdc-typography-body1-font-size) - 0.42rem);
 $blockPaddingHorizontal: 0.45rem;
 $blockPaddingHorizontalSide: 0.55rem;
 
 @mixin block {
     font-size: calc(var(--mdc-typography-body1-font-size) - 0.2rem);
-    padding: 0.25rem $blockPaddingHorizontal;
+    padding: 0.2rem $blockPaddingHorizontal;
     border-radius: $blockRadius;
-    margin-right: calc(var(--list-divider-height) - 0.01rem);
+    margin-right: calc(var(--list-divider-height) - 0.05rem);
 }
 
 
@@ -40,6 +40,10 @@ $blockPaddingHorizontalSide: 0.55rem;
 
 .tag-list-item__secondary-container {
     position: relative;
+
+    &.mdm-list-item__secondary-text {
+        line-height: unset;
+    }
 
     &::after {
         content: "";

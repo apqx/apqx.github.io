@@ -5,7 +5,8 @@
 
 .mdm-drawer {
     --drawer-width: 17rem;
-    --drawer-width-actual: calc(var(--drawer-width) + var(--safe-area-inset-left))
+    --drawer-width-actual: calc(var(--drawer-width) + var(--safe-area-inset-left));
+    --drawer-padding-horizontal: 0.8rem;
 }
 
 
@@ -131,8 +132,7 @@ $list-item-padding-horizontal: 0.8rem;
             align-items: center;
             height: 100%;
 
-            .mdm-list-item__icon {
-            }
+            .mdm-list-item__icon {}
 
             .mdm-list-item__primary-text {
                 margin-left: 1.8rem;
@@ -194,5 +194,11 @@ $list-item-padding-horizontal: 0.8rem;
                 margin-top: -0.08rem;
             }
         }
+    }
+}
+
+@media (max-width: base.$screen-small-max-width) {
+    .mdm-drawer {
+        --drawer-padding-horizontal: 0.5rem;
     }
 }

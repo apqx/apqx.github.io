@@ -7,9 +7,9 @@ interface CommonAlertDialogProps extends BaseDialogOpenProps {
     title: string,
     contentHTML: string,
     actionCancelBtnText?: string,
-    onClickActionCancelBtn?: (e: React.MouseEvent<HTMLElement>) => void,
+    onClickActionCancelBtn?: () => void,
     actionConfirmBtnText?: string,
-    onClickActionConfirmBtn?: (e: React.MouseEvent<HTMLElement>) => void
+    onClickActionConfirmBtn?: () => void
 }
 
 function NewCommonAlertDialog(props: CommonAlertDialogProps) {
@@ -39,8 +39,8 @@ function NewCommonAlertDialog(props: CommonAlertDialogProps) {
 
 
 export function showAlertDialog(title: string, contentHTML: string,
-    actionCancelBtnText: string | undefined, onClickCancelBtn: ((e: React.MouseEvent<HTMLElement>) => void) | undefined,
-    confirmBtnText: string, onClickConfirmBtn: (e: React.MouseEvent<HTMLElement>) => void) {
+    actionCancelBtnText: string | undefined, onClickCancelBtn: (() => void) | undefined,
+    confirmBtnText: string, onClickConfirmBtn: () => void) {
 
     const id = COMMON_DIALOG_WRAPPER_ID
     const dialogControllerRef = getDialogController(id)
@@ -53,6 +53,6 @@ export function showAlertDialog(title: string, contentHTML: string,
 }
 
 export function showSimpleAlertDialog(title: string, contentHTML: string,
-    confirmBtnText: string, onClickConfirmBtn: (e: React.MouseEvent<HTMLElement>) => void) {
+    confirmBtnText: string, onClickConfirmBtn: () => void) {
     showAlertDialog(title, contentHTML, undefined, undefined, confirmBtnText, onClickConfirmBtn)
 }

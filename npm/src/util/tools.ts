@@ -196,7 +196,8 @@ export function getElementComputeSize(e: HTMLElement, property: string): number 
 export function getResolvedElementMaxHeight(element: HTMLElement): number | null {
     const computed = window.getComputedStyle(element);
     const rawMaxHeight = computed.maxHeight;
-
+    // calc(100% - 1rem) 会被换算为 px 像素，比如 calc(100% - 16px)
+    consoleInfo("getResolvedElementMaxHeight " + element.tagName + " = " + rawMaxHeight)
     // 1. 若属性本身未设置或失效，返回 null
     if (rawMaxHeight === "none") {
         return null;
@@ -212,8 +213,10 @@ export function getResolvedElementMaxHeight(element: HTMLElement): number | null
     if (!parent) {
         return null;
     }
-
-    const parentHeight = parent.clientHeight - parseNumberStrict(parent.style.paddingTop) - parseNumberStrict(parent.style.paddingBottom);
+    const parentPaddingTop = parseNumberStrict(parent.style.paddingTop)
+    const parentPaddingBottom = parseNumberStrict(parent.style.paddingBottom)
+    // consoleInfo(`parentHeight ${parent.clientHeight}, parentPaddingTop ${parent.style.paddingTop} : ${parentPaddingTop}, parentPaddingBottom ${parent.style.paddingBottom} : ${parentPaddingBottom}`)
+    const parentHeight = parent.clientHeight - parentPaddingTop - parentPaddingBottom;
 
     // 正则提取 calc(100% - 32px) 或 calc(100% + 10px) 中的像素偏移量
     // 匹配形式：calc(100% [+-] Xpx)

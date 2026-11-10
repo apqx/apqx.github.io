@@ -1,22 +1,23 @@
 import "./BaseDialog.scss"
 import { consoleInfo } from "../../util/log"
-import { MDCDialog } from "@material/dialog"
 import type React from "react"
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react"
 import { createRoot } from "react-dom/client"
 import type { Root } from "react-dom/client"
-import { setupButtonRipple } from "../button"
-import { ScrollLoader } from "../../base/ScrollLoader"
 import { ScrollContext } from "../react/LoadingHint"
 import { getResolvedElementMaxHeight, toggleElementClass } from "../../util/tools"
 import { Scrim, type ScrimController } from "../react/Scrim"
 import { useDebouncedResize } from "../react/tools/useDebouncedResize"
 import { useDebouncedResizeMonitor } from "../react/SmoothCollapse"
+import { Button } from "../react/Button"
+import type { IAnimationController } from "../animation/IAnimationController"
+import { AnimationController } from "../animation/AnimationController"
+import { DelayToNextFrame } from "../base/DelayToNextFrame"
 
 export interface ActionBtn {
     text: string,
     closeOnClick: boolean,
-    onClick: ((e: React.MouseEvent<HTMLElement>) => void) | undefined
+    onClick?: (() => void)
 }
 
 export interface BaseDialogOpenProps {
@@ -28,7 +29,7 @@ export interface DialogControllerRef {
 }
 
 export interface BaseDialogController {
-    opened: boolean
+    opened: () => boolean
     open: () => void
     close: () => void
 }
@@ -37,11 +38,8 @@ export interface BaseDialogProps extends BaseDialogOpenProps {
     fixedWidth?: boolean,
     closeOnClickOutside?: boolean,
     scrollToTopOnDialogOpen?: boolean,
-    onLoadMore?: () => void,
     onDialogOpen?: () => void,
-    onDialogOpening?: () => void,
     onDialogClose?: () => void,
-    onDialogClosing?: () => void,
     actions?: ActionBtn[],
     children: React.ReactNode
 }
@@ -49,57 +47,80 @@ export interface BaseDialogProps extends BaseDialogOpenProps {
 export const defaultActionBtnClose: ActionBtn = { text: "关闭", closeOnClick: true, onClick: () => { } }
 
 export function BaseDialog({ dialogControllerRef = undefined, fixedWidth = false, closeOnClickOutside = true, scrollToTopOnDialogOpen = true,
-    onLoadMore = undefined, onDialogOpen = undefined, onDialogOpening = undefined, onDialogClose = undefined, onDialogClosing = undefined,
-    actions = [defaultActionBtnClose], children }: BaseDialogProps) {
+    onDialogOpen = undefined, onDialogClose = undefined, actions = [defaultActionBtnClose], children }: BaseDialogProps) {
     const [contentMaxHeight, setContentMaxHeight] = useState(0)
 
-    const dialogContainerRef = useRef<HTMLDivElement>(null)
+    const dialogRef = useRef<HTMLDivElement>(null)
+    const dialogContainerFoFlexRef = useRef<HTMLDivElement>(null)
     const dialogSurfaceRef = useRef<HTMLDivElement>(null)
     const smoothCollapseWrapperRef = useRef<HTMLDivElement>(null)
     const scrimControllerRef = useRef<ScrimController | null>(null)
-    const animaERef = useRef<HTMLDivElement>(null)
-    const scrollContainerRef = useRef<HTMLDivElement>(null)
-    const dialogContentRef = useRef<HTMLDivElement>(null)
-    const dialogRef = useRef<MDCDialog>(null)
-    const btnCloseRef = useRef<HTMLElement>(null)
+    const calcHeightContainerRef = useRef<HTMLDivElement>(null)
+
+    const animationControllerRef = useRef<IAnimationController | null>(null)
+    const delayToNextFrameRef = useRef<DelayToNextFrame>(new DelayToNextFrame())
+
+    // 这两个会频繁变化
+    const onDialogOpenRef = useRef<() => void>(onDialogOpen)
+    const onDialogCloseRef = useRef<() => void>(onDialogOpen)
+    const scrollToTopOnDialogOpenRef = useRef<boolean>(scrollToTopOnDialogOpen)
 
     useEffect(() => {
-        consoleInfo("BaseDialog useEffect")
-        const rootE = dialogContainerRef.current as HTMLElement
-        dialogContentRef.current = rootE.querySelector("#basic-dialog-content") as HTMLDivElement
+        onDialogOpenRef.current = onDialogOpen
+        onDialogCloseRef.current = onDialogClose
+        scrollToTopOnDialogOpenRef.current = scrollToTopOnDialogOpen
+    }, [onDialogOpen, onDialogClose, scrollToTopOnDialogOpen])
 
-        rootE.querySelectorAll(".basic-dialog_btn_action").forEach((ele) => {
-            if (ele.getAttribute("data-mdc-dialog-action") == "close") {
-                btnCloseRef.current = ele as HTMLElement
+    const toggleOpen = useCallback((open: boolean) => {
+        if (open == animationControllerRef.current?.isOpened()) return
+        animationControllerRef.current?.toggleOpen(open)
+        if (open) {
+            toggleElementClass(document.body, "mdm-dialog-scroll-lock", true)
+            scrimControllerRef.current?.open()
+        } else {
+            scrimControllerRef.current?.close()
+            toggleElementClass(document.body, "mdm-dialog-scroll-lock", false)
+        }
+        delayToNextFrameRef.current.delay(() => {
+            if (open) {
+                consoleInfo("BaseDialog onDialogOpened")
+                onDialogOpenRef.current?.()
+                if (scrollToTopOnDialogOpenRef.current) {
+                    scrollToTop(true, calcHeightContainerRef.current)
+                }
+            } else {
+                consoleInfo("BaseDialog onDialogClosed")
+                onDialogCloseRef.current?.()
             }
-            setupButtonRipple(ele as HTMLElement)
         })
-
-        dialogRef.current = new MDCDialog(rootE)
-
-        rootE.addEventListener("transitionend", (event: TransitionEvent) => {
-            const target = event.target as Element
-            if (target != animaERef.current) return
-            const currentTarget = event.currentTarget as Element
-            //  consoleInfo("BaseDialog transitionend, target = " + target.className + ", currentTarget = " + currentTarget.className)
-            //  关闭动画结束后，删除动画类
-            if (currentTarget.classList.contains("mdc-dialog--my-closing")) {
-                toggleElementClass(currentTarget, "mdc-dialog--my-closing", false)
-            }
-        })
-
         return () => {
-            consoleInfo("BaseDialog useEffect cleanup")
-            dialogRef.current?.destroy()
+            delayToNextFrameRef.current.cancelPendingFrame()
         }
     }, [])
 
     useEffect(() => {
+        consoleInfo("BaseDialog useEffect")
+        animationControllerRef.current = new AnimationController(dialogRef.current, "dialog-slide")
+        return () => {
+            consoleInfo("BaseDialog useEffect cleanup")
+            animationControllerRef.current?.destroy()
+        }
+    }, [])
+
+    // 首次加载时打开 dialog，toggleOpen 不变，所以这里不会重复执行
+    useEffect(() => {
+        toggleOpen(true)
+    }, [toggleOpen])
+
+    // 向外传递控制器
+    useEffect(() => {
         if (dialogControllerRef) {
             dialogControllerRef.current = {
-                opened: false,
-                open: () => dialogRef.current?.open(),
-                close: () => dialogRef.current?.close()
+                opened: () => {
+                    return animationControllerRef.current?.isOpened() ?? false
+                },
+                open: () => toggleOpen(true),
+                close: () => toggleOpen(false)
             }
         }
         return () => {
@@ -107,104 +128,21 @@ export function BaseDialog({ dialogControllerRef = undefined, fixedWidth = false
                 dialogControllerRef.current = null
             }
         }
-    }, [dialogControllerRef])
+    }, [dialogControllerRef, toggleOpen])
 
-    useEffect(() => {
-        const onOpeningListener = () => {
-            consoleInfo("Dialog opening")
-            if (onDialogOpening) {
-                onDialogOpening()
-            }
-            scrimControllerRef.current?.open()
-        }
-
-        const onOpenedListener = () => {
-            consoleInfo("Dialog opened")
-            if (dialogControllerRef?.current) {
-                dialogControllerRef.current.opened = true
-            }
-            if (onDialogOpen) {
-                onDialogOpen()
-            }
-            handleFocus(btnCloseRef.current)
-            if (scrollToTopOnDialogOpen) {
-                scrollToTop(true, dialogContentRef.current)
-            }
-        }
-
-        const onClosingListener = () => {
-            consoleInfo("Dialog closing")
-            const rootE = dialogContainerRef.current
-            toggleElementClass(rootE, "mdc-dialog--my-closing", true)
-            if (dialogControllerRef?.current) {
-                dialogControllerRef.current.opened = false
-            }
-            if (onDialogClosing) {
-                onDialogClosing()
-            }
-            scrimControllerRef.current?.close()
-            if (onDialogClose) {
-                onDialogClose()
-            }
-        }
-
-        const onClosedListener = () => {
-            consoleInfo("Dialog closed")
-        }
-
-        // 启动 open 动画
-        dialogRef.current!.listen("MDCDialog:opening", onOpeningListener)
-        // open 动画结束
-        dialogRef.current!.listen("MDCDialog:opened", onOpenedListener)
-        // 启动 close 动画
-        dialogRef.current!.listen("MDCDialog:closing", onClosingListener)
-        // close 动画结束
-        dialogRef.current!.listen("MDCDialog:closed", onClosedListener)
-
-        return (() => {
-            dialogRef.current?.unlisten("MDCDialog:opening", onOpeningListener)
-            dialogRef.current?.unlisten("MDCDialog:opened", onOpenedListener)
-            dialogRef.current?.unlisten("MDCDialog:closing", onClosingListener)
-            dialogRef.current?.unlisten("MDCDialog:closed", onClosedListener)
-        })
-    }, [onDialogOpening, onDialogOpen, onDialogClosing, onDialogClose, scrollToTopOnDialogOpen, dialogControllerRef])
-
-    useEffect(() => {
-        dialogRef.current!.open()
-    }, [])
-
-    // 监听 dialog 内部滚动，触发加载更多
-    useEffect(() => {
-        if (onLoadMore == null) return
-        const scrollLoader = new ScrollLoader(() => {
-            if (onLoadMore != null) {
-                onLoadMore()
-            }
-        })
-        const onScrollListener = () => {
-            scrollLoader.onScroll(dialogContentRef.current!!.clientHeight, dialogContentRef.current!!.scrollTop, dialogContentRef.current!!.scrollHeight)
-        }
-        dialogContentRef.current!!.addEventListener("scroll", onScrollListener)
-
-        return () => {
-            dialogContentRef.current!!.removeEventListener("scroll", onScrollListener)
-        }
-    }, [onLoadMore])
-
-    // 这里会在上一个 useEffect 中的 dialogRef.current 被赋值后执行，确保 closeOnClickOutside 的修改能生效
-    useEffect(() => {
-        if (dialogRef.current == null) return
-        // 设置为空，点击 Dialog 外部，不取消
-        dialogRef.current.scrimClickAction = closeOnClickOutside ? "close" : ""
-    }, [closeOnClickOutside])
-
-
+    const onScrimClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+        if (!closeOnClickOutside) return
+        // 点击命中 container，不算 outside
+        // e.target 指向点击命中的最深层元素，即实际命中的元素
+        if (dialogContainerFoFlexRef.current != e.target) return
+        toggleOpen(false)
+    }, [closeOnClickOutside, toggleOpen])
 
     const calcContentMaxHeight = useCallback(() => {
         // TODO: 这里计算的 maxHeight 不对，且缺少 inset 尺寸
         // surfaceHeight = contentHeight + actionHeight
         const surfaceMaxHeight = getResolvedElementMaxHeight(dialogSurfaceRef.current!) ?? 0
-        const actionsE = dialogContainerRef.current?.querySelector(".mdc-dialog__actions") as HTMLDivElement | null
+        const actionsE = dialogRef.current?.querySelector(".mdm-dialog__actions") as HTMLDivElement | null
         const actionBtnHeight = actionsE?.offsetHeight ?? 0
         consoleInfo(`Dialog surfaceMaxHeight = ${surfaceMaxHeight}, actionBtnHeight = ${actionBtnHeight}`)
         return surfaceMaxHeight - actionBtnHeight
@@ -228,53 +166,48 @@ export function BaseDialog({ dialogControllerRef = undefined, fixedWidth = false
     }, [calcContentMaxHeight])
 
     // 监听视口尺寸变化，计算 surface 最大高度
-    useDebouncedResize(dialogContainerRef, { resizeCallback: resizeCallback })
+    useDebouncedResize(dialogRef, { resizeCallback: resizeCallback })
 
     // 监听内容高度变化，使 Dialog 窗口平滑变化
-    useDebouncedResizeMonitor(scrollContainerRef, smoothCollapseWrapperRef, contentMaxHeight)
+    useDebouncedResizeMonitor(calcHeightContainerRef, smoothCollapseWrapperRef, contentMaxHeight)
 
     return (
         <>
-            <div ref={dialogContainerRef} className="mdc-dialog">
-                <div ref={animaERef} className="mdc-dialog__container">
-                    <div ref={dialogSurfaceRef}
-                        className={fixedWidth ? "mdc-dialog__surface mdc-dialog__fixed-width" : "mdc-dialog__surface"}
-                        role="alertdialog" aria-modal="true"
-                        aria-labelledby="basic-dialog-title"
-                        aria-describedby="basic-dialog-content">
-                        <ScrollContext.Provider value={scrollContainerRef}>
-                            <div ref={scrollContainerRef} className="mdc-dialog__content mdc-theme--on-surface"
+            <div ref={dialogRef} className="mdm-dialog dialog-slide">
+                <div ref={dialogContainerFoFlexRef} className="mdm-dialog-container-for-flex" onClick={onScrimClick}>
+                    {/* 空元素获取焦点 */}
+                    <div tabIndex={0}></div>
+                    <div ref={dialogSurfaceRef} className={fixedWidth ? "mdm-dialog__surface mdm-dialog-fixed-width" : "mdm-dialog__surface"}>
+                        <ScrollContext.Provider value={calcHeightContainerRef}>
+                            <div ref={calcHeightContainerRef} className="mdm-dialog__content"
                                 id="basic-dialog-content">
                                 <div ref={smoothCollapseWrapperRef} className="smooth-collapse-wrapper">
                                     {children}
                                 </div>
                             </div>
                         </ScrollContext.Provider>
-
                         {actions && actions.length > 0 &&
-                            <div className="mdc-dialog__actions basic-dialog_actions">
-                                {actions.map((btn, index) =>
-                                    <button key={btn.text ?? index} type="button"
-                                        className="mdc-button basic-dialog_btn_action"
-                                        data-mdc-dialog-action={btn.closeOnClick ? "close" : ""}
-                                        onClick={btn.onClick}
-                                        tabIndex={0}>
-                                        <span className="mdc-button__label"
-                                        >{btn.text}</span>
-                                    </button>
+                            <div className="mdm-dialog__actions">
+                                {actions.map((btn, _index) =>
+                                    <Button key={btn.text} text={btn.text} onClick={() => {
+                                        btn.onClick?.()
+                                        if (btn.closeOnClick) {
+                                            toggleOpen(false)
+                                        }
+                                    }} />
                                 )}
                             </div>
                         }
                     </div>
                 </div>
-                <div className="mdc-dialog__scrim"></div>
             </div>
             <Scrim controllerRef={scrimControllerRef} />
         </>
+
     )
 }
 
-function handleFocus(ele: HTMLElement | null) {
+function _handleFocus(ele: HTMLElement | null) {
     if (!ele) return
     // Dialog 弹出时应该让 Button 获取焦点，避免 chip 出现选中阴影
     // 但是 Button 获取焦点后颜色会变化，所以立即取消焦点

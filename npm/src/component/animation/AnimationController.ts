@@ -1,7 +1,7 @@
 import { consoleInfo } from "../../util/log"
 import { elementContainsClass, toggleElementClass } from "../../util/tools"
 import { DelayToNextFrame } from "../base/DelayToNextFrame"
-import type { IAnimationController } from "./IAnimationController"
+import type { AnimEvent, IAnimationController } from "./IAnimationController"
 
 const OPENING_CLASS_SUFFIX = "--opening"
 const OPEN_CLASS_SUFFIX = "--open"
@@ -18,6 +18,7 @@ export class AnimationController implements IAnimationController {
     private closingClass: string
     private preserveDisplayNone: string
     private transitionEndListener: (event: TransitionEvent) => void
+    private eventListeners: Map<AnimEvent, Set<() => void>> = new Map()
 
     constructor(element: HTMLElement | null, baseClass: string)
 
@@ -63,10 +64,36 @@ export class AnimationController implements IAnimationController {
         }
     }
 
-
+    fireEvent(event: AnimEvent) {
+        consoleInfo(`AnimationController fireEvent ${event}`)
+        const set = this.eventListeners.get(event)
+        if (set) {
+            set.forEach((callback) => {
+                callback()
+            })
+        }
+    }
 
     getElement(): Element | null {
         return this.element
+    }
+
+    addEventListener(event: AnimEvent, callback: () => void): void {
+        let set = this.eventListeners.get(event)
+        if (set) {
+            set.add(callback)
+        } else {
+            set = new Set()
+            set.add(callback)
+            this.eventListeners.set(event, set)
+        }
+    }
+
+    removeEventListener(event: AnimEvent, callback: () => void): void {
+        const set = this.eventListeners.get(event)
+        if (set) {
+            set.delete(callback)
+        }
     }
 
     isOpened(): boolean {

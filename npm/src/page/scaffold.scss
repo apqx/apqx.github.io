@@ -10,7 +10,6 @@
 @use "@material/fab/mdc-fab";
 @use "@material/list/mdc-list";
 @use "@material/data-table/mdc-data-table";
-@use "@material/dialog/mdc-dialog";
 @use "@material/circular-progress/mdc-circular-progress";
 @use "@material/linear-progress/mdc-linear-progress";
 @use "@material/snackbar/mdc-snackbar";
@@ -30,8 +29,8 @@
 @use "../component/animation/BaseAnimation.scss";
 @use "../component/animation/ImageLoadAnimator.scss";
 // @use "../component/animation/SmoothCollapse.scss";
-// @use "../component/dialog/AboutMeDialog";
 // @use "../component/dialog/BasicDialog";
+// @use "../component/dialog/AboutMeDialog";
 // @use "../component/dialog/PreferenceDialog";
 // @use "../component/dialog/SearchDialog";
 // @use "../component/dialog/TagDialog";

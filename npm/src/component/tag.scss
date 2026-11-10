@@ -9,7 +9,7 @@
 }
 
 $btnTagSideRadius: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
-$btnTagRadius: 0.2rem;
+$btnTagRadius: 0.12rem;
 $btnTagSidePaddingHorizontal: 0.8rem;
 $btnTagPaddingHorizontal: 0.8rem;
 
@@ -58,7 +58,7 @@ $btnTagPaddingHorizontal: 0.8rem;
     display: flex;
     flex-wrap: wrap;
     justify-content: start;
-    gap: var(--list-divider-height);
+    gap: calc(var(--list-divider-height) - 0.02rem);
     margin: 1.5rem 0rem;
 
     .btn-tag:first-child {
