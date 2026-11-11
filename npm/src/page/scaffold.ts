@@ -1,8 +1,7 @@
 import "./scaffold.scss"
-import { isWriting, runOnHtmlDone, runOnPageBackFromCache, runOnPageDone, toggleElementClass } from "../util/tools"
-import { initTopbar } from "../component/topbar"
+import { isWriting, runOnHtmlDone, runOnPageBackFromCache, runOnPageDone } from "../util/tools"
 import { initTheme } from "../component/theme"
-import { getLocalRepository, initLocalRepository } from "../repository/LocalDb"
+import { initLocalRepository } from "../repository/LocalDb"
 import { initFont } from "../component/font/font"
 import { initFab } from "../component/fab"
 import { initTag, initTagTriggers } from "../component/tag"
@@ -14,7 +13,8 @@ import { loadGoogleAnalytics } from "../util/gtag"
 import { initFooter } from "../component/footer"
 import { initCard } from "../component/card"
 import { is404Page, isIndexPage, isPostPage } from "../base/constant"
-import { EVENT_PAGE_BACK_FROM_CACHE, getEventEmitter, type Events } from "../component/base/EventBus"
+import { EVENT_PAGE_BACK_FROM_CACHE, getEventEmitter } from "../component/base/EventBus"
+import { initHeader } from "../component/react/Topbar"
 
 initScaffold()
 
@@ -23,8 +23,7 @@ export function initScaffold() {
         checkPage()
         initLocalRepository()
         initFont()
-        initTopbar()
-        initStatusBarProtector()
+        initHeader()
         initFooter()
         initTheme()
         initFab()
@@ -104,42 +103,6 @@ window.addEventListener("pageshow", (event) => {
 window.addEventListener("pagehide", (_event) => {
     consoleInfo("Window event: pagehide")
 });
-
-
-let statusBarProtectorE: HTMLElement | null = null
-
-// TODO: statusBarProtectorE 本来应该只获取一次，但在一种情况下会从对象变为 null，比如初始隐藏，init 时能获取到 element 对象
-// 但在设置中修改状态后原来有值的变量就变成 null 了，原因不明，暂时先每次都获取一次，后续有时间再调查
-function getStatusBarProtectorE() {
-    if (statusBarProtectorE == null) {
-        statusBarProtectorE = document.querySelector(".status-bar-protector") as HTMLElement
-    }
-    return statusBarProtectorE
-}
-
-function initStatusBarProtector() {
-    checkStatusBarProtector()
-
-    getEventEmitter().on("hideStatusBarBgChange", (data: Events["hideStatusBarBgChange"]) => {
-        consoleInfo("Scaffold receive hideStatusBarBgChange event, enabled = " + data.enabled)
-        checkStatusBarProtector()
-    })
-    getEventEmitter().on("pageEvent", (data: Events["pageEvent"]) => {
-        consoleInfo("Scaffold receive pageEvent, event = " + data)
-        if (data == EVENT_PAGE_BACK_FROM_CACHE) {
-            checkStatusBarProtector()
-        }
-    })
-}
-
-function checkStatusBarProtector() {
-    const statusBarProtectorE = getStatusBarProtectorE()
-    consoleInfo("Check status bar protector, statusBarProtectorE = " + statusBarProtectorE)
-    if (statusBarProtectorE == null) return
-    const localShow = !getLocalRepository().getHideStatusBarBg()
-    consoleInfo("Check status bar protector, localShow = " + localShow)
-    toggleElementClass(statusBarProtectorE, "status-bar-protector--show", localShow)
-}
 
 /**
  * 检查 url 是否包含测试参数，启用对应功能

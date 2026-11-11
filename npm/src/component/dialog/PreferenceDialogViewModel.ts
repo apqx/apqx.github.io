@@ -43,7 +43,7 @@ export class PreferenceDialogViewModel extends BaseExternalStore {
         this.state = { ...this.state, fixedTopbar: newState }
         this.emitChange()
         this.localRepository.saveFixedTopbar(newState)
-        getEventEmitter().emit("topbarFixedChange", {
+        getEventEmitter().emit("applyTopbarFixedChange", {
             fixed: newState
         })
     }
@@ -54,7 +54,7 @@ export class PreferenceDialogViewModel extends BaseExternalStore {
         this.state = { ...this.state, notoSerifSCFont: newState }
         this.emitChange()
         this.localRepository.saveNotoSerifSCFont(newState)
-        getEventEmitter().emit("fontChange", {
+        getEventEmitter().emit("applyFontChange", {
             notoSerifSCFont: newState
         })
     }
@@ -66,7 +66,7 @@ export class PreferenceDialogViewModel extends BaseExternalStore {
         this.emitChange()
         this.localRepository.saveLensBiggerPicture(newState)
         // 通知透镜组件刷新布局
-        getEventEmitter().emit("lensBiggerPictureChange", {
+        getEventEmitter().emit("applyLensBiggerPictureChange", {
             enabled: newState
         })
     }
@@ -78,7 +78,7 @@ export class PreferenceDialogViewModel extends BaseExternalStore {
         this.emitChange()
         this.localRepository.saveHideStatusBarBg(newState)
         // 通知状态栏组件刷新布局
-        getEventEmitter().emit("hideStatusBarBgChange", {
+        getEventEmitter().emit("applyStatusBarBgChange", {
             enabled: newState
         })
     }
@@ -100,7 +100,7 @@ export class PreferenceDialogViewModel extends BaseExternalStore {
             }
         }
         this.localRepository.saveTheme(newTheme)
-        getEventEmitter().emit("themeChange", {
+        getEventEmitter().emit("applyNewTheme", {
             theme: newTheme,
             showToast: false
         })

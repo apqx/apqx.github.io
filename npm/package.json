@@ -32,7 +32,6 @@
     "@material/switch": "^14.0.0",
     "@material/textfield": "^14.0.0",
     "@material/theme": "^14.0.0",
-    "@material/top-app-bar": "^14.0.0",
     "@material/typography": "^14.0.0",
     "@material/web": "^2.5.0",
     "highlight.js": "^11.12.0",

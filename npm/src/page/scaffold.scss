@@ -6,7 +6,6 @@
 @use "@material/button/mdc-button";
 @use "@material/icon-button/mdc-icon-button";
 @use "@material/card/mdc-card";
-@use "@material/top-app-bar/mdc-top-app-bar";
 @use "@material/fab/mdc-fab";
 @use "@material/list/mdc-list";
 @use "@material/data-table/mdc-data-table";
@@ -25,7 +24,6 @@
 @use "../component/table";
 @use "../component/tag";
 @use "../component/text";
-@use "../component/topbar";
 @use "../component/animation/BaseAnimation.scss";
 @use "../component/animation/ImageLoadAnimator.scss";
 // @use "../component/animation/SmoothCollapse.scss";
@@ -81,49 +79,6 @@ body {
     }
 }
 
-// 顶部状态栏背景遮罩
-.status-bar-protector {
-    display: none;
-
-    // 仅在 header 非固定时，显示状态栏遮罩
-    .custom-top-app-bar--no-fixed+&.status-bar-protector--show {
-        display: block;
-    }
-
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100dvw;
-    height: var(--safe-area-inset-top);
-    // height: var(--topbar-height);
-    z-index: calc(var(--z-index-topbar) + 1);
-
-    /* 基础半透明色 */
-    // background: linear-gradient(to bottom,
-    //         rgba($color: map.get(base.$surface, "light"), $alpha: 0.6) 0%,
-    //         transparent 100%);
-
-    // .dark & {
-    //     background: linear-gradient(to bottom,
-    //             rgba($color: map.get(base.$surface, "dark"), $alpha: 0.6) 0%,
-    //             transparent 100%);
-    // }
-
-    // 颜色与模糊应与 fab 一致，保持视觉
-    background: rgba($color: map.get(base.$surface, "light"), $alpha: 0.5);
-
-    .dark & {
-        background: rgba($color: map.get(base.$surface, "dark"), $alpha: 0.5);
-    }
-
-    /* 使用遮罩让元素（包括颜色和模糊效果）从上到下逐渐消失 */
-    // mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
-    // -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
-
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-}
-
 // 内容最外层容器，高度为 100% - topbar-height - footer-height 
 .main-container {
     width: 100%;
@@ -176,19 +131,6 @@ footer .footer-container {
 
 .center-inline-items {
     text-align: center;
-}
-
-.mdc-top-app-bar--fixed-adjust {
-    // margin-top: var(--topbar-height);
-    // padding-top: 0;
-    // top: 0;
-    padding-top: var(--topbar-height);
-    top: 0;
-}
-
-.mdc-top-app-bar--fixed-adjust-by-padding {
-    padding-top: var(--topbar-height);
-    top: 0;
 }
 
 img {

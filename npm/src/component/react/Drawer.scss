@@ -7,12 +7,11 @@
     --drawer-width: 17rem;
     --drawer-width-actual: calc(var(--drawer-width) + var(--safe-area-inset-left));
     --drawer-padding-horizontal: 0.8rem;
+    --drawer-content-padding-left: 0.2rem;
+    --drawer-content-padding-right: 0.4rem;
+    --list-item-padding-horizontal: 0.8rem;
+
 }
-
-
-$drawer-content-padding-left: 0.2rem;
-$drawer-content-padding-right: 0.4rem;
-$list-item-padding-horizontal: 0.8rem;
 
 .mdm-drawer {
     width: var(--drawer-width-actual);
@@ -48,12 +47,12 @@ $list-item-padding-horizontal: 0.8rem;
         .mdm-drawer__header {
             display: flex;
             align-items: center;
-            padding: 0 0 0 ($drawer-content-padding-left + $list-item-padding-horizontal);
+            padding: 0 0 0 calc(var(--drawer-content-padding-left) + var(--list-item-padding-horizontal));
             height: var(--topbar-height);
 
             button {
                 i {
-                    font-size: 1.5rem;
+                    font-size: calc(var(--mdc-typography-body1-font-size) + 0.5rem);
                     font-weight: base.$font-weight-icons-noto-sans + 20;
 
                     .font-noto-serif-sc & {
@@ -68,7 +67,7 @@ $list-item-padding-horizontal: 0.8rem;
 
             .mdm-drawer__header-text-container {
                 flex: 1;
-                margin-top: 0.1rem;
+                margin-top: 0.4rem;
 
                 .mdm-drawer__title {
                     font-weight: calc(var(--font-weight-normal) + 40);
@@ -104,7 +103,7 @@ $list-item-padding-horizontal: 0.8rem;
         display: flex;
         flex-direction: column;
         height: fit-content;
-        padding: 0.1rem $drawer-content-padding-right 0.2rem $drawer-content-padding-left;
+        padding: 0 var(--drawer-content-padding-right) 0 var(--drawer-content-padding-left);
     }
 }
 
@@ -114,16 +113,19 @@ $list-item-padding-horizontal: 0.8rem;
 
 
 .mdm-list.mdm-drawer-list {
+    margin: calc(var(--main-container-padding-vertical) / 2.5) 0 0 0;
 
     .mdm-list-item.mdm-drawer-list-item {
         height: 2.5rem;
-        padding: 0.2rem $list-item-padding-horizontal;
+        padding: 0.25rem var(--list-item-padding-horizontal);
         border-radius: 1.3rem;
         // hover focus press
         @include ripple.ripple(var(--drawer-nav-ripple), 0.1, 0.1, 0.1);
 
         &.mdm-drawer-list-item-selected {
             background-color: color-mix(in srgb, var(--drawer-nav-ripple) 15%, transparent);
+            // background-color: var(--md-sys-color-primary);
+            // color: var(--md-sys-color-on-primary);
         }
 
         &>div {
@@ -132,7 +134,9 @@ $list-item-padding-horizontal: 0.8rem;
             align-items: center;
             height: 100%;
 
-            .mdm-list-item__icon {}
+            .mdm-list-item__icon {
+                font-size: calc(var(--mdc-typography-body1-font-size) + 0.5rem);
+            }
 
             .mdm-list-item__primary-text {
                 margin-left: 1.8rem;
@@ -180,6 +184,7 @@ $list-item-padding-horizontal: 0.8rem;
 @media (max-width: 410px) {
     .mdm-drawer {
         .mdm-drawer__wrapper .mdm-drawer__header .mdm-drawer__header-text-container {
+
             .mdm-drawer__subtitle {
                 margin-top: -0.18rem;
             }
@@ -197,8 +202,22 @@ $list-item-padding-horizontal: 0.8rem;
     }
 }
 
+// 平板中屏
+@media (max-width: base.$screen-middle-max-width) {
+    .mdm-drawer {
+        .mdm-drawer__wrapper .mdm-drawer__header .mdm-drawer__header-text-container {
+            margin-top: 0.2rem;
+        }
+    }
+}
+
 @media (max-width: base.$screen-small-max-width) {
     .mdm-drawer {
-        --drawer-padding-horizontal: 0.5rem;
+        --drawer-padding-horizontal: 0.6rem;
+        --list-item-padding-horizontal: 0.9rem;
+    }
+
+    .mdm-list.mdm-drawer-list {
+        margin: calc(var(--main-container-padding-vertical) / 2) 0 0 0;
     }
 }

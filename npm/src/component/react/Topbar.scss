@@ -1,0 +1,160 @@
+@use "../../style/global" as base;
+@use "sass:map";
+@use "sass:color";
+
+// 思路是从 document 中移除，默认相对 document 顶部，随之滚动
+// fixed 时相对 viewport 顶部，不随 document 滚动，即吸附在浏览器窗口顶部
+.mdm-topbar {
+    // 从 document 移除，与 document 同等尺寸的独立层级
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    // height: 100%;
+    z-index: var(--z-index-topbar);
+
+    background-color: var(--mdc-theme-surface);
+    * {
+        color: var(--mdc-theme-on-primary);
+    }
+
+    .colorful & {
+        background-color: var(--md-sys-color-primary);
+        * {
+            color: var(--md-sys-color-on-primary);
+        }
+    }
+
+    &.mdm-topbar-blur:not(.colorful &) {
+        -webkit-backdrop-filter: blur(map.get(base.$topbar, "backdrop-filter"));
+        backdrop-filter: blur(map.get(base.$topbar, "backdrop-filter"));
+        background-color: color-mix(in srgb, var(--mdc-theme-primary) 80%, transparent);
+    }
+
+    &.mdm-topbar-fixed {
+        // 从 document 移除，吸附 viewport 顶部
+        position: fixed;
+    }
+
+    // 默认随 document 滚动
+    .mdm-topbar__container {
+        --container-padding: 0.8rem;
+        box-sizing: border-box;
+        width: 100%;
+        height: calc(var(--topbar-height) + var(--safe-area-inset-top));
+        padding-top: var(--safe-area-inset-top);
+        padding-left: calc(var(--container-padding) + var(--safe-area-inset-left));
+        padding-right: calc(var(--container-padding) + var(--safe-area-inset-right));
+        display: flex;
+        flex-direction: row;
+
+        a {
+            text-decoration: none;
+        }
+
+        .mdm-topbar__left {
+            height: 100%;
+            flex: 1;
+            justify-content: start;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .mdm-topbar__right {
+            height: 100%;
+            flex: 1;
+            justify-content: end;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        // 标题栏图标和字体的字重以 title 字体为准，图标适应字体
+        // 默认思源黑体，可切换为稍细的思源宋体
+        // 标题栏字体字重默认为正文字重
+        .mdm-topbar__title {
+            margin-left: 0.3rem;
+            font-size: var(--mdc-typography-headline6-font-size);
+            // 与思源黑体搭配的西文字体比较细，这里加粗一点，保持视觉平衡
+            font-weight: calc(var(--font-weight-normal) + 40);
+
+            .font-noto-serif-sc & {
+                // 与思源宋体搭配的西文字体粗细适中，且宋体本身已经加粗，所以这里少加一些
+                font-weight: calc(var(--font-weight-normal) + 40);
+            }
+
+            // 首页标题使用了颜文字，是特殊情况，单独设置字重配合图标字重，保持视觉平衡
+            &.mdm-topbar__title-home {
+                letter-spacing: 0.08rem;
+                font-weight: calc(var(--font-weight-normal) + 10);
+
+                .font-noto-serif-sc & {
+                    font-weight: calc(var(--font-weight-normal) - 110);
+                }
+            }
+        }
+
+        // 标题栏图标和字体的字重以 title 字体为准，图标适应字体
+        // 默认思源黑体，可切换为稍细的思源宋体
+        // 标题栏字体字重默认为正文字重
+        .mdm-topbar-icon i {
+            // 标题栏图标字重适应字体粗细
+            font-weight: base.$font-weight-icons-noto-sans + 40;
+
+            .font-noto-serif-sc & {
+                font-weight: base.$font-weight-icons-noto-serif + 30;
+            }
+        }
+    }
+}
+
+// 小屏
+@media (max-width: base.$screen-small-max-width) {
+    .mdm-topbar .mdm-topbar__container {
+        --container-padding: 0.4rem;
+    }
+}
+
+// 顶部状态栏背景遮罩
+.status-bar-protector {
+    display: none;
+
+    // 仅在 header 非固定时，显示状态栏遮罩
+    :not(.mdm-topbar-fixed)+&.status-bar-protector--show {
+        display: block;
+    }
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100dvw;
+    height: var(--safe-area-inset-top);
+    // height: var(--topbar-height);
+    z-index: calc(var(--z-index-topbar) + 1);
+
+    /* 基础半透明色 */
+    // background: linear-gradient(to bottom,
+    //         rgba($color: map.get(base.$surface, "light"), $alpha: 0.6) 0%,
+    //         transparent 100%);
+
+    // .dark & {
+    //     background: linear-gradient(to bottom,
+    //             rgba($color: map.get(base.$surface, "dark"), $alpha: 0.6) 0%,
+    //             transparent 100%);
+    // }
+
+    // 颜色与模糊应与 fab 一致，保持视觉
+    background: rgba($color: map.get(base.$surface, "light"), $alpha: 0.5);
+
+    .dark & {
+        background: rgba($color: map.get(base.$surface, "dark"), $alpha: 0.5);
+    }
+
+    /* 使用遮罩让元素（包括颜色和模糊效果）从上到下逐渐消失 */
+    // mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+    // -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}

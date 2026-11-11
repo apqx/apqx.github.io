@@ -12,8 +12,8 @@ export function initFont() {
     // setHandwrittenFont(localHandWritingFontOn)
     checkNotoSerifSCFont()
     loadNecessaryFonts()
-    getEventEmitter().on("fontChange", (data: Events["fontChange"]) => {
-        consoleInfo("Font receive fontChange event, data = " + JSON.stringify(data))
+    getEventEmitter().on("applyFontChange", (data: Events["applyFontChange"]) => {
+        consoleInfo("Font receive applyFontChange event, data = " + JSON.stringify(data))
         checkNotoSerifSCFont()
     })
     getEventEmitter().on("pageEvent", (data: Events["pageEvent"]) => {

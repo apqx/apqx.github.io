@@ -47,7 +47,7 @@ li {
         }
 
         .mdm-list-item__icon {
-            font-size: calc(var(--mdc-typography-body1-font-size) + 0.5rem);
+           
         }
 
         .mdm-list-item__text {
@@ -68,17 +68,17 @@ li {
         }
     }
 
-    &:not(:first-child) {
+    .mdm-list &:not(:first-child) {
         margin-top: var(--list-divider-height);
     }
 
 
-    &:first-child .mdm-list-item {
+    .mdm-list &:first-child .mdm-list-item {
         border-top-left-radius: $listItemSideRadius;
         border-top-right-radius: $listItemSideRadius;
     }
 
-    &:last-child .mdm-list-item {
+    .mdm-list &:last-child .mdm-list-item {
         border-bottom-left-radius: $listItemSideRadius;
         border-bottom-right-radius: $listItemSideRadius;
     }

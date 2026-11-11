@@ -54,7 +54,7 @@ export function LensFilterDialog(props: BaseDialogOpenProps) {
                     viewModel.confirmSelection()
                     // 通知执行搜索
                     consoleInfo("LensFilterDialog selected tags = " + state.selectedTags.toString())
-                    getEventEmitter().emit("lensFilterChange", {
+                    getEventEmitter().emit("applyLensFilterChange", {
                         selectedTags: state.selectedTags
                     })
                 }

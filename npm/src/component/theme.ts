@@ -2,7 +2,6 @@
 import { toggleElementClass } from "../util/tools"
 import { consoleInfo } from "../util/log"
 import { getLocalRepository } from "../repository/LocalDb"
-import { setToggleThemeIconDarkOn, toggleTopbarGlass } from "./topbar"
 import { showSnackbar } from "./react/Snackbar"
 import { EVENT_PAGE_BACK_FROM_CACHE, getEventEmitter, type Events } from "./base/EventBus"
 import { applyModernM3Theme, materialYouThemeFromSourceColor, type MaterialYouTheme } from "../util/material"
@@ -13,7 +12,6 @@ let dynamicTheme: MaterialYouTheme | null = null
 
 export function initTheme() {
     initDynamicThemeColor()
-    checkColorfulToolbar()
     checkUserTheme()
     // 监听系统级主题变化，即系统和导航栏都可以控制主题变化
     window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
@@ -21,15 +19,13 @@ export function initTheme() {
         consoleInfo("System theme change to " + newSysTheme)
         checkUserTheme()
     });
-    getEventEmitter().on("themeChange", (data: Events["themeChange"]) => {
-        consoleInfo("Theme receive themeChange event, theme = " + data.theme + ", showToast = " + data.showToast)
-        checkColorfulToolbar()
+    getEventEmitter().on("applyNewTheme", (data: Events["applyNewTheme"]) => {
+        consoleInfo("Theme receive applyNewTheme event, theme = " + data.theme + ", showToast = " + data.showToast)
         checkUserTheme(data.showToast)
     })
     getEventEmitter().on("pageEvent", (data: Events["pageEvent"]) => {
         consoleInfo("Theme receive pageEvent, event = " + data)
         if (data == EVENT_PAGE_BACK_FROM_CACHE) {
-            checkColorfulToolbar()
             checkUserTheme()
         }
     })
@@ -60,15 +56,12 @@ const metaThemeColor = {
     dark: "#161616"
 }
 
-// TODO: 根据是否启用 edge-to-edge 设置
-const topbarBlur = {
-    default: true,
-}
-
 // 是否启用彩色标题栏
 // 在使用 Material You 的 Android Chrome 上，浅色主题的主题色不会影响 Chrome 工具栏和状态栏颜色，需要设置更深的主题色才会生效
 // 深色模式下则完全不影响，所以不必设置
-const colorfulToolbar = false
+// const colorfulToolbar = false
+
+// 给 body 添加 colorful 可启用 material 3 配色，作为实验功能慢慢尝试
 
 function checkMetaThemeColor(dark: boolean, show: boolean) {
     if (show) {
@@ -79,13 +72,6 @@ function checkMetaThemeColor(dark: boolean, show: boolean) {
         }
     } else {
         setMetaThemeColor(undefined)
-    }
-    toggleTopbarGlass(topbarBlur.default)
-}
-
-function checkColorfulToolbar() {
-    if (colorfulToolbar) {
-        toggleElementClass(document.querySelector(".mdc-top-app-bar") as HTMLElement, "colorful", true)
     }
 }
 
@@ -129,21 +115,18 @@ export function toggleTheme() {
     const nextTheme = themeArray[nextThemeIndex]
     consoleInfo("Toggle theme, current = " + currentTheme + ", next = " + nextTheme)
     saveTheme(nextTheme)
-    getEventEmitter().emit("themeChange", {
-        theme: nextTheme,
-        showToast: true
-    })
+    checkUserTheme(true)
+    getEventEmitter().emit("themeChanged", null)
 }
 
 /**
- * 设置主题，更改ThemeButton显示的图标
+ * 设置主题，更改 ThemeButton 显示的图标
  */
 export function showThemeDark(dark: boolean) {
     const bodyE = document.body
     toggleElementClass(bodyE, darkClass, dark)
-    setToggleThemeIconDarkOn(dark)
     checkMetaThemeColor(dark, true)
-    // 当切换主题的时候，检查是否需要修改theme-color
+    // 当切换主题的时候，检查是否需要修改 theme-color
     // 目前不需要，只切换暗色、亮色主题，而设置的亮色theme-color在系统级暗色主题下无效，还不如直接交给浏览器去自动检测呢
 }
 
@@ -162,8 +145,9 @@ export function checkUserTheme(showToast: boolean = false) {
         applyModernM3Theme(dynamicTheme, dark)
     }
     showThemeDark(dark)
-    if (!showToast) return
+    getEventEmitter().emit("themeChanged", null)
 
+    if (!showToast) return
     const savedTheme = getLocalRepository().getTheme()
     switch (savedTheme) {
         case getLocalRepository().VALUE_THEME_AUTO: {

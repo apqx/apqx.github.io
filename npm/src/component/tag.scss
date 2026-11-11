@@ -58,7 +58,7 @@ $btnTagPaddingHorizontal: 0.8rem;
     display: flex;
     flex-wrap: wrap;
     justify-content: start;
-    gap: calc(var(--list-divider-height) - 0.02rem);
+    gap: calc(var(--list-divider-height) - 0.01rem);
     margin: 1.5rem 0rem;
 
     .btn-tag:first-child {

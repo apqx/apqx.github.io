@@ -44,9 +44,9 @@ export function IndexGridPosts(props: Props) {
     // 加载时隐藏，有结果时（错误或加载完成）显示
     useEffect(() => {
         if (state.loading) {
-            getEventEmitter().emit("footerDisplayChange", { enabled: false })
+            getEventEmitter().emit("applyFooterDisplayChange", { enabled: false })
         } else {
-            getEventEmitter().emit("footerDisplayChange", { enabled: true })
+            getEventEmitter().emit("applyFooterDisplayChange", { enabled: true })
         }
 
     }, [state.loading])

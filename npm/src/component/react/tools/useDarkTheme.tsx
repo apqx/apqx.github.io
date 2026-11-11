@@ -21,8 +21,8 @@ export function useDarkTheme(): [boolean, () => void, () => void] {
         })
     }, [delayToTimeGap])
 
-    const themeChangeHandler = useCallback((data: Events["themeChange"]) => {
-        consoleInfo("useDarkTheme receive themeChange event, theme = " + data.theme + ", showToast = " + data.showToast)
+    const themeChangeHandler = useCallback((_data: Events["themeChanged"]) => {
+        consoleInfo("useDarkTheme receive themeChanged event")
         const newIsDark = isDarkThemeFromSysAndUserSettings()
         setDarkTheme(newIsDark)
     }, [setDarkTheme])
@@ -47,7 +47,7 @@ export function useDarkTheme(): [boolean, () => void, () => void] {
         // 监听系统主题变化
         mediaQueryRef.current.addEventListener("change", mediaQueryChangeHandler)
         // 监听手动切换主题
-        getEventEmitter().on("themeChange", themeChangeHandler)
+        getEventEmitter().on("themeChanged", themeChangeHandler)
         // 监听页面从缓存中加载事件，重新检查主题设置
         getEventEmitter().on("pageEvent", pageEventHandler)
 
@@ -56,7 +56,7 @@ export function useDarkTheme(): [boolean, () => void, () => void] {
     const stopListening = useCallback(() => {
         consoleInfo("useDarkTheme stopListening")
         mediaQueryRef.current.removeEventListener("change", mediaQueryChangeHandler)
-        getEventEmitter().off("themeChange", themeChangeHandler)
+        getEventEmitter().off("themeChanged", themeChangeHandler)
         getEventEmitter().off("pageEvent", pageEventHandler)
         delayToTimeGap.cancelPendingAction()
     }, [themeChangeHandler, mediaQueryChangeHandler, pageEventHandler, delayToTimeGap])

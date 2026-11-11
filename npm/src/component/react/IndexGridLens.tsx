@@ -48,14 +48,14 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
         consoleInfo(`IndexGridLens useEffect, tag: ${props.tag}, category: ${props.category}, filterTags: ${filterTags.toString()} `)
 
         const emitter = getEventEmitter()
-        const lensFilterChangeListener = (data: Events["lensFilterChange"]) => {
-            consoleInfo("IndexGridLens receive lensFilterChange event, selectedTags = " + data.selectedTags.toString())
+        const lensFilterChangeListener = (data: Events["applyLensFilterChange"]) => {
+            consoleInfo("IndexGridLens receive applyLensFilterChange event, selectedTags = " + data.selectedTags.toString())
             setFilterTags(data.selectedTags)
             // 只要点击搜索，即触发搜索，不做重复检测
             setSearchCount(count => count + 1)
         }
-        const lensBiggerPictureChangeListener = (data: Events["lensBiggerPictureChange"]) => {
-            consoleInfo("IndexGridLens receive lensBiggerPictureChange event, enabled = " + data.enabled)
+        const applyLensBiggerPictureChangeListener = (data: Events["applyLensBiggerPictureChange"]) => {
+            consoleInfo("IndexGridLens receive applyLensBiggerPictureChange event, enabled = " + data.enabled)
             scrollToTopNative(false)
             setLensBiggerPicture(data.enabled)
         }
@@ -69,15 +69,15 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
                 }
             }
         }
-        emitter.on("lensFilterChange", lensFilterChangeListener)
-        emitter.on("lensBiggerPictureChange", lensBiggerPictureChangeListener)
+        emitter.on("applyLensFilterChange", lensFilterChangeListener)
+        emitter.on("applyLensBiggerPictureChange", applyLensBiggerPictureChangeListener)
         // 监听从缓存中恢复设置的事件，更新单列显示设置
         emitter.on("pageEvent", pageEventListener)
 
         return () => {
             consoleInfo("IndexGridLens useEffect cleanup")
-            emitter.off("lensFilterChange", lensFilterChangeListener)
-            emitter.off("lensBiggerPictureChange", lensBiggerPictureChangeListener)
+            emitter.off("applyLensFilterChange", lensFilterChangeListener)
+            emitter.off("applyLensBiggerPictureChange", applyLensBiggerPictureChangeListener)
             emitter.off("pageEvent", pageEventListener)
         }
     }, [props.tag, props.category, filterTags, lensBiggerPicture])
@@ -123,15 +123,15 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
     useEffect(() => {
         if (filterTags.length > 0) {
             if (pagefindState.loading) {
-                getEventEmitter().emit("footerDisplayChange", { enabled: false })
+                getEventEmitter().emit("applyFooterDisplayChange", { enabled: false })
             } else {
-                getEventEmitter().emit("footerDisplayChange", { enabled: true })
+                getEventEmitter().emit("applyFooterDisplayChange", { enabled: true })
             }
         } else {
             if (httpState.loading) {
-                getEventEmitter().emit("footerDisplayChange", { enabled: false })
+                getEventEmitter().emit("applyFooterDisplayChange", { enabled: false })
             } else {
-                getEventEmitter().emit("footerDisplayChange", { enabled: true })
+                getEventEmitter().emit("applyFooterDisplayChange", { enabled: true })
             }
         }
     }, [filterTags, httpState.loading, pagefindState.loading])

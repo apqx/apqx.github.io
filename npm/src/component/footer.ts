@@ -23,7 +23,7 @@ export function initFooter() {
         // 索引页从空白加载数据，有单独处理，在内容加载后再设置渐进动画，避免闪烁
         // 监听 EventBus 事件
         initFootAnimationController(false)
-        getEventEmitter().on("footerDisplayChange", (data: Events["footerDisplayChange"]) => {
+        getEventEmitter().on("applyFooterDisplayChange", (data: Events["applyFooterDisplayChange"]) => {
             if (data.enabled) {
                 delayToTimeGap.delay(() => {
                     footAnimationController.resetIntersectionObserve()

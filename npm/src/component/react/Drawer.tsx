@@ -12,6 +12,7 @@ import { showAboutMeDialog } from "../dialog/AboutMeDialog"
 import { clearFocusListener } from "../../util/tools"
 import { getSectionTypeByPath, SECTION_TYPE_LENS, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL, SECTION_TYPE_OTHER, SECTION_TYPE_POETRY, SECTION_TYPE_REPOST, SECTION_TYPE_TAGS } from "../../base/constant"
 import { showInfoDialogAsync, showShareDialogAsync } from "../dialog/AsyncDialogTrigger"
+import { DelayToNextFrame } from "../base/DelayToNextFrame"
 
 export interface DrawerProps {
     drawerControllerRef: React.RefObject<DrawerController | null>
@@ -33,8 +34,14 @@ export function Drawer(props: DrawerProps) {
     const headerRef = useRef<HTMLDivElement>(null)
     const scrimControllerRef = useRef<ScrimController>(null)
     const animationControllerRef = useRef<IAnimationController>(null)
+    const delayToNextFrameRef = useRef<DelayToNextFrame>(new DelayToNextFrame())
+    const toggleListenerRef = useRef<(open: boolean) => void>(props.toggleListener)
 
+    useEffect(() => {
+        toggleListenerRef.current = props.toggleListener
+    }, [props.toggleListener])
 
+    // 此操作不要频繁变化，所用到的闭包变量以 Ref 规避
     const toggleOpen = useCallback((open: boolean) => {
         if (open) {
             animationControllerRef.current?.toggleOpen(true)
@@ -43,10 +50,10 @@ export function Drawer(props: DrawerProps) {
             animationControllerRef.current?.toggleOpen(false)
             scrimControllerRef.current?.close()
         }
-        if (props.toggleListener) {
-            props.toggleListener(open)
+        if (toggleListenerRef.current) {
+            toggleListenerRef.current(open)
         }
-    }, [props.toggleListener])
+    }, [])
 
     useEffect(() => {
         animationControllerRef.current = new AnimationController(containerRef.current, "drawer-slide")
@@ -60,6 +67,7 @@ export function Drawer(props: DrawerProps) {
         headerRef.current?.addEventListener("dblclick", onDoubleClickListener)
 
         return () => {
+            delayToNextFrameRef.current.cancelPendingFrame()
             animationControllerRef.current?.destroy()
             headerRef.current?.removeEventListener("dblclick", onDoubleClickListener)
         }
@@ -136,7 +144,9 @@ export function Drawer(props: DrawerProps) {
                 selected: false,
                 onClick: () => {
                     showSearchDialog()
-                    toggleOpen(false)
+                    delayToNextFrameRef.current.delay(() => {
+                        toggleOpen(false)
+                    })
                 }
             },
             {
@@ -146,7 +156,9 @@ export function Drawer(props: DrawerProps) {
                 selected: false,
                 onClick: () => {
                     showPreferenceDialog()
-                    toggleOpen(false)
+                    delayToNextFrameRef.current.delay(() => {
+                        toggleOpen(false)
+                    })
                 }
             },
             {
@@ -156,7 +168,9 @@ export function Drawer(props: DrawerProps) {
                 selected: false,
                 onClick: () => {
                     showAboutMeDialog()
-                    toggleOpen(false)
+                    delayToNextFrameRef.current.delay(() => {
+                        toggleOpen(false)
+                    })
                 }
             }
         ])
@@ -170,12 +184,16 @@ export function Drawer(props: DrawerProps) {
 
     const onCLickQrCodeIcon = useCallback(() => {
         showShareDialogAsync(() => {
-            toggleOpen(false)
+            delayToNextFrameRef.current.delay(() => {
+                toggleOpen(false)
+            })
         })
     }, [toggleOpen])
 
     const onClickNavigationIcon = useCallback(() => {
-        toggleOpen(false)
+        delayToNextFrameRef.current.delay(() => {
+            toggleOpen(false)
+        })
     }, [toggleOpen])
 
     return (

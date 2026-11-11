@@ -59,6 +59,8 @@ $dialog-max-width: 35rem;
         height: 100%;
         // 100% 尺寸为 border + padding + content
         box-sizing: border-box;
+        // 总尺寸固定，padding 会挤压 content 尺寸，即子元素通过 100% 获得的尺寸
+        // 所以子元素获取的 100% 尺寸是这里已经应用过 padding 的 content 尺寸
         padding-top: var(--safe-area-inset-top);
         padding-bottom: var(--safe-area-inset-bottom);
         padding-left: var(--safe-area-inset-left);
@@ -72,7 +74,7 @@ $dialog-max-width: 35rem;
         .mdm-dialog__surface {
             width: fit-content;
             max-width: $dialog-max-width;
-            max-height: calc(100% - 3rem);
+            max-height: calc(100% - 2.5rem);
             background-color: var(--mdc-theme-surface);
             color: var(--mdc-theme-on-surface);
             border: 1px solid var(--common-divider-color);
@@ -80,7 +82,7 @@ $dialog-max-width: 35rem;
 
             &.mdm-dialog-fixed-width {
                 width: $dialog-max-width;
-                max-width: calc(100% - 2.2rem);
+                max-width: calc(100% - 2rem);
             }
 
             display: flex;
