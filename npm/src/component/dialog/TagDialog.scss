@@ -5,46 +5,39 @@
 .tag-dialog-trigger {}
 
 $blockRadius: 0.1rem;
-$blockRadiusSide: calc(var(--mdc-typography-body1-font-size) - 0.42rem);
+$blockRadiusSide: calc(var(--mdm-typography-body1-font-size) - 0.42rem);
 $blockPaddingHorizontal: 0.45rem;
 $blockPaddingHorizontalSide: 0.55rem;
 
 @mixin block {
-    font-size: calc(var(--mdc-typography-body1-font-size) - 0.2rem);
-    padding: 0.2rem $blockPaddingHorizontal;
+    font-size: calc(var(--mdm-typography-body1-font-size) - 0.2rem);
+    padding: 0.15rem $blockPaddingHorizontal;
     border-radius: $blockRadius;
     margin-right: calc(var(--list-divider-height) - 0.05rem);
-}
 
 
-@mixin blockFirst {
-    padding-left: $blockPaddingHorizontalSide;
-    border-top-left-radius: $blockRadiusSide;
-    border-bottom-left-radius: $blockRadiusSide;
-}
+    &:first-child {
+        padding-left: $blockPaddingHorizontalSide;
+        border-top-left-radius: $blockRadiusSide;
+        border-bottom-left-radius: $blockRadiusSide;
+    }
 
-@mixin blockLast {
-    padding-right: $blockPaddingHorizontalSide;
-    border-top-right-radius: $blockRadiusSide;
-    border-bottom-right-radius: $blockRadiusSide;
-    margin-right: 0;
+    &:last-child {
+        padding-right: $blockPaddingHorizontalSide;
+        border-top-right-radius: $blockRadiusSide;
+        border-bottom-right-radius: $blockRadiusSide;
+        margin-right: 0;
+    }
 }
 
 .mdm-list-item.tag-list-item {
     padding-right: 0.8rem;
 }
 
-.mdm-list-item__secondary-text.tag-list-item__secondary-container {
-    line-height: unset;
-}
-
 .tag-list-item__secondary-container {
     position: relative;
 
-    &.mdm-list-item__secondary-text {
-        line-height: unset;
-    }
-
+    // 尾部渐变遮罩
     &::after {
         content: "";
         position: absolute;
@@ -58,6 +51,7 @@ $blockPaddingHorizontalSide: 0.55rem;
 
     .tag-list-item__block-container {
         width: 100%;
+        // 禁止换行
         white-space: nowrap;
 
         overflow-x: auto;
@@ -69,14 +63,6 @@ $blockPaddingHorizontalSide: 0.55rem;
         &::-webkit-scrollbar {
             // 消除 scrollBar
             display: none;
-        }
-
-        &>span:first-child {
-            @include blockFirst();
-        }
-
-        &>span:last-child {
-            @include blockLast();
         }
 
         .tag-list-item__post-type {
@@ -96,23 +82,5 @@ $blockPaddingHorizontalSide: 0.55rem;
             color: var(--list-chip-2-ink);
             background: var(--list-chip-2-bg);
         }
-    }
-}
-
-.font-noto-serif-sc {
-
-    .tag-list-item__post-type,
-    .tag-list-item__post-block1,
-    .tag-list-item__post-block2 {
-        padding: 0.15rem 0.5rem;
-    }
-}
-
-.font-handwritten {
-
-    .tag-list-item__post-type,
-    .tag-list-item__post-block1,
-    .tag-list-item__post-block2 {
-        padding: 0.14rem 0.4rem 0.08rem 0.4rem;
     }
 }

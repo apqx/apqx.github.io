@@ -3,6 +3,7 @@ import "./ripple.scss"
 
 export function setupRipple(ele: HTMLElement | null) {
     if (ele) {
-        new MDCRipple(ele)
+        const ripple = new MDCRipple(ele)
+        ripple.unbounded = false
     }
 }

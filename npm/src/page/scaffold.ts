@@ -5,8 +5,6 @@ import { initLocalRepository } from "../repository/LocalDb"
 import { initFont } from "../component/font/font"
 import { initFab } from "../component/fab"
 import { initTag, initTagTriggers } from "../component/tag"
-import { initButton } from "../component/button"
-import { initTable } from "../component/table"
 import { initText } from "../component/text"
 import { consoleInfo } from "../util/log"
 import { loadGoogleAnalytics } from "../util/gtag"
@@ -28,9 +26,7 @@ export function initScaffold() {
         initTheme()
         initFab()
         initTag()
-        initButton()
         initCard()
-        initTable()
         initText()
         initTagTriggers()
         // 检查 URL 中的测试参数

@@ -13,6 +13,9 @@
 
 }
 
+$header-font-weight-enhance-gap: 40;
+$header-icon-weight-enhance-gap: 20;
+
 .mdm-drawer {
     width: var(--drawer-width-actual);
     z-index: var(--z-index-drawer);
@@ -50,34 +53,20 @@
             padding: 0 0 0 calc(var(--drawer-content-padding-left) + var(--list-item-padding-horizontal));
             height: var(--topbar-height);
 
-            button {
-                i {
-                    font-size: calc(var(--mdc-typography-body1-font-size) + 0.5rem);
-                    font-weight: base.$font-weight-icons-noto-sans + 20;
-
-                    .font-noto-serif-sc & {
-                        font-weight: base.$font-weight-icons-noto-serif + 20;
-                    }
-                }
-
-                &:not(:last-child) {
-                    margin-right: -0.5rem;
-                }
-            }
-
             .mdm-drawer__header-text-container {
+                line-height: normal;
                 flex: 1;
                 margin-top: 0.4rem;
 
                 .mdm-drawer__title {
-                    font-weight: calc(var(--font-weight-normal) + 40);
+                    font-weight: calc(var(--font-weight-normal) + #{$header-font-weight-enhance-gap});
                     font-size: 1.1rem;
                     color: var(--mdc-theme-text-primary-on-background);
                     display: flex;
                     align-items: center;
 
                     .font-noto-serif-sc & {
-                        font-weight: calc(var(--font-weight-normal) + 40);
+                        // font-weight: calc(var(--font-weight-normal) + 40);
                     }
                 }
 
@@ -94,6 +83,21 @@
                         font-size: 0.78rem;
                         margin-left: 0.12rem;
                     }
+                }
+            }
+
+            button {
+                i {
+                    font-size: calc(var(--mdm-typography-body1-font-size) + 0.5rem);
+                    font-weight: base.$font-weight-normal-icons-noto-sans + $header-icon-weight-enhance-gap;
+
+                    .font-noto-serif-sc & {
+                        // font-weight: base.$font-weight-normal-icons-noto-serif + 20;
+                    }
+                }
+
+                &:not(:last-child) {
+                    margin-right: -0.5rem;
                 }
             }
         }
@@ -124,8 +128,25 @@
 
         &.mdm-drawer-list-item-selected {
             background-color: color-mix(in srgb, var(--drawer-nav-ripple) 15%, transparent);
+            // color: var(--mdc-theme-text-primary-on-background);
             // background-color: var(--md-sys-color-primary);
             // color: var(--md-sys-color-on-primary);
+
+            // 选中字体加粗，注意黑体、宋体两种字体下图标与文字的字重匹配
+            // 比 header 更粗是因为字体更小，视觉平衡比同字重更和谐
+            font-weight: calc(var(--font-weight-normal) + #{$header-font-weight-enhance-gap} + 15);
+
+            .font-noto-serif-sc & {
+                font-weight: calc(var(--font-weight-normal) + #{$header-font-weight-enhance-gap} + 50);
+            }
+
+            i {
+                font-weight: base.$font-weight-normal-icons-noto-sans + $header-font-weight-enhance-gap;
+
+                .font-noto-serif-sc & {
+                    font-weight: base.$font-weight-normal-icons-noto-serif + $header-font-weight-enhance-gap;
+                }
+            }
         }
 
         &>div {
@@ -135,17 +156,21 @@
             height: 100%;
 
             .mdm-list-item__icon {
-                font-size: calc(var(--mdc-typography-body1-font-size) + 0.5rem);
+                font-size: calc(var(--mdm-typography-body1-font-size) + 0.5rem);
             }
 
             .mdm-list-item__primary-text {
                 margin-left: 1.8rem;
                 flex: 1;
-                font-size: var(--mdc-typography-subtitle2-font-size);
+                font-size: calc(var(--mdm-typography-body1-font-size) - 0.08rem);
             }
         }
 
     }
+}
+
+.drawer-scroll-lock {
+    overflow: hidden;
 }
 
 .drawer-slide {

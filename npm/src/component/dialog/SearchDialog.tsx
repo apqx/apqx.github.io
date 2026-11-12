@@ -1,5 +1,4 @@
 import "./SearchDialog.scss"
-import { MDCList } from "@material/list"
 import { createHtmlContent } from "../../util/tools"
 import { BaseDialog, getDialogController, SEARCH_DIALOG_WRAPPER_ID, showDialog } from "./BaseDialog"
 import type { ActionBtn, BaseDialogOpenProps } from "./BaseDialog"
@@ -76,7 +75,7 @@ export function SearchDialog(props: BaseDialogOpenProps) {
     return (
         <BaseDialog dialogControllerRef={props.dialogControllerRef} onDialogOpen={onDialogOpen} onDialogClose={onDialogClose} actions={actions}>
             <div ref={containerRef} className="center-inline-items">
-                <TextField label="Words" hint="" inputId="search-dialog-input" classes={["search-dialog_label"]} onTextChange={onTextChange} tabIndex={-1} icon="search"
+                <TextField label="Search" hint="" inputId="search-dialog-input" classes={["search-dialog_label"]} onTextChange={onTextChange} tabIndex={-1} icon="search"
                     onClickIcon={onClickSearch} onClickEnter={onClickSearch} clearInputCounter={clearInputCounter} />
 
                 <p id="search-dialog_tips"><b>TIPS：</b>中文低频词组用空格分隔会有更好匹配，比如名字「施夏明」改为「施 夏 明」。若网络通畅可使用 <a
@@ -98,11 +97,6 @@ interface SearchResultProps {
 
 function SearchResult(props: SearchResultProps) {
     const containerRef = useRef<HTMLUListElement>(null)
-
-    useEffect(() => {
-        const rootE = containerRef.current as Element
-        new MDCList(rootE)
-    }, [])
 
     return (
         <ul ref={containerRef} className="mdm-list">

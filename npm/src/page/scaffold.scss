@@ -2,13 +2,10 @@
 // 在这里集中引入组件的样式，避免其它打包入口（包括动态导入创建的打包入口）重复引入，动态导入的组件时机晚于 scaffold，能覆盖 scaffold 中的自定义样式
 @use "@material/theme/mdc-theme";
 @use "@material/elevation/mdc-elevation";
-@use "@material/typography/mdc-typography";
 @use "@material/button/mdc-button";
 @use "@material/icon-button/mdc-icon-button";
 @use "@material/card/mdc-card";
 @use "@material/fab/mdc-fab";
-@use "@material/list/mdc-list";
-@use "@material/data-table/mdc-data-table";
 @use "@material/circular-progress/mdc-circular-progress";
 @use "@material/linear-progress/mdc-linear-progress";
 @use "@material/snackbar/mdc-snackbar";
@@ -61,7 +58,7 @@ body {
         margin: 0;
     }
 
-    // 包含 main 和 footer，以及顶部的 header 空间
+    // 包含 main-container 和 footer，以及顶部的 header 空间
     // header 内容不在这里，悬浮在独立层级
     main {
         flex: 1;
@@ -115,9 +112,6 @@ footer .footer-container {
     }
 }
 
-.display-none {
-    display: none !important;
-}
 
 .center-self-horizontal {
     margin-left: auto;

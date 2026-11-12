@@ -9,7 +9,7 @@ import { setupRipple } from "../ripple"
 import { showSearchDialog } from "../dialog/SearchDialog"
 import { showPreferenceDialog } from "../dialog/PreferenceDialog"
 import { showAboutMeDialog } from "../dialog/AboutMeDialog"
-import { clearFocusListener } from "../../util/tools"
+import { clearFocusListener, toggleElementClass } from "../../util/tools"
 import { getSectionTypeByPath, SECTION_TYPE_LENS, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL, SECTION_TYPE_OTHER, SECTION_TYPE_POETRY, SECTION_TYPE_REPOST, SECTION_TYPE_TAGS } from "../../base/constant"
 import { showInfoDialogAsync, showShareDialogAsync } from "../dialog/AsyncDialogTrigger"
 import { DelayToNextFrame } from "../base/DelayToNextFrame"
@@ -46,9 +46,11 @@ export function Drawer(props: DrawerProps) {
         if (open) {
             animationControllerRef.current?.toggleOpen(true)
             scrimControllerRef.current?.open()
+            toggleElementClass(document.body, "drawer-scroll-lock", true)
         } else {
             animationControllerRef.current?.toggleOpen(false)
             scrimControllerRef.current?.close()
+            toggleElementClass(document.body, "drawer-scroll-lock", false)
         }
         if (toggleListenerRef.current) {
             toggleListenerRef.current(open)

@@ -75,7 +75,7 @@
         // 标题栏字体字重默认为正文字重
         .mdm-topbar__title {
             margin-left: 0.3rem;
-            font-size: var(--mdc-typography-headline6-font-size);
+            font-size: var(--mdm-typography-headline6-font-size);
             // 与思源黑体搭配的西文字体比较细，这里加粗一点，保持视觉平衡
             font-weight: calc(var(--font-weight-normal) + 40);
 
@@ -100,10 +100,10 @@
         // 标题栏字体字重默认为正文字重
         .mdm-topbar-icon i {
             // 标题栏图标字重适应字体粗细
-            font-weight: base.$font-weight-icons-noto-sans + 40;
+            font-weight: base.$font-weight-normal-icons-noto-sans + 40;
 
             .font-noto-serif-sc & {
-                font-weight: base.$font-weight-icons-noto-serif + 30;
+                font-weight: base.$font-weight-normal-icons-noto-serif + 30;
             }
         }
     }

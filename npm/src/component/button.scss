@@ -15,43 +15,51 @@
 }
 
 .mdc-button {
+    font-family: var(--mdm-typography-font-family);
+    font-size: var(--mdm-typography-body3-font-size);
+    font-weight: var(--mdm-typography-body3-font-weight);
+    letter-spacing: normal;
     @include button.container-fill-color(var(--button-bg));
     @include button.ink-color(var(--button-ink));
     @include button.height(2.5rem);
     min-width: 3.6rem;
     text-transform: none;
 
+    position: relative;
+
     &:not(:disabled) {
         @include button.ink-color(var(--button-ink));
     }
+
     &:not(.btn-no-ripple) {
         @include ripple.ripple(var(--button-ripple), 0, 0, 0.1);
     }
+
     &.btn-no-bg {
         @include button.container-fill-color(transparent);
     }
 }
 
 .mdc-button.btn-round {
-    border-radius: calc(var(--mdc-typography-body1-font-size) + 0.3rem);
-}
-
-@mixin icon-button-ripple {
-    @include ripple.ripple(var(--icon-button-ripple), 0, 0, 0.15);
+    border-radius: calc(var(--mdm-typography-body1-font-size) + 0.3rem);
 }
 
 .mdc-icon-button {
     width: 3rem;
     height: 3rem;
-    font-size: var(--mdc-typography-body1-font-size);
+    position: relative;
+    padding: 0;
+    outline: none;
+    font-size: var(--mdm-typography-body1-font-size);
     color: var(--mdc-theme-on-surface);
-    @include icon-button-ripple;
     display: inline-flex;
     align-items: center;
     justify-content: center;
 
+    // 设置 ripple，bounded ripple 必须设置 overflow: hidden，此 mixin 已内置
+    @include ripple.ripple(var(--icon-button-ripple), 0, 0, 0.15);
+
     &.mdm-toggle-icon-button {
-        position: relative;
 
         i {
             position: absolute;

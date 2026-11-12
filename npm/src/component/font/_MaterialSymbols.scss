@@ -58,11 +58,11 @@
 // 默认字重 300
 .material-symbols-rounded-variable {
   font-family: string.unquote("Material Symbols Rounded Variable, Material Symbols Rounded");
-  font-weight: base.$font-weight-icons-noto-sans;
+  font-weight: base.$font-weight-normal-icons-noto-sans;
   @include font;
 }
 
 .font-noto-serif-sc .material-symbols-rounded-variable {
     // 思源宋体字体较细，设置图标字重细一点以适应字体粗细
-    font-weight: base.$font-weight-icons-noto-serif;
+    font-weight: base.$font-weight-normal-icons-noto-serif;
 }

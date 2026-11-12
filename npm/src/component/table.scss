@@ -1,40 +1,12 @@
 @use "../style/global" as base;
-@use "text";
-@use "@material/data-table/data-table";
-@use "@material/data-table/data-table-theme";
 @use "sass:map";
 @use "sass:color";
-
-th,
-.mdc-data-table__cell,
-.mdc-data-table__header-cell {
-    @include text.basicText();
-}
-
-.mdc-data-table {
-    // @include data-table-theme.shape-radius(0.3rem);
-    // 设置标题背景为透明色，防止横向滚动时遮挡边框角
-    // @include data-table-theme.header-row-fill-color(#00000000);
-    // @include data-table-theme.header-row-text-color(var(--mdc-theme-text-primary-on-background));
-    // @include data-table-theme.row-text-color(var(--mdc-theme-on-surface-secondary));
-    // @include data-table-theme.divider-color(var(--surface-block-border));
-    // @include data-table-theme.stroke-color(var(--surface-block-border));
-    margin-top: 0.8rem;
-    margin-bottom: 0.8rem;
-}
-
-.mdc-data-table__row:not(.mdc-data-table__row--selected):hover {
-    background-color: rgba($color: map.get(base.$drawer-nav-ripple, "light"), $alpha: 0.1);
-}
-
-.dark .mdc-data-table__row:not(.mdc-data-table__row--selected):hover {
-    background-color: rgba($color: map.get(base.$drawer-nav-ripple, "dark"), $alpha: 0.1);
-}
+@use "./typography.scss" as typography;
 
 .table-wrapper {
     // 表格宽度超出时截断，主要使滚动条不覆盖到 border 之上
     overflow: clip;
-    margin: calc(var(--mdc-typography-body1-font-size) - 0.5rem) 0;
+    margin: calc(var(--mdm-typography-body1-font-size) - 0.5rem) 0;
     // wrapper 边框
     border: 1px solid var(--surface-block-border);
     border-radius: var(--post-inner-shape-round);
@@ -75,7 +47,7 @@ table {
     border-spacing: 0;
 
     * {
-        @include text.basicText();
+        @include typography.baseBodyText();
     }
 
     thead {

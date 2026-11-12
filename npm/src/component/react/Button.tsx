@@ -40,8 +40,7 @@ export function IconButton(props: IconBtnProps) {
     const containerRef = React.useRef<HTMLButtonElement>(null)
 
     useEffect(() => {
-        const ele = containerRef.current as HTMLElement
-        setupIconButtonRipple(ele)
+        setupIconButtonRipple(containerRef.current as HTMLSpanElement)
     }, [])
 
     return (

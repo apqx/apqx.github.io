@@ -8,7 +8,7 @@
     @include ripple.ripple(var(--chip-ripple), 0, 0, 0.1);
 }
 
-$btnTagSideRadius: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
+$btnTagSideRadius: calc(var(--mdm-typography-body1-font-size) - 0.1rem);
 $btnTagRadius: 0.12rem;
 $btnTagSidePaddingHorizontal: 0.8rem;
 $btnTagPaddingHorizontal: 0.8rem;
@@ -20,7 +20,7 @@ $btnTagPaddingHorizontal: 0.8rem;
     @include button.height(2.3rem);
     min-width: 3.6rem;
     text-transform: none;
-    font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
+    font-size: calc(var(--mdm-typography-body1-font-size) - 0.1rem);
     margin: 0;
     border-radius: $btnTagRadius;
 
@@ -50,7 +50,7 @@ $btnTagPaddingHorizontal: 0.8rem;
 
     .mdc-button.btn-tag {
         @include button.horizontal-padding($btnTagSidePaddingHorizontal);
-        border-radius: calc(var(--mdc-typography-body1-font-size) - 0.6rem);
+        border-radius: calc(var(--mdm-typography-body1-font-size) - 0.6rem);
     }
 }
 
@@ -93,8 +93,8 @@ $btnTagPaddingHorizontal: 0.8rem;
 a.tag-link {
     font-weight: inherit;
     color: var(--mdc-theme-on-surface);
-    line-height: var(--mdc-typography-body1-line-height);
-    letter-spacing: var(--mdc-typography-body1-letter-spacing);
+    line-height: var(--mdm-typography-body1-line-height);
+    letter-spacing: var(--mdm-typography-body1-letter-spacing);
     @include tag-link-underline;
     white-space: pre;
 }

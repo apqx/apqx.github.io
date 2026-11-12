@@ -60,26 +60,26 @@
 }
 
 .grid-index-title {
-    font-weight: var(--mdc-typography-body1-font-weight);
-    font-size: calc(var(--mdc-typography-body1-font-size) + 0.2rem);
+    font-weight: var(--mdm-typography-body1-font-weight);
+    font-size: calc(var(--mdm-typography-body1-font-size) + 0.2rem);
     line-height: 1.75rem;
-    letter-spacing: var(--mdc-typography-body1-letter-spacing);
+    letter-spacing: var(--mdm-typography-body1-letter-spacing);
     margin: 0;
     text-align: left
 }
 
 .grid-index-date {
     color: var(--mdc-theme-text-secondary-on-background);
-    font-size: calc(var(--mdc-typography-body1-font-size) - 0.25rem);
-    line-height: var(--mdc-typography-body1-line-height);
+    font-size: calc(var(--mdm-typography-body1-font-size) - 0.25rem);
+    line-height: var(--mdm-typography-body1-line-height);
     margin: 0;
     display: inline;
 }
 
 .grid-index-author {
     color: var(--mdc-theme-text-secondary-on-background);
-    font-size: calc(var(--mdc-typography-body1-font-size) - 0.25rem);
-    line-height: var(--mdc-typography-body1-line-height);
+    font-size: calc(var(--mdm-typography-body1-font-size) - 0.25rem);
+    line-height: var(--mdm-typography-body1-line-height);
     display: inline;
 }
 

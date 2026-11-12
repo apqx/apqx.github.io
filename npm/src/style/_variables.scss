@@ -15,7 +15,7 @@ $text-font-code-block: string.unquote("Google Sans Code, Noto Sans SC, monospace
 $text-font-code-block-jetbrains: string.unquote("Jetbrains Mono, Noto Sans SC, monospace, sans-serif");
 
 $text-size-base: 1rem;
-$text-line-height-base: $text-size-base + 0.8rem;
+$text-line-height-base: $text-size-base + 0.7rem;
 
 // 中型屏幕宽度分界点，大于为平板，小于为手机
 $screen-small-max-width: 600px;
@@ -44,5 +44,9 @@ $font-weight-light-default: 300;
 $font-weight-normal-default: 400;
 $font-weight-medium-default: 500;
 
-$font-weight-icons-noto-sans: 300;
-$font-weight-icons-noto-serif: 300;
+$font-weight-normal-icons-noto-sans: 300;
+$font-weight-light-icons-noto-sans: $font-weight-normal-icons-noto-sans - $font-weight-light-gap + 20;
+$font-weight-medium-icons-noto-sans: $font-weight-normal-icons-noto-sans + $font-weight-medium-gap - 20;
+$font-weight-normal-icons-noto-serif: 300;
+$font-weight-light-icons-noto-serif: $font-weight-normal-icons-noto-serif - $font-weight-light-gap + 50;
+$font-weight-medium-icons-noto-serif: $font-weight-normal-icons-noto-serif + $font-weight-medium-gap - 50;

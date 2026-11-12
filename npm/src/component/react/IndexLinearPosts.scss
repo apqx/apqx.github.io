@@ -60,9 +60,9 @@ body {
 /* 索引题目 */
 .index-title {
     color: var(--mdc-theme-on-surface);
-    font-size: var(--mdc-typography-body1-font-size);
-    line-height: var(--mdc-typography-body1-line-height);
-    letter-spacing: var(--mdc-typography-body1-letter-spacing);
+    font-size: var(--mdm-typography-body1-font-size);
+    line-height: var(--mdm-typography-body1-line-height);
+    letter-spacing: var(--mdm-typography-body1-letter-spacing);
     margin: 0;
     text-align: left;
 }
@@ -70,7 +70,7 @@ body {
 /* 索引署名 */
 .index-author {
     color: var(--mdc-theme-text-secondary-on-background);
-    font-size: calc(var(--mdc-typography-body1-font-size) - 0.2rem);
+    font-size: calc(var(--mdm-typography-body1-font-size) - 0.2rem);
     line-height: 1.5rem;
     text-align: right;
     margin: 0;
@@ -80,7 +80,7 @@ body {
 /* 索引日期 */
 .index-date {
     color: var(--mdc-theme-text-secondary-on-background);
-    font-size: calc(var(--mdc-typography-body1-font-size) - 0.2rem);
+    font-size: calc(var(--mdm-typography-body1-font-size) - 0.2rem);
     line-height: 1.5rem;
     text-align: right;
     margin: 0;
@@ -93,16 +93,16 @@ body {
 
 .index-width-desc-title {
     color: var(--mdc-theme-on-surface);
-    font-size: var(--mdc-typography-body1-font-size);
-    line-height: var(--mdc-typography-body1-line-height);
-    letter-spacing: var(--mdc-typography-body1-letter-spacing);
+    font-size: var(--mdm-typography-body1-font-size);
+    line-height: var(--mdm-typography-body1-line-height);
+    letter-spacing: var(--mdm-typography-body1-letter-spacing);
     margin: 0;
     text-align: left;
 }
 
 .index-with-desc-date {
     color: var(--mdc-theme-text-secondary-on-background);
-    font-size: calc(var(--mdc-typography-body1-font-size) - 0.2rem);
+    font-size: calc(var(--mdm-typography-body1-font-size) - 0.2rem);
     line-height: 1.5rem;
     text-align: left;
     margin: 0;
@@ -111,7 +111,7 @@ body {
 
 .index-width-desc-desc {
     color: var(--mdc-theme-text-secondary-on-background);
-    font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
+    font-size: calc(var(--mdm-typography-body1-font-size) - 0.1rem);
     line-height: 1rem;
     font-weight: var(--font-weight-light);
     text-align: left;
@@ -184,11 +184,11 @@ body {
     }
 
     .index-author {
-        font-size: calc(var(--mdc-typography-body1-font-size) - 0.2rem);
+        font-size: calc(var(--mdm-typography-body1-font-size) - 0.2rem);
     }
 
     .index-date {
-        font-size: calc(var(--mdc-typography-body1-font-size) - 0.2rem);
+        font-size: calc(var(--mdm-typography-body1-font-size) - 0.2rem);
     }
 
 }
@@ -201,11 +201,11 @@ body {
     }
 
     .index-author {
-        font-size: calc(var(--mdc-typography-body1-font-size) - 0.25rem);
+        font-size: calc(var(--mdm-typography-body1-font-size) - 0.25rem);
     }
 
     .index-date {
-        font-size: calc(var(--mdc-typography-body1-font-size) - 0.25rem);
+        font-size: calc(var(--mdm-typography-body1-font-size) - 0.25rem);
     }
 
     .index-pinned-icon-container,

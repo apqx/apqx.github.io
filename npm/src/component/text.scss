@@ -2,22 +2,14 @@
 @use "@material/typography";
 @use "@material/theme";
 
-@mixin basicText {
-    // 使用mdc的字体样式
-    @include typography.typography(body1);
-    color: var(--mdc-theme-on-surface);
-    // 段落间距
-    margin: calc(var(--mdc-typography-body1-font-size) - 0.5rem) 0;
-}
-
 @mixin notoSerifTextContainer {
-    --mdc-typography-font-family: #{base.$text-font-noto-serif};
+    --mdm-typography-font-family: #{base.$text-font-noto-serif};
     --font-weight-light: #{base.$font-weight-light-noto-serif};
     --font-weight-normal: #{base.$font-weight-normal-noto-serif};
     --font-weight-medium: #{base.$font-weight-medium-noto-serif};
 
-    --mdc-typography-body1-font-weight: var(--font-weight-normal);
-    --mdc-typography-subtitle2-font-weight: calc(var(--font-weight-normal) + 30);
+    --mdm-typography-body1-font-weight: var(--font-weight-normal);
+    --mdm-typography-subtitle2-font-weight: calc(var(--font-weight-normal) + 30);
 }
 
 @mixin notoSerifText {
@@ -27,12 +19,12 @@
 
 // 局部字体
 .font-handwritten {
-    --mdc-typography-font-family: #{base.$text-font-handwritten};
+    --mdm-typography-font-family: #{base.$text-font-handwritten};
     --font-weight-light: #{base.$font-weight-light-default};
     --font-weight-normal: #{base.$font-weight-normal-default};
     --font-weight-medium: #{base.$font-weight-medium-default};
-    --mdc-typography-body1-font-size: 1.2rem;
-    --mdc-typography-body1-font-weight: var(--font-weight-normal);
+    --mdm-typography-body1-font-size: 1.2rem;
+    --mdm-typography-body1-font-weight: var(--font-weight-normal);
 
     padding-bottom: 0.1rem;
 }
@@ -45,207 +37,30 @@
 
 // 局部字体
 .font-wenkai {
-    --mdc-typography-font-family: #{base.$text-font-wenkai};
+    --mdm-typography-font-family: #{base.$text-font-wenkai};
     --font-weight-light: #{base.$font-weight-light-default};
     --font-weight-normal: #{base.$font-weight-normal-default};
     --font-weight-medium: #{base.$font-weight-medium-default};
-    --mdc-typography-body1-font-size: calc(#{base.$text-size-base} + 0.02rem);
-    --mdc-typography-body1-font-weight: var(--font-weight-normal);
+    --mdm-typography-body1-font-size: calc(#{base.$text-size-base} + 0.02rem);
+    --mdm-typography-body1-font-weight: var(--font-weight-normal);
 }
 
 .font-jetbrains {
-    --mdc-typography-font-family: #{base.$text-font-code-block-jetbrains};
-}
-
-body * {
-    -webkit-text-size-adjust: 100%;
-    // 如果不设置这个，部分字体如 Inter 在 iPhone Safari 上下划线不会被字体线条隔断
-    // 偶尔出现，时好时坏，奇怪，暂时关闭
-    // font-variation-settings: "opsz" 14;
-    font-optical-sizing: auto;
-    // 启用 OpenType 的 Ligature 连字功能
-    font-variant-ligatures: normal;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    @include theme.property(color, text-primary-on-background);
-}
-
-h1 {
-    @include typography.typography(headline1);
-}
-
-h2 {
-    @include typography.typography(headline2);
-}
-
-h2::before {
-    content: "# ";
-    // 相对尺寸
-    font-size: 0.9em;
-    color: var(--mdc-theme-on-surface-secondary);
-}
-
-h3 {
-    @include typography.typography(headline3);
-}
-
-h3::before {
-    content: "## ";
-    // 相对尺寸
-    font-size: 0.9em;
-    color: var(--mdc-theme-on-surface-secondary);
-}
-
-p {
-    @include basicText();
-    text-align: justify;
-    line-break: normal;
-}
-
-code {
-    @include basicText();
-    font-family: var(--text-code-font-family);
-    // 段落中的代码块字重与段落字体匹配
-    font-weight: var(--text-code-font-weight);
-    margin: 0;
+    --mdm-typography-font-family: #{base.$text-font-code-block-jetbrains};
 }
 
 .font-code {
-    @include basicText();
-    font-family: var(--text-code-font-family);
+    font-family: #{base.$text-font-code-block};
     // 与思源黑体配合时 weight 正常即可
-    --text-code-font-weight: #{base.$font-weight-normal-default};
+    font-weight: #{base.$font-weight-normal-default};
 
     .font-noto-serif-sc & {
-        --text-code-font-family: #{base.$text-font-noto-serif-code};
+        font-family: #{base.$text-font-noto-serif-code};
         // 与思源宋体配合时减少 weight
-        --text-code-font-weight: #{base.$font-weight-normal-default - 30};
+        font-weight: #{base.$font-weight-normal-default - 30};
     }
 }
 
-pre {
-    &:has(code) {
-        position: relative;
-        // border: 1px solid var(--pre-code-border);
-        border-radius: var(--post-inner-shape-round);
-
-        // 代码块两侧渐变遮罩，提示可横向滚动
-        // &:before {
-        //     content: "";
-        //     position: absolute;
-        //     display: block;
-        //     top: 0;
-        //     left: 0;
-        //     width: var(--text-block-padding-horizontal);
-        //     height: 100%;
-        //     background: linear-gradient(to right, var(--pre-code-bg), transparent);
-        // }
-
-        // &:after {
-        //     content: "";
-        //     position: absolute;
-        //     display: block;
-        //     top: 0;
-        //     right: 0;
-        //     width: var(--text-block-padding-horizontal);
-        //     height: 100%;
-        //     background: linear-gradient(to left, var(--pre-code-bg), transparent);
-        // }
-    }
-}
-
-// 代码块
-pre code,
-pre code.hljs {
-    display: block;
-    overflow-x: scroll;
-    font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
-    line-height: calc(var(--mdc-typography-body1-line-height) - 0.2rem);
-    // 独立代码块字重为 normal
-    --text-code-font-weight: #{base.$font-weight-normal-default};
-
-    padding: var(--text-block-padding-vertical) var(--text-block-padding-horizontal);
-    background: var(--pre-code-bg);
-}
-
-/* 段落中单词高亮 */
-code:not(pre code) {
-    font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
-    padding: 0.1rem .3rem .18rem .3rem;
-    margin-left: 0.1rem;
-    margin-right: 0.1rem;
-    border-radius: 0.3rem;
-
-    // 允许在任意位置换行，防止长单词撑破布局
-    line-break: anywhere;
-
-    background: var(--code-highlight-bg);
-    // color: var(--code-highlight-ink);
-    // border: 1px solid var(--code-highlight-border);
-}
-
-// 思源宋体段落中的代码块
-.font-noto-serif-sc {
-    code:not(pre code) {
-        // 英文代码字体比宋体粗很多，需要单独设置更细的 font-face
-        --text-code-font-family: #{base.$text-font-noto-serif-code};
-    }
-
-    pre code,
-    pre code.hljs {
-        --text-code-font-weight: #{base.$font-weight-normal-default - 30};
-    }
-}
-
-em code {
-    padding-left: 0.2rem;
-    padding-right: 0.3rem;
-    margin-left: 0.2rem;
-    margin-right: 0.2rem;
-}
-
-pre {
-    margin: calc(var(--mdc-typography-body1-font-size) - 0.3rem) 0;
-    overflow: scroll;
-}
-
-p.no-justify {
-    text-align: left;
-}
-
-li {
-    @include basicText();
-    // item 间距
-    margin: calc(var(--mdc-typography-body1-font-size) / 10) 0;
-}
-
-// 斜体，一般用于图片说明
-em {
-    color: var(--em-color);
-    // 向字体底层传递 -10 倾斜轴，Google Sans Flex 以可变字体创建 italic font-face，通过这个参数可更改倾斜度
-    // 对正常字体无影响
-    // Google Sans Flex 已经将此参数固化到字体文件中，所以不需要再设置这个参数
-    font-variation-settings: "slnt" -10;
-}
-
-strong,
-b {
-    // 霞鹜文楷粗体只提供 medium
-    font-weight: var(--font-weight-medium);
-}
-
-// 加粗强调，一般用于句子
-strong {
-    color: var(--strong-color);
-    box-shadow: inset 0 calc(var(--mdc-typography-body1-font-size) / 2 * -1) 0 0 var(--strong-underline-color);
-    // text-decoration: var(--strong-underline-color) wavy underline;
-}
 
 .no-shadow {
     box-shadow: none;
@@ -255,100 +70,14 @@ strong {
     color: var(--em-color);
 }
 
-a {
-    // 以 ::after 伪元素方式实现下划线
-    position: relative;
-    text-decoration: underline;
-    // 下划线与文字的间距
-    text-underline-offset: 0.15rem;
-    // 下划线粗细
-    text-decoration-thickness: 1px;
-    // 去除移动版 Chrome 点击时默认的蓝色背景
-    -webkit-tap-highlight-color: transparent;
-    color: inherit;
-}
-
-a.clickable-empty-link {
-    // url 为空的 <a>
-    cursor: pointer;
-}
-
-// a:hover {
-//     text-decoration: none;
-// }
-
-/* 无序列表 */
-ul {
-    padding-left: 2rem;
-    padding-right: 0;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-    /* 实心圆 */
-    list-style-type: disc;
-}
-
-/* 有序列表 */
-ol {
-    padding-left: 2rem;
-    padding-right: 0;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-    /* 数字 */
-    list-style-type: decimal;
-}
-
-address {
-    font-style: normal;
-}
-
-address,
-time {
-    @include basicText();
-    margin: 0;
-}
-
-@mixin block-text {
+.surface-block {
     // 颜色减淡，字体减小
     --mdc-theme-on-surface: var(--mdc-theme-on-surface-secondary);
-    // --strong-color: var(--mdc-theme-on-surface);
-    --mdc-typography-body1-font-size: calc(#{base.$text-size-base} - 0.05rem);
+    --mdm-typography-body1-font-size: calc(#{base.$text-size-base} - 0.05rem);
 
-    // --mdc-typography-body1-font-weight: var(--font-weight-light);
-    // 当组件字重为 light 时，设置其中的代码、加粗字重为合适的值
-    // --text-code-font-weight: var(--font-weight-light);
-    // strong,
-    // b {
-    //     --mdc-typography-body1-font-weight: var(--font-weight-normal);
-    // }
-}
-
-.surface-block {
-    @include block-text();
-    // @include text.notoSerifTextContainer();
-
-    // border: 1px solid var(--surface-block-border);
     border-radius: var(--post-inner-shape-round);
     background: var(--surface-block-bg);
-    // margin: calc(var(--mdc-typography-body1-font-size) - 0.3rem) 0;
     padding: var(--text-block-padding-vertical) var(--text-block-padding-horizontal);
-}
-
-// 引用段落
-blockquote {
-    margin: 0.65rem 0;
-    padding: 0 1.3rem 0 1rem;
-    border-left: 0.3rem solid var(--blockquote-border);
-    border-radius: 0.2rem;
-    @include block-text();
-    // @include notoSerifTextContainer();
-
-    p {
-        margin: 0;
-    }
-}
-
-audio {
-    width: auto;
 }
 
 // 横向滑动，不换行

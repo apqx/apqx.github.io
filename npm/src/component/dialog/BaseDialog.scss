@@ -159,7 +159,7 @@ $dialog-max-width: 35rem;
 
 @mixin baseDialogTitle {
     text-align: center;
-    font-size: var(--mdc-typography-headline1-font-size);
+    font-size: var(--mdm-typography-headline1-font-size);
     line-height: 3rem;
 }
 
@@ -167,8 +167,8 @@ $dialog-max-width: 35rem;
     margin: 1.2rem 1rem;
     color: var(--mdc-theme-on-surface);
     font-weight: var(--font-weight-light);
-    font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
-    line-height: calc(var(--mdc-typography-body1-line-height) - 0.3rem);
+    font-size: var(--mdm-typography-body2-font-size);
+    line-height: var(--mdm-typography-body2-line-height);
 
     strong,
     b {

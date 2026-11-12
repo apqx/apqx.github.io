@@ -1,5 +1,6 @@
 @use "../../style/global" as base;
 @use "@material/snackbar";
+@use "../typography.scss" as typography;
 @use "sass:map";
 
 .mdc-snackbar {
@@ -21,9 +22,11 @@
 }
 
 .mdc-snackbar__label {
+    @include typography.baseBodyText();
+    line-height: normal;
+    font-size: var(--mdm-typography-body2-font-size);
     color: var(--snackbar-ink);
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding: 0.7rem 1rem 0.8rem 1rem;
 }
 
 @media(min-width: base.$screen-small-max-width) {

@@ -43,16 +43,16 @@ interface ListItemProps {
 }
 
 function ListItem(props: ListItemProps) {
-    const linkRef = useRef<HTMLLIElement>(null)
+    const linkRef = useRef<HTMLAnchorElement>(null)
 
     useEffect(() => {
         setupRipple(linkRef.current)
     }, [])
 
     return (
-        <li ref={linkRef}>
+        <li>
             {/* 禁止列表自动获取焦点，可能导致 dialog 关闭时意外滚动到焦点位置 */}
-            <a className={"mdm-list-item mdm-list-item-darken"} href={props.link} target={props.newPage ? "_blank" : "_self"} tabIndex={-1}>
+            <a ref={linkRef} className={"mdm-list-item mdm-list-item-darken"} href={props.link} target={props.newPage ? "_blank" : "_self"} tabIndex={-1}>
                 <div className="mdm-list-item__text">
                     <div className="mdm-list-item__primary-text">{props.title}</div>
                     <div className="mdm-list-item__secondary-text">

@@ -1,11 +1,6 @@
 // import "./table.scss"
-import { MDCDataTable } from "@material/data-table"
 
 export function initTable() {
-
-    for (const ele of document.querySelectorAll(".mdc-data-table")) {
-        new MDCDataTable(ele)
-    }
 
     for (const tableE of document.querySelectorAll(".should-wrap-table")) {
         wrapTableByDiv(tableE)

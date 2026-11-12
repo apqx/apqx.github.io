@@ -71,7 +71,7 @@ export function AuthDialog(props: AuthDialogProps) {
                     <LottieAnimation loop={true} autoplay={false} animationDataUrl={"https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/noto-animated-emoji/mouth-none/lottie.json"}
                         animationControllerRef={animationControllerRef} />
                 </div>
-                <TextField label="Words" hint="" inputId="auth-dialog-input" classes={["auth-dialog_label"]} onTextChange={onTextChange} onClickEnter={checkInputAuth} tabIndex={-1} />
+                <TextField label="Password" hint="" inputId="auth-dialog-input" classes={["auth-dialog_label"]} onTextChange={onTextChange} onClickEnter={checkInputAuth} tabIndex={-1} />
 
                 <p id="auth-dialog_tips">本内容为小范围公开，请输入我的微信或哔哩哔哩用户名进行访问验证。小声提示：<a
                     href="https://space.bilibili.com/11037907" target="_blank" rel="noopener" tabIndex={-1}>哔哩哔哩</a>。</p>

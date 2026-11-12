@@ -1,7 +1,7 @@
 @use "../style/global" as base;
 // 先引入 mdc 的 theme，然后用自定义变量覆盖其原有配置
 @use "@material/theme";
-@use "@material/typography";
+@use "typography" as typography;
 
 @use "sass:map";
 @use "sass:color";
@@ -172,58 +172,10 @@
 }
 
 body {
-        // 默认字体是思源黑体
-        --mdc-typography-font-family: #{base.$text-font-noto-sans};
         // 该字体对应的 font-weight 级别
         --font-weight-light: #{base.$font-weight-light-noto-sans};
         --font-weight-normal: #{base.$font-weight-normal-noto-sans};
         --font-weight-medium: #{base.$font-weight-medium-noto-sans};
-
-        --mdc-typography-body1-font-size: #{base.$text-size-base};
-        --mdc-typography-body1-line-height: #{base.$text-line-height-base};
-        // Chrome 设置 letter-spacing 为非 normal 会导致 OpenType 字体的连字功能失效
-        --mdc-typography-body1-letter-spacing: normal;
-        --mdc-typography-body1-font-weight: var(--font-weight-normal);
-
-        --mdc-typography-body2-letter-spacing: normal;
-
-        // 代码字体
-        --text-code-font-family: #{base.$text-font-code-block};
-        // 代码字重，注意段落中的代码块字重，有时候同样字重的中英文字体显示并不一致，需要单独设置
-        --text-code-font-weight: var(--font-weight-normal);
-
-        --mdc-typography-subtitle1-font-size: var(--mdc-typography-body1-font-size);
-        --mdc-typography-subtitle1-font-weight: var(--mdc-typography-body1-font-weight);
-
-        // Drawer 中的 section title
-        --mdc-typography-subtitle2-font-size: calc(var(--mdc-typography-body1-font-size) - 0.08rem);
-        --mdc-typography-subtitle2-font-weight: var(--font-weight-normal);
-
-        --mdc-text-button-label-text-size: calc(var(--mdc-typography-body1-font-size) - 0.12rem);
-        --mdc-text-button-label-text-weight: var(--mdc-typography-body1-font-weight);
-
-        --mdc-typography-headline1-font-size: calc(var(--mdc-typography-body1-font-size) + 0.6rem);
-        --mdc-typography-headline1-font-weight: calc(var(--mdc-typography-body1-font-weight) + 30);
-        --mdc-typography-headline1-letter-spacing: normal;
-
-        --mdc-typography-headline2-font-size: calc(var(--mdc-typography-body1-font-size) + 0.5rem);
-        --mdc-typography-headline2-line-height: calc(var(--mdc-typography-body1-font-size) + 1.2rem);
-        --mdc-typography-headline2-font-weight: calc(var(--mdc-typography-body1-font-weight) + 20);
-        --mdc-typography-headline2-letter-spacing: normal;
-
-        --mdc-typography-headline3-font-size: calc(var(--mdc-typography-body1-font-size) + 0.3rem);
-        --mdc-typography-headline3-line-height: calc(var(--mdc-typography-body1-font-size) + 1rem);
-        --mdc-typography-headline3-font-weight: calc(var(--mdc-typography-body1-font-weight) + 10);
-        --mdc-typography-headline3-letter-spacing: normal;
-
-        --mdc-typography-headline4-letter-spacing: normal;
-        --mdc-typography-headline5-letter-spacing: normal;
-
-        --mdc-typography-headline6-font-size: calc(var(--mdc-typography-body1-font-size) + 0.25rem);
-        --mdc-typography-headline6-font-weight: var(--mdc-typography-body1-font-weight);
-        --mdc-typography-headline6-letter-spacing: normal;
-
-        --mdc-typography-button-letter-spacing: normal;
 
         --safe-area-inset-top: env(safe-area-inset-top, 0px);
         --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);

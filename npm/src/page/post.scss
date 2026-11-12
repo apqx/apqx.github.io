@@ -3,7 +3,7 @@
 
 /* 文章题目 */
 .post-title {
-    font-size: calc(var(--mdc-typography-body1-font-size) + 0.6rem);
+    font-size: calc(var(--mdm-typography-body1-font-size) + 0.6rem);
     line-height: 2.5rem;
     margin: 1rem 2rem;
     text-align: center;
@@ -14,7 +14,7 @@
 .post-author {
     color: var(--mdc-theme-text-secondary-on-background);
     line-height: 1.75rem;
-    font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
+    font-size: calc(var(--mdm-typography-body1-font-size) - 0.1rem);
     text-align: center;
     margin-top: 0.8rem;
 }
@@ -23,7 +23,7 @@
 .post-date {
     color: var(--mdc-theme-text-secondary-on-background);
     line-height: 1.75rem;
-    font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
+    font-size: calc(var(--mdm-typography-body1-font-size) - 0.1rem);
     text-align: center;
     // margin-top: 0.5rem;
 }

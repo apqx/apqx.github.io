@@ -1,9 +1,11 @@
 @use "@material/textfield";
 
 .mdc-text-field {
+    height: 3.6rem;
+
     display: flex;
     align-items: center;
-    padding: 0 0 0 1rem;
+    padding: 0 0.5rem 0 1rem;
     margin-left: auto;
     margin-right: auto;
 
@@ -15,12 +17,19 @@
     @include textfield.hover-outline-color(var(--textfield-border));
     @include textfield.focused-outline-color(var(--textfield-border));
 
+    .mdc-floating-label,
+    .mdc-text-field__input {
+        font-family: var(--mdm-typography-font-family);
+        font-size: var(--mdm-typography-body1-font-size);
+        font-weight: var(--mdm-typography-body1-font-weight);
+    }
+
     button.text-field__icon {
-        height: 100%;
-        width: 4.5rem;
+        // TODO：为 ripple 设置 overflow: hidden，但不知为什么
+        // width 比设置值小，这里适当加大
+        width: 3.4rem;
         border-radius: 0 var(--mdc-shape-small) var(--mdc-shape-small) 0;
         // border-left: 1px solid var(--textfield-border);
-        overflow: hidden;
 
         i {
             color: var(--mdc-theme-text-secondary-on-background);

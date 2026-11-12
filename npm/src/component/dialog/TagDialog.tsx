@@ -1,5 +1,4 @@
 import "./TagDialog.scss"
-import { MDCList } from "@material/list"
 import { BaseDialog, TAG_DIALOG_WRAPPER_ID, getDialogController, showDialog } from "./BaseDialog"
 import type { BaseDialogOpenProps } from "./BaseDialog"
 import { consoleInfo } from "../../util/log"
@@ -92,11 +91,6 @@ function PostResult(props: PostResultProps) {
             return { url: item.path, title: item.title, date: item.date, type: postType.name, block1Array: postBlocks[0], block2Array: postBlocks[1] }
         })
     }, [props.list])
-
-    useEffect(() => {
-        const rootE = containerRef.current as Element
-        new MDCList(rootE)
-    }, [])
 
     return (
         <ul ref={containerRef} className="mdm-list">

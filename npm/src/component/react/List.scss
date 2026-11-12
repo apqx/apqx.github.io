@@ -57,8 +57,8 @@ li {
 
             .mdm-list-item__secondary-text {
                 color: var(--list-secondary-ink);
-                font-size: calc(var(--mdc-typography-body1-font-size) - 0.1rem);
-                line-height: calc(var(--mdc-typography-body1-line-height) - 0.3rem);
+                font-size: var(--mdm-typography-body2-font-size);
+                line-height: var(--mdm-typography-body2-line-height);
                 font-weight: var(--font-weight-light);
 
                 .mdm-list--one-line & {

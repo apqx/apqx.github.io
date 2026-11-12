@@ -17,8 +17,9 @@
 
 .search-result-item-type {
     @include tagDialog.block();
-    @include tagDialog.blockFirst();
     margin-right: 0.2rem;
+    padding-top: 0.12rem;
+    padding-bottom: 0.12rem;
 
     color: var(--list-chip-1-ink);
     background: var(--list-chip-1-bg);
