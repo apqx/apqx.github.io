@@ -12,10 +12,11 @@ import { PostPagefindPaginator } from "../base/paginate/PostPagefindPaginator"
 import { getSectionTypeByPath } from "../../base/constant"
 import { TextField } from "../react/TextField"
 import { setupRipple } from "../ripple"
+import { LottieAnimation, type LottieAnimationController } from "../react/LottieAnimation"
 
 export function SearchDialog(props: BaseDialogOpenProps) {
-    const containerRef = useRef<HTMLDivElement>(null)
     const textInputRef = useRef<string>("")
+    const animationControllerRef = useRef<LottieAnimationController | null>(null)
     const [clearInputCounter, setClearInputCounter] = useState(0)
 
     const paginateViewModel = useMemo(() => {
@@ -40,11 +41,12 @@ export function SearchDialog(props: BaseDialogOpenProps) {
     }, [paginateViewModel, pagefindOptions])
 
     const onDialogOpen = useCallback(() => {
-
+        animationControllerRef.current?.play()
     }, [])
 
     const onDialogClose = useCallback(() => {
         paginateViewModel.abort()
+        animationControllerRef.current?.pause()
     }, [paginateViewModel])
 
     const onLoadMore = useCallback(() => {
@@ -72,20 +74,23 @@ export function SearchDialog(props: BaseDialogOpenProps) {
             }
         }]
     }, [paginateViewModel])
+
     return (
         <BaseDialog dialogControllerRef={props.dialogControllerRef} onDialogOpen={onDialogOpen} onDialogClose={onDialogClose} actions={actions}>
-            <div ref={containerRef} className="center-inline-items">
-                <TextField label="Search" hint="" inputId="search-dialog-input" classes={["search-dialog_label"]} onTextChange={onTextChange} tabIndex={-1} icon="search"
-                    onClickIcon={onClickSearch} onClickEnter={onClickSearch} clearInputCounter={clearInputCounter} />
+            <div className="common-lottie-container">
+                <LottieAnimation loop={true} autoplay={true} animationDataUrl={"https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/noto-animated-emoji/cow-face/lottie.json"}
+                    animationControllerRef={animationControllerRef} />
+            </div>
+            <TextField label="Search" hint="" inputId="search-dialog-input" classes={["search-dialog_label"]} onTextChange={onTextChange} tabIndex={-1} icon="search"
+                onClickIcon={onClickSearch} onClickEnter={onClickSearch} clearInputCounter={clearInputCounter} />
 
-                <p id="search-dialog_tips"><b>TIPS：</b>中文低频词组用空格分隔会有更好匹配，比如名字「施夏明」改为「施 夏 明」。若网络通畅可使用 <a
-                    href="https://cse.google.com/cse?cx=757420b6b2f3d47d2" target="_blank" rel="noopener" tabIndex={-1}>Google 站内搜索</a>。</p>
-                <div>
-                    {(state.posts != null && state.posts.length > 0) &&
-                        <SearchResult list={state.posts} />
-                    }
-                    <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore} />
-                </div>
+            <p id="search-dialog_tips"><b>TIPS：</b>中文低频词组用空格分隔会有更好匹配，比如名字「施夏明」改为「施 夏 明」。若网络通畅可使用 <a
+                href="https://cse.google.com/cse?cx=757420b6b2f3d47d2" target="_blank" rel="noopener" tabIndex={-1}>Google 站内搜索</a>。</p>
+            <div>
+                {(state.posts != null && state.posts.length > 0) &&
+                    <SearchResult list={state.posts} />
+                }
+                <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore} />
             </div>
         </BaseDialog>
     )

@@ -22,6 +22,9 @@
         // 小标题字体色
         --mdc-theme-text-secondary-on-background: #{map.get(base.$text-subtitle, "light")};
 
+        --fab-bg: var(--mdc-theme-secondary);
+        --fab-ink: var(--mdc-theme-on-secondary);
+
         --footer-ink:#{map.get(base.$footer-ink, "light")};
 
         // Drawer
@@ -63,7 +66,6 @@
         --list-chip-2-ink: #{map.get(base.$text-block-2-ink, "light")};
         --list-chip-3-bg: #{map.get(base.$text-block-3-bg, "light")};
         --list-chip-3-ink: #{map.get(base.$text-block-3-ink, "light")};
-        --list-secondary-ink: #{map.get(base.$text-content-secondary, "light")};
 
         --index-list-pin-icon-bg: #{map.get(base.$index-list-pin-icon-bg, "light")};
 
@@ -87,8 +89,6 @@
 
         --snackbar-bg: #{map.get(base.$snackbar-bg, "light")};
         --snackbar-ink: #{map.get(base.$snackbar-ink, "light")};
-
-        --test-color: white;
 }
 
 @mixin dark {
@@ -143,7 +143,6 @@
         --list-chip-2-ink: #{map.get(base.$text-block-2-ink, "dark")};
         --list-chip-3-bg: #{map.get(base.$text-block-3-bg, "dark")};
         --list-chip-3-ink: #{map.get(base.$text-block-3-ink, "dark")};
-        --list-secondary-ink: #{map.get(base.$text-content-secondary, "dark")};
 
         --index-list-pin-icon-bg: #{map.get(base.$index-list-pin-icon-bg, "dark")};
 
@@ -167,8 +166,113 @@
 
         --snackbar-bg: #{map.get(base.$snackbar-bg, "dark")};
         --snackbar-ink: #{map.get(base.$snackbar-ink, "dark")};
+}
 
-        --test-color: black;
+$ripple-light-gap: 75%;
+
+@mixin colorful() {
+
+        --mdc-theme-primary: var(--md-sys-color-primary);
+        --mdc-theme-on-primary: var(--md-sys-color-on-primary);
+        --mdc-theme-secondary: var(--md-sys-color-secondary);
+        --mdc-theme-on-secondary: var(--md-sys-color-on-secondary);
+
+        // --mdc-theme-surface: var(--md-sys-color-surface-container-lowest);
+        // --mdc-theme-background: var(--md-sys-color-surface);
+        // --mdc-theme-surface-container: var(--md-sys-color-surface);
+
+        --mdc-theme-surface: var(--md-sys-color-surface);
+        --mdc-theme-background: var(--md-sys-color-surface-container-low);
+        --mdc-theme-surface-container: var(--mdc-theme-background);
+
+        --mdc-theme-on-surface: var(--md-sys-color-on-surface);
+        --mdc-theme-on-surface-secondary: var(--md-sys-color-on-surface-variant);
+        --mdc-theme-on-surface-vivid: color-mix(in srgb, var(--md-sys-color-error) 80%, transparent);
+        --mdc-theme-text-primary-on-background: var(--md-sys-color-on-surface);
+        --mdc-theme-text-secondary-on-background: var(--md-sys-color-on-surface);
+
+
+        // --fab-bg: color-mix(in srgb, var(--md-sys-color-primary) 70%, transparent);
+        --fab-bg: var(--md-sys-color-primary);
+        --fab-ink: var(--md-sys-color-on-primary);
+
+        --footer-ink: var(--md-sys-color-on-surface-variant);
+
+        // Drawer
+        // --scrim-bg: #{map.get(base.$scrim, "dark")};
+        --drawer-nav-ripple: oklch(from var(--mdc-theme-surface) calc(l - 0.15) c h);
+
+        // Dialog
+        --dialog-action-btn-bg: var(--mdc-theme-surface);
+        --dialog-action-btn-ink: var(--md-sys-color-on-surface-variant);
+        --dialog-action-btn-ripple: oklch(from var(--mdc-theme-surface) calc(l - 0.15) c h);
+
+        --card-ripple: oklch(from var(--mdc-theme-surface) calc(l - 0.22) c h);
+
+        --button-bg: var(--md-sys-color-primary);
+        --button-ink: var(--md-sys-color-on-primary);
+        --button-ripple: oklch(from var(--button-bg) calc(l - 0.15) c h);
+        --icon-button-ripple: oklch(from var(--mdc-theme-surface) calc(l - 0.15) c h);
+        --navigation: var(--md-sys-color-on-surface-variant);
+
+        // Code
+        --code-highlight-bg: var(--mdc-theme-surface-container);
+        // --code-highlight-border: #{map.get(base.$code-highlight-border, "dark")};
+        --code-highlight-ink: var(--md-sys-color-on-surface);
+        --pre-code-bg: var(--mdc-theme-surface-container);
+        // --pre-code-border: #{map.get(base.$pre-code-border, "dark")};
+        // --pre-code-border-heavy: #{map.get(base.$pre-code-border-heavy, "dark")};
+
+        // Chip
+        --chip-bg: var(--md-sys-color-surface-container-low);
+        --chip-ink: var(--md-sys-color-on-surface-variant);
+        --chip-ripple: oklch(from var(--chip-bg) calc(l - 0.15) c h);
+        --chip-checked-bg: var(--md-sys-color-primary-container);
+        --chip-checked-ink: var(--md-sys-color-on-primary-container);
+        // --list-chip-1-bg: var(--md-sys-color-primary-container);
+        // --list-chip-1-ink: var(--md-sys-color-on-primary-container);
+        // --list-chip-2-bg: var(--md-sys-color-secondary-container);
+        // --list-chip-2-ink: var(--md-sys-color-on-secondary-container);
+        // --list-chip-3-bg: var(--md-sys-color-tertiary-container);
+        // --list-chip-3-ink: var(--md-sys-color-on-tertiary-container);
+
+        // --index-list-pin-icon-bg: #{map.get(base.$index-list-pin-icon-bg, "dark")};
+
+        --em-color: var(--md-sys-color-on-surface-variant);
+        --strong-color: var(--md-sys-color-primary);
+        --strong-underline-color: transparent;
+        --tag-underline-color: oklch(from var(--mdc-theme-surface) calc(l - 0.1) c h);
+        --blockquote-border: color-mix(in srgb, var(--md-sys-color-tertiary) 10%, transparent);
+
+        --surface-block-border: var(--md-sys-color-outline);
+        --surface-block-border-heavy: var(--md-sys-color-outline-variant);
+        --surface-block-bg: var(--md-sys-color-tertiary-container);
+        --surface-block-ink: var(--md-sys-color-on-tertiary-container);
+
+        --list-border: var(--md-sys-color-outline-variant);
+        --list-bg: var(--mdc-theme-surface-container);
+        --list-divider-color: var(--md-sys-color-outline-variant);
+        --list-ripple: oklch(from var(--list-bg) calc(l - 0.15) c h);
+
+        --textfield-border: color-mix(in srgb, var(--md-sys-color-outline) 20%, transparent);
+        --common-divider-color: color-mix(in srgb, var(--md-sys-color-outline-variant) 15%, transparent);
+
+        --snackbar-bg: var(--md-sys-color-inverse-surface);
+        --snackbar-ink: var(--md-sys-color-inverse-on-surface);
+
+        &.dark {
+                --mdc-theme-surface: var(--md-sys-color-surface);
+                --mdc-theme-background: var(--md-sys-color-surface-container-lowest);
+                --mdc-theme-surface-container: var(--md-sys-color-surface-container-low);
+
+                --tag-underline-color: oklch(from var(--mdc-theme-surface) calc(l + 0.13) c h);
+                --drawer-nav-ripple: oklch(from var(--mdc-theme-surface) calc(l + 0.15) c h);
+                --card-ripple: oklch(from var(--mdc-theme-surface) calc(l + 0.22) c h);
+                --list-ripple: oklch(from var(--list-bg) calc(l + 0.15) c h);
+                --chip-ripple: oklch(from var(--chip-bg) calc(l + 0.15) c h);
+                --button-ripple: oklch(from var(--button-bg) calc(l + 0.15) c h);
+                --icon-button-ripple: oklch(from var(--mdc-theme-surface) calc(l + 0.15) c h);
+        }
 }
 
 body {
@@ -224,6 +328,10 @@ body {
 
 .dark {
         @include dark;
+}
+
+.colorful {
+        @include colorful();
 }
 
 // 平板中屏

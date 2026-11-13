@@ -6,6 +6,7 @@ export class LocalDb {
     KEY_LENS_BIGGER_PICTURE = "lensBiggerPicture"
     KEY_HIDE_STATUS_BAR_BG = "hideStatusBarBg"
     KEY_AUTH = "auth"
+    KEY_COLORFUL = "colorful"
 
     VALUE_THEME_DARK = "dark"
     VALUE_THEME_LIGHT = "light"
@@ -91,6 +92,14 @@ export class LocalDb {
 
     getAuth(): string | null {
         return this.getString(this.KEY_AUTH)
+    }
+
+    saveColorful(current: boolean) {
+        this.saveBoolean(this.KEY_COLORFUL, current)
+    }
+
+    getColorful(): boolean {
+        return this.getBoolean(this.KEY_COLORFUL) ?? false
     }
 }
 

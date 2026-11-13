@@ -12,9 +12,8 @@ interface AuthDialogProps extends BaseDialogOpenProps {
 }
 
 export function AuthDialog(props: AuthDialogProps) {
-    const containerRef = useRef<HTMLDivElement>(null)
     const textInputRef = useRef<string>("")
-    const animationControllerRef = useRef<LottieAnimationController | null>(null) 
+    const animationControllerRef = useRef<LottieAnimationController | null>(null)
 
     const checkInputAuth = useCallback(() => {
         if (textInputRef.current == null || textInputRef.current.length == 0) {
@@ -66,23 +65,21 @@ export function AuthDialog(props: AuthDialogProps) {
     return (
         <BaseDialog dialogControllerRef={props.dialogControllerRef} onDialogOpen={onDialogOpen} onDialogClose={onDialogClose} closeOnClickOutside={props.dismissible}
             actions={actions}>
-            <div ref={containerRef} className="center-inline-items">
-                <div id="preference-dialog__top-container">
-                    <LottieAnimation loop={true} autoplay={false} animationDataUrl={"https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/noto-animated-emoji/mouth-none/lottie.json"}
-                        animationControllerRef={animationControllerRef} />
-                </div>
-                <TextField label="Password" hint="" inputId="auth-dialog-input" classes={["auth-dialog_label"]} onTextChange={onTextChange} onClickEnter={checkInputAuth} tabIndex={-1} />
-
-                <p id="auth-dialog_tips">本内容为小范围公开，请输入我的微信或哔哩哔哩用户名进行访问验证。小声提示：<a
-                    href="https://space.bilibili.com/11037907" target="_blank" rel="noopener" tabIndex={-1}>哔哩哔哩</a>。</p>
-
+            <div className="common-lottie-container">
+                <LottieAnimation loop={true} autoplay={false} animationDataUrl={"https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/noto-animated-emoji/mouth-none/lottie.json"}
+                    animationControllerRef={animationControllerRef} />
             </div>
+            <TextField label="Password" hint="" inputId="auth-dialog-input" classes={["auth-dialog_label"]} onTextChange={onTextChange} onClickEnter={checkInputAuth} tabIndex={-1} />
+
+            <p id="auth-dialog_tips">本内容为小范围公开，请输入我的微信或哔哩哔哩用户名进行访问验证。小声提示：<a
+                href="https://space.bilibili.com/11037907" target="_blank" rel="noopener" tabIndex={-1}>哔哩哔哩</a>。</p>
+
         </BaseDialog>
     )
 }
 
 export function showAuthDialog(authCallback: (success: boolean) => void, dismissible: boolean = true) {
-    const id = AUTH_DIALOG_WRAPPER_ID   
+    const id = AUTH_DIALOG_WRAPPER_ID
     const dialogControllerRef = getDialogController(id)
     showDialog(<AuthDialog dialogControllerRef={dialogControllerRef} authCallback={authCallback} dismissible={dismissible} />, id)
     if (dialogControllerRef.current) {

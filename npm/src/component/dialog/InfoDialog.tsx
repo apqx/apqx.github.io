@@ -5,6 +5,7 @@ import { BaseDialog, getDialogController, INFO_DIALOG_WRAPPER_ID, showDialog, ty
 import { getChromeVersion } from "../../util/tools"
 import { Tag } from "../react/Tag"
 import { List } from "../react/List"
+import { getLocalRepository } from "../../repository/LocalDb"
 
 
 function InfoDialog(props: BaseDialogOpenProps) {
@@ -25,6 +26,10 @@ function InfoDialog(props: BaseDialogOpenProps) {
         window.location.reload()
     }, [])
 
+    const setColorful = useCallback((colorful: boolean) => {
+        getLocalRepository().saveColorful(colorful)
+    }, [])
+
     return (
         <BaseDialog dialogControllerRef={props.dialogControllerRef} fixedWidth={false}>
             <div className="info-dialog-content">
@@ -41,6 +46,8 @@ function InfoDialog(props: BaseDialogOpenProps) {
                 <div className="btn-tag-container">
                     <Tag text="Clear cookies" onClick={clearLocalStorage} />
                     <Tag text="Refresh page" onClick={refreshPage} />
+                    <Tag text="Set colorful" onClick={() => { setColorful(true) }} />
+                    <Tag text="Clear colorful" onClick={() => { setColorful(false) }} />
                 </div>
                 <p><strong className="no-shadow">Links</strong></p>
                 <List oneLine={false} items={[

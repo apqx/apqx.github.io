@@ -23,6 +23,9 @@
         -webkit-backdrop-filter: blur(map.get(base.$fab-bg, "backdrop-filter"));
         backdrop-filter: blur(map.get(base.$fab-bg, "backdrop-filter"));
         @include ripple.ripple(var(--button-ripple), 0, 0, 0.15);
+
+        background-color: var(--fab-bg);
+        color: var(--fab-ink);
     }
 
     .mdc-touch-target-wrapper:first-child {

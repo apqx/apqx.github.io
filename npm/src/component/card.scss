@@ -17,4 +17,8 @@
 
 @mixin cardRipple {
     @include ripple.ripple(var(--card-ripple), 0, 0, 0.2);
+
+    .colorful & {
+        @include ripple.ripple(var(--md-sys-color-primary), 0, 0, 0.08);
+    }
 }

@@ -137,7 +137,7 @@ p {
     // 段落间距
     line-height: var(--mdm-typography-body1-line-height);
     margin: calc(var(--mdm-typography-body1-font-size) - 0.5rem) 0;
-    text-align: justify;
+    // text-align: justify;
     line-break: normal;
 
     &.no-justify {
@@ -188,6 +188,11 @@ a {
     &.clickable-empty-link {
         // url 为空的 <a>
         cursor: pointer;
+    }
+
+    .colorful &:not(.mdm-list-item,.mdc-card,.mdm-topbar__title,.tag-link) {
+        color: var(--md-sys-color-primary);
+        font-weight: calc(var(--font-weight-normal) + 50);
     }
 }
 
@@ -311,7 +316,7 @@ code:not(pre code) {
     border-radius: 0.3rem;
 
     // 允许在任意位置换行，防止长单词撑破布局
-    line-break: anywhere;
+    // line-break: anywhere;
 
     background: var(--code-highlight-bg);
     // color: var(--code-highlight-ink);

@@ -2,11 +2,6 @@
 @use "../../style/global" as base;
 @use "sass:map";
 
-#preference-dialog__top-container {
-    margin: 0.8rem 0rem;
-    text-align: center;
-}
-
 #preference-dialog__toggle-container {
     margin-top: 0.5rem;
 }
@@ -37,17 +32,4 @@
 .emoji-preference {
     width: 4.5rem;
     height: 4.5rem;
-}
-
-// 小屏
-@media (max-width: base.$screen-small-max-width) {
-    #preference-dialog__top-container {
-        margin: 0.5rem 0rem;
-    }
-
-    .preference-item-toggle {
-        .preference-item-toggle__title {
-            // width: 16rem;
-        }
-    }
 }

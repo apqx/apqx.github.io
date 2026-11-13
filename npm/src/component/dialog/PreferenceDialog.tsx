@@ -55,7 +55,7 @@ export function PreferenceDialog(props: BaseDialogOpenProps) {
 
     return (
         <BaseDialog dialogControllerRef={props.dialogControllerRef} onDialogOpen={onDialogOpen} onDialogClose={onDialogClose}>
-            <div id="preference-dialog__top-container">
+            <div className="common-lottie-container">
                 <LottieAnimation loop={true} autoplay={false} animationDataUrl={"https://apqx-host.oss-cn-hangzhou.aliyuncs.com/blog/emojis/noto-animated-emoji/mouth-none/lottie.json"}
                     animationControllerRef={animationControllerRef} />
             </div>

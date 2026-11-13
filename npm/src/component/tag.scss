@@ -36,9 +36,13 @@ $btnTagPaddingHorizontal: 0.8rem;
 }
 
 .mdc-button.btn-tag.btn-tag-checked {
-    @include button.ink-color(var(--list-chip-3-ink));
-    @include button.container-fill-color(var(--list-chip-3-bg));
+    @include button.ink-color(var(--chip-checked-ink));
+    @include button.container-fill-color(var(--chip-checked-bg));
     border-radius: calc($btnTagSideRadius / 2);
+
+    .colorful & {
+        border-radius: $btnTagSideRadius;
+    }
 }
 
 .btn-tag-container-no-material {

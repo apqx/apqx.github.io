@@ -1,6 +1,23 @@
-import { argbFromHex, MaterialDynamicColors, type DynamicColor, Hct, SchemeTonalSpot, hexFromArgb } from "@material/material-color-utilities"
+import { argbFromHex, MaterialDynamicColors, type DynamicColor, Hct, SchemeTonalSpot, hexFromArgb, SchemeFidelity, SchemeNeutral } from "@material/material-color-utilities"
 
 export interface MaterialYouThemeColorTokens {
+    // Primary
+    'primary': DynamicColor
+    'on-primary': DynamicColor
+    'primary-container': DynamicColor
+    'on-primary-container': DynamicColor
+
+    // Neutral
+    'surface': DynamicColor
+    'on-surface': DynamicColor
+    'surface-variant': DynamicColor
+    'on-surface-variant': DynamicColor
+    'surface-container-low': DynamicColor
+    'surface-container': DynamicColor
+    'surface-container-high': DynamicColor
+}
+
+export interface MaterialYouThemeColorTokensAll extends MaterialYouThemeColorTokens {
     // Primary
     'primary': DynamicColor
     'on-primary': DynamicColor
@@ -107,6 +124,32 @@ export function materialYouThemeFromSourceColor(sourceColorHex: string): Materia
 
         'scrim': dynamicColors.scrim(),
         'shadow': dynamicColors.shadow(),
+    };
+    return {
+        sourceColorHct: sourceColorHct,
+        colorTokens: colorTokens,
+        light: calcMaterialColors(sourceColorHct, colorTokens, false),
+        dark: calcMaterialColors(sourceColorHct, colorTokens, true)
+    }
+}
+
+export function limitedMaterialYouThemeFromSourceColor(sourceColorHex: string): MaterialYouTheme {
+    const sourceColorHct = Hct.fromInt(argbFromHex(sourceColorHex));
+    const dynamicColors = new MaterialDynamicColors();
+    // 显式映射现代 M3 规范所需的色彩 Token
+    const colorTokens = {
+        'primary': dynamicColors.primary(),
+        'on-primary': dynamicColors.onPrimary(),
+        'primary-container': dynamicColors.primaryContainer(),
+        'on-primary-container': dynamicColors.onPrimaryContainer(),
+
+        'surface': dynamicColors.surface(),
+        'on-surface': dynamicColors.onSurface(),
+        'surface-variant': dynamicColors.surfaceVariant(),
+        'on-surface-variant': dynamicColors.onSurfaceVariant(),
+        'surface-container-low': dynamicColors.surfaceContainerLow(),
+        'surface-container': dynamicColors.surfaceContainer(),
+        'surface-container-high': dynamicColors.surfaceContainerHigh(),
     };
     return {
         sourceColorHct: sourceColorHct,

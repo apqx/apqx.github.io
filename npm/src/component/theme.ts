@@ -35,6 +35,9 @@ function initDynamicThemeColor() {
     // 生成 Material You 主题色插入到 CSS 变量中
     // https://material-web.dev/theming/color/
     dynamicTheme = materialYouThemeFromSourceColor('#5a5fc1');
+    // dynamicTheme = materialYouThemeFromSourceColor('#c15a72');
+    const colorfulEnabled = getLocalRepository().getColorful()
+    toggleElementClass(document.body, "colorful", colorfulEnabled)
 }
 
 export function isDarkThemeFromDocument(): boolean {
@@ -66,7 +69,7 @@ const metaThemeColor = {
 function checkMetaThemeColor(dark: boolean, show: boolean) {
     if (show) {
         if (document.querySelector(".colorful") != null) {
-            setMetaThemeColor(dark ? dynamicTheme?.dark.get("--md-sys-color-primary") : dynamicTheme?.light.get("--md-sys-color-primary"))
+            setMetaThemeColor(dark ? dynamicTheme?.dark.get("--md-sys-color-surface") : dynamicTheme?.light.get("--md-sys-color-surface"))
         } else {
             setMetaThemeColor(dark ? metaThemeColor.dark : metaThemeColor.light)
         }

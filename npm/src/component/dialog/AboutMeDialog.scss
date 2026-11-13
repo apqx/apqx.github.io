@@ -14,6 +14,7 @@ $avatarWidth: 7rem;
 
     .about-me-description {
         margin: 1.6rem 1rem;
+        text-align: justify;
     }
     
     .circle-avatar {
@@ -23,6 +24,10 @@ $avatarWidth: 7rem;
         margin-top: 2rem;
         border-radius: 50%;
         background-color: var(--chip-bg);
+
+        .colorful & {
+            background-color: var(--md-sys-color-secondary-container);
+        }
     }
 
     .about-me-tag-wrapper {

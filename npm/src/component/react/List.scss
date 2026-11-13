@@ -27,6 +27,7 @@ li {
         height: fit-content;
         text-decoration: none;
         border-radius: $listItemRadius;
+        color: var(--mdc-theme-on-surface);
 
         padding: 0.6rem 1rem;
         display: block;
@@ -56,7 +57,7 @@ li {
             .mdm-list-item__primary-text {}
 
             .mdm-list-item__secondary-text {
-                color: var(--list-secondary-ink);
+                color: var(--mdc-theme-on-surface-secondary);
                 font-size: var(--mdm-typography-body2-font-size);
                 line-height: var(--mdm-typography-body2-line-height);
                 font-weight: var(--font-weight-light);

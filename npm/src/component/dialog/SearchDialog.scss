@@ -8,7 +8,7 @@
 
 .search-dialog_label {
     width: 94%;
-    margin-top: 1.5rem;
+    // margin-top: 1.5rem;
 }
 
 #search-dialog_tips {
@@ -23,6 +23,11 @@
 
     color: var(--list-chip-1-ink);
     background: var(--list-chip-1-bg);
+
+    .colorful & {
+        background: var(--md-sys-color-primary-container);
+        color: var(--md-sys-color-on-primary-container);
+    }
 }
 
 .font-noto-serif-sc {
@@ -39,5 +44,9 @@
     mark {
         background-color: transparent;
         color: var(--mdc-theme-on-surface-vivid);
+
+        .colorful & {
+            font-weight: calc(var(--font-weight-normal) + 50);
+        }
     }
 }

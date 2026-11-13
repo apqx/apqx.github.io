@@ -72,11 +72,11 @@
 
 .surface-block {
     // 颜色减淡，字体减小
-    --mdc-theme-on-surface: var(--mdc-theme-on-surface-secondary);
     --mdm-typography-body1-font-size: calc(#{base.$text-size-base} - 0.05rem);
 
     border-radius: var(--post-inner-shape-round);
     background: var(--surface-block-bg);
+    color: var(--surface-block-ink);
     padding: var(--text-block-padding-vertical) var(--text-block-padding-horizontal);
 }
 

@@ -19,9 +19,14 @@
     }
 
     .colorful & {
-        background-color: var(--md-sys-color-primary);
+        // background-color: var(--md-sys-color-primary);
+        // * {
+        //     color: var(--md-sys-color-on-primary);
+        // }
+
+        // background-color: var(--mdc-theme-background);
         * {
-            color: var(--md-sys-color-on-primary);
+            color: var(--mdc-theme-on-surface);
         }
     }
 

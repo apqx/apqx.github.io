@@ -13,6 +13,7 @@ import type { BasePaginateViewProps } from "../base/paginate/bean/BasePaginateVi
 import { convertPinedToFeatured, toggleElementClass } from "../../util/tools"
 import { getEventEmitter } from "../base/EventBus"
 import { toggleDrawer } from "./Drawer"
+import { getSectionTypeByPath, isIndexPage, SECTION_TYPE_ORIGINAL } from "../../base/constant"
 
 interface Props extends BasePaginateViewProps<Post> {
     pageCover?: string,
@@ -125,9 +126,19 @@ function PageCover(props: PageCoverProps) {
         }
     }, [onCardClick])
 
+    const imgURL = useMemo(() => {
+        let url = props.pageCover
+        if (document.body.classList.contains("colorful")
+            && getSectionTypeByPath(window.location.pathname).identifier == SECTION_TYPE_ORIGINAL.identifier
+            && isIndexPage(window.location.pathname)) {
+            url = "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/index_mudanting_shanwen_zhangwen.jpg"
+        }
+        return url
+    }, [props.pageCover])
+
     return (
         <section ref={containerRef} className="mdc-card index-top-card slide-in-farer slide-in-chained">
-            <img src={props.pageCover}
+            <img src={imgURL}
                 className="index-top-cover" alt={props.pageCoverDescription} id="main-index" draggable="false" />
             <div className="index-top-card-container">
                 <p className="index-top-card-text font-handwritten">{props.pageTitle}</p>

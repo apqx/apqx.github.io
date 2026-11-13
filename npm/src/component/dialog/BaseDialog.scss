@@ -145,18 +145,6 @@ $dialog-max-width: 35rem;
     overflow: hidden;
 }
 
-
-// 平板中屏
-@media (max-width: ($dialog-max-width + 2.2rem)) {
-    .mdm-dialog .mdm-dialog-container-for-flex .mdm-dialog__surface {
-        max-width: calc(100% - 2.2rem);
-    }
-}
-
-// 小屏
-@media (max-width: base.$screen-small-max-width) {}
-
-
 @mixin baseDialogTitle {
     text-align: center;
     font-size: var(--mdm-typography-headline1-font-size);
@@ -182,4 +170,25 @@ $dialog-max-width: 35rem;
 
 .common-alert-dialog_content {
     margin: 1.5rem 1rem 0.5rem 1rem;
+}
+
+.common-lottie-container {
+    margin: 0.85rem 0rem;
+    padding-top: 0.3rem;
+    text-align: center;
+}
+
+// 平板中屏
+@media (max-width: ($dialog-max-width + 2.2rem)) {
+    .mdm-dialog .mdm-dialog-container-for-flex .mdm-dialog__surface {
+        max-width: calc(100% - 2.2rem);
+    }
+}
+
+// 小屏
+@media (max-width: base.$screen-small-max-width) {
+    .common-lottie-container {
+        margin: 0.6rem 0rem;
+        text-align: center;
+    }
 }
