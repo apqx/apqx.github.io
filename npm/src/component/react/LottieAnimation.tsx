@@ -63,7 +63,7 @@ export function LottieAnimation(props: LottieProps) {
             }
         }
         return () => {
-            delayToNextFrame.cancelPendingFrame()
+            delayToNextFrame.cancelPendingAction()
             if (props.animationControllerRef) {
                 props.animationControllerRef.current = null
             }
@@ -80,7 +80,7 @@ export function LottieAnimation(props: LottieProps) {
                 }
             },
             error: (error: any) => {
-                delayToNextFrame.cancelPendingFrame()
+                delayToNextFrame.cancelPendingAction()
                 consoleErrorObj("Failed to load Lottie animation:", error.error)
             }
         }

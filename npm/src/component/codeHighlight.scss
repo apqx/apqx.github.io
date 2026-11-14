@@ -57,7 +57,12 @@
 .hljs-code,
 .hljs-formula {
     /* prettylights-syntax-comment */
-    color: #6a737d
+    color: color-mix(in srgb, var(--md-sys-color-on-surface) 70%, transparent);
+}
+
+.hljs-comment,
+.hljs-quote {
+    font-style: italic;
 }
 
 .hljs-name,
@@ -115,8 +120,7 @@
 
     .hljs-comment,
     .hljs-quote {
-        color: #6c737f;
-        font-style: italic
+        // color: #6c737f;
     }
 
     .hljs-doctag,
@@ -175,8 +179,7 @@
         font-style: italic
     }
 
-    .hljs-strong {
-    }
+    .hljs-strong {}
 
     .hljs-link {
         text-decoration: underline

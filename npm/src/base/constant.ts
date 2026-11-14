@@ -68,7 +68,7 @@ export const SECTION_TYPE_OTHER: SectionType = {
 
 export function isNavigationSection(section: SectionType) {
     return [SECTION_TYPE_ORIGINAL.identifier, SECTION_TYPE_REPOST.identifier, SECTION_TYPE_POETRY.identifier,
-    SECTION_TYPE_OPERA.identifier, SECTION_TYPE_LENS.identifier
+    SECTION_TYPE_OPERA.identifier, SECTION_TYPE_LENS.identifier, SECTION_TYPE_TAGS.identifier
     ].includes(section.identifier)
 }
 

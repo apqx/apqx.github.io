@@ -32,14 +32,22 @@ li {
         padding: 0.6rem 1rem;
         display: block;
 
-        @include ripple.ripple(var(--md-sys-color-compatible-surface-ripple), 0.1, 0.1, 0.12);
+        @include ripple.ripple(var(--md-sys-color-compatible-surface-ripple1), 0.1, 0.1, 0.12);
 
         .mdm-list-no-hover & {
-            @include ripple.ripple(var(--md-sys-color-compatible-surface-ripple), 0, 0, 0.12);
+            @include ripple.ripple(var(--md-sys-color-compatible-surface-ripple1), 0, 0, 0.12);
+        }
+
+        .expressive & {
+            @include ripple.ripple(var(--md-sys-color-compatible-surface-ripple2), 0.03, 0.03, 0.2);
+
+            .mdm-list-no-hover & {
+                @include ripple.ripple(var(--md-sys-color-compatible-surface-ripple2), 0, 0, 0.2);
+            }
         }
 
         &.mdm-list-item-darken {
-            background-color: var(--md-sys-color-surface-container-low);
+            background-color: var(--mdm-list-color-fill);
         }
 
         // .mdm-list--one-line 必须是 li 的父元素
@@ -47,9 +55,7 @@ li {
             padding: 1rem 1rem;
         }
 
-        .mdm-list-item__icon {
-           
-        }
+        .mdm-list-item__icon {}
 
         .mdm-list-item__text {
             text-align: left;

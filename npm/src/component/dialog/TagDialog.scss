@@ -4,7 +4,7 @@
 // 使用此 class 的标签，可以通过 id chip_tag_随笔 弹出对应 dialog_随笔 的 dialog
 .tag-dialog-trigger {}
 
-$blockRadius: 0.1rem;
+$blockRadius: 0.2rem;
 $blockRadiusSide: calc(var(--mdm-typography-body1-font-size) - 0.42rem);
 $blockPaddingHorizontal: 0.45rem;
 $blockPaddingHorizontalSide: 0.55rem;
@@ -46,7 +46,7 @@ $blockPaddingHorizontalSide: 0.55rem;
         width: 1.5rem;
         height: 100%;
         pointer-events: none;
-        background: linear-gradient(to right, transparent, var(--md-sys-color-surface-container-low));
+        background: linear-gradient(to right, transparent, var(--mdm-list-color-fill));
     }
 
     .tag-list-item__block-container {

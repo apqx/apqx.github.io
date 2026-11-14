@@ -58,7 +58,7 @@ export function BaseDialog({ dialogControllerRef = undefined, fixedWidth = false
     const calcHeightContainerRef = useRef<HTMLDivElement>(null)
 
     const animationControllerRef = useRef<IAnimationController | null>(null)
-    const delayToNextFrameRef = useRef<DelayToNextFrame>(new DelayToNextFrame())
+    const delayTaskRef = useRef<DelayToNextFrame>(new DelayToNextFrame())
 
     // 这两个会频繁变化
     const onDialogOpenRef = useRef<() => void>(onDialogOpen)
@@ -81,7 +81,7 @@ export function BaseDialog({ dialogControllerRef = undefined, fixedWidth = false
             scrimControllerRef.current?.close()
             toggleElementClass(document.body, "mdm-dialog-scroll-lock", false)
         }
-        delayToNextFrameRef.current.delay(() => {
+        delayTaskRef.current.delay(() => {
             if (open) {
                 consoleInfo("BaseDialog onDialogOpened")
                 onDialogOpenRef.current?.()
@@ -94,7 +94,7 @@ export function BaseDialog({ dialogControllerRef = undefined, fixedWidth = false
             }
         })
         return () => {
-            delayToNextFrameRef.current.cancelPendingFrame()
+            delayTaskRef.current.cancelPendingAction()
         }
     }, [])
 

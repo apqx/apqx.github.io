@@ -27,6 +27,10 @@
     --mdm-typography-body1-font-weight: var(--font-weight-normal);
 
     padding-bottom: 0.1rem;
+
+    &.pre p{
+        --mdm-typography-body1-font-size: 1.3rem;
+    }
 }
 
 // 全局字体，只能应用于 body，应用于局部可能部分元素不及预期
@@ -41,8 +45,16 @@
     --font-weight-light: #{base.$font-weight-light-default};
     --font-weight-normal: #{base.$font-weight-normal-default};
     --font-weight-medium: #{base.$font-weight-medium-default};
-    --mdm-typography-body1-font-size: calc(#{base.$text-size-base} + 0.02rem);
+    --mdm-typography-body1-font-size: calc(#{base.$text-size-base} + 0.05rem);
     --mdm-typography-body1-font-weight: var(--font-weight-normal);
+
+    // &.pre {
+    //     --mdm-typography-body1-font-weight: var(--font-weight-medium);
+
+    //     .font-noto-serif-sc & {
+    //         --mdm-typography-body1-font-weight: var(--font-weight-normal);
+    //     }
+    // }
 }
 
 .font-jetbrains {

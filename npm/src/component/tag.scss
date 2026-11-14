@@ -5,17 +5,17 @@
 @use "sass:map";
 
 @mixin btnChipRipple {
-    @include ripple.ripple(var(--md-sys-color-compatible-surface-ripple), 0, 0, 0.15);
+    @include ripple.ripple(var(--md-sys-color-compatible-surface-ripple1), 0, 0, 0.15);
 }
 
 $btnTagSideRadius: calc(var(--mdm-typography-body1-font-size) - 0.1rem);
-$btnTagRadius: 0.12rem;
+$btnTagRadius: 0.2rem;
 $btnTagSidePaddingHorizontal: 0.8rem;
 $btnTagPaddingHorizontal: 0.8rem;
 
-.mdc-button.btn-tag {
+.mdc-button.mdm-chip {
     @include button.ink-color(var(--md-sys-color-compatible-on-surface-container));
-    @include button.container-fill-color(var(--md-sys-color-surface-container));
+    @include button.container-fill-color(var(--mdm-chip-color-fill));
     @include button.horizontal-padding($btnTagPaddingHorizontal);
     @include button.height(2.3rem);
     min-width: 3.6rem;
@@ -24,12 +24,13 @@ $btnTagPaddingHorizontal: 0.8rem;
     margin: 0;
     border-radius: $btnTagRadius;
 
-    .expressive & {
-        @include button.container-fill-color(var(--md-sys-color-surface-container-low));
-    }
 
-    &:not(.btn-tag-checkable) {
+    &:not(.mdm-chip-checkable) {
         @include btnChipRipple();
+
+        .expressive & {
+            @include ripple.ripple(var(--md-sys-color-compatible-surface-ripple2), 0, 0, 0.2);
+        }
     }
 
     transition: border-radius 0.2s ease,
@@ -39,7 +40,7 @@ $btnTagPaddingHorizontal: 0.8rem;
     // @include text.notoSerifText();
 }
 
-.mdc-button.btn-tag.btn-tag-checked {
+.mdc-button.mdm-chip.mdm-chip-checked {
     @include button.ink-color(var(--md-sys-color-on-tertiary-container));
     @include button.container-fill-color(var(--md-sys-color-tertiary-container));
     border-radius: calc($btnTagSideRadius / 2);
@@ -49,33 +50,33 @@ $btnTagPaddingHorizontal: 0.8rem;
     }
 }
 
-.btn-tag-container-no-material {
+.mdm-chip-container-no-material {
     display: flex;
     flex-wrap: wrap;
     justify-content: start;
     gap: 0.2rem;
     margin: 3rem 0rem 0.3rem 0rem;
 
-    .mdc-button.btn-tag {
+    .mdc-button.mdm-chip {
         @include button.horizontal-padding($btnTagSidePaddingHorizontal);
         border-radius: calc(var(--mdm-typography-body1-font-size) - 0.6rem);
     }
 }
 
-.btn-tag-container {
+.mdm-chip-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: start;
     gap: calc(var(--list-divider-height) - 0.01rem);
     margin: 1.5rem 0rem;
 
-    .btn-tag:first-child {
+    .mdm-chip:first-child {
         border-top-left-radius: $btnTagSideRadius;
         border-bottom-left-radius: $btnTagSideRadius;
         padding-left: $btnTagSidePaddingHorizontal;
     }
 
-    .btn-tag:last-child {
+    .mdm-chip:last-child {
         border-top-right-radius: $btnTagSideRadius;
         border-bottom-right-radius: $btnTagSideRadius;
         padding-right: $btnTagSidePaddingHorizontal;

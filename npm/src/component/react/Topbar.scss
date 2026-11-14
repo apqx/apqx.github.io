@@ -13,9 +13,13 @@
     // height: 100%;
     z-index: var(--z-index-topbar);
 
-    background-color: var(--md-sys-color-surface);
+    background-color: var(--md-custom-color-layer-front);
     * {
         color: var(--md-sys-color-on-surface);
+    }
+
+    .expressive & {
+        background-color: var(--md-custom-color-layer-back);
     }
 
     .colorful & {

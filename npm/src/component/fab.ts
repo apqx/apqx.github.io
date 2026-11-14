@@ -2,7 +2,7 @@
 
 import { getSectionTypeByPath, isIndexPage, SECTION_TYPE_LENS } from "../base/constant"
 import { getWindowInterSectionObserver } from "./animation/BaseAnimation"
-import { setupIconButtonRipple } from "./button"
+import { setupIconButtonRipple } from "./react/Button"
 import { showLensFilterDialog } from "./dialog/LensFilterDialog"
 
 export function initFab() {

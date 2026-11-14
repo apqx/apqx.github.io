@@ -2,7 +2,7 @@ import "./LensFilterDialog.scss"
 import { useCallback, useEffect, useMemo, useSyncExternalStore } from "react";
 import { BaseDialog, getDialogController, LENS_FILTER_DIALOG_WRAPPER_ID, showDialog, type ActionBtn, type BaseDialogOpenProps } from "./BaseDialog";
 import { LensFilterDialogViewModel, type Category, type Tag } from "./LensFilterDialogViewModel";
-import { CheckableTag } from "../react/CheckableTag";
+import { CheckableChip } from "../react/CheckableChip";
 import { LoadingHint } from "../react/LoadingHint";
 import { consoleInfo } from "../../util/log";
 import { getEventEmitter } from "../base/EventBus";
@@ -138,11 +138,11 @@ function Categories(props: CategoriesProps) {
         <>
             {
                 tagsCount > 0 &&
-                <div className="btn-tag-container lens-filter-dialog__tag-container">
+                <div className="mdm-chip-container lens-filter-dialog__tag-container">
                     {
                         props.categories.map(category =>
                             category.tags.map(tag =>
-                                <CheckableTag key={tag.title} text={getTagTitle(tag)} checked={props.selectedTags.includes(tag.title)} onClick={() => props.onTagClick(tag.title)} />
+                                <CheckableChip key={tag.title} text={tag.title} description={tag.count >=0 ? tag.count.toString() : undefined} checked={props.selectedTags.includes(tag.title)} onClick={() => props.onTagClick(tag.title)} />
                             )
                         )
                     }
@@ -152,7 +152,7 @@ function Categories(props: CategoriesProps) {
     )
 }
 
-function getTagTitle(tag: Tag) {
+function _getTagTitle(tag: Tag) {
     if (tag.count >= 0) {
         return tag.title + " " + tag.count
     } else {

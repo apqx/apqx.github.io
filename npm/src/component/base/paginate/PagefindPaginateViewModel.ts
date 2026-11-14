@@ -136,7 +136,7 @@ export class PagefindPaginateViewModel<P, T, O extends BasePagefindPaginator<P, 
 
     abort(): void {
         this.abortController?.abort()
-        this.delayToNextFrame.cancelPendingFrame()
+        this.delayToNextFrame.cancelPendingAction()
         if (this.state.loading) {
             this.state = {
                 ...this.state,

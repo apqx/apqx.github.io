@@ -126,7 +126,7 @@ export class HttpPaginatorViewModel<H, P extends BaseHttpPaginator<H, T>, T> ext
 
     abort() {
         this.abortController?.abort()
-        this.delayToNextFrame.cancelPendingFrame()
+        this.delayToNextFrame.cancelPendingAction()
         if (this.state.loading) {
             this.state = {
                 ...this.state,

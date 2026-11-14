@@ -136,14 +136,14 @@ $header-icon-weight-enhance-gap: 20;
         padding: 0.25rem var(--list-item-padding-horizontal);
         border-radius: 1.3rem;
         // hover focus press
-        @include ripple.ripple(var(--md-sys-color-compatible-surface-ripple), 0.18, 0.18, 0.18);
+        @include ripple.ripple(var(--md-sys-color-compatible-surface-ripple1), 0.18, 0.18, 0.18);
 
         .expressive & {
             @include ripple.ripple(var(--md-sys-color-primary), 0.05, 0.05, 0.05);
         }
 
         &.mdm-drawer-list-item-selected {
-            background-color: color-mix(in srgb, var(--md-sys-color-compatible-surface-ripple) 20%, transparent);
+            background-color: color-mix(in srgb, var(--md-sys-color-compatible-surface-ripple1) 20%, transparent);
 
             .expressive & {
                 background-color: var(--md-sys-color-primary-container);

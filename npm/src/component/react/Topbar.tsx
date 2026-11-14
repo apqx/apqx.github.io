@@ -28,7 +28,8 @@ export function Topbar() {
 
     const checkAndSetTopbarBlur = useCallback(() => {
         // TODO: 根据是否启用 edge-to-edge 设置
-        const blur = true
+        const fixedTopbar = getLocalRepository().getFixedTopbar()
+        const blur = fixedTopbar
 
         toggleElementClass(headerRef.current, "mdm-topbar-blur", blur)
     }, [])

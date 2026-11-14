@@ -1,4 +1,4 @@
-$handleSize: 1.3rem;
+$handleSize: 1.35rem;
 
 body {
     --md-switch-state-layer-size: 0rem;
@@ -6,18 +6,13 @@ body {
     --md-switch-handle-height: #{$handleSize};
     --md-switch-selected-handle-width: #{$handleSize};
     --md-switch-selected-handle-height: #{$handleSize};
-    --md-switch-track-width: 3.4rem;
-    --md-switch-track-height: 2.1rem;
+    --md-switch-track-width: 3.5rem;
+    --md-switch-track-height: 2.2rem;
 
-    // Switch 默认颜色为 primary
-    // // --md-switch-selected-track-color
-    // --md-sys-color-primary: #4f54b5;
-    // // --md-switch-selected-handle-color
-    // --md-sys-color-on-primary: #ffffff;
-    // // --md-switch-track-color
-    // --md-sys-color-surface-container-highest: #ffffff;
-    // // --md-switch-handle-color
-    // --md-sys-color-outline: #858585;
+    // --md-switch-track-color: var(--md-sys-color-surface);
+    // --md-switch-selected-track-color
+    // --md-switch-handle-color
+    // --md-switch-selected-handle-color
 
     --md-switch-hover-handle-color: var(--md-sys-color-outline);
     --md-switch-pressed-handle-color: var(--md-sys-color-outline);
@@ -25,13 +20,6 @@ body {
     --md-switch-selected-hover-handle-color: var(--md-sys-color-on-primary);
     --md-switch-selected-pressed-handle-color: var(--md-sys-color-on-primary);
     --md-switch-selected-focus-handle-color: var(--md-sys-color-on-primary);
-}
-
-.dark {
-    // --md-sys-color-primary: #3a78c6;
-    // --md-sys-color-on-primary: #ffffff;
-    // --md-sys-color-surface-container-highest: #ffffff;
-    // --md-sys-color-outline: #757575;
 }
 
 .preference-item-toggle {

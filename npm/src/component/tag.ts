@@ -2,7 +2,7 @@
 import { consoleInfo } from "../util/log"
 import { showTagDialog } from "./dialog/TagDialog"
 import { clearFocusListener } from "../util/tools"
-import { setupButtonRipple } from "./button"
+import { setupButtonRipple } from "./react/Button"
 
 /**
  * 初始化 tag 的点击事件
@@ -37,7 +37,7 @@ export function onTagTriggerClick(trigger: HTMLElement) {
 }
 
 export function initTag() {
-    for (const ele of document.querySelectorAll(".mdc-button.btn-tag")) {
+    for (const ele of document.querySelectorAll(".mdc-button.mdm-chip")) {
         setupButtonRipple(ele)
         ele.addEventListener("focus", clearFocusListener)
     }

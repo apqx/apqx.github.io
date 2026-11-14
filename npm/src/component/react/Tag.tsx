@@ -8,6 +8,6 @@ export interface Props {
 export function Tag(props: Props) {
 
     return (
-        <Button text={props.text} onClick={props.onClick} classes={["btn-tag"]} tabIndex={-1} />
+        <Button text={props.text} onClick={props.onClick} classes={["mdm-chip"]} tabIndex={-1} />
     )
 }

@@ -2,7 +2,7 @@ export class DelayToNextFrame {
     private frameId: number | null = null
 
     delay(callback: () => void) {
-        this.cancelPendingFrame()
+        this.cancelPendingAction()
         this.frameId = requestAnimationFrame(() => {
             this.frameId = requestAnimationFrame(() => {
                 callback()
@@ -10,7 +10,7 @@ export class DelayToNextFrame {
         })
     }
 
-    cancelPendingFrame() {
+    cancelPendingAction() {
         if (this.frameId) {
             cancelAnimationFrame(this.frameId)
         }

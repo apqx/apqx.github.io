@@ -48,7 +48,7 @@ function InfoDialog(props: BaseDialogOpenProps) {
                     insets right: {getComputedStyle(document.body).getPropertyValue('--safe-area-inset-right')}
                 </p>
                 <p><strong className="no-shadow">Actions</strong></p>
-                <div className="btn-tag-container">
+                <div className="mdm-chip-container">
                     <Tag text="Clear cookies" onClick={clearLocalStorage} />
                     <Tag text="Refresh page" onClick={refreshPage} />
                     <Tag text="Set colorful" onClick={() => { setColorful(true) }} />

@@ -1,13 +1,14 @@
 import { useCallback, useEffect, useState } from "react"
-import { Button } from "./Button"
+import { ButtonVariant } from "./Button"
 
 export interface Props {
     text: string,
+    description?: string,
     checked: boolean,
     onClick: ((checked: boolean) => void) | null
 }
 
-export function CheckableTag(props: Props) {
+export function CheckableChip(props: Props) {
     const [checked, setChecked] = useState(props.checked) 
 
     useEffect(() => {
@@ -23,6 +24,6 @@ export function CheckableTag(props: Props) {
     }, [checked, props.onClick])
 
     return (
-        <Button text={props.text} onClick={onClick} classes={checked ? ["btn-tag", "btn-tag-checkable", "btn-tag-checked"] : ["btn-tag", "btn-tag-checkable"]} />
+        <ButtonVariant text={props.text} description={props.description} onClick={onClick} classes={checked ? ["mdm-chip", "mdm-chip-checkable", "mdm-chip-checked"] : ["mdm-chip", "mdm-chip-checkable"]} />
     )
 }

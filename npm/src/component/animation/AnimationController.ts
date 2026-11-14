@@ -105,7 +105,7 @@ export class AnimationController implements IAnimationController {
     toggleOpen(open: boolean) {
         if (this.element == null) return
         consoleInfo(`AnimationController toggleOpen ${open}, classList : ${this.element.classList}`)
-        this.delayToNextFrame.cancelPendingFrame()
+        this.delayToNextFrame.cancelPendingAction()
         // transition 动画可以中断，当前可能处于的状态有
         // baseClass + openingClass
         // baseClass + openingClass + openClass
@@ -156,7 +156,7 @@ export class AnimationController implements IAnimationController {
     }
 
     destroy() {
-        this.delayToNextFrame.cancelPendingFrame()
+        this.delayToNextFrame.cancelPendingAction()
         this.stopListenTransition()
         this.element = null
     }

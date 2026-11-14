@@ -66,7 +66,7 @@ export function PreferenceDialog(props: BaseDialogOpenProps) {
                 <SettingsToggle titleHtml="隐藏状态栏背景" description="边到边模式下隐藏顶部状态栏背景"
                     on={state.hideStatusBarBg}
                     onChange={viewModel.onClickHideStatusBarBgSwitch} />
-                <SettingsToggle titleHtml={"透镜大图模式"} description="减少透镜分区小尺寸屏幕的分栏数"
+                <SettingsToggle titleHtml={"透镜显示更大图像"} description="减少小屏幕下透镜分区的分栏数"
                     on={state.lensBiggerPicture}
                     onChange={viewModel.onClickLensBiggerPictureSwitch} />
                 <SettingsToggle titleHtml={notoSerifSCFontTitle} description="全局字体从默认黑体改为衬线宋体"

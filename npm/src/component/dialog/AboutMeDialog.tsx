@@ -28,7 +28,7 @@ function AboutMeDialog(props: BaseDialogOpenProps) {
                         src="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/me_emoji.png" />
                 </picture>
                 <p className="about-me-name">立泉</p>
-                <section className="btn-tag-container about-me-tag-wrapper">
+                <section className="mdm-chip-container about-me-tag-wrapper">
                     <Tag text="C++" />
                     <Tag text="Java" />
                     <Tag text="Kotlin" />

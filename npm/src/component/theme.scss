@@ -6,260 +6,306 @@
 @use "sass:map";
 @use "sass:color";
 
+// light 主题亮度关系：surface-container-lowest > surface > surface-container-low > other containers
+// dark 主题暗度关系：surface-container-lowest > surface > surface-container-low > other containers
+// 在 M3 Expressive 主题中，surface 是最下层，上面铺设各类 container，这与之前的版本不同，background 被废弃
+
 @mixin light {
-        --md-sys-color-primary: #565992;
-        --md-sys-color-on-primary: #ffffff;
-        --md-sys-color-primary-container: #{map.get(base.$text-block-1-bg, "light")};
-        --md-sys-color-on-primary-container: #{map.get(base.$text-block-1-ink, "light")};
+	--md-sys-color-primary: #565992;
+	--md-sys-color-on-primary: #ffffff;
+	--md-sys-color-primary-container: #{map.get(base.$text-block-1-bg, "light")};
+	--md-sys-color-on-primary-container: #{map.get(base.$text-block-1-ink, "light")};
 
-        --md-sys-color-secondary: #{map.get(base.$fab-bg, "light")};
-        --md-sys-color-on-secondary: #{map.get(base.$fab-ink, "light")};
-        --md-sys-color-secondary-container: #{map.get(base.$text-block-2-bg, "light")};
-        --md-sys-color-on-secondary-container: #{map.get(base.$text-block-2-ink, "light")};
+	--md-sys-color-secondary: #{map.get(base.$fab-bg, "light")};
+	--md-sys-color-on-secondary: #{map.get(base.$fab-ink, "light")};
+	--md-sys-color-secondary-container: #{map.get(base.$text-block-2-bg, "light")};
+	--md-sys-color-on-secondary-container: #{map.get(base.$text-block-2-ink, "light")};
 
-        --md-sys-color-tertiary: #79536a;
-        --md-sys-color-on-tertiary: #ffffff;
-        --md-sys-color-tertiary-container: #{map.get(base.$text-block-3-bg, "light")};
-        --md-sys-color-on-tertiary-container: #{map.get(base.$text-block-3-ink, "light")};
+	--md-sys-color-tertiary: #79536a;
+	--md-sys-color-on-tertiary: #ffffff;
+	--md-sys-color-tertiary-container: #{map.get(base.$text-block-3-bg, "light")};
+	--md-sys-color-on-tertiary-container: #{map.get(base.$text-block-3-ink, "light")};
 
-        --md-sys-color-error: #ba1a1a;
-        --md-sys-color-on-error: #ffffff;
-        --md-sys-color-error-container: #ffdad6;
-        --md-sys-color-on-error-container: #93000a;
+	--md-sys-color-error: #ba1a1a;
+	--md-sys-color-on-error: #ffffff;
+	--md-sys-color-error-container: #ffdad6;
+	--md-sys-color-on-error-container: #93000a;
 
-        --md-sys-color-background: #{map.get(base.$background, "light")};
-        --md-sys-color-on-background: #{map.get(base.$text-content, "light")};
-        --md-sys-color-surface: #{map.get(base.$surface, "light")};
-        --md-sys-color-on-surface: #{map.get(base.$text-content, "light")};
-        --md-sys-color-surface-variant: #e4e1ec;
-        --md-sys-color-on-surface-variant: #{map.get(base.$text-content-secondary, "light")};
-        --md-sys-color-surface-dim: #dcd9e0;
-        --md-sys-color-surface-bright: #fbf8ff;
-        --md-sys-color-surface-container-lowest: #{map.get(base.$surface, "light")};
-        // surface block, pre code
-        --md-sys-color-surface-container-low: #{map.get(base.$surface-block-bg, "light")};
-        // chip, p code
-        --md-sys-color-surface-container: #{map.get(base.$chip-bg, "light")};
-        --md-sys-color-surface-container-high: #{map.get(base.$code-highlight-bg, "light")};
-        --md-sys-color-surface-container-highest: #e4e1e9;
+	--md-sys-color-background: #{map.get(base.$background, "light")};
+	--md-sys-color-on-background: #{map.get(base.$text-content, "light")};
+	--md-sys-color-surface: #{map.get(base.$background, "light")};
+	--md-sys-color-on-surface: #{map.get(base.$text-content, "light")};
+	--md-sys-color-surface-variant: #e4e1ec;
+	--md-sys-color-on-surface-variant: #{map.get(base.$text-content-secondary, "light")};
+	--md-sys-color-surface-dim: #dcd9e0;
+	--md-sys-color-surface-bright: #fbf8ff;
+	--md-sys-color-surface-container-lowest: #{map.get(base.$surface, "light")};
+	// surface block, pre code
+	--md-sys-color-surface-container-low: #{map.get(base.$surface-block-bg, "light")};
+	// chip, p code
+	--md-sys-color-surface-container: #{map.get(base.$chip-bg, "light")};
+	--md-sys-color-surface-container-high: #{map.get(base.$code-highlight-bg, "light")};
+	--md-sys-color-surface-container-highest: #e4e1e9;
 
-        --md-sys-color-compatible-on-surface-container: #{map.get(base.$chip-ink, "light")};
-        --md-sys-color-compatible-on-surface-vivid: #{map.get(base.$text-content-vivid, "light")};
-        --md-sys-color-compatible-on-surface-vary-heavy: #{map.get(base.$strong, "light")};
-        // 颜色深度 > on-surface，用作正文标题
-        --md-sys-color-compatible-on-surface-heavy: #{map.get(base.$text-title, "light")};
-        // 颜色深度 < on-surface-variant，用作正文副标题
-        --md-sys-color-compatible-on-surface-light: #{map.get(base.$text-subtitle, "light")};
-        --md-sys-color-compatible-on-surface-underline: #{map.get(base.$strong-under-line, "light")};
+	--md-sys-color-compatible-on-surface-container: #{map.get(base.$chip-ink, "light")};
+	--md-sys-color-compatible-on-surface-vivid: #{map.get(base.$text-content-vivid, "light")};
+	--md-sys-color-compatible-on-surface-vary-heavy: #{map.get(base.$strong, "light")};
+	// 颜色深度 > on-surface，用作正文标题
+	--md-sys-color-compatible-on-surface-heavy: #{map.get(base.$text-title, "light")};
+	// 颜色深度 < on-surface-variant，用作正文副标题
+	--md-sys-color-compatible-on-surface-light: #{map.get(base.$text-subtitle, "light")};
+	--md-sys-color-compatible-on-surface-underline: #{map.get(base.$strong-under-line, "light")};
 
-        --md-sys-color-compatible-border: color-mix(in srgb, var(--md-sys-color-outline) 10%, transparent);
-        --md-sys-color-compatible-divider: color-mix(in srgb, var(--md-sys-color-outline-variant) 15%, transparent);
+	--md-sys-color-compatible-border: color-mix(in srgb, var(--md-sys-color-outline) 10%, transparent);
+	--md-sys-color-compatible-border2: color-mix(in srgb, var(--md-sys-color-outline) 15%, transparent);
+	--md-sys-color-compatible-divider: color-mix(in srgb, var(--md-sys-color-outline-variant) 15%, transparent);
 
-        // 普通 surface ripple
-        --md-sys-color-compatible-surface-ripple: oklch(from var(--md-sys-color-surface) calc(l - 0.15) c h);
-        // 更深的 ripple，索引卡片使用
-        --md-sys-color-compatible-surface-ripple-deeper: oklch(from var(--md-sys-color-surface) calc(l - 0.22) c h);
+	// 普通 surface ripple
+	--md-sys-color-compatible-surface-ripple1: oklch(from var(--md-sys-color-surface) calc(l - 0.15) c h);
+	// 更深的 ripple，索引卡片使用
+	--md-sys-color-compatible-surface-ripple2: oklch(from var(--md-sys-color-surface) calc(l - 0.22) c h);
+	--md-sys-color-compatible-surface-ripple3: oklch(from var(--md-sys-color-surface) calc(l - 0.3) c h);
 
-        --md-sys-color-outline: #777680;
-        --md-sys-color-outline-variant: #c7c5d0;
-        --md-sys-color-inverse-surface: #{map.get(base.$surface, "dark")};
-        --md-sys-color-inverse-on-surface: #{map.get(base.$text-content, "dark")};
-        --md-sys-color-inverse-primary: #bfc1ff;
-        --md-sys-color-scrim: #000000;
-        --md-sys-color-shadow: #000000;
+	--md-sys-color-outline: #777680;
+	--md-sys-color-outline-variant: #c7c5d0;
+	--md-sys-color-inverse-surface: #{map.get(base.$surface, "dark")};
+	--md-sys-color-inverse-on-surface: #{map.get(base.$text-content, "dark")};
+	--md-sys-color-inverse-primary: #bfc1ff;
+	--md-sys-color-scrim: #000000;
+	--md-sys-color-shadow: #000000;
+
+	// 控制前景、背景色的关键变量
+	--md-custom-color-layer-back: var(--md-sys-color-surface);
+	--md-custom-color-layer-front: var(--md-sys-color-surface-container-lowest);
+	--mdm-chip-color-fill: var(--md-sys-color-surface-container);
+	--mdm-list-color-fill: var(--md-sys-color-surface-container-low);
 
 
-        // Drawer
-        --scrim-bg: #{map.get(base.$scrim, "light")};
+	// Drawer
+	--scrim-bg: #{map.get(base.$scrim, "light")};
 }
 
 @mixin dark {
-        --md-sys-color-primary: #bfc1ff;
-        --md-sys-color-on-primary: #282b60;
-        --md-sys-color-primary-container: #{map.get(base.$text-block-1-bg, "dark")};
-        --md-sys-color-on-primary-container: #{map.get(base.$text-block-1-ink, "dark")};
+	--md-sys-color-primary: #bfc1ff;
+	--md-sys-color-on-primary: #282b60;
+	--md-sys-color-primary-container: #{map.get(base.$text-block-1-bg, "dark")};
+	--md-sys-color-on-primary-container: #{map.get(base.$text-block-1-ink, "dark")};
 
-        --md-sys-color-secondary: #{map.get(base.$fab-bg, "dark")};
-        --md-sys-color-on-secondary: #{map.get(base.$fab-ink, "dark")};
-        --md-sys-color-secondary-container: #{map.get(base.$text-block-2-bg, "dark")};
-        --md-sys-color-on-secondary-container: #{map.get(base.$text-block-2-ink, "dark")};
+	--md-sys-color-secondary: #{map.get(base.$fab-bg, "dark")};
+	--md-sys-color-on-secondary: #{map.get(base.$fab-ink, "dark")};
+	--md-sys-color-secondary-container: #{map.get(base.$text-block-2-bg, "dark")};
+	--md-sys-color-on-secondary-container: #{map.get(base.$text-block-2-ink, "dark")};
 
-        --md-sys-color-tertiary: #e8b9d4;
-        --md-sys-color-on-tertiary: #46263b;
-        --md-sys-color-tertiary-container: #{map.get(base.$text-block-3-bg, "dark")};
-        --md-sys-color-on-tertiary-container: #{map.get(base.$text-block-3-ink, "dark")};
+	--md-sys-color-tertiary: #e8b9d4;
+	--md-sys-color-on-tertiary: #46263b;
+	--md-sys-color-tertiary-container: #{map.get(base.$text-block-3-bg, "dark")};
+	--md-sys-color-on-tertiary-container: #{map.get(base.$text-block-3-ink, "dark")};
 
-        --md-sys-color-error: #ffb4ab;
-        --md-sys-color-on-error: #690005;
-        --md-sys-color-error-container: #93000a;
-        --md-sys-color-on-error-container: #ffdad6;
+	--md-sys-color-error: #ffb4ab;
+	--md-sys-color-on-error: #690005;
+	--md-sys-color-error-container: #93000a;
+	--md-sys-color-on-error-container: #ffdad6;
 
-        --md-sys-color-background: #{map.get(base.$background, "dark")};
-        --md-sys-color-on-background: #{map.get(base.$text-content, "dark")};
-        --md-sys-color-surface: #{map.get(base.$surface, "dark")};
-        --md-sys-color-on-surface:#{map.get(base.$text-content, "dark")};
-        --md-sys-color-surface-variant: #46464f;
-        --md-sys-color-on-surface-variant: #c7c5d0;
-        --md-sys-color-surface-dim: #131318;
-        --md-sys-color-surface-bright: #39383f;
-        --md-sys-color-surface-container-lowest: #{map.get(base.$background, "dark")};
-        --md-sys-color-surface-container-low: #{map.get(base.$surface-block-bg, "dark")};
-        --md-sys-color-surface-container: #{map.get(base.$chip-bg, "dark")};
-        --md-sys-color-surface-container-high: #{map.get(base.$code-highlight-bg, "dark")};
-        --md-sys-color-surface-container-highest: #35343a;
+	--md-sys-color-background: #{map.get(base.$background, "dark")};
+	--md-sys-color-on-background: #{map.get(base.$text-content, "dark")};
+	--md-sys-color-surface: #{map.get(base.$surface, "dark")};
+	--md-sys-color-on-surface:#{map.get(base.$text-content, "dark")};
+	--md-sys-color-surface-variant: #46464f;
+	--md-sys-color-on-surface-variant: #c7c5d0;
+	--md-sys-color-surface-dim: #131318;
+	--md-sys-color-surface-bright: #39383f;
+	--md-sys-color-surface-container-lowest: #{map.get(base.$background, "dark")};
+	--md-sys-color-surface-container-low: #{map.get(base.$surface-block-bg, "dark")};
+	--md-sys-color-surface-container: #{map.get(base.$chip-bg, "dark")};
+	--md-sys-color-surface-container-high: #{map.get(base.$code-highlight-bg, "dark")};
+	--md-sys-color-surface-container-highest: #35343a;
 
-        // 一些 md 主题中缺少的兼容属性
-        --md-sys-color-compatible-on-surface-container: #{map.get(base.$chip-ink, "dark")};
-        --md-sys-color-compatible-on-surface-vivid: #{map.get(base.$text-content-vivid, "dark")};
-        // 颜色深度 > 正文标题，用作 strong bold
-        --md-sys-color-compatible-on-surface-vary-heavy: #{map.get(base.$strong, "dark")};
-        // 颜色深度 > on-surface，用作正文标题
-        --md-sys-color-compatible-on-surface-heavy: #{map.get(base.$text-title, "dark")};
-        // 颜色深度 < on-surface-variant，用作正文副标题
-        --md-sys-color-compatible-on-surface-light: #{map.get(base.$text-subtitle, "dark")};
-        --md-sys-color-compatible-on-surface-underline: #{map.get(base.$strong-under-line, "dark")};
+	// 一些 md 主题中缺少的兼容属性
+	--md-sys-color-compatible-on-surface-container: #{map.get(base.$chip-ink, "dark")};
+	--md-sys-color-compatible-on-surface-vivid: #{map.get(base.$text-content-vivid, "dark")};
+	// 颜色深度 > 正文标题，用作 strong bold
+	--md-sys-color-compatible-on-surface-vary-heavy: #{map.get(base.$strong, "dark")};
+	// 颜色深度 > on-surface，用作正文标题
+	--md-sys-color-compatible-on-surface-heavy: #{map.get(base.$text-title, "dark")};
+	// 颜色深度 < on-surface-variant，用作正文副标题
+	--md-sys-color-compatible-on-surface-light: #{map.get(base.$text-subtitle, "dark")};
+	--md-sys-color-compatible-on-surface-underline: #{map.get(base.$strong-under-line, "dark")};
 
-        // 普通 surface ripple
-        --md-sys-color-compatible-surface-ripple: oklch(from var(--md-sys-color-surface) calc(l + 0.15) c h);
-        // 更深的 ripple，索引卡片使用
-        --md-sys-color-compatible-surface-ripple-deeper: oklch(from var(--md-sys-color-surface) calc(l + 0.22) c h);
+	// 普通 surface ripple
+	--md-sys-color-compatible-surface-ripple1: oklch(from var(--md-sys-color-surface) calc(l + 0.15) c h);
+	// 更深的 ripple，索引卡片使用
+	--md-sys-color-compatible-surface-ripple2: oklch(from var(--md-sys-color-surface) calc(l + 0.22) c h);
+	--md-sys-color-compatible-surface-ripple3: oklch(from var(--md-sys-color-surface) calc(l + 0.3) c h);
 
-        --md-sys-color-outline: #918f9a;
-        --md-sys-color-outline-variant: #46464f;
-        --md-sys-color-inverse-surface: #{map.get(base.$surface, "light")};
-        --md-sys-color-inverse-on-surface: #{map.get(base.$text-content, "light")};
-        --md-sys-color-inverse-primary: #565992;
-        --md-sys-color-scrim: #000000;
-        --md-sys-color-shadow: #000000;
+	--md-sys-color-outline: #918f9a;
+	--md-sys-color-outline-variant: #46464f;
+	--md-sys-color-inverse-surface: #{map.get(base.$surface, "light")};
+	--md-sys-color-inverse-on-surface: #{map.get(base.$text-content, "light")};
+	--md-sys-color-inverse-primary: #565992;
+	--md-sys-color-scrim: #000000;
+	--md-sys-color-shadow: #000000;
 
-        // Drawer
-        --scrim-bg: #{map.get(base.$scrim, "dark")};
+	--md-custom-color-layer-back: var(--md-sys-color-surface-container-lowest);
+	--md-custom-color-layer-front: var(--md-sys-color-surface);
+
+	// Drawer
+	--scrim-bg: #{map.get(base.$scrim, "dark")};
 
 }
 
 $ripple-light-gap: 75%;
 
 @mixin expressive() {
-        --mdm-surface: var(--md-sys-color-surface);
+	--md-sys-color-compatible-on-surface-container: var(--md-sys-color-on-surface-variant);
+	--md-sys-color-compatible-on-surface-vivid: color-mix(in srgb, var(--md-sys-color-error) 80%, transparent);
+	--md-sys-color-compatible-on-surface-vary-heavy: var(--md-sys-color-primary);
+	--md-sys-color-compatible-on-surface-heavy: var(--md-sys-color-on-surface);
+	--md-sys-color-compatible-on-surface-light: var(--md-sys-color-on-surface-variant);
+	--md-sys-color-compatible-on-surface-underline: oklch(from var(--md-sys-color-primary) calc(l + 0.45) c h);
 
-        --md-sys-color-compatible-on-surface-container: var(--md-sys-color-on-surface-variant);
-        --md-sys-color-compatible-on-surface-vivid: color-mix(in srgb, var(--md-sys-color-error) 80%, transparent);
-        --md-sys-color-compatible-on-surface-vary-heavy: var(--md-sys-color-primary);
-        --md-sys-color-compatible-on-surface-heavy: var(--md-sys-color-on-surface);
-        --md-sys-color-compatible-on-surface-light: var(--md-sys-color-on-surface-variant);
-        --md-sys-color-compatible-on-surface-underline: oklch(from var(--mdm-surface) calc(l - 0.1) c h);
+	--md-custom-color-layer-back: var(--md-sys-color-surface);
+	--md-custom-color-layer-front: var(--md-sys-color-surface-container-lowest);
+	// chip 背景色
+	--mdm-chip-color-fill: var(--md-sys-color-surface-container-low);
+	// list、pre code 背景色
+	--mdm-list-color-fill: var(--md-sys-color-surface-container-low);
 
-        // --scrim-bg: #{map.get(base.$scrim, "dark")};
+	&.dark {
+		--md-sys-color-compatible-on-surface-underline: oklch(from var(--md-sys-color-primary) calc(l - 0.45) c h);
 
-        &.dark {
-                --mdm-surface: var(--md-sys-color-surface);
-
-                --md-sys-color-compatible-on-surface-underline: oklch(from var(--mdm-surface) calc(l + 0.13) c h);
-        }
+		// --md-custom-color-layer-back: var(--md-sys-color-surface-container-lowest);
+		// --md-custom-color-layer-front: var(--md-sys-color-surface);
+	}
 }
 
 body {
-        // 该字体对应的 font-weight 级别
-        --font-weight-light: #{base.$font-weight-light-noto-sans};
-        --font-weight-normal: #{base.$font-weight-normal-noto-sans};
-        --font-weight-medium: #{base.$font-weight-medium-noto-sans};
+	// 该字体对应的 font-weight 级别
+	--font-weight-light: #{base.$font-weight-light-noto-sans};
+	--font-weight-normal: #{base.$font-weight-normal-noto-sans};
+	--font-weight-medium: #{base.$font-weight-medium-noto-sans};
 
-        --safe-area-inset-top: env(safe-area-inset-top, 0px);
-        --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
-        // Android 设备中横屏左右安全区宽度不一致，取较大的值，保证对称性
-        --safe-area-inset-left: max(env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
-        --safe-area-inset-right: max(env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
+	--safe-area-inset-top: env(safe-area-inset-top, 0px);
+	--safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+	// Android 设备中横屏左右安全区宽度不一致，取较大的值，保证对称性
+	--safe-area-inset-left: max(env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
+	--safe-area-inset-right: max(env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
 
-        // drawer list 圆角
-        --mdc-shape-small: 0.5rem;
-        // card 圆角
-        --mdc-shape-medium: 0.8rem;
-        --dialog-border-radius: 1rem;
-        // 文章内元素圆角，code block 和 description
-        --post-inner-shape-round: 1rem;
-        // 列表圆角
-        --table-list-border-radius: 1rem;
-        --table-list-border-radius__fit-ripple: calc(var(--table-list-border-radius) - 1px);
+	// drawer list 圆角
+	--mdc-shape-small: 0.5rem;
+	// card 圆角
+	--mdc-shape-medium: 0.8rem;
+	--dialog-border-radius: 1rem;
+	// 文章内元素圆角，code block 和 description
+	--post-inner-shape-round: 1rem;
+	// 列表圆角
+	--table-list-border-radius: 1rem;
+	--table-list-border-radius__fit-ripple: calc(var(--table-list-border-radius) - 1px);
 
-        --list-divider-height: 0.18rem;
+	--list-divider-height: 0.18rem;
 
-        --topbar-height: 3.9rem;
+	--topbar-height: 3.9rem;
 
-        --text-block-padding-vertical: 1.2rem;
-        --text-block-padding-horizontal: 1.5rem;
+	--text-block-padding-vertical: 1.2rem;
+	--text-block-padding-horizontal: 1.5rem;
 
-        // main container 为中央主体容器，设置最大宽度，水平居中，此为其顶部距 topbar 和底部距 footer 的距离
-        --main-container-padding-vertical: 1.2rem;
-        // center card 为主体容器中的主体卡片，即文章卡片和列表卡片，居中显示，此为其左右距容器边界的距离
-        // 默认使中心卡片距四周边距相等，向上是与 topbar 的距离，向下是与 footer 的距离
-        // 在 index 和 post 页面酌情而定
-        --center-card-to-container-border-horizontal: var(--main-container-padding-vertical);
+	// main container 为中央主体容器，设置最大宽度，水平居中，此为其顶部距 topbar 和底部距 footer 的距离
+	--main-container-padding-vertical: 1.2rem;
+	// center card 为主体容器中的主体卡片，即文章卡片和列表卡片，居中显示，此为其左右距容器边界的距离
+	// 默认使中心卡片距四周边距相等，向上是与 topbar 的距离，向下是与 footer 的距离
+	// 在 index 和 post 页面酌情而定
+	--center-card-to-container-border-horizontal: var(--main-container-padding-vertical);
 
-        --common-animation-duration: 0.35s;
-        --dialog-animation-duration: var(--common-animation-duration);
-        --image-height-animation-duration: 0.8s;
-        --index-card-animation-duration: 0.5s;
-        --index-card-animation-translate-y: 2rem;
+	--common-animation-duration: 0.35s;
+	--dialog-animation-duration: var(--common-animation-duration);
+	--image-height-animation-duration: 0.8s;
+	--index-card-animation-duration: 0.5s;
+	--index-card-animation-translate-y: 2rem;
 
-        --z-index-dialog: 7;
-        --z-index-drawer: 5;
-        --z-index-topbar: 3;
-        --z-index-fab: auto;
+	--z-index-dialog: 7;
+	--z-index-drawer: 5;
+	--z-index-topbar: 3;
+	--z-index-fab: auto;
 
-        @include light;
+	@include light;
 }
 
 .dark {
-        @include dark;
+	@include dark;
 }
 
 .expressive {
-        @include expressive();
+	@include expressive();
+	// drawer list 圆角
+	--mdc-shape-small: 1.5rem;
+	// card 圆角
+	--mdc-shape-medium: 1.5rem;
+	--dialog-border-radius: 1.5rem;
+	// 文章内元素圆角，code block 和 description
+	--post-inner-shape-round: 1.5rem;
+	// 列表圆角
+	--table-list-border-radius: 1rem;
+	--table-list-border-radius__fit-ripple: calc(var(--table-list-border-radius) - 1px);
 }
 
-.mdm-background {
-        background-color: var(--md-sys-color-surface-container-low);
-        color: var(--md-sys-color-on-surface);
+// body.classlist expressive dark
+// mdm-layer-back mdm-layer-front 均在下层
+body {
+	// 用于浏览器识别网页主题色，尤其手机版 safari 会根据它的颜色显示顶部状态栏颜色
+	background-color: var(--md-custom-color-layer-front);
 
-        .dark & {
-                background-color: var(--md-sys-color-surface-container-lowest);
-        }
+	&.expressive {
+		background-color: var(--md-custom-color-layer-back);
+	}
 }
 
+// 层叠背景色
+.mdm-layer-back {
+	background-color: var(--md-custom-color-layer-back);
+	color: var(--md-sys-color-on-surface);
+
+	.expressive & {
+		background-color: var(--md-custom-color-layer-back);
+	}
+}
+
+// 层叠前景色
 .mdm-card,
-.mdm-surface {
-        background-color: var(--md-sys-color-surface);
-        color: var(--md-sys-color-on-surface)
+.mdm-layer-front {
+	background-color: var(--md-custom-color-layer-front);
+
+	.expressive & {
+		background-color: var(--md-custom-color-layer-front);
+	}
 }
 
 .mdm-card {
-        // 消除外边距折叠
-        display: flex;
-        flex-direction: column;
-        border-radius: var(--mdc-shape-medium);
+	// 消除外边距折叠
+	display: flex;
+	flex-direction: column;
+	border-radius: var(--mdc-shape-medium);
 }
 
 // 平板中屏
 @media (max-width: base.$screen-middle-max-width) {
-        body {
-                --main-container-padding-vertical: 1rem;
-                --center-card-to-container-border-horizontal: 0.8rem;
+	body {
+		--main-container-padding-vertical: 1rem;
+		--center-card-to-container-border-horizontal: 0.8rem;
 
-                --image-height-animation-duration: 0.6s;
-        }
+		--image-height-animation-duration: 0.6s;
+	}
 
 }
 
 // 小屏
 @media (max-width: base.$screen-small-max-width) {
-        body {
-                --image-height-animation-duration: 0.6s;
+	body {
+		--image-height-animation-duration: 0.6s;
 
-                --main-container-padding-vertical: 0.6rem;
-                --center-card-to-container-border-horizontal: 0.5rem;
+		--main-container-padding-vertical: 0.6rem;
+		--center-card-to-container-border-horizontal: 0.5rem;
 
-                --mdc-shape-medium: 0.6rem;
+		--mdc-shape-medium: 0.6rem;
 
-                --list-divider-height: 0.15rem;
-        }
+		--list-divider-height: 0.15rem;
+	}
 }
