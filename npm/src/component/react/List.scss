@@ -27,19 +27,19 @@ li {
         height: fit-content;
         text-decoration: none;
         border-radius: $listItemRadius;
-        color: var(--mdc-theme-on-surface);
+        color: var(--md-sys-color-on-surface);
 
         padding: 0.6rem 1rem;
         display: block;
 
-        @include ripple.ripple(var(--list-ripple), 0.06, 0.06, 0.06);
+        @include ripple.ripple(var(--md-sys-color-compatible-surface-ripple), 0.1, 0.1, 0.12);
 
         .mdm-list-no-hover & {
-            @include ripple.ripple(var(--list-ripple), 0, 0, 0.06);
+            @include ripple.ripple(var(--md-sys-color-compatible-surface-ripple), 0, 0, 0.12);
         }
 
         &.mdm-list-item-darken {
-            background-color: var(--list-bg);
+            background-color: var(--md-sys-color-surface-container-low);
         }
 
         // .mdm-list--one-line 必须是 li 的父元素
@@ -57,7 +57,7 @@ li {
             .mdm-list-item__primary-text {}
 
             .mdm-list-item__secondary-text {
-                color: var(--mdc-theme-on-surface-secondary);
+                color: var(--md-sys-color-on-surface-variant);
                 font-size: var(--mdm-typography-body2-font-size);
                 line-height: var(--mdm-typography-body2-line-height);
                 font-weight: var(--font-weight-light);

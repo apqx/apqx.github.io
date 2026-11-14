@@ -8,7 +8,7 @@
     overflow: clip;
     margin: calc(var(--mdm-typography-body1-font-size) - 0.5rem) 0;
     // wrapper 边框
-    border: 1px solid var(--surface-block-border);
+    border: 1px solid var(--md-sys-color-compatible-border);
     border-radius: var(--post-inner-shape-round);
 
     .table-inner-overflow {
@@ -40,7 +40,7 @@ table {
     // 设置表格圆角必须将 collapse 设置为 separate
     border-collapse: separate;
     // 确保没有 wrapper 也能显示边框
-    border: 1px solid var(--surface-block-border);
+    border: 1px solid var(--md-sys-color-compatible-border);
     border-radius: var(--post-inner-shape-round);
     // 没有 wrapper 时宽度 100%，不支持滚动
     width: 100%;
@@ -51,11 +51,19 @@ table {
     }
 
     thead {
-        background-color: var(--surface-block-bg);
         margin: 0;
+        background-color: var(--md-sys-color-surface-container-low);
 
         * {
-            color: var(--mdc-theme-on-surface);
+            color: var(--md-sys-color-on-surface);
+        }
+
+        .expressive & {
+            background-color: var(--md-sys-color-tertiary-container);
+
+            * {
+                color: var(--md-sys-color-on-tertiary-container);
+            }
         }
     }
 
@@ -63,11 +71,11 @@ table {
         margin: 0;
 
         * {
-            color: var(--mdc-theme-on-surface-secondary);
+            color: var(--md-sys-color-on-surface-variant);
         }
 
         // strong {
-        //     color: var(--mdc-theme-on-surface);
+        //     color: var(--md-sys-color-on-surface);
         // }
 
         :last-child td {
@@ -84,7 +92,7 @@ table {
     th,
     td {
         margin: 0;
-        border-bottom: 1px solid var(--surface-block-border);
+        border-bottom: 1px solid var(--md-sys-color-compatible-border);
         padding: 0.8rem 1rem;
         text-align: left;
         // 无wrapper时单元格宽度很小，自动换行

@@ -23,9 +23,9 @@ $avatarWidth: 7rem;
         height: $avatarWidth;
         margin-top: 2rem;
         border-radius: 50%;
-        background-color: var(--chip-bg);
+        background-color: var(--md-sys-color-surface-container);
 
-        .colorful & {
+        .expressive & {
             background-color: var(--md-sys-color-secondary-container);
         }
     }
@@ -33,8 +33,8 @@ $avatarWidth: 7rem;
     .about-me-tag-wrapper {
         justify-content: center;
     }
-}
 
-.link-item {
-    color: var(--mdc-theme-on-surface-secondary);
+    .mdm-list-item {
+        color: var(--md-sys-color-on-surface-variant);
+    }
 }

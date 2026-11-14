@@ -57,7 +57,7 @@ body {
     font-size: var(--mdm-typography-body1-font-size);
     font-weight: var(--mdm-typography-body1-font-weight);
     line-height: var(--mdm-typography-body1-line-height);
-    color: var(--mdc-theme-on-surface);
+    color: var(--md-sys-color-on-surface);
 }
 
 // 应加在 body 上的基础类，定义基础字体样式
@@ -80,20 +80,20 @@ h1 {
     font-size: var(--mdm-typography-headline1-font-size);
     font-weight: var(--mdm-typography-headline1-font-weight);
     line-height: var(--mdm-typography-headline1-line-height);
-    color: var(--text-primary-on-background);
+    color: var(--md-sys-color-compatible-on-surface-heavy);
 }
 
 h2 {
     font-size: var(--mdm-typography-headline2-font-size);
     font-weight: var(--mdm-typography-headline2-font-weight);
     line-height: var(--mdm-typography-headline2-line-height);
-    color: var(--text-primary-on-background);
+    color: var(--md-sys-color-compatible-on-surface-heavy);
 
     &::before {
         content: "# ";
         // 相对尺寸
         font-size: 0.9em;
-        color: var(--mdc-theme-on-surface-secondary);
+        color: var(--md-sys-color-on-surface-variant);
     }
 }
 
@@ -101,13 +101,13 @@ h3 {
     font-size: var(--mdm-typography-headline3-font-size);
     font-weight: var(--mdm-typography-headline3-font-weight);
     line-height: var(--mdm-typography-headline3-line-height);
-    color: var(--text-primary-on-background);
+    color: var(--md-sys-color-compatible-on-surface-heavy);
 
     &::before {
         content: "## ";
         // 相对尺寸
         font-size: 0.9em;
-        color: var(--mdc-theme-on-surface-secondary);
+        color: var(--md-sys-color-on-surface-variant);
     }
 }
 
@@ -115,21 +115,21 @@ h4 {
     font-size: var(--mdm-typography-headline4-font-size);
     font-weight: var(--mdm-typography-headline4-font-weight);
     line-height: var(--mdm-typography-headline4-line-height);
-    color: var(--text-primary-on-background);
+    color: var(--md-sys-color-compatible-on-surface-heavy);
 }
 
 h5 {
     font-size: var(--mdm-typography-headline5-font-size);
     font-weight: var(--mdm-typography-headline5-font-weight);
     line-height: var(--mdm-typography-headline5-line-height);
-    color: var(--text-primary-on-background);
+    color: var(--md-sys-color-compatible-on-surface-heavy);
 }
 
 h6 {
     font-size: var(--mdm-typography-headline6-font-size);
     font-weight: var(--mdm-typography-headline6-font-weight);
     line-height: var(--mdm-typography-headline6-line-height);
-    color: var(--text-primary-on-background);
+    color: var(--md-sys-color-compatible-on-surface-heavy);
 }
 
 p {
@@ -137,7 +137,7 @@ p {
     // 段落间距
     line-height: var(--mdm-typography-body1-line-height);
     margin: calc(var(--mdm-typography-body1-font-size) - 0.5rem) 0;
-    // text-align: justify;
+    text-align: justify;
     line-break: normal;
 
     &.no-justify {
@@ -147,7 +147,7 @@ p {
 
 // 斜体，一般用于图片说明
 em {
-    color: var(--em-color);
+    color: var(--md-sys-color-on-surface-variant);
     // 向字体底层传递 -10 倾斜轴，Google Sans Flex 以可变字体创建 italic font-face，通过这个参数可更改倾斜度
     // 对正常字体无影响
     // Google Sans Flex 已经将此参数固化到字体文件中，所以不需要再设置这个参数
@@ -162,9 +162,13 @@ b {
 
 // 加粗强调，一般用于句子
 strong {
-    color: var(--strong-color);
-    box-shadow: inset 0 -0.5rem 0 0 var(--strong-underline-color);
+    color: var(--md-sys-color-compatible-on-surface-vary-heavy);
+    box-shadow: inset 0 -0.5rem 0 0 var(--md-sys-color-compatible-on-surface-underline);
+
     // text-decoration: var(--strong-underline-color) wavy underline;
+    .expressive & {
+        box-shadow: none;
+    }
 }
 
 li {
@@ -190,7 +194,7 @@ a {
         cursor: pointer;
     }
 
-    .colorful &:not(.mdm-list-item,.mdc-card,.mdm-topbar__title,.tag-link) {
+    .expressive &:not(.mdm-list-item, .mdm-card, .mdm-topbar__title, .tag-link) {
         color: var(--md-sys-color-primary);
         font-weight: calc(var(--font-weight-normal) + 50);
     }
@@ -233,12 +237,17 @@ audio {
 blockquote {
     margin: 0.65rem 0;
     padding: 0 1.3rem 0 1rem;
-    border-left: 0.3rem solid var(--blockquote-border);
+    border-left: 0.3rem solid color-mix(in srgb, var(--md-sys-color-on-surface) 10%, transparent);
+    ;
     border-radius: 0.2rem;
-    
+
+    .expressive & {
+        border-color: color-mix(in srgb, var(--md-sys-color-tertiary) 10%, transparent);
+    }
+
     p {
         font-size: calc(var(--mdm-typography-body1-font-size) - 0.05rem);
-        color: var(--mdc-theme-on-surface-secondary);
+        color: var(--md-sys-color-on-surface-variant);
         margin: 0;
     }
 }
@@ -272,7 +281,7 @@ pre {
         //     left: 0;
         //     width: var(--text-block-padding-horizontal);
         //     height: 100%;
-        //     background: linear-gradient(to right, var(--pre-code-bg), transparent);
+        //     background: linear-gradient(to right, var(--md-sys-color-surface-container-low), transparent);
         // }
 
         // &:after {
@@ -283,7 +292,7 @@ pre {
         //     right: 0;
         //     width: var(--text-block-padding-horizontal);
         //     height: 100%;
-        //     background: linear-gradient(to left, var(--pre-code-bg), transparent);
+        //     background: linear-gradient(to left, var(--md-sys-color-surface-container-low), transparent);
         // }
     }
 }
@@ -299,7 +308,7 @@ pre code.hljs {
     font-weight: #{base.$font-weight-normal-default};
 
     padding: var(--text-block-padding-vertical) var(--text-block-padding-horizontal);
-    background: var(--pre-code-bg);
+    background: var(--md-sys-color-surface-container-low);
 
     .font-noto-serif-sc & {
         font-weight: #{base.$font-weight-normal-default - 30};
@@ -318,9 +327,11 @@ code:not(pre code) {
     // 允许在任意位置换行，防止长单词撑破布局
     // line-break: anywhere;
 
-    background: var(--code-highlight-bg);
-    // color: var(--code-highlight-ink);
-    // border: 1px solid var(--code-highlight-border);
+    background-color: var(--md-sys-color-surface-container-high);
+
+    .expressive & {
+        background-color: var(--md-sys-color-surface-container);
+    }
 
     // 英文代码字体比宋体粗很多，需要单独设置更细的 font-face
     .font-noto-serif-sc & {

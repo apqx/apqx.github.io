@@ -1,5 +1,5 @@
 // import "./IndexList.scss"
-import { useCallback, useEffect, useMemo, useRef, useSyncExternalStore } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
 import { LOADING_HINT_ERROR, LOADING_HINT_NO_RESULT, LoadingHint } from "./LoadingHint"
 import { consoleInfo } from "../../util/log"
 import { getWindowInterSectionObserver, queryAnimatedElement } from "../animation/BaseAnimation"
@@ -11,7 +11,7 @@ import type { ApiPost } from "../../repository/bean/service/ApiPost"
 import { PostHttpPaginator } from "../base/paginate/PostHttpPaginator"
 import type { BasePaginateViewProps } from "../base/paginate/bean/BasePaginateViewProps"
 import { convertPinedToFeatured, toggleElementClass } from "../../util/tools"
-import { getEventEmitter } from "../base/EventBus"
+import { getEventEmitter, type Events } from "../base/EventBus"
 import { toggleDrawer } from "./Drawer"
 import { getSectionTypeByPath, isIndexPage, SECTION_TYPE_ORIGINAL } from "../../base/constant"
 
@@ -109,6 +109,7 @@ type PageCoverProps = {
 
 function PageCover(props: PageCoverProps) {
     const containerRef = useRef<HTMLElement>(null)
+    const [themeChangedCount, setThemChangedCount] = useState(0)
 
     const onCardClick = useCallback(() => {
         toggleDrawer()
@@ -120,24 +121,32 @@ function PageCover(props: PageCoverProps) {
         setupCardRipple(topCardE)
         topCardE.addEventListener("click", onCardClick)
 
+        const themeChangeHandler = (_data: Events["themeChanged"]) => {
+            setThemChangedCount((prev) => prev + 1)
+        }
+
+        getEventEmitter().on("themeChanged", themeChangeHandler)
+
         return () => {
             getWindowInterSectionObserver().unobserve(topCardE)
             topCardE.removeEventListener("click", onCardClick)
+            getEventEmitter().off("themeChanged", themeChangeHandler)
         }
     }, [onCardClick])
 
     const imgURL = useMemo(() => {
+        void themeChangedCount
         let url = props.pageCover
-        if (document.body.classList.contains("colorful")
+        if (document.body.classList.contains("expressive")
             && getSectionTypeByPath(window.location.pathname).identifier == SECTION_TYPE_ORIGINAL.identifier
             && isIndexPage(window.location.pathname)) {
             url = "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/index_mudanting_shanwen_zhangwen.jpg"
         }
         return url
-    }, [props.pageCover])
+    }, [props.pageCover, themeChangedCount])
 
     return (
-        <section ref={containerRef} className="mdc-card index-top-card slide-in-farer slide-in-chained">
+        <section ref={containerRef} className="mdm-card index-top-card slide-in-farer slide-in-chained">
             <img src={imgURL}
                 className="index-top-cover" alt={props.pageCoverDescription} id="main-index" draggable="false" />
             <div className="index-top-card-container">
@@ -226,7 +235,7 @@ function IndexItem(props: IndexItemProps) {
 
     return (
         <li ref={containerRef} className="index-li">
-            <a className={"index-a mdc-card index-card" + animationClass} href={props.path}>
+            <a className={"index-a mdm-card index-card" + animationClass} href={props.path}>
                 <section>
                     <h1 className="index-title">{props.title}</h1>
                     <span className="index-author">{author}</span>

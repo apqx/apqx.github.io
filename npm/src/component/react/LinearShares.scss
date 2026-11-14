@@ -4,4 +4,9 @@
 
 .share-li {
     list-style-type: none;
+
+    p a {
+        color: inherit !important;
+        font-weight: var(--font-weight-normal) !important;
+    }
 }

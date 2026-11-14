@@ -1,5 +1,5 @@
 @use "@material/circular-progress";
 
 .mdc-circular-progress {
-    @include circular-progress.color(var(--navigation));
+    @include circular-progress.color(var(--md-sys-color-compatible-on-surface-light));
 }

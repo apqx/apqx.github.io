@@ -5,8 +5,8 @@ footer {
         opacity: 0;
     }
 
-    * {
-        color: var(--footer-ink);
+    p {
+        color: var(--md-sys-color-on-surface-variant)
     }
 
     .copyright {

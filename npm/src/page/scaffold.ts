@@ -13,6 +13,7 @@ import { initCard } from "../component/card"
 import { is404Page, isIndexPage, isPostPage } from "../base/constant"
 import { EVENT_PAGE_BACK_FROM_CACHE, getEventEmitter } from "../component/base/EventBus"
 import { initHeader } from "../component/react/Topbar"
+import { initTable } from "../component/table"
 
 initScaffold()
 
@@ -24,6 +25,7 @@ export function initScaffold() {
         initHeader()
         initFooter()
         initTheme()
+        initTable()
         initFab()
         initTag()
         initCard()

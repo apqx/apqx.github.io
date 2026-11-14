@@ -28,7 +28,7 @@ export type Events = {
     themeChanged: null
     // 通知 theme 组件调整配色应用新主题，由触发主题变化的 toggle btn 或 preference 配置更改发出
     applyNewTheme: {
-        theme: string,
+        theme: string | null,
         showToast: boolean
     }
     // 通知顶部栏组件应用新设置，当用户更改固定顶部栏设置时发出，

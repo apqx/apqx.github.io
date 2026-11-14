@@ -15,17 +15,25 @@
     bottom: calc(var(--fab-bottom-gap) + var(--safe-area-inset-bottom));
     right: calc(var(--fab-right-gap) + var(--safe-area-inset-right));
     z-index: var(--z-index-fab);
-    
+
     .mdc-fab {
         width: 3.5rem;
         height: 3.5rem;
         border-radius: 0.2rem;
         -webkit-backdrop-filter: blur(map.get(base.$fab-bg, "backdrop-filter"));
         backdrop-filter: blur(map.get(base.$fab-bg, "backdrop-filter"));
-        @include ripple.ripple(var(--button-ripple), 0, 0, 0.15);
+        @include ripple.ripple(var(--md-sys-color-compatible-surface-ripple), 0, 0, 0.2);
 
-        background-color: var(--fab-bg);
-        color: var(--fab-ink);
+        background-color: var(--md-sys-color-secondary);
+        color: var(--md-sys-color-on-secondary);
+
+        
+        .expressive & {
+            // background-color: color-mix(in srgb, var(--md-sys-color-primary-container) 65%, transparent);
+            // color: var(--md-sys-color-on-surface);
+            background-color: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+        }
     }
 
     .mdc-touch-target-wrapper:first-child {

@@ -21,13 +21,8 @@
     padding-top: 0.12rem;
     padding-bottom: 0.12rem;
 
-    color: var(--list-chip-1-ink);
-    background: var(--list-chip-1-bg);
-
-    .colorful & {
-        background: var(--md-sys-color-primary-container);
-        color: var(--md-sys-color-on-primary-container);
-    }
+    color: var(--md-sys-color-on-primary-container);
+    background: var(--md-sys-color-primary-container);
 }
 
 .font-noto-serif-sc {
@@ -43,9 +38,9 @@
 
     mark {
         background-color: transparent;
-        color: var(--mdc-theme-on-surface-vivid);
+        color: var(--md-sys-color-compatible-on-surface-vivid);
 
-        .colorful & {
+        .expressive & {
             font-weight: calc(var(--font-weight-normal) + 50);
         }
     }

@@ -55,7 +55,7 @@ function ShareDialog(props: BaseDialogOpenProps) {
         }
 
         const bodyStyle = getComputedStyle(document.body)
-        const inkColor = bodyStyle.getPropertyValue("--mdc-theme-on-surface").trim()
+        const inkColor = bodyStyle.getPropertyValue("--md-sys-color-on-surface").trim()
 
         consoleInfo("QRCode colors, inkColor: " + inkColor + ", isDarkTheme: " + isDarkTheme)
 

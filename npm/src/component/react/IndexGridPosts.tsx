@@ -229,7 +229,7 @@ function IndexItem(props: IndexItemProps) {
     return (
         <li ref={containerRef} className="grid-index-li">
             <a
-                className={"index-a mdc-card grid-index-card grid-index-card__ripple" + animationClass}
+                className={"index-a mdm-card grid-index-card grid-index-card__ripple" + animationClass}
                 data-animation-index={props.index}
                 href={props.path}
             >
@@ -300,7 +300,7 @@ function IndexDescriptionItem(props: IndexDescriptionItemProps) {
 
     return (
         <li ref={containerRef} className="grid-index-li grid-index-li--description">
-            <section className="mdc-card grid-index-card slide-in-farer slide-in-chained" dangerouslySetInnerHTML={{ __html: props.innerHtml }} />
+            <section className="mdm-card grid-index-card slide-in-farer slide-in-chained" dangerouslySetInnerHTML={{ __html: props.innerHtml }} />
             <hr className="grid-index-li-divider" />
         </li>
     )

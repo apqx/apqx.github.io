@@ -4,14 +4,13 @@ import { consoleInfo } from "../util/log"
 import { getLocalRepository } from "../repository/LocalDb"
 import { showSnackbar } from "./react/Snackbar"
 import { EVENT_PAGE_BACK_FROM_CACHE, getEventEmitter, type Events } from "./base/EventBus"
-import { applyModernM3Theme, materialYouThemeFromSourceColor, type MaterialYouTheme } from "../util/material"
+import { applyModernM3Theme, materialYouThemeFromSourceColor, removeModernM3Theme, type MaterialYouTheme } from "../util/material"
 
 export const darkClass = "dark"
 
 let dynamicTheme: MaterialYouTheme | null = null
 
 export function initTheme() {
-    initDynamicThemeColor()
     checkUserTheme()
     // 监听系统级主题变化，即系统和导航栏都可以控制主题变化
     window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
@@ -31,12 +30,22 @@ export function initTheme() {
     })
 }
 
-function initDynamicThemeColor() {
+function checkDynamicThemeColor(dark: boolean) {
     // 生成 Material You 主题色插入到 CSS 变量中
     // https://material-web.dev/theming/color/
-    dynamicTheme = materialYouThemeFromSourceColor('#5a5fc1');
-    // dynamicTheme = materialYouThemeFromSourceColor('#c15a72');
-    const colorfulEnabled = getLocalRepository().getColorful()
+    if (dynamicTheme == null) {
+        dynamicTheme = materialYouThemeFromSourceColor('#5a5fc1', true);
+        // dynamicTheme = materialYouThemeFromSourceColor('#c15a72');
+    }
+    const expressiveEnabled = getLocalRepository().getThemeExpressive()
+    toggleElementClass(document.body, "expressive", expressiveEnabled)
+    if (expressiveEnabled) {
+        applyModernM3Theme(dynamicTheme, dark)
+    } else {
+        removeModernM3Theme()
+    }
+
+    const colorfulEnabled = getLocalRepository().getThemeColorful()
     toggleElementClass(document.body, "colorful", colorfulEnabled)
 }
 
@@ -62,14 +71,18 @@ const metaThemeColor = {
 // 是否启用彩色标题栏
 // 在使用 Material You 的 Android Chrome 上，浅色主题的主题色不会影响 Chrome 工具栏和状态栏颜色，需要设置更深的主题色才会生效
 // 深色模式下则完全不影响，所以不必设置
-// const colorfulToolbar = false
+// const expressiveToolbar = false
 
-// 给 body 添加 colorful 可启用 material 3 配色，作为实验功能慢慢尝试
+// 给 body 添加 expressive 可启用 material 3 配色，作为实验功能慢慢尝试
 
 function checkMetaThemeColor(dark: boolean, show: boolean) {
     if (show) {
-        if (document.querySelector(".colorful") != null) {
-            setMetaThemeColor(dark ? dynamicTheme?.dark.get("--md-sys-color-surface") : dynamicTheme?.light.get("--md-sys-color-surface"))
+        if (document.querySelector(".expressive") != null) {
+            if (document.querySelector(".colorful") != null) {
+                setMetaThemeColor(dark ? dynamicTheme?.dark.get("--md-sys-color-primary") : dynamicTheme?.light.get("--md-sys-color-primary"))
+            } else {
+                setMetaThemeColor(dark ? dynamicTheme?.dark.get("--md-sys-color-surface") : dynamicTheme?.light.get("--md-sys-color-surface"))
+            }
         } else {
             setMetaThemeColor(dark ? metaThemeColor.dark : metaThemeColor.light)
         }
@@ -144,9 +157,8 @@ function saveTheme(theme: string) {
 
 export function checkUserTheme(showToast: boolean = false) {
     const dark = isDarkThemeFromSysAndUserSettings()
-    if (dynamicTheme != null) {
-        applyModernM3Theme(dynamicTheme, dark)
-    }
+    checkDynamicThemeColor(dark)
+
     showThemeDark(dark)
     getEventEmitter().emit("themeChanged", null)
 

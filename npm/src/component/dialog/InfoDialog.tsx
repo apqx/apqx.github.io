@@ -6,6 +6,7 @@ import { getChromeVersion } from "../../util/tools"
 import { Tag } from "../react/Tag"
 import { List } from "../react/List"
 import { getLocalRepository } from "../../repository/LocalDb"
+import { getEventEmitter } from "../base/EventBus"
 
 
 function InfoDialog(props: BaseDialogOpenProps) {
@@ -27,7 +28,11 @@ function InfoDialog(props: BaseDialogOpenProps) {
     }, [])
 
     const setColorful = useCallback((colorful: boolean) => {
-        getLocalRepository().saveColorful(colorful)
+        getLocalRepository().saveThemeColorful(colorful)
+        getEventEmitter().emit("applyNewTheme", {
+            theme: null,
+            showToast: false
+        })
     }, [])
 
     return (

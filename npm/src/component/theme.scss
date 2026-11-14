@@ -7,271 +7,154 @@
 @use "sass:color";
 
 @mixin light {
-        --mdc-theme-primary: #{map.get(base.$topbar, "bg-light")};
-        --mdc-theme-on-primary: #{map.get(base.$topbar-ink, "light")};
-        --mdc-theme-secondary: #{map.get(base.$fab-bg, "light")};
-        --mdc-theme-on-secondary: #{map.get(base.$fab-ink, "light")};
-        --mdc-theme-background: #{map.get(base.$background, "light")};
-        --mdc-theme-surface: #{map.get(base.$surface, "light")};
-        // 默认字体颜色，段落 p
-        --mdc-theme-on-surface: #{map.get(base.$text-content, "light")};
-        --mdc-theme-on-surface-secondary: #{map.get(base.$text-content-secondary, "light")};
-        --mdc-theme-on-surface-vivid: #{map.get(base.$text-content-vivid, "light")};
-        // 标题字体色
-        --mdc-theme-text-primary-on-background: #{map.get(base.$text-title, "light")};
-        // 小标题字体色
-        --mdc-theme-text-secondary-on-background: #{map.get(base.$text-subtitle, "light")};
+        --md-sys-color-primary: #565992;
+        --md-sys-color-on-primary: #ffffff;
+        --md-sys-color-primary-container: #{map.get(base.$text-block-1-bg, "light")};
+        --md-sys-color-on-primary-container: #{map.get(base.$text-block-1-ink, "light")};
 
-        --fab-bg: var(--mdc-theme-secondary);
-        --fab-ink: var(--mdc-theme-on-secondary);
+        --md-sys-color-secondary: #{map.get(base.$fab-bg, "light")};
+        --md-sys-color-on-secondary: #{map.get(base.$fab-ink, "light")};
+        --md-sys-color-secondary-container: #{map.get(base.$text-block-2-bg, "light")};
+        --md-sys-color-on-secondary-container: #{map.get(base.$text-block-2-ink, "light")};
 
-        --footer-ink:#{map.get(base.$footer-ink, "light")};
+        --md-sys-color-tertiary: #79536a;
+        --md-sys-color-on-tertiary: #ffffff;
+        --md-sys-color-tertiary-container: #{map.get(base.$text-block-3-bg, "light")};
+        --md-sys-color-on-tertiary-container: #{map.get(base.$text-block-3-ink, "light")};
+
+        --md-sys-color-error: #ba1a1a;
+        --md-sys-color-on-error: #ffffff;
+        --md-sys-color-error-container: #ffdad6;
+        --md-sys-color-on-error-container: #93000a;
+
+        --md-sys-color-background: #{map.get(base.$background, "light")};
+        --md-sys-color-on-background: #{map.get(base.$text-content, "light")};
+        --md-sys-color-surface: #{map.get(base.$surface, "light")};
+        --md-sys-color-on-surface: #{map.get(base.$text-content, "light")};
+        --md-sys-color-surface-variant: #e4e1ec;
+        --md-sys-color-on-surface-variant: #{map.get(base.$text-content-secondary, "light")};
+        --md-sys-color-surface-dim: #dcd9e0;
+        --md-sys-color-surface-bright: #fbf8ff;
+        --md-sys-color-surface-container-lowest: #{map.get(base.$surface, "light")};
+        // surface block, pre code
+        --md-sys-color-surface-container-low: #{map.get(base.$surface-block-bg, "light")};
+        // chip, p code
+        --md-sys-color-surface-container: #{map.get(base.$chip-bg, "light")};
+        --md-sys-color-surface-container-high: #{map.get(base.$code-highlight-bg, "light")};
+        --md-sys-color-surface-container-highest: #e4e1e9;
+
+        --md-sys-color-compatible-on-surface-container: #{map.get(base.$chip-ink, "light")};
+        --md-sys-color-compatible-on-surface-vivid: #{map.get(base.$text-content-vivid, "light")};
+        --md-sys-color-compatible-on-surface-vary-heavy: #{map.get(base.$strong, "light")};
+        // 颜色深度 > on-surface，用作正文标题
+        --md-sys-color-compatible-on-surface-heavy: #{map.get(base.$text-title, "light")};
+        // 颜色深度 < on-surface-variant，用作正文副标题
+        --md-sys-color-compatible-on-surface-light: #{map.get(base.$text-subtitle, "light")};
+        --md-sys-color-compatible-on-surface-underline: #{map.get(base.$strong-under-line, "light")};
+
+        --md-sys-color-compatible-border: color-mix(in srgb, var(--md-sys-color-outline) 10%, transparent);
+        --md-sys-color-compatible-divider: color-mix(in srgb, var(--md-sys-color-outline-variant) 15%, transparent);
+
+        // 普通 surface ripple
+        --md-sys-color-compatible-surface-ripple: oklch(from var(--md-sys-color-surface) calc(l - 0.15) c h);
+        // 更深的 ripple，索引卡片使用
+        --md-sys-color-compatible-surface-ripple-deeper: oklch(from var(--md-sys-color-surface) calc(l - 0.22) c h);
+
+        --md-sys-color-outline: #777680;
+        --md-sys-color-outline-variant: #c7c5d0;
+        --md-sys-color-inverse-surface: #{map.get(base.$surface, "dark")};
+        --md-sys-color-inverse-on-surface: #{map.get(base.$text-content, "dark")};
+        --md-sys-color-inverse-primary: #bfc1ff;
+        --md-sys-color-scrim: #000000;
+        --md-sys-color-shadow: #000000;
+
 
         // Drawer
         --scrim-bg: #{map.get(base.$scrim, "light")};
-        --drawer-nav-ripple: #{map.get(base.$drawer-nav-ripple, "light")};
-
-        // Dialog
-        --dialog-action-btn-bg: #{map.get(base.$dialog-action-btn-bg, "light")};
-        --dialog-action-btn-ink: #{map.get(base.$dialog-action-btn-ink, "light")};
-        --dialog-action-btn-ripple: #{map.get(base.$dialog-action-btn-ripple, "light")};
-
-        --card-ripple: #{map.get(base.$card-ripple, "light")};
-
-        // Button
-        --button-bg: #{map.get(base.$button-bg, "light")};
-        --button-ink: #{map.get(base.$button-ink, "light")};
-        --button-ripple: #{map.get(base.$button-ripple, "light")};
-        --icon-button-ripple: #{map.get(base.$icon-button-ripple, "light")};
-        --navigation: #{map.get(base.$text-subtitle, "light")};
-
-        // Code
-        --code-highlight-bg: #{map.get(base.$code-highlight-bg, "light")};
-        --code-highlight-border: #{map.get(base.$code-highlight-border, "light")};
-        --code-highlight-ink: #{map.get(base.$code-highlight-ink, "light")};
-        // --pre-code-bg: #151515;
-        --pre-code-bg: #{map.get(base.$pre-code-bg, "light")};
-        --pre-code-border: #{map.get(base.$pre-code-border, "light")};
-        --pre-code-border-heavy: #{map.get(base.$pre-code-border-heavy, "light")};
-
-        // Chip
-        --chip-bg: #{map.get(base.$chip-bg, "light")};
-        --chip-ink: #{map.get(base.$chip-ink, "light")};
-        --chip-ripple: #{map.get(base.$chip-ripple, "light")};
-        --chip-checked-bg: #{map.get(base.$chip-bg, "dark")};
-        --chip-checked-ink: #{map.get(base.$chip-ink, "dark")};
-        --list-chip-1-bg: #{map.get(base.$text-block-1-bg, "light")};
-        --list-chip-1-ink: #{map.get(base.$text-block-1-ink, "light")};
-        --list-chip-2-bg: #{map.get(base.$text-block-2-bg, "light")};
-        --list-chip-2-ink: #{map.get(base.$text-block-2-ink, "light")};
-        --list-chip-3-bg: #{map.get(base.$text-block-3-bg, "light")};
-        --list-chip-3-ink: #{map.get(base.$text-block-3-ink, "light")};
-
-        --index-list-pin-icon-bg: #{map.get(base.$index-list-pin-icon-bg, "light")};
-
-        --em-color: #{map.get(base.$text-content-secondary, "light")};
-        --strong-color: #{map.get(base.$strong, "light")};
-        --strong-underline-color: #{map.get(base.$strong-under-line, "light")};
-        --tag-underline-color: #{map.get(base.$strong-under-line, "light")};
-        --blockquote-border: #{map.get(base.$blockquote-border, "light")};
-
-        --surface-block-border: #{map.get(base.$surface-block-border, "light")};
-        --surface-block-border-heavy: #{map.get(base.$surface-block-border-heavy, "light")};
-        --surface-block-bg: #{map.get(base.$surface-block-bg, "light")};
-
-        --list-border: #{map.get(base.$list-border, "light")};
-        --list-bg: #{map.get(base.$list-bg, "light")};
-        --list-divider-color: #{map.get(base.$list-border, "light")};
-        --list-ripple: #{map.get(base.$list-ripple, "light")};
-
-        --textfield-border: #{map.get(base.$textfield-border, "light")};
-        --common-divider-color: #{map.get(base.$common-divider-color, "light")};
-
-        --snackbar-bg: #{map.get(base.$snackbar-bg, "light")};
-        --snackbar-ink: #{map.get(base.$snackbar-ink, "light")};
 }
 
 @mixin dark {
-        --mdc-theme-primary: #{map.get(base.$topbar, "bg-dark")};
-        --mdc-theme-on-primary: #{map.get(base.$topbar-ink, "dark")};
-        --mdc-theme-secondary: #{map.get(base.$fab-bg, "dark")};
-        --mdc-theme-on-secondary: #{map.get(base.$fab-ink, "dark")};
-        --mdc-theme-background: #{map.get(base.$background, "dark")};
-        --mdc-theme-surface: #{map.get(base.$surface, "dark")};
-        --mdc-theme-on-surface: #{map.get(base.$text-content, "dark")};
-        --mdc-theme-on-surface-secondary: #{map.get(base.$text-content-secondary, "dark")};
-        --mdc-theme-on-surface-vivid: #{map.get(base.$text-content-vivid, "dark")};
-        --mdc-theme-text-primary-on-background: #{map.get(base.$text-title, "dark")};
-        --mdc-theme-text-secondary-on-background: #{map.get(base.$text-subtitle, "dark")};
+        --md-sys-color-primary: #bfc1ff;
+        --md-sys-color-on-primary: #282b60;
+        --md-sys-color-primary-container: #{map.get(base.$text-block-1-bg, "dark")};
+        --md-sys-color-on-primary-container: #{map.get(base.$text-block-1-ink, "dark")};
 
-        --footer-ink:#{map.get(base.$footer-ink, "dark")};
+        --md-sys-color-secondary: #{map.get(base.$fab-bg, "dark")};
+        --md-sys-color-on-secondary: #{map.get(base.$fab-ink, "dark")};
+        --md-sys-color-secondary-container: #{map.get(base.$text-block-2-bg, "dark")};
+        --md-sys-color-on-secondary-container: #{map.get(base.$text-block-2-ink, "dark")};
+
+        --md-sys-color-tertiary: #e8b9d4;
+        --md-sys-color-on-tertiary: #46263b;
+        --md-sys-color-tertiary-container: #{map.get(base.$text-block-3-bg, "dark")};
+        --md-sys-color-on-tertiary-container: #{map.get(base.$text-block-3-ink, "dark")};
+
+        --md-sys-color-error: #ffb4ab;
+        --md-sys-color-on-error: #690005;
+        --md-sys-color-error-container: #93000a;
+        --md-sys-color-on-error-container: #ffdad6;
+
+        --md-sys-color-background: #{map.get(base.$background, "dark")};
+        --md-sys-color-on-background: #{map.get(base.$text-content, "dark")};
+        --md-sys-color-surface: #{map.get(base.$surface, "dark")};
+        --md-sys-color-on-surface:#{map.get(base.$text-content, "dark")};
+        --md-sys-color-surface-variant: #46464f;
+        --md-sys-color-on-surface-variant: #c7c5d0;
+        --md-sys-color-surface-dim: #131318;
+        --md-sys-color-surface-bright: #39383f;
+        --md-sys-color-surface-container-lowest: #{map.get(base.$background, "dark")};
+        --md-sys-color-surface-container-low: #{map.get(base.$surface-block-bg, "dark")};
+        --md-sys-color-surface-container: #{map.get(base.$chip-bg, "dark")};
+        --md-sys-color-surface-container-high: #{map.get(base.$code-highlight-bg, "dark")};
+        --md-sys-color-surface-container-highest: #35343a;
+
+        // 一些 md 主题中缺少的兼容属性
+        --md-sys-color-compatible-on-surface-container: #{map.get(base.$chip-ink, "dark")};
+        --md-sys-color-compatible-on-surface-vivid: #{map.get(base.$text-content-vivid, "dark")};
+        // 颜色深度 > 正文标题，用作 strong bold
+        --md-sys-color-compatible-on-surface-vary-heavy: #{map.get(base.$strong, "dark")};
+        // 颜色深度 > on-surface，用作正文标题
+        --md-sys-color-compatible-on-surface-heavy: #{map.get(base.$text-title, "dark")};
+        // 颜色深度 < on-surface-variant，用作正文副标题
+        --md-sys-color-compatible-on-surface-light: #{map.get(base.$text-subtitle, "dark")};
+        --md-sys-color-compatible-on-surface-underline: #{map.get(base.$strong-under-line, "dark")};
+
+        // 普通 surface ripple
+        --md-sys-color-compatible-surface-ripple: oklch(from var(--md-sys-color-surface) calc(l + 0.15) c h);
+        // 更深的 ripple，索引卡片使用
+        --md-sys-color-compatible-surface-ripple-deeper: oklch(from var(--md-sys-color-surface) calc(l + 0.22) c h);
+
+        --md-sys-color-outline: #918f9a;
+        --md-sys-color-outline-variant: #46464f;
+        --md-sys-color-inverse-surface: #{map.get(base.$surface, "light")};
+        --md-sys-color-inverse-on-surface: #{map.get(base.$text-content, "light")};
+        --md-sys-color-inverse-primary: #565992;
+        --md-sys-color-scrim: #000000;
+        --md-sys-color-shadow: #000000;
 
         // Drawer
         --scrim-bg: #{map.get(base.$scrim, "dark")};
-        --drawer-nav-ripple: #{map.get(base.$drawer-nav-ripple, "dark")};
 
-        // Dialog
-        --dialog-action-btn-bg: #{map.get(base.$dialog-action-btn-bg, "dark")};
-        --dialog-action-btn-ink: #{map.get(base.$dialog-action-btn-ink, "dark")};
-        --dialog-action-btn-ripple: #{map.get(base.$dialog-action-btn-ripple, "dark")};
-
-        --card-ripple: #{map.get(base.$card-ripple, "dark")};
-
-        --button-bg: #{map.get(base.$button-bg, "dark")};
-        --button-ink: #{map.get(base.$button-ink, "dark")};
-        --button-ripple: #{map.get(base.$button-ripple, "dark")};
-        --icon-button-ripple: #{map.get(base.$icon-button-ripple, "dark")};
-        --navigation: #{map.get(base.$text-subtitle, "dark")};
-
-        // Code
-        --code-highlight-bg: #{map.get(base.$code-highlight-bg, "dark")};
-        --code-highlight-border: #{map.get(base.$code-highlight-border, "dark")};
-        --code-highlight-ink: #{map.get(base.$code-highlight-ink, "dark")};
-        --pre-code-bg: #{map.get(base.$pre-code-bg, "dark")};
-        --pre-code-border: #{map.get(base.$pre-code-border, "dark")};
-        --pre-code-border-heavy: #{map.get(base.$pre-code-border-heavy, "dark")};
-
-        // Chip
-        --chip-bg: #{map.get(base.$chip-bg, "dark")};
-        --chip-ink: #{map.get(base.$chip-ink, "dark")};
-        --chip-ripple: #{map.get(base.$chip-ripple, "dark")};
-        --chip-checked-bg: #{map.get(base.$chip-bg, "light")};
-        --chip-checked-ink: #{map.get(base.$chip-ink, "light")};
-        --list-chip-1-bg: #{map.get(base.$text-block-1-bg, "dark")};
-        --list-chip-1-ink: #{map.get(base.$text-block-1-ink, "dark")};
-        --list-chip-2-bg: #{map.get(base.$text-block-2-bg, "dark")};
-        --list-chip-2-ink: #{map.get(base.$text-block-2-ink, "dark")};
-        --list-chip-3-bg: #{map.get(base.$text-block-3-bg, "dark")};
-        --list-chip-3-ink: #{map.get(base.$text-block-3-ink, "dark")};
-
-        --index-list-pin-icon-bg: #{map.get(base.$index-list-pin-icon-bg, "dark")};
-
-        --em-color: #{map.get(base.$text-content-secondary, "dark")};
-        --strong-color: #{map.get(base.$strong, "dark")};
-        --strong-underline-color: #{map.get(base.$strong-under-line, "dark")};
-        --tag-underline-color: #{map.get(base.$strong-under-line, "dark")};
-        --blockquote-border: #{map.get(base.$blockquote-border, "dark")};
-
-        --surface-block-border: #{map.get(base.$surface-block-border, "dark")};
-        --surface-block-border-heavy: #{map.get(base.$surface-block-border-heavy, "dark")};
-        --surface-block-bg: #{map.get(base.$surface-block-bg, "dark")};
-
-        --list-border: #{map.get(base.$list-border, "dark")};
-        --list-bg: #{map.get(base.$list-bg, "dark")};
-        --list-divider-color: #{map.get(base.$list-border, "dark")};
-        --list-ripple: #{map.get(base.$list-ripple, "dark")};
-
-        --textfield-border: #{map.get(base.$textfield-border, "dark")};
-        --common-divider-color: #{map.get(base.$common-divider-color, "dark")};
-
-        --snackbar-bg: #{map.get(base.$snackbar-bg, "dark")};
-        --snackbar-ink: #{map.get(base.$snackbar-ink, "dark")};
 }
 
 $ripple-light-gap: 75%;
 
-@mixin colorful() {
+@mixin expressive() {
+        --mdm-surface: var(--md-sys-color-surface);
 
-        --mdc-theme-primary: var(--md-sys-color-primary);
-        --mdc-theme-on-primary: var(--md-sys-color-on-primary);
-        --mdc-theme-secondary: var(--md-sys-color-secondary);
-        --mdc-theme-on-secondary: var(--md-sys-color-on-secondary);
+        --md-sys-color-compatible-on-surface-container: var(--md-sys-color-on-surface-variant);
+        --md-sys-color-compatible-on-surface-vivid: color-mix(in srgb, var(--md-sys-color-error) 80%, transparent);
+        --md-sys-color-compatible-on-surface-vary-heavy: var(--md-sys-color-primary);
+        --md-sys-color-compatible-on-surface-heavy: var(--md-sys-color-on-surface);
+        --md-sys-color-compatible-on-surface-light: var(--md-sys-color-on-surface-variant);
+        --md-sys-color-compatible-on-surface-underline: oklch(from var(--mdm-surface) calc(l - 0.1) c h);
 
-        // --mdc-theme-surface: var(--md-sys-color-surface-container-lowest);
-        // --mdc-theme-background: var(--md-sys-color-surface);
-        // --mdc-theme-surface-container: var(--md-sys-color-surface);
-
-        --mdc-theme-surface: var(--md-sys-color-surface);
-        --mdc-theme-background: var(--md-sys-color-surface-container-low);
-        --mdc-theme-surface-container: var(--mdc-theme-background);
-
-        --mdc-theme-on-surface: var(--md-sys-color-on-surface);
-        --mdc-theme-on-surface-secondary: var(--md-sys-color-on-surface-variant);
-        --mdc-theme-on-surface-vivid: color-mix(in srgb, var(--md-sys-color-error) 80%, transparent);
-        --mdc-theme-text-primary-on-background: var(--md-sys-color-on-surface);
-        --mdc-theme-text-secondary-on-background: var(--md-sys-color-on-surface);
-
-
-        // --fab-bg: color-mix(in srgb, var(--md-sys-color-primary) 70%, transparent);
-        --fab-bg: var(--md-sys-color-primary);
-        --fab-ink: var(--md-sys-color-on-primary);
-
-        --footer-ink: var(--md-sys-color-on-surface-variant);
-
-        // Drawer
         // --scrim-bg: #{map.get(base.$scrim, "dark")};
-        --drawer-nav-ripple: oklch(from var(--mdc-theme-surface) calc(l - 0.15) c h);
-
-        // Dialog
-        --dialog-action-btn-bg: var(--mdc-theme-surface);
-        --dialog-action-btn-ink: var(--md-sys-color-on-surface-variant);
-        --dialog-action-btn-ripple: oklch(from var(--mdc-theme-surface) calc(l - 0.15) c h);
-
-        --card-ripple: oklch(from var(--mdc-theme-surface) calc(l - 0.22) c h);
-
-        --button-bg: var(--md-sys-color-primary);
-        --button-ink: var(--md-sys-color-on-primary);
-        --button-ripple: oklch(from var(--button-bg) calc(l - 0.15) c h);
-        --icon-button-ripple: oklch(from var(--mdc-theme-surface) calc(l - 0.15) c h);
-        --navigation: var(--md-sys-color-on-surface-variant);
-
-        // Code
-        --code-highlight-bg: var(--mdc-theme-surface-container);
-        // --code-highlight-border: #{map.get(base.$code-highlight-border, "dark")};
-        --code-highlight-ink: var(--md-sys-color-on-surface);
-        --pre-code-bg: var(--mdc-theme-surface-container);
-        // --pre-code-border: #{map.get(base.$pre-code-border, "dark")};
-        // --pre-code-border-heavy: #{map.get(base.$pre-code-border-heavy, "dark")};
-
-        // Chip
-        --chip-bg: var(--md-sys-color-surface-container-low);
-        --chip-ink: var(--md-sys-color-on-surface-variant);
-        --chip-ripple: oklch(from var(--chip-bg) calc(l - 0.15) c h);
-        --chip-checked-bg: var(--md-sys-color-primary-container);
-        --chip-checked-ink: var(--md-sys-color-on-primary-container);
-        // --list-chip-1-bg: var(--md-sys-color-primary-container);
-        // --list-chip-1-ink: var(--md-sys-color-on-primary-container);
-        // --list-chip-2-bg: var(--md-sys-color-secondary-container);
-        // --list-chip-2-ink: var(--md-sys-color-on-secondary-container);
-        // --list-chip-3-bg: var(--md-sys-color-tertiary-container);
-        // --list-chip-3-ink: var(--md-sys-color-on-tertiary-container);
-
-        // --index-list-pin-icon-bg: #{map.get(base.$index-list-pin-icon-bg, "dark")};
-
-        --em-color: var(--md-sys-color-on-surface-variant);
-        --strong-color: var(--md-sys-color-primary);
-        --strong-underline-color: transparent;
-        --tag-underline-color: oklch(from var(--mdc-theme-surface) calc(l - 0.1) c h);
-        --blockquote-border: color-mix(in srgb, var(--md-sys-color-tertiary) 10%, transparent);
-
-        --surface-block-border: var(--md-sys-color-outline);
-        --surface-block-border-heavy: var(--md-sys-color-outline-variant);
-        --surface-block-bg: var(--md-sys-color-tertiary-container);
-        --surface-block-ink: var(--md-sys-color-on-tertiary-container);
-
-        --list-border: var(--md-sys-color-outline-variant);
-        --list-bg: var(--mdc-theme-surface-container);
-        --list-divider-color: var(--md-sys-color-outline-variant);
-        --list-ripple: oklch(from var(--list-bg) calc(l - 0.15) c h);
-
-        --textfield-border: color-mix(in srgb, var(--md-sys-color-outline) 20%, transparent);
-        --common-divider-color: color-mix(in srgb, var(--md-sys-color-outline-variant) 15%, transparent);
-
-        --snackbar-bg: var(--md-sys-color-inverse-surface);
-        --snackbar-ink: var(--md-sys-color-inverse-on-surface);
 
         &.dark {
-                --mdc-theme-surface: var(--md-sys-color-surface);
-                --mdc-theme-background: var(--md-sys-color-surface-container-lowest);
-                --mdc-theme-surface-container: var(--md-sys-color-surface-container-low);
+                --mdm-surface: var(--md-sys-color-surface);
 
-                --tag-underline-color: oklch(from var(--mdc-theme-surface) calc(l + 0.13) c h);
-                --drawer-nav-ripple: oklch(from var(--mdc-theme-surface) calc(l + 0.15) c h);
-                --card-ripple: oklch(from var(--mdc-theme-surface) calc(l + 0.22) c h);
-                --list-ripple: oklch(from var(--list-bg) calc(l + 0.15) c h);
-                --chip-ripple: oklch(from var(--chip-bg) calc(l + 0.15) c h);
-                --button-ripple: oklch(from var(--button-bg) calc(l + 0.15) c h);
-                --icon-button-ripple: oklch(from var(--mdc-theme-surface) calc(l + 0.15) c h);
+                --md-sys-color-compatible-on-surface-underline: oklch(from var(--mdm-surface) calc(l + 0.13) c h);
         }
 }
 
@@ -330,8 +213,30 @@ body {
         @include dark;
 }
 
-.colorful {
-        @include colorful();
+.expressive {
+        @include expressive();
+}
+
+.mdm-background {
+        background-color: var(--md-sys-color-surface-container-low);
+        color: var(--md-sys-color-on-surface);
+
+        .dark & {
+                background-color: var(--md-sys-color-surface-container-lowest);
+        }
+}
+
+.mdm-card,
+.mdm-surface {
+        background-color: var(--md-sys-color-surface);
+        color: var(--md-sys-color-on-surface)
+}
+
+.mdm-card {
+        // 消除外边距折叠
+        display: flex;
+        flex-direction: column;
+        border-radius: var(--mdc-shape-medium);
 }
 
 // 平板中屏

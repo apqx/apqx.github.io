@@ -333,7 +333,7 @@ function IndexItem(props: IndexItemProps) {
             {/* 第一个元素使用 fade-in 动画，避免在小尺寸手机上因为 slide 距离在页面初次加载时不触发动画 */}
             {/* 用户滚动之前进入 viewport 的全部使用 slide-in 动画 */}
             <a
-                className={"index-a mdc-card grid-index-card grid-index-card__ripple" + animationClass}
+                className={"index-a mdm-card grid-index-card grid-index-card__ripple" + animationClass}
                 data-animation-index={props.index}
                 href={props.path}
             >

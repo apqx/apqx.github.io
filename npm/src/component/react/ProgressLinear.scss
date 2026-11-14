@@ -1,6 +1,6 @@
 @use "@material/linear-progress";
 
 .mdc-linear-progress {
-    @include linear-progress.bar-color(var(--navigation));
-    @include linear-progress.buffer-color(var(--mdc-theme-background));
+    @include linear-progress.bar-color(var(--md-sys-color-compatible-on-surface-light));
+    @include linear-progress.buffer-color(var(--md-sys-color-surface-container));
 }

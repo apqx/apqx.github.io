@@ -10,9 +10,10 @@ import { showSearchDialog } from "../dialog/SearchDialog"
 import { showPreferenceDialog } from "../dialog/PreferenceDialog"
 import { showAboutMeDialog } from "../dialog/AboutMeDialog"
 import { clearFocusListener, toggleElementClass } from "../../util/tools"
-import { getSectionTypeByPath, SECTION_TYPE_LENS, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL, SECTION_TYPE_OTHER, SECTION_TYPE_POETRY, SECTION_TYPE_REPOST, SECTION_TYPE_TAGS } from "../../base/constant"
+import { getSectionTypeByPath, isNavigationSection, SECTION_TYPE_LENS, SECTION_TYPE_OPERA, SECTION_TYPE_ORIGINAL, SECTION_TYPE_POETRY, SECTION_TYPE_REPOST, SECTION_TYPE_TAGS } from "../../base/constant"
 import { showInfoDialogAsync, showShareDialogAsync } from "../dialog/AsyncDialogTrigger"
-import { DelayToNextFrame } from "../base/DelayToNextFrame"
+import { DelayToTimeGap } from "../base/DelayToTimeGap"
+import { consoleInfo } from "../../util/log"
 
 export interface DrawerProps {
     drawerControllerRef: React.RefObject<DrawerController | null>
@@ -34,7 +35,8 @@ export function Drawer(props: DrawerProps) {
     const headerRef = useRef<HTMLDivElement>(null)
     const scrimControllerRef = useRef<ScrimController>(null)
     const animationControllerRef = useRef<IAnimationController>(null)
-    const delayToNextFrameRef = useRef<DelayToNextFrame>(new DelayToNextFrame())
+    // const delayTask = useRef<DelayToNextFrame>(new DelayToNextFrame())
+    const delayTaskRef = useRef<DelayToTimeGap>(new DelayToTimeGap(50))
     const toggleListenerRef = useRef<(open: boolean) => void>(props.toggleListener)
 
     useEffect(() => {
@@ -69,7 +71,7 @@ export function Drawer(props: DrawerProps) {
         headerRef.current?.addEventListener("dblclick", onDoubleClickListener)
 
         return () => {
-            delayToNextFrameRef.current.cancelPendingFrame()
+            delayTaskRef.current.cancelPendingAction()
             animationControllerRef.current?.destroy()
             headerRef.current?.removeEventListener("dblclick", onDoubleClickListener)
         }
@@ -94,12 +96,13 @@ export function Drawer(props: DrawerProps) {
 
     const sectionList: DrawerListItemProps[] = useMemo(() => {
         const section = getSectionTypeByPath(window.location.pathname)
+        consoleInfo(`Drawer section is ${section.identifier}`)
         const list: DrawerListItemProps[] = [
             {
                 text: SECTION_TYPE_ORIGINAL.name,
                 icon: "palette",
                 url: SECTION_TYPE_ORIGINAL.indexPath,
-                selected: SECTION_TYPE_ORIGINAL.identifier == section.identifier || SECTION_TYPE_OTHER.identifier == section.identifier,
+                selected: SECTION_TYPE_ORIGINAL.identifier == section.identifier || !isNavigationSection(section),
                 onClick: undefined
             },
             {
@@ -146,7 +149,7 @@ export function Drawer(props: DrawerProps) {
                 selected: false,
                 onClick: () => {
                     showSearchDialog()
-                    delayToNextFrameRef.current.delay(() => {
+                    delayTaskRef.current.delay(() => {
                         toggleOpen(false)
                     })
                 }
@@ -158,7 +161,7 @@ export function Drawer(props: DrawerProps) {
                 selected: false,
                 onClick: () => {
                     showPreferenceDialog()
-                    delayToNextFrameRef.current.delay(() => {
+                    delayTaskRef.current.delay(() => {
                         toggleOpen(false)
                     })
                 }
@@ -170,7 +173,7 @@ export function Drawer(props: DrawerProps) {
                 selected: false,
                 onClick: () => {
                     showAboutMeDialog()
-                    delayToNextFrameRef.current.delay(() => {
+                    delayTaskRef.current.delay(() => {
                         toggleOpen(false)
                     })
                 }
@@ -186,14 +189,14 @@ export function Drawer(props: DrawerProps) {
 
     const onCLickQrCodeIcon = useCallback(() => {
         showShareDialogAsync(() => {
-            delayToNextFrameRef.current.delay(() => {
+            delayTaskRef.current.delay(() => {
                 toggleOpen(false)
             })
         })
     }, [toggleOpen])
 
     const onClickNavigationIcon = useCallback(() => {
-        delayToNextFrameRef.current.delay(() => {
+        delayTaskRef.current.delay(() => {
             toggleOpen(false)
         })
     }, [toggleOpen])

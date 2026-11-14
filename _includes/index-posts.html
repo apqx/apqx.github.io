@@ -3,7 +3,7 @@
     {% for post in site.posts %}
     {%- if post.categories contains index-category and post.pinned == true %}
     <li class="index-li">
-        <a class="index-a mdc-card index-card" href="{{ post.url }}">
+        <a class="index-a mdm-card index-card" href="{{ post.url }}">
             <section>
                 <h1 class="index-title">{{ post.title }}</h1>
                 <span class="index-author">{% if post.moreDate != null %}{{ post.moreDate }}{% endif %} {{ post.author }}</span>
@@ -22,7 +22,7 @@
     {% endif -%}
     {%- if post.categories contains index-category -%}
     <li class="index-li">
-        <a class="index-a mdc-card index-card" href="{{ post.url }}">
+        <a class="index-a mdm-card index-card" href="{{ post.url }}">
             <section>
                 <h1 class="index-title">{{ post.title }}</h1>
                 <span class="index-author">{% if post.moreDate != null %}{{ post.moreDate }}{% endif %} {{ post.author }}</span>

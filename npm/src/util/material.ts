@@ -1,4 +1,4 @@
-import { argbFromHex, MaterialDynamicColors, type DynamicColor, Hct, SchemeTonalSpot, hexFromArgb, SchemeFidelity, SchemeNeutral } from "@material/material-color-utilities"
+import { argbFromHex, MaterialDynamicColors, type DynamicColor, Hct, SchemeTonalSpot, hexFromArgb } from "@material/material-color-utilities"
 
 export interface MaterialYouThemeColorTokens {
     // Primary
@@ -70,87 +70,84 @@ export interface MaterialYouTheme {
     dark: Map<string, string>
 }
 
+export function getMaterialColorTokens(full: boolean): MaterialYouThemeColorTokens {
+    const dynamicColors = new MaterialDynamicColors();
+    let colorTokens = null
+    if (full) {
+        colorTokens = {
+            'primary': dynamicColors.primary(),
+            'on-primary': dynamicColors.onPrimary(),
+            'primary-container': dynamicColors.primaryContainer(),
+            'on-primary-container': dynamicColors.onPrimaryContainer(),
+
+            'secondary': dynamicColors.secondary(),
+            'on-secondary': dynamicColors.onSecondary(),
+            'secondary-container': dynamicColors.secondaryContainer(),
+            'on-secondary-container': dynamicColors.onSecondaryContainer(),
+
+            'tertiary': dynamicColors.tertiary(),
+            'on-tertiary': dynamicColors.onTertiary(),
+            'tertiary-container': dynamicColors.tertiaryContainer(),
+            'on-tertiary-container': dynamicColors.onTertiaryContainer(),
+
+            'error': dynamicColors.error(),
+            'on-error': dynamicColors.onError(),
+            'error-container': dynamicColors.errorContainer(),
+            'on-error-container': dynamicColors.onErrorContainer(),
+
+            'background': dynamicColors.background(),
+            'on-background': dynamicColors.onBackground(),
+
+            'surface': dynamicColors.surface(),
+            'on-surface': dynamicColors.onSurface(),
+            'surface-variant': dynamicColors.surfaceVariant(),
+            'on-surface-variant': dynamicColors.onSurfaceVariant(),
+            'surface-dim': dynamicColors.surfaceDim(),
+            'surface-bright': dynamicColors.surfaceBright(),
+            'surface-container-lowest': dynamicColors.surfaceContainerLowest(),
+            'surface-container-low': dynamicColors.surfaceContainerLow(),
+            'surface-container': dynamicColors.surfaceContainer(),
+            'surface-container-high': dynamicColors.surfaceContainerHigh(),
+            'surface-container-highest': dynamicColors.surfaceContainerHighest(),
+
+            'outline': dynamicColors.outline(),
+            'outline-variant': dynamicColors.outlineVariant(),
+
+            'inverse-surface': dynamicColors.inverseSurface(),
+            'inverse-on-surface': dynamicColors.inverseOnSurface(),
+            'inverse-primary': dynamicColors.inversePrimary(),
+
+            'scrim': dynamicColors.scrim(),
+            'shadow': dynamicColors.shadow(),
+        } as MaterialYouThemeColorTokens;
+    } else {
+        colorTokens = {
+            'primary': dynamicColors.primary(),
+            'on-primary': dynamicColors.onPrimary(),
+            'primary-container': dynamicColors.primaryContainer(),
+            'on-primary-container': dynamicColors.onPrimaryContainer(),
+
+            'surface': dynamicColors.surface(),
+            'on-surface': dynamicColors.onSurface(),
+            'surface-variant': dynamicColors.surfaceVariant(),
+            'on-surface-variant': dynamicColors.onSurfaceVariant(),
+            'surface-container-low': dynamicColors.surfaceContainerLow(),
+            'surface-container': dynamicColors.surfaceContainer(),
+            'surface-container-high': dynamicColors.surfaceContainerHigh(),
+        };
+    }
+    return colorTokens
+}
+
 
 /**
  * 从源色生成 Material You 主题，包含亮色和暗色两套颜色 Token
  * @param sourceColorHex 源色，十六进制字符串，例如 "#5a5fc1"
+ * @param full 是否是全量颜色 token，否则只包含主要 token
  */
-export function materialYouThemeFromSourceColor(sourceColorHex: string): MaterialYouTheme {
-    const sourceColorHct = Hct.fromInt(argbFromHex(sourceColorHex));
-    const dynamicColors = new MaterialDynamicColors();
-    // 显式映射现代 M3 规范所需的色彩 Token
-    const colorTokens = {
-        'primary': dynamicColors.primary(),
-        'on-primary': dynamicColors.onPrimary(),
-        'primary-container': dynamicColors.primaryContainer(),
-        'on-primary-container': dynamicColors.onPrimaryContainer(),
-
-        'secondary': dynamicColors.secondary(),
-        'on-secondary': dynamicColors.onSecondary(),
-        'secondary-container': dynamicColors.secondaryContainer(),
-        'on-secondary-container': dynamicColors.onSecondaryContainer(),
-
-        'tertiary': dynamicColors.tertiary(),
-        'on-tertiary': dynamicColors.onTertiary(),
-        'tertiary-container': dynamicColors.tertiaryContainer(),
-        'on-tertiary-container': dynamicColors.onTertiaryContainer(),
-
-        'error': dynamicColors.error(),
-        'on-error': dynamicColors.onError(),
-        'error-container': dynamicColors.errorContainer(),
-        'on-error-container': dynamicColors.onErrorContainer(),
-
-        'background': dynamicColors.background(),
-        'on-background': dynamicColors.onBackground(),
-
-        'surface': dynamicColors.surface(),
-        'on-surface': dynamicColors.onSurface(),
-        'surface-variant': dynamicColors.surfaceVariant(),
-        'on-surface-variant': dynamicColors.onSurfaceVariant(),
-        'surface-dim': dynamicColors.surfaceDim(),
-        'surface-bright': dynamicColors.surfaceBright(),
-        'surface-container-lowest': dynamicColors.surfaceContainerLowest(),
-        'surface-container-low': dynamicColors.surfaceContainerLow(),
-        'surface-container': dynamicColors.surfaceContainer(),
-        'surface-container-high': dynamicColors.surfaceContainerHigh(),
-        'surface-container-highest': dynamicColors.surfaceContainerHighest(),
-
-        'outline': dynamicColors.outline(),
-        'outline-variant': dynamicColors.outlineVariant(),
-
-        'inverse-surface': dynamicColors.inverseSurface(),
-        'inverse-on-surface': dynamicColors.inverseOnSurface(),
-        'inverse-primary': dynamicColors.inversePrimary(),
-
-        'scrim': dynamicColors.scrim(),
-        'shadow': dynamicColors.shadow(),
-    };
-    return {
-        sourceColorHct: sourceColorHct,
-        colorTokens: colorTokens,
-        light: calcMaterialColors(sourceColorHct, colorTokens, false),
-        dark: calcMaterialColors(sourceColorHct, colorTokens, true)
-    }
-}
-
-export function limitedMaterialYouThemeFromSourceColor(sourceColorHex: string): MaterialYouTheme {
-    const sourceColorHct = Hct.fromInt(argbFromHex(sourceColorHex));
-    const dynamicColors = new MaterialDynamicColors();
-    // 显式映射现代 M3 规范所需的色彩 Token
-    const colorTokens = {
-        'primary': dynamicColors.primary(),
-        'on-primary': dynamicColors.onPrimary(),
-        'primary-container': dynamicColors.primaryContainer(),
-        'on-primary-container': dynamicColors.onPrimaryContainer(),
-
-        'surface': dynamicColors.surface(),
-        'on-surface': dynamicColors.onSurface(),
-        'surface-variant': dynamicColors.surfaceVariant(),
-        'on-surface-variant': dynamicColors.onSurfaceVariant(),
-        'surface-container-low': dynamicColors.surfaceContainerLow(),
-        'surface-container': dynamicColors.surfaceContainer(),
-        'surface-container-high': dynamicColors.surfaceContainerHigh(),
-    };
+export function materialYouThemeFromSourceColor(sourceColorHex: string, full: boolean): MaterialYouTheme {
+    const sourceColorHct = Hct.fromInt(argbFromHex(sourceColorHex))
+    const colorTokens = getMaterialColorTokens(full)
     return {
         sourceColorHct: sourceColorHct,
         colorTokens: colorTokens,
@@ -164,7 +161,7 @@ function calcMaterialColors(sourceColorHct: Hct, colorTokens: MaterialYouThemeCo
     const scheme = new SchemeTonalSpot(sourceColorHct, isDark, 0.0);
     const result: Map<string, string> = new Map()
 
-    // 遍历并动态注入 CSS 变量
+    // 遍历计算 token 对应的颜色，并生成 CSS 变量
     for (const [tokenName, dynamicColor] of Object.entries(colorTokens)) {
         const argb = dynamicColor.getArgb(scheme);
         const hex = hexFromArgb(argb);
@@ -178,4 +175,11 @@ export function applyModernM3Theme(theme: MaterialYouTheme, dark: boolean, targe
     for (const [tokenName, tokenValue] of colorTokens.entries()) {
         targetElement.style.setProperty(tokenName, tokenValue)
     }
+}
+
+export function removeModernM3Theme(targetElement: HTMLElement = document.body) {
+    const { style } = targetElement
+    Array.from(style)
+        .filter((property) => property.startsWith("--md-sys-color"))
+        .forEach((it) => targetElement.style.removeProperty(it))
 }

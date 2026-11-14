@@ -19,8 +19,8 @@ $header-icon-weight-enhance-gap: 20;
 .mdm-drawer {
     width: var(--drawer-width-actual);
     z-index: var(--z-index-drawer);
-    background-color: var(--mdc-theme-surface);
-    color: var(--mdc-theme-on-surface);
+    background-color: var(--md-sys-color-surface);
+    color: var(--md-sys-color-on-surface);
 
     // 尺寸相对整个 document，适配 iOS 26 中 safari 对 viewport 的变化，避免被底部工具栏裁剪
     position: absolute;
@@ -31,9 +31,9 @@ $header-icon-weight-enhance-gap: 20;
     // sticky 定位的锚点是拥有 overflow 的最近祖先元素
     overflow: unset;
 
-    // .colorful & {
-    //     z-index: calc(var(--z-index-topbar) - 1);
-    // }
+    .colorful & {
+        z-index: calc(var(--z-index-topbar) - 1);
+    }
 
     .mdm-drawer__wrapper {
         box-sizing: border-box;
@@ -51,9 +51,9 @@ $header-icon-weight-enhance-gap: 20;
         padding-left: calc(var(--safe-area-inset-left) + var(--drawer-padding-horizontal));
         padding-right: var(--drawer-padding-horizontal);
 
-        // .colorful & {
-        //     padding-top: calc(var(--safe-area-inset-top) + var(--topbar-height));
-        // }
+        .colorful & {
+            padding-top: calc(var(--safe-area-inset-top) + var(--topbar-height));
+        }
 
         .mdm-drawer__header {
             display: flex;
@@ -69,7 +69,7 @@ $header-icon-weight-enhance-gap: 20;
                 .mdm-drawer__title {
                     font-weight: calc(var(--font-weight-normal) + #{$header-font-weight-enhance-gap});
                     font-size: 1.1rem;
-                    color: var(--mdc-theme-text-primary-on-background);
+                    color: var(--md-sys-color-compatible-on-surface-heavy);
                     display: flex;
                     align-items: center;
 
@@ -80,7 +80,7 @@ $header-icon-weight-enhance-gap: 20;
 
                 .mdm-drawer__subtitle {
                     font-weight: var(--font-weight-normal);
-                    color: var(--mdc-theme-text-secondary-on-background);
+                    color: var(--md-sys-color-compatible-on-surface-light);
                     display: flex;
                     align-items: center;
                     font-size: 0.75rem;
@@ -122,9 +122,9 @@ $header-icon-weight-enhance-gap: 20;
 .mdm-drawer+.mdm-scrim {
     z-index: calc(var(--z-index-drawer) - 1);
 
-    // .colorful & {
-    //     z-index: calc(var(--z-index-topbar) - 2)
-    // }
+    .colorful & {
+        z-index: calc(var(--z-index-topbar) - 2)
+    }
 }
 
 
@@ -136,18 +136,18 @@ $header-icon-weight-enhance-gap: 20;
         padding: 0.25rem var(--list-item-padding-horizontal);
         border-radius: 1.3rem;
         // hover focus press
-        @include ripple.ripple(var(--drawer-nav-ripple), 0.1, 0.1, 0.1);
+        @include ripple.ripple(var(--md-sys-color-compatible-surface-ripple), 0.18, 0.18, 0.18);
 
-        .colorful & {
+        .expressive & {
             @include ripple.ripple(var(--md-sys-color-primary), 0.05, 0.05, 0.05);
         }
 
         &.mdm-drawer-list-item-selected {
-            background-color: color-mix(in srgb, var(--drawer-nav-ripple) 15%, transparent);
-            // color: var(--mdc-theme-text-primary-on-background);
+            background-color: color-mix(in srgb, var(--md-sys-color-compatible-surface-ripple) 20%, transparent);
 
-            .colorful & {
+            .expressive & {
                 background-color: var(--md-sys-color-primary-container);
+                // background-color: color-mix(in srgb, var(--md-sys-color-primary-container) 50%, transparent);
                 color: var(--md-sys-color-on-primary-container);
             }
 

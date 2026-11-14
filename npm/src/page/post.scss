@@ -12,7 +12,7 @@
 
 /* 文章署名 */
 .post-author {
-    color: var(--mdc-theme-text-secondary-on-background);
+    color: var(--md-sys-color-compatible-on-surface-light);
     line-height: 1.75rem;
     font-size: calc(var(--mdm-typography-body1-font-size) - 0.1rem);
     text-align: center;
@@ -21,10 +21,11 @@
 
 /* 文章日期 */
 .post-date {
-    color: var(--mdc-theme-text-secondary-on-background);
+    color: var(--md-sys-color-compatible-on-surface-light);
     line-height: 1.75rem;
     font-size: calc(var(--mdm-typography-body1-font-size) - 0.1rem);
     text-align: center;
+    display: block;
     // margin-top: 0.5rem;
 }
 
@@ -35,7 +36,7 @@
 
 .surface-block code,
 .opera-page code:not(.mdm-dialog code) {
-    color: var(--mdc-theme-on-surface-vivid);
+    color: var(---md-sys-color-compatible-on-surface-vivid);
     font-weight: var(--font-weight-normal);
     padding: 0;
     margin: 0 0.1rem;

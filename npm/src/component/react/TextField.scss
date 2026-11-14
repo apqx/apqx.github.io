@@ -9,13 +9,13 @@
     margin-left: auto;
     margin-right: auto;
 
-    @include textfield.ink-color(var(--mdc-theme-on-surface));
-    @include textfield.caret-color(var(--mdc-theme-on-surface));
-    @include textfield.placeholder-color(var(--mdc-theme-text-secondary-on-background));
-    @include textfield.label-color(var(--mdc-theme-text-secondary-on-background));
-    @include textfield.outline-color(var(--textfield-border));
-    @include textfield.hover-outline-color(var(--textfield-border));
-    @include textfield.focused-outline-color(var(--textfield-border));
+    @include textfield.ink-color(var(--md-sys-color-on-surface));
+    @include textfield.caret-color(var(--md-sys-color-on-surface));
+    @include textfield.placeholder-color(var(--md-sys-color-compatible-on-surface-light));
+    @include textfield.label-color(var(--md-sys-color-compatible-on-surface-light));
+    @include textfield.outline-color(var(--md-sys-color-compatible-border));
+    @include textfield.hover-outline-color(var(--md-sys-color-compatible-border));
+    @include textfield.focused-outline-color(var(--md-sys-color-compatible-border));
 
     .mdc-floating-label,
     .mdc-text-field__input {
@@ -31,7 +31,7 @@
         border-radius: 0 var(--mdc-shape-small) var(--mdc-shape-small) 0;
 
         i {
-            color: var(--mdc-theme-text-secondary-on-background);
+            color: var(--md-sys-color-compatible-on-surface-light);
         }
     }
 

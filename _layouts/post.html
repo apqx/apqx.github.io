@@ -5,14 +5,14 @@
     {% include head.html -%}
 </head>
 
-<body class="mdm-typography mdc-theme--surface">
+<body class="mdm-typography mdm-surface">
     {% include script-theme.html %}
     {% include header.html %}
     {% include aside.html %}
-    <main class="mdc-theme--background">
+    <main class="mdm-background">
         <div class="main-container">
             <!-- 不携带 data-pagefind-body 将不会被 pagefind 索引 -->
-            <article data-pagefind-body class="mdc-card content-card">
+            <article data-pagefind-body class="mdm-card content-card">
                 {% include script-content-card.html %}
                 <!-- 为 pagefind 设置名为 category 的搜索 filter -->
                 <h1 data-pagefind-meta="title" data-pagefind-filter="category:{{ page.categories }}" class="post-title">

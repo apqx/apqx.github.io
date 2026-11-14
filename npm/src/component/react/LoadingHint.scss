@@ -43,6 +43,6 @@
             opacity: 1;
         }
 
-        @include button.ink-color(var(--navigation));
+        @include button.ink-color(var(--md-sys-color-compatible-on-surface-light));
     }
 }

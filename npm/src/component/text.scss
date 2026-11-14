@@ -67,7 +67,7 @@
 }
 
 .em-color {
-    color: var(--em-color);
+    color: var(--md-sys-color-on-surface-variant);
 }
 
 .surface-block {
@@ -75,9 +75,14 @@
     --mdm-typography-body1-font-size: calc(#{base.$text-size-base} - 0.05rem);
 
     border-radius: var(--post-inner-shape-round);
-    background: var(--surface-block-bg);
-    color: var(--surface-block-ink);
+    background: var(--md-sys-color-surface-container-low);
+    color: var(--md-sys-color-on-surface);
     padding: var(--text-block-padding-vertical) var(--text-block-padding-horizontal);
+
+    .expressive & {
+        background-color: var(--md-sys-color-tertiary-container);
+        color: var(--md-sys-color-on-tertiary-container);
+    }
 }
 
 // 横向滑动，不换行

@@ -13,27 +13,22 @@
     // height: 100%;
     z-index: var(--z-index-topbar);
 
-    background-color: var(--mdc-theme-surface);
+    background-color: var(--md-sys-color-surface);
     * {
-        color: var(--mdc-theme-on-primary);
+        color: var(--md-sys-color-on-surface);
     }
 
     .colorful & {
-        // background-color: var(--md-sys-color-primary);
-        // * {
-        //     color: var(--md-sys-color-on-primary);
-        // }
-
-        // background-color: var(--mdc-theme-background);
+        background-color: var(--md-sys-color-primary);
         * {
-            color: var(--mdc-theme-on-surface);
+            color: var(--md-sys-color-on-primary);
         }
     }
 
-    &.mdm-topbar-blur:not(.colorful &) {
+    &.mdm-topbar-blur:not(.expressive,.colorful &) {
         -webkit-backdrop-filter: blur(map.get(base.$topbar, "backdrop-filter"));
         backdrop-filter: blur(map.get(base.$topbar, "backdrop-filter"));
-        background-color: color-mix(in srgb, var(--mdc-theme-primary) 80%, transparent);
+        background-color: color-mix(in srgb, var(--md-sys-color-surface) 80%, transparent);
     }
 
     &.mdm-topbar-fixed {

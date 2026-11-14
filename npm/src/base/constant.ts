@@ -66,6 +66,12 @@ export const SECTION_TYPE_OTHER: SectionType = {
     pathRegex: ""
 }
 
+export function isNavigationSection(section: SectionType) {
+    return [SECTION_TYPE_ORIGINAL.identifier, SECTION_TYPE_REPOST.identifier, SECTION_TYPE_POETRY.identifier,
+    SECTION_TYPE_OPERA.identifier, SECTION_TYPE_LENS.identifier
+    ].includes(section.identifier)
+}
+
 export type SectionType = {
     identifier: string,
     name: string,
@@ -106,7 +112,7 @@ export function getSectionTypeByPath(path: string): SectionType {
  */
 export function isIndexPage(path: string): boolean {
     // /， /index，/index.html，/section/中非 tags 开头的页面都算作 Index 页面
-    return path.match("^((\\/)|(\\/index.*)|(\\/section/(?!tags).*))$") != null 
+    return path.match("^((\\/)|(\\/index.*)|(\\/section/(?!tags).*))$") != null
 }
 
 export function isPostPage(path: string): boolean {

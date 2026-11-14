@@ -39,7 +39,7 @@ export function PreferenceDialog(props: BaseDialogOpenProps) {
     }, [])
 
     const autoThemeTitle = useMemo(() => {
-        return "自适应<a href=\"/post/original/2021/08/03/为博客添加站内搜索和深色模式.html\" tabIndex=\"-1\">主题颜色</a>"
+        return "自适应<a href=\"/post/original/2021/08/03/为博客添加站内搜索和深色模式.html\" tabIndex=\"-1\">深色模式</a>"
     }, [])
 
     const onDialogOpen = useCallback(() => {
@@ -72,9 +72,12 @@ export function PreferenceDialog(props: BaseDialogOpenProps) {
                 <SettingsToggle titleHtml={notoSerifSCFontTitle} description="全局字体从默认黑体改为衬线宋体"
                     on={state.notoSerifSCFont}
                     onChange={viewModel.onClickNotoSerifSCFontSwitch} />
-                <SettingsToggle titleHtml={autoThemeTitle} description="跟随系统设置自动切换明暗配色"
+                <SettingsToggle titleHtml={autoThemeTitle} description="跟随系统设置自动切换明暗主题色"
                     on={state.autoTheme}
                     onChange={viewModel.onClickAutoThemeSwitch} />
+                <SettingsToggle titleHtml={"展现更具表现力的颜色"} description="实验性支持 Material 3 Expressive"
+                    on={state.themeExpressive}
+                    onChange={viewModel.onClickThemeExpressiveSwitch} />
             </ul>
         </BaseDialog>
     )

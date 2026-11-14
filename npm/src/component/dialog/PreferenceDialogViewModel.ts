@@ -9,6 +9,7 @@ export interface PreferenceDialogState {
     notoSerifSCFont: boolean
     lensBiggerPicture: boolean
     autoTheme: boolean
+    themeExpressive: boolean
     hideStatusBarBg: boolean
 }
 
@@ -18,6 +19,7 @@ export class PreferenceDialogViewModel extends BaseExternalStore {
         notoSerifSCFont: false,
         lensBiggerPicture: false,
         autoTheme: false,
+        themeExpressive: false,
         hideStatusBarBg: false
     }
 
@@ -31,6 +33,7 @@ export class PreferenceDialogViewModel extends BaseExternalStore {
             notoSerifSCFont: this.localNotoSerifSCFont(),
             lensBiggerPicture: this.localLensBiggerPicture(),
             autoTheme: this.localAutoTheme(),
+            themeExpressive: this.localThemeExpressive(),
             hideStatusBarBg: this.localHideStatusBarBg()
         }
         this.emitChange()
@@ -94,7 +97,7 @@ export class PreferenceDialogViewModel extends BaseExternalStore {
             // 关闭了自适应主题，检测当前主题并保存
             const currentDarkTheme = bodyE.classList.contains(this.darkClass)
             if (currentDarkTheme) {
-                newTheme= this.localRepository.VALUE_THEME_DARK
+                newTheme = this.localRepository.VALUE_THEME_DARK
             } else {
                 newTheme = this.localRepository.VALUE_THEME_LIGHT
             }
@@ -102,6 +105,18 @@ export class PreferenceDialogViewModel extends BaseExternalStore {
         this.localRepository.saveTheme(newTheme)
         getEventEmitter().emit("applyNewTheme", {
             theme: newTheme,
+            showToast: false
+        })
+    }
+
+    onClickThemeExpressiveSwitch = (event: Event) => {
+        const switchE = event.target as MdSwitch
+        const newState = switchE.selected
+        this.state = { ...this.state, themeExpressive: newState }
+        this.emitChange()
+        this.localRepository.saveThemeExpressive(newState)
+        getEventEmitter().emit("applyNewTheme", {
+            theme: null,
             showToast: false
         })
     }
@@ -124,6 +139,10 @@ export class PreferenceDialogViewModel extends BaseExternalStore {
 
     localAutoTheme(): boolean {
         return this.localRepository.getAutoTheme()
+    }
+
+    localThemeExpressive(): boolean {
+        return this.localRepository.getThemeExpressive()
     }
 
     localHideStatusBarBg(): boolean {

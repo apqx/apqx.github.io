@@ -5,7 +5,7 @@
 @use "sass:map";
 
 @mixin btnChipRipple {
-    @include ripple.ripple(var(--chip-ripple), 0, 0, 0.1);
+    @include ripple.ripple(var(--md-sys-color-compatible-surface-ripple), 0, 0, 0.15);
 }
 
 $btnTagSideRadius: calc(var(--mdm-typography-body1-font-size) - 0.1rem);
@@ -14,8 +14,8 @@ $btnTagSidePaddingHorizontal: 0.8rem;
 $btnTagPaddingHorizontal: 0.8rem;
 
 .mdc-button.btn-tag {
-    @include button.ink-color(var(--chip-ink));
-    @include button.container-fill-color(var(--chip-bg));
+    @include button.ink-color(var(--md-sys-color-compatible-on-surface-container));
+    @include button.container-fill-color(var(--md-sys-color-surface-container));
     @include button.horizontal-padding($btnTagPaddingHorizontal);
     @include button.height(2.3rem);
     min-width: 3.6rem;
@@ -23,6 +23,10 @@ $btnTagPaddingHorizontal: 0.8rem;
     font-size: calc(var(--mdm-typography-body1-font-size) - 0.1rem);
     margin: 0;
     border-radius: $btnTagRadius;
+
+    .expressive & {
+        @include button.container-fill-color(var(--md-sys-color-surface-container-low));
+    }
 
     &:not(.btn-tag-checkable) {
         @include btnChipRipple();
@@ -36,11 +40,11 @@ $btnTagPaddingHorizontal: 0.8rem;
 }
 
 .mdc-button.btn-tag.btn-tag-checked {
-    @include button.ink-color(var(--chip-checked-ink));
-    @include button.container-fill-color(var(--chip-checked-bg));
+    @include button.ink-color(var(--md-sys-color-on-tertiary-container));
+    @include button.container-fill-color(var(--md-sys-color-tertiary-container));
     border-radius: calc($btnTagSideRadius / 2);
 
-    .colorful & {
+    .expressive & {
         border-radius: $btnTagSideRadius;
     }
 }
@@ -86,17 +90,17 @@ $btnTagPaddingHorizontal: 0.8rem;
 
 @mixin tag-link-underline {
     text-decoration: none;
-    box-shadow: inset 0 -8px 0 0 var(--tag-underline-color);
+    box-shadow: inset 0 -8px 0 0 var(--md-sys-color-compatible-on-surface-underline);
     transition: box-shadow 0.2s ease;
 
     &:hover {
-        box-shadow: inset 0 0 0 0 var(--tag-underline-color);
+        box-shadow: inset 0 0 0 0 var(--md-sys-color-compatible-on-surface-underline);
     }
 }
 
 a.tag-link {
     font-weight: inherit;
-    color: var(--mdc-theme-on-surface);
+    color: var(--md-sys-color-on-surface);
     line-height: var(--mdm-typography-body1-line-height);
     letter-spacing: var(--mdm-typography-body1-letter-spacing);
     @include tag-link-underline;

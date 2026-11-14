@@ -20,7 +20,6 @@
     "@material/material-color-utilities": "^0.4.0",
     "@material/animation": "^14.0.0",
     "@material/button": "^14.0.0",
-    "@material/card": "^14.0.0",
     "@material/circular-progress": "^14.0.0",
     "@material/elevation": "^14.0.0",
     "@material/fab": "^14.0.0",

@@ -75,9 +75,9 @@ $dialog-max-width: 35rem;
             width: fit-content;
             max-width: $dialog-max-width;
             max-height: calc(100% - 2.5rem);
-            background-color: var(--mdc-theme-surface);
-            color: var(--mdc-theme-on-surface);
-            border: 1px solid var(--common-divider-color);
+            background-color: var(--md-sys-color-surface);
+            color: var(--md-sys-color-on-surface);
+            border: 1px solid var(--md-sys-color-compatible-divider);
             border-radius: var(--dialog-border-radius);
 
             &.mdm-dialog-fixed-width {
@@ -117,7 +117,7 @@ $dialog-max-width: 35rem;
                 // box-sizing: border-box;
                 border: none;
                 border-top: 1px solid;
-                border-color: var(--common-divider-color) !important;
+                border-color: var(--md-sys-color-compatible-divider) !important;
 
                 button {
                     flex: 1;
@@ -126,9 +126,9 @@ $dialog-max-width: 35rem;
                     padding: 0;
                     border-radius: 0;
 
-                    @include button.container-fill-color(var(--dialog-action-btn-bg));
-                    @include button.ink-color(var(--dialog-action-btn-ink));
-                    @include ripple.ripple(var(--dialog-action-btn-ripple), 0, 0, 0.1);
+                    @include button.container-fill-color(var(--md-sys-color-surface));
+                    @include button.ink-color(var(--md-sys-color-on-surface-variant));
+                    @include ripple.ripple(var(--md-sys-color-compatible-surface-ripple), 0, 0, 0.12);
                 }
             }
         }
@@ -153,7 +153,7 @@ $dialog-max-width: 35rem;
 
 @mixin baseDialogHint {
     margin: 1.2rem 1rem;
-    color: var(--mdc-theme-on-surface);
+    color: var(--md-sys-color-on-surface);
     font-weight: var(--font-weight-light);
     font-size: var(--mdm-typography-body2-font-size);
     line-height: var(--mdm-typography-body2-line-height);

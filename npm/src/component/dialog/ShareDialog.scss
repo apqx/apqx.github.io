@@ -35,8 +35,7 @@ $max-width: 20rem;
     margin-right: auto;
 
     border-radius: var(--post-inner-shape-round);
-    // border: 1px solid var(--pre-code-border-heavy);
-    background: var(--pre-code-bg);
+    background: var(--md-sys-color-surface-container-low);
 
     .share-url-span-wrapper {
         flex: 1;
@@ -73,7 +72,7 @@ $max-width: 20rem;
         padding-right: 0.2rem;
         border-top-right-radius: var(--post-inner-shape-round);
         border-bottom-right-radius: var(--post-inner-shape-round);
-        background: linear-gradient(to right, transparent, var(--pre-code-bg) 30%);
+        background: linear-gradient(to right, transparent, var(--md-sys-color-surface-container-low) 30%);
 
         &::before {
             content: "";
@@ -87,7 +86,7 @@ $max-width: 20rem;
 
             i {
                 font-size: calc(var(--mdm-typography-body1-font-size) + 0.3rem);
-                color: var(--mdc-theme-on-surface-secondary);
+                color: var(--md-sys-color-on-surface-variant);
             }
         }
     }
