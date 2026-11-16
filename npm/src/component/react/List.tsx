@@ -35,7 +35,7 @@ export function List(props: ListProps) {
     )
 }
 
-interface ListItemProps {
+export interface ListItemProps {
     title: string,
     description?: string,
     link?: string,

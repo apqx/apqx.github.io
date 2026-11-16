@@ -13,26 +13,32 @@
     // height: 100%;
     z-index: var(--z-index-topbar);
 
-    background-color: var(--md-custom-color-layer-front);
+    background-color: var(--md-custom-color-component-surface);
+
     * {
         color: var(--md-sys-color-on-surface);
     }
 
     .expressive & {
-        background-color: var(--md-custom-color-layer-back);
+        background-color: var(--md-custom-color-overall-background);
     }
 
     .colorful & {
         background-color: var(--md-sys-color-primary);
+
         * {
             color: var(--md-sys-color-on-primary);
         }
     }
 
-    &.mdm-topbar-blur:not(.expressive,.colorful &) {
+    &.mdm-topbar-blur:not(.colorful &) {
         -webkit-backdrop-filter: blur(map.get(base.$topbar, "backdrop-filter"));
         backdrop-filter: blur(map.get(base.$topbar, "backdrop-filter"));
-        background-color: color-mix(in srgb, var(--md-sys-color-surface) 80%, transparent);
+        background-color: color-mix(in srgb, var(--md-custom-color-component-surface) 80%, transparent);
+
+        .expressive & {
+            background-color: color-mix(in srgb, var(--md-custom-color-overall-background) 80%, transparent);
+        }
     }
 
     &.mdm-topbar-fixed {
@@ -149,10 +155,10 @@
     // }
 
     // 颜色与模糊应与 fab 一致，保持视觉
-    background: rgba($color: map.get(base.$surface, "light"), $alpha: 0.5);
+    background: color-mix(in srgb, var(--md-custom-color-component-surface) 50%, transparent);
 
-    .dark & {
-        background: rgba($color: map.get(base.$surface, "dark"), $alpha: 0.5);
+    .expressive & {
+        background: color-mix(in srgb, var(--md-custom-color-overall-background) 50%, transparent);
     }
 
     /* 使用遮罩让元素（包括颜色和模糊效果）从上到下逐渐消失 */

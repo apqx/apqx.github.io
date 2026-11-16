@@ -62,6 +62,7 @@ export function Topbar() {
 
         const topbarFixedChangeHandler = (_data: Events["applyTopbarFixedChange"]) => {
             checkAndSetFixedTopbar()
+            checkAndSetTopbarBlur()
         }
 
         const statusBarBgChangeHandler = (_data: Events["applyStatusBarBgChange"]) => {

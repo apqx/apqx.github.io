@@ -1,19 +1,46 @@
 @use "../component/animation/BaseAnimation";
 
 footer {
-    .footer--hidden {
-        opacity: 0;
-    }
 
-    p {
-        color: var(--md-sys-color-on-surface-variant)
-    }
+    .footer-container {
+        div {
+            box-sizing: content-box;
+            width: 100%;
+            height: calc(var(--fab-size));
+            padding: var(--fab-marin-to-edge) 0;
+            // margin-bottom: calc(var(--fab-marin-to-edge) + );
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
 
-    .copyright {
-        padding: 1rem;
-    
-        p {
-            font-style: normal;
+            p {
+                text-align: center;
+                font-style: normal;
+                line-height: normal;
+
+                .foot-link-btn {
+                    font-size: var(--mdm-typography-body2-font-size);
+                    font-family: var(--mdm-typography-font-family);
+                    color: var(--md-sys-color-on-surface-variant);
+                    background-color: transparent;
+                    border: none;
+                    // text-decoration: underline;
+                    
+                    cursor: pointer;
+                    padding-inline-start: 0.2rem;
+                    padding-inline-end: 0.2rem;
+
+                    &:hover {
+                        text-decoration: none;
+                    }
+
+
+                }
+            }
         }
+
     }
+
+
 }

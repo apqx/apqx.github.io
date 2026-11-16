@@ -41,9 +41,10 @@ li {
         .expressive & {
             @include ripple.ripple(var(--md-sys-color-compatible-surface-ripple2), 0.03, 0.03, 0.2);
 
-            .mdm-list-no-hover & {
-                @include ripple.ripple(var(--md-sys-color-compatible-surface-ripple2), 0, 0, 0.2);
-            }
+        }
+
+        .expressive .mdm-list-no-hover & {
+            @include ripple.ripple(var(--md-sys-color-compatible-surface-ripple2), 0, 0, 0.2);
         }
 
         &.mdm-list-item-darken {

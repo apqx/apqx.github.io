@@ -177,7 +177,7 @@ export function BaseDialog({ dialogControllerRef = undefined, fixedWidth = false
                 <div ref={dialogContainerFoFlexRef} className="mdm-dialog-container-for-flex" onClick={onScrimClick}>
                     {/* 空元素获取焦点 */}
                     <div tabIndex={0}></div>
-                    <div ref={dialogSurfaceRef} className={fixedWidth ? "mdm-dialog__surface mdm-dialog-fixed-width" : "mdm-dialog__surface"}>
+                    <div ref={dialogSurfaceRef} className={fixedWidth ? "mdm-dialog__surface mdm-floating-surface mdm-dialog-fixed-width" : "mdm-dialog__surface mdm-floating-surface"}>
                         <ScrollContext.Provider value={calcHeightContainerRef}>
                             <div ref={calcHeightContainerRef} className="mdm-dialog__content"
                                 id="basic-dialog-content">

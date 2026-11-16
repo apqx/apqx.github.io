@@ -19,8 +19,6 @@ $header-icon-weight-enhance-gap: 20;
 .mdm-drawer {
     width: var(--drawer-width-actual);
     z-index: var(--z-index-drawer);
-    background-color: var(--md-sys-color-surface);
-    color: var(--md-sys-color-on-surface);
 
     // 尺寸相对整个 document，适配 iOS 26 中 safari 对 viewport 的变化，避免被底部工具栏裁剪
     position: absolute;

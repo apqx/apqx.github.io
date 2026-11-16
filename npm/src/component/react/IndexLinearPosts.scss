@@ -4,9 +4,8 @@
 // @use "../animation/BaseAnimation";
 // @use "../animation/HeightAnimationContainer";
 
-body {
-    --index-card-padding-vertical: 1.25rem;
-    --index-card-padding-horizontal: 2.5rem;
+.index-list-wrapper {
+    padding: 0 var(--index-card-to-container-border-horizontal);
 }
 
 .mdm-card.index-top-card {
@@ -14,214 +13,172 @@ body {
     border-top-right-radius: var(--index-card-top-radius);
     border-bottom-left-radius: var(--index-card-radius);
     border-bottom-right-radius: var(--index-card-radius);
-    margin-left: var(--index-card-to-container-border-horizontal);
-    margin-right: var(--index-card-to-container-border-horizontal);
     @include card.cardElevation();
     @include card.cardRipple();
-}
 
-.index-top-card-container {
-    padding-top: 0.1rem;
-    padding-bottom: 0.18rem;
-    padding-left: var(--index-card-padding-horizontal);
-    padding-right: var(--index-card-padding-horizontal);
-}
+    .index-top-cover {
+        object-fit: cover;
+        width: 100%;
+        // 封面宽高比例，在不设置动画时使用，JS 动画用它计算高度
+        aspect-ratio: 844/295 auto;
 
-.index-top-card-text {
-    text-align: right;
-}
-
-.mdm-card.index-card {
-    border-radius: var(--index-card-radius);
-    padding: var(--index-card-padding-vertical) var(--index-card-padding-horizontal);
-    @include card.cardElevation();
-    // 添加Ripple动画
-    @include card.cardRipple();
-}
-
-.index-li:last-child {
-    .mdm-card.index-card {
-        border-bottom-left-radius: var(--index-card-top-radius);
-        border-bottom-right-radius: var(--index-card-top-radius);
-    }
-}
-
-.index-top-cover {
-    object-fit: cover;
-    width: 100%;
-    // 封面宽高比例，在不设置动画时使用，JS 动画用它计算高度
-    aspect-ratio: 844/295 auto;
-}
-
-.dark .index-top-cover#main-index {
-    filter: brightness(0.98);
-}
-
-/* 索引题目 */
-.index-title {
-    color: var(--md-sys-color-on-surface);
-    font-size: var(--mdm-typography-body1-font-size);
-    font-weight: var(--mdm-typography-body1-font-weight);
-    line-height: var(--mdm-typography-body1-line-height);
-    letter-spacing: var(--mdm-typography-body1-letter-spacing);
-    margin: 0;
-    text-align: left;
-}
-
-/* 索引署名 */
-.index-author {
-    color: var(--md-sys-color-compatible-on-surface-light);
-    font-size: calc(var(--mdm-typography-body1-font-size) - 0.2rem);
-    line-height: 1.5rem;
-    text-align: right;
-    margin: 0;
-    display: block
-}
-
-/* 索引日期 */
-.index-date {
-    color: var(--md-sys-color-compatible-on-surface-light);
-    font-size: calc(var(--mdm-typography-body1-font-size) - 0.2rem);
-    line-height: 1.5rem;
-    text-align: right;
-    margin: 0;
-    display: block;
-}
-
-.index-description {
-    margin: 0;
-}
-
-.index-width-desc-title {
-    color: var(--md-sys-color-on-surface);
-    font-size: var(--mdm-typography-body1-font-size);
-    line-height: var(--mdm-typography-body1-line-height);
-    letter-spacing: var(--mdm-typography-body1-letter-spacing);
-    margin: 0;
-    text-align: left;
-}
-
-.index-with-desc-date {
-    color: var(--md-sys-color-compatible-on-surface-light);
-    font-size: calc(var(--mdm-typography-body1-font-size) - 0.2rem);
-    font-weight: var(--mdm-typography-body1-font-weight);
-    line-height: 1.5rem;
-    text-align: left;
-    margin: 0;
-    display: block;
-}
-
-.index-width-desc-desc {
-    color: var(--md-sys-color-compatible-on-surface-light);
-    font-size: calc(var(--mdm-typography-body1-font-size) - 0.1rem);
-    line-height: 1rem;
-    font-weight: var(--font-weight-light);
-    text-align: left;
-    margin: 0;
-}
-
-// 索引列表
-.index-ul {
-    padding: 0;
-    margin-top: var(--index-card-gap);
-    margin-bottom: 0;
-}
-
-.index-li {
-    list-style-type: none;
-    margin: 0 var(--index-card-to-container-border-horizontal);
-    padding: 0;
-}
-
-.index-li-divider {
-    height: var(--index-card-gap);
-    margin: 0;
-    border: none;
-}
-
-.index-card {
-    position: relative;
-
-    .index-pinned-icon-container,
-    .index-featured-icon-container {
-        position: absolute;
-        bottom: calc(var(--index-card-padding-vertical) + 0.1rem);
-        left: calc(var(--index-card-padding-horizontal) - 0.4rem);
-        width: 1.5rem;
-        height: 1.5rem;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        font-size: 0.9rem;
-        color: var(--md-sys-color-compatible-on-surface-light);
-
-        i {
-            margin: auto;
-            font-size: inherit;
+        .dark:not(.dark.expressive) &#main-index {
+            filter: brightness(0.98);
         }
     }
 
-    // 置顶图标和推荐图标宽度不同，需单独调整使视觉均衡
-    .index-featured-icon-container {
-        left: calc(var(--index-card-padding-horizontal) - 0.3rem);
+    .index-top-card-container {
+        padding-top: 0.1rem;
+        padding-bottom: 0.18rem;
+        padding-left: var(--index-card-padding-horizontal);
+        padding-right: var(--index-card-padding-horizontal);
+
+        .index-top-card-text {
+            text-align: right;
+        }
     }
 }
 
-// 索引链接
-.index-a {
-    // 去除下划线
-    text-decoration: none;
-    // 去除点击时的默认的背景，防止干扰 Ripple 动画
-    // background-color: transparent;
-}
+.index-ul {
 
+    padding: 0;
+    margin-top: var(--index-card-gap);
+    margin-bottom: 0;
+
+    .index-li {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+
+        .mdm-card.index-card {
+            border-radius: var(--index-card-radius);
+            padding: var(--index-card-padding-vertical) var(--index-card-padding-horizontal);
+            @include card.cardElevation();
+            // 添加Ripple动画
+            @include card.cardRipple();
+
+            position: relative;
+
+            .index-pinned-icon-container,
+            .index-featured-icon-container {
+                position: absolute;
+                bottom: calc(var(--index-card-padding-vertical) + 0.1rem);
+                left: calc(var(--index-card-padding-horizontal) - 0.4rem);
+                width: 1.5rem;
+                height: 1.5rem;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                font-size: 0.9rem;
+                color: var(--md-sys-color-compatible-on-surface-light);
+
+                i {
+                    margin: auto;
+                    font-size: inherit;
+                }
+            }
+
+            // 置顶图标和推荐图标宽度不同，需单独调整使视觉均衡
+            .index-featured-icon-container {
+                left: calc(var(--index-card-padding-horizontal) - 0.3rem);
+            }
+
+            /* 索引题目 */
+            .index-title {
+                color: var(--md-sys-color-on-surface);
+                font-size: var(--mdm-typography-body1-font-size);
+                font-weight: var(--mdm-typography-body1-font-weight);
+                line-height: var(--mdm-typography-body1-line-height);
+                letter-spacing: var(--mdm-typography-body1-letter-spacing);
+                margin: 0;
+                text-align: left;
+            }
+
+            /* 索引署名 */
+            .index-author {
+                color: var(--md-sys-color-compatible-on-surface-light);
+                font-size: calc(var(--mdm-typography-body1-font-size) - 0.2rem);
+                line-height: 1.5rem;
+                text-align: right;
+                margin: 0;
+                display: block
+            }
+
+            /* 索引日期 */
+            .index-date {
+                color: var(--md-sys-color-compatible-on-surface-light);
+                font-size: calc(var(--mdm-typography-body1-font-size) - 0.2rem);
+                line-height: 1.5rem;
+                text-align: right;
+                margin: 0;
+                display: block;
+            }
+
+            .index-description {
+                margin: 0;
+            }
+
+        }
+
+        &:last-child {
+            .mdm-card.index-card {
+                border-bottom-left-radius: var(--index-card-top-radius);
+                border-bottom-right-radius: var(--index-card-top-radius);
+            }
+        }
+
+        .index-li-divider {
+            height: var(--index-card-gap);
+            margin: 0;
+            border: none;
+        }
+
+    }
+}
 
 // 平板中屏
 @media (max-width: base.$screen-middle-max-width) {
-    body {
-        --index-card-padding-vertical: 1.2rem;
-        --index-card-padding-horizontal: 2rem;
-    }
+    .index-ul .index-li .mdm-card.index-card {
+        .index-author {
+            font-size: calc(var(--mdm-typography-body1-font-size) - 0.2rem);
+        }
 
-    .index-author {
-        font-size: calc(var(--mdm-typography-body1-font-size) - 0.2rem);
-    }
-
-    .index-date {
-        font-size: calc(var(--mdm-typography-body1-font-size) - 0.2rem);
+        .index-date {
+            font-size: calc(var(--mdm-typography-body1-font-size) - 0.2rem);
+        }
     }
 
 }
 
 // 手机小屏
 @media (max-width: base.$screen-small-max-width) {
-    body {
-        --index-card-padding-vertical: 1rem;
-        --index-card-padding-horizontal: 1.3rem;
+
+    .index-ul .index-li .mdm-card.index-card {
+        .index-author {
+            font-size: calc(var(--mdm-typography-body1-font-size) - 0.25rem);
+        }
+
+        .index-date {
+            font-size: calc(var(--mdm-typography-body1-font-size) - 0.25rem);
+        }
+
+        .index-pinned-icon-container,
+        .index-featured-icon-container {
+            width: 1.5rem;
+            height: 1.5rem;
+            left: calc(var(--index-card-padding-horizontal) - 0.4rem);
+        }
+
+        .index-featured-icon-container {
+            left: calc(var(--index-card-padding-horizontal) - 0.32rem);
+        }
     }
 
-    .index-author {
-        font-size: calc(var(--mdm-typography-body1-font-size) - 0.25rem);
-    }
-
-    .index-date {
-        font-size: calc(var(--mdm-typography-body1-font-size) - 0.25rem);
-    }
-
-    .index-pinned-icon-container,
-    .index-featured-icon-container {
-        width: 1.5rem;
-        height: 1.5rem;
-        left: calc(var(--index-card-padding-horizontal) - 0.4rem);
-    }
-
-    .index-featured-icon-container {
-        left: calc(var(--index-card-padding-horizontal) - 0.32rem);
-    }
-
-    .index-top-card-container {
-        padding-top: 0.08rem;
-        padding-bottom: 0.15rem;
+    .mdm-card.index-top-card {
+        .index-top-card-container {
+            padding-top: 0.08rem;
+            padding-bottom: 0.15rem;
+        }
     }
 }

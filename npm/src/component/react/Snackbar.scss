@@ -15,6 +15,7 @@
     padding-left: 0;
     padding-right: 0;
     min-width: 0;
+    border-radius: 0.6rem;
 
     background-color: color-mix(in srgb, var(--md-sys-color-inverse-surface) 75%, transparent);
     -webkit-backdrop-filter: blur(map.get(base.$snackbar-bg, "backdrop-filter"));

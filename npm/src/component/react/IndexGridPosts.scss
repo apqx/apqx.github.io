@@ -4,106 +4,84 @@
 @use "../animation/BaseAnimation";
 @use "../animation/ImageLoadAnimator";
 
-
-.my-masonry-grid {
-    display: -webkit-box;
-    /* Not needed if autoprefixing */
-    display: -ms-flexbox;
-    /* Not needed if autoprefixing */
-    display: flex;
-    // 左移 column 水平方向的 gap 尺寸，需与 column 内 padding-left 保持一致
-    // margin-left: calc(0rem - var(--grid-index-card-gap));
-    width: auto;
-}
-
-.my-masonry-grid_column {
-    background-clip: padding-box;
-    // column 水平方向的 gap
-    // padding-left: var(--grid-index-card-gap)
-}
-
-.mdm-card.grid-index-card {
-    @include card.cardElevation();
-}
-
-.mdm-card.grid-index-card__ripple {
-    @include card.cardRipple();
-}
+.grid-index-list-wrapper {}
 
 .grid-index-ul {
     padding: 0;
     padding-inline-start: 0;
     margin: 0 calc(var(--index-card-to-container-border-horizontal) - calc(var(--grid-index-card-gap) / 2));
-}
 
-.grid-index-li {
-    list-style-type: none;
-    box-sizing: border-box;
-    padding: 0 calc(var(--grid-index-card-gap) / 2);
-    margin: 0;
-}
+    .grid-index-li {
+        list-style-type: none;
+        box-sizing: border-box;
+        padding: 0 calc(var(--grid-index-card-gap) / 2);
+        margin: 0;
 
-.grid-index-li-divider {
-    height: var(--grid-index-card-gap);
-    margin: 0;
-    border: none;
-}
+        .mdm-card.grid-index-card {
+            @include card.cardElevation();
 
-.grid-index-text-container {
-    padding: 1.3rem 2rem 1.5rem 2rem;
-}
+            &.grid-index-card__ripple {
+                @include card.cardRipple();
+            }
 
-.grid-index-cover {
-    // border-radius: var(--mdc-shape-medium);
-    width: 100%;
-    // object-fit: cover;
-}
+            .grid-index-cover {
+                // border-radius: var(--mdc-shape-medium);
+                width: 100%;
+                // object-fit: cover;
+            }
 
-.grid-index-title {
-    color: var(--md-sys-color-on-surface);
-    font-weight: var(--mdm-typography-body1-font-weight);
-    font-size: calc(var(--mdm-typography-body1-font-size) + 0.2rem);
-    line-height: 1.75rem;
-    letter-spacing: var(--mdm-typography-body1-letter-spacing);
-    margin: 0;
-    text-align: left
-}
+            .grid-index-text-container {
+                padding: var(--grid-index-card-text-padding-vertical) var(--grid-index-card-text-padding-horizontal);
+                // padding-top: calc(var(--grid-index-card-text-padding-vertical) - 0.2rem);
 
-.grid-index-date {
-    color: var(--md-sys-color-compatible-on-surface-light);
-    font-size: calc(var(--mdm-typography-body1-font-size) - 0.25rem);
-    line-height: var(--mdm-typography-body1-line-height);
-    margin: 0;
-    display: inline;
-}
+                &.grid-index-text-container__no-cover {
+                    // padding-top: calc(var(--grid-index-card-text-padding-vertical) - 0.2rem);
+                }
 
-.grid-index-author {
-    color: var(--md-sys-color-compatible-on-surface-light);
-    font-size: calc(var(--mdm-typography-body1-font-size) - 0.25rem);
-    line-height: var(--mdm-typography-body1-line-height);
-    display: inline;
-}
+                .grid-index-title {
+                    color: var(--md-sys-color-on-surface);
+                    font-weight: var(--mdm-typography-body1-font-weight);
+                    font-size: calc(var(--mdm-typography-body1-font-size) + 0.2rem);
+                    line-height: 1.75rem;
+                    letter-spacing: var(--mdm-typography-body1-letter-spacing);
+                    margin: 0;
+                    text-align: left
+                }
 
-.grid-index-description {
-    margin: 0;
-    // filter: grayscale(100%);
-}
+                .grid-index-date {
+                    color: var(--md-sys-color-compatible-on-surface-light);
+                    font-size: calc(var(--mdm-typography-body1-font-size) - 0.25rem);
+                    line-height: var(--mdm-typography-body1-line-height);
+                    margin: 0;
+                    display: inline;
+                }
 
-.tag-link.grid-index-description-tag {
-    margin-right: 0.2rem;
-    color: var(--md-sys-color-on-surface-variant);
-}
+                .grid-index-author {
+                    color: var(--md-sys-color-compatible-on-surface-light);
+                    font-size: calc(var(--mdm-typography-body1-font-size) - 0.25rem);
+                    line-height: var(--mdm-typography-body1-line-height);
+                    display: inline;
+                }
 
-// 平板中屏
-@media (max-width: base.$screen-middle-max-width) {
-    .grid-index-text-container {
-        padding: 1rem 1.8rem 1.3rem 1.8rem;
-    }
-}
+                .grid-index-description {
+                    margin: 0;
+                    // filter: grayscale(100%);
+                }
 
-// 手机小屏
-@media (max-width: base.$screen-small-max-width) {
-    .grid-index-text-container {
-        padding: 1rem 1.5rem 1.2rem 1.5rem;
+                .grid-index-description-tag {
+                    &:not(:first-child) {
+                        margin-left: 0.2rem;
+                    }
+                }
+            }
+
+
+        }
+
+        .grid-index-li-divider {
+            height: var(--grid-index-card-gap);
+            margin: 0;
+            border: none;
+        }
     }
 }

@@ -203,7 +203,7 @@ export function Drawer(props: DrawerProps) {
 
     return (
         <>
-            <aside ref={containerRef} className="mdm-drawer drawer-slide">
+            <aside ref={containerRef} className="mdm-drawer drawer-slide  mdm-floating-surface">
                 <div className="mdm-drawer__wrapper">
                     <div ref={headerRef} className="mdm-drawer__header">
                         <div className="mdm-drawer__header-text-container">

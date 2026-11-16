@@ -62,52 +62,48 @@ body {
         display: flex;
         flex-direction: column;
         box-sizing: border-box;
+        align-items: center;
 
         padding-left: var(--safe-area-inset-left);
         padding-right: var(--safe-area-inset-right);
+
+        // 内容最外层容器，高度为 100% - topbar-height - footer-height 
+        .main-container {
+            box-sizing: border-box;
+            width: 100%;
+            max-width: base.$center-container-max-width;
+            // 设置上下 padding，左右内间距由内部元素自行控制
+            padding: var(--main-container-padding-vertical) 0;
+            padding-bottom: calc(var(--main-container-padding-vertical) + var(--main-container-padding-bottom-additional));
+
+        }
+
+        .main-container-wide {
+            box-sizing: border-box;
+            width: 100%;
+            max-width: base.$center-container-larger-max-width;
+            // 横向居中
+            padding: var(--main-container-padding-vertical) 0;
+            padding-bottom: calc(var(--main-container-padding-vertical) + var(--main-container-padding-bottom-additional));
+
+        }
     }
 
     footer {
         display: flex;
         flex-direction: column;
+
+        .footer-container {
+            max-width: base.$center-container-max-width;
+            margin: 0 auto;
+            padding: 0;
+            padding-bottom: var(--safe-area-inset-bottom);
+            padding-left: var(--safe-area-inset-left);
+            padding-right: var(--safe-area-inset-right);
+        }
     }
 }
 
-// 内容最外层容器，高度为 100% - topbar-height - footer-height 
-.main-container {
-    width: 100%;
-    max-width: base.$center-container-max-width;
-    // 横向居中
-    margin: var(--main-container-padding-vertical) auto;
-}
-
-.main-container-wide {
-    width: 100%;
-    max-width: base.$center-container-larger-max-width;
-    // 横向居中
-    margin: var(--main-container-padding-vertical) auto;
-}
-
-footer .footer-container {
-    max-width: base.$center-container-max-width;
-    margin: 0 auto;
-    padding: 0;
-    padding-bottom: var(--safe-area-inset-bottom);
-    padding-left: var(--safe-area-inset-left);
-    padding-right: var(--safe-area-inset-right);
-}
-
-@keyframes fade-in {
-    from {
-        transform: translateY(20rem);
-        opacity: 0.5;
-    }
-
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
 
 
 .center-self-horizontal {

@@ -75,10 +75,12 @@
 	--md-sys-color-shadow: #000000;
 
 	// 控制前景、背景色的关键变量
-	--md-custom-color-layer-back: var(--md-sys-color-surface);
-	--md-custom-color-layer-front: var(--md-sys-color-surface-container-lowest);
+	--md-custom-color-overall-background: var(--md-sys-color-surface);
+	--md-custom-color-component-surface: var(--md-sys-color-surface-container-lowest);
 	--mdm-chip-color-fill: var(--md-sys-color-surface-container);
 	--mdm-list-color-fill: var(--md-sys-color-surface-container-low);
+	--mdm-surface-block-color-fill: var(--mdm-chip-color-fill);
+	--mdm-code-in-p-color-fill: var(--md-sys-color-surface-container);
 
 
 	// Drawer
@@ -145,12 +147,11 @@
 	--md-sys-color-scrim: #000000;
 	--md-sys-color-shadow: #000000;
 
-	--md-custom-color-layer-back: var(--md-sys-color-surface-container-lowest);
-	--md-custom-color-layer-front: var(--md-sys-color-surface);
+	--md-custom-color-overall-background: var(--md-sys-color-surface-container-lowest);
+	--md-custom-color-component-surface: var(--md-sys-color-surface);
 
 	// Drawer
 	--scrim-bg: #{map.get(base.$scrim, "dark")};
-
 }
 
 $ripple-light-gap: 75%;
@@ -163,18 +164,31 @@ $ripple-light-gap: 75%;
 	--md-sys-color-compatible-on-surface-light: var(--md-sys-color-on-surface-variant);
 	--md-sys-color-compatible-on-surface-underline: oklch(from var(--md-sys-color-primary) calc(l + 0.45) c h);
 
-	--md-custom-color-layer-back: var(--md-sys-color-surface);
-	--md-custom-color-layer-front: var(--md-sys-color-surface-container-lowest);
+	// 网站背景色，card 等组件浮动在背景色之上
+	--md-custom-color-overall-background: var(--md-sys-color-surface);
+	// card 等浮动组件的填充色
+	--md-custom-color-component-surface: var(--md-sys-color-surface-container-lowest);
 	// chip 背景色
 	--mdm-chip-color-fill: var(--md-sys-color-surface-container-low);
-	// list、pre code 背景色
+	// list 背景色
 	--mdm-list-color-fill: var(--md-sys-color-surface-container-low);
+	// pre code 背景色
+	--mdm-surface-block-color-fill: var(--mdm-chip-color-fill);
+	// p code 背景色
+	--mdm-code-in-p-color-fill: var(--md-sys-color-surface-container-low);
+
 
 	&.dark {
 		--md-sys-color-compatible-on-surface-underline: oklch(from var(--md-sys-color-primary) calc(l - 0.45) c h);
 
-		// --md-custom-color-layer-back: var(--md-sys-color-surface-container-lowest);
-		// --md-custom-color-layer-front: var(--md-sys-color-surface);
+		--md-custom-color-overall-background: var(--md-sys-color-surface);
+		--md-custom-color-component-surface: var(--md-sys-color-surface-container-low);
+		--mdm-list-color-fill: var(--md-sys-color-surface-container);
+		--mdm-chip-color-fill: var(--md-sys-color-surface-container);
+		--mdm-chip-color-fill: color-mix(in srgb, var(--md-sys-color-surface-container-lowest) 40%, transparent);
+		// --mdm-surface-block-color-fill: var(--mdm-list-color-fill);
+		--mdm-code-in-p-color-fill: var(--md-sys-color-surface-container-high);
+		// --mdm-code-in-p-color-fill: color-mix(in srgb, var(--md-sys-color-surface-container-lowest) 40%, transparent);
 	}
 }
 
@@ -209,17 +223,24 @@ body {
 	--text-block-padding-horizontal: 1.5rem;
 
 	// main container 为中央主体容器，设置最大宽度，水平居中，此为其顶部距 topbar 和底部距 footer 的距离
+	// main container 内部，上下边距由 container 控制，必须为统一的距离
+	// 左右边距则由内部元素自行根据情况控制，比如 content card 在小屏中占满宽度
 	--main-container-padding-vertical: 1.2rem;
-	// center card 为主体容器中的主体卡片，即文章卡片和列表卡片，居中显示，此为其左右距容器边界的距离
+	// center card 为主体容器中的卡片整体，即文章卡片和列表卡片，居中显示，此为其左右 border 与容器边界的距离
 	// 默认使中心卡片距四周边距相等，向上是与 topbar 的距离，向下是与 footer 的距离
-	// 在 index 和 post 页面酌情而定
+	// 这里以 index card 为基准，content card 在小屏中需单独处理
 	--center-card-to-container-border-horizontal: var(--main-container-padding-vertical);
+	// 额外 padding，在 expressive 中启用
+	--main-container-padding-bottom-additional: 0rem;
 
 	--common-animation-duration: 0.35s;
 	--dialog-animation-duration: var(--common-animation-duration);
 	--image-height-animation-duration: 0.8s;
 	--index-card-animation-duration: 0.5s;
 	--index-card-animation-translate-y: 2rem;
+
+	--fab-size: 3.5rem;
+	--fab-marin-to-edge: 1.5rem;
 
 	--z-index-dialog: 7;
 	--z-index-drawer: 5;
@@ -235,6 +256,7 @@ body {
 
 .expressive {
 	@include expressive();
+
 	// drawer list 圆角
 	--mdc-shape-small: 1.5rem;
 	// card 圆角
@@ -243,38 +265,75 @@ body {
 	// 文章内元素圆角，code block 和 description
 	--post-inner-shape-round: 1.5rem;
 	// 列表圆角
-	--table-list-border-radius: 1rem;
+	--table-list-border-radius: 1.2rem;
 	--table-list-border-radius__fit-ripple: calc(var(--table-list-border-radius) - 1px);
+
+	--list-divider-height: 0.18rem;
+
+	--topbar-height: 4rem;
+
+	--text-block-padding-vertical: 1.2rem;
+	--text-block-padding-horizontal: 1.5rem;
+
+	--main-container-padding-vertical: 0.6rem;
+	--center-card-to-container-border-horizontal: 1.5rem;
+	// --main-container-padding-bottom-additional: 2rem;
+
+	--common-animation-duration: 0.35s;
+	--dialog-animation-duration: var(--common-animation-duration);
+	--image-height-animation-duration: 0.8s;
+	--index-card-animation-duration: 0.5s;
+	--index-card-animation-translate-y: 2rem;
 }
 
 // body.classlist expressive dark
 // mdm-layer-back mdm-layer-front 均在下层
 body {
 	// 用于浏览器识别网页主题色，尤其手机版 safari 会根据它的颜色显示顶部状态栏颜色
-	background-color: var(--md-custom-color-layer-front);
+	background-color: var(--md-custom-color-component-surface);
 
 	&.expressive {
-		background-color: var(--md-custom-color-layer-back);
+		background-color: var(--md-custom-color-overall-background);
 	}
 }
 
 // 层叠背景色
 .mdm-layer-back {
-	background-color: var(--md-custom-color-layer-back);
+	background-color: var(--md-custom-color-overall-background);
 	color: var(--md-sys-color-on-surface);
 
 	.expressive & {
-		background-color: var(--md-custom-color-layer-back);
+		background-color: var(--md-custom-color-overall-background);
 	}
 }
 
 // 层叠前景色
 .mdm-card,
 .mdm-layer-front {
-	background-color: var(--md-custom-color-layer-front);
+	background-color: var(--md-custom-color-component-surface);
 
 	.expressive & {
-		background-color: var(--md-custom-color-layer-front);
+		background-color: var(--md-custom-color-component-surface);
+	}
+}
+
+// 浮动组件的表面属性，比如 drawer dialog 的 surface
+.mdm-floating-surface {
+	// 默认主题，以前景色作背景
+	background-color: var(--md-custom-color-component-surface);
+	color: var(--md-sys-color-on-surface);
+
+	// M3 主题，以背景色作背景
+	.expressive & {
+		background-color: var(--md-custom-color-overall-background);
+		--md-custom-color-component-surface: var(--md-sys-color-surface-container-low);
+		--mdm-chip-color-fill: var(--md-custom-color-component-surface);
+		--mdm-list-color-fill: var(--md-custom-color-component-surface);
+	}
+
+	.expressive.dark & {
+		--md-custom-color-component-surface: var(--md-sys-color-surface-container-low);
+		--mdm-code-in-p-color-fill: var(--md-sys-color-surface-container);
 	}
 }
 
@@ -294,6 +353,18 @@ body {
 		--image-height-animation-duration: 0.6s;
 	}
 
+	body.expressive {
+		--main-container-padding-vertical: 0.4rem;
+		--center-card-to-container-border-horizontal: 1.5rem;
+		// --main-container-padding-bottom-additional: 1.5rem;
+
+		// 平板中屏时，削减 --main-container-padding-vertical 导致 card 与边框水平间隔变小，这里重新增大
+		// 原本此变量取值于 --main-container-padding-vertical
+		--center-card-to-container-border-horizontal: calc(var(--main-container-padding-vertical) + 1rem);
+
+		--image-height-animation-duration: 0.6s;
+	}
+
 }
 
 // 小屏
@@ -305,6 +376,17 @@ body {
 		--center-card-to-container-border-horizontal: 0.5rem;
 
 		--mdc-shape-medium: 0.6rem;
+
+		--list-divider-height: 0.15rem;
+	}
+
+	body.expressive {
+		--image-height-animation-duration: 0.6s;
+		--main-container-padding-vertical: 0.2rem;
+		--center-card-to-container-border-horizontal: 0.6rem;
+		// --main-container-padding-bottom-additional: 1rem;
+
+		--mdc-shape-medium: 1.5rem;
 
 		--list-divider-height: 0.15rem;
 	}

@@ -220,35 +220,41 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
     }, [loadingState.loading, showPosts.length])
 
     return (
-        <ul ref={masonryContainerRef} className="grid-index-ul">
-            <Masonry
-                items={showPosts}
-                getItemKey={item => item.path + "?pinned=" + item.pinned}
-                renderItem={(item, index) => (
-                    <IndexItem
-                        index={index}
-                        title={item.title}
-                        actors={item.actors}
-                        date={item.date}
-                        path={item.path}
-                        cover={item.cover}
-                        coverSize={item.coverSize}
-                        last={index == showPosts.length - 1}
-                        pinned={item.pinned}
-                        featured={item.featured}
-                        coverLoadedCallback={undefined} />
-                )}
-                defaultColumns={3}
-                breakpoints={breakpoints}
-                observeItemHeightResize={false}
-                columnGap={0}
-                rowGap={0}
-            />
+        <>
+            {/* <div className="lens-header mdm-card">
+                <p>2021 年 08 月 08 日，我在博客里开辟这个分区来承载曾经在剧场看过的剧和拍过的剧照，以昆曲为主，使用标签把每一场演出按剧种、剧团、剧目、演员、剧场分类归档。这里每一篇文章既是记录也是分享，亲手按下快门捕捉到的舞台瞬间，如此美丽的戏妆油彩，不应该只我一人看到。</p>
+            </div> */}
+            <ul ref={masonryContainerRef} className="grid-index-ul">
+                <Masonry
+                    items={showPosts}
+                    getItemKey={item => item.path + "?pinned=" + item.pinned}
+                    renderItem={(item, index) => (
+                        <IndexItem
+                            index={index}
+                            title={item.title}
+                            actors={item.actors}
+                            date={item.date}
+                            path={item.path}
+                            cover={item.cover}
+                            coverSize={item.coverSize}
+                            last={index == showPosts.length - 1}
+                            pinned={item.pinned}
+                            featured={item.featured}
+                            coverLoadedCallback={undefined} />
+                    )}
+                    defaultColumns={3}
+                    breakpoints={breakpoints}
+                    observeItemHeightResize={false}
+                    columnGap={0}
+                    rowGap={0}
+                />
 
-            <LoadingHint loading={loadingState.loading} loadHint={loadingState.loadingHint} onClickHint={onClickLoadingHint}
-                onLoadMore={onLoadMore} extendIntersectionThreshold={true}
-                hide={hideLoading} />
-        </ul>
+                <LoadingHint loading={loadingState.loading} loadHint={loadingState.loadingHint} onClickHint={onClickLoadingHint}
+                    onLoadMore={onLoadMore} extendIntersectionThreshold={true}
+                    hide={hideLoading} />
+            </ul>
+        </>
+
     )
 }
 

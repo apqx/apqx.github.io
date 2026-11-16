@@ -75,7 +75,7 @@ export function PreferenceDialog(props: BaseDialogOpenProps) {
                 <SettingsToggle titleHtml={autoThemeTitle} description="跟随系统设置自动切换明暗主题色"
                     on={state.autoTheme}
                     onChange={viewModel.onClickAutoThemeSwitch} />
-                <SettingsToggle titleHtml={"展现更具表现力的颜色"} description="实验性支持 Material 3 Expressive"
+                <SettingsToggle titleHtml={"展现更具表现力的色彩与设计"} description="实验性支持 Material 3 Expressive"
                     on={state.themeExpressive}
                     onChange={viewModel.onClickThemeExpressiveSwitch} />
             </ul>

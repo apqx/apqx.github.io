@@ -1,0 +1,10 @@
+@use "./BaseDialog.scss" as baseDialog;
+
+.list-dialog-title {
+    @include baseDialog.baseDialogTitle();
+}
+
+.list-dialog-description {
+    @include baseDialog.baseDialogHint();
+
+}

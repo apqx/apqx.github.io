@@ -27,7 +27,7 @@
 
     position: relative;
 
-    &:not(:disabled) {
+    &:not(:disabled,.mdm-chip) {
         @include button.ink-color(var(--md-sys-color-on-surface));
     }
 

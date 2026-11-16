@@ -24,6 +24,9 @@ $btnTagPaddingHorizontal: 0.8rem;
     margin: 0;
     border-radius: $btnTagRadius;
 
+    // .expressive.dark & {
+    //     background-color: var(--md-custom-color-overall-background);
+    // }
 
     &:not(.mdm-chip-checkable) {
         @include btnChipRipple();
@@ -38,15 +41,15 @@ $btnTagPaddingHorizontal: 0.8rem;
     color 0.2s ease;
 
     // @include text.notoSerifText();
-}
 
-.mdc-button.mdm-chip.mdm-chip-checked {
-    @include button.ink-color(var(--md-sys-color-on-tertiary-container));
-    @include button.container-fill-color(var(--md-sys-color-tertiary-container));
-    border-radius: calc($btnTagSideRadius / 2);
+    &.mdm-chip-checked {
+        @include button.ink-color(var(--md-sys-color-on-tertiary-container));
+        @include button.container-fill-color(var(--md-sys-color-tertiary-container));
+        border-radius: calc($btnTagSideRadius / 2);
 
-    .expressive & {
-        border-radius: $btnTagSideRadius;
+        .expressive & {
+            border-radius: $btnTagSideRadius;
+        }
     }
 }
 
@@ -101,10 +104,12 @@ $btnTagPaddingHorizontal: 0.8rem;
 
 a.tag-link {
     font-weight: inherit;
-    color: var(--md-sys-color-on-surface);
     line-height: var(--mdm-typography-body1-line-height);
     letter-spacing: var(--mdm-typography-body1-letter-spacing);
+    color: var(--md-sys-color-on-surface-variant);
     @include tag-link-underline;
+    // color: var(--md-sys-color-secondary);
+    // text-decoration: underline;
     white-space: pre;
 }
 

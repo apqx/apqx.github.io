@@ -307,7 +307,7 @@ pre code.hljs {
     font-weight: #{base.$font-weight-normal-default};
 
     padding: var(--text-block-padding-vertical) var(--text-block-padding-horizontal);
-    background: var(--md-sys-color-surface-container-low);
+    background: var(--mdm-surface-block-color-fill);
 
     .font-noto-serif-sc & {
         font-weight: #{base.$font-weight-normal-default - 30};
@@ -326,11 +326,7 @@ code:not(pre code) {
     // 允许在任意位置换行，防止长单词撑破布局
     // line-break: anywhere;
 
-    background-color: var(--md-sys-color-surface-container-high);
-
-    .expressive & {
-        background-color: var(--md-sys-color-surface-container-low);
-    }
+    background-color: var(--mdm-code-in-p-color-fill);
 
     // 英文代码字体比宋体粗很多，需要单独设置更细的 font-face
     .font-noto-serif-sc & {

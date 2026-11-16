@@ -94,9 +94,9 @@ export function IndexLinearPosts(props: Props) {
                         title={item.title} author={item.author} date={item.date} moreDate={item.moreDate} description={item.description} path={item.path}
                         pinned={item.pinned} featured={item.featured} last={index === showPosts.length - 1} index={index} />
                 )}
-                <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore}
-                    hide={hideLoading} />
             </ul>
+            <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore}
+                hide={hideLoading} />
         </>
     )
 }
