@@ -13,18 +13,18 @@
 @mixin light {
 	--md-sys-color-primary: #565992;
 	--md-sys-color-on-primary: #ffffff;
-	--md-sys-color-primary-container: #{map.get(base.$text-block-1-bg, "light")};
-	--md-sys-color-on-primary-container: #{map.get(base.$text-block-1-ink, "light")};
+	--md-sys-color-primary-container: #e1e0ff;
+	--md-sys-color-on-primary-container: #3f4178;
 
-	--md-sys-color-secondary: #{map.get(base.$fab-bg, "light")};
-	--md-sys-color-on-secondary: #{map.get(base.$fab-ink, "light")};
-	--md-sys-color-secondary-container: #{map.get(base.$text-block-2-bg, "light")};
-	--md-sys-color-on-secondary-container: #{map.get(base.$text-block-2-ink, "light")};
+	--md-sys-color-secondary: #5c5d72;
+	--md-sys-color-on-secondary: #ffffff;
+	--md-sys-color-secondary-container: #e2e0f9;
+	--md-sys-color-on-secondary-container: #454559;
 
-	--md-sys-color-tertiary: #79536a;
+	--md-sys-color-tertiary: #7a5832;
 	--md-sys-color-on-tertiary: #ffffff;
-	--md-sys-color-tertiary-container: #{map.get(base.$text-block-3-bg, "light")};
-	--md-sys-color-on-tertiary-container: #{map.get(base.$text-block-3-ink, "light")};
+	--md-sys-color-tertiary-container: #ffdcbb;
+	--md-sys-color-on-tertiary-container: #5f401d;
 
 	--md-sys-color-error: #ba1a1a;
 	--md-sys-color-on-error: #ffffff;
@@ -69,6 +69,9 @@
 	--md-sys-color-scrim: #000000;
 	--md-sys-color-shadow: #000000;
 
+	--fab-container: #{map.get(base.$fab-bg, "light")};
+	--fab-on-container: #{map.get(base.$fab-ink, "light")};
+
 	// 控制前景、背景色的关键变量
 	--md-custom-color-overall-background: var(--md-sys-color-surface);
 	--md-custom-color-component-surface: var(--md-sys-color-surface-container-lowest);
@@ -86,18 +89,18 @@
 @mixin dark {
 	--md-sys-color-primary: #bfc1ff;
 	--md-sys-color-on-primary: #282b60;
-	--md-sys-color-primary-container: #{map.get(base.$text-block-1-bg, "dark")};
-	--md-sys-color-on-primary-container: #{map.get(base.$text-block-1-ink, "dark")};
+	--md-sys-color-primary-container: #3f4178;
+	--md-sys-color-on-primary-container: #e1e0ff;
 
-	--md-sys-color-secondary: #{map.get(base.$fab-bg, "dark")};
-	--md-sys-color-on-secondary: #{map.get(base.$fab-ink, "dark")};
-	--md-sys-color-secondary-container: #{map.get(base.$text-block-2-bg, "dark")};
-	--md-sys-color-on-secondary-container: #{map.get(base.$text-block-2-ink, "dark")};
+	--md-sys-color-secondary: #c5c4dd;
+	--md-sys-color-on-secondary: #2e2f42;
+	--md-sys-color-secondary-container: #454559;
+	--md-sys-color-on-secondary-container: #e2e0f9;
 
-	--md-sys-color-tertiary: #e8b9d4;
-	--md-sys-color-on-tertiary: #46263b;
-	--md-sys-color-tertiary-container: #{map.get(base.$text-block-3-bg, "dark")};
-	--md-sys-color-on-tertiary-container: #{map.get(base.$text-block-3-ink, "dark")};
+	--md-sys-color-tertiary: #ebbe90;
+	--md-sys-color-on-tertiary: #462a08;
+	--md-sys-color-tertiary-container: #5f401d;
+	--md-sys-color-on-tertiary-container: #ffdcbb;
 
 	--md-sys-color-error: #ffb4ab;
 	--md-sys-color-on-error: #690005;
@@ -135,6 +138,9 @@
 	--md-sys-color-inverse-primary: #565992;
 	--md-sys-color-scrim: #000000;
 	--md-sys-color-shadow: #000000;
+
+	--fab-container: #{map.get(base.$fab-bg, "dark")};
+	--fab-on-container: #{map.get(base.$fab-ink, "dark")};
 
 	--md-custom-color-overall-background: var(--md-sys-color-surface);
 	--md-custom-color-component-surface: var(--md-sys-color-surface-container-low);

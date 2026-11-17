@@ -20,8 +20,8 @@
         border-radius: 0.2rem;
         -webkit-backdrop-filter: blur(map.get(base.$fab-bg, "backdrop-filter"));
         backdrop-filter: blur(map.get(base.$fab-bg, "backdrop-filter"));
-        background-color: var(--md-sys-color-secondary);
-        color: var(--md-sys-color-on-secondary);
+        background-color: var(--fab-container);
+        color: var(--fab-on-container);
         @include ripple.ripple(var(--md-sys-color-on-surface), 0, 0, 0.05);
 
         
