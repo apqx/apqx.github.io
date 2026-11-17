@@ -13,8 +13,8 @@
     // height: 100%;
     z-index: var(--z-index-topbar);
 
-    background-color: var(--md-custom-color-component-surface);
-    // background-color: var(--md-custom-color-overall-background);
+    // background-color: var(--md-custom-color-component-surface);
+    background-color: var(--md-custom-color-overall-background);
 
     * {
         color: var(--md-sys-color-on-surface);
@@ -35,7 +35,7 @@
     &.mdm-topbar-blur:not(.colorful &) {
         -webkit-backdrop-filter: blur(map.get(base.$topbar, "backdrop-filter"));
         backdrop-filter: blur(map.get(base.$topbar, "backdrop-filter"));
-        background-color: color-mix(in srgb, var(--md-custom-color-component-surface) 80%, transparent);
+        background-color: color-mix(in srgb, var(--md-custom-color-component-background) 80%, transparent);
 
         .expressive & {
             background-color: color-mix(in srgb, var(--md-custom-color-overall-background) 80%, transparent);

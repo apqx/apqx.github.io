@@ -2,35 +2,49 @@
 @use "sass:map";
 @use "sass:color";
 
+// 黑白配色
+// blur 30px 0.8 可与 Safari 的 frosted glass 效果相似
+$topbar: (
+        backdrop-filter: 30px
+);
+
 $surface: (
         light: #ffffff,
         dark: #161616,
 );
 
-// 黑白配色
-// blur 30px 0.8 可与 Safari 的 frosted glass 效果相似
-$topbar: (
-        backdrop-filter: 30px,
-        bg-light: map.get($surface, "light"),
-        bg-light-colorful: #556a3b,
-        bg-dark: map.get($surface, "dark"),
-        bg-dark-colorful: #556a3b,
-);
-$topbar-ink: (
-        light: color.adjust(map.get($topbar, "bg-light"), $lightness: -80%),
-        light-colorful: white,
-        dark: color.adjust(map.get($topbar, "bg-dark"), $lightness: +80%),
-        dark-colorful: white,
-);
-
-$footer-ink: (
-        light: color.adjust(map.get($topbar, "bg-light"), $lightness: -80%),
-        dark: color.adjust(map.get($topbar, "bg-dark"), $lightness: +80%),
-);
-
 $background: (
-        light: color.adjust(map.get($surface, "light"), $lightness: -2%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: -2%),
+        light: color.adjust(map.get($surface, "light"), $lightness: -2.5%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: -2.5%),
+);
+
+// 以 md-surface 为基准，以 3 为亮度梯度划分颜色
+// light 亮度 surface-container-lowest > surface > surface-container-low > surface-container > surface-container-high
+// dark 亮度 surface-container-lowest < surface < surface-container-low < surface-container < surface-container-high
+
+$md-surface: (
+        light: color.adjust(map.get($surface, "light"), $lightness: -3%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: -3%),
+);
+
+$md-surface-container-lowest: (
+        light: map.get($surface, "light"),
+        dark: color.adjust(map.get($md-surface, "dark"), $lightness: -3%),
+);
+
+$md-surface-container-low: (
+        light: color.adjust(map.get($md-surface, "light"), $lightness: -3%),
+        dark: map.get($surface, "dark")
+);
+
+$md-surface-container: (
+        light: color.adjust(map.get($md-surface-container-low, "light"), $lightness: -3%),
+        dark: color.adjust(map.get($md-surface-container-low, "dark"), $lightness: +3%),
+);
+
+$md-surface-container-high: (
+        light: color.adjust(map.get($md-surface-container, "light"), $lightness: -3%),
+        dark: color.adjust(map.get($md-surface-container, "dark"), $lightness: +3%),
 );
 
 $text-content: (
@@ -44,8 +58,8 @@ $text-content-vivid: (
 );
 
 $text-content-secondary: (
-        light: color.adjust(map.get($text-content, "light"), $lightness: +10%),
-        dark: color.adjust(map.get($text-content, "dark"), $lightness: -10%),
+        light: color.adjust(map.get($text-content, "light"), $lightness: +12%),
+        dark: color.adjust(map.get($text-content, "dark"), $lightness: -12%),
 );
 
 $text-title: (
@@ -59,50 +73,25 @@ $text-subtitle: (
 );
 
 
-$blockquote-border: (
-        light: color.adjust(map.get($surface, "light"), $lightness: -5%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: +5%),
-);
-
-$drawer-nav-ripple: (
-        light: color.adjust(map.get($surface, "light"), $lightness: - variables.$ripple-gap-percent),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: + variables.$ripple-gap-percent),
-);
-
 $fab-bg: (
         backdrop-filter: 10px,
         light: rgba(color.adjust(map.get($background, "light"), $lightness: -3%), 0.5),
-        // light: rgba(color.adjust(map.get($background, "light"), $lightness: -80%), 0.8),
         dark: rgba(color.adjust(map.get($background, "dark"), $lightness: -3%), 0.5),
-        // dark: rgba(color.adjust(map.get($background, "dark"), $lightness: +80%), 0.8),
 );
 
 $fab-ink: (
         light: rgba(color.adjust(map.get($fab-bg, "light"), $lightness: -70%), 1),
-        // light: rgba(color.adjust(map.get($fab-bg, "light"), $lightness: +70%), 1),
         dark: rgba(color.adjust(map.get($fab-bg, "dark"), $lightness: +70%), 1),
-        // dark: rgba(color.adjust(map.get($fab-bg, "dark"), $lightness: -70%), 1),
-);
-
-$fab-ripple: (
-        light: color.adjust(map.get($fab-bg, "light"), $lightness: - variables.$ripple-gap-percent),
-        dark: color.adjust(map.get($fab-bg, "dark"), $lightness: + variables.$ripple-gap-percent),
 );
 
 $snackbar-bg: (
         backdrop-filter: 10px,
-        light: rgba(map.get($surface, "dark"), 0.7),
-        dark: rgba(map.get($surface, "light"), 0.7),
-);
-$snackbar-ink: (
-        light: map.get($text-title, "dark"),
-        dark: map.get($text-title, "light"),
 );
 
 $topbar-elevation: (
         elevation: 0,
-        shadow-light: color.adjust(map.get($topbar, "bg-light"), $lightness: -3%),
-        shadow-dark: color.adjust(map.get($topbar, "bg-dark"), $lightness: +3%),
+        shadow-light: color.adjust(map.get($surface, "light"), $lightness: -3%),
+        shadow-dark: color.adjust(map.get($surface, "dark"), $lightness: +3%),
 );
 $fab-elevation: (
         elevation: 0,
@@ -130,74 +119,20 @@ $scrim: (
 
 $dialog: (
         elevation: 0,
-        border-light: color.adjust(map.get($surface, "light"), $lightness: -2.5%),
-        shadow-light: color.adjust(map.get($surface, "light"), $lightness: -10%),
-        border-dark: color.adjust(map.get($surface, "dark"), $lightness: +2.5%),
-        shadow-dark: color.adjust(map.get($surface, "dark"), $lightness: +10%),
 );
 
-// 索引卡片的 ripple 颜色
-$card-ripple: (
-        light: color.adjust(map.get($surface, "light"), $lightness: - variables.$ripple-gap-percent),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: + variables.$ripple-gap-percent),
-);
-
-$button-bg: (
-        light: color.adjust(map.get($surface, "light"), $lightness: -5%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: +5%),
-);
-$button-ink: (
-        light: color.adjust(map.get($button-bg, "light"), $lightness: -65%),
-        dark: color.adjust(map.get($button-bg, "dark"), $lightness: +65%),
-);
-$button-ripple: (
-        light: color.adjust(map.get($button-bg, "light"), $lightness: - variables.$ripple-gap-percent),
-        dark: color.adjust(map.get($button-bg, "dark"), $lightness: + variables.$ripple-gap-percent),
-);
-
-$icon-button-ripple: (
-        light: color.adjust(map.get($surface, "light"), $lightness: - variables.$ripple-gap-percent),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: + variables.$ripple-gap-percent),
-);
-
-$dialog-action-btn-bg: (
-        light: map.get($surface, "light"),
-        dark: map.get($surface, "dark"),
-);
-$dialog-action-btn-ink: (
-        light: color.adjust(map.get($dialog-action-btn-bg, "light"), $lightness: -65%),
-        dark: color.adjust(map.get($dialog-action-btn-bg, "dark"), $lightness: +65%),
-);
-$dialog-action-btn-ripple: (
-        light: color.adjust(map.get($dialog-action-btn-bg, "light"), $lightness: - variables.$ripple-gap-percent),
-        dark: color.adjust(map.get($dialog-action-btn-bg, "dark"), $lightness: + variables.$ripple-gap-percent),
-);
-
-$chip-bg: (
-        light: color.adjust(map.get($surface, "light"), $lightness: -2.4%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: +2.4%),
-);
-$chip-ink: (
-        light: color.adjust(map.get($chip-bg, "light"), $lightness: -70%),
-        dark: color.adjust(map.get($chip-bg, "dark"), $lightness: +70%),
-);
-$chip-ripple: (
-        light: color.adjust(map.get($chip-bg, "light"), $lightness: - variables.$ripple-gap-percent),
-        dark: color.adjust(map.get($chip-bg, "dark"), $lightness: + variables.$ripple-gap-percent),
-);
-
-$index-list-pin-icon-bg: (
-        light: color.adjust(map.get($surface, "light"), $lightness: -2.5%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: +2.5%),
-);
 
 @function calc-text-block-bg-light($ink) {
         @return rgba(color.adjust($ink, $lightness: +20%), 0.15),
-};
+}
+
+;
 
 @function calc-text-block-bg-dark($ink) {
         @return rgba(color.adjust($ink, $lightness: -20%), 0.1),
-};
+}
+
+;
 
 $text-block-1-ink: (
         light: #8167c1,
@@ -229,36 +164,6 @@ $text-block-3-bg: (
         dark: calc-text-block-bg-dark(map.get($text-block-3-ink, "dark")),
 );
 
-$code-highlight-bg: (
-        light: color.adjust(map.get($surface, "light"), $lightness: -3%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: +3%),
-);
-
-$code-highlight-ink: (
-        light: color.adjust(map.get($code-highlight-bg, "light"), $lightness: -70%),
-        dark: color.adjust(map.get($code-highlight-bg, "dark"), $lightness: +70%),
-);
-
-$code-highlight-border: (
-        light: color.adjust(map.get($code-highlight-bg, "light"), $lightness: -3%),
-        dark: color.adjust(map.get($code-highlight-bg, "dark"), $lightness: +3%),
-);
-
-$pre-code-bg: (
-        light: color.adjust(map.get($surface, "light"), $lightness: -1.8%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: +1.8%),
-);
-
-$pre-code-border: (
-        light: color.adjust(map.get($pre-code-bg, "light"), $lightness: -1.5%),
-        dark: color.adjust(map.get($pre-code-bg, "dark"), $lightness: +1.5%),
-);
-
-$pre-code-border-heavy: (
-        light: color.adjust(map.get($pre-code-border, "light"), $lightness: -0.8%),
-        dark: color.adjust(map.get($pre-code-border, "dark"), $lightness: +0.8%),
-);
-
 // 强调颜色，注意相比基准色不越界，应不强于标题颜色
 $strong: (
         light: color.adjust(map.get($text-content, "light"), $lightness: -15%),
@@ -268,52 +173,4 @@ $strong: (
 $strong-under-line: (
         light: color.adjust(map.get($surface, "light"), $lightness: -14%),
         dark: color.adjust(map.get($surface, "dark"), $lightness: +14%),
-);
-
-// 使 border 与 bg 亮度差为 2
-$surface-block-bg: (
-        light: color.adjust(map.get($surface, "light"), $lightness: -1.8%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: +1.8%),
-);
-
-$surface-block-ripple: (
-        light: color.adjust(map.get($surface-block-bg, "light"), $lightness: - variables.$ripple-gap-percent),
-        dark: color.adjust(map.get($surface-block-bg, "dark"), $lightness: + variables.$ripple-gap-percent),
-);
-
-$surface-block-border: (
-        light: color.adjust(map.get($surface-block-bg, "light"), $lightness: -1.8%),
-        dark: color.adjust(map.get($surface-block-bg, "dark"), $lightness: +1.8%),
-);
-
-$surface-block-border-heavy: (
-        light: color.adjust(map.get($surface-block-border, "light"), $lightness: -0.6%),
-        dark: color.adjust(map.get($surface-block-border, "dark"), $lightness: +0.6%),
-);
-
-$list-bg: (
-        light: color.adjust(map.get($surface, "light"), $lightness: -1.8%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: +1.8%),
-);
-
-$list-ripple: (
-        light: color.adjust(map.get($list-bg, "light"), $lightness: - variables.$ripple-gap-percent),
-        dark: color.adjust(map.get($list-bg, "dark"), $lightness: + variables.$ripple-gap-percent),
-);
-
-$list-border: (
-        // light: color.adjust(map.get($list-bg, "light"), $lightness: -2.5%),
-        light: map.get($surface, "light"),
-        // dark: color.adjust(map.get($list-bg, "dark"), $lightness: +2.5%),
-        dark: map.get($surface, "dark"),
-);
-
-$textfield-border: (
-        light: color.adjust(map.get($surface, "light"), $lightness: -5%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: +5%),
-);
-
-$common-divider-color: (
-        light: color.adjust(map.get($surface, "light"), $lightness: -3%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: +3%),
 );

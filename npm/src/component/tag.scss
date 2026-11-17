@@ -10,7 +10,7 @@ $btnTagSidePaddingHorizontal: 0.9rem;
 $btnTagPaddingHorizontal: 0.8rem;
 
 .mdc-button.mdm-chip {
-    @include button.ink-color(var(--md-sys-color-compatible-on-surface-container));
+    @include button.ink-color(var(--md-sys-color-on-surface-variant));
     @include button.container-fill-color(var(--mdm-chip-color-fill));
     @include button.horizontal-padding($btnTagPaddingHorizontal);
     @include button.height(2.3rem);
@@ -22,6 +22,10 @@ $btnTagPaddingHorizontal: 0.8rem;
 
     &:not(.mdm-chip-checkable) {
         @include ripple.ripple(var(--md-sys-color-on-surface), 0, 0, 0.04);
+
+        .dark & {
+            @include ripple.ripple(var(--md-sys-color-on-surface), 0, 0, 0.06);
+        }
 
         .expressive & {
             @include ripple.ripple(var(--md-sys-color-on-surface), 0, 0, 0.04);

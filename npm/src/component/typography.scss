@@ -194,8 +194,10 @@ a {
         cursor: pointer;
     }
 
-    .expressive &:not(.mdm-list-item, .mdm-card, .mdm-topbar__title, .tag-link) {
-        color: var(--md-sys-color-primary);
+    &:not(.mdm-list-item, .mdm-card, .mdm-topbar__title, .tag-link) {
+        .expressive & {
+            color: var(--md-sys-color-primary);
+        }
         font-weight: calc(var(--font-weight-normal) + 50);
     }
 }

@@ -87,7 +87,7 @@
     --mdm-typography-body1-font-size: calc(#{base.$text-size-base} - 0.05rem);
 
     border-radius: var(--post-inner-shape-round);
-    background: var(--md-sys-color-surface-container-low);
+    background: var(--mdm-surface-block-color-fill);
     color: var(--md-sys-color-on-surface);
     padding: var(--text-block-padding-vertical) var(--text-block-padding-horizontal);
 

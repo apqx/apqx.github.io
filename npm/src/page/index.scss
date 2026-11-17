@@ -10,9 +10,9 @@ body {
     // 列表卡片与左右边界的距离
     --index-card-to-container-border-horizontal: var(--center-card-to-container-border-horizontal);
     // 列表卡片之间的距离
-    --index-card-gap: 0.55rem;
+    --index-card-gap: 0.3rem;
     // 列表卡片圆角，指非边界的内部普通卡片，参照 MD3 较边界卡片缩小
-    --index-card-radius: 0.5rem;
+    --index-card-radius: 0.4rem;
     // 列表顶部卡片圆角，与文章 content-card 圆角一致
     --index-card-top-radius: var(--mdc-shape-medium);
 
@@ -20,7 +20,7 @@ body {
     --index-card-padding-horizontal: 2.5rem;
 
     // 网格列表卡片之间的距离
-    --grid-index-card-gap: 0.7rem;
+    --grid-index-card-gap: 1rem;
     --grid-index-card-text-padding-vertical: 1.5rem;
     --grid-index-card-text-padding-horizontal: 2rem;
 
@@ -28,9 +28,6 @@ body {
     --lens-index-card-radius: 0.18rem;
 
     &.expressive {
-        --index-card-gap: 0.3rem;
-        --index-card-radius: 0.4rem;
-
         --index-card-to-container-border-horizontal: var(--center-card-to-container-border-horizontal);
         --index-card-gap: 0.3rem;
         --index-card-radius: 0.4rem;
@@ -51,6 +48,7 @@ body {
         --index-card-padding-vertical: 1.2rem;
         --index-card-padding-horizontal: 2rem;
 
+        --grid-index-card-gap: 0.8rem;
         --grid-index-card-text-padding-vertical: 1rem;
         --grid-index-card-text-padding-horizontal: 1.8rem;
     }
@@ -69,15 +67,14 @@ body {
 @media (max-width: base.$screen-small-max-width) {
 
     body {
-        --index-card-gap: 0.45rem;
-        --index-card-radius: 0.45rem;
+        --index-card-gap: 0.3rem;
+        --index-card-radius: 0.35rem;
         --index-card-padding-vertical: 1rem;
         --index-card-padding-horizontal: 1.3rem;
 
+        --grid-index-card-gap: 0.6rem;
         --grid-index-card-text-padding-vertical: 1rem;
         --grid-index-card-text-padding-horizontal: 1.5rem;
-
-        --grid-index-card-gap: 0.6rem;
     }
 
     body.expressive {
@@ -89,7 +86,6 @@ body {
         --grid-index-card-gap: 0.6rem;
         --grid-index-card-text-padding-vertical: 1rem;
         --grid-index-card-text-padding-horizontal: 1.5rem;
-
     }
 }
 
