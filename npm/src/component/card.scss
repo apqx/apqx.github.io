@@ -15,7 +15,7 @@
 }
 
 @mixin cardRipple {
-    @include ripple.ripple(var(--md-sys-color-compatible-surface-ripple2), 0, 0, 0.2);
+    @include ripple.ripple(var(--md-sys-color-on-surface), 0, 0, 0.06);
 
     .expressive & {
         @include ripple.ripple(var(--md-sys-color-primary), 0, 0, 0.08);

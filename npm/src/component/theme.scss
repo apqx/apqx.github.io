@@ -164,31 +164,37 @@ $ripple-light-gap: 75%;
 	--md-sys-color-compatible-on-surface-light: var(--md-sys-color-on-surface-variant);
 	--md-sys-color-compatible-on-surface-underline: oklch(from var(--md-sys-color-primary) calc(l + 0.45) c h);
 
-	// 网站背景色，card 等组件浮动在背景色之上
+	// 亮度 surface-container-lowest > surface > surface-container-low > surface-container > surface-container-high
+
+	// 网站背景色，card 等组件浮动在背景色之上，此变量不随 dialog 等组件变化，始终指向网站整体的背景色
 	--md-custom-color-overall-background: var(--md-sys-color-surface);
-	// card 等浮动组件的填充色
+	// card 等浮动组件的填充色，在 dialog 等组件中，此变量应为其上的 chip 填充色
 	--md-custom-color-component-surface: var(--md-sys-color-surface-container-lowest);
-	// chip 背景色
-	--mdm-chip-color-fill: var(--md-sys-color-surface-container-low);
-	// list 背景色
+	// chip 背景色，距 component-surface -2 级
+	// --mdm-chip-color-fill: var(--md-sys-color-surface-container-low);
+	--mdm-chip-color-fill: color-mix(in srgb, var(--md-sys-color-surface-container-low) 70%, transparent);
+	// list 背景色，距 component-surface -2 级
 	--mdm-list-color-fill: var(--md-sys-color-surface-container-low);
-	// pre code 背景色
+	// pre code 背景色，距 component-surface -1 级
 	--mdm-surface-block-color-fill: var(--mdm-chip-color-fill);
-	// p code 背景色
-	--mdm-code-in-p-color-fill: var(--md-sys-color-surface-container-low);
+	// p code 背景色，距 component-surface -1 级
+	--mdm-code-in-p-color-fill: var(--md-sys-color-surface);
 
 
 	&.dark {
 		--md-sys-color-compatible-on-surface-underline: oklch(from var(--md-sys-color-primary) calc(l - 0.45) c h);
 
+		// 亮度 surface-container-lowest < surface < surface-container-low < surface-container < surface-container-high
+
 		--md-custom-color-overall-background: var(--md-sys-color-surface);
 		--md-custom-color-component-surface: var(--md-sys-color-surface-container-low);
+		// 距 component-surface +1 级
 		--mdm-list-color-fill: var(--md-sys-color-surface-container);
-		--mdm-chip-color-fill: var(--md-sys-color-surface-container);
-		--mdm-chip-color-fill: color-mix(in srgb, var(--md-sys-color-surface-container-lowest) 40%, transparent);
-		// --mdm-surface-block-color-fill: var(--mdm-list-color-fill);
+		// 距 component-surface -1 级
+		--mdm-chip-color-fill: var(--md-sys-color-surface);
+		--mdm-surface-block-color-fill: var(--md-sys-color-surface);
+		// 距 component-surface +2 级
 		--mdm-code-in-p-color-fill: var(--md-sys-color-surface-container-high);
-		// --mdm-code-in-p-color-fill: color-mix(in srgb, var(--md-sys-color-surface-container-lowest) 40%, transparent);
 	}
 }
 
@@ -204,28 +210,30 @@ body {
 	--safe-area-inset-left: max(env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
 	--safe-area-inset-right: max(env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
 
-	// drawer list 圆角
-	--mdc-shape-small: 0.5rem;
+	// textfield 圆角
+	--mdc-shape-small: 1.5rem;
 	// card 圆角
 	--mdc-shape-medium: 0.8rem;
-	--dialog-border-radius: 1rem;
+	// --mdc-shape-medium: 1.5rem;
+	--dialog-border-radius: 1.5rem;
 	// 文章内元素圆角，code block 和 description
-	--post-inner-shape-round: 1rem;
+	--post-inner-shape-round: 1.5rem;
 	// 列表圆角
-	--table-list-border-radius: 1rem;
+	--table-list-border-radius: 1.4rem;
 	--table-list-border-radius__fit-ripple: calc(var(--table-list-border-radius) - 1px);
 
 	--list-divider-height: 0.18rem;
 
-	--topbar-height: 3.9rem;
+	--topbar-height: 4rem;
 
 	--text-block-padding-vertical: 1.2rem;
-	--text-block-padding-horizontal: 1.5rem;
+	--text-block-padding-horizontal: 1.42rem;
 
 	// main container 为中央主体容器，设置最大宽度，水平居中，此为其顶部距 topbar 和底部距 footer 的距离
 	// main container 内部，上下边距由 container 控制，必须为统一的距离
 	// 左右边距则由内部元素自行根据情况控制，比如 content card 在小屏中占满宽度
 	--main-container-padding-vertical: 1.2rem;
+	// --main-container-padding-vertical: 0.2rem;
 	// center card 为主体容器中的卡片整体，即文章卡片和列表卡片，居中显示，此为其左右 border 与容器边界的距离
 	// 默认使中心卡片距四周边距相等，向上是与 topbar 的距离，向下是与 footer 的距离
 	// 这里以 index card 为基准，content card 在小屏中需单独处理
@@ -240,7 +248,7 @@ body {
 	--index-card-animation-translate-y: 2rem;
 
 	--fab-size: 3.5rem;
-	--fab-marin-to-edge: 1.5rem;
+	--fab-marin-to-edge: calc(var(--center-card-to-container-border-horizontal) + 0.2rem);
 
 	--z-index-dialog: 7;
 	--z-index-drawer: 5;
@@ -265,7 +273,7 @@ body {
 	// 文章内元素圆角，code block 和 description
 	--post-inner-shape-round: 1.5rem;
 	// 列表圆角
-	--table-list-border-radius: 1.2rem;
+	--table-list-border-radius: 1.4rem;
 	--table-list-border-radius__fit-ripple: calc(var(--table-list-border-radius) - 1px);
 
 	--list-divider-height: 0.18rem;
@@ -273,7 +281,7 @@ body {
 	--topbar-height: 4rem;
 
 	--text-block-padding-vertical: 1.2rem;
-	--text-block-padding-horizontal: 1.5rem;
+	--text-block-padding-horizontal: 1.42rem;
 
 	--main-container-padding-vertical: 0.6rem;
 	--center-card-to-container-border-horizontal: 1.5rem;
@@ -291,6 +299,7 @@ body {
 body {
 	// 用于浏览器识别网页主题色，尤其手机版 safari 会根据它的颜色显示顶部状态栏颜色
 	background-color: var(--md-custom-color-component-surface);
+	// background-color: var(--md-custom-color-overall-background);
 
 	&.expressive {
 		background-color: var(--md-custom-color-overall-background);
@@ -351,6 +360,7 @@ body {
 		--center-card-to-container-border-horizontal: 0.8rem;
 
 		--image-height-animation-duration: 0.6s;
+		// --fab-marin-to-edge: 1.6rem;
 	}
 
 	body.expressive {
@@ -363,6 +373,7 @@ body {
 		--center-card-to-container-border-horizontal: calc(var(--main-container-padding-vertical) + 1rem);
 
 		--image-height-animation-duration: 0.6s;
+		// --fab-marin-to-edge: 1.6rem;
 	}
 
 }
@@ -378,6 +389,8 @@ body {
 		--mdc-shape-medium: 0.6rem;
 
 		--list-divider-height: 0.15rem;
+
+		--fab-marin-to-edge: 1.3rem;
 	}
 
 	body.expressive {
@@ -389,5 +402,7 @@ body {
 		--mdc-shape-medium: 1.5rem;
 
 		--list-divider-height: 0.15rem;
+
+		--fab-marin-to-edge: 1.3rem;
 	}
 }

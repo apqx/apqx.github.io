@@ -2,7 +2,7 @@
 
 import { getSectionTypeByPath, isIndexPage, SECTION_TYPE_LENS } from "../base/constant"
 import { getWindowInterSectionObserver } from "./animation/BaseAnimation"
-import { setupIconButtonRipple } from "./react/Button"
+import { setupButtonRipple } from "./react/Button"
 import { showLensFilterDialog } from "./dialog/LensFilterDialog"
 
 export function initFab() {
@@ -17,7 +17,7 @@ export function initFab() {
     } else {
         const fabSearchE = document.querySelector("#fabSearch")
         if (fabSearchE != null) {
-            setupIconButtonRipple(fabSearchE)
+            setupButtonRipple(fabSearchE)
             getWindowInterSectionObserver().observe(fabSearchE.parentElement as HTMLElement)
             fabSearchE?.addEventListener("click", () => {
                 showLensFilterDialog()
@@ -28,7 +28,7 @@ export function initFab() {
     // Fab 默认隐藏，使用 Intersection Observer 监听显示动画
     const fabUpE = document.querySelector("#fabUp") as HTMLElement
     if (fabUpE != null) {
-        setupIconButtonRipple(fabUpE)
+        setupButtonRipple(fabUpE)
         getWindowInterSectionObserver().observe(fabUpE.parentElement as HTMLElement)
         fabUpE?.addEventListener("click", () => {
             scrollToTopNative()

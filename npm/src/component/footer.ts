@@ -40,7 +40,7 @@ export function initFooter() {
     }
     document.querySelector("footer #link-material-design")?.addEventListener("click", () => {
         import("./dialog/ListDialog").then(module => {
-            module.showListDialog("设计与资源", "参考 Material Design 设计风格，依据个人倾向对配色、阴影、层级做取舍，默认采用淡化色彩的版本，实验性支持更具表现力的 Material 3 Expressive。", [
+            module.showListDialog("设计与资源", "参考 Material Design 设计风格，依据个人倾向对配色、阴影、层级做取舍，默认为淡化色彩的版本，实验性支持更具表现力的 Material 3 Expressive。", [
                 {
                     title: "Google Material Design", description: "https://m3.material.io",
                     link: "https://m3.material.io", newPage: true

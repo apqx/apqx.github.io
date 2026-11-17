@@ -74,7 +74,8 @@ body {
             max-width: base.$center-container-max-width;
             // 设置上下 padding，左右内间距由内部元素自行控制
             padding: var(--main-container-padding-vertical) 0;
-            padding-bottom: calc(var(--main-container-padding-vertical) + var(--main-container-padding-bottom-additional));
+            // padding-bottom: calc(var(--main-container-padding-vertical) + var(--main-container-padding-bottom-additional));
+            padding-bottom: calc(0.2rem + var(--main-container-padding-bottom-additional));
 
         }
 
@@ -84,7 +85,8 @@ body {
             max-width: base.$center-container-larger-max-width;
             // 横向居中
             padding: var(--main-container-padding-vertical) 0;
-            padding-bottom: calc(var(--main-container-padding-vertical) + var(--main-container-padding-bottom-additional));
+            // padding-bottom: calc(var(--main-container-padding-vertical) + var(--main-container-padding-bottom-additional));
+            padding-bottom: calc(0.2rem + var(--main-container-padding-bottom-additional));
 
         }
     }

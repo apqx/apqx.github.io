@@ -35,7 +35,10 @@ function checkDynamicThemeColor(dark: boolean) {
     // https://material-web.dev/theming/color/
     if (dynamicTheme == null) {
         // dynamicTheme = materialYouThemeFromSourceColor('#5a5fc1', true);
-        dynamicTheme = materialYouThemeFromSourceColor('#c15a72', true);
+        // dynamicTheme = materialYouThemeFromSourceColor('#ba9e2c', true);
+        // dynamicTheme = materialYouThemeFromSourceColor('#ba782c', true);
+        dynamicTheme = materialYouThemeFromSourceColor('#ba782c', true);
+        // dynamicTheme = materialYouThemeFromSourceColor('#c15a72', true);
     }
     const expressiveEnabled = getLocalRepository().getThemeExpressive()
     toggleElementClass(document.body, "expressive", expressiveEnabled)

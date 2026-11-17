@@ -76,8 +76,11 @@ $dialog-max-width: 35rem;
             max-width: $dialog-max-width;
             max-height: calc(100% - 2.4rem);
             color: var(--md-sys-color-on-surface);
-            border: 1px solid var(--md-sys-color-compatible-divider);
             border-radius: var(--dialog-border-radius);
+            // 亮色模式下无需 border
+            .dark & {
+                border: 1px solid var(--md-sys-color-compatible-divider);
+            }
 
             &.mdm-dialog-fixed-width {
                 width: $dialog-max-width;
@@ -127,7 +130,7 @@ $dialog-max-width: 35rem;
 
                     @include button.container-fill-color(var(--md-custom-color-component-surface));
                     @include button.ink-color(var(--md-sys-color-on-surface-variant));
-                    @include ripple.ripple(var(--md-sys-color-compatible-surface-ripple1), 0, 0, 0.12);
+                    @include ripple.ripple(var(--md-sys-color-on-surface), 0, 0, 0.035);
 
                     .expressive & {
                         @include button.container-fill-color(var(--md-custom-color-overall-background));
@@ -155,7 +158,7 @@ $dialog-max-width: 35rem;
 }
 
 @mixin baseDialogHint {
-    margin: 1.2rem 1rem;
+    margin: 0.8rem 1rem 1rem 1rem;
     color: var(--md-sys-color-on-surface);
     font-weight: var(--font-weight-light);
     font-size: var(--mdm-typography-body2-font-size);
@@ -172,7 +175,7 @@ $dialog-max-width: 35rem;
 }
 
 .common-alert-dialog_content {
-    margin: 1.5rem 1rem 0.5rem 1rem;
+    margin: 1rem 1rem 1.2rem 1rem;
 }
 
 .common-lottie-container {

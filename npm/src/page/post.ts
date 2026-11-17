@@ -106,6 +106,7 @@ function showCopyrightDialog(url: string) {
 
 function checkImgCompatibility(url: string) {
     const showFormatHint = url.endsWith(".avif")
+    // const showFormatHint = true
     if (showFormatHint) {
         showAlertDialog("兼容提示", "原图为现代 P3 色域 AVIF 格式文件，部分 Android 设备受限于硬件解码器可能在图库中显示色彩偏淡，部分社交平台可能对此格式的支持尚不完善。",
             "取消", undefined,

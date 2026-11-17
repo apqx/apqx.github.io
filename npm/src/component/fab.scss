@@ -20,10 +20,9 @@
         border-radius: 0.2rem;
         -webkit-backdrop-filter: blur(map.get(base.$fab-bg, "backdrop-filter"));
         backdrop-filter: blur(map.get(base.$fab-bg, "backdrop-filter"));
-        @include ripple.ripple(var(--md-sys-color-compatible-surface-ripple1), 0, 0, 0.2);
-
         background-color: var(--md-sys-color-secondary);
         color: var(--md-sys-color-on-secondary);
+        @include ripple.ripple(var(--md-sys-color-on-surface), 0, 0, 0.05);
 
         
         .expressive & {
@@ -31,6 +30,7 @@
             // color: var(--md-sys-color-on-surface);
             background-color: var(--md-sys-color-primary);
             color: var(--md-sys-color-on-primary);
+            @include ripple.ripple(var(--md-sys-color-on-primary), 0, 0, 0.15);
         }
     }
 

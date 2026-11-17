@@ -137,7 +137,7 @@ p {
     // 段落间距
     line-height: var(--mdm-typography-body1-line-height);
     margin: calc(var(--mdm-typography-body1-font-size) - 0.5rem) 0;
-    text-align: justify;
+    text-align: start;
     line-break: normal;
 
     &.no-justify {
@@ -280,7 +280,7 @@ pre {
         //     left: 0;
         //     width: var(--text-block-padding-horizontal);
         //     height: 100%;
-        //     background: linear-gradient(to right, var(--md-sys-color-surface-container-low), transparent);
+        //     background: linear-gradient(to right, var(--mdm-surface-block-color-fill), transparent);
         // }
 
         // &:after {
@@ -289,9 +289,9 @@ pre {
         //     display: block;
         //     top: 0;
         //     right: 0;
-        //     width: var(--text-block-padding-horizontal);
+        //     width: calc(var(--text-block-padding-horizontal) * 1.5);
         //     height: 100%;
-        //     background: linear-gradient(to left, var(--md-sys-color-surface-container-low), transparent);
+        //     background: linear-gradient(to left, var(--mdm-surface-block-color-fill), transparent);
         // }
     }
 }
@@ -308,6 +308,7 @@ pre code.hljs {
 
     padding: var(--text-block-padding-vertical) var(--text-block-padding-horizontal);
     background: var(--mdm-surface-block-color-fill);
+    // color: var(--md-sys-color-on-surface-variant);
 
     .font-noto-serif-sc & {
         font-weight: #{base.$font-weight-normal-default - 30};

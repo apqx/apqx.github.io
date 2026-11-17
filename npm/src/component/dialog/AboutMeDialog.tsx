@@ -35,7 +35,7 @@ function AboutMeDialog(props: BaseDialogOpenProps) {
                     <Tag text="Android" />
                     <Tag text="Web" />
                 </section>
-                <p className="about-me-description">旅居杭州，常在西湖，野生<a
+                <p className="about-me-description">居杭州，常在西湖，野生<a
                     href={kunQvLink} tabIndex={-1}>昆虫</a> & 攻城狮，“十分”“业余”摄影 Fans。联系我可以通过<a href="mailto:safari@mudan.me" tabIndex={-1}>电子邮件</a>，如果有必要亦可用<a
                         href="https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/wechat.jpg" target="_blank" rel="noopener" tabIndex={-1}>微信</a>。</p>
                 <List oneLine={true} noHover={false} items={[

@@ -25,8 +25,12 @@ footer {
                     color: var(--md-sys-color-on-surface-variant);
                     background-color: transparent;
                     border: none;
-                    // text-decoration: underline;
-                    
+                    text-decoration: underline;
+                    text-underline-offset: 0.15rem;
+                    text-decoration-thickness: 1px;
+                    // 去除移动版 Chrome 点击时默认的蓝色背景
+                    -webkit-tap-highlight-color: transparent;
+
                     cursor: pointer;
                     padding-inline-start: 0.2rem;
                     padding-inline-end: 0.2rem;

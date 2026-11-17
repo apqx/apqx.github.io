@@ -4,13 +4,9 @@
 @use "@material/button";
 @use "sass:map";
 
-@mixin btnChipRipple {
-    @include ripple.ripple(var(--md-sys-color-compatible-surface-ripple1), 0, 0, 0.15);
-}
-
 $btnTagSideRadius: calc(var(--mdm-typography-body1-font-size) - 0.1rem);
 $btnTagRadius: 0.2rem;
-$btnTagSidePaddingHorizontal: 0.8rem;
+$btnTagSidePaddingHorizontal: 0.9rem;
 $btnTagPaddingHorizontal: 0.8rem;
 
 .mdc-button.mdm-chip {
@@ -24,15 +20,15 @@ $btnTagPaddingHorizontal: 0.8rem;
     margin: 0;
     border-radius: $btnTagRadius;
 
-    // .expressive.dark & {
-    //     background-color: var(--md-custom-color-overall-background);
-    // }
-
     &:not(.mdm-chip-checkable) {
-        @include btnChipRipple();
+        @include ripple.ripple(var(--md-sys-color-on-surface), 0, 0, 0.04);
 
         .expressive & {
-            @include ripple.ripple(var(--md-sys-color-compatible-surface-ripple2), 0, 0, 0.2);
+            @include ripple.ripple(var(--md-sys-color-on-surface), 0, 0, 0.04);
+        }
+
+        .dark.expressive & {
+            @include ripple.ripple(var(--md-sys-color-on-surface), 0, 0, 0.06);
         }
     }
 

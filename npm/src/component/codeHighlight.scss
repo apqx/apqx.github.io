@@ -57,12 +57,12 @@
 .hljs-code,
 .hljs-formula {
     /* prettylights-syntax-comment */
-    color: color-mix(in srgb, var(--md-sys-color-on-surface) 70%, transparent);
+    color: color-mix(in srgb, var(--md-sys-color-on-surface) 65%, transparent);
 }
 
 .hljs-comment,
 .hljs-quote {
-    font-style: italic;
+    font-style: normal;
 }
 
 .hljs-name,

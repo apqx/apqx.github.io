@@ -29,22 +29,21 @@ li {
         border-radius: $listItemRadius;
         color: var(--md-sys-color-on-surface);
 
-        padding: 0.6rem 1rem;
+        padding: 0.7rem 1.15rem;
         display: block;
 
-        @include ripple.ripple(var(--md-sys-color-compatible-surface-ripple1), 0.1, 0.1, 0.12);
+        @include ripple.ripple(var(--md-sys-color-on-surface), 0.02, 0.02, 0.02);
 
         .mdm-list-no-hover & {
-            @include ripple.ripple(var(--md-sys-color-compatible-surface-ripple1), 0, 0, 0.12);
+            @include ripple.ripple(var(--md-sys-color-on-surface), 0, 0, 0.04);
         }
 
         .expressive & {
-            @include ripple.ripple(var(--md-sys-color-compatible-surface-ripple2), 0.03, 0.03, 0.2);
-
+            @include ripple.ripple(var(--md-sys-color-on-surface), 0.02, 0.02, 0.03);
         }
 
         .expressive .mdm-list-no-hover & {
-            @include ripple.ripple(var(--md-sys-color-compatible-surface-ripple2), 0, 0, 0.2);
+            @include ripple.ripple(var(--md-sys-color-on-surface), 0, 0, 0.04);
         }
 
         &.mdm-list-item-darken {
@@ -53,7 +52,7 @@ li {
 
         // .mdm-list--one-line 必须是 li 的父元素
         .mdm-list--one-line & {
-            padding: 1rem 1rem;
+            padding: 1rem 1.15rem;
         }
 
         .mdm-list-item__icon {}

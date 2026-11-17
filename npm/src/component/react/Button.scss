@@ -32,7 +32,10 @@
     }
 
     &:not(.btn-no-ripple) {
-        @include ripple.ripple(var(--md-sys-color-compatible-surface-ripple1), 0, 0, 0.1);
+        @include ripple.ripple(var(--md-sys-color-on-surface), 0, 0, 0.04);
+        .expressive & {
+            @include ripple.ripple(var(--md-sys-color-primary), 0, 0, 0.08);
+        }
     }
 
     &.btn-no-bg {
@@ -71,7 +74,7 @@
     justify-content: center;
 
     // 设置 ripple，bounded ripple 必须设置 overflow: hidden，此 mixin 已内置
-    @include ripple.ripple(var(--md-sys-color-compatible-surface-ripple1), 0, 0, 0.15);
+    @include ripple.ripple(var(--md-sys-color-on-surface), 0, 0, 0.04);
 
     &.mdm-toggle-icon-button {
 

@@ -2,9 +2,10 @@
 
 .list-dialog-title {
     @include baseDialog.baseDialogTitle();
+    font-weight: var(--font-weight-normal);
 }
 
 .list-dialog-description {
     @include baseDialog.baseDialogHint();
-
+    font-weight: var(--font-weight-normal);
 }
