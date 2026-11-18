@@ -57,8 +57,8 @@
 	--md-sys-color-compatible-on-surface-light: #{map.get(base.$text-subtitle, "light")};
 	--md-sys-color-compatible-on-surface-underline: #{map.get(base.$strong-under-line, "light")};
 
-	--md-sys-color-compatible-border: color-mix(in srgb, var(--md-sys-color-outline) 10%, transparent);
-	--md-sys-color-compatible-border2: color-mix(in srgb, var(--md-sys-color-outline) 15%, transparent);
+	--md-sys-color-compatible-border: color-mix(in srgb, var(--md-sys-color-outline) 15%, transparent);
+	--md-sys-color-compatible-border-variant: color-mix(in srgb, var(--md-sys-color-outline) 10%, transparent);
 	--md-sys-color-compatible-divider: color-mix(in srgb, var(--md-sys-color-outline-variant) 15%, transparent);
 
 	--md-sys-color-outline: #777680;

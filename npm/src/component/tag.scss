@@ -45,11 +45,7 @@ $btnTagPaddingHorizontal: 0.8rem;
     &.mdm-chip-checked {
         @include button.ink-color(var(--md-sys-color-on-tertiary-container));
         @include button.container-fill-color(var(--md-sys-color-tertiary-container));
-        border-radius: calc($btnTagSideRadius / 2);
-
-        .expressive & {
-            border-radius: $btnTagSideRadius;
-        }
+        border-radius: $btnTagSideRadius;
     }
 }
 

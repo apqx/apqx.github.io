@@ -14,8 +14,8 @@ $surface: (
 );
 
 $background: (
-        light: color.adjust(map.get($surface, "light"), $lightness: -2.5%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: -2.5%),
+        light: color.adjust(map.get($surface, "light"), $lightness: -3%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: -3%),
 );
 
 // 以 md-surface 为基准，以 3 为亮度梯度划分颜色

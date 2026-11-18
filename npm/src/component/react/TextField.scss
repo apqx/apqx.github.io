@@ -16,9 +16,9 @@
     @include textfield.caret-color(var(--md-sys-color-on-surface));
     @include textfield.placeholder-color(var(--md-sys-color-compatible-on-surface-light));
     @include textfield.label-color(var(--md-sys-color-compatible-on-surface-light));
-    @include textfield.outline-color(var(--md-sys-color-compatible-border2));
-    @include textfield.hover-outline-color(var(--md-sys-color-compatible-border2));
-    @include textfield.focused-outline-color(var(--md-sys-color-compatible-border2));
+    @include textfield.outline-color(var(--md-sys-color-compatible-border));
+    @include textfield.hover-outline-color(var(--md-sys-color-compatible-border));
+    @include textfield.focused-outline-color(var(--md-sys-color-compatible-border));
 
     .mdc-floating-label,
     .mdc-text-field__input {

@@ -5,6 +5,7 @@ import { getLocalRepository } from "../repository/LocalDb"
 import { showSnackbar } from "./react/Snackbar"
 import { EVENT_PAGE_BACK_FROM_CACHE, getEventEmitter, type Events } from "./base/EventBus"
 import { applyModernM3Theme, materialYouThemeFromSourceColor, removeModernM3Theme, type MaterialYouTheme } from "../util/material"
+import styles from "../style/global.module.scss"
 
 export const darkClass = "dark"
 
@@ -34,11 +35,8 @@ function checkDynamicThemeColor(dark: boolean) {
     // 生成 Material You 主题色插入到 CSS 变量中
     // https://material-web.dev/theming/color/
     if (dynamicTheme == null) {
-        // dynamicTheme = materialYouThemeFromSourceColor('#5a5fc1', true);
-        // dynamicTheme = materialYouThemeFromSourceColor('#ba9e2c', true);
-        // dynamicTheme = materialYouThemeFromSourceColor('#ca7b20', true);
-        // dynamicTheme = materialYouThemeFromSourceColor('#ca7b20', true);
-        dynamicTheme = materialYouThemeFromSourceColor('#c15a72', true);
+        const colors = ["#5a5fc1", "#ba9e2c", "#ca7b20", "#c15a72"]
+        dynamicTheme = materialYouThemeFromSourceColor(colors[2], true);
     }
     const expressiveEnabled = getLocalRepository().getThemeExpressive()
     toggleElementClass(document.body, "expressive", expressiveEnabled)
@@ -66,11 +64,6 @@ export function isDarkThemeFromSysAndUserSettings(): boolean {
     }
 }
 
-const metaThemeColor = {
-    light: "#ffffff",
-    dark: "#161616"
-}
-
 // 是否启用彩色标题栏
 // 在使用 Material You 的 Android Chrome 上，浅色主题的主题色不会影响 Chrome 工具栏和状态栏颜色，需要设置更深的主题色才会生效
 // 深色模式下则完全不影响，所以不必设置
@@ -79,6 +72,7 @@ const metaThemeColor = {
 // 给 body 添加 expressive 可启用 material 3 配色，作为实验功能慢慢尝试
 
 function checkMetaThemeColor(dark: boolean, show: boolean) {
+    consoleInfo(`Theme from SCSS, defaultThemeMetaColor ${styles.defaultLightThemeMetaColor} : ${styles.defaultDarkThemeMetaColor}`)
     if (show) {
         if (document.querySelector(".expressive") != null) {
             if (document.querySelector(".colorful") != null) {
@@ -87,7 +81,7 @@ function checkMetaThemeColor(dark: boolean, show: boolean) {
                 setMetaThemeColor(dark ? dynamicTheme?.dark.get("--md-sys-color-surface") : dynamicTheme?.light.get("--md-sys-color-surface"))
             }
         } else {
-            setMetaThemeColor(dark ? metaThemeColor.dark : metaThemeColor.light)
+            setMetaThemeColor(dark ? styles.defaultDarkThemeMetaColor : styles.defaultLightThemeMetaColor)
         }
     } else {
         setMetaThemeColor(undefined)

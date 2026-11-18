@@ -1,0 +1,7 @@
+@use "./global.scss" as base;
+@use "sass:map";
+
+:export {
+    defaultLightThemeMetaColor: map.get(base.$background, "light");
+    defaultDarkThemeMetaColor: map.get(base.$background, "dark");
+}

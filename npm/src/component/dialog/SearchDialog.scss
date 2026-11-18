@@ -39,9 +39,6 @@
     mark {
         background-color: transparent;
         color: var(--md-sys-color-compatible-on-surface-vivid);
-
-        .expressive & {
-            font-weight: calc(var(--font-weight-normal) + 50);
-        }
+        font-weight: calc(var(--font-weight-normal) + 50);
     }
 }

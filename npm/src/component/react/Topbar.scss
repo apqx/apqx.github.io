@@ -35,7 +35,7 @@
     &.mdm-topbar-blur:not(.colorful &) {
         -webkit-backdrop-filter: blur(map.get(base.$topbar, "backdrop-filter"));
         backdrop-filter: blur(map.get(base.$topbar, "backdrop-filter"));
-        background-color: color-mix(in srgb, var(--md-custom-color-component-background) 80%, transparent);
+        background-color: color-mix(in srgb, var(--md-custom-color-overall-background) 80%, transparent);
 
         .expressive & {
             background-color: color-mix(in srgb, var(--md-custom-color-overall-background) 80%, transparent);
@@ -156,7 +156,7 @@
     // }
 
     // 颜色与模糊应与 fab 一致，保持视觉
-    background: color-mix(in srgb, var(--md-custom-color-component-surface) 50%, transparent);
+    background: color-mix(in srgb, var(--md-custom-color-overall-background) 50%, transparent);
 
     .expressive & {
         background: color-mix(in srgb, var(--md-custom-color-overall-background) 50%, transparent);
