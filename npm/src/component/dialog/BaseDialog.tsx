@@ -190,10 +190,10 @@ export function BaseDialog({ dialogControllerRef = undefined, fixedWidth = false
                             <div className="mdm-dialog__actions">
                                 {actions.map((btn, _index) =>
                                     <Button key={btn.text} text={btn.text} onClick={() => {
-                                        btn.onClick?.()
                                         if (btn.closeOnClick) {
                                             toggleOpen(false)
                                         }
+                                        btn.onClick?.()
                                     }} />
                                 )}
                             </div>

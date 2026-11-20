@@ -23,7 +23,6 @@
         background-color: var(--fab-container);
         color: var(--fab-on-container);
         @include ripple.ripple(var(--md-sys-color-on-surface), 0, 0, 0.05);
-
         
         .expressive & {
             // background-color: color-mix(in srgb, var(--md-sys-color-primary-container) 65%, transparent);
@@ -65,17 +64,3 @@
     // TODO: 使用 var 设置的阴影是失效的
     @include elevation.elevation(map.get(base.$fab-elevation, "elevation"), map.get(base.$fab-elevation, "shadow-light"), 0);
 }
-
-// .dark {
-//     .mdc-fab,
-//     .mdc-fab:hover {
-//         @include elevation.elevation(map.get(base.$fab-elevation, "elevation"), map.get(base.$fab-elevation, "shadow-dark"), 0);
-//     }
-// }
-
-// @media(max-width: base.$screen-small-max-width) {
-//     .floating-action-container {
-//         --fab-right-gap: 1.3rem;
-//         --fab-bottom-gap: 1.3rem;
-//     }
-// }

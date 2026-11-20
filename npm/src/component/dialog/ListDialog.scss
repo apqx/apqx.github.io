@@ -8,4 +8,5 @@
 .list-dialog-description {
     @include baseDialog.baseDialogHint();
     font-weight: var(--font-weight-normal);
+    font-size: var(--mdm-typography-body1-font-size);
 }

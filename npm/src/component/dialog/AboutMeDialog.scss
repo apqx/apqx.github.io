@@ -3,20 +3,7 @@
 $avatarWidth: 7rem;
 
 .about-me-dialog-container {
-    .about-me-name {
-        line-height: 2.5rem;
-        font-size: calc(var(--mdm-typography-body1-font-size) + 0.8rem);
-        text-align: center;
-        margin-top: 1.0rem;
-        margin-bottom: 1.0rem;
-        display: block;
-    }
 
-    .about-me-description {
-        margin: 1.6rem 1rem;
-        text-align: justify;
-    }
-    
     .circle-avatar {
         display: inline-block;
         width: $avatarWidth;
@@ -28,6 +15,20 @@ $avatarWidth: 7rem;
         .expressive & {
             background-color: var(--md-sys-color-secondary-container);
         }
+    }
+
+    .about-me-name {
+        line-height: 2.5rem;
+        font-size: calc(var(--mdm-typography-body1-font-size) + 0.8rem);
+        text-align: center;
+        margin-top: .4rem;
+        margin-bottom: 1.0rem;
+        display: block;
+    }
+
+    .about-me-description {
+        margin: 1.6rem 1rem;
+        text-align: justify;
     }
 
     .about-me-tag-wrapper {

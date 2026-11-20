@@ -134,23 +134,27 @@ function PageCover(props: PageCoverProps) {
         }
     }, [onCardClick])
 
-    const imgURL = useMemo(() => {
+    const pageCover = useMemo(() => {
         void themeChangedCount
         let url = props.pageCover
+        const title = props.pageTitle
+        const description = props.pageCoverDescription
         if (document.body.classList.contains("expressive")
             && getSectionTypeByPath(window.location.pathname).identifier == SECTION_TYPE_ORIGINAL.identifier
             && isIndexPage(window.location.pathname)) {
             url = "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/index_mudanting_shanwen_zhangwen.jpg"
+            // title = "淮南一叶下，自觉洞庭波"
+            // description = "昆曲 牡丹亭 单雯"
         }
-        return url
-    }, [props.pageCover, themeChangedCount])
+        return [url, title, description]
+    }, [props.pageCover, props.pageTitle, props.pageCoverDescription, themeChangedCount])
 
     return (
         <section ref={containerRef} className="mdm-card index-top-card slide-in-farer slide-in-chained">
-            <img src={imgURL}
-                className="index-top-cover" alt={props.pageCoverDescription} id="main-index" draggable="false" />
+            <img src={pageCover.at(0)}
+                className="index-top-cover" alt={pageCover.at(2)} id="main-index" draggable="false" />
             <div className="index-top-card-container">
-                <p className="index-top-card-text font-handwritten">{props.pageTitle}</p>
+                <p className="index-top-card-text font-handwritten">{pageCover.at(1)}</p>
             </div>
         </section>
     )

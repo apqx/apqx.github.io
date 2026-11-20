@@ -63,7 +63,7 @@ export function PreferenceDialog(props: BaseDialogOpenProps) {
                 <SettingsToggle titleHtml="固定顶部导航栏" description="滚动时导航栏固定显示在顶部"
                     on={state.fixedTopbar}
                     onChange={viewModel.onClickFixedTopbarSwitch} />
-                <SettingsToggle titleHtml="隐藏状态栏背景" description="边到边模式下隐藏顶部状态栏背景"
+                <SettingsToggle titleHtml="隐藏状态栏遮罩" description="边到边模式下隐藏顶部状态栏背景"
                     on={state.hideStatusBarBg}
                     onChange={viewModel.onClickHideStatusBarBgSwitch} />
                 <SettingsToggle titleHtml={"透镜显示更大图像"} description="减少小屏幕下透镜分区的分栏数"

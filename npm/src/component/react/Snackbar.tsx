@@ -31,6 +31,7 @@ export function Snackbar(props: props) {
     useEffect(() => {
         // 组件内部实现的最小长度是 4000，否则异常
         snackbar.current!!.timeoutMs = props.length
+        // snackbar.current!!.timeoutMs = -1
     }, [props.length])
 
     useEffect(() => {

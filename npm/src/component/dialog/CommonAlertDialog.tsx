@@ -2,6 +2,7 @@ import { useMemo } from "react"
 import { createHtmlContent } from "../../util/tools"
 import { BaseDialog, COMMON_DIALOG_WRAPPER_ID, getDialogController, showDialog } from "./BaseDialog"
 import type { BaseDialogOpenProps } from "./BaseDialog"
+import { consoleInfo } from "../../util/log"
 
 interface CommonAlertDialogProps extends BaseDialogOpenProps {
     title: string,
@@ -40,9 +41,10 @@ function NewCommonAlertDialog(props: CommonAlertDialogProps) {
 
 export function showAlertDialog(title: string, contentHTML: string,
     actionCancelBtnText: string | undefined, onClickCancelBtn: (() => void) | undefined,
-    confirmBtnText: string, onClickConfirmBtn: () => void) {
+    confirmBtnText: string, onClickConfirmBtn: () => void, dialogId?: string) {
 
-    const id = COMMON_DIALOG_WRAPPER_ID
+    const id = COMMON_DIALOG_WRAPPER_ID + (dialogId == null ? "" : "-" + dialogId)
+    consoleInfo(`showAlertDialog title is ${title}, id is ${id}`)
     const dialogControllerRef = getDialogController(id)
     showDialog(<NewCommonAlertDialog dialogControllerRef={dialogControllerRef} title={title} contentHTML={contentHTML}
         actionCancelBtnText={actionCancelBtnText} onClickActionCancelBtn={onClickCancelBtn}
@@ -54,5 +56,5 @@ export function showAlertDialog(title: string, contentHTML: string,
 
 export function showSimpleAlertDialog(title: string, contentHTML: string,
     confirmBtnText: string, onClickConfirmBtn: () => void) {
-    showAlertDialog(title, contentHTML, undefined, undefined, confirmBtnText, onClickConfirmBtn)
+    showAlertDialog(title, contentHTML, undefined, undefined, confirmBtnText, onClickConfirmBtn, undefined)
 }

@@ -1,7 +1,9 @@
 $handleSize: 1.35rem;
 
 body {
-    --md-switch-state-layer-size: 0rem;
+    --md-switch-state-layer-size: 0;
+    --md-switch-hover-state-layer-opacity: 0;
+    --md-switch-selected-hover-state-layer-opacity: 0;
     --md-switch-handle-width: #{$handleSize};
     --md-switch-handle-height: #{$handleSize};
     --md-switch-selected-handle-width: #{$handleSize};
@@ -9,10 +11,20 @@ body {
     --md-switch-track-width: 3.5rem;
     --md-switch-track-height: 2.2rem;
 
+
     --md-switch-track-color: var(--md-custom-color-component-surface);
+    --md-switch-hover-track-color: var(--md-custom-color-component-surface);
+
     &.expressive {
         --md-switch-track-color: var(--md-custom-color-overall-background);
+        --md-switch-hover-track-color: var(--md-custom-color-overall-background);
+
+        &.dark {
+            --md-switch-track-color: var(--md-custom-color-component-surface);
+            --md-switch-hover-track-color: var(--md-custom-color-component-surface);
+        }
     }
+
     // --md-switch-selected-track-color
     // --md-switch-handle-color
     // --md-switch-selected-handle-color

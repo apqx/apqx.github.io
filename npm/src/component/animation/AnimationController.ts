@@ -97,9 +97,12 @@ export class AnimationController implements IAnimationController {
     }
 
     isOpened(): boolean {
-        return elementContainsClass(this.element, this.openClass)
+        const result = elementContainsClass(this.element, this.openClass)
             && !elementContainsClass(this.element, this.openingClass)
             && !elementContainsClass(this.element, this.closingClass)
+
+        consoleInfo(`AnimationController isOpened = ${result}, classes = ${this.element?.classList}`)
+        return result
     }
 
     toggleOpen(open: boolean) {

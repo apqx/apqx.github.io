@@ -4,7 +4,7 @@
 @use "@material/button";
 
 .mdm-dialog {
-    --dialog-content-padding-left-right: 1.5rem;
+    --dialog-content-padding-horizontal: 1.5rem;
 }
 
 .dialog-slide {
@@ -77,6 +77,7 @@ $dialog-max-width: 35rem;
             max-height: calc(100% - 2.4rem);
             color: var(--md-sys-color-on-surface);
             border-radius: var(--dialog-border-radius);
+
             // 亮色模式下无需 border
             .dark & {
                 border: 1px solid var(--md-sys-color-compatible-divider);
@@ -100,7 +101,7 @@ $dialog-max-width: 35rem;
                 overflow-y: scroll;
 
                 .smooth-collapse-wrapper {
-                    padding: 1.2rem var(--dialog-content-padding-left-right) 1rem var(--dialog-content-padding-left-right);
+                    padding: 1.1rem var(--dialog-content-padding-horizontal) 1rem var(--dialog-content-padding-horizontal);
 
                     &>:first-child {
                         margin-top: 0;
@@ -128,13 +129,14 @@ $dialog-max-width: 35rem;
                     padding: 0;
                     border-radius: 0;
 
-                    @include button.container-fill-color(var(--md-custom-color-component-surface));
+                    // @include button.container-fill-color(var(--md-custom-color-component-surface));
+                    @include button.container-fill-color(transparent);
                     @include button.ink-color(var(--md-sys-color-on-surface-variant));
                     @include ripple.ripple(var(--md-sys-color-on-surface), 0, 0, 0.035);
 
-                    .expressive & {
-                        @include button.container-fill-color(var(--md-custom-color-overall-background));
-                    }
+                    // .expressive & {
+                    //     @include button.container-fill-color(var(--md-custom-color-overall-background));
+                    // }
                 }
             }
         }
@@ -158,7 +160,7 @@ $dialog-max-width: 35rem;
 }
 
 @mixin baseDialogHint {
-    margin: 0.8rem 1rem 1rem 1rem;
+    margin: 0.6rem 1rem 1rem 1rem;
     color: var(--md-sys-color-on-surface);
     font-weight: var(--font-weight-light);
     font-size: var(--mdm-typography-body2-font-size);
@@ -179,8 +181,8 @@ $dialog-max-width: 35rem;
 }
 
 .common-lottie-container {
-    margin: 0.85rem 0rem;
-    padding-top: 0.3rem;
+    margin: 0.8rem 0rem;
+    padding-top: 0.6rem;
     text-align: center;
 }
 
@@ -193,8 +195,16 @@ $dialog-max-width: 35rem;
 
 // 小屏
 @media (max-width: base.$screen-small-max-width) {
+    .mdm-dialog {
+        --dialog-content-padding-horizontal: 1.3rem;
+
+        .smooth-collapse-wrapper {
+            padding-top: 1rem;
+        }
+    }
+
     .common-lottie-container {
         margin: 0.6rem 0rem;
-        text-align: center;
+        padding-top: 0.4rem;
     }
 }

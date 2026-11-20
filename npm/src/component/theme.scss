@@ -81,7 +81,6 @@
 	--mdm-surface-block-color-fill: color-mix(in srgb, var(--md-sys-color-surface) 80%, transparent);
 	--mdm-code-in-p-color-fill: var(--md-sys-color-surface);
 
-
 	// Drawer
 	--scrim-bg: #{map.get(base.$scrim, "light")};
 }
@@ -161,7 +160,7 @@ $ripple-light-gap: 75%;
 	--md-sys-color-compatible-on-surface-vary-heavy: var(--md-sys-color-primary);
 	--md-sys-color-compatible-on-surface-heavy: var(--md-sys-color-on-surface);
 	--md-sys-color-compatible-on-surface-light: var(--md-sys-color-on-surface-variant);
-	--md-sys-color-compatible-on-surface-underline: oklch(from var(--md-sys-color-primary) calc(l + 0.45) c h);
+	--md-sys-color-compatible-on-surface-underline: oklch(from var(--md-sys-color-secondary-container) calc(l + 0.02) c h);
 
 	// 亮度 surface-container-lowest > surface > surface-container-low > surface-container > surface-container-high
 
@@ -181,7 +180,7 @@ $ripple-light-gap: 75%;
 
 
 	&.dark {
-		--md-sys-color-compatible-on-surface-underline: oklch(from var(--md-sys-color-primary) calc(l - 0.45) c h);
+		--md-sys-color-compatible-on-surface-underline: oklch(from var(--md-sys-color-secondary-container) calc(l + 0.02) c h);
 
 		// 亮度 surface-container-lowest < surface < surface-container-low < surface-container < surface-container-high
 
@@ -329,28 +328,28 @@ body {
 	color: var(--md-sys-color-on-surface);
 	// 默认主题，以前景色作背景
 	background-color: var(--md-custom-color-component-surface);
-	// background-color: var(--md-custom-color-overall-background);
-	// --md-custom-color-component-surface: var(--md-sys-color-surface-container-low);
-	// --mdm-chip-color-fill: var(--md-custom-color-component-surface);
-	// --mdm-list-color-fill: var(--md-custom-color-component-surface);
 
 	.dark & {
 		--mdm-chip-color-fill: var(--md-sys-color-surface-container);
 		--mdm-list-color-fill: var(--md-sys-color-surface-container);
 	}
 
-	// M3 主题，以背景色作背景
+	// M3 light 主题，以背景色作背景
 	.expressive & {
 		background-color: var(--md-custom-color-overall-background);
 		--md-custom-color-component-surface: var(--md-sys-color-surface-container-low);
+		// --md-custom-color-component-surface: color-mix(in srgb, var(--md-sys-color-surface-container) 70%, transparent);
 		--mdm-chip-color-fill: var(--md-custom-color-component-surface);
 		--mdm-list-color-fill: var(--md-custom-color-component-surface);
 	}
 
+	// M3 dark 主题，以前景色作背景
 	.expressive.dark & {
-		--md-custom-color-component-surface: var(--md-sys-color-surface-container-low);
-		--mdm-code-in-p-color-fill: var(--md-sys-color-surface-container);
-		// --mdm-list-color-fill: var(--md-sys-color-surface-container-lowest);
+		// --md-custom-color-component-surface: var(--md-sys-color-surface-container-low);
+		// --mdm-code-in-p-color-fill: var(--md-sys-color-surface-container);
+		background-color: var(--md-custom-color-component-surface);
+		--mdm-chip-color-fill: color-mix(in srgb, var(--md-sys-color-surface-container-high) 70%, transparent);
+		--mdm-list-color-fill: color-mix(in srgb, var(--md-sys-color-surface-container-high) 70%, transparent);
 	}
 }
 
