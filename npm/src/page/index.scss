@@ -20,9 +20,9 @@ body {
     --index-card-padding-horizontal: 2.5rem;
 
     // 网格列表卡片之间的距离
-    --grid-index-card-gap: 1rem;
-    --grid-index-card-text-padding-vertical: 1.5rem;
-    --grid-index-card-text-padding-horizontal: 2rem;
+    --grid-index-card-gap: 0.8rem;
+    --grid-index-card-text-padding-vertical: 1.4rem;
+    --grid-index-card-text-padding-horizontal: 1.8rem;
 
     --lens-index-card-gap: 0.2rem;
     --lens-index-card-radius: 0.18rem;
@@ -36,9 +36,9 @@ body {
         --index-card-padding-vertical: 1.25rem;
         --index-card-padding-horizontal: 2.5rem;
 
-        --grid-index-card-gap: 1rem;
-        --grid-index-card-text-padding-vertical: 1.5rem;
-        --grid-index-card-text-padding-horizontal: 2rem;
+        --grid-index-card-gap: 0.8rem;
+        --grid-index-card-text-padding-vertical: 1.4rem;
+        --grid-index-card-text-padding-horizontal: 1.8rem;
     }
 }
 
@@ -49,8 +49,8 @@ body {
         --index-card-padding-horizontal: 2rem;
 
         --grid-index-card-gap: 0.8rem;
-        --grid-index-card-text-padding-vertical: 1rem;
-        --grid-index-card-text-padding-horizontal: 1.8rem;
+        --grid-index-card-text-padding-vertical: 1.2rem;
+        --grid-index-card-text-padding-horizontal: 1.5rem;
     }
 
     body.expressive {
@@ -58,8 +58,8 @@ body {
         --index-card-padding-horizontal: 2rem;
 
         --grid-index-card-gap: 0.8rem;
-        --grid-index-card-text-padding-vertical: 1rem;
-        --grid-index-card-text-padding-horizontal: 1.8rem;
+        --grid-index-card-text-padding-vertical: 1.2rem;
+        --grid-index-card-text-padding-horizontal: 1.5rem;
     }
 }
 
@@ -73,8 +73,8 @@ body {
         --index-card-padding-horizontal: 1.3rem;
 
         --grid-index-card-gap: 0.6rem;
-        --grid-index-card-text-padding-vertical: 1rem;
-        --grid-index-card-text-padding-horizontal: 1.5rem;
+        --grid-index-card-text-padding-vertical: 1.15rem;
+        --grid-index-card-text-padding-horizontal: 1.4rem;
     }
 
     body.expressive {
@@ -84,8 +84,8 @@ body {
         --index-card-padding-horizontal: 1.3rem;
 
         --grid-index-card-gap: 0.6rem;
-        --grid-index-card-text-padding-vertical: 1rem;
-        --grid-index-card-text-padding-horizontal: 1.5rem;
+        --grid-index-card-text-padding-vertical: 1.15rem;
+        --grid-index-card-text-padding-horizontal: 1.4rem;
     }
 }
 

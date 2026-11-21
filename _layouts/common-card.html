@@ -7,17 +7,21 @@
 
 <body class="mdm-typography">
     {% include script-theme.html %}
-    {% include header.html %}
-    {% include aside.html %}
-    <main class="mdm-layer-back">
-        <div class="main-container">
-            <div class="mdm-card content-card">
-                {% include script-content-card.html %}
-                {{ content }}
+    <div id="scaffold-left">
+        {% include aside.html %}
+    </div>
+    <div id="scaffold-center">
+        {% include header.html %}
+        <main class="mdm-layer-back">
+            <div class="main-container">
+                <div class="mdm-card content-card">
+                    {% include script-content-card.html %}
+                    {{ content }}
+                </div>
             </div>
-        </div>
-    </main>
-    {% include footer.html %}
+        </main>
+        {% include footer.html %}
+    </div>
 </body>
 
 </html>

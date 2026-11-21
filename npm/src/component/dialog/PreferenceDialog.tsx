@@ -66,6 +66,9 @@ export function PreferenceDialog(props: BaseDialogOpenProps) {
                 <SettingsToggle titleHtml="隐藏状态栏遮罩" description="边到边模式下隐藏顶部状态栏背景"
                     on={state.hideStatusBarBg}
                     onChange={viewModel.onClickHideStatusBarBgSwitch} />
+                <SettingsToggle titleHtml="侧边栏平行模式" description="大屏幕下侧边栏与内容分屏显示"
+                    on={state.drawerSplitOnLargeScreen}
+                    onChange={viewModel.onClickDrawerSplitOnLargeScreenSwitch} />
                 <SettingsToggle titleHtml={"透镜显示更大图像"} description="减少小屏幕下透镜分区的分栏数"
                     on={state.lensBiggerPicture}
                     onChange={viewModel.onClickLensBiggerPictureSwitch} />

@@ -11,6 +11,7 @@ export interface PreferenceDialogState {
     autoTheme: boolean
     themeExpressive: boolean
     hideStatusBarBg: boolean
+    drawerSplitOnLargeScreen: boolean
 }
 
 export class PreferenceDialogViewModel extends BaseExternalStore {
@@ -20,7 +21,8 @@ export class PreferenceDialogViewModel extends BaseExternalStore {
         lensBiggerPicture: false,
         autoTheme: false,
         themeExpressive: false,
-        hideStatusBarBg: false
+        hideStatusBarBg: false,
+        drawerSplitOnLargeScreen: false
     }
 
     localRepository: LocalDb = new LocalDb()
@@ -34,7 +36,8 @@ export class PreferenceDialogViewModel extends BaseExternalStore {
             lensBiggerPicture: this.localLensBiggerPicture(),
             autoTheme: this.localAutoTheme(),
             themeExpressive: this.localThemeExpressive(),
-            hideStatusBarBg: this.localHideStatusBarBg()
+            hideStatusBarBg: this.localHideStatusBarBg(),
+            drawerSplitOnLargeScreen: this.localDrawerSplitOnLargeScreen()
         }
         this.emitChange()
         consoleInfo("PreferenceDialogViewModel initSettings, state = " + JSON.stringify(this.state))
@@ -121,6 +124,17 @@ export class PreferenceDialogViewModel extends BaseExternalStore {
         })
     }
 
+    onClickDrawerSplitOnLargeScreenSwitch = (event: Event) => {
+        const switchE = event.target as MdSwitch
+        const newState = switchE.selected
+        this.state = { ...this.state, drawerSplitOnLargeScreen: newState }
+        this.emitChange()
+        this.localRepository.saveDrawerSplitOnLargeScreen(newState)
+        getEventEmitter().emit("applyDrawerSplitOnLargeScreenChange", {
+            enabled: newState
+        })
+    }
+
     localFixedTopbar(): boolean {
         return this.localRepository.getFixedTopbar()
     }
@@ -147,5 +161,9 @@ export class PreferenceDialogViewModel extends BaseExternalStore {
 
     localHideStatusBarBg(): boolean {
         return this.localRepository.getHideStatusBarBg()
+    }
+
+    localDrawerSplitOnLargeScreen(): boolean {
+        return this.localRepository.getDrawerSplitOnLargeScreen()
     }
 }

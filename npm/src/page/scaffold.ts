@@ -14,6 +14,7 @@ import { is404Page, isIndexPage, isPostPage } from "../base/constant"
 import { EVENT_PAGE_BACK_FROM_CACHE, getEventEmitter } from "../component/base/EventBus"
 import { initHeader } from "../component/react/Topbar"
 import { initTable } from "../component/table"
+import { initDrawer } from "../component/react/Drawer"
 
 initScaffold()
 
@@ -23,6 +24,7 @@ export function initScaffold() {
         initLocalRepository()
         initFont()
         initHeader()
+        initDrawer()
         initFooter()
         initTheme()
         initTable()

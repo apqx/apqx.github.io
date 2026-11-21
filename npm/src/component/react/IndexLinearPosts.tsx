@@ -13,7 +13,7 @@ import type { BasePaginateViewProps } from "../base/paginate/bean/BasePaginateVi
 import { convertPinedToFeatured, toggleElementClass } from "../../util/tools"
 import { getEventEmitter, type Events } from "../base/EventBus"
 import { toggleDrawer } from "./Drawer"
-import { getSectionTypeByPath, isIndexPage, SECTION_TYPE_ORIGINAL } from "../../base/constant"
+import { getSectionTypeByPath, isIndexPage, SECTION_TYPE_ORIGINAL, SECTION_TYPE_REPOST } from "../../base/constant"
 
 interface Props extends BasePaginateViewProps<Post> {
     pageCover?: string,
@@ -138,13 +138,18 @@ function PageCover(props: PageCoverProps) {
         void themeChangedCount
         let url = props.pageCover
         const title = props.pageTitle
-        const description = props.pageCoverDescription
+        let description = props.pageCoverDescription
+        const section = getSectionTypeByPath(window.location.pathname)
         if (document.body.classList.contains("expressive")
-            && getSectionTypeByPath(window.location.pathname).identifier == SECTION_TYPE_ORIGINAL.identifier
             && isIndexPage(window.location.pathname)) {
-            url = "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/index_mudanting_shanwen_zhangwen.jpg"
-            // title = "淮南一叶下，自觉洞庭波"
-            // description = "昆曲 牡丹亭 单雯"
+            if (section.identifier == SECTION_TYPE_ORIGINAL.identifier) {
+                url = "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/index_mudanting_shixiaming_thumb.jpg"
+                // title = "淮南一叶下，自觉洞庭波"
+                description = "昆曲 牡丹亭 施夏明"
+            } else if (section.identifier == SECTION_TYPE_REPOST.identifier) {
+                url = "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/index_mudanting_shanwen_zhangwen_thumb.jpg"
+                description = "昆曲 牡丹亭 单雯"
+            }
         }
         return [url, title, description]
     }, [props.pageCover, props.pageTitle, props.pageCoverDescription, themeChangedCount])

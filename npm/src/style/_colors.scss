@@ -75,13 +75,6 @@ $text-subtitle: (
 
 $fab-bg: (
         backdrop-filter: 10px,
-        light: rgba(color.adjust(map.get($background, "light"), $lightness: -3%), 0.5),
-        dark: rgba(color.adjust(map.get($background, "dark"), $lightness: -3%), 0.5),
-);
-
-$fab-ink: (
-        light: rgba(color.adjust(map.get($fab-bg, "light"), $lightness: -70%), 1),
-        dark: rgba(color.adjust(map.get($fab-bg, "dark"), $lightness: +70%), 1),
 );
 
 $snackbar-bg: (

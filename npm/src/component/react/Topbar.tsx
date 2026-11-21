@@ -23,7 +23,7 @@ export function Topbar() {
 
     const checkAndSetFixedTopbar = useCallback(() => {
         const fixedTopbar = getLocalRepository().getFixedTopbar()
-        toggleElementClass(headerRef.current, "mdm-topbar-fixed", fixedTopbar)
+        toggleElementClass(headerRef.current?.parentElement as HTMLElement, "mdm-topbar-fixed", fixedTopbar)
     }, [])
 
     const checkAndSetTopbarBlur = useCallback(() => {

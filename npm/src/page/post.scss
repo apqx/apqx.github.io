@@ -84,3 +84,25 @@ video {
     width: 100%;
     height: 100%;
 }
+
+// 平板中屏
+@media (max-width: base.$screen-middle-max-width) {
+    .post-title {
+        margin: 0.7rem 2rem;
+    }
+
+    .mdm-chip-container.post-tag-container {
+        margin-top: 2.4rem;
+    }
+}
+
+// 小屏
+@media (max-width: base.$screen-small-max-width) {
+    .post-title {
+        margin: 0.5rem 2rem;
+    }
+
+    .mdm-chip-container.post-tag-container {
+        margin-top: 2rem;
+    }
+}

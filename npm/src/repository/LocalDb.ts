@@ -8,6 +8,8 @@ export class LocalDb {
     KEY_AUTH = "auth"
     KEY_THEME_EXPRESSIVE = "themeExpressive"
     KEY_THEME_COLORFUL = "themeColorful"
+    KEY_DRAWER_SPLIT_ON_LARGE_SCREEN = "drawerSplitOnLargeScreen"
+    KEY_DRAWER_OPENED = "drawerOpened"
 
     VALUE_THEME_DARK = "dark"
     VALUE_THEME_LIGHT = "light"
@@ -109,6 +111,22 @@ export class LocalDb {
 
     getThemeColorful(): boolean {
         return this.getBoolean(this.KEY_THEME_COLORFUL) ?? false
+    }
+
+    saveDrawerSplitOnLargeScreen(current: boolean) {
+        this.saveBoolean(this.KEY_DRAWER_SPLIT_ON_LARGE_SCREEN, current)
+    }
+
+    getDrawerSplitOnLargeScreen(): boolean {
+        return this.getBoolean(this.KEY_DRAWER_SPLIT_ON_LARGE_SCREEN) ?? false
+    }
+
+    saveDrawerOpened(current: boolean) {
+        this.saveBoolean(this.KEY_DRAWER_OPENED, current)
+    }
+
+    getDrawerOpened(): boolean {
+        return this.getBoolean(this.KEY_DRAWER_OPENED) ?? false
     }
 }
 

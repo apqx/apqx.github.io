@@ -101,7 +101,7 @@ function showCopyrightDialog(url: string) {
                     checkImgCompatibility(url)
                 }
             })
-        }, "img-copyright")
+        })
 }
 
 function checkImgCompatibility(url: string) {
@@ -112,7 +112,7 @@ function checkImgCompatibility(url: string) {
             "取消", undefined,
             "跳转", () => {
                 window.open(url, "_blank")
-            }, "img-compatibility")
+            })
         return
     }
     window.open(url, "_blank")

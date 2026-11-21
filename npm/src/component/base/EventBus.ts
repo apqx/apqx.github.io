@@ -24,6 +24,10 @@ export type Events = {
     applyStatusBarBgChange: {
         enabled: boolean
     }
+    // 通知页面组件应用新 drawer 样式，当用户更改 drawer 设置时发出
+    applyDrawerSplitOnLargeScreenChange: {
+        enabled: boolean
+    }
     // theme 组件通知外部已经应用新主题
     themeChanged: null
     // 通知 theme 组件调整配色应用新主题，由触发主题变化的 toggle btn 或 preference 配置更改发出

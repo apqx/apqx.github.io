@@ -8,6 +8,10 @@ const OPEN_CLASS_SUFFIX = "--open"
 const CLOSING_CLASS_SUFFIX = "--closing"
 const PRESERVE_DISPLAY_NONE_CLASS_SUFFIX = "-preserve-display-none"
 
+enum State {
+    Opening, Open, Closing, Close
+}
+
 export class AnimationController implements IAnimationController {
     private delayToNextFrame: DelayToNextFrame
 
@@ -19,6 +23,8 @@ export class AnimationController implements IAnimationController {
     private preserveDisplayNone: string
     private transitionEndListener: (event: TransitionEvent) => void
     private eventListeners: Map<AnimEvent, Set<() => void>> = new Map()
+
+    private state: State = State.Close
 
     constructor(element: HTMLElement | null, baseClass: string)
 
@@ -97,11 +103,12 @@ export class AnimationController implements IAnimationController {
     }
 
     isOpened(): boolean {
-        const result = elementContainsClass(this.element, this.openClass)
-            && !elementContainsClass(this.element, this.openingClass)
-            && !elementContainsClass(this.element, this.closingClass)
+        // const result = elementContainsClass(this.element, this.openClass)
+        //     && !elementContainsClass(this.element, this.openingClass)
+        //     && !elementContainsClass(this.element, this.closingClass)
+        const result = this.state == State.Open
 
-        consoleInfo(`AnimationController isOpened = ${result}, classes = ${this.element?.classList}`)
+        consoleInfo(`AnimationController isOpened = ${result}, state = ${this.state}, classes = ${this.element?.classList}`)
         return result
     }
 
@@ -119,13 +126,16 @@ export class AnimationController implements IAnimationController {
             toggleElementClass(this.element, this.closingClass, false)
             if (elementContainsClass(this.element, this.openClass)) {
                 // 可能是 opening open 或 open，无需操作
+                this.state = State.Open
             } else {
+                this.state = State.Opening
                 toggleElementClass(this.element, this.openingClass, true)
                 this.delayToNextFrame.delay(() => {
                     consoleInfo("AnimationController add " + this.openClass)
                     // 监听动画完成
                     this.startListenTransition()
                     toggleElementClass(this.element, this.openClass, true)
+                    this.state = State.Open
                 })
             }
         } else {
@@ -136,14 +146,19 @@ export class AnimationController implements IAnimationController {
                 consoleInfo("AnimationController preserve display none, do nothing")
                 return
             }
-
-            toggleElementClass(this.element, this.openingClass, false)
             if (elementContainsClass(this.element, this.openClass)) {
-                this.startListenTransition()
-                toggleElementClass(this.element, this.closingClass, true)
-                toggleElementClass(this.element, this.openClass, false)
+                this.state = State.Closing
+                this.delayToNextFrame.delay(() => {
+                    this.startListenTransition()
+                    toggleElementClass(this.element, this.openingClass, false)
+                    toggleElementClass(this.element, this.closingClass, true)
+                    toggleElementClass(this.element, this.openClass, false)
+                    this.state = State.Close
+                })
             } else {
-                // 不包含 open，已经去除 opening，无需操作
+                // 不包含 open，去除 opening
+                toggleElementClass(this.element, this.openingClass, false)
+                this.state = State.Close
             }
         }
     }

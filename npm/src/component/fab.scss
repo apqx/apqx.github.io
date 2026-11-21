@@ -20,15 +20,16 @@
         border-radius: 0.2rem;
         -webkit-backdrop-filter: blur(map.get(base.$fab-bg, "backdrop-filter"));
         backdrop-filter: blur(map.get(base.$fab-bg, "backdrop-filter"));
-        background-color: var(--fab-container);
-        color: var(--fab-on-container);
         @include ripple.ripple(var(--md-sys-color-on-surface), 0, 0, 0.05);
-        
+
+        background-color: color-mix(in srgb, var(--md-sys-color-surface-container) 50%, transparent);
+        color: var(--md-sys-color-on-surface-variant);
+
         .expressive & {
-            // background-color: color-mix(in srgb, var(--md-sys-color-primary-container) 65%, transparent);
-            // color: var(--md-sys-color-on-surface);
-            background-color: var(--md-sys-color-primary);
+            background-color: color-mix(in srgb, var(--md-sys-color-primary) 80%, transparent);
             color: var(--md-sys-color-on-primary);
+            // background-color: var(--md-sys-color-primary);
+            // color: var(--md-sys-color-on-primary);
             @include ripple.ripple(var(--md-sys-color-on-primary), 0, 0, 0.15);
         }
     }

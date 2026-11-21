@@ -7,92 +7,96 @@
 
 <body class="mdm-typography">
     {% include script-theme.html %}
-    {% include header.html %}
-    {% include aside.html %}
-    <main class="mdm-layer-back">
-        <div class="main-container">
-            <!-- 不携带 data-pagefind-body 将不会被 pagefind 索引 -->
-            <article data-pagefind-body class="mdm-card content-card">
-                {% include script-content-card.html %}
-                <!-- 为 pagefind 设置名为 category 的搜索 filter -->
-                <h1 data-pagefind-meta="title" data-pagefind-filter="category:{{ page.categories }}" class="post-title">
-                    {{ page.title }}</h1>
-                <address data-pagefind-meta="author" class="post-author">
-                    {% if page.moreDate != null %}{{ page.moreDate }} {% endif %}{{ page.author}}
-                </address>
-                <time data-pagefind-meta="date" datetime="{{ page.date | date: '%Y-%m-%d' }}" data-pagefind-sort="precise-date:{{ page.date | date: '%Y-%m-%d %H:%M:%S' }}" class="post-date">
-                    {{- page.date | date: "%Y" }}<span class="year">年</span>
-                    {{- page.date | date: "%m" }}<span class="month">月</span>
-                    {{- page.date | date: "%d" }}<span class="day">日</span>
-                </time>
-
-                <div style="display: none;">
-                    <span data-pagefind-meta="actors">{{ page.actor }}</span>
-                    <span data-pagefind-meta="mentions">{{ page.mention }}</span>
-                    <span data-pagefind-meta="imageSize">{{ page.imageSize }}</span>
-                    <span data-pagefind-meta="pinned">{{ page.pinned }}</span>
-                    <span data-pagefind-meta="featured">{{ page.featured }}</span>
-                    {%- if page.pinned == true or page.featured == true %}
-                        <span data-pagefind-filter="tag">精选</span>
+    <div id="scaffold-left">
+        {% include aside.html %}
+    </div>
+    <div id="scaffold-center">
+        {% include header.html %}
+        <main class="mdm-layer-back">
+            <div class="main-container">
+                <!-- 不携带 data-pagefind-body 将不会被 pagefind 索引 -->
+                <article data-pagefind-body class="mdm-card content-card">
+                    {% include script-content-card.html %}
+                    <!-- 为 pagefind 设置名为 category 的搜索 filter -->
+                    <h1 data-pagefind-meta="title" data-pagefind-filter="category:{{ page.categories }}" class="post-title">
+                        {{ page.title }}</h1>
+                    <address data-pagefind-meta="author" class="post-author">
+                        {% if page.moreDate != null %}{{ page.moreDate }} {% endif %}{{ page.author}}
+                    </address>
+                    <time data-pagefind-meta="date" datetime="{{ page.date | date: '%Y-%m-%d' }}" data-pagefind-sort="precise-date:{{ page.date | date: '%Y-%m-%d %H:%M:%S' }}" class="post-date">
+                        {{- page.date | date: "%Y" }}<span class="year">年</span>
+                        {{- page.date | date: "%m" }}<span class="month">月</span>
+                        {{- page.date | date: "%d" }}<span class="day">日</span>
+                    </time>
+    
+                    <div style="display: none;">
+                        <span data-pagefind-meta="actors">{{ page.actor }}</span>
+                        <span data-pagefind-meta="mentions">{{ page.mention }}</span>
+                        <span data-pagefind-meta="imageSize">{{ page.imageSize }}</span>
+                        <span data-pagefind-meta="pinned">{{ page.pinned }}</span>
+                        <span data-pagefind-meta="featured">{{ page.featured }}</span>
+                        {%- if page.pinned == true or page.featured == true %}
+                            <span data-pagefind-filter="tag">精选</span>
+                        {%- endif %}
+                    </div>
+    
+                    <!-- tags -->
+                    <!-- 仅透镜分区设置名为 tag 的搜索 filter -->
+                    <!-- <section data-pagefind-ignore="index" class="mdm-chip-container-no-material post-tag-container"> -->
+                    <section data-pagefind-ignore="index" class="mdm-chip-container post-tag-container">
+                        <!-- 如果用 span 创建 mdc-button，则点击动画结束后才会触发点击事件，感觉明显会很慢 -->
+                        {%- for tagInPage in page.tags %}
+                        <button type="button" class="mdc-button tag-dialog-trigger mdm-chip" id="chip_tag_{{ tagInPage }}">
+                            <span class="mdc-button__label">{{ tagInPage }}</span>
+                        </button>
+                        {%- endfor %}
+                        {%- if page.categories contains "lens" %}
+                        {%- assign lensTags = page.lensTags | split: " " %}
+                        {%- for tagInPage in lensTags %}
+                        <button type="button" class="mdc-button tag-dialog-trigger mdm-chip" id="chip_tag_{{ tagInPage }}">
+                            <span class="mdc-button__label" data-pagefind-filter="tag">{{ tagInPage }}</span>
+                        </button>
+                        {%- endfor %}
+                        {%- endif %}
+                    </section>
+                    {%- if page.categories contains "opera" or page.categories contains "lens" %}
+                    <blockquote data-pagefind-ignore="all">
+                        <p>
+                            节省数据流量，本页为缩略图，点击可跳转到全尺寸原图。我不喜欢水印更愿意分享纯净剧照，只是注意图片版权归属作者及剧团演员所有，未经允许不可公开发布或作商业用途🤫。
+                        </p>
+                    </blockquote>
+                    <blockquote class="pre" data-pagefind-ignore="all">
+                        <p>若分享图片，请注明图源：<br />立泉落落｜<a href="https://mudan.me">https://mudan.me</a><br />或微博 <a href="https://weibo.com/u/7026785047"
+                                target="_blank">@立泉·落落</a></p>
+                    </blockquote>
                     {%- endif %}
-                </div>
-
-                <!-- tags -->
-                <!-- 仅透镜分区设置名为 tag 的搜索 filter -->
-                <!-- <section data-pagefind-ignore="index" class="mdm-chip-container-no-material post-tag-container"> -->
-                <section data-pagefind-ignore="index" class="mdm-chip-container post-tag-container">
-                    <!-- 如果用 span 创建 mdc-button，则点击动画结束后才会触发点击事件，感觉明显会很慢 -->
-                    {%- for tagInPage in page.tags %}
-                    <button type="button" class="mdc-button tag-dialog-trigger mdm-chip" id="chip_tag_{{ tagInPage }}">
-                        <span class="mdc-button__label">{{ tagInPage }}</span>
-                    </button>
-                    {%- endfor %}
+                    {%- if page.outdated == true %}
+                    <blockquote data-pagefind-ignore="all">
+                        <p><strong>本文时间久远，部分内容可能过时，仅供参考。</strong></p>
+                    </blockquote>
+                    {%- endif %}
                     {%- if page.categories contains "lens" %}
-                    {%- assign lensTags = page.lensTags | split: " " %}
-                    {%- for tagInPage in lensTags %}
-                    <button type="button" class="mdc-button tag-dialog-trigger mdm-chip" id="chip_tag_{{ tagInPage }}">
-                        <span class="mdc-button__label" data-pagefind-filter="tag">{{ tagInPage }}</span>
-                    </button>
-                    {%- endfor %}
-                    {%- endif %}
-                </section>
-                {%- if page.categories contains "opera" or page.categories contains "lens" %}
-                <blockquote data-pagefind-ignore="all">
-                    <p>
-                        节省数据流量，本页为缩略图，点击可跳转到全尺寸原图。我不喜欢水印更愿意分享纯净剧照，只是注意图片版权归属作者及剧团演员所有，未经允许不可公开发布或作商业用途🤫。
+                    {%- assign actors = page.actor | split: " " %}
+                    <p data-pagefind-filter="tag:{{ page.date | date: '%Y' }}">
+                        {{ page.date | date: "%Y%m%d %H:%M:%S" }}
+                        {%- for actor in actors %}
+                        <a id="chip_tag_{{ actor }}" class="tag-dialog-trigger clickable-empty-link"
+                            data-pagefind-filter="tag">{{ actor }}</a>
+                        {%- endfor %}
                     </p>
-                </blockquote>
-                <blockquote class="pre" data-pagefind-ignore="all">
-                    <p>若分享图片，请注明图源：<br />立泉落落｜<a href="https://mudan.me">https://mudan.me</a><br />或微博 <a href="https://weibo.com/u/7026785047"
-                            target="_blank">@立泉·落落</a></p>
-                </blockquote>
-                {%- endif %}
-                {%- if page.outdated == true %}
-                <blockquote data-pagefind-ignore="all">
-                    <p><strong>本文时间久远，部分内容可能过时，仅供参考。</strong></p>
-                </blockquote>
-                {%- endif %}
-                {%- if page.categories contains "lens" %}
-                {%- assign actors = page.actor | split: " " %}
-                <p data-pagefind-filter="tag:{{ page.date | date: '%Y' }}">
-                    {{ page.date | date: "%Y%m%d %H:%M:%S" }}
-                    {%- for actor in actors %}
-                    <a id="chip_tag_{{ actor }}" class="tag-dialog-trigger clickable-empty-link"
-                        data-pagefind-filter="tag">{{ actor }}</a>
-                    {%- endfor %}
-                </p>
-                <p>
-                    <img src="{{ page.image }}" loading="lazy" class="clickable clickShowOriginalImg operaCopyright"
-                        alt="{{ page.actor }}">
-                </p>
-                {%- endif %}
-
-                <!-- main content -->
-                {{ content }}
-            </article>
-        </div>
-    </main>
-    {% include footer.html %}
+                    <p>
+                        <img src="{{ page.image }}" loading="lazy" class="clickable clickShowOriginalImg operaCopyright"
+                            alt="{{ page.actor }}">
+                    </p>
+                    {%- endif %}
+    
+                    <!-- main content -->
+                    {{ content }}
+                </article>
+            </div>
+        </main>
+        {% include footer.html %}
+    </div>
 </body>
 
 </html>

@@ -4,7 +4,7 @@
 @use "../ripple.scss" as ripple;
 
 .mdm-drawer {
-    --drawer-width: 17rem;
+    --drawer-width: 16rem;
     --drawer-width-actual: calc(var(--drawer-width) + var(--safe-area-inset-left));
     --drawer-padding-horizontal: 0.8rem;
     --drawer-content-padding-left: 0.2rem;
@@ -16,22 +16,32 @@
 $header-font-weight-enhance-gap: 40;
 $header-icon-weight-enhance-gap: 20;
 
-.mdm-drawer {
-    width: var(--drawer-width-actual);
-    z-index: var(--z-index-drawer);
+#drawer_container {
+    width: fit-content;
+    height: 100%;
+}
 
+body:not(.mdm-drawer-split) .mdm-drawer {
+    // 从文档流中移除
     // 尺寸相对整个 document，适配 iOS 26 中 safari 对 viewport 的变化，避免被底部工具栏裁剪
     position: absolute;
     top: 0;
     left: 0;
-    // 高度铺满 document
+}
+
+.mdm-drawer {
+    width: var(--drawer-width-actual);
+    z-index: var(--z-index-drawer);
+    background-color: var(--md-custom-color-component-surface);
+
+    .expressive & {
+        background-color: var(--md-custom-color-component-surface);
+    }
+
+    // 高度铺满 document，scaffold-left 的高度已经与 document 一致
     height: 100%;
     // sticky 定位的锚点是拥有 overflow 的最近祖先元素
     overflow: unset;
-
-    // .colorful & {
-    //     z-index: calc(var(--z-index-topbar) - 1);
-    // }
 
     .mdm-drawer__wrapper {
         box-sizing: border-box;
@@ -49,9 +59,9 @@ $header-icon-weight-enhance-gap: 20;
         padding-left: calc(var(--safe-area-inset-left) + var(--drawer-padding-horizontal));
         padding-right: var(--drawer-padding-horizontal);
 
-        // .colorful & {
-        //     padding-top: calc(var(--safe-area-inset-top) + var(--topbar-height));
-        // }
+        * {
+            white-space: nowrap;
+        }
 
         .mdm-drawer__header {
             display: flex;
@@ -104,6 +114,18 @@ $header-icon-weight-enhance-gap: 20;
 
                 &:not(:last-child) {
                     margin-right: -0.5rem;
+
+                    .mdm-drawer-split & {
+                        margin-right: 0rem;
+                    }
+                }
+
+                &:last-child {
+                    display: flex;
+
+                    .mdm-drawer-split & {
+                        display: none;
+                    }
                 }
             }
         }
@@ -120,11 +142,10 @@ $header-icon-weight-enhance-gap: 20;
 .mdm-drawer+.mdm-scrim {
     z-index: calc(var(--z-index-drawer) - 1);
 
-    // .colorful & {
-    //     z-index: calc(var(--z-index-topbar) - 2)
-    // }
+    .mdm-drawer-split & {
+        z-index: -2;
+    }
 }
-
 
 .mdm-list.mdm-drawer-list {
     margin: calc(var(--main-container-padding-vertical) / 2.5) 0 0 0;
@@ -188,6 +209,10 @@ $header-icon-weight-enhance-gap: 20;
 
 .drawer-scroll-lock {
     overflow: hidden;
+
+    &.mdm-drawer-split {
+        overflow: unset;
+    }
 }
 
 .drawer-slide {
@@ -196,27 +221,48 @@ $header-icon-weight-enhance-gap: 20;
     --anim-timing-function-open: #{anim.$anim-in};
     --anim-timing-function-close: #{anim.$anim-out};
 
+    .mdm-drawer-split & {
+        --anim-timing-function-open: ease-out;
+        --anim-timing-function-close: ease-out;
+    }
+
     transform: translateX(calc(0rem - var(--drawer-width-actual)));
-    will-change: transform;
+    width: var(--drawer-width);
+
+    .mdm-drawer-split & {
+        width: 0rem;
+    }
+
+    will-change: width,
+    transform;
     display: none;
 
     // 启动时，先加 opening，再加 open，动画结束后删除 opening
     &.drawer-slide--opening {
-        transition: transform var(--anim-duration-open) var(--anim-timing-function-open);
+        transition: width var(--anim-duration-open) var(--anim-timing-function-open),
+            transform var(--anim-duration-open) var(--anim-timing-function-open);
         display: block;
     }
 
     &.drawer-slide--opening.drawer-slide--open,
     &.drawer-slide--open {
         transform: translateX(0);
+        width: var(--drawer-width);
         display: block;
     }
 
     // 关闭时，先加 closing 删除 open，动画结束后删除 closing
     &.drawer-slide--open.drawer-slide--closing,
     &.drawer-slide--closing {
-        transition: transform var(--anim-duration-close) var(--anim-timing-function-close);
+        transition: width var(--anim-duration-close) var(--anim-timing-function-close),
+            transform var(--anim-duration-close) var(--anim-timing-function-close);
         transform: translateX(calc(0rem - var(--drawer-width-actual)));
+        width: var(--drawer-width);
+
+        .mdm-drawer-split & {
+            width: 0rem;
+        }
+
         display: block;
     }
 }
@@ -247,8 +293,50 @@ $header-icon-weight-enhance-gap: 20;
 // 平板中屏
 @media (max-width: base.$screen-middle-max-width) {
     .mdm-drawer {
-        .mdm-drawer__wrapper .mdm-drawer__header .mdm-drawer__header-text-container {
-            margin-top: 0.2rem;
+        --drawer-width: 17rem;
+
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        .mdm-drawer__wrapper .mdm-drawer__header {
+            .mdm-drawer__header-text-container {
+                margin-top: 0.2rem;
+            }
+
+            .mdm-drawer-split & {
+                button {
+                    &:not(:last-child) {
+                        margin-right: -0.5rem;
+                    }
+
+                    &:last-child {
+                        display: flex;
+                    }
+                }
+            }
+        }
+    }
+
+    .mdm-drawer-split {
+
+        .mdm-drawer+.mdm-scrim {
+            z-index: calc(var(--z-index-drawer) - 1) !important;
+        }
+
+        .drawer-slide {
+            --anim-timing-function-open: #{anim.$anim-in};
+            --anim-timing-function-close: #{anim.$anim-out};
+            width: var(--drawer-width);
+
+            &.drawer-slide--open.drawer-slide--closing,
+            &.drawer-slide--closing {
+                width: var(--drawer-width);
+            }
+        }
+
+        &.drawer-scroll-lock {
+            overflow: hidden;
         }
     }
 }

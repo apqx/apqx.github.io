@@ -14,6 +14,9 @@ import { getSectionTypeByPath, isNavigationSection, SECTION_TYPE_LENS, SECTION_T
 import { showInfoDialogAsync, showShareDialogAsync } from "../dialog/AsyncDialogTrigger"
 import { DelayToTimeGap } from "../base/DelayToTimeGap"
 import { consoleInfo } from "../../util/log"
+import { getScreenType, Screen } from "../base/Screen"
+import { getEventEmitter, type Events } from "../base/EventBus"
+import { getLocalRepository } from "../../repository/LocalDb"
 
 export interface DrawerProps {
     drawerControllerRef: React.RefObject<DrawerController | null>
@@ -54,6 +57,8 @@ export function Drawer(props: DrawerProps) {
             scrimControllerRef.current?.close()
             toggleElementClass(document.body, "drawer-scroll-lock", false)
         }
+        // 保存状态
+        getLocalRepository().saveDrawerOpened(open)
         if (toggleListenerRef.current) {
             toggleListenerRef.current(open)
         }
@@ -93,6 +98,14 @@ export function Drawer(props: DrawerProps) {
             props.drawerControllerRef.current = null
         }
     }, [props.drawerControllerRef, toggleOpen])
+
+    const toggleByInternalClick = useCallback((open: boolean) => {
+        // 大屏下隐藏关闭按钮，drawer 内不存在能触发关闭的组件
+        if (getScreenType() == Screen.Large && document.body.classList.contains("mdm-drawer-split")) return
+        delayTaskRef.current.delay(() => {
+            toggleOpen(open)
+        })
+    }, [toggleOpen])
 
     const sectionList: DrawerListItemProps[] = useMemo(() => {
         const section = getSectionTypeByPath(window.location.pathname)
@@ -149,9 +162,7 @@ export function Drawer(props: DrawerProps) {
                 selected: false,
                 onClick: () => {
                     showSearchDialog()
-                    delayTaskRef.current.delay(() => {
-                        toggleOpen(false)
-                    })
+                    toggleByInternalClick(false)
                 }
             },
             {
@@ -161,9 +172,7 @@ export function Drawer(props: DrawerProps) {
                 selected: false,
                 onClick: () => {
                     showPreferenceDialog()
-                    delayTaskRef.current.delay(() => {
-                        toggleOpen(false)
-                    })
+                    toggleByInternalClick(false)
                 }
             },
             {
@@ -173,37 +182,38 @@ export function Drawer(props: DrawerProps) {
                 selected: false,
                 onClick: () => {
                     showAboutMeDialog()
-                    delayTaskRef.current.delay(() => {
-                        toggleOpen(false)
-                    })
+                    toggleByInternalClick(false)
                 }
             }
         ])
         return list
-    }, [toggleOpen])
+    }, [toggleByInternalClick])
 
     const onClick = useCallback(() => {
-        toggleOpen(false)
-    }, [toggleOpen])
-
+        toggleByInternalClick(false)
+    }, [toggleByInternalClick])
 
     const onCLickQrCodeIcon = useCallback(() => {
         showShareDialogAsync(() => {
-            delayTaskRef.current.delay(() => {
-                toggleOpen(false)
-            })
+            toggleByInternalClick(false)
         })
-    }, [toggleOpen])
+    }, [toggleByInternalClick])
 
     const onClickNavigationIcon = useCallback(() => {
-        delayTaskRef.current.delay(() => {
-            toggleOpen(false)
-        })
-    }, [toggleOpen])
+        toggleByInternalClick(false)
+    }, [toggleByInternalClick])
+
+    const drawerClasses = useMemo(() => {
+        const classes = ["mdm-drawer drawer-slide"]
+        if (getScreenType() == Screen.Large && document.body.classList.contains("mdm-drawer-split") && getLocalRepository().getDrawerOpened()) {
+            classes.push("drawer-slide--open")
+        }
+        return classes.join(" ")
+    }, [])
 
     return (
         <>
-            <aside ref={containerRef} className="mdm-drawer drawer-slide  mdm-floating-surface">
+            <aside ref={containerRef} className={drawerClasses}>
                 <div className="mdm-drawer__wrapper">
                     <div ref={headerRef} className="mdm-drawer__header">
                         <div className="mdm-drawer__header-text-container">
@@ -322,4 +332,20 @@ export function toggleDrawer() {
             drawerControllerRef.current?.open()
         }
     }
+}
+
+function checkDrawerSplit() {
+    const localOn = getLocalRepository().getDrawerSplitOnLargeScreen()
+    toggleElementClass(document.body, "mdm-drawer-split", localOn)
+    if (localOn && getScreenType() == Screen.Large && getLocalRepository().getDrawerOpened()) {
+        toggleDrawer()
+    }
+}
+
+export function initDrawer() {
+    checkDrawerSplit()
+    const drawerSplitOnLargeScreenHandler = (_data: Events["applyDrawerSplitOnLargeScreenChange"]) => {
+        checkDrawerSplit()
+    }
+    getEventEmitter().on("applyDrawerSplitOnLargeScreenChange", drawerSplitOnLargeScreenHandler)
 }
