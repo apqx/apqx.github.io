@@ -235,9 +235,12 @@ function IndexItem(props: IndexItemProps) {
             >
                 <section>
                     {props.cover != null && props.cover.length > 0 &&
-                        <img className="grid-index-cover"
-                            style={aspectRatio ? { aspectRatio: aspectRatio } : {}}
-                            loading="lazy" src={props.cover} alt={props.coverAlt} />}
+                        <div className="grid-index-cover-wrapper">
+                            <img className="grid-index-cover"
+                                style={aspectRatio ? { aspectRatio: aspectRatio } : {}}
+                                loading="lazy" src={props.cover} alt={props.coverAlt} />
+
+                        </div>}
                     {props.cover == null || props.cover.length == 0 &&
                         <div style={{ height: "0.5rem" }}></div>}
                     <div className="grid-index-text-container">

@@ -4,7 +4,7 @@
 @use "@material/button";
 @use "sass:map";
 
-$btnTagSideRadius: calc(var(--mdm-typography-body1-font-size) - 0.1rem);
+$btnTagSideRadius: var(--mdm-typography-body2-font-size);
 $btnTagRadius: 0.2rem;
 $btnTagSidePaddingHorizontal: 0.9rem;
 $btnTagPaddingHorizontal: 0.8rem;
@@ -16,7 +16,7 @@ $btnTagPaddingHorizontal: 0.8rem;
     @include button.height(2.3rem);
     min-width: 3.6rem;
     text-transform: none;
-    font-size: calc(var(--mdm-typography-body1-font-size) - 0.1rem);
+    font-size: var(--mdm-typography-body2-font-size);
     margin: 0;
     border-radius: $btnTagRadius;
 

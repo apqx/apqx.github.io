@@ -15,10 +15,14 @@ body {
     --index-card-radius: 0.4rem;
     // 列表顶部卡片圆角，与文章 content-card 圆角一致
     --index-card-top-radius: var(--mdc-shape-medium);
-
+    --index-cover-border-width: 0rem;
+    --index-cover-border-radius: 0rem;
+    
     --index-card-padding-vertical: 1.25rem;
     --index-card-padding-horizontal: 2.5rem;
-
+    
+    --grid-index-cover-border-width: 0rem;
+    --grid-index-cover-border-radius: 0rem;
     // 网格列表卡片之间的距离
     --grid-index-card-gap: 0.8rem;
     --grid-index-card-text-padding-vertical: 1.4rem;
@@ -26,34 +30,11 @@ body {
 
     --lens-index-card-gap: 0.2rem;
     --lens-index-card-radius: 0.18rem;
-
-    &.expressive {
-        --index-card-to-container-border-horizontal: var(--center-card-to-container-border-horizontal);
-        --index-card-gap: 0.3rem;
-        --index-card-radius: 0.4rem;
-        --index-card-top-radius: var(--mdc-shape-medium);
-
-        --index-card-padding-vertical: 1.25rem;
-        --index-card-padding-horizontal: 2.5rem;
-
-        --grid-index-card-gap: 0.8rem;
-        --grid-index-card-text-padding-vertical: 1.4rem;
-        --grid-index-card-text-padding-horizontal: 1.8rem;
-    }
 }
 
 // 平板中屏
 @media (max-width: base.$screen-middle-max-width) {
     body {
-        --index-card-padding-vertical: 1.2rem;
-        --index-card-padding-horizontal: 2rem;
-
-        --grid-index-card-gap: 0.8rem;
-        --grid-index-card-text-padding-vertical: 1.2rem;
-        --grid-index-card-text-padding-horizontal: 1.5rem;
-    }
-
-    body.expressive {
         --index-card-padding-vertical: 1.2rem;
         --index-card-padding-horizontal: 2rem;
 
@@ -71,18 +52,11 @@ body {
         --index-card-radius: 0.35rem;
         --index-card-padding-vertical: 1rem;
         --index-card-padding-horizontal: 1.3rem;
-
-        --grid-index-card-gap: 0.6rem;
-        --grid-index-card-text-padding-vertical: 1.15rem;
-        --grid-index-card-text-padding-horizontal: 1.4rem;
-    }
-
-    body.expressive {
-        --index-card-gap: 0.3rem;
-        --index-card-radius: 0.35rem;
-        --index-card-padding-vertical: 1rem;
-        --index-card-padding-horizontal: 1.3rem;
-
+        --index-cover-border-width: 0rem;
+        --index-cover-border-radius: 0rem;
+        
+        --grid-index-cover-border-width: 0rem;
+        --grid-index-cover-border-radius: 0rem;
         --grid-index-card-gap: 0.6rem;
         --grid-index-card-text-padding-vertical: 1.15rem;
         --grid-index-card-text-padding-horizontal: 1.4rem;

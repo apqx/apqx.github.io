@@ -48,20 +48,21 @@ body {
     align-items: stretch;
     position: relative;
 
+    --safe-area-inset-center-left: var(--safe-area-inset-left);
+
     #scaffold-left {
         width: fit-content;
     }
 
     #scaffold-center {
         flex: 1;
+        min-width: 0px;
         display: flex;
         flex-direction: column;
         align-items: stretch;
 
-        #header_container {
-    
-        }
-    
+        #header_container {}
+
         // .header-space {
         //     width: 100%;
         //     height: calc(var(--topbar-height) + var(--safe-area-inset-top));
@@ -69,7 +70,7 @@ body {
         //     border: none;
         //     margin: 0;
         // }
-    
+
         // 包含 main-container 和 footer，以及顶部的 header 空间
         // header 内容不在这里，悬浮在独立层级
         main {
@@ -78,10 +79,10 @@ body {
             flex-direction: column;
             box-sizing: border-box;
             align-items: center;
-    
-            padding-left: var(--safe-area-inset-left);
+
+            padding-left: var(--safe-area-inset-center-left);
             padding-right: var(--safe-area-inset-right);
-    
+
             // 内容最外层容器，高度为 100% - topbar-height - footer-height 
             .main-container {
                 box-sizing: border-box;
@@ -91,9 +92,9 @@ body {
                 padding: var(--main-container-padding-vertical) 0;
                 // padding-bottom: calc(var(--main-container-padding-vertical) + var(--main-container-padding-bottom-additional));
                 padding-bottom: calc(0.2rem + var(--main-container-padding-bottom-additional));
-    
+
             }
-    
+
             .main-container-wide {
                 box-sizing: border-box;
                 width: 100%;
@@ -102,20 +103,20 @@ body {
                 padding: var(--main-container-padding-vertical) 0;
                 // padding-bottom: calc(var(--main-container-padding-vertical) + var(--main-container-padding-bottom-additional));
                 padding-bottom: calc(0.2rem + var(--main-container-padding-bottom-additional));
-    
+
             }
         }
-    
+
         footer {
             display: flex;
             flex-direction: column;
-    
+
             .footer-container {
                 max-width: base.$center-container-max-width;
                 margin: 0 auto;
                 padding: 0;
                 padding-bottom: var(--safe-area-inset-bottom);
-                padding-left: var(--safe-area-inset-left);
+                padding-left: var(--safe-area-inset-center-left);
                 padding-right: var(--safe-area-inset-right);
             }
         }
@@ -123,7 +124,10 @@ body {
 
 }
 
-
+// drawer 并列开启时，insect left 由 drawer 承担，center 组件归零
+body.mdm-drawer-split.drawer-scroll-lock {
+    --safe-area-inset-center-left: 0;
+}
 
 .center-self-horizontal {
     margin-left: auto;
@@ -161,5 +165,12 @@ img.inline-for-center {
 @media (max-width: 400px) {
     html {
         font-size: 14.8px;
+    }
+}
+
+// 平板中屏
+@media (max-width: base.$screen-middle-max-width) {
+    body.mdm-drawer-split.drawer-scroll-lock {
+        --safe-area-inset-center-left: var(--safe-area-inset-left);
     }
 }

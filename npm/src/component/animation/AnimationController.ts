@@ -50,6 +50,7 @@ export class AnimationController implements IAnimationController {
         this.transitionEndListener = (event: TransitionEvent) => {
             if (this.element == null) return
             const target = event.target as HTMLElement
+            
             consoleInfo("AnimationController transitionEnd before " + target.tagName + " : " + target.classList)
             if (target != this.element || !elementContainsClass(target, this.baseClass)) return
             // 动画结束时，应只有两种状态，删除中间的过渡 class
@@ -117,18 +118,28 @@ export class AnimationController implements IAnimationController {
         consoleInfo(`AnimationController toggleOpen ${open}, classList : ${this.element.classList}`)
         this.delayToNextFrame.cancelPendingAction()
         // transition 动画可以中断，当前可能处于的状态有
+        // 开启
         // baseClass + openingClass
         // baseClass + openingClass + openClass
         // baseClass + openClass
-        // baseClass + openClass + closingClass
+        // 关闭
+        // baseClass + openClass closingClass
+        // baseClass + closingClass
         // baseClass
         if (open) {
-            toggleElementClass(this.element, this.closingClass, false)
             if (elementContainsClass(this.element, this.openClass)) {
-                // 可能是 opening open 或 open，无需操作
+                // 可能是 opening open, open, open closing
+                this.delayToNextFrame.cancelPendingAction()
+                if (elementContainsClass(this.element, this.closingClass)) {
+                    this.startListenTransition()
+                    toggleElementClass(this.element, this.closingClass, false)
+                    toggleElementClass(this.element, this.openingClass, true)
+                } 
                 this.state = State.Open
             } else {
+                // 可能是 opening, closing
                 this.state = State.Opening
+                toggleElementClass(this.element, this.closingClass, false)
                 toggleElementClass(this.element, this.openingClass, true)
                 this.delayToNextFrame.delay(() => {
                     consoleInfo("AnimationController add " + this.openClass)
@@ -147,6 +158,7 @@ export class AnimationController implements IAnimationController {
                 return
             }
             if (elementContainsClass(this.element, this.openClass)) {
+                // 可能是 opening open, open, open closing
                 this.state = State.Closing
                 this.delayToNextFrame.delay(() => {
                     this.startListenTransition()
@@ -156,8 +168,11 @@ export class AnimationController implements IAnimationController {
                     this.state = State.Close
                 })
             } else {
-                // 不包含 open，去除 opening
-                toggleElementClass(this.element, this.openingClass, false)
+                // 可能是 opening, closing
+                this.delayToNextFrame.cancelPendingAction()
+                if (elementContainsClass(this.element, this.openingClass)) {
+                    toggleElementClass(this.element, this.openingClass, false)
+                }
                 this.state = State.Close
             }
         }

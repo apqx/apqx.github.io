@@ -344,9 +344,11 @@ function IndexItem(props: IndexItemProps) {
                 href={props.path}
             >
                 <section className="lens-index-container">
-                    <img className="grid-index-cover"
-                        style={aspectRatio ? { aspectRatio: aspectRatio } : {}}
-                        loading="lazy" src={props.cover} alt={actorStr} />
+                    <div className="grid-index-cover-wrapper">
+                        <img className="grid-index-cover"
+                            style={aspectRatio ? { aspectRatio: aspectRatio } : {}}
+                            loading="lazy" src={props.cover} alt={actorStr} />
+                    </div>
                     {props.pinned &&
                         <span className="lens-index-pinned-icon-container"><i className="material-symbols-rounded-variable">keep</i></span>
                     }

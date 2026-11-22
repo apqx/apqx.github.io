@@ -24,11 +24,22 @@
                 @include card.cardRipple();
             }
 
-            .grid-index-cover {
-                // border-radius: var(--mdc-shape-medium);
+            .grid-index-cover-wrapper {
                 width: 100%;
-                // object-fit: cover;
+                box-sizing: border-box;
+                height: fit-content;
+                padding: var(--grid-index-cover-border-width) var(--grid-index-cover-border-width) 0 var(--grid-index-cover-border-width);
+
+                .grid-index-cover {
+                    width: 100%;
+                    // object-fit: cover;
+                    border-top-left-radius: calc(var(--index-card-top-radius) - var(--grid-index-cover-border-width));
+                    border-top-right-radius: calc(var(--index-card-top-radius) - var(--grid-index-cover-border-width));
+                    border-bottom-left-radius: calc(var(--grid-index-cover-border-radius));
+                    border-bottom-right-radius: calc(var(--grid-index-cover-border-radius));
+                }
             }
+
 
             .grid-index-text-container {
                 padding: var(--grid-index-card-text-padding-vertical) var(--grid-index-card-text-padding-horizontal);
@@ -46,8 +57,7 @@
                     text-align: justify;
                 }
 
-                .grid-index-text-container__no-cover {
-                }
+                .grid-index-text-container__no-cover {}
 
 
                 .grid-index-title {

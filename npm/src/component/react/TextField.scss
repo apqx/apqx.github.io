@@ -10,7 +10,7 @@
     margin-right: auto;
 
     border-radius: var(--mdc-shape-small);
-    background-color: var(--md-custom-color-component-surface);
+    background-color: var(--mdm-list-color-fill);
 
     @include textfield.ink-color(var(--md-sys-color-on-surface));
     @include textfield.caret-color(var(--md-sys-color-on-surface));

@@ -48,8 +48,8 @@ $md-surface-container-high: (
 );
 
 $text-content: (
-        light: color.adjust(map.get($surface, "light"), $lightness: -84%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: +84%),
+        light: color.adjust(map.get($surface, "light"), $lightness: -86%),
+        dark: color.adjust(map.get($surface, "dark"), $lightness: +86%),
 );
 
 $text-content-vivid: (

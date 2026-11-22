@@ -129,14 +129,9 @@ $dialog-max-width: 35rem;
                     padding: 0;
                     border-radius: 0;
 
-                    // @include button.container-fill-color(var(--md-custom-color-component-surface));
                     @include button.container-fill-color(transparent);
                     @include button.ink-color(var(--md-sys-color-on-surface-variant));
                     @include ripple.ripple(var(--md-sys-color-on-surface), 0, 0, 0.035);
-
-                    // .expressive & {
-                    //     @include button.container-fill-color(var(--md-custom-color-overall-background));
-                    // }
                 }
             }
         }

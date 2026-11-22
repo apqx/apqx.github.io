@@ -4,7 +4,12 @@
 @use "../ripple.scss" as ripple;
 
 .mdm-drawer {
-    --drawer-width: 16rem;
+    --drawer-width: 17rem;
+
+    .mdm-drawer-split & {
+        --drawer-width: 16rem;
+    }
+
     --drawer-width-actual: calc(var(--drawer-width) + var(--safe-area-inset-left));
     --drawer-padding-horizontal: 0.8rem;
     --drawer-content-padding-left: 0.2rem;
@@ -35,6 +40,10 @@ body:not(.mdm-drawer-split) .mdm-drawer {
     background-color: var(--md-custom-color-component-surface);
 
     .expressive & {
+        background-color: var(--md-custom-color-overall-background);
+    }
+
+    .expressive.mdm-drawer-split & {
         background-color: var(--md-custom-color-component-surface);
     }
 
@@ -115,17 +124,17 @@ body:not(.mdm-drawer-split) .mdm-drawer {
                 &:not(:last-child) {
                     margin-right: -0.5rem;
 
-                    .mdm-drawer-split & {
-                        margin-right: 0rem;
-                    }
+                    // .mdm-drawer-split & {
+                    //     margin-right: 0rem;
+                    // }
                 }
 
                 &:last-child {
                     display: flex;
 
-                    .mdm-drawer-split & {
-                        display: none;
-                    }
+                    // .mdm-drawer-split & {
+                    //     display: none;
+                    // }
                 }
             }
         }
@@ -143,7 +152,8 @@ body:not(.mdm-drawer-split) .mdm-drawer {
     z-index: calc(var(--z-index-drawer) - 1);
 
     .mdm-drawer-split & {
-        z-index: -2;
+        width: 0px;
+        height: 0px;
     }
 }
 
@@ -210,7 +220,7 @@ body:not(.mdm-drawer-split) .mdm-drawer {
 .drawer-scroll-lock {
     overflow: hidden;
 
-    &.mdm-drawer-split {
+    &.mdm-drawer-split:not(.mdm-dialog-scroll-lock) {
         overflow: unset;
     }
 }
@@ -227,7 +237,7 @@ body:not(.mdm-drawer-split) .mdm-drawer {
     }
 
     transform: translateX(calc(0rem - var(--drawer-width-actual)));
-    width: var(--drawer-width);
+    width: var(--drawer-width-actual);
 
     .mdm-drawer-split & {
         width: 0rem;
@@ -247,7 +257,7 @@ body:not(.mdm-drawer-split) .mdm-drawer {
     &.drawer-slide--opening.drawer-slide--open,
     &.drawer-slide--open {
         transform: translateX(0);
-        width: var(--drawer-width);
+        width: var(--drawer-width-actual);
         display: block;
     }
 
@@ -257,7 +267,7 @@ body:not(.mdm-drawer-split) .mdm-drawer {
         transition: width var(--anim-duration-close) var(--anim-timing-function-close),
             transform var(--anim-duration-close) var(--anim-timing-function-close);
         transform: translateX(calc(0rem - var(--drawer-width-actual)));
-        width: var(--drawer-width);
+        width: var(--drawer-width-actual);
 
         .mdm-drawer-split & {
             width: 0rem;
@@ -293,7 +303,6 @@ body:not(.mdm-drawer-split) .mdm-drawer {
 // 平板中屏
 @media (max-width: base.$screen-middle-max-width) {
     .mdm-drawer {
-        --drawer-width: 17rem;
 
         position: absolute;
         top: 0;
@@ -304,34 +313,42 @@ body:not(.mdm-drawer-split) .mdm-drawer {
                 margin-top: 0.2rem;
             }
 
-            .mdm-drawer-split & {
-                button {
-                    &:not(:last-child) {
-                        margin-right: -0.5rem;
-                    }
+            // .mdm-drawer-split & {
+            //     button {
+            //         &:not(:last-child) {
+            //             margin-right: -0.5rem;
+            //         }
 
-                    &:last-child {
-                        display: flex;
-                    }
-                }
-            }
+            //         &:last-child {
+            //             display: flex;
+            //         }
+            //     }
+            // }
         }
     }
 
+    .expressive.mdm-drawer-split .mdm-drawer {
+        background-color: var(--md-custom-color-overall-background);
+    }
+
     .mdm-drawer-split {
+        .mdm-drawer {
+            --drawer-width: 17rem;
+        }
 
         .mdm-drawer+.mdm-scrim {
-            z-index: calc(var(--z-index-drawer) - 1) !important;
+            width: 100%;
+            height: 100%;
         }
 
         .drawer-slide {
             --anim-timing-function-open: #{anim.$anim-in};
             --anim-timing-function-close: #{anim.$anim-out};
-            width: var(--drawer-width);
+            width: var(--drawer-width-actual);
 
             &.drawer-slide--open.drawer-slide--closing,
             &.drawer-slide--closing {
-                width: var(--drawer-width);
+                width: var(--drawer-width-actual);
             }
         }
 

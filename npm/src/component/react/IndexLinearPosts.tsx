@@ -140,8 +140,10 @@ function PageCover(props: PageCoverProps) {
         const title = props.pageTitle
         let description = props.pageCoverDescription
         const section = getSectionTypeByPath(window.location.pathname)
+        const indexPage = isIndexPage(window.location.pathname)
+        const mainIndex = indexPage && section.identifier == SECTION_TYPE_ORIGINAL.identifier
         if (document.body.classList.contains("expressive")
-            && isIndexPage(window.location.pathname)) {
+            && indexPage) {
             if (section.identifier == SECTION_TYPE_ORIGINAL.identifier) {
                 url = "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/index_mudanting_shixiaming_thumb.jpg"
                 // title = "淮南一叶下，自觉洞庭波"
@@ -151,15 +153,17 @@ function PageCover(props: PageCoverProps) {
                 description = "昆曲 牡丹亭 单雯"
             }
         }
-        return [url, title, description]
+        return {url, title, description, mainIndex}
     }, [props.pageCover, props.pageTitle, props.pageCoverDescription, themeChangedCount])
 
     return (
         <section ref={containerRef} className="mdm-card index-top-card slide-in-farer slide-in-chained">
-            <img src={pageCover.at(0)}
-                className="index-top-cover" alt={pageCover.at(2)} id="main-index" draggable="false" />
+            <div className="index-top-cover-wrapper">
+                <img src={pageCover.url}
+                    className="index-top-cover" alt={pageCover.description} id={pageCover.mainIndex ? "main-index" : ""} draggable="false" />
+            </div>
             <div className="index-top-card-container">
-                <p className="index-top-card-text font-handwritten">{pageCover.at(1)}</p>
+                <p className="index-top-card-text font-handwritten">{pageCover.title}</p>
             </div>
         </section>
     )

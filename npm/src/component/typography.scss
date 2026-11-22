@@ -267,7 +267,7 @@ code {
 
 pre {
     margin: 0.7rem 0;
-    overflow: scroll;
+    overflow-x: auto;
 
     &:has(code) {
         position: relative;

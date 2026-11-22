@@ -64,13 +64,21 @@ export function Drawer(props: DrawerProps) {
         }
     }, [])
 
+    const toggleByInternalClick = useCallback((open: boolean) => {
+        // 大屏下隐藏关闭按钮，drawer 内不存在能触发关闭的组件
+        if (getScreenType() == Screen.Large && document.body.classList.contains("mdm-drawer-split")) return
+        delayTaskRef.current.delay(() => {
+            toggleOpen(open)
+        })
+    }, [toggleOpen])
+
     useEffect(() => {
         animationControllerRef.current = new AnimationController(containerRef.current, "drawer-slide")
         // 挂载时打开 drawer，之后由外部通过 controller 控制
         toggleOpen(true)
         const onDoubleClickListener = (_event: any) => {
             showInfoDialogAsync(() => {
-                toggleOpen(false)
+                toggleByInternalClick(false)
             })
         }
         headerRef.current?.addEventListener("dblclick", onDoubleClickListener)
@@ -80,7 +88,7 @@ export function Drawer(props: DrawerProps) {
             animationControllerRef.current?.destroy()
             headerRef.current?.removeEventListener("dblclick", onDoubleClickListener)
         }
-    }, [toggleOpen])
+    }, [toggleOpen, toggleByInternalClick])
 
     useEffect(() => {
         props.drawerControllerRef.current = {
@@ -98,14 +106,6 @@ export function Drawer(props: DrawerProps) {
             props.drawerControllerRef.current = null
         }
     }, [props.drawerControllerRef, toggleOpen])
-
-    const toggleByInternalClick = useCallback((open: boolean) => {
-        // 大屏下隐藏关闭按钮，drawer 内不存在能触发关闭的组件
-        if (getScreenType() == Screen.Large && document.body.classList.contains("mdm-drawer-split")) return
-        delayTaskRef.current.delay(() => {
-            toggleOpen(open)
-        })
-    }, [toggleOpen])
 
     const sectionList: DrawerListItemProps[] = useMemo(() => {
         const section = getSectionTypeByPath(window.location.pathname)
@@ -200,8 +200,10 @@ export function Drawer(props: DrawerProps) {
     }, [toggleByInternalClick])
 
     const onClickNavigationIcon = useCallback(() => {
-        toggleByInternalClick(false)
-    }, [toggleByInternalClick])
+        delayTaskRef.current.delay(() => {
+            toggleOpen(false)
+        })
+    }, [toggleOpen])
 
     const drawerClasses = useMemo(() => {
         const classes = ["mdm-drawer drawer-slide"]
