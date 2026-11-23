@@ -60,7 +60,15 @@ li {
         .mdm-list-item__text {
             text-align: left;
 
-            .mdm-list-item__primary-text {}
+            .mdm-list-item__primary-text {
+                font-size: var(--mdm-typography-body1-font-size);
+                line-height: var(--mdm-typography-body1-line-height);
+
+                // .mdm-list--one-line &,
+                // &:last-child {
+                //     padding: 0.35rem 0;
+                // }
+            }
 
             .mdm-list-item__secondary-text {
                 color: var(--md-sys-color-on-surface-variant);

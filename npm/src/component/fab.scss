@@ -23,7 +23,7 @@
         @include ripple.ripple(var(--md-sys-color-on-surface), 0, 0, 0.05);
 
         background-color: color-mix(in srgb, var(--md-sys-color-surface-container) 50%, transparent);
-        color: var(--md-sys-color-on-surface-variant);
+        color: color-mix(in srgb, var(--md-sys-color-on-surface) 90%, transparent);
 
         .expressive & {
             background-color: color-mix(in srgb, var(--md-sys-color-primary) 80%, transparent);

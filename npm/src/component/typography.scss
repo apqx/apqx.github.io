@@ -165,7 +165,9 @@ strong {
     color: var(--md-sys-color-compatible-on-surface-vary-heavy);
     box-shadow: inset 0 -0.5rem 0 0 var(--md-sys-color-compatible-on-surface-underline);
 
-    // text-decoration: var(--strong-underline-color) wavy underline;
+    // color: var(--md-sys-color-primary);
+    // box-shadow: none;
+
     .expressive & {
         box-shadow: none;
     }
@@ -198,6 +200,7 @@ a {
         .expressive & {
             color: var(--md-sys-color-primary);
         }
+
         font-weight: calc(var(--font-weight-normal) + 50);
     }
 }
@@ -302,7 +305,7 @@ pre {
 pre code,
 pre code.hljs {
     display: block;
-    overflow-x: scroll;
+    overflow-x: auto;
     font-size: var(--mdm-typography-body2-font-size);
     line-height: calc(var(--mdm-typography-body1-line-height) - 0.2rem);
     // 独立代码块字重为 normal

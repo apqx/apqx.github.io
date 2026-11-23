@@ -119,8 +119,3 @@ $strong: (
         light: color.adjust(map.get($text-content, "light"), $lightness: -15%),
         dark: color.adjust(map.get($text-content, "dark"), $lightness: +15%),
 );
-
-$strong-under-line: (
-        light: color.adjust(map.get($surface, "light"), $lightness: -14%),
-        dark: color.adjust(map.get($surface, "dark"), $lightness: +14%),
-);

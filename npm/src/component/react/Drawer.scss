@@ -352,7 +352,7 @@ body:not(.mdm-drawer-split) .mdm-drawer {
             }
         }
 
-        &.drawer-scroll-lock {
+        &.drawer-scroll-lock:not(.mdm-dialog-scroll-lock) {
             overflow: hidden;
         }
     }

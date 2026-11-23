@@ -34,8 +34,9 @@ $blockPaddingHorizontalSide: 0.55rem;
     padding-right: 0.8rem;
 }
 
-.tag-list-item__secondary-container {
+.mdm-list-item__secondary-text.tag-list-item__secondary-container {
     position: relative;
+    margin-bottom: 0.3rem;
 
     // 尾部渐变遮罩
     &::after {

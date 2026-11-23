@@ -55,7 +55,7 @@
 	--md-sys-color-compatible-on-surface-heavy: #{map.get(base.$text-title, "light")};
 	// 颜色深度 < on-surface-variant，用作正文副标题
 	--md-sys-color-compatible-on-surface-light: #{map.get(base.$text-subtitle, "light")};
-	--md-sys-color-compatible-on-surface-underline: #{map.get(base.$strong-under-line, "light")};
+	--md-sys-color-compatible-on-surface-underline: color-mix(in srgb, var(--md-sys-color-on-surface), white 85%);
 
 	--md-sys-color-compatible-border: color-mix(in srgb, var(--md-sys-color-outline) 15%, transparent);
 	--md-sys-color-compatible-border-variant: color-mix(in srgb, var(--md-sys-color-outline) 10%, transparent);
@@ -124,7 +124,7 @@
 	--md-sys-color-compatible-on-surface-heavy: #{map.get(base.$text-title, "dark")};
 	// 颜色深度 < on-surface-variant，用作正文副标题
 	--md-sys-color-compatible-on-surface-light: #{map.get(base.$text-subtitle, "dark")};
-	--md-sys-color-compatible-on-surface-underline: #{map.get(base.$strong-under-line, "dark")};
+	--md-sys-color-compatible-on-surface-underline: color-mix(in srgb, var(--md-sys-color-on-surface), black 75%);
 
 	--md-sys-color-outline: #918f9a;
 	--md-sys-color-outline-variant: #46464f;
@@ -165,10 +165,16 @@ $ripple-light-gap: 75%;
 	// list 背景色，距 component-surface -2 级
 	--mdm-list-color-fill: var(--md-sys-color-surface-container-low);
 	// pre code 背景色，距 component-surface -1 级
-	--mdm-surface-block-color-fill: color-mix(in srgb, var(--md-sys-color-surface-container-low), white 60%);
+	--mdm-surface-block-color-fill: color-mix(in srgb, var(--md-sys-color-surface-container-low), white 50%);
 	// p code 背景色，距 component-surface -1 级
 	--mdm-code-in-p-color-fill: var(--md-sys-color-surface);
 
+	// --md-custom-color-overall-background: var(--md-sys-color-surface-container);
+	// --md-custom-color-component-surface: var(--md-sys-color-surface);
+	// --mdm-chip-color-fill: var(--md-sys-color-surface-container-low);
+	// --mdm-list-color-fill: var(--md-sys-color-surface-container-low);
+	// --mdm-surface-block-color-fill: color-mix(in srgb, var(--md-sys-color-surface-container-low), white 10%);
+	// --mdm-code-in-p-color-fill: var(--md-sys-color-surface-container-low);
 
 	&.dark {
 		--md-sys-color-compatible-on-surface-vivid: color-mix(in srgb, var(--md-sys-color-error), black 10%);
@@ -185,6 +191,13 @@ $ripple-light-gap: 75%;
 		--mdm-surface-block-color-fill: var(--md-sys-color-surface);
 		// 距 component-surface +2 级
 		--mdm-code-in-p-color-fill: var(--md-sys-color-surface-container-high);
+
+		// --md-custom-color-overall-background: var(--md-sys-color-surface-container-lowest);
+		// --md-custom-color-component-surface: var(--md-sys-color-surface-container-low);
+		// --mdm-list-color-fill: var(--md-sys-color-surface-container-high);
+		// --mdm-chip-color-fill: var(--md-sys-color-surface-container-high);
+		// --mdm-surface-block-color-fill: var(--md-sys-color-surface-container-high);
+		// --mdm-code-in-p-color-fill: var(--md-sys-color-surface-container-high);
 	}
 }
 
@@ -313,8 +326,8 @@ body {
 	.expressive.dark & {
 		// background-color: var(--md-sys-color-surface-container-low);
 		--md-custom-color-component-surface: var(--md-sys-color-surface-container-low);
-		--mdm-chip-color-fill: color-mix(in srgb, var(--md-sys-color-surface-container-high), black 10%);
-		--mdm-list-color-fill: color-mix(in srgb, var(--md-sys-color-surface-container-high), black 10%);
+		--mdm-chip-color-fill: color-mix(in srgb, var(--md-sys-color-surface-container-high), var(--md-custom-color-component-surface) 40%);
+		--mdm-list-color-fill: color-mix(in srgb, var(--md-sys-color-surface-container-high), var(--md-custom-color-component-surface) 40%);
 	}
 }
 

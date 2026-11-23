@@ -17,8 +17,15 @@ $btnTagPaddingHorizontal: 0.8rem;
     min-width: 3.6rem;
     text-transform: none;
     font-size: var(--mdm-typography-body2-font-size);
+    // line-height 决定 span 高度，但文字在其中并不总是垂直居中，在特定行高下达到视觉平衡
+    line-height: var(--mdm-typography-body1-font-size);
     margin: 0;
     border-radius: $btnTagRadius;
+
+    // .expressive & {
+    //     @include button.ink-color(var(--md-sys-color-on-secondary-container));
+    //     @include button.container-fill-color(var(--md-sys-color-secondary-container));
+    // }
 
     &:not(.mdm-chip-checkable) {
         @include ripple.ripple(var(--md-sys-color-on-surface), 0, 0, 0.04);
