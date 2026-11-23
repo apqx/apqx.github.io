@@ -1,17 +1,18 @@
 @use "@material/textfield";
 
 .mdc-text-field {
-    height: 3.6rem;
+    height: 3.5rem;
 
     display: flex;
     align-items: center;
-    padding: 0 0.5rem 0 1rem;
+    padding-right: calc(var(--mdc-shape-small) - 0.7rem);
     margin-left: auto;
     margin-right: auto;
 
     border-radius: var(--mdc-shape-small);
-    background-color: var(--mdm-list-color-fill);
+    // background-color: var(--mdm-list-color-fill);
 
+    @include textfield.fill-color(var(--mdm-list-color-fill));
     @include textfield.ink-color(var(--md-sys-color-on-surface));
     @include textfield.caret-color(var(--md-sys-color-on-surface));
     @include textfield.placeholder-color(var(--md-sys-color-compatible-on-surface-light));
@@ -27,11 +28,28 @@
         font-weight: var(--mdm-typography-body1-font-weight);
     }
 
+    .mdc-notched-outline {
+
+        .mdc-floating-label {
+            top: 48%;
+
+            &.mdc-floating-label--float-above {
+                transform: translateY(-2.13rem)scale(.75);
+            }
+
+            .font-noto-serif-sc & {
+                top: 46%;
+
+                &.mdc-floating-label--float-above {
+                    transform: translateY(-2.1rem)scale(.75);
+                }
+            }
+        }
+    }
+
     button.text-field__icon {
-        // TODO：为 ripple 设置 overflow: hidden，但不知为什么
-        // width 比设置值小，这里适当加大
-        width: 3.4rem;
-        border-radius: 0 var(--mdc-shape-small) var(--mdc-shape-small) 0;
+        flex: none;
+        border-radius: var(--mdc-shape-small);
 
         i {
             color: var(--md-sys-color-compatible-on-surface-light);

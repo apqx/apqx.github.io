@@ -29,7 +29,7 @@ li {
         border-radius: $listItemRadius;
         color: var(--md-sys-color-on-surface);
 
-        padding: 0.7rem 1.1rem;
+        padding: 0.6rem 1.1rem;
         display: block;
 
         @include ripple.ripple(var(--md-sys-color-on-surface), 0.02, 0.02, 0.02);
@@ -63,6 +63,7 @@ li {
             .mdm-list-item__primary-text {
                 font-size: var(--mdm-typography-body1-font-size);
                 line-height: var(--mdm-typography-body1-line-height);
+                text-align: justify;
 
                 // .mdm-list--one-line &,
                 // &:last-child {
@@ -75,6 +76,7 @@ li {
                 font-size: var(--mdm-typography-body2-font-size);
                 line-height: var(--mdm-typography-body2-line-height);
                 font-weight: var(--font-weight-light);
+                text-align: justify;
 
                 .mdm-list--one-line & {
                     display: none;
