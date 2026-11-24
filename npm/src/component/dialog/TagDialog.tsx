@@ -166,7 +166,7 @@ function PostItem(props: PostItemProps) {
             <a className="mdm-list-item mdm-list-item-darken tag-list-item" href={props.data.url} tabIndex={-1}>
                 <div className="mdm-list-item__text">
                     <div className="mdm-list-item__primary-text">{props.data.title}</div>
-                    <div className="mdm-list-item__secondary-text tag-list-item__secondary-container">
+                    <div className="mdm-list-item__secondary-text">
                         <div className="tag-list-item__block-container">
                             <span className="tag-list-item__post-type">
                                 {date.year}<span className="year">年</span>

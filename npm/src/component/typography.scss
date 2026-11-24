@@ -49,7 +49,12 @@
 }
 
 body {
-    @include mdmTypography()
+    @include mdmTypography();
+    // 定义文本选中时的样式
+    ::selection {
+        background-color: var(--md-sys-color-tertiary-container);
+        color: var(--md-sys-color-on-tertiary-container);
+    }
 }
 
 @mixin baseBodyText() {
@@ -277,7 +282,7 @@ pre {
         border-radius: var(--post-inner-shape-round);
 
         // 代码块两侧渐变遮罩，提示可横向滚动
-        // &:before {
+        // &::before {
         //     content: "";
         //     position: absolute;
         //     display: block;
@@ -288,7 +293,7 @@ pre {
         //     background: linear-gradient(to right, var(--mdm-surface-block-color-fill), transparent);
         // }
 
-        // &:after {
+        // &::after {
         //     content: "";
         //     position: absolute;
         //     display: block;

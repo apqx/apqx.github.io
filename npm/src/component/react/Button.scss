@@ -1,55 +1,64 @@
 @use "../../style/global" as base;
 @use "./../ripple.scss" as ripple;
-// 只包含组件变量和 mixin
-@use "@material/button";
-// 包含组件样式，只在 scaffold 中引入，其它入口不许再引入，动态加载时机靠后会覆盖 scaffold 中的样式
-@use "@material/icon-button";
 @use "sass:map";
 @use "sass:color";
 
-// 解决 Safari 的 Ripple 动画无圆角
-.mdc-button,
-.mdc-button__ripple {
+// 解决 Safari 的 Ripple 动画无圆角和动画闪烁溢出
+.mdm-button,
+.mdm-icon-button {
     // border-radius: 1.3rem !important;
     -webkit-mask-image: radial-gradient(white, black);
 }
 
-.mdc-button {
+.mdm-button {
+    min-width: 3.6rem;
+    height: 2.5rem;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
     font-family: var(--mdm-typography-font-family);
     font-size: var(--mdm-typography-body3-font-size);
     font-weight: var(--mdm-typography-body3-font-weight);
+    // line-height 决定 span content 高度，但文字在其中并不总是垂直居中，在特定行高下达到视觉平衡
+    line-height: 1.4;
     letter-spacing: normal;
-    @include button.container-fill-color(var(--md-sys-color-surface-container-low));
-    @include button.ink-color(var(--md-sys-color-on-surface));
-    @include button.height(2.5rem);
-    min-width: 3.6rem;
+    background-color: var(--md-sys-color-surface-container-low);
+    color: var(--md-sys-color-on-surface);
     text-transform: none;
 
-    position: relative;
+    outline: none;
+    border: none;
+    cursor: pointer;
 
-    &:not(:disabled,.mdm-chip) {
-        @include button.ink-color(var(--md-sys-color-on-surface));
+    .mdm-button__label {
+        // 剪除文本边缘与 box border 间的空白
+        // 新特性兼容性不足，暂不启用
+        // text-box-trim: trim-both;
+    }
+
+    &:not(:disabled, .mdm-chip) {
+        color: var(--md-sys-color-on-surface);
     }
 
     &:not(.btn-no-ripple) {
         @include ripple.ripple(var(--md-sys-color-on-surface), 0, 0, 0.04);
+
         .expressive & {
             @include ripple.ripple(var(--md-sys-color-primary), 0, 0, 0.08);
         }
     }
 
     &.btn-no-bg {
-        @include button.container-fill-color(transparent);
+        background-color: transparent;
     }
 }
 
-.mdc-button.mdc-button-variant {
-    display: inline-flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+.mdm-button.mdm-button-variant {
 
-    .mdc-button__label:last-child {
+    .mdm-button__label:last-child {
         font-size: var(--mdm-typography-body3-font-size);
         // font-weight: var(--font-weight-light);
         // color: var(--md-sys-color-on-surface-variant);
@@ -57,32 +66,110 @@
     }
 }
 
-.mdc-button.btn-round {
-    border-radius: calc(var(--mdm-typography-body1-font-size) + 0.3rem);
-}
-
-.mdc-icon-button {
+.mdm-icon-button {
     width: 3rem;
     height: 3rem;
     position: relative;
-    padding: 0;
-    outline: none;
-    font-size: var(--mdm-typography-body1-font-size);
-    color: var(--md-sys-color-on-surface);
     display: inline-flex;
     align-items: center;
     justify-content: center;
 
+    padding: 0;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    font-size: var(--mdm-typography-body1-font-size);
+    background-color: transparent;
+    color: var(--md-sys-color-on-surface);
+
+
     // 设置 ripple，bounded ripple 必须设置 overflow: hidden，此 mixin 已内置
     @include ripple.ripple(var(--md-sys-color-on-surface), 0, 0, 0.04);
 
+    .mdm-button__icon {}
+
     &.mdm-toggle-icon-button {
 
-        i {
+        .mdm-button__icon {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translateY(-50%) translateX(-50%);
         }
+    }
+}
+
+
+$btnTagSideRadius: var(--mdm-typography-body2-font-size);
+$btnTagRadius: 0.2rem;
+$btnTagSidePaddingHorizontal: 0.9rem;
+$btnTagPaddingHorizontal: 0.8rem;
+
+.mdm-button.mdm-chip {
+    background-color: var(--mdm-chip-color-fill);
+    color: var(--md-sys-color-on-surface-variant);
+    padding: $btnTagPaddingHorizontal;
+    height: 2.3rem;
+    min-width: 3.6rem;
+    font-size: var(--mdm-typography-body2-font-size);
+    // line-height 决定 span 高度，但文字在其中并不总是垂直居中，在特定行高下达到视觉平衡
+    line-height: 1.4;
+    .font-noto-serif-sc & {
+
+    }
+    margin: 0;
+    border-radius: $btnTagRadius;
+
+    // .expressive & {
+    //     @include button.ink-color(var(--md-sys-color-on-secondary-container));
+    //     @include button.container-fill-color(var(--md-sys-color-secondary-container));
+    // }
+
+    &:not(.mdm-chip-checkable) {
+        @include ripple.ripple(var(--md-sys-color-on-surface), 0, 0, 0.04);
+
+        .dark & {
+            @include ripple.ripple(var(--md-sys-color-on-surface), 0, 0, 0.06);
+        }
+
+        .expressive & {
+            @include ripple.ripple(var(--md-sys-color-on-surface), 0, 0, 0.04);
+        }
+
+        .dark.expressive & {
+            @include ripple.ripple(var(--md-sys-color-on-surface), 0, 0, 0.06);
+        }
+    }
+
+    transition: border-radius 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease;
+
+    // @include text.notoSerifText();
+
+    &.mdm-chip-checked {
+        color: var(--md-sys-color-on-tertiary-container);
+        background-color: var(--md-sys-color-tertiary-container);
+        border-radius: $btnTagSideRadius;
+    }
+}
+
+.mdm-chip-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    gap: calc(var(--list-divider-height) - 0.01rem);
+    margin: 1.5rem 0rem;
+
+    .mdm-chip:first-child {
+        border-top-left-radius: $btnTagSideRadius;
+        border-bottom-left-radius: $btnTagSideRadius;
+        padding-left: $btnTagSidePaddingHorizontal;
+    }
+
+    .mdm-chip:last-child {
+        border-top-right-radius: $btnTagSideRadius;
+        border-bottom-right-radius: $btnTagSideRadius;
+        padding-right: $btnTagSidePaddingHorizontal;
     }
 }

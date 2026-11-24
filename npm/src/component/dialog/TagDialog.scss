@@ -10,10 +10,13 @@ $blockPaddingHorizontal: 0.45rem;
 $blockPaddingHorizontalSide: 0.55rem;
 
 @mixin block {
-    font-size: calc(var(--mdm-typography-body1-font-size) - 0.2rem);
-    padding: 0.15rem $blockPaddingHorizontal;
+    font-size: var(--mdm-typography-body3-font-size);
+    padding: 0.25rem $blockPaddingHorizontal;
     border-radius: $blockRadius;
     margin-right: calc(var(--list-divider-height) - 0.05rem);
+    line-height: 1.1;
+    // 新特性兼容性不足，暂不采用
+    // text-box-trim: trim-both;
 
 
     &:first-child {
@@ -32,56 +35,60 @@ $blockPaddingHorizontalSide: 0.55rem;
 
 .mdm-list-item.tag-list-item {
     padding-right: 0.8rem;
-}
 
-.mdm-list-item__secondary-text.tag-list-item__secondary-container {
-    position: relative;
-    margin-bottom: 0.3rem;
+    .mdm-list-item__secondary-text {
+        position: relative;
+        margin-bottom: 0.2rem;
 
-    // 尾部渐变遮罩
-    &::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 1.5rem;
-        height: 100%;
-        pointer-events: none;
-        background: linear-gradient(to right, transparent, var(--mdm-list-color-fill));
-    }
-
-    .tag-list-item__block-container {
-        width: 100%;
-        // 禁止换行
-        white-space: nowrap;
-
-        overflow-x: auto;
-        // 消除 Firefox 的 scrollBar
-        scrollbar-width: none;
-
-        // 移动端 Chrome 的 scrollBar 一直显示，需要消除，其它浏览器 scrollBar 都会自动隐藏
-        // 在保留滚动效果的同时，消除 Safari，Chrome 的 scrollBar
-        &::-webkit-scrollbar {
-            // 消除 scrollBar
-            display: none;
+        // 尾部渐变遮罩
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 1.5rem;
+            height: 100%;
+            pointer-events: none;
+            background: linear-gradient(to right, transparent, var(--mdm-list-color-fill));
         }
 
-        .tag-list-item__post-type {
-            @include block();
-            color: var(--md-sys-color-on-primary-container);
-            background: var(--md-sys-color-primary-container);
-        }
+        .tag-list-item__block-container {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
 
-        .tag-list-item__post-block1 {
-            @include block();
-            color: var(--md-sys-color-on-tertiary-container);
-            background: var(--md-sys-color-tertiary-container);
-        }
+            // 禁止换行
+            white-space: nowrap;
 
-        .tag-list-item__post-block2 {
-            @include block();
-            color: var(--md-sys-color-on-secondary-container);
-            background: var(--md-sys-color-secondary-container);
+            overflow-x: auto;
+            // 消除 Firefox 的 scrollBar
+            scrollbar-width: none;
+
+            // 移动端 Chrome 的 scrollBar 一直显示，需要消除，其它浏览器 scrollBar 都会自动隐藏
+            // 在保留滚动效果的同时，消除 Safari，Chrome 的 scrollBar
+            &::-webkit-scrollbar {
+                // 消除 scrollBar
+                display: none;
+            }
+
+            .tag-list-item__post-type {
+                @include block();
+                color: var(--md-sys-color-on-primary-container);
+                background: var(--md-sys-color-primary-container);
+            }
+
+            .tag-list-item__post-block1 {
+                @include block();
+                color: var(--md-sys-color-on-tertiary-container);
+                background: var(--md-sys-color-tertiary-container);
+            }
+
+            .tag-list-item__post-block2 {
+                @include block();
+                color: var(--md-sys-color-on-secondary-container);
+                background: var(--md-sys-color-secondary-container);
+            }
         }
     }
 }

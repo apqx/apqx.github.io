@@ -36,10 +36,9 @@ export function onTagTriggerClick(trigger: HTMLElement) {
     showTagDialog(tag, nickname)
 }
 
-export function initTag() {
-    for (const ele of document.querySelectorAll(".mdc-button.mdm-chip")) {
+export function initChip() {
+    for (const ele of document.querySelectorAll(".mdm-button.mdm-chip")) {
         setupButtonRipple(ele)
         ele.addEventListener("focus", clearFocusListener)
     }
 }
-

@@ -1,6 +1,5 @@
 @use "../style/global" as base;
 @use "@material/elevation";
-@use "@material/fab";
 @use "./ripple.scss" as ripple;
 @use "sass:map";
 
@@ -14,7 +13,7 @@
     right: calc(var(--fab-marin-to-edge) + var(--safe-area-inset-right));
     z-index: var(--z-index-fab);
 
-    .mdc-fab {
+    .mdm-fab {
         width: var(--fab-size);
         height: var(--fab-size);
         border-radius: 0.2rem;
@@ -34,34 +33,17 @@
         }
     }
 
-    .mdc-touch-target-wrapper:first-child {
-        .mdc-fab {
+    .fab-wrapper:first-child {
+        .mdm-fab {
             border-top-left-radius: 35%;
             border-top-right-radius: 35%;
         }
     }
 
-    .mdc-touch-target-wrapper:last-child {
-        .mdc-fab {
+    .fab-wrapper:last-child {
+        .mdm-fab {
             border-bottom-left-radius: 35%;
             border-bottom-right-radius: 35%;
         }
     }
-}
-
-// ripple 伪元素形状由这里控制，只是为什么会是圆形？
-.floating-action-container .mdc-fab:before,
-.floating-action-container .mdc-fab:after {
-    // 默认计算出的是 50%，但实际效果并不是圆形，所以这里设为 inherit
-    border-radius: inherit;
-}
-
-.mdc-fab,
-.mdc-fab.mdc-ripple-upgraded--background-focused,
-.mdc-fab:active,
-.mdc-fab:focus:active,
-.mdc-fab:hover {
-    // 消除阴影
-    // TODO: 使用 var 设置的阴影是失效的
-    @include elevation.elevation(map.get(base.$fab-elevation, "elevation"), map.get(base.$fab-elevation, "shadow-light"), 0);
 }

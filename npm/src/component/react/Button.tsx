@@ -22,9 +22,9 @@ export function Button(props: ButtonProps) {
     }, [])
 
     return (
-        <button ref={containerRef} type="button" className={`mdc-button ${props.classes?.join(" ") ?? ""}`.trimEnd()} tabIndex={props.tabIndex == null ? 0 : props.tabIndex}
+        <button ref={containerRef} type="button" className={`mdm-button ${props.classes?.join(" ") ?? ""}`.trimEnd()} tabIndex={props.tabIndex == null ? 0 : props.tabIndex}
             onClick={props.onClick}>
-            <span className="mdc-button__label">{props.text}</span>
+            <span className="mdm-button__label">{props.text}</span>
         </button>
     )
 }
@@ -48,11 +48,11 @@ export function ButtonVariant(props: ButtonVariantProps) {
     }, [])
 
     return (
-        <button ref={containerRef} type="button" className={`mdc-button mdc-button-variant ${props.classes?.join(" ") ?? ""}`.trimEnd()} tabIndex={props.tabIndex == null ? 0 : props.tabIndex}
+        <button ref={containerRef} type="button" className={`mdm-button mdm-button-variant ${props.classes?.join(" ") ?? ""}`.trimEnd()} tabIndex={props.tabIndex == null ? 0 : props.tabIndex}
             onClick={props.onClick}>
-            <span className="mdc-button__label">{props.text}</span>
+            <span className="mdm-button__label">{props.text}</span>
             {props.description &&
-                <span className="mdc-button__label">{props.description}</span>
+                <span className="mdm-button__label">{props.description}</span>
             }
         </button>
     )
@@ -73,9 +73,9 @@ export function IconButton(props: IconButtonProps) {
     }, [])
 
     return (
-        <button ref={containerRef} type="button" className={`mdc-icon-button ${props.classes?.join(" ") ?? ""}`.trimEnd()} tabIndex={props.tabIndex == null ? 0 : props.tabIndex}
+        <button ref={containerRef} type="button" className={`mdm-icon-button ${props.classes?.join(" ") ?? ""}`.trimEnd()} tabIndex={props.tabIndex == null ? 0 : props.tabIndex}
             onClick={props.onClick}>
-            <i className="material-symbols-rounded-variable mdc-button__icon" aria-hidden="true">{props.icon}</i>
+            <i className="material-symbols-rounded-variable mdm-button__icon" aria-hidden="true">{props.icon}</i>
         </button>
     )
 }
@@ -113,17 +113,17 @@ export function ToggleIconButton(props: ToggleIconButtonProps) {
     }, [props.on])
 
     return (
-        <button ref={containerRef} type="button" className={`mdm-toggle-icon-button mdc-icon-button ${props.classes?.join(" ") ?? ""}`.trimEnd()} tabIndex={props.tabIndex == null ? 0 : props.tabIndex}
+        <button ref={containerRef} type="button" className={`mdm-toggle-icon-button mdm-icon-button ${props.classes?.join(" ") ?? ""}`.trimEnd()} tabIndex={props.tabIndex == null ? 0 : props.tabIndex}
             onClick={props.onClick}>
-            <i ref={iconOffRef} className="material-symbols-rounded-variable mdc-button__icon fade" aria-hidden="true">{props.iconOff}</i>
-            <i ref={iconOnRef} className="material-symbols-rounded-variable mdc-button__icon fade" aria-hidden="true">{props.iconOn}</i>
+            <i ref={iconOffRef} className="material-symbols-rounded-variable mdm-button__icon fade" aria-hidden="true">{props.iconOff}</i>
+            <i ref={iconOnRef} className="material-symbols-rounded-variable mdm-button__icon fade" aria-hidden="true">{props.iconOn}</i>
         </button>
     )
 }
 
 export function initButton() {
     // 为所有 button 添加 ripple 动画
-    for (const ele of document.querySelectorAll(".mdc-button:not(.mdm-chip)")) {
+    for (const ele of document.querySelectorAll(".mdm-button:not(.mdm-chip)")) {
         setupButtonRipple(ele)
     }
 }

@@ -42,19 +42,19 @@
     
                     <!-- tags -->
                     <!-- 仅透镜分区设置名为 tag 的搜索 filter -->
-                    <!-- <section data-pagefind-ignore="index" class="mdm-chip-container-no-material post-tag-container"> -->
+                    <!-- <section data-pagefind-ignore="index" class="post-tag-container"> -->
                     <section data-pagefind-ignore="index" class="mdm-chip-container post-tag-container">
-                        <!-- 如果用 span 创建 mdc-button，则点击动画结束后才会触发点击事件，感觉明显会很慢 -->
+                        <!-- 如果用 span 创建 mdm-button，则点击动画结束后才会触发点击事件，感觉明显会很慢 -->
                         {%- for tagInPage in page.tags %}
-                        <button type="button" class="mdc-button tag-dialog-trigger mdm-chip" id="chip_tag_{{ tagInPage }}">
-                            <span class="mdc-button__label">{{ tagInPage }}</span>
+                        <button type="button" class="mdm-button tag-dialog-trigger mdm-chip" id="chip_tag_{{ tagInPage }}">
+                            <span class="mdm-button__label">{{ tagInPage }}</span>
                         </button>
                         {%- endfor %}
                         {%- if page.categories contains "lens" %}
                         {%- assign lensTags = page.lensTags | split: " " %}
                         {%- for tagInPage in lensTags %}
-                        <button type="button" class="mdc-button tag-dialog-trigger mdm-chip" id="chip_tag_{{ tagInPage }}">
-                            <span class="mdc-button__label" data-pagefind-filter="tag">{{ tagInPage }}</span>
+                        <button type="button" class="mdm-button tag-dialog-trigger mdm-chip" id="chip_tag_{{ tagInPage }}">
+                            <span class="mdm-button__label" data-pagefind-filter="tag">{{ tagInPage }}</span>
                         </button>
                         {%- endfor %}
                         {%- endif %}

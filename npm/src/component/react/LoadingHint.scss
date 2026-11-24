@@ -1,6 +1,5 @@
 // @use "../react/Button";
 // @use "./ProgressCircular";
-@use "@material/button";
 
 @mixin baseFadeIn {
     position: absolute;
@@ -36,13 +35,13 @@
         }
     }
 
-    .mdc-button {
+    .mdm-button {
         @include baseFadeIn();
 
         &.show {
             opacity: 1;
         }
 
-        @include button.ink-color(var(--md-sys-color-compatible-on-surface-light));
+        background-color: var(--md-sys-color-compatible-on-surface-light);
     }
 }

@@ -1,6 +1,4 @@
 @use "../style/global" as base;
-// 先引入 mdc 的 theme，然后用自定义变量覆盖其原有配置
-@use "@material/theme";
 @use "typography" as typography;
 
 @use "sass:map";
