@@ -169,10 +169,12 @@ function PostItem(props: PostItemProps) {
                     <div className="mdm-list-item__secondary-text">
                         <div className="tag-list-item__block-container">
                             <span className="tag-list-item__post-type">
-                                {date.year}<span className="year">年</span>
-                                {date.month}<span className="month">月</span>
-                                {date.day}<span className="day">日</span>
-                                ｜{props.data.type}</span>
+                                <span>
+                                    {date.year}<span className="year">年</span>
+                                    {date.month}<span className="month">月</span>
+                                    {date.day}<span className="day">日</span>
+                                    ｜{props.data.type}</span>
+                            </span>
                             {props.data.block1Array.map((value, _index) =>
                                 <Block key={value} type={1} title={value} />
                             )}
@@ -205,7 +207,9 @@ function Block(props: BlockProps) {
     }, [type])
 
     return (
-        <span className={classes.join(" ")}>{title}</span>
+        <span className={classes.join(" ")}>
+            <span>{title}</span>
+        </span>
     )
 }
 

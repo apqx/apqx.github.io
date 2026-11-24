@@ -63,14 +63,19 @@ export interface IconButtonProps {
     onClick?: () => void
     classes?: string[]
     tabIndex?: number
+    bounded?: boolean
 }
 
 export function IconButton(props: IconButtonProps) {
     const containerRef = React.useRef<HTMLButtonElement>(null)
 
     useEffect(() => {
-        setupIconButtonRipple(containerRef.current as HTMLSpanElement)
-    }, [])
+        if (props.bounded) {
+            setupButtonRipple(containerRef.current as HTMLSpanElement)
+        } else {
+            setupIconButtonRipple(containerRef.current as HTMLSpanElement)
+        }
+    }, [props.bounded])
 
     return (
         <button ref={containerRef} type="button" className={`mdm-icon-button ${props.classes?.join(" ") ?? ""}`.trimEnd()} tabIndex={props.tabIndex == null ? 0 : props.tabIndex}

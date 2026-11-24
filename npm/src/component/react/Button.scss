@@ -22,8 +22,8 @@
     font-family: var(--mdm-typography-font-family);
     font-size: var(--mdm-typography-body3-font-size);
     font-weight: var(--mdm-typography-body3-font-weight);
-    // line-height 决定 span content 高度，但文字在其中并不总是垂直居中，在特定行高下达到视觉平衡
-    line-height: 1.4;
+    // line-height 决定 span content 高度，但文字在其中并不是垂直居中，在特定行高下达到视觉平衡
+    line-height: 1;
     letter-spacing: normal;
     background-color: var(--md-sys-color-surface-container-low);
     color: var(--md-sys-color-on-surface);
@@ -34,9 +34,14 @@
     cursor: pointer;
 
     .mdm-button__label {
-        // 剪除文本边缘与 box border 间的空白
-        // 新特性兼容性不足，暂不启用
+        // 剪除文本边缘与 content 边缘间的空白
+        // 新特性兼容性不足，应确保关闭时仍能保持相对和谐的显示
         // text-box-trim: trim-both;
+        transform: translateY(0.06em);
+        
+        .font-noto-serif-sc & {
+            transform: translateY(0.02em);
+        }
     }
 
     &:not(:disabled, .mdm-chip) {
@@ -108,15 +113,11 @@ $btnTagPaddingHorizontal: 0.8rem;
 .mdm-button.mdm-chip {
     background-color: var(--mdm-chip-color-fill);
     color: var(--md-sys-color-on-surface-variant);
-    padding: $btnTagPaddingHorizontal;
+    padding: 0 $btnTagPaddingHorizontal;
     height: 2.3rem;
     min-width: 3.6rem;
     font-size: var(--mdm-typography-body2-font-size);
-    // line-height 决定 span 高度，但文字在其中并不总是垂直居中，在特定行高下达到视觉平衡
-    line-height: 1.4;
-    .font-noto-serif-sc & {
 
-    }
     margin: 0;
     border-radius: $btnTagRadius;
 

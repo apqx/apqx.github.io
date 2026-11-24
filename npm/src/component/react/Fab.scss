@@ -1,0 +1,81 @@
+@use "../../style/global" as base;
+@use "@material/elevation";
+@use "../ripple.scss" as ripple;
+@use "sass:map";
+
+
+.fab-container {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: var(--list-divider-height);
+    position: fixed;
+    bottom: calc(var(--fab-marin-to-edge) + var(--safe-area-inset-bottom));
+    right: calc(var(--fab-marin-to-edge) + var(--safe-area-inset-right));
+    z-index: var(--z-index-fab);
+
+    .fab-item-hint {
+        // max-width: var(--fab-size);
+        padding: 0.1rem 0.5rem;
+        border-radius: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        text-align: center;
+        line-break: loose;
+
+        font-size: var(--mdm-typography-body3-font-size);
+        line-height: var(--mdm-typography-body3-line-height);
+
+        -webkit-backdrop-filter: blur(map.get(base.$fab-bg, "backdrop-filter"));
+        backdrop-filter: blur(map.get(base.$fab-bg, "backdrop-filter"));
+
+        background-color: color-mix(in srgb, var(--md-sys-color-surface-container) 50%, transparent);
+        color: color-mix(in srgb, var(--md-sys-color-on-surface) 90%, transparent);
+    }
+
+    .fab-item-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--list-divider-height);
+
+        button {
+            width: var(--fab-size);
+            height: var(--fab-size);
+            min-width: unset;
+
+
+            border-radius: 0.2rem;
+            transition: border-radius 0.2s ease;
+
+            -webkit-backdrop-filter: blur(map.get(base.$fab-bg, "backdrop-filter"));
+            backdrop-filter: blur(map.get(base.$fab-bg, "backdrop-filter"));
+            @include ripple.ripple(var(--md-sys-color-on-surface), 0, 0, 0.05);
+
+            background-color: color-mix(in srgb, var(--md-sys-color-surface-container) 50%, transparent);
+            color: color-mix(in srgb, var(--md-sys-color-on-surface) 90%, transparent);
+
+            .expressive & {
+                background-color: color-mix(in srgb, var(--md-sys-color-primary) 80%, transparent);
+                color: var(--md-sys-color-on-primary);
+                // background-color: var(--md-sys-color-primary);
+                // color: var(--md-sys-color-on-primary);
+                @include ripple.ripple(var(--md-sys-color-on-primary), 0, 0, 0.15);
+            }
+
+
+            &:first-child {
+                border-top-left-radius: 35%;
+                border-top-right-radius: 35%;
+            }
+
+            &:last-child {
+                border-bottom-left-radius: 35%;
+                border-bottom-right-radius: 35%;
+            }
+        }
+
+    }
+}

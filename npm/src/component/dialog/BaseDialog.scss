@@ -43,6 +43,8 @@
 }
 
 $dialog-max-width: 35rem;
+// 距适口最小间隔
+$dialog-min-gap-to-vp: 1.5rem;
 
 .mdm-dialog {
     position: fixed;
@@ -73,7 +75,7 @@ $dialog-max-width: 35rem;
         .mdm-dialog__surface {
             width: fit-content;
             max-width: $dialog-max-width;
-            max-height: calc(100% - 2.4rem);
+            max-height: calc(100% - #{$dialog-min-gap-to-vp});
             color: var(--md-sys-color-on-surface);
             border-radius: var(--dialog-border-radius);
 
@@ -84,7 +86,7 @@ $dialog-max-width: 35rem;
 
             &.mdm-dialog-fixed-width {
                 width: $dialog-max-width;
-                max-width: calc(100% - 2rem);
+                max-width: calc(100% - #{$dialog-min-gap-to-vp});
             }
 
             display: flex;
@@ -181,10 +183,9 @@ $dialog-max-width: 35rem;
     text-align: center;
 }
 
-// 平板中屏
-@media (max-width: ($dialog-max-width + 2.2rem)) {
+@media (max-width: ($dialog-max-width + $dialog-min-gap-to-vp)) {
     .mdm-dialog .mdm-dialog-container-for-flex .mdm-dialog__surface {
-        max-width: calc(100% - 2.2rem);
+        max-width: calc(100% - #{$dialog-min-gap-to-vp});
     }
 }
 

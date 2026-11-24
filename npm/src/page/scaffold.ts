@@ -3,7 +3,7 @@ import { isWriting, runOnHtmlDone, runOnPageBackFromCache, runOnPageDone } from 
 import { initTheme } from "../component/theme"
 import { initLocalRepository } from "../repository/LocalDb"
 import { initFont } from "../component/font/font"
-import { initFab } from "../component/fab"
+import { initFab } from "../component/react/Fab"
 import { initChip, initTagTriggers } from "../component/tag"
 import { initText } from "../component/text"
 import { consoleInfo } from "../util/log"

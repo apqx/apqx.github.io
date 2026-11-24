@@ -11,13 +11,25 @@ $blockPaddingHorizontalSide: 0.55rem;
 
 @mixin block {
     font-size: var(--mdm-typography-body3-font-size);
-    padding: 0.25rem $blockPaddingHorizontal;
+    padding: 0 $blockPaddingHorizontal;
     border-radius: $blockRadius;
     margin-right: calc(var(--list-divider-height) - 0.05rem);
-    line-height: 1.1;
+    line-height: 1;
+    height: 1.4rem;
     // 新特性兼容性不足，暂不采用
     // text-box-trim: trim-both;
 
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    >span {
+        transform: translateY(0.03em);
+
+        .font-noto-serif-sc & {
+            transform: translateY(0.01em);
+        }
+    }
 
     &:first-child {
         padding-left: $blockPaddingHorizontalSide;
@@ -72,6 +84,7 @@ $blockPaddingHorizontalSide: 0.55rem;
                 display: none;
             }
 
+
             .tag-list-item__post-type {
                 @include block();
                 color: var(--md-sys-color-on-primary-container);
@@ -89,6 +102,8 @@ $blockPaddingHorizontalSide: 0.55rem;
                 color: var(--md-sys-color-on-secondary-container);
                 background: var(--md-sys-color-secondary-container);
             }
+
+
         }
     }
 }

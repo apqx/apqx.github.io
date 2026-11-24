@@ -256,7 +256,7 @@ body {
 	--z-index-topbar: 5;
 	--z-index-content: 2;
 
-	--z-index-fab: auto;
+	--z-index-fab: 5;
 
 	@include light;
 }

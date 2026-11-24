@@ -18,7 +18,7 @@ import { convertPinedToFeatured } from "../../util/tools"
 import { Masonry } from "./Masonry"
 import { LENS_FILTER_SORT_ASC } from "../dialog/LensFilterDialogViewModel"
 import { getLocalRepository } from "../../repository/LocalDb"
-import { scrollToTopNative } from "../fab"
+import { scrollToTopNative } from "../react/Fab"
 
 export function IndexGridLens(props: BasePaginateViewProps<Post>) {
     const masonryContainerRef = useRef<HTMLUListElement>(null)
