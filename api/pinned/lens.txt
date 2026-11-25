@@ -1,0 +1,6 @@
+---
+layout: posts-pinned-json
+sitemap: false
+permalink: /:path/:basename.json
+indexCategory: lens
+---

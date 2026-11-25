@@ -1,7 +1,14 @@
 <!-- Jekyll 生成的 HTML 列表默认隐藏，由 React 重新加载 -->
+<section class="mdm-card index-top-card" style="display: none">
+    <img src="{{ page.indexCover }}" class="index-top-cover"
+        alt="{{ page.indexCoverDescription }}" draggable="false" />
+    <div class="index-top-card-container">
+        <p class="index-top-card-text font-handwritten">{{ page.indexCoverTitle }}</p>
+    </div>
+</section>
 <ul class="index-ul" style="display: none;">
     {% for post in site.posts %}
-    {%- if post.categories contains index-category and post.pinned == true %}
+    {%- if post.categories contains page.indexCategory and post.pinned == true %}
     <li class="index-li">
         <a class="index-a mdm-card index-card" href="{{ post.url }}">
             <section>
@@ -17,10 +24,10 @@
     {% endfor -%}
     {%- assign count = 0 -%}
     {%- for post in site.posts %}
-    {%- if count == 10 %}
+    {%- if count == 20 %}
     {%- break %}
     {% endif -%}
-    {%- if post.categories contains index-category -%}
+    {%- if post.categories contains page.indexCategory -%}
     <li class="index-li">
         <a class="index-a mdm-card index-card" href="{{ post.url }}">
             <section>

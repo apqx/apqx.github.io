@@ -1,15 +1,20 @@
+import { isPinnedAvailable } from "../../../base/constant";
 import type { ApiPaginatePage } from "../../../repository/bean/service/ApiPaginatePage";
 import { getServiceInstance, SERVICE_DEBUG_MODE_AUTO, SERVICE_DEBUG_MODE_OFF } from "../../../repository/Service";
 import { consoleInfo, consoleInfoObj } from "../../../util/log";
 import { sleepUntilMinimalTime } from "../../../util/tools";
 import type { IHttpPaginator } from "./interface/IHttpPaginator";
+import { PinnedPostLoader } from "./PinnedPostLoader";
 
 /**
  * HTTP 分页加载选项，以 tag 或 category 分页加载数据，按非空顺序选择
  */
 export interface BaseHttpPaginatorOptions {
     tag: string,
-    category: string
+    category: string,
+    // 是否加载置顶文章，true 则返回数据中独立数据源的置顶文章排在最前面，分页接口获得的文章 pinned 改为 featured
+    // 只有 original repost poetry opera lens 5 个 category 存在置顶文章
+    loadPinned?: boolean
 }
 
 /**
@@ -19,14 +24,23 @@ export abstract class BaseHttpPaginator<H, T> implements IHttpPaginator<H, T> {
     options: BaseHttpPaginatorOptions
     cachedPage: ApiPaginatePage<H>[] = []
     cachedData: T[] = []
+    pinnedData: T[] = []
+    pinnedPostLoader: PinnedPostLoader<H> | undefined
 
     constructor(options: BaseHttpPaginatorOptions) {
         this.options = options
+        if (this.options.loadPinned && isPinnedAvailable(this.options.category)) {
+            this.pinnedPostLoader = new PinnedPostLoader()
+        }
     }
 
     async load(delay?: boolean, abortSignal?: AbortSignal): Promise<T[]> {
         consoleInfo(`Load by http paginator, tag = ${this.options.tag}, category = ${this.options.category}`)
         const startTime = Date.now()
+        if (this.pinnedPostLoader) {
+            this.pinnedData = (await this.pinnedPostLoader.load(this.options.category, abortSignal)).map(item => this.convertToShowData(item))
+            consoleInfoObj("Http paginator pinned data", this.pinnedData)
+        }
         return this.getRequest(abortSignal, 1)
             .then(async (response: Response) => {
                 abortSignal?.throwIfAborted()
@@ -47,7 +61,10 @@ export abstract class BaseHttpPaginator<H, T> implements IHttpPaginator<H, T> {
                 this.cachedPage = []
                 this.cachedPage.push(page)
                 this.cachedData = []
-                this.cachedData.push(...page.posts.map(item => this.convertToShowData(item)))
+                if (this.pinnedPostLoader) {
+                    this.cachedData.push(...this.pinnedData)
+                }
+                this.cachedData.push(...page.posts.map(item => this.convertToShowData(item, this.pinnedPostLoader != null)))
                 return this.cachedData
             })
     }
@@ -106,7 +123,7 @@ export abstract class BaseHttpPaginator<H, T> implements IHttpPaginator<H, T> {
                 abortSignal?.throwIfAborted()
                 consoleInfoObj("Http paginator more page", page)
                 this.cachedPage.push(page)
-                this.cachedData.push(...page.posts.map(item => this.convertToShowData(item)))
+                this.cachedData.push(...page.posts.map(item => this.convertToShowData(item, this.pinnedPostLoader != null)))
                 return this.cachedData.slice()
             })
     }
@@ -129,6 +146,6 @@ export abstract class BaseHttpPaginator<H, T> implements IHttpPaginator<H, T> {
         return this.cachedPage[0].data.totalPosts
     }
 
-    abstract convertToShowData(data: H): T
+    abstract convertToShowData(data: H, pinnedAsFeatured?: boolean): T
 
 }

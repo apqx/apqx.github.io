@@ -1,5 +1,5 @@
 ---
-layout: paginate-posts-json
+layout: posts-paginate-json
 sitemap: false
 permalink: /api/paginate/tags/看剧&南京
 pagination:

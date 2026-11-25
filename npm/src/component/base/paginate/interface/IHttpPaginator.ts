@@ -29,6 +29,7 @@ export interface IHttpPaginator<H, T> {
     /**
      * 将从 HTTP 获得的原始数据转换为要显示的数据
      * @param data 原始数据 item
+     * @param pinnedAsFeatured 转换时是否将 pinned 状态改为 featured，如果列表前端是置顶文章，后面的置顶应统一改为 featured
      */
-    convertToShowData(data: H): T
+    convertToShowData(data: H, pinnedAsFeatured?: boolean): T
 }

@@ -15,7 +15,7 @@ import { Masonry } from "./Masonry"
 import { toggleElementClass } from "../../util/tools"
 import { getEventEmitter } from "../base/EventBus"
 
-interface Props extends BasePaginateViewProps<Post> {
+interface Props extends BasePaginateViewProps {
     pageDescriptionHtml: string
 }
 
@@ -26,6 +26,7 @@ export function IndexGridPosts(props: Props) {
         const options = {
             tag: props.tag,
             category: props.category,
+            loadPinned: true
         }
         return new HttpPaginatorViewModel<ApiPost, PostHttpPaginator, Post>(new PostHttpPaginator(options), true)
     }, [props.tag, props.category])
@@ -89,6 +90,7 @@ export function IndexGridPosts(props: Props) {
         }
     }, [])
 
+    // 暂不支持 pinned 文章
     const showPosts = useMemo(() => {
         const posts = state.posts
         if (state.posts.length == 0) {

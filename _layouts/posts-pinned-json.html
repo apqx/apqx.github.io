@@ -1,0 +1,19 @@
+---
+sitemap: false
+---
+
+{
+    {%- assign count = 0 -%}
+    "posts": [
+        {%- for post in site.posts %}
+        {%- if post.categories contains page.indexCategory and post.pinned == true %}
+        {%- if count > 0 %},{% endif %}
+        {%- assign count = count | plus: 1 %}
+        {%- include post-json.html %}
+        {%- endif %}
+        {%- endfor %}
+    ],
+    "data": {
+        "totalPosts": {{ count }}
+    }
+}

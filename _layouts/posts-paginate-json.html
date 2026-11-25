@@ -1,0 +1,19 @@
+---
+sitemap: false
+---
+
+{
+    "data": {
+        "totalPosts": {{ paginator.total_posts }},
+        "totalPages": {{ paginator.total_pages }},
+        "postsPerPage": {{ paginator.per_page }},
+        "currentPageIndex": {{ paginator.page }},
+        "previousPagePath": "{{ paginator.previous_page_path }}",
+        "nextPagePath": "{{ paginator.next_page_path }}"
+    },
+    "posts": [
+        {%- for post in paginator.posts %}
+        {%- include post-json.html %}{% unless forloop.last %},{% endunless %}
+        {%- endfor %}
+    ]
+}

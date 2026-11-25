@@ -32,10 +32,12 @@ export function Fab(props: FabProps) {
         if (hintAnimControllerRef.current == null && hintRef.current) {
             hintAnimControllerRef.current = new FadeAnimationController(hintRef.current as HTMLElement)
         }
-        hintAnimControllerRef.current?.toggleOpen(true)
-        hintDelayRef.current.delay(() => {
-            hintAnimControllerRef.current?.toggleOpen(false)
-        })
+        if (props.hint) {
+            hintAnimControllerRef.current?.toggleOpen(true)
+            hintDelayRef.current.delay(() => {
+                hintAnimControllerRef.current?.toggleOpen(false)
+            })
+        }
         void props.hint
     }, [props.hint])
 

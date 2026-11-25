@@ -54,6 +54,21 @@ function InfoDialog(props: BaseDialogOpenProps) {
                     <Tag text="Set colorful" onClick={() => { setColorful(true) }} />
                     <Tag text="Clear colorful" onClick={() => { setColorful(false) }} />
                 </div>
+                <p><strong className="no-shadow">Sites</strong></p>
+                <List oneLine={false} items={[
+                    {
+                        title: "Main on aliyun hongkong", description: "https://mudan.me",
+                        link: "https://mudan.me", newPage: false
+                    }, 
+                    {
+                        title: "Mirror on cloudflare", description: "https://mirror.mudan.me",
+                        link: "https://mirror.mudan.me", newPage: false
+                    },
+                    {
+                        title: "Alpha on cloudflare", description: "https://alpha.mudan.me",
+                        link: "https://alpha.mudan.me", newPage: false
+                    },
+                ]} />
                 <p><strong className="no-shadow">Links</strong></p>
                 <List oneLine={false} items={[
                     {

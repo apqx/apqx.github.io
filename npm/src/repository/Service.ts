@@ -61,6 +61,20 @@ class Service {
     }
 
     /**
+    * 获取指定 category 的置顶文章
+    * @param category 分类
+    * @returns Response 成功 body 的数据类型是 ApiPost 对应的 JSON
+    */
+    getPinnedPostsByCategory(config: ServiceConfig, category: string): Promise<Response> {
+        const url = getBaseUrl(config) + "/api/pinned/" + category +".json"
+        const request = new Request(url, {
+            method: "GET",
+        })
+        consoleInfo("GetPinnedPostsByCategory " + url)
+        return fetch(request, { signal: config.abortSignal, cache: "no-cache" })
+    }
+
+    /**
      * 获取短链映射
      * @returns Response 成功 body 的数据类型是 ApiUrlMap 对应的 JSON
      */

@@ -58,9 +58,9 @@ autopages:
   categories:
     enabled: true
     # 每页的布局文件，定义生成什么样的分页格式
-    # 指定为 _layouts/paginate-posts-json.html，将会输出为 JSON 格式
+    # 指定为 _layouts/posts-paginate-json.html，将会输出为 JSON 格式
     layouts:
-      - paginate-posts-json.html
+      - posts-paginate-json.html
     # 指定输出的 JSON 文件路径，:cat 表示当前 Category 字符
     # 比如名为 repost 的 Category，分页文件将被输出到 /api/paginate/categories/repost 目录下
     permalink: "/api/paginate/categories/:cat"
@@ -72,7 +72,7 @@ autopages:
     enabled: true
     # 使用同样的布局文件，以同样的分页格式输出
     layouts:
-      - paginate-posts-json.html
+      - posts-paginate-json.html
     # :cat 表示当前 Tag 字符
     permalink: "/api/paginate/tags/:tag"
     slugify:
@@ -82,7 +82,7 @@ autopages:
 
 本博客文章以 Category 分类，配置分页后在不同索引页加载对应 JSON 即可。至于 Tag ，是[文章标记的一些标签]({% link _posts/original/2021-09-01-基于Jekyll实现博客文章「标签化」.md %}){: target="_blank" }，以 Chip 形式显示在文章顶部，点击会弹出相关文章列表，所以也为它启用分页。
 
-在`_layouts/paginate-posts-json.html`里定义输出分页的单页格式，这里配置为 JSON，Jekyll 会自动把每一页的文章列表填充到 Liquid 模版语言的`paginator`变量里，遍历`paginator.posts`生成的即是当页文章列表：
+在`_layouts/posts-paginate-json.html`里定义输出分页的单页格式，这里配置为 JSON，Jekyll 会自动把每一页的文章列表填充到 Liquid 模版语言的`paginator`变量里，遍历`paginator.posts`生成的即是当页文章列表：
 
 ```json
 // _layouts/paginate-tag.html
@@ -138,7 +138,7 @@ Auto Pages 自动模式之外，jekyll-paginate-v2 支持配置 [Generator](http
 # 在 Front Matter 中定义 pagination
 ---
 # 指定同样的输出格式
-layout: paginate-posts-json
+layout: posts-paginate-json
 sitemap: false
 permalink: /api/paginate/tags/tag1&tag2
 pagination:

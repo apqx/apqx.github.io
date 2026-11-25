@@ -1,6 +1,4 @@
-export interface BasePaginateViewProps<T> {
+export interface BasePaginateViewProps {
     category: string,
-    tag: string,
-    pinnedPosts: Array<T>,
-    loadedPosts: Array<T>,
+    tag: string
 }

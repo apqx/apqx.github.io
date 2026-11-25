@@ -68,7 +68,7 @@ autopages:
   categories:
     enabled: true
     layouts:
-      - paginate-posts-json.html
+      - posts-paginate-json.html
     permalink: "/api/paginate/categories/:cat"
     slugify:
       mode: "default"
@@ -76,7 +76,7 @@ autopages:
   tags:
     enabled: true
     layouts:
-      - paginate-posts-json.html
+      - posts-paginate-json.html
     permalink: "/api/paginate/tags/:tag"
     slugify:
       mode: "default"

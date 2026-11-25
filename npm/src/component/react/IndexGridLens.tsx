@@ -14,13 +14,12 @@ import type { PagefindResultItem } from "../../repository/bean/pagefind/ApiPagef
 import { PostPagefindPaginator } from "../base/paginate/PostPagefindPaginator"
 import type { BasePaginateViewProps } from "../base/paginate/bean/BasePaginateViewProps"
 import { EVENT_PAGE_BACK_FROM_CACHE, getEventEmitter, type Events } from "../base/EventBus"
-import { convertPinedToFeatured } from "../../util/tools"
 import { Masonry } from "./Masonry"
 import { LENS_FILTER_SORT_ASC } from "../dialog/LensFilterDialogViewModel"
 import { getLocalRepository } from "../../repository/LocalDb"
 import { scrollToTopNative } from "../react/Fab"
 
-export function IndexGridLens(props: BasePaginateViewProps<Post>) {
+export function IndexGridLens(props: BasePaginateViewProps) {
     const masonryContainerRef = useRef<HTMLUListElement>(null)
     const [filterTags, setFilterTags] = useState<Array<string>>([])
     const [searchCount, setSearchCount] = useState(0)
@@ -34,6 +33,7 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
         const options = {
             tag: props.tag,
             category: props.category,
+            loadPinned: true
         }
         return new HttpPaginatorViewModel<ApiPost, PostHttpPaginator, Post>(new PostHttpPaginator(options), true)
     }, [props.tag, props.category])
@@ -165,23 +165,12 @@ export function IndexGridLens(props: BasePaginateViewProps<Post>) {
         if (filterTags.length > 0) {
             return pagefindState.posts
         } else {
-            // let posts = props.loadedPosts
-            // if (httpState.posts.length > 0) {
-            //     posts = httpState.posts
-            // }
-            // // 把 pinned 项目放在前面
-            // return props.pinnedPosts.concat(convertPinedToFeatured(props.pinnedPosts.length, posts))
-
             // 云端数据与本地数据覆盖可能导致 masonry 短时间内多次重排，入场动画混乱
             // 不再预加载要被覆盖的本地数据
             // TODO: 如果置顶足够多，可以考虑放开置顶预加载，首页相应更迅速，而且不被干扰
-            const posts = httpState.posts
-            if (posts.length == 0) {
-                return posts
-            }
-            return props.pinnedPosts.concat(convertPinedToFeatured(props.pinnedPosts.length, posts))
+            return httpState.posts
         }
-    }, [httpState.posts, pagefindState.posts, filterTags, props.pinnedPosts])
+    }, [httpState.posts, pagefindState.posts, filterTags])
 
     const loadingState = useMemo(() => {
         if (filterTags.length > 0) {

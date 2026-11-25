@@ -18,7 +18,7 @@ export function initShares() {
     }
     const loadShares = () => {
         const root = createRoot(wrapperE)
-        root.render(<LinearShares tag={""} category={"share"} pinnedPosts={[]} loadedPosts={[]} />)
+        root.render(<LinearShares tag={""} category={"share"} />)
     }
 
     if (getAuthority().checkSavedAuth()) {
@@ -33,7 +33,7 @@ export function initShares() {
     }, false)
 }
 
-export function LinearShares(props: BasePaginateViewProps<Share>) {
+export function LinearShares(props: BasePaginateViewProps) {
     const paginateViewModel = useMemo(() => {
         const options = {
             tag: props.tag,

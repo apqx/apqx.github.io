@@ -10,15 +10,15 @@ import { HttpPaginatorViewModel } from "../base/paginate/HttpPaginateViewModel"
 import type { ApiPost } from "../../repository/bean/service/ApiPost"
 import { PostHttpPaginator } from "../base/paginate/PostHttpPaginator"
 import type { BasePaginateViewProps } from "../base/paginate/bean/BasePaginateViewProps"
-import { convertPinedToFeatured, toggleElementClass } from "../../util/tools"
+import { toggleElementClass } from "../../util/tools"
 import { getEventEmitter, type Events } from "../base/EventBus"
 import { toggleDrawer } from "./Drawer"
 import { getSectionTypeByPath, isIndexPage, SECTION_TYPE_ORIGINAL, SECTION_TYPE_REPOST } from "../../base/constant"
 
-interface Props extends BasePaginateViewProps<Post> {
+interface Props extends BasePaginateViewProps {
     pageCover?: string,
     pageCoverDescription?: string,
-    pageTitle?: string,
+    pageTitle?: string
 }
 
 export function IndexLinearPosts(props: Props) {
@@ -28,6 +28,7 @@ export function IndexLinearPosts(props: Props) {
         const options = {
             tag: props.tag,
             category: props.category,
+            loadPinned: true
         }
         return new HttpPaginatorViewModel<ApiPost, PostHttpPaginator, Post>(new PostHttpPaginator(options), true)
     }, [props.tag, props.category])
@@ -68,31 +69,22 @@ export function IndexLinearPosts(props: Props) {
         }
     }, [state.posts, paginateViewModel])
 
-    const showPosts = useMemo(() => {
-        const posts = state.posts
-        if (state.posts.length == 0) {
-            return posts
-        }
-        // 把 pinned 项目放在前面
-        return props.pinnedPosts.concat(convertPinedToFeatured(props.pinnedPosts.length, posts))
-    }, [props.pinnedPosts, state.posts])
-
     const hideLoading = useMemo(() => {
         // 首页加载不显示 loading
-        return !haveSearchedOrInteractedRef.current && showPosts.length == 0 && state.loading
-    }, [state.loading, showPosts.length])
+        return !haveSearchedOrInteractedRef.current && state.posts.length == 0 && state.loading
+    }, [state.loading, state.posts.length])
 
     return (
         <>
             {
-                props.pageCover != null && showPosts.length > 0 &&
+                props.pageCover != null && state.posts.length > 0 &&
                 <PageCover pageCover={props.pageCover} pageCoverDescription={props.pageCoverDescription ?? ""} pageTitle={props.pageTitle ?? ""} />
             }
             <ul className="index-ul">
-                {showPosts.map((item, index) =>
+                {state.posts.map((item, index) =>
                     <IndexItem key={item.path + "?pinned=" + item.pinned}
                         title={item.title} author={item.author} date={item.date} moreDate={item.moreDate} description={item.description} path={item.path}
-                        pinned={item.pinned} featured={item.featured} last={index === showPosts.length - 1} index={index} />
+                        pinned={item.pinned} featured={item.featured} last={index === state.posts.length - 1} index={index} />
                 )}
             </ul>
             <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore}
