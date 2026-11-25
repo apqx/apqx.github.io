@@ -17,10 +17,10 @@
   ],
   "dependencies": {
     "@lit/react": "^1.0.8",
-    "@material/material-color-utilities": "^0.4.0",
     "@material/circular-progress": "^14.0.0",
     "@material/elevation": "^14.0.0",
     "@material/linear-progress": "^14.0.0",
+    "@material/material-color-utilities": "^0.4.0",
     "@material/ripple": "^14.0.0",
     "@material/snackbar": "^14.0.0",
     "@material/textfield": "^14.0.0",

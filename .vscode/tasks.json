@@ -45,7 +45,7 @@
         {
             "label": "wrangler: deploy to mudan.pages.dev for test",
             "type": "shell",
-            "command": "wrangler pages deploy _site --project-name mudan",
+            "command": "npx wrangler pages deploy _site --project-name mudan",
             "group": "build",
             "problemMatcher": []
         }
