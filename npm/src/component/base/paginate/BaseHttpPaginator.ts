@@ -4,7 +4,7 @@ import { getServiceInstance, SERVICE_DEBUG_MODE_AUTO, SERVICE_DEBUG_MODE_OFF } f
 import { consoleInfo, consoleInfoObj } from "../../../util/log";
 import { sleepUntilMinimalTime } from "../../../util/tools";
 import type { IHttpPaginator } from "./interface/IHttpPaginator";
-import { PinnedPostLoader } from "./PinnedPostLoader";
+import { PinnedPostLoader } from "../posts/PinnedPostLoader";
 
 /**
  * HTTP 分页加载选项，以 tag 或 category 分页加载数据，按非空顺序选择

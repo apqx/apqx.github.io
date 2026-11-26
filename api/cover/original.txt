@@ -1,0 +1,12 @@
+---
+layout: index-cover-json
+sitemap: false
+permalink: /:path/:basename.json
+indexCover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/index_hangzhou_thumb.jpg
+indexCoverType: image/jpeg
+indexCoverDescription: 杭州
+indexCoverTitle: 湖东行不足，绿杨白沙堤
+indexCoverExpressive: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/index_mudanting_shixiaming_thumb.jpg
+indexCoverExpressiveDescription: 昆曲 牡丹亭 施夏明
+indexCoverExpressiveTitle: 
+---

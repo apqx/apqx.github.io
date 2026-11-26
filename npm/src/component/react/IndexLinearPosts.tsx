@@ -1,7 +1,7 @@
 // import "./IndexList.scss"
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
 import { LOADING_HINT_ERROR, LOADING_HINT_NO_RESULT, LoadingHint } from "./LoadingHint"
-import { consoleInfo } from "../../util/log"
+import { consoleInfo, consoleInfoObj } from "../../util/log"
 import { getWindowInterSectionObserver, queryAnimatedElement } from "../animation/BaseAnimation"
 import { getSplittedDate } from "../../base/post"
 import { setupCardRipple } from "../card"
@@ -10,19 +10,20 @@ import { HttpPaginatorViewModel } from "../base/paginate/HttpPaginateViewModel"
 import type { ApiPost } from "../../repository/bean/service/ApiPost"
 import { PostHttpPaginator } from "../base/paginate/PostHttpPaginator"
 import type { BasePaginateViewProps } from "../base/paginate/bean/BasePaginateViewProps"
-import { toggleElementClass } from "../../util/tools"
+import { emptyString, toggleElementClass } from "../../util/tools"
 import { getEventEmitter, type Events } from "../base/EventBus"
 import { toggleDrawer } from "./Drawer"
-import { getSectionTypeByPath, isIndexPage, SECTION_TYPE_ORIGINAL, SECTION_TYPE_REPOST } from "../../base/constant"
+import { getSectionTypeByPath, SECTION_TYPE_ORIGINAL } from "../../base/constant"
+import { IndexLinearCoverViewModel } from "./IndexLinearCoverViewModel"
+import type { ApiCover } from "../../repository/bean/service/ApiCover"
 
-interface Props extends BasePaginateViewProps {
-    pageCover?: string,
-    pageCoverDescription?: string,
-    pageTitle?: string
-}
-
-export function IndexLinearPosts(props: Props) {
+export function IndexLinearPosts(props: BasePaginateViewProps) {
     const haveSearchedOrInteractedRef = useRef(false)
+
+    const coverLoadViewModel = useMemo(() => {
+        return new IndexLinearCoverViewModel(props.category)
+    }, [props.category])
+    const coverState = useSyncExternalStore(coverLoadViewModel.subscribe, () => coverLoadViewModel.state)
 
     const paginateViewModel = useMemo(() => {
         const options = {
@@ -32,71 +33,85 @@ export function IndexLinearPosts(props: Props) {
         }
         return new HttpPaginatorViewModel<ApiPost, PostHttpPaginator, Post>(new PostHttpPaginator(options), true)
     }, [props.tag, props.category])
-    const state = useSyncExternalStore(paginateViewModel.subscribe, () => paginateViewModel.state)
+    const postState = useSyncExternalStore(paginateViewModel.subscribe, () => paginateViewModel.state)
+
 
     useEffect(() => {
         consoleInfo(`IndexLinearPosts useEffect, tag: ${props.tag}, category: ${props.category}`)
+        coverLoadViewModel.load()
         paginateViewModel.load()
 
         return () => {
             consoleInfo("IndexLinearPosts useEffect cleanup")
         }
-    }, [props.tag, props.category, paginateViewModel])
+    }, [props.tag, props.category, paginateViewModel, coverLoadViewModel])
 
     // 加载状态变化时，通知 Footer 显示或隐藏
     // 加载时隐藏，有结果时（错误或加载完成）显示
     useEffect(() => {
-        if (state.loading) {
+        if (postState.loading || coverState.loading) {
             getEventEmitter().emit("applyFooterDisplayChange", { enabled: false })
         } else {
             getEventEmitter().emit("applyFooterDisplayChange", { enabled: true })
         }
 
-    }, [state.loading])
+    }, [postState.loading, coverState.loading])
 
     const onLoadMore = useCallback(() => {
-        if (state.loadingHint != LOADING_HINT_ERROR && state.loadingHint != LOADING_HINT_NO_RESULT) {
+        if (coverState.loadingHint != LOADING_HINT_ERROR && postState.loadingHint != LOADING_HINT_ERROR && postState.loadingHint != LOADING_HINT_NO_RESULT) {
             paginateViewModel.loadMore()
         }
-    }, [state.loadingHint, paginateViewModel])
+    }, [coverState.loadingHint, postState.loadingHint, paginateViewModel])
 
     const onClickHint = useCallback(() => {
         haveSearchedOrInteractedRef.current = true
-        if (state.posts.length > 0) {
+        if (coverState.cover == null) {
+            coverLoadViewModel.load()
+        }
+        if (postState.posts.length > 0) {
             paginateViewModel.loadMore(true)
         } else {
             paginateViewModel.load(true)
         }
-    }, [state.posts, paginateViewModel])
+    }, [coverState.cover, postState.posts, paginateViewModel, coverLoadViewModel])
 
     const hideLoading = useMemo(() => {
         // 首页加载不显示 loading
-        return !haveSearchedOrInteractedRef.current && state.posts.length == 0 && state.loading
-    }, [state.loading, state.posts.length])
+        return !haveSearchedOrInteractedRef.current && postState.posts.length == 0 && postState.loading
+    }, [postState.loading, postState.posts.length])
+
+    const loadingHint = useMemo(() => {
+        let loadHint = postState.loadingHint
+        if (coverState.loadingHint) {
+            loadHint = coverState.loadingHint
+        }
+        return loadHint
+    }, [coverState.loadingHint, postState.loadingHint])
 
     return (
         <>
             {
-                props.pageCover != null && state.posts.length > 0 &&
-                <PageCover pageCover={props.pageCover} pageCoverDescription={props.pageCoverDescription ?? ""} pageTitle={props.pageTitle ?? ""} />
+                coverState.cover && coverState.cover.cover.length > 0 && postState.posts.length > 0 &&
+                <PageCover cover={coverState.cover} />
             }
-            <ul className="index-ul">
-                {state.posts.map((item, index) =>
-                    <IndexItem key={item.path + "?pinned=" + item.pinned}
-                        title={item.title} author={item.author} date={item.date} moreDate={item.moreDate} description={item.description} path={item.path}
-                        pinned={item.pinned} featured={item.featured} last={index === state.posts.length - 1} index={index} />
-                )}
-            </ul>
-            <LoadingHint loading={state.loading} loadHint={state.loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore}
+            {
+                coverState.cover && coverState.cover.cover.length > 0 &&
+                <ul className="index-ul">
+                    {postState.posts.map((item, index) =>
+                        <IndexItem key={item.path + "?pinned=" + item.pinned}
+                            title={item.title} author={item.author} date={item.date} moreDate={item.moreDate} description={item.description} path={item.path}
+                            pinned={item.pinned} featured={item.featured} last={index === postState.posts.length - 1} index={index} />
+                    )}
+                </ul>
+            }
+            <LoadingHint loading={postState.loading || coverState.loading} loadHint={loadingHint} onClickHint={onClickHint} onLoadMore={onLoadMore}
                 hide={hideLoading} />
         </>
     )
 }
 
 type PageCoverProps = {
-    pageCover: string,
-    pageCoverDescription: string,
-    pageTitle: string,
+    cover: ApiCover
 }
 
 function PageCover(props: PageCoverProps) {
@@ -106,6 +121,13 @@ function PageCover(props: PageCoverProps) {
     const onCardClick = useCallback(() => {
         toggleDrawer()
     }, [])
+
+    useEffect(() => {
+        consoleInfoObj(`PageCover useEffect mount, cover is`, props.cover)
+        return () => {
+            consoleInfo(`PageCover cleanup`)
+        }
+    }, [props.cover])
 
     useEffect(() => {
         const topCardE = containerRef.current as HTMLElement
@@ -128,25 +150,24 @@ function PageCover(props: PageCoverProps) {
 
     const pageCover = useMemo(() => {
         void themeChangedCount
-        let url = props.pageCover
-        const title = props.pageTitle
-        let description = props.pageCoverDescription
+        let url = props.cover.cover
+        let title = props.cover.coverTitle
+        let description = props.cover.coverDescription
         const section = getSectionTypeByPath(window.location.pathname)
-        const indexPage = isIndexPage(window.location.pathname)
-        const mainIndex = indexPage && section.identifier == SECTION_TYPE_ORIGINAL.identifier
-        if (document.body.classList.contains("expressive")
-            && indexPage) {
-            if (section.identifier == SECTION_TYPE_ORIGINAL.identifier) {
-                url = "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/index_mudanting_shixiaming_thumb.jpg"
-                // title = "淮南一叶下，自觉洞庭波"
-                description = "昆曲 牡丹亭 施夏明"
-            } else if (section.identifier == SECTION_TYPE_REPOST.identifier) {
-                url = "https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/index_mudanting_shanwen_zhangwen_thumb.jpg"
-                description = "昆曲 牡丹亭 单雯"
+        const mainIndex = section.identifier == SECTION_TYPE_ORIGINAL.identifier
+        if (document.body.classList.contains("expressive") && props.cover.expressive) {
+            if (!emptyString(props.cover.expressive.cover)) {
+                url = props.cover.expressive.cover
+            }
+            if (!emptyString(props.cover.expressive.coverTitle)) {
+                title = props.cover.expressive.coverTitle
+            }
+            if (!emptyString(props.cover.expressive.coverDescription)) {
+                description = props.cover.expressive.coverDescription
             }
         }
-        return {url, title, description, mainIndex}
-    }, [props.pageCover, props.pageTitle, props.pageCoverDescription, themeChangedCount])
+        return { url, title, description, mainIndex }
+    }, [props.cover, themeChangedCount])
 
     return (
         <section ref={containerRef} className="mdm-card index-top-card slide-in-farer slide-in-chained">

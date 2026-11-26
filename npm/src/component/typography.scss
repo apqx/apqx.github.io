@@ -50,6 +50,7 @@
 
 body {
     @include mdmTypography();
+
     // 定义文本选中时的样式
     ::selection {
         background-color: var(--md-sys-color-tertiary-container);
@@ -343,4 +344,11 @@ code:not(pre code) {
     .font-noto-serif-sc & {
         font-family: #{base.$text-font-noto-serif-code};
     }
+}
+
+// 基础样式，在动态加载 Button 之前应用，避免闪烁
+button {
+    outline: none;
+    border: none;
+    background-color: transparent;
 }

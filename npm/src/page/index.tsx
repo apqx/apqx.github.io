@@ -27,11 +27,9 @@ function initIndexList() {
 
     if (wrapperE.classList.contains("index-list-wrapper")) {
         // 随笔、诗词、转载
-        const cover = getLinearLoadedCover(wrapperE)
         root.render(
             <StrictMode>
-                <IndexLinearPosts pageCover={cover?.cover} pageCoverDescription={cover?.coverDescription} pageTitle={cover?.pageTitle}
-                    tag={""} category={category} />
+                <IndexLinearPosts tag={""} category={category} />
             </StrictMode>
         )
     } else if (wrapperE.classList.contains("grid-index-list-wrapper")) {
@@ -54,16 +52,4 @@ function initIndexList() {
             </StrictMode>
         )
     }
-}
-
-function getLinearLoadedCover(wrapperE: HTMLElement) {
-    const coverE = wrapperE.querySelector(".index-top-cover") as HTMLImageElement
-    if (coverE != null) {
-        const cover = coverE.src
-        const coverDescription = coverE.alt
-        const pageTitleE = wrapperE.querySelector(".index-top-card-text") as HTMLElement
-        const pageTitle = pageTitleE?.textContent || ""
-        return { cover, coverDescription, pageTitle }
-    }
-    return null
 }

@@ -380,3 +380,8 @@ export function convertPinedToFeatured(pinnedListSize: number, posts: Array<Post
     }
     return posts
 }
+
+export function emptyString(str?: string) {
+    if (str == null) return true
+    return str.length == 0
+}

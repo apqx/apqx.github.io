@@ -66,12 +66,26 @@ class Service {
     * @returns Response 成功 body 的数据类型是 ApiPost 对应的 JSON
     */
     getPinnedPostsByCategory(config: ServiceConfig, category: string): Promise<Response> {
-        const url = getBaseUrl(config) + "/api/pinned/" + category +".json"
+        const url = getBaseUrl(config) + "/api/pinned/" + category + ".json"
         const request = new Request(url, {
             method: "GET",
         })
         consoleInfo("GetPinnedPostsByCategory " + url)
-        return fetch(request, { signal: config.abortSignal, cache: "no-cache" })
+        return fetch(request, { signal: config.abortSignal, cache: "default" })
+    }
+
+    /**
+    * 获取指定 category 的索引页封面图
+    * @param category 分类
+    * @returns Response 成功 body 的数据类型是 ApiCover 对应的 JSON
+    */
+    getCoverByCategory(config: ServiceConfig, category: string): Promise<Response> {
+        const url = getBaseUrl(config) + "/api/cover/" + category + ".json"
+        const request = new Request(url, {
+            method: "GET",
+        })
+        consoleInfo("GetCoverByCategory " + url)
+        return fetch(request, { signal: config.abortSignal, cache: "default" })
     }
 
     /**
@@ -97,7 +111,7 @@ class Service {
             method: "GET"
         })
         consoleInfo("GetLensSearchFilters " + url)
-        return fetch(request, { signal: config.abortSignal, cache: "no-cache" })
+        return fetch(request, { signal: config.abortSignal, cache: "default" })
     }
 }
 

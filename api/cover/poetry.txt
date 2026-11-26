@@ -1,0 +1,9 @@
+---
+layout: index-cover-json
+sitemap: false
+permalink: /:path/:basename.json
+indexCover: https://apqx.oss-cn-hangzhou.aliyuncs.com/blog/site/index_mudanting_shixiaming_shanwen_thumb.jpg
+indexCoverType: image/jpeg
+indexCoverDescription: 昆曲 牡丹亭 施夏明 单雯
+indexCoverTitle: 落花人独立，微雨燕双飞
+---

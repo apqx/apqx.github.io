@@ -78,6 +78,11 @@ export function isPinnedAvailable(category: string) {
     ].includes(category)
 }
 
+export function isCoverAvailable(category: string) {
+    return [SECTION_TYPE_ORIGINAL.identifier, SECTION_TYPE_REPOST.identifier, SECTION_TYPE_POETRY.identifier
+    ].includes(category)
+}
+
 export type SectionType = {
     identifier: string,
     name: string,
